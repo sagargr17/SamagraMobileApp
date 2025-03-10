@@ -1,16 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
+  Text,
+  StyleSheet,
   ScrollView,
   StatusBar,
-  StyleSheet,
-  Text,
   useColorScheme,
   View,
 } from 'react-native';
 import {AppRegistry} from 'react-native';
 import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
 import {NavigationContainer} from '@react-navigation/native';
+import {StringValueNode} from 'graphql';
+import { Provider } from 'react-redux';
+import { store } from './StateManagement/Store';
 
 // Initialize Apollo Client
 const client = new ApolloClient({
@@ -18,16 +21,22 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+// Main Modules
 function App(): React.JSX.Element {
+  const [userName, setUserName] = useState<string>();
+  const [password, setPassword] = useState<String>();
+
   return (
     <ApolloProvider client={client}>
       <NavigationContainer>
-        <Text
-          style={{
-            backgroundColor: 'orange',
-          }}>
-          Hellow World
-        </Text>
+        <Provider store={store}>
+          <Text
+            style={{
+              backgroundColor: 'orange',
+            }}>
+            Hellow World
+          </Text>
+        </Provider>
       </NavigationContainer>
     </ApolloProvider>
   );
