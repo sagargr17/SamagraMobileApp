@@ -12,8 +12,9 @@ import {AppRegistry} from 'react-native';
 import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
 import {NavigationContainer} from '@react-navigation/native';
 import {StringValueNode} from 'graphql';
-import { Provider } from 'react-redux';
-import { store } from './StateManagement/Store';
+import {Provider} from 'react-redux';
+import {store} from './StateManagement/Store';
+import {LoginScreen} from './Screens/User/LoginScreen';
 
 // Initialize Apollo Client
 const client = new ApolloClient({
@@ -25,17 +26,13 @@ const client = new ApolloClient({
 function App(): React.JSX.Element {
   const [userName, setUserName] = useState<string>();
   const [password, setPassword] = useState<String>();
+  const userStatus = true
 
   return (
     <ApolloProvider client={client}>
       <NavigationContainer>
         <Provider store={store}>
-          <Text
-            style={{
-              backgroundColor: 'orange',
-            }}>
-            Hellow World
-          </Text>
+          <LoginScreen></LoginScreen>
         </Provider>
       </NavigationContainer>
     </ApolloProvider>

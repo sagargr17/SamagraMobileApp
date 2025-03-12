@@ -1,11 +1,12 @@
-import React from 'react'
+import React from 'react';
+import LoginForm from '../../Components/Layout/LoginForm';
 
-interface LoginScreenProps {
-
-}
+interface LoginScreenProps {}
 
 export const LoginScreen: React.FC<LoginScreenProps> = ({}) => {
-                return (
-                        <></>
-                );
-}
+  return (
+    <>
+      <LoginForm></LoginForm>
+    </>
+  );
+};
