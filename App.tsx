@@ -15,6 +15,7 @@ import {StringValueNode} from 'graphql';
 import {Provider} from 'react-redux';
 import {store} from './StateManagement/Store';
 import {LoginScreen} from './Screens/User/LoginScreen';
+import {RootStack} from './Navigation/Stack/RootStack';
 
 // Initialize Apollo Client
 const client = new ApolloClient({
@@ -26,13 +27,14 @@ const client = new ApolloClient({
 function App(): React.JSX.Element {
   const [userName, setUserName] = useState<string>();
   const [password, setPassword] = useState<String>();
-  const userStatus = true
+  const userStatus = true;
 
   return (
+    // <Text>Hello World</Text>
     <ApolloProvider client={client}>
       <NavigationContainer>
         <Provider store={store}>
-          <LoginScreen></LoginScreen>
+          <RootStack />
         </Provider>
       </NavigationContainer>
     </ApolloProvider>

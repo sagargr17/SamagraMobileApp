@@ -26,6 +26,7 @@ const screenBuilder = (
 ) => {
   return data.map(item => (
     <RootStackBuilder.Screen
+      key={item.screenName}
       navigationKey="LoginFormKey"
       name={item.screenName}
       component={item.component}></RootStackBuilder.Screen>
@@ -33,6 +34,7 @@ const screenBuilder = (
 };
 
 export const RootStack: React.FC = () => {
+  console.log("LOGGGG")
   return (
     <>
       <RootStackBuilder.Navigator>

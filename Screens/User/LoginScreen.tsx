@@ -7,7 +7,10 @@ interface LoginScreenProps {
 }
 
 export const LoginScreen: React.FC<LoginScreenProps> = ({navigation}) => {
-  console.log('NAvigation');
+  // console.log('NAvigation');
+
+  console.log("laksjdlaksjd")
+
 
   return (
     <>
