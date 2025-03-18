@@ -14,8 +14,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import {StringValueNode} from 'graphql';
 import {Provider} from 'react-redux';
 import {store} from './StateManagement/Store';
-import {LoginScreen} from './Screens/User/LoginScreen';
-import {RootStack} from './Navigation/Stack/RootStack';
+import {LoginScreen} from './Screens/Application/User/LoginScreen';
+import {RootStack} from './Navigators/RootStackNavigator';
 import {Button, PaperProvider} from 'react-native-paper';
 
 // Initialize Apollo Client

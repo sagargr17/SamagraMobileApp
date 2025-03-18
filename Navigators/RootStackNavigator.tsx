@@ -3,11 +3,12 @@ import {
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
 import React from 'react';
-import {LoginScreen} from '../../Screens/User/LoginScreen';
+import {LoginScreen} from '../Screens/Application/User/LoginScreen';
+import {BottomTabNavigator} from './BottomTab/BottomTabNavigator';
 
 type RootStackParamList = {
   LoginForm: undefined;
-  home: undefined;
+  BottomTab: undefined;
 };
 
 // Its The builder with the
@@ -36,13 +37,14 @@ const screenBuilder = (
 export const RootStack: React.FC = () => {
   return (
     <>
-      <RootStackBuilder.Navigator>
-        {/* {screenBuilder([{screenName: 'LoginForm', component: LoginScreen}])} */}
-        <RootStackBuilder.Screen
-          key={'LoginForm'}
-          navigationKey="LoginForm"
-          name={'LoginForm'}
-          component={LoginScreen}></RootStackBuilder.Screen>
+      <RootStackBuilder.Navigator
+        screenOptions={{
+          header: () => null,
+        }}>
+        {screenBuilder([
+          // {screenName: 'LoginForm', component: LoginScreen},
+          {screenName: 'BottomTab', component: BottomTabNavigator},
+        ])}
       </RootStackBuilder.Navigator>
     </>
   );

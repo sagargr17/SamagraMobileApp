@@ -3,9 +3,11 @@ import {View, StyleSheet} from 'react-native';
 import {TextInput, Button, Text} from 'react-native-paper';
 import {useForm, Controller} from 'react-hook-form';
 import Authenticator from '../../Client/Authenticator';
+import {RootStackNavigationProp} from '../../Navigators/RootStackNavigator';
 
 interface LoginFormProps {
   onLogin?: (data: LoginData) => void;
+  navigation: RootStackNavigationProp<'LoginForm'>;
 }
 
 interface LoginData {
@@ -13,12 +15,14 @@ interface LoginData {
   password: string;
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({onLogin}) => {
+const LoginForm: React.FC<LoginFormProps> = ({onLogin, navigation}) => {
   const {
     control,
     handleSubmit,
     formState: {errors},
   } = useForm<LoginData>();
+
+  // navigation.navigate("")
 
   const onSubmit = async (data: LoginData) => {
     console.log('Login Data:', data.email, data.password);
@@ -78,7 +82,10 @@ const LoginForm: React.FC<LoginFormProps> = ({onLogin}) => {
 
       <Button
         mode="contained"
-        onPress={handleSubmit(onSubmit)}
+        onPress={() => {
+          handleSubmit(onSubmit);
+          // console.log('NAVIGATIONSSSS');
+        }}
         // onPress={() => {
         //   // console.log('Resulttttttt....');
         //   // console.log('Resultttt', onSubmit);
