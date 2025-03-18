@@ -34,11 +34,15 @@ const screenBuilder = (
 };
 
 export const RootStack: React.FC = () => {
-  console.log("LOGGGG")
   return (
     <>
       <RootStackBuilder.Navigator>
-        {screenBuilder([{screenName: 'LoginForm', component: LoginScreen}])}
+        {/* {screenBuilder([{screenName: 'LoginForm', component: LoginScreen}])} */}
+        <RootStackBuilder.Screen
+          key={'LoginForm'}
+          navigationKey="LoginForm"
+          name={'LoginForm'}
+          component={LoginScreen}></RootStackBuilder.Screen>
       </RootStackBuilder.Navigator>
     </>
   );

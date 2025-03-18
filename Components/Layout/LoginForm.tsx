@@ -1,7 +1,8 @@
-import React from "react";
-import { View, StyleSheet } from "react-native";
-import { TextInput, Button, Text } from "react-native-paper";
-import { useForm, Controller } from "react-hook-form";
+import React from 'react';
+import {View, StyleSheet} from 'react-native';
+import {TextInput, Button, Text} from 'react-native-paper';
+import {useForm, Controller} from 'react-hook-form';
+import Authenticator from '../../Client/Authenticator';
 
 interface LoginFormProps {
   onLogin?: (data: LoginData) => void;
@@ -12,12 +13,17 @@ interface LoginData {
   password: string;
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
-  const { control, handleSubmit, formState: { errors } } = useForm<LoginData>();
+const LoginForm: React.FC<LoginFormProps> = ({onLogin}) => {
+  const {
+    control,
+    handleSubmit,
+    formState: {errors},
+  } = useForm<LoginData>();
 
-  const onSubmit = (data: LoginData) => {
-    console.log("Login Data:", data);
-    if (onLogin) onLogin(data);
+  const onSubmit = async (data: LoginData) => {
+    console.log('Login Data:', data.email, data.password);
+    let login = await Authenticator(data.email, data.password);
+    console.log('Login Result:::', login);
   };
 
   return (
@@ -29,29 +35,33 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
         control={control}
         name="email"
         rules={{
-          required: "Email is required",
-          pattern: { value: /\S+@\S+\.\S+/, message: "Invalid email format" },
+          required: 'Username is required',
+          // pattern: {value: /\S+@\S+\.\S+/, message: 'Invalid email format'},
         }}
-        render={({ field: { onChange, value } }) => (
+        render={({field: {onChange, value}}) => (
           <TextInput
-            label="Email"
+            label="UserName"
             value={value}
             onChangeText={onChange}
-            keyboardType="email-address"
+            keyboardType="default"
             autoCapitalize="none"
             style={styles.input}
             error={!!errors.email}
           />
         )}
       />
-      {errors.email && <Text style={styles.errorText}>{errors.email.message}</Text>}
+      {errors.email && (
+        <Text style={styles.errorText}>{errors.email.message}</Text>
+      )}
 
-      {/* Password Input */}
       <Controller
         control={control}
         name="password"
-        rules={{ required: "Password is required", minLength: { value: 6, message: "Minimum 6 characters" } }}
-        render={({ field: { onChange, value } }) => (
+        rules={{
+          required: 'Password is required',
+          minLength: {value: 6, message: 'Minimum 6 characters'},
+        }}
+        render={({field: {onChange, value}}) => (
           <TextInput
             label="Password"
             value={value}
@@ -62,10 +72,18 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
           />
         )}
       />
-      {errors.password && <Text style={styles.errorText}>{errors.password.message}</Text>}
+      {errors.password && (
+        <Text style={styles.errorText}>{errors.password.message}</Text>
+      )}
 
-      {/* Login Button */}
-      <Button mode="contained" onPress={handleSubmit(onSubmit)} style={styles.button}>
+      <Button
+        mode="contained"
+        onPress={handleSubmit(onSubmit)}
+        // onPress={() => {
+        //   // console.log('Resulttttttt....');
+        //   // console.log('Resultttt', onSubmit);
+        // }}
+        style={styles.button}>
         Login
       </Button>
     </View>
@@ -73,11 +91,16 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: "center", padding: 20 },
-  title: { fontSize: 24, fontWeight: "bold", textAlign: "center", marginBottom: 20 },
-  input: { marginBottom: 10 },
-  button: { marginTop: 10 },
-  errorText: { color: "red", fontSize: 12, marginBottom: 5 },
+  container: {flex: 1, justifyContent: 'center', padding: 20},
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  input: {marginBottom: 10},
+  button: {marginTop: 10},
+  errorText: {color: 'red', fontSize: 12, marginBottom: 5},
 });
 
 export default LoginForm;

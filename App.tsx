@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   Text,
@@ -16,6 +16,7 @@ import {Provider} from 'react-redux';
 import {store} from './StateManagement/Store';
 import {LoginScreen} from './Screens/User/LoginScreen';
 import {RootStack} from './Navigation/Stack/RootStack';
+import {Button, PaperProvider} from 'react-native-paper';
 
 // Initialize Apollo Client
 const client = new ApolloClient({
@@ -26,15 +27,18 @@ const client = new ApolloClient({
 // Main Modules
 function App(): React.JSX.Element {
   const [userName, setUserName] = useState<string>();
-  const [password, setPassword] = useState<String>();
-  const userStatus = true;
+
+  console.log(
+    global.HermesInternal ? 'Hermes is enabled' : 'Hermes is disabled',
+  );
 
   return (
-    // <Text>Hello World</Text>
     <ApolloProvider client={client}>
       <NavigationContainer>
         <Provider store={store}>
-          <RootStack />
+          <PaperProvider>
+            <RootStack />
+          </PaperProvider>
         </Provider>
       </NavigationContainer>
     </ApolloProvider>
