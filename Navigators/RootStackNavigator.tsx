@@ -5,6 +5,8 @@ import {
 import React from 'react';
 import {LoginScreen} from '../Screens/Application/User/LoginScreen';
 import {BottomTabNavigator} from './BottomTab/BottomTabNavigator';
+import {StyleSheet} from 'react-native';
+import {heightPercentageToDP} from 'react-native-responsive-screen';
 
 type RootStackParamList = {
   LoginForm: undefined;
@@ -38,12 +40,13 @@ export const RootStack: React.FC = () => {
   return (
     <>
       <RootStackBuilder.Navigator
+        initialRouteName="BottomTab"
         screenOptions={{
           header: () => null,
         }}>
         {screenBuilder([
-          // {screenName: 'LoginForm', component: LoginScreen},
           {screenName: 'BottomTab', component: BottomTabNavigator},
+          {screenName: 'LoginForm', component: LoginScreen},
         ])}
       </RootStackBuilder.Navigator>
     </>

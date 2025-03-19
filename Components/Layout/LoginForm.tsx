@@ -82,14 +82,7 @@ const LoginForm: React.FC<LoginFormProps> = ({onLogin, navigation}) => {
 
       <Button
         mode="contained"
-        onPress={() => {
-          handleSubmit(onSubmit);
-          // console.log('NAVIGATIONSSSS');
-        }}
-        // onPress={() => {
-        //   // console.log('Resulttttttt....');
-        //   // console.log('Resultttt', onSubmit);
-        // }}
+        onPress={handleSubmit(onSubmit)}
         style={styles.button}>
         Login
       </Button>

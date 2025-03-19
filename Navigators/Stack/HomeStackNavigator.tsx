@@ -6,6 +6,7 @@ import React from 'react';
 import {LoginScreen} from '../../Screens/Application/User/LoginScreen';
 import {HomeDetailScreen} from '../../Screens/Application/Home/HomeDetailScreen';
 import {HomeScreen} from '../../Screens/Application/Home/HomeScreen';
+import {heightPercentageToDP} from 'react-native-responsive-screen';
 
 type HomeStackParamList = {
   HomeScreen: undefined;
@@ -40,7 +41,14 @@ export const HomeStackNavigator: React.FC = () => {
     <>
       <HomeStackBuilder.Navigator
         screenOptions={{
-          header: () => null,
+          headerTitle: '',
+          // headerBackTitle: 'back',
+
+          // headerBackButtonDisplayMode: 'minimal',
+          headerTransparent: true,
+          contentStyle: {
+            paddingTop: heightPercentageToDP(10),
+          },
         }}>
         {screenBuilder([
           {screenName: 'HomeScreen', component: HomeScreen},

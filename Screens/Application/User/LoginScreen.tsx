@@ -8,8 +8,6 @@ interface LoginScreenProps {
 }
 
 export const LoginScreen: React.FC<LoginScreenProps> = ({navigation}) => {
-  console.log('sagar hero cha');
-
   return (
     <>
       <LoginForm navigation={navigation}></LoginForm>
