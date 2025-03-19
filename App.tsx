@@ -1,22 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  Text,
-  StyleSheet,
-  ScrollView,
-  StatusBar,
-  useColorScheme,
-  View,
-} from 'react-native';
-import {AppRegistry} from 'react-native';
-import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
+import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
 import {NavigationContainer} from '@react-navigation/native';
-import {StringValueNode} from 'graphql';
+import React, {useEffect, useState} from 'react';
+import {StyleSheet, useColorScheme} from 'react-native';
+import {PaperProvider} from 'react-native-paper';
 import {Provider} from 'react-redux';
-import {store} from './StateManagement/Store';
-import {LoginScreen} from './Screens/Application/User/LoginScreen';
 import {RootStack} from './Navigators/RootStackNavigator';
-import {Button, PaperProvider} from 'react-native-paper';
+import {MyDarkTheme, MyTheme} from './Prefrences/Prefrences';
+import {store} from './StateManagement/Store';
 
 // Initialize Apollo Client
 const client = new ApolloClient({
@@ -27,14 +17,20 @@ const client = new ApolloClient({
 // Main Modules
 function App(): React.JSX.Element {
   const [userName, setUserName] = useState<string>();
+  const scheme = useColorScheme(); // Get the current color scheme
+  const [themes, setTheme] = useState(MyTheme); // Default to light theme
 
-  console.log(
-    global.HermesInternal ? 'Hermes is enabled' : 'Hermes is disabled',
-  );
+  useEffect(() => {
+    if (scheme === 'dark') {
+      setTheme(MyDarkTheme);
+    } else {
+      setTheme(MyTheme);
+    }
+  }, [scheme]);
 
   return (
     <ApolloProvider client={client}>
-      <NavigationContainer>
+      <NavigationContainer theme={themes}>
         <Provider store={store}>
           <PaperProvider>
             <RootStack />

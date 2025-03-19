@@ -46,9 +46,7 @@ export const HomeStackNavigator: React.FC = () => {
 
           // headerBackButtonDisplayMode: 'minimal',
           headerTransparent: true,
-          contentStyle: {
-            paddingTop: heightPercentageToDP(10),
-          },
+          headerBackButtonDisplayMode: 'minimal',
         }}>
         {screenBuilder([
           {screenName: 'HomeScreen', component: HomeScreen},
