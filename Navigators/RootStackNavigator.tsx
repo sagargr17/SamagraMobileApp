@@ -5,10 +5,12 @@ import {
 import React from 'react';
 import {LoginScreen} from '../Screens/Application/User/LoginScreen';
 import {BottomTabNavigator} from './BottomTab/BottomTabNavigator';
+import {OnBoardingStackNavigator} from './Stack/OnBoardingStackNavigator';
 
 type RootStackParamList = {
   LoginForm: undefined;
   BottomTab: undefined;
+  OnBoarding: undefined;
 };
 
 // Its The builder with the
@@ -43,6 +45,7 @@ export const RootStack: React.FC = () => {
         }}>
         {screenBuilder([
           // {screenName: 'LoginForm', component: LoginScreen},
+          {screenName: 'OnBoarding', component: OnBoardingStackNavigator},
           {screenName: 'BottomTab', component: BottomTabNavigator},
         ])}
       </RootStackBuilder.Navigator>

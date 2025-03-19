@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, SafeAreaView} from 'react-native';
-import AppButton from '../core/Button';
-import PhoneInput from './PhoneInput';
+import AppButton from '../elements/Button';
+import {useIsFocused} from '@react-navigation/native';
 
 interface Item {
   id: number;
@@ -12,16 +12,12 @@ interface Item {
 
 interface GetStartedProps {
   options: Item[];
+  onDone: () => void;
 }
 
-const GetStartedScreen = ({options}: GetStartedProps) => {
+const GetStarted = ({options, onDone}: GetStartedProps) => {
   const [step, setStep] = useState(0);
-
-  useEffect(() => {
-    if (options.length > 0) {
-      setStep(0);
-    }
-  }, [options]);
+  const isFocused = useIsFocused();
 
   const activeItem = options[step];
 
@@ -30,9 +26,15 @@ const GetStartedScreen = ({options}: GetStartedProps) => {
     if (options[step + 1]) {
       setStep(step + 1);
     } else {
-      console.log('Done');
+      onDone();
     }
   };
+
+  useEffect(() => {
+    if (isFocused && options.length > 0) {
+      setStep(0);
+    }
+  }, [isFocused, options]);
 
   return (
     <SafeAreaView style={styles.wrapper}>
@@ -95,4 +97,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default GetStartedScreen;
+export default GetStarted;
