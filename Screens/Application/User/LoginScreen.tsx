@@ -10,8 +10,8 @@ interface LoginScreenProps {
 export const LoginScreen: React.FC<LoginScreenProps> = ({navigation}) => {
   return (
     <>
-      <LoginForm navigation={navigation}></LoginForm>
-      {/* <SamagraAlert title="Title1" description="allabour"></SamagraAlert> */}
+      {/* <LoginForm navigation={navigation}></LoginForm> */}
+      <SamagraAlert title="Title1" description="allabour"></SamagraAlert>
     </>
   );
 };

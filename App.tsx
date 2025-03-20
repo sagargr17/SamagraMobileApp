@@ -7,10 +7,11 @@ import {Provider} from 'react-redux';
 import {RootStack} from './Navigators/RootStackNavigator';
 import {MyDarkTheme, MyTheme} from './Prefrences/Prefrences';
 import {store} from './StateManagement/Store';
+import {GRAPHQL_ENDPOINT} from './Constants/SamagraEndpoints';
 
 // Initialize Apollo Client
 const client = new ApolloClient({
-  uri: 'http://202.51.83.43/graphql',
+  uri: GRAPHQL_ENDPOINT,
   cache: new InMemoryCache(),
 });
 
@@ -40,11 +41,5 @@ function App(): React.JSX.Element {
     </ApolloProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  backgroundStyle: {
-    backgroundColor: 'black',
-  },
-});
 
 export default App;
