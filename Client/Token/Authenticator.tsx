@@ -37,7 +37,9 @@ async function Authenticator(
       body: requestBody,
     });
     const data = await response.json();
-    console.log('respond', response.ok);
+
+    console.log('respond', response, response.ok);
+
     if (response.ok) {
       await saveTokens(data);
       return 200;
