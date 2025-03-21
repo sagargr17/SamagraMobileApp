@@ -40,12 +40,11 @@ export const RootStack: React.FC = () => {
   return (
     <>
       <RootStackBuilder.Navigator
-        initialRouteName="BottomTab"
         screenOptions={{
           header: () => null,
         }}>
         {screenBuilder([
-          {screenName: 'BottomTab', component: BottomTabNavigator},
+          // {screenName: 'BottomTab', component: BottomTabNavigator},
           {screenName: 'LoginForm', component: LoginScreen},
         ])}
       </RootStackBuilder.Navigator>

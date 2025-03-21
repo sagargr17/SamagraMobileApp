@@ -1,13 +1,14 @@
 import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
 import {NavigationContainer} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, useColorScheme} from 'react-native';
+import {useColorScheme} from 'react-native';
 import {PaperProvider} from 'react-native-paper';
 import {Provider} from 'react-redux';
+import {getTokens} from './Client/Token/TokenAccess';
+import {GRAPHQL_ENDPOINT} from './Constants/SamagraEndpoints';
 import {RootStack} from './Navigators/RootStackNavigator';
 import {MyDarkTheme, MyTheme} from './Prefrences/Prefrences';
 import {store} from './StateManagement/Store';
-import {GRAPHQL_ENDPOINT} from './Constants/SamagraEndpoints';
 
 // Initialize Apollo Client
 const client = new ApolloClient({

@@ -2,7 +2,7 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {TextInput, Button, Text} from 'react-native-paper';
 import {useForm, Controller} from 'react-hook-form';
-import Authenticator from '../../Client/Authenticator';
+import Authenticator from '../../Client/Token/Authenticator';
 import {RootStackNavigationProp} from '../../Navigators/RootStackNavigator';
 
 interface LoginFormProps {
