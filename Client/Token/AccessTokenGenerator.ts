@@ -1,16 +1,11 @@
 import {CLIENT_ID, CLIENT_SECRET} from '@env';
 import {config} from '../../Constants/SamagraConstants/Configs/RefreshTokenConfig';
+import {saveTokens} from './Authenticator';
 
-type accessTokenGenerator = (refreshToken: string) => void;
-//  {
-//   accessToken: string;
-//   refreshToken: string;
-//   expiresIn: number;
-// };
+type accessTokenGenerator = (refreshToken: string) => void | number;
 
 export const accessTokenGenerator = async (refreshToken: string) => {
   console.log('RefreshToken', refreshToken);
-  
 
   try {
     const response = await fetch(`${config.issuer}/connect/token`, {
@@ -36,14 +31,9 @@ export const accessTokenGenerator = async (refreshToken: string) => {
 
     const data = await response.json();
     console.log('DATAAAAa', data);
-
-    return {
-      accessToken: data.access_token,
-      refreshToken: data.refresh_token || refreshToken,
-      expiresIn: data.expires_in,
-    };
+    await saveTokens(data);
   } catch (error) {
     console.error('Error refreshing token:', error);
-    return null;
+    return 400;
   }
 };

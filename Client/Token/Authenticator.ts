@@ -57,7 +57,7 @@ export async function saveTokens(data: AuthResponse): Promise<void> {
     await Keychain.setGenericPassword('accessToken', data.access_token, {
       service: 'accessToken',
     });
-    await Keychain.setGenericPassword('refreshToken', data.access_token, {
+    await Keychain.setGenericPassword('refreshToken', data.refresh_token, {
       service: 'refreshToken',
     });
     await Keychain.setGenericPassword('userStatus', 'true', {

@@ -1,18 +1,39 @@
-import {clearTokens, getTokens} from './TokenAccess';
-import {jwtDecode} from 'jwt-decode';
-
 // This is the function i defined for the does the token is expired or not
-async function isTokenExpired() {
+
+import {decode as atob} from 'base-64';
+import {accessTokenGenerator} from './AccessTokenGenerator';
+import {clearTokens, getTokens} from './TokenAccess';
+
+// Parse JWT
+function parseJwt(token: string) {
+  var base64Url = token.split('.')[1];
+  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  var jsonPayload = decodeURIComponent(
+    atob(base64)
+      .split('')
+      .map(function (c: any) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      })
+      .join(''),
+  );
+  return JSON.parse(jsonPayload);
+}
+
+// Checks Weather the Toke is Expired or not
+type isTokenExpired = () => Boolean | number;
+export async function isTokenExpired() {
   const {accessToken} = await getTokens();
   if (!accessToken) {
     return true; //The meaning of true is expired
   }
 
   try {
-    const decodedToken = jwtDecode(accessToken);
+    const decodedToken = await parseJwt(accessToken);
+    // console.log('DEconding Token', decodedToken);
     const currentTime = Math.floor(Date.now() / 1000); // curent ko time in seconds
+    console.log('currentTime', currentTime, decodedToken.exp);
     return decodedToken.exp
-      ? decodedToken.exp < currentTime
+      ? decodedToken.exp > currentTime
         ? decodedToken.exp - currentTime
         : true
       : true;
@@ -23,18 +44,19 @@ async function isTokenExpired() {
   }
 }
 
-// This is the function i defined for refreshing on the basis of time
-async function startTokenRefreshTimer() {
+// This is the function i defined for refreshing on the basis of TIME
+type startTokenRefreshTimer = () => void;
+export async function startTokenRefreshTimer(refreshingTime: number) {
+  console.log('REfreshing the TOken');
+  const {refreshToken} = await getTokens();
   setInterval(async () => {
-    if (await isTokenExpired()) {
+    if ((await isTokenExpired()) === true) {
       // Refresh token logic
-      const {refreshToken} = await getTokens();
       if (refreshToken) {
-        // ... refresh token logic.
+        accessTokenGenerator(refreshToken); //Refresh The Time
       } else {
-        await clearTokens();
-        // redirect to login.
+        await clearTokens(); //It means if somethig goes wrong while refreshing  it will logout and clear the token
       }
     }
-  }, 6000);
+  }, refreshingTime); //Here the Refreshing time is in milisecond
 }

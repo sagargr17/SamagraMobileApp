@@ -6,8 +6,8 @@ import {GRAPHQL_ENDPOINT} from '../../Constants/SamagraConstants/SamagraEndpoint
 import {getTokens} from '../Token/TokenAccess';
 
 async function tokenHandler() {
-  const tokens = await getTokens();
-  return tokens.accessToken;
+  const {accessToken} = await getTokens();
+  return accessToken;
 }
 
 export const GetAuthenticateClient = new ApolloClient({
