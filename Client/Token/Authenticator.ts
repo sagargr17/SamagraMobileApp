@@ -1,7 +1,7 @@
 import {CLIENT_ID, CLIENT_SECRET} from '@env';
 import {Alert} from 'react-native';
 import * as Keychain from 'react-native-keychain';
-import {API_URL} from '../../Constants/SamagraEndpoints';
+import {API_URL} from '../../Constants/SamagraConstants/SamagraEndpoints';
 
 interface AuthResponse {
   access_token: string;
@@ -9,10 +9,8 @@ interface AuthResponse {
   error_description?: string;
 }
 
-async function Authenticator(
-  userName: string,
-  password: string,
-): Promise<number | void> {
+type Authenticator = (userName: string, password: string) => number | void;
+async function Authenticator(userName: string, password: string) {
   console.log(
     'Authenticating user:',
     userName,
@@ -52,7 +50,7 @@ async function Authenticator(
   }
 }
 
-async function saveTokens(data: AuthResponse): Promise<void> {
+export async function saveTokens(data: AuthResponse): Promise<void> {
   console.log('Savinggg token1');
   try {
     console.log('SAving Token', data);

@@ -1,11 +1,11 @@
 import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
 import {NavigationContainer} from '@react-navigation/native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {useColorScheme} from 'react-native';
 import {PaperProvider} from 'react-native-paper';
 import {Provider} from 'react-redux';
 import {getTokens} from './Client/Token/TokenAccess';
-import {GRAPHQL_ENDPOINT} from './Constants/SamagraEndpoints';
+import {GRAPHQL_ENDPOINT} from './Constants/SamagraConstants/SamagraEndpoints';
 import {RootStack} from './Navigators/RootStackNavigator';
 import {MyDarkTheme, MyTheme} from './Prefrences/Prefrences';
 import {store} from './StateManagement/Store';
@@ -22,7 +22,7 @@ function App(): React.JSX.Element {
   const scheme = useColorScheme(); // Get the current color scheme
   const [themes, setTheme] = useState(MyTheme); // Default to light theme
 
-  useEffect(() => {
+  useMemo(() => {
     if (scheme === 'dark') {
       setTheme(MyDarkTheme);
     } else {

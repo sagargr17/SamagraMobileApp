@@ -4,6 +4,7 @@ import {TextInput, Button, Text} from 'react-native-paper';
 import {useForm, Controller} from 'react-hook-form';
 import Authenticator from '../../Client/Token/Authenticator';
 import {RootStackNavigationProp} from '../../Navigators/RootStackNavigator';
+import {accessTokenGenerator} from '../../Client/Token/AccessTokenGenerator';
 
 interface LoginFormProps {
   onLogin?: (data: LoginData) => void;
@@ -85,6 +86,17 @@ const LoginForm: React.FC<LoginFormProps> = ({onLogin, navigation}) => {
         onPress={handleSubmit(onSubmit)}
         style={styles.button}>
         Login
+      </Button>
+      <Button
+        onPress={async () => {
+          const request = await accessTokenGenerator(
+            '96DBB687725D61BB9ECA08A82B43BE8FA6DDD9FF4D351C00B5643BDB97BF576F-1',
+          );
+          if (request) {
+            console;
+          }
+        }}>
+        Refresh Token
       </Button>
     </View>
   );

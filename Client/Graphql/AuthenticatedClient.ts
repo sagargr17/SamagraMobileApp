@@ -2,10 +2,10 @@
 // USECASE : Automation for Repeated calling the authenticated API
 
 import {ApolloClient, InMemoryCache} from '@apollo/client';
-import {GRAPHQL_ENDPOINT} from '../../Constants/SamagraEndpoints';
+import {GRAPHQL_ENDPOINT} from '../../Constants/SamagraConstants/SamagraEndpoints';
 import {getTokens} from '../Token/TokenAccess';
 
-async function tokenHandle() {
+async function tokenHandler() {
   const tokens = await getTokens();
   return tokens.accessToken;
 }
@@ -14,7 +14,7 @@ export const GetAuthenticateClient = new ApolloClient({
   uri: GRAPHQL_ENDPOINT,
   headers: {
     'content-type': 'application/json',
-    Authorization: `Bearer ${tokenHandle() !== null ? tokenHandle() : null}`,
+    Authorization: `Bearer ${tokenHandler() !== null ? tokenHandler() : null}`,
   },
   cache: new InMemoryCache(),
 });
