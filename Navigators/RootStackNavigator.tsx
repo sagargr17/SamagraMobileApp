@@ -5,12 +5,14 @@ import {
 import React from 'react';
 import {LoginScreen} from '../Screens/Application/User/LoginScreen';
 import {BottomTabNavigator} from './BottomTab/BottomTabNavigator';
+import {OnBoardingStackNavigator} from './Stack/OnBoardingStackNavigator';
 import {StyleSheet} from 'react-native';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
 
 type RootStackParamList = {
   LoginForm: undefined;
   BottomTab: undefined;
+  OnBoarding: undefined;
 };
 
 // Its The builder with the
@@ -44,7 +46,9 @@ export const RootStack: React.FC = () => {
           header: () => null,
         }}>
         {screenBuilder([
-          // {screenName: 'BottomTab', component: BottomTabNavigator},
+          // {screenName: 'LoginForm', component: LoginScreen},
+          {screenName: 'OnBoarding', component: OnBoardingStackNavigator},
+          {screenName: 'BottomTab', component: BottomTabNavigator},
           {screenName: 'LoginForm', component: LoginScreen},
         ])}
       </RootStackBuilder.Navigator>
