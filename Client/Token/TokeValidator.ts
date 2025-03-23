@@ -3,6 +3,7 @@
 import {decode as atob} from 'base-64';
 import {accessTokenGenerator} from './AccessTokenGenerator';
 import {clearTokens, getTokens} from './TokenAccess';
+import {useEffect, useRef} from 'react';
 
 // Parse JWT
 function parseJwt(token: string) {
@@ -46,17 +47,19 @@ export async function isTokenExpired() {
 
 // This is the function i defined for refreshing on the basis of TIME
 type startTokenRefreshTimer = () => void;
-export async function startTokenRefreshTimer(refreshingTime: number) {
-  console.log('REfreshing the TOken');
-  const {refreshToken} = await getTokens();
-  setInterval(async () => {
-    if ((await isTokenExpired()) === true) {
-      // Refresh token logic
-      if (refreshToken) {
-        accessTokenGenerator(refreshToken); //Refresh The Time
-      } else {
-        await clearTokens(); //It means if somethig goes wrong while refreshing  it will logout and clear the token
-      }
-    }
-  }, refreshingTime); //Here the Refreshing time is in milisecond
-}
+// export async function startTokenRefreshTimer(refreshingTime: number) {
+//   console.log('REfreshing the TOken', refreshingTime);
+//   const {refreshToken} = await getTokens();
+//   if ((await isTokenExpired()) === true)
+//     setInterval(async () => {
+//       console.log('Time Refreshingggg', refreshingTime);
+//       // Refresh token logic
+//       if (refreshToken) {
+//         console.log('Refreshing', refreshingTime);
+
+//         // accessTokenGenerator(refreshToken); //Refresh The Time
+//       } else {
+//         await clearTokens(); //It means if somethig goes wrong while refreshing  it will logout and clear the token
+//       }
+//     }, refreshingTime); //Here the Refreshing time is in milisecond
+// }

@@ -5,6 +5,7 @@ import {saveTokens} from './Authenticator';
 type accessTokenGenerator = (refreshToken: string) => void | number;
 
 export const accessTokenGenerator = async (refreshToken: string) => {
+  console.log('Access Token Refreshinggggg', refreshToken);
   console.log('RefreshToken', refreshToken);
 
   try {
@@ -20,8 +21,6 @@ export const accessTokenGenerator = async (refreshToken: string) => {
         client_secret: CLIENT_SECRET,
       }).toString(),
     });
-
-    console.log('LOGGGg', response);
 
     if (!response.ok) {
       const errorData = await response.json();

@@ -8,6 +8,7 @@ import {logout} from '../../StateManagement/User/UserSlice';
 type getTokens = () => {
   accessToken: string | null;
   refreshToken: string | null;
+  userStatus: null;
 };
 
 export async function getTokens() {
@@ -19,15 +20,16 @@ export async function getTokens() {
     const refreshToken = await Keychain.getGenericPassword({
       service: 'refreshToken',
     });
-
-    console.log('ACCESSS TOKEN, REFRESH TOKEN', accessToken, refreshToken);
-
+    const userStatus = await Keychain.getGenericPassword({
+      service: 'userStatus',
+    });
     return {
       accessToken: accessToken ? accessToken.password : null,
       refreshToken: refreshToken ? refreshToken.password : null,
+      userStatus: userStatus ? userStatus.password : null,
     };
   } catch (error) {
-    return {accessToken: null, refreshToken: null};
+    return {accessToken: null, refreshToken: null, userStatus: null};
   }
 }
 

@@ -5,15 +5,13 @@ import {AppState, useColorScheme} from 'react-native';
 import {PaperProvider} from 'react-native-paper';
 import {Provider} from 'react-redux';
 import {getTokens} from './Client/Token/TokenAccess';
-import {
-  isTokenExpired,
-  startTokenRefreshTimer,
-} from './Client/Token/TokeValidator';
+import {isTokenExpired} from './Client/Token/TokeValidator';
 import {GRAPHQL_ENDPOINT} from './Constants/SamagraConstants/SamagraEndpoints';
 import {RootStack} from './Navigators/RootStackNavigator';
 import {MyDarkTheme, MyTheme} from './Prefrences/Prefrences';
 import {store} from './StateManagement/Store';
 import {accessTokenGenerator} from './Client/Token/AccessTokenGenerator';
+import {useTokenRefreshTimer} from './CustomHooks/useTokenRefreshTimer';
 
 // Initialize Apollo Client
 const client = new ApolloClient({
@@ -32,7 +30,7 @@ const isTokennExpireHandle = async () => {
 function App(): React.JSX.Element {
   const scheme = useColorScheme(); // Get the current color scheme
   const [themes, setTheme] = useState(MyTheme); // Default to light theme
-  const [refreshingTime, setRefreshingTime] = useState<number>(3600);
+  const [refreshingTime, setRefreshingTime] = useState<number>(1000); // This is the time of refreshing in the second
 
   //This is the useEffect Function for changing the dark and bright mode
   useEffect(() => {
@@ -47,18 +45,18 @@ function App(): React.JSX.Element {
   AppState.addEventListener('focus', async () => {
     const refreshTimeCollector = await isTokennExpireHandle();
     typeof refreshTimeCollector === 'number' &&
-    refreshTimeCollector !== refreshingTime
+    refreshTimeCollector !== refreshingTime &&
+    refreshTimeCollector < 1000
       ? setRefreshingTime(refreshTimeCollector)
       : async () => {
-          const {refreshToken} = await getTokens();
-          if (refreshToken) accessTokenGenerator(refreshToken);
+          const {refreshToken, userStatus} = await getTokens();
+          if (refreshToken && userStatus === 'true')
+            accessTokenGenerator(refreshToken);
         };
   });
 
   // Refreshes according to the life expectation of the token
-  useMemo(() => {
-    startTokenRefreshTimer(refreshingTime);
-  }, [refreshingTime]);
+  useTokenRefreshTimer(refreshingTime);
 
   return (
     <ApolloProvider client={client}>
