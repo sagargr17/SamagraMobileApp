@@ -5,10 +5,12 @@ import {
 import React from 'react';
 import {GetStartedScreen} from '../../Screens/OnBoarding/GetStartedScreen';
 import {SignUpScreen} from '../../Screens/OnBoarding/SignUpScreen';
+import {SignInScreen} from '../../Screens/OnBoarding/SignInScreen';
 
 type OnBoardingStackParamList = {
   GetStartedScreen: undefined;
   SignUpScreen: undefined;
+  SignInScreen: undefined;
 };
 
 // Its The builder with the
@@ -48,6 +50,7 @@ export const OnBoardingStackNavigator: React.FC = () => {
         {screenBuilder([
           {screenName: 'GetStartedScreen', component: GetStartedScreen},
           {screenName: 'SignUpScreen', component: SignUpScreen},
+          {screenName: 'SignInScreen', component: SignInScreen},
         ])}
       </OnBoardingStackBuilder.Navigator>
     </>

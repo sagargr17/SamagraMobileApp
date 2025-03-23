@@ -2,19 +2,44 @@ import React from 'react';
 import {StyleSheet, TextInput, View} from 'react-native';
 import {Text} from 'react-native';
 
-const PhoneInput = () => {
+interface PhoneInputProps extends React.ComponentProps<typeof TextInput> {
+  label?: string;
+  error?: boolean;
+}
+
+const PhoneInput = ({
+  label,
+  value,
+  error,
+  onChangeText,
+  ...props
+}: PhoneInputProps) => {
   return (
-    <View style={styles.wrapper}>
-      <Text style={styles.icon}>F</Text>
-      <Text style={styles.number}>+977</Text>
-      <View style={styles.textWrapper}>
-        <TextInput placeholder="987654321" style={styles.input} />
+    <View>
+      <Text style={styles.label}>{label}</Text>
+      <View style={[styles.wrapper, error && styles.wrapperError]}>
+        <Text style={styles.icon}>F</Text>
+        <Text style={styles.number}>+977</Text>
+        <View style={styles.textWrapper}>
+          <TextInput
+            placeholder="987654321"
+            style={styles.input}
+            value={value}
+            onChangeText={onChangeText}
+            {...props}
+          />
+        </View>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  label: {
+    fontSize: 14,
+    color: '#2D2D2D',
+    marginBottom: 10,
+  },
   wrapper: {
     flexDirection: 'row',
     borderWidth: 1,
@@ -28,7 +53,9 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     width: '100%',
     overflow: 'hidden',
-    marginTop: 20,
+  },
+  wrapperError: {
+    borderColor: 'red',
   },
   icon: {
     fontSize: 16,

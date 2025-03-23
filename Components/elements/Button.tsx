@@ -47,8 +47,7 @@ const intent = StyleSheet.create({
     backgroundColor: '#EC4B3C',
   },
   light: {
-    // backgroundColor: 'red',
-    // borderColor: 'red',
+    //
   },
   secondary: {
     //
