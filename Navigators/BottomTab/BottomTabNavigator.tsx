@@ -39,6 +39,7 @@ export const BottomTabNavigator: React.FC = () => {
   return (
     <BottomTabBuilder.Navigator
       screenOptions={{
+        // headerStyle: {height: 20},
         header: () => null,
       }}>
       {screenBuilder([

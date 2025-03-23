@@ -1,9 +1,11 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, AppState} from 'react-native';
 import {TextInput, Button, Text} from 'react-native-paper';
 import {useForm, Controller} from 'react-hook-form';
-import Authenticator from '../../Client/Authenticator';
+import Authenticator from '../../Client/Token/Authenticator';
 import {RootStackNavigationProp} from '../../Navigators/RootStackNavigator';
+import {accessTokenGenerator} from '../../Client/Token/AccessTokenGenerator';
+import {getTokens} from '../../Client/Token/TokenAccess';
 
 interface LoginFormProps {
   onLogin?: (data: LoginData) => void;
@@ -21,8 +23,6 @@ const LoginForm: React.FC<LoginFormProps> = ({onLogin, navigation}) => {
     handleSubmit,
     formState: {errors},
   } = useForm<LoginData>();
-
-  // navigation.navigate("")
 
   const onSubmit = async (data: LoginData) => {
     console.log('Login Data:', data.email, data.password);
@@ -82,16 +82,19 @@ const LoginForm: React.FC<LoginFormProps> = ({onLogin, navigation}) => {
 
       <Button
         mode="contained"
-        onPress={() => {
-          handleSubmit(onSubmit);
-          // console.log('NAVIGATIONSSSS');
-        }}
-        // onPress={() => {
-        //   // console.log('Resulttttttt....');
-        //   // console.log('Resultttt', onSubmit);
-        // }}
+        onPress={handleSubmit(onSubmit)}
         style={styles.button}>
         Login
+      </Button>
+      <Button
+        onPress={async () => {
+          const {accessToken, refreshToken} = await getTokens();
+          const request = await accessTokenGenerator(
+            refreshToken ? refreshToken : '',
+          );
+          console.log('TOKENNNNNN', request);
+        }}>
+        Refresh Token
       </Button>
     </View>
   );

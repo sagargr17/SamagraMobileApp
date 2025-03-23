@@ -1,40 +1,66 @@
-import React, {useEffect, useState} from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  Text,
-  StyleSheet,
-  ScrollView,
-  StatusBar,
-  useColorScheme,
-  View,
-} from 'react-native';
-import {AppRegistry} from 'react-native';
-import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
+import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
 import {NavigationContainer} from '@react-navigation/native';
-import {StringValueNode} from 'graphql';
+import React, {useEffect, useMemo, useState} from 'react';
+import {AppState, useColorScheme} from 'react-native';
+import {PaperProvider} from 'react-native-paper';
 import {Provider} from 'react-redux';
-import {store} from './StateManagement/Store';
-import {LoginScreen} from './Screens/Application/User/LoginScreen';
+import {getTokens} from './Client/Token/TokenAccess';
+import {isTokenExpired} from './Client/Token/TokeValidator';
+import {GRAPHQL_ENDPOINT} from './Constants/SamagraConstants/SamagraEndpoints';
 import {RootStack} from './Navigators/RootStackNavigator';
-import {Button, PaperProvider} from 'react-native-paper';
+import {MyDarkTheme, MyTheme} from './Prefrences/Prefrences';
+import {store} from './StateManagement/Store';
+import {accessTokenGenerator} from './Client/Token/AccessTokenGenerator';
+import {useTokenRefreshTimer} from './CustomHooks/useTokenRefreshTimer';
 
 // Initialize Apollo Client
 const client = new ApolloClient({
-  uri: 'http://202.51.83.43/graphql',
+  uri: GRAPHQL_ENDPOINT,
   cache: new InMemoryCache(),
 });
 
+// MAin Fuction To Token Refresh Handle
+const isTokennExpireHandle = async () => {
+  const isTokenExpiredStatus = await isTokenExpired();
+  console.log('Toke Status', isTokenExpiredStatus);
+  return isTokenExpiredStatus;
+};
+
 // Main Modules
 function App(): React.JSX.Element {
-  const [userName, setUserName] = useState<string>();
+  const scheme = useColorScheme(); // Get the current color scheme
+  const [themes, setTheme] = useState(MyTheme); // Default to light theme
+  const [refreshingTime, setRefreshingTime] = useState<number>(1000); // This is the time of refreshing in the second
 
-  console.log(
-    global.HermesInternal ? 'Hermes is enabled' : 'Hermes is disabled',
-  );
+  //This is the useEffect Function for changing the dark and bright mode
+  useEffect(() => {
+    if (scheme === 'dark') {
+      setTheme(MyDarkTheme);
+    } else {
+      setTheme(MyTheme);
+    }
+  }, [scheme]);
+
+  //This is the code for the refresh token , when the app is coming from , background to foreground
+  AppState.addEventListener('focus', async () => {
+    const refreshTimeCollector = await isTokennExpireHandle();
+    typeof refreshTimeCollector === 'number' &&
+    refreshTimeCollector !== refreshingTime &&
+    refreshTimeCollector < 1000
+      ? setRefreshingTime(refreshTimeCollector)
+      : async () => {
+          const {refreshToken, userStatus} = await getTokens();
+          if (refreshToken && userStatus === 'true')
+            accessTokenGenerator(refreshToken);
+        };
+  });
+
+  // Refreshes according to the life expectation of the token
+  useTokenRefreshTimer(refreshingTime);
 
   return (
     <ApolloProvider client={client}>
-      <NavigationContainer>
+      <NavigationContainer theme={themes}>
         <Provider store={store}>
           <PaperProvider>
             <RootStack />
@@ -44,11 +70,5 @@ function App(): React.JSX.Element {
     </ApolloProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  backgroundStyle: {
-    backgroundColor: 'black',
-  },
-});
 
 export default App;
