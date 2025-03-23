@@ -14,6 +14,11 @@ const PhoneInput = ({
   onChangeText,
   ...props
 }: PhoneInputProps) => {
+  const handleChange = (text: string) => {
+    const newText = text.replace(/[^0-9]/g, '');
+    onChangeText && onChangeText(newText);
+  };
+
   return (
     <View>
       <Text style={styles.label}>{label}</Text>
@@ -22,10 +27,13 @@ const PhoneInput = ({
         <Text style={styles.number}>+977</Text>
         <View style={styles.textWrapper}>
           <TextInput
+            keyboardType="numeric"
+            inputMode="numeric"
             placeholder="987654321"
             style={styles.input}
             value={value}
-            onChangeText={onChangeText}
+            dataDetectorTypes={'phoneNumber'}
+            onChangeText={handleChange}
             {...props}
           />
         </View>

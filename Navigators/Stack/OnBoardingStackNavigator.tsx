@@ -6,11 +6,13 @@ import React from 'react';
 import {GetStartedScreen} from '../../Screens/OnBoarding/GetStartedScreen';
 import {SignUpScreen} from '../../Screens/OnBoarding/SignUpScreen';
 import {SignInScreen} from '../../Screens/OnBoarding/SignInScreen';
+import {OtpScreen} from '../../Screens/OnBoarding/OptScreen';
 
 type OnBoardingStackParamList = {
   GetStartedScreen: undefined;
   SignUpScreen: undefined;
   SignInScreen: undefined;
+  OtpScreen: undefined;
 };
 
 // Its The builder with the
@@ -51,6 +53,7 @@ export const OnBoardingStackNavigator: React.FC = () => {
           {screenName: 'GetStartedScreen', component: GetStartedScreen},
           {screenName: 'SignUpScreen', component: SignUpScreen},
           {screenName: 'SignInScreen', component: SignInScreen},
+          {screenName: 'OtpScreen', component: OtpScreen},
         ])}
       </OnBoardingStackBuilder.Navigator>
     </>

@@ -37,11 +37,19 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
         name="email"
         rules={{
           required: 'Email address is required',
+          pattern: {
+            value: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/,
+            message: 'Invalid email address',
+          },
         }}
         render={({field: {onChange, value}}) => (
           <View>
             <Text style={styles.inputLabel}>Email Address</Text>
-            <View style={styles.inputWrapper}>
+            <View
+              style={[
+                styles.inputWrapper,
+                !!errors.email && styles.inputError,
+              ]}>
               <TextInput
                 placeholder="Email Address"
                 mode="outlined"
@@ -52,7 +60,6 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
                 style={styles.input}
                 value={value}
                 onChangeText={onChange}
-                error={!!errors.email}
               />
             </View>
           </View>
@@ -69,7 +76,11 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
         render={({field: {onChange, value}}) => (
           <View>
             <Text style={styles.inputLabel}>Password</Text>
-            <View style={styles.inputWrapper}>
+            <View
+              style={[
+                styles.inputWrapper,
+                !!errors.password && styles.inputError,
+              ]}>
               <TextInput
                 placeholder="Password"
                 mode="outlined"
@@ -80,7 +91,6 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
                 style={styles.input}
                 value={value}
                 onChangeText={onChange}
-                error={!!errors.password}
               />
             </View>
           </View>
@@ -106,7 +116,10 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
       <Spacer />
       <View style={styles.social}>
         <View style={styles.socialItem}>
-          <Text>A</Text>
+          {/* <Text>A</Text> */}
+          <Link style={styles.extraLink} screen={'OtpScreen'}>
+            A
+          </Link>
         </View>
         <View style={styles.socialItem}>
           <Text>G</Text>
@@ -178,5 +191,8 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: '#FDFDFD',
+  },
+  inputError: {
+    borderColor: 'red',
   },
 });

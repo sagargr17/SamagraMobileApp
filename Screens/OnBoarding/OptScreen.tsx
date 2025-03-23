@@ -1,0 +1,105 @@
+import React, {useEffect, useState} from 'react';
+import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
+import {View, Text, StyleSheet} from 'react-native';
+import {Spacer} from '../../Components/elements/Spacer';
+import {Link} from '@react-navigation/native';
+import {OtpInput} from 'react-native-otp-entry';
+
+interface OptScreenProps {
+  navigation: OnBoardingStackNavigationProp<'OtpScreen'>;
+}
+
+export const OtpScreen: React.FC<OptScreenProps> = ({navigation}) => {
+  const [otp, setOtp] = useState('');
+  const [disabled, setDisabled] = useState(false);
+  const [timer, setTimer] = useState(30);
+
+  const formattedNumber = timer < 10 ? `0${timer}` : `${timer}`;
+
+  const onOtpSet = () => {};
+
+  useEffect(() => {
+    if (timer <= 0) {
+      setDisabled(true);
+      return;
+    }
+
+    const interval = setInterval(() => {
+      setTimer(prev => prev - 1);
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [timer]);
+
+  return (
+    <View style={styles.wrapper}>
+      <Text style={styles.header}>Verify 6-digit OTP</Text>
+      <Text style={styles.subHeader}>
+        1 Code sent to +44********456 phone number unless you already have an
+        account{' '}
+      </Text>
+      <Spacer />
+      <Text>{otp}</Text>
+      <OtpInput
+        disabled={disabled}
+        numberOfDigits={6}
+        onTextChange={text => setOtp(text)}
+        onFilled={() => onOtpSet}
+        theme={{
+          pinCodeContainerStyle: {
+            width: 54,
+            height: 54,
+            backgroundColor: '#EAEAEA',
+          },
+          filledPinCodeContainerStyle: {
+            backgroundColor: '#D5D5D5',
+          },
+        }}
+      />
+      <Spacer />
+      {!disabled ? (
+        <Text style={styles.timer}>Resend code in 00:{formattedNumber}</Text>
+      ) : (
+        <Text style={styles.resend}>Re-send OTP</Text>
+      )}
+      <Spacer height={10} />
+      {/* TODO: profiling */}
+      <Link style={styles.extraLink} screen={'SignInScreen'}>
+        Already have an account? Log in
+      </Link>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+    paddingTop: 100,
+    paddingLeft: 20,
+    paddingRight: 20,
+    backgroundColor: '#FDFDFD',
+  },
+  header: {
+    fontSize: 39,
+    fontWeight: 600,
+    marginBottom: 10,
+    color: '#1D1D1D',
+  },
+  subHeader: {
+    fontSize: 14,
+    color: '#787878',
+  },
+  timer: {
+    fontSize: 14,
+    color: '#2D2D2D',
+  },
+  extraLink: {
+    color: '#2A56FE',
+    fontSize: 16,
+  },
+  resend: {
+    color: '#2A56FE',
+  },
+});
