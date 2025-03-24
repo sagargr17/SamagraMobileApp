@@ -1,7 +1,7 @@
 import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
 import {NavigationContainer} from '@react-navigation/native';
 import React, {useEffect, useMemo, useState} from 'react';
-import {AppState, useColorScheme} from 'react-native';
+import {AppState, useColorScheme, Image} from 'react-native';
 import {PaperProvider} from 'react-native-paper';
 import {Provider} from 'react-redux';
 import {getTokens} from './Client/Token/TokenAccess';
@@ -12,6 +12,7 @@ import {MyDarkTheme, MyTheme} from './Prefrences/Prefrences';
 import {store} from './StateManagement/Store';
 import {accessTokenGenerator} from './Client/Token/AccessTokenGenerator';
 import {useTokenRefreshTimer} from './CustomHooks/useTokenRefreshTimer';
+import {Logos} from './Assets/SVG/Exports/Exports';
 
 // Initialize Apollo Client
 const client = new ApolloClient({
@@ -31,6 +32,8 @@ function App(): React.JSX.Element {
   const scheme = useColorScheme(); // Get the current color scheme
   const [themes, setTheme] = useState(MyTheme); // Default to light theme
   const [refreshingTime, setRefreshingTime] = useState<number>(1000); // This is the time of refreshing in the second
+
+  const {AppleLogo, Mac} = Logos;
 
   //This is the useEffect Function for changing the dark and bright mode
   useEffect(() => {
@@ -59,15 +62,19 @@ function App(): React.JSX.Element {
   useTokenRefreshTimer(refreshingTime);
 
   return (
-    <ApolloProvider client={client}>
-      <NavigationContainer theme={themes}>
-        <Provider store={store}>
-          <PaperProvider>
-            <RootStack />
-          </PaperProvider>
-        </Provider>
-      </NavigationContainer>
-    </ApolloProvider>
+    <>
+      <AppleLogo with={400} height={400}></AppleLogo>
+      <Mac with={400} height={400}></Mac>
+    </>
+    // <ApolloProvider client={client}>
+    //   <NavigationContainer theme={themes}>
+    //     <Provider store={store}>
+    //       <PaperProvider>
+    //         <RootStack />
+    //       </PaperProvider>
+    //     </Provider>
+    //   </NavigationContainer>
+    // </ApolloProvider>
   );
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, TextInput, View} from 'react-native';
+import {StyleSheet, TextInput, View, Image} from 'react-native';
 import {Text} from 'react-native';
 
 interface PhoneInputProps extends React.ComponentProps<typeof TextInput> {
@@ -23,7 +23,13 @@ const PhoneInput = ({
     <View>
       <Text style={styles.label}>{label}</Text>
       <View style={[styles.wrapper, error && styles.wrapperError]}>
-        <Text style={styles.icon}>F</Text>
+        {/* <Text style={styles.icon}></Text> */}
+        <Image
+          style={{
+            height: 200,
+            width: 200,
+          }}
+          source={require('../../assets/apple.svg')}></Image>
         <Text style={styles.number}>+977</Text>
         <View style={styles.textWrapper}>
           <TextInput
