@@ -4,6 +4,10 @@ import {View, Text, StyleSheet} from 'react-native';
 import {Spacer} from '../../Components/elements/Spacer';
 import {Link} from '@react-navigation/native';
 import {OtpInput} from 'react-native-otp-entry';
+import {
+  heightPercentageToDP,
+  widthPercentageToDP,
+} from 'react-native-responsive-screen';
 
 interface OptScreenProps {
   navigation: OnBoardingStackNavigationProp<'OtpScreen'>;
@@ -76,28 +80,28 @@ export const OtpScreen: React.FC<OptScreenProps> = ({navigation}) => {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    paddingTop: 100,
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingTop: heightPercentageToDP(8),
+    paddingLeft: widthPercentageToDP(5),
+    paddingRight: widthPercentageToDP(5),
     backgroundColor: '#FDFDFD',
   },
   header: {
-    fontSize: 39,
-    fontWeight: 600,
-    marginBottom: 10,
+    fontSize: heightPercentageToDP(4.8),
+    fontWeight: '600',
+    marginBottom: heightPercentageToDP(1.2),
     color: '#1D1D1D',
   },
   subHeader: {
-    fontSize: 14,
+    fontSize: heightPercentageToDP(1.7),
     color: '#787878',
   },
   timer: {
-    fontSize: 14,
+    fontSize: heightPercentageToDP(1.7),
     color: '#2D2D2D',
   },
   extraLink: {
     color: '#2A56FE',
-    fontSize: 16,
+    fontSize: heightPercentageToDP(2),
   },
   resend: {
     color: '#2A56FE',

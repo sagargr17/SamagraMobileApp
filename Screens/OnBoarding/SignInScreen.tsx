@@ -9,6 +9,7 @@ import {TextInput} from 'react-native-paper';
 import {Link} from '@react-navigation/native';
 import Authenticator from '../../Client/Token/Authenticator';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
+import { SocialForm } from '../../Components/Sections/SocialForm';
 
 interface SignInScreenProps {
   navigation: OnBoardingStackNavigationProp<'SignUpScreen'>;
@@ -114,17 +115,7 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
         {/* <View style={styles.line} /> */}
       </View>
       <Spacer />
-      <View style={styles.social}>
-        <View style={styles.socialItem}>
-          {/* <Text>A</Text> */}
-          <Link style={styles.extraLink} screen={'OtpScreen'}>
-            A
-          </Link>
-        </View>
-        <View style={styles.socialItem}>
-          <Text>G</Text>
-        </View>
-      </View>
+      <SocialForm />
     </View>
   );
 };
@@ -156,19 +147,6 @@ const styles = StyleSheet.create({
   content: {
     fontSize: 14,
     color: '#787878',
-  },
-  social: {
-    flexDirection: 'row',
-    gap: 20,
-  },
-  socialItem: {
-    flex: 1,
-    backgroundColor: '#EAEEFF',
-    // height: 84,
-    height: heightPercentageToDP(5),
-    borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   extra: {
     flexDirection: 'row',
