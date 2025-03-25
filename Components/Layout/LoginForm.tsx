@@ -9,11 +9,11 @@ import {getTokens} from '../../Client/Token/TokenAccess';
 
 interface LoginFormProps {
   onLogin?: (data: LoginData) => void;
-  navigation: RootStackNavigationProp<'LoginForm'>;
+  navigation: RootStackNavigationProp<'TestScreen'>;
 }
 
 interface LoginData {
-  email: string;
+  userName: string;
   password: string;
 }
 
@@ -25,8 +25,8 @@ const LoginForm: React.FC<LoginFormProps> = ({onLogin, navigation}) => {
   } = useForm<LoginData>();
 
   const onSubmit = async (data: LoginData) => {
-    console.log('Login Data:', data.email, data.password);
-    let login = await Authenticator(data.email, data.password);
+    console.log('Login Data:', data.userName, data.password);
+    let login = await Authenticator(data.userName, data.password);
     console.log('Login Result:::', login);
   };
 
@@ -37,7 +37,7 @@ const LoginForm: React.FC<LoginFormProps> = ({onLogin, navigation}) => {
       {/* Email Input */}
       <Controller
         control={control}
-        name="email"
+        name="userName"
         rules={{
           required: 'Username is required',
           // pattern: {value: /\S+@\S+\.\S+/, message: 'Invalid email format'},
@@ -50,12 +50,12 @@ const LoginForm: React.FC<LoginFormProps> = ({onLogin, navigation}) => {
             keyboardType="default"
             autoCapitalize="none"
             style={styles.input}
-            error={!!errors.email}
+            error={!!errors.userName}
           />
         )}
       />
-      {errors.email && (
-        <Text style={styles.errorText}>{errors.email.message}</Text>
+      {errors.userName && (
+        <Text style={styles.errorText}>{errors.userName.message}</Text>
       )}
 
       <Controller

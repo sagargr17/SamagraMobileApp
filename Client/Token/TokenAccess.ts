@@ -41,8 +41,11 @@ export async function clearTokens() {
   try {
     await Keychain.resetGenericPassword({service: 'accessToken'});
     await Keychain.resetGenericPassword({service: 'refreshToken'});
-    await Keychain.resetGenericPassword({service: 'userStatus'});
-    store.dispatch(logout()); //This Logouts from the redux store too
+    await Keychain.resetGenericPassword({service: 'userStatus'})
+      .then(() => {
+        store.dispatch(logout()); //This Logouts from the redux store too
+      })
+      .catch(error => error);
   } catch (error) {
     console.error('Error clearing tokens:', error);
     return error;

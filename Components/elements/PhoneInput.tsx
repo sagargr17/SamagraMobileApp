@@ -1,6 +1,8 @@
 import React from 'react';
-import {StyleSheet, TextInput, View} from 'react-native';
+import {StyleSheet, TextInput, View, Image} from 'react-native';
 import {Text} from 'react-native';
+import {Logos} from '../../Assets/SVG/Exports/Exports';
+import {heightPercentageToDP} from 'react-native-responsive-screen';
 
 interface PhoneInputProps extends React.ComponentProps<typeof TextInput> {
   label?: string;
@@ -18,12 +20,15 @@ const PhoneInput = ({
     const newText = text.replace(/[^0-9]/g, '');
     onChangeText && onChangeText(newText);
   };
+  const {NepalFlag} = Logos;
 
   return (
     <View>
       <Text style={styles.label}>{label}</Text>
       <View style={[styles.wrapper, error && styles.wrapperError]}>
-        <Text style={styles.icon}>F</Text>
+        <NepalFlag
+          height={heightPercentageToDP(5)}
+          width={heightPercentageToDP(4)}></NepalFlag>
         <Text style={styles.number}>+977</Text>
         <View style={styles.textWrapper}>
           <TextInput

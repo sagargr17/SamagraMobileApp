@@ -3,7 +3,7 @@ import {
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
 import React from 'react';
-import {LoginScreen} from '../../Screens/Application/User/LoginScreen';
+import {TestScreen} from '../../Screens/Application/User/TestScreen';
 import {ServiceScreen} from '../../Screens/Application/Service/ServiceScreen';
 import {ServiceDetailScreen} from '../../Screens/Application/Service/ServiceDetailScreen';
 

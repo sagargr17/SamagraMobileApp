@@ -1,17 +1,18 @@
 import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
 import {NavigationContainer} from '@react-navigation/native';
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {AppState, useColorScheme} from 'react-native';
 import {PaperProvider} from 'react-native-paper';
-import {Provider} from 'react-redux';
+import {Provider, useSelector} from 'react-redux';
+import {accessTokenGenerator} from './Client/Token/AccessTokenGenerator';
 import {getTokens} from './Client/Token/TokenAccess';
 import {isTokenExpired} from './Client/Token/TokeValidator';
 import {GRAPHQL_ENDPOINT} from './Constants/SamagraConstants/SamagraEndpoints';
+import {useTokenRefreshTimer} from './CustomHooks/useTokenRefreshTimer';
 import {RootStack} from './Navigators/RootStackNavigator';
 import {MyDarkTheme, MyTheme} from './Prefrences/Prefrences';
 import {store} from './StateManagement/Store';
-import {accessTokenGenerator} from './Client/Token/AccessTokenGenerator';
-import {useTokenRefreshTimer} from './CustomHooks/useTokenRefreshTimer';
+import {login, logout} from './StateManagement/User/UserSlice';
 
 // Initialize Apollo Client
 const client = new ApolloClient({
@@ -22,7 +23,7 @@ const client = new ApolloClient({
 // MAin Fuction To Token Refresh Handle
 const isTokennExpireHandle = async () => {
   const isTokenExpiredStatus = await isTokenExpired();
-  console.log('Toke Status', isTokenExpiredStatus);
+
   return isTokenExpiredStatus;
 };
 
@@ -30,7 +31,7 @@ const isTokennExpireHandle = async () => {
 function App(): React.JSX.Element {
   const scheme = useColorScheme(); // Get the current color scheme
   const [themes, setTheme] = useState(MyTheme); // Default to light theme
-  const [refreshingTime, setRefreshingTime] = useState<number>(1000); // This is the time of refreshing in the second
+  const [refreshingTime, setRefreshingTime] = useState<number>(10000); // This is the time of refreshing in the second
 
   //This is the useEffect Function for changing the dark and bright mode
   useEffect(() => {
@@ -41,18 +42,44 @@ function App(): React.JSX.Element {
     }
   }, [scheme]);
 
+  // Code To make User Login
+  useEffect(() => {
+    const getUserStatusHandle = async () => {
+      const {userStatus, accessToken, refreshToken} = await getTokens();
+      console.log('USER STATUSSSs', userStatus, accessToken, refreshToken);
+
+      userStatus === 'true'
+        ? store.dispatch(
+            login({
+              id: 1,
+              email: 'sagar@gmail.com',
+              name: 'sagar',
+            }),
+          )
+        : store.dispatch(logout());
+    };
+    getUserStatusHandle();
+  }, []);
+
   //This is the code for the refresh token , when the app is coming from , background to foreground
   AppState.addEventListener('focus', async () => {
-    const refreshTimeCollector = await isTokennExpireHandle();
-    typeof refreshTimeCollector === 'number' &&
-    refreshTimeCollector !== refreshingTime &&
-    refreshTimeCollector < 1000
-      ? setRefreshingTime(refreshTimeCollector)
-      : async () => {
-          const {refreshToken, userStatus} = await getTokens();
-          if (refreshToken && userStatus === 'true')
-            accessTokenGenerator(refreshToken);
-        };
+    const {userStatus, accessToken, refreshToken} = await getTokens();
+
+    console.log('User token status ', userStatus, accessToken, refreshToken);
+
+    if (userStatus && userStatus === 'true') {
+      const refreshTimeCollector = await isTokennExpireHandle();
+      typeof refreshTimeCollector === 'number' &&
+      refreshTimeCollector !== refreshingTime
+        ? setRefreshingTime(refreshTimeCollector)
+        : async () => {
+            const {refreshToken, userStatus} = await getTokens();
+            if (refreshToken && userStatus === 'true')
+              accessTokenGenerator(refreshToken);
+          };
+    } else {
+      store.dispatch(logout());
+    }
   });
 
   // Refreshes according to the life expectation of the token

@@ -3,14 +3,13 @@ import {
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
 import React from 'react';
-import {LoginScreen} from '../Screens/Application/User/LoginScreen';
+import {ActivityIndicator} from 'react-native-paper';
+import {useSelector} from 'react-redux';
 import {BottomTabNavigator} from './BottomTab/BottomTabNavigator';
 import {OnBoardingStackNavigator} from './Stack/OnBoardingStackNavigator';
-import {StyleSheet} from 'react-native';
-import {heightPercentageToDP} from 'react-native-responsive-screen';
 
 type RootStackParamList = {
-  LoginForm: undefined;
+  TestScreen: undefined;
   BottomTab: undefined;
   OnBoarding: undefined;
 };
@@ -39,19 +38,31 @@ const screenBuilder = (
 };
 
 export const RootStack: React.FC = () => {
+  const userSignInStatus = useSelector(
+    (state: any) => state.user.isAuthenticated,
+  );
+
+  console.log('RootSTackScreen::::', userSignInStatus);
+
   return (
     <>
-      <RootStackBuilder.Navigator
-        screenOptions={{
-          header: () => null,
-        }}>
-        {screenBuilder([
-          // {screenName: 'LoginForm', component: LoginScreen},
-          {screenName: 'OnBoarding', component: OnBoardingStackNavigator},
-          {screenName: 'BottomTab', component: BottomTabNavigator},
-          {screenName: 'LoginForm', component: LoginScreen},
-        ])}
-      </RootStackBuilder.Navigator>
+      {userSignInStatus !== 'loading' ? (
+        <RootStackBuilder.Navigator
+          screenOptions={{
+            header: () => null,
+          }}>
+          {userSignInStatus === true
+            ? screenBuilder([
+                {screenName: 'BottomTab', component: BottomTabNavigator},
+              ])
+            : screenBuilder([
+                {screenName: 'OnBoarding', component: OnBoardingStackNavigator},
+                // {screenName: 'TestScreen', component: TestScreen},
+              ])}
+        </RootStackBuilder.Navigator>
+      ) : (
+        <ActivityIndicator></ActivityIndicator>
+      )}
     </>
   );
 };
