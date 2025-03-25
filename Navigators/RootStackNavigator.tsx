@@ -7,6 +7,7 @@ import {ActivityIndicator} from 'react-native-paper';
 import {useSelector} from 'react-redux';
 import {BottomTabNavigator} from './BottomTab/BottomTabNavigator';
 import {OnBoardingStackNavigator} from './Stack/OnBoardingStackNavigator';
+import {SplashScreen} from '../Screens/OnBoarding/SplashScreen';
 
 type RootStackParamList = {
   TestScreen: undefined;
@@ -57,7 +58,7 @@ export const RootStack: React.FC = () => {
               ])
             : screenBuilder([
                 {screenName: 'OnBoarding', component: OnBoardingStackNavigator},
-                // {screenName: 'TestScreen', component: TestScreen},
+                {screenName: 'TestScreen', component: SplashScreen},
               ])}
         </RootStackBuilder.Navigator>
       ) : (

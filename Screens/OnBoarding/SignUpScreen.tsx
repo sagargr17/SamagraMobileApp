@@ -6,6 +6,11 @@ import AppButton from '../../Components/elements/Button';
 import {Spacer} from '../../Components/elements/Spacer';
 import {Controller, useForm} from 'react-hook-form';
 import {ErrorText} from '../../Components/elements/ErrorText';
+import {SocialForm} from '../../Components/Sections/SocialForm';
+import {
+  heightPercentageToDP,
+  widthPercentageToDP,
+} from 'react-native-responsive-screen';
 
 interface OnBoardingScreenProps {
   navigation: OnBoardingStackNavigationProp<'SignUpScreen'>;
@@ -69,36 +74,29 @@ export const SignUpScreen: React.FC<OnBoardingScreenProps> = ({navigation}) => {
         Continue with Email
       </AppButton>
       <Spacer />
-      <View style={styles.social}>
-        <View style={styles.socialItem}>
-          <Text>A</Text>
-        </View>
-        <View style={styles.socialItem}>
-          <Text>G</Text>
-        </View>
-      </View>
+      <SocialForm />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   header: {
-    fontSize: 39,
+    fontSize: heightPercentageToDP(4),
     fontWeight: 600,
-    marginBottom: 30,
+    marginBottom: heightPercentageToDP(4),
     color: '#1D1D1D',
   },
   wrapper: {
     flex: 1,
-    paddingTop: 100,
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingTop: heightPercentageToDP(10),
+    paddingLeft: heightPercentageToDP(2),
+    paddingRight: heightPercentageToDP(2),
     backgroundColor: '#FDFDFD',
   },
   wrapperLines: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 20,
+    gap: widthPercentageToDP(4),
   },
   line: {
     flex: 1,
@@ -106,20 +104,7 @@ const styles = StyleSheet.create({
     borderColor: '#C0C0C0',
   },
   content: {
-    fontSize: 14,
+    fontSize: heightPercentageToDP(1.5),
     color: '#787878',
-  },
-  social: {
-    flexDirection: 'row',
-    gap: 20,
-  },
-  socialItem: {
-    flex: 1,
-    backgroundColor: '#EAEEFF',
-    // height: 84,
-    height: 116,
-    borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });

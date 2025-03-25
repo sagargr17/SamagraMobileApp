@@ -2,6 +2,10 @@ import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, SafeAreaView} from 'react-native';
 import AppButton from '../elements/Button';
 import {useIsFocused} from '@react-navigation/native';
+import {
+  heightPercentageToDP,
+  widthPercentageToDP,
+} from 'react-native-responsive-screen';
 
 interface Item {
   id: number;
@@ -64,36 +68,36 @@ const styles = StyleSheet.create({
   container: {
     height: 'auto',
     backgroundColor: 'white',
-    borderRadius: 12,
-    padding: 20,
-    paddingTop: 30,
-    paddingBottom: 60,
+    borderRadius: widthPercentageToDP(4),
+    padding: heightPercentageToDP(2),
+    paddingTop: heightPercentageToDP(2),
+    paddingBottom: heightPercentageToDP(6),
   },
   lineContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 6,
-    marginBottom: 20,
+    gap: widthPercentageToDP(2),
+    marginBottom: heightPercentageToDP(2),
   },
   line: {
-    width: 50,
-    height: 4,
-    borderRadius: 58,
+    width: widthPercentageToDP(12),
+    height: heightPercentageToDP(0.4),
+    borderRadius: widthPercentageToDP(12),
     backgroundColor: '#D5D5D5',
   },
   activeLine: {
     backgroundColor: '#1F1F1F',
   },
   title: {
-    fontSize: 16,
+    fontSize: heightPercentageToDP(2),
     color: '#61646B',
-    marginBottom: 10,
+    marginBottom: heightPercentageToDP(1),
   },
   content: {
-    fontSize: 33,
+    fontSize: heightPercentageToDP(3),
     color: '#1D1D1D',
-    marginBottom: 40,
+    marginBottom: heightPercentageToDP(6),
   },
 });
 

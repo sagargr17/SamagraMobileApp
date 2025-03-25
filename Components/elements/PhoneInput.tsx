@@ -28,7 +28,8 @@ const PhoneInput = ({
       <View style={[styles.wrapper, error && styles.wrapperError]}>
         <NepalFlag
           height={heightPercentageToDP(5)}
-          width={heightPercentageToDP(4)}></NepalFlag>
+          width={heightPercentageToDP(4)}
+        />
         <Text style={styles.number}>+977</Text>
         <View style={styles.textWrapper}>
           <TextInput
