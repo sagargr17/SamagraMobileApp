@@ -7,13 +7,15 @@ import {Controller, useForm} from 'react-hook-form';
 import {ErrorText} from '../../Components/elements/ErrorText';
 import {TextInput} from 'react-native-paper';
 import {Link} from '@react-navigation/native';
+import Authenticator from '../../Client/Token/Authenticator';
+import {heightPercentageToDP} from 'react-native-responsive-screen';
 
 interface SignInScreenProps {
   navigation: OnBoardingStackNavigationProp<'SignUpScreen'>;
 }
 
 interface SignInData {
-  email: string;
+  userName: string;
   password: string;
 }
 
@@ -24,34 +26,32 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
     formState: {errors},
   } = useForm<SignInData>();
 
-  const signIn = (data: SignInData) => {
-    console.log(data);
+  const signIn = async (data: SignInData) => {
+    console.log('Login Data:', data.userName, data.password);
+    let login = await Authenticator(data.userName, data.password);
+    console.log('Login Result:::', login);
   };
 
   return (
     <View style={styles.wrapper}>
-      <Text style={styles.header}>Login With Email</Text>
+      <Text style={styles.header}>Login With UserName</Text>
       <Spacer />
       <Controller
         control={control}
-        name="email"
+        name="userName"
         rules={{
-          required: 'Email address is required',
-          pattern: {
-            value: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/,
-            message: 'Invalid email address',
-          },
+          required: 'UserName address is required',
         }}
         render={({field: {onChange, value}}) => (
           <View>
-            <Text style={styles.inputLabel}>Email Address</Text>
+            <Text style={styles.inputLabel}>User Name</Text>
             <View
               style={[
                 styles.inputWrapper,
-                !!errors.email && styles.inputError,
+                !!errors.userName && styles.inputError,
               ]}>
               <TextInput
-                placeholder="Email Address"
+                placeholder="User Name"
                 mode="outlined"
                 outlineColor="transparent"
                 activeOutlineColor="transparent"
@@ -65,7 +65,7 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
           </View>
         )}
       />
-      {errors.email && <ErrorText>{errors.email?.message}</ErrorText>}
+      {errors.userName && <ErrorText>{errors.userName?.message}</ErrorText>}
       <Spacer height={20} />
       <Controller
         control={control}
@@ -111,7 +111,7 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
       <View style={styles.wrapperLines}>
         <View style={styles.line} />
         <Text style={styles.content}>OR CONTINUE WITH</Text>
-        <View style={styles.line} />
+        {/* <View style={styles.line} /> */}
       </View>
       <Spacer />
       <View style={styles.social}>
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#EAEEFF',
     // height: 84,
-    height: 116,
+    height: heightPercentageToDP(5),
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',

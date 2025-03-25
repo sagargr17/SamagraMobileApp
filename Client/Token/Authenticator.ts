@@ -2,6 +2,8 @@ import {CLIENT_ID, CLIENT_SECRET} from '@env';
 import {Alert} from 'react-native';
 import * as Keychain from 'react-native-keychain';
 import {API_URL} from '../../Constants/SamagraConstants/SamagraEndpoints';
+import {store} from '../../StateManagement/Store';
+import {login} from '../../StateManagement/User/UserSlice';
 
 interface AuthResponse {
   access_token: string;
@@ -63,6 +65,13 @@ export async function saveTokens(data: AuthResponse): Promise<void> {
     await Keychain.setGenericPassword('userStatus', 'true', {
       service: 'userStatus',
     });
+    store.dispatch(
+      login({
+        id: 1,
+        name: 'sagar',
+        email: 'sagarsoocer@gmail.com',
+      }),
+    );
   } catch (error) {
     console.error('Error storing tokens:', error);
   }

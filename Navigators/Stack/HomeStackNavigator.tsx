@@ -3,7 +3,7 @@ import {
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
 import React from 'react';
-import {LoginScreen} from '../../Screens/Application/User/LoginScreen';
+import {TestScreen} from '../../Screens/Application/User/TestScreen';
 import {HomeDetailScreen} from '../../Screens/Application/Home/HomeDetailScreen';
 import {HomeScreen} from '../../Screens/Application/Home/HomeScreen';
 import {heightPercentageToDP} from 'react-native-responsive-screen';

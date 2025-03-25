@@ -1,3 +1,5 @@
+// This is the testing screen for code sippets andn will dump while production
+
 import React from 'react';
 import LoginForm from '../../../Components/Layout/LoginForm';
 import {RootStackNavigationProp} from '../../../Navigators/RootStackNavigator';
@@ -6,11 +8,11 @@ import {getPublicItems} from '../../../GraphQL/Queries/ItemQueries';
 import {Button} from 'react-native-paper';
 
 interface LoginScreenProps {
-  navigation: RootStackNavigationProp<'LoginForm'>;
+  navigation: RootStackNavigationProp<'TestScreen'>;
 }
 
 const client = useGetClient();
-export const LoginScreen: React.FC<LoginScreenProps> = ({navigation}) => {
+export const TestScreen: React.FC<LoginScreenProps> = ({navigation}) => {
   const testDAta = async () => {
     (await client())
       .query({

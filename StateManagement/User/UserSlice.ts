@@ -1,4 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {getTokens} from '../../Client/Token/TokenAccess';
 
 interface User {
   id: number;
@@ -8,12 +9,12 @@ interface User {
 
 interface UserState {
   user: User | null;
-  isAuthenticated: boolean;
+  isAuthenticated: boolean | string;
 }
 
 const initialState: UserState = {
   user: null,
-  isAuthenticated: false,
+  isAuthenticated: 'loading',
 };
 
 const userSlice = createSlice({
@@ -21,7 +22,8 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action: PayloadAction<User>) => {
-      state.user = action.payload;
+      console.log('USER GETS LOGINNNNNNN');
+      // state.user = action.payload;
       state.isAuthenticated = true;
     },
     logout: state => {
