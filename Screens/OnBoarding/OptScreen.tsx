@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
 import {View, Text, StyleSheet} from 'react-native';
-import {Spacer} from '../../Components/elements/Spacer';
+import {Spacer} from '../../Components/Elements/Spacer';
 import {Link} from '@react-navigation/native';
 import {OtpInput} from 'react-native-otp-entry';
 

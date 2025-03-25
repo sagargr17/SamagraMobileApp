@@ -1,11 +1,11 @@
 import React from 'react';
 import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
 import {View, Text, StyleSheet} from 'react-native';
-import PhoneInput from '../../Components/elements/PhoneInput';
-import AppButton from '../../Components/elements/Button';
-import {Spacer} from '../../Components/elements/Spacer';
+import PhoneInput from '../../Components/Elements/PhoneInput';
+import AppButton from '../../Components/Elements/Button';
+import {Spacer} from '../../Components/Elements/Spacer';
 import {Controller, useForm} from 'react-hook-form';
-import {ErrorText} from '../../Components/elements/ErrorText';
+import {ErrorText} from '../../Components/Elements/ErrorText';
 
 interface OnBoardingScreenProps {
   navigation: OnBoardingStackNavigationProp<'SignUpScreen'>;

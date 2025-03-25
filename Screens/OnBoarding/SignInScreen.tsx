@@ -1,10 +1,16 @@
 import React from 'react';
 import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
-import {View, Text, StyleSheet} from 'react-native';
-import AppButton from '../../Components/elements/Button';
-import {Spacer} from '../../Components/elements/Spacer';
+import {
+  View,
+  Text,
+  StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
+import AppButton from '../../Components/Elements/Button';
+import {Spacer} from '../../Components/Elements/Spacer';
 import {Controller, useForm} from 'react-hook-form';
-import {ErrorText} from '../../Components/elements/ErrorText';
+import {ErrorText} from '../../Components/Elements/ErrorText';
 import {TextInput} from 'react-native-paper';
 import {Link} from '@react-navigation/native';
 import Authenticator from '../../Client/Token/Authenticator';
@@ -33,103 +39,111 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
   };
 
   return (
-    <View style={styles.wrapper}>
-      <Text style={styles.header}>Login With UserName</Text>
-      <Spacer />
-      <Controller
-        control={control}
-        name="userName"
-        rules={{
-          required: 'UserName address is required',
-        }}
-        render={({field: {onChange, value}}) => (
-          <View>
-            <Text style={styles.inputLabel}>User Name</Text>
-            <View
-              style={[
-                styles.inputWrapper,
-                !!errors.userName && styles.inputError,
-              ]}>
-              <TextInput
-                placeholder="User Name"
-                mode="outlined"
-                outlineColor="transparent"
-                activeOutlineColor="transparent"
-                underlineColor="transparent"
-                activeUnderlineColor="transparent"
-                style={styles.input}
-                value={value}
-                onChangeText={onChange}
-              />
+    <KeyboardAvoidingView
+      style={styles.keyboardContainer}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <View style={styles.wrapper}>
+        <Text style={styles.header}>Login With UserName</Text>
+        <Spacer />
+        <Controller
+          control={control}
+          name="userName"
+          rules={{
+            required: 'UserName address is required',
+          }}
+          render={({field: {onChange, value}}) => (
+            <View>
+              <Text style={styles.inputLabel}>User Name</Text>
+              <View
+                style={[
+                  styles.inputWrapper,
+                  !!errors.userName && styles.inputError,
+                ]}>
+                <TextInput
+                  placeholder="User Name"
+                  mode="outlined"
+                  outlineColor="transparent"
+                  activeOutlineColor="transparent"
+                  underlineColor="transparent"
+                  activeUnderlineColor="transparent"
+                  style={styles.input}
+                  value={value}
+                  onChangeText={onChange}
+                />
+              </View>
             </View>
-          </View>
-        )}
-      />
-      {errors.userName && <ErrorText>{errors.userName?.message}</ErrorText>}
-      <Spacer height={20} />
-      <Controller
-        control={control}
-        name="password"
-        rules={{
-          required: 'Password is required',
-        }}
-        render={({field: {onChange, value}}) => (
-          <View>
-            <Text style={styles.inputLabel}>Password</Text>
-            <View
-              style={[
-                styles.inputWrapper,
-                !!errors.password && styles.inputError,
-              ]}>
-              <TextInput
-                placeholder="Password"
-                mode="outlined"
-                outlineColor="transparent"
-                activeOutlineColor="transparent"
-                underlineColor="transparent"
-                activeUnderlineColor="transparent"
-                style={styles.input}
-                value={value}
-                onChangeText={onChange}
-              />
+          )}
+        />
+        {errors.userName && <ErrorText>{errors.userName?.message}</ErrorText>}
+        <Spacer height={20} />
+        <Controller
+          control={control}
+          name="password"
+          rules={{
+            required: 'Password is required',
+          }}
+          render={({field: {onChange, value}}) => (
+            <View>
+              <Text style={styles.inputLabel}>Password</Text>
+              <View
+                style={[
+                  styles.inputWrapper,
+                  !!errors.password && styles.inputError,
+                ]}>
+                <TextInput
+                  placeholder="Password"
+                  mode="outlined"
+                  outlineColor="transparent"
+                  activeOutlineColor="transparent"
+                  underlineColor="transparent"
+                  activeUnderlineColor="transparent"
+                  style={styles.input}
+                  value={value}
+                  onChangeText={onChange}
+                />
+              </View>
             </View>
-          </View>
-        )}
-      />
-      {errors.password && <ErrorText>{errors.password?.message}</ErrorText>}
-      <Spacer />
-      <View style={styles.extra}>
-        <Text style={styles.extraLink}>Forgot Password?</Text>
-        {/* <Text style={styles.extraLink}>Don't have an Account?</Text> */}
-        <Link style={styles.extraLink} screen={'SignUpScreen'}>
-          Don't have an Account?
-        </Link>
-      </View>
-      <Spacer />
-      <AppButton onPress={handleSubmit(signIn)}>Login</AppButton>
-      <Spacer />
-      <View style={styles.wrapperLines}>
-        <View style={styles.line} />
-        <Text style={styles.content}>OR CONTINUE WITH</Text>
-        {/* <View style={styles.line} /> */}
-      </View>
-      <Spacer />
-      <View style={styles.social}>
-        <View style={styles.socialItem}>
-          {/* <Text>A</Text> */}
-          <Link style={styles.extraLink} screen={'OtpScreen'}>
-            A
+          )}
+        />
+        {errors.password && <ErrorText>{errors.password?.message}</ErrorText>}
+        <Spacer />
+        <View style={styles.extra}>
+          <Text style={styles.extraLink}>Forgot Password?</Text>
+          {/* <Text style={styles.extraLink}>Don't have an Account?</Text> */}
+          <Link style={styles.extraLink} screen={'SignUpScreen'}>
+            Don't have an Account?
           </Link>
         </View>
-        <View style={styles.socialItem}>
-          <Text>G</Text>
+        <Spacer />
+        <AppButton onPress={handleSubmit(signIn)}>Login</AppButton>
+        <Spacer />
+        <View style={styles.wrapperLines}>
+          <View style={styles.line} />
+          <Text style={styles.content}>OR CONTINUE WITH</Text>
+          {/* <View style={styles.line} /> */}
+        </View>
+        <Spacer />
+        <View style={styles.social}>
+          <View style={styles.socialItem}>
+            {/* <Text>A</Text> */}
+            <Link style={styles.extraLink} screen={'OtpScreen'}>
+              A
+            </Link>
+          </View>
+          <View style={styles.socialItem}>
+            <Text>G</Text>
+          </View>
         </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
+  keyboardContainer: {
+    flex: 1,
+  },
+
   header: {
     fontSize: 39,
     fontWeight: 600,
