@@ -9,7 +9,8 @@ import {TextInput} from 'react-native-paper';
 import {Link} from '@react-navigation/native';
 import Authenticator from '../../Client/Token/Authenticator';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
-import { SocialForm } from '../../Components/Sections/SocialForm';
+import {SocialForm} from '../../Components/Sections/SocialForm';
+import {OnBoardingLayout} from '../../Components/Layout/OnBoardingLayout';
 
 interface SignInScreenProps {
   navigation: OnBoardingStackNavigationProp<'SignUpScreen'>;
@@ -34,7 +35,7 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
   };
 
   return (
-    <View style={styles.wrapper}>
+    <OnBoardingLayout>
       <Text style={styles.header}>Login With UserName</Text>
       <Spacer />
       <Controller
@@ -100,8 +101,9 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
       {errors.password && <ErrorText>{errors.password?.message}</ErrorText>}
       <Spacer />
       <View style={styles.extra}>
-        <Text style={styles.extraLink}>Forgot Password?</Text>
-        {/* <Text style={styles.extraLink}>Don't have an Account?</Text> */}
+        <Link style={styles.extraLink} screen={'OtpScreen'}>
+          Forgot Password?
+        </Link>
         <Link style={styles.extraLink} screen={'SignUpScreen'}>
           Don't have an Account?
         </Link>
@@ -116,7 +118,7 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
       </View>
       <Spacer />
       <SocialForm />
-    </View>
+    </OnBoardingLayout>
   );
 };
 

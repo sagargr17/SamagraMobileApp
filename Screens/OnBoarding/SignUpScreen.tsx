@@ -11,6 +11,7 @@ import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
+import { OnBoardingLayout } from '../../Components/Layout/OnBoardingLayout';
 
 interface OnBoardingScreenProps {
   navigation: OnBoardingStackNavigationProp<'SignUpScreen'>;
@@ -36,7 +37,7 @@ export const SignUpScreen: React.FC<OnBoardingScreenProps> = ({navigation}) => {
   };
 
   return (
-    <View style={styles.wrapper}>
+    <OnBoardingLayout>
       <Text style={styles.header}>Lets Get Started</Text>
       <Spacer />
       <Controller
@@ -75,22 +76,22 @@ export const SignUpScreen: React.FC<OnBoardingScreenProps> = ({navigation}) => {
       </AppButton>
       <Spacer />
       <SocialForm />
-    </View>
+    </OnBoardingLayout>
   );
 };
 
 const styles = StyleSheet.create({
   header: {
     fontSize: heightPercentageToDP(4),
-    fontWeight: 600,
+    fontWeight: '600',
     marginBottom: heightPercentageToDP(4),
     color: '#1D1D1D',
   },
   wrapper: {
     flex: 1,
     paddingTop: heightPercentageToDP(10),
-    paddingLeft: heightPercentageToDP(2),
-    paddingRight: heightPercentageToDP(2),
+    paddingLeft: widthPercentageToDP(5),
+    paddingRight: widthPercentageToDP(5),
     backgroundColor: '#FDFDFD',
   },
   wrapperLines: {
@@ -100,7 +101,7 @@ const styles = StyleSheet.create({
   },
   line: {
     flex: 1,
-    borderTopWidth: 1,
+    borderTopWidth: heightPercentageToDP(0.1),
     borderColor: '#C0C0C0',
   },
   content: {
