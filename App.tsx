@@ -14,18 +14,18 @@ import {MyDarkTheme, MyTheme} from './Prefrences/Prefrences';
 import {store} from './StateManagement/Store';
 import {login, logout} from './StateManagement/User/UserSlice';
 
-// Initialize Apollo Client
-const client = new ApolloClient({
-  uri: GRAPHQL_ENDPOINT,
-  cache: new InMemoryCache(),
-});
-
 // MAin Fuction To Token Refresh Handle
 const isTokennExpireHandle = async () => {
   const isTokenExpiredStatus = await isTokenExpired();
 
   return isTokenExpiredStatus;
 };
+
+// Initialize Apollo Client
+const client = new ApolloClient({
+  uri: GRAPHQL_ENDPOINT,
+  cache: new InMemoryCache(),
+});
 
 // Main Modules
 function App(): React.JSX.Element {
