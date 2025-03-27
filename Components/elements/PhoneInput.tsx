@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, TextInput, View, Image} from 'react-native';
 import {Text} from 'react-native';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
-import {heightPercentageToDP} from 'react-native-responsive-screen';
+import {heightPercentageToDP, widthPercentageToDP} from 'react-native-responsive-screen';
 
 interface PhoneInputProps extends React.ComponentProps<typeof TextInput> {
   label?: string;
@@ -50,40 +50,35 @@ const PhoneInput = ({
 
 const styles = StyleSheet.create({
   label: {
-    fontSize: 14,
+    fontSize: heightPercentageToDP(1.8),
     color: '#2D2D2D',
-    marginBottom: 10,
+    marginBottom: heightPercentageToDP(1.4),
   },
   wrapper: {
     flexDirection: 'row',
     borderWidth: 1,
     borderColor: '#C0C0C0',
     alignItems: 'center',
-    gap: 14,
-    paddingTop: 12,
-    paddingBottom: 12,
-    paddingLeft: 16,
-    paddingRight: 16,
-    borderRadius: 8,
+    gap: widthPercentageToDP(2),
+    paddingTop: heightPercentageToDP(1),
+    paddingBottom: heightPercentageToDP(1),
+    paddingLeft: widthPercentageToDP(4),
+    paddingRight: widthPercentageToDP(4),
+    borderRadius: heightPercentageToDP(1),
     width: '100%',
     overflow: 'hidden',
   },
   wrapperError: {
     borderColor: 'red',
   },
-  icon: {
-    fontSize: 16,
-    width: 40,
-  },
   number: {
-    fontSize: 16,
+    fontSize: heightPercentageToDP(1.8),
   },
   textWrapper: {
     flex: 1,
   },
   input: {
-    lineHeight: 22,
-    fontSize: 16,
+    fontSize: heightPercentageToDP(1.8),
   },
 });
 

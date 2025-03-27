@@ -1,69 +1,28 @@
 import React from 'react';
-import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
 import {View, Text, StyleSheet} from 'react-native';
-import PhoneInput from '../../Components/elements/PhoneInput';
-import AppButton from '../../Components/elements/Button';
-import {Spacer} from '../../Components/elements/Spacer';
-import {Controller, useForm} from 'react-hook-form';
-import {ErrorText} from '../../Components/elements/ErrorText';
-import {SocialForm} from '../../Components/Sections/SocialForm';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
-import { OnBoardingLayout } from '../../Components/Layout/OnBoardingLayout';
+import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
+import AppButton from '../../Components/elements/Button';
+import {Spacer} from '../../Components/elements/Spacer';
+import {OnBoardingLayout} from '../../Components/Layout/OnBoardingLayout';
+import {SignUpForm} from '../../Components/Sections/SignUpForm';
+import {SocialForm} from '../../Components/Sections/SocialForm';
 
 interface OnBoardingScreenProps {
   navigation: OnBoardingStackNavigationProp<'SignUpScreen'>;
 }
 
-interface SignUpData {
-  phone: string;
-}
-
 export const SignUpScreen: React.FC<OnBoardingScreenProps> = ({navigation}) => {
-  const {
-    control,
-    handleSubmit,
-    formState: {errors},
-  } = useForm<SignUpData>();
-
-  const onButtonPress = (data: SignUpData) => {
-    console.log(data);
-  };
-
   const goLogin = () => {
     navigation.navigate('SignInScreen');
   };
 
   return (
-    <OnBoardingLayout>
-      <Text style={styles.header}>Lets Get Started</Text>
-      <Spacer />
-      <Controller
-        control={control}
-        name="phone"
-        rules={{
-          required: 'Phone number is required',
-          minLength: {
-            value: 10,
-            message: 'Phone number must be at least 10 digits',
-          },
-        }}
-        render={({field: {onChange, value}}) => (
-          <>
-            <PhoneInput
-              label="Enter your Phone Number"
-              value={value}
-              onChangeText={onChange}
-              error={!!errors.phone}
-            />
-          </>
-        )}
-      />
-      {errors.phone && <ErrorText>{errors.phone?.message}</ErrorText>}
-      <Spacer />
-      <AppButton onPress={handleSubmit(onButtonPress)}>Continue</AppButton>
+    <OnBoardingLayout header={"Let's get Started!"}>
+      <SignUpForm />
       <Spacer />
       <View style={styles.wrapperLines}>
         <View style={styles.line} />

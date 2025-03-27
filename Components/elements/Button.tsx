@@ -3,7 +3,6 @@ import {StyleSheet} from 'react-native';
 import {Button} from 'react-native-paper';
 import {
   heightPercentageToDP,
-  widthPercentageToDP,
 } from 'react-native-responsive-screen';
 
 interface AppButtonProps extends React.ComponentProps<typeof Button> {
@@ -36,15 +35,11 @@ const styles = StyleSheet.create({
     borderRadius: heightPercentageToDP(6),
   },
   label: {
-    // TODO: review the difference between hp and native value
-    // fontSize: heightPercentageToDP(2),
-    fontSize: 16,
+    fontSize: heightPercentageToDP(1.8),
   },
   buttonContent: {
-    paddingTop: heightPercentageToDP(2),
-    paddingBottom: heightPercentageToDP(2),
-    paddingLeft: widthPercentageToDP(6),
-    paddingRight: widthPercentageToDP(6),
+    paddingTop: heightPercentageToDP(1.2),
+    paddingBottom: heightPercentageToDP(1.2),
   },
 });
 
@@ -59,7 +54,7 @@ const intent = StyleSheet.create({
     //
   },
   secondary: {
-    //
+    backgroundColor: '#43C769',
   },
 });
 
