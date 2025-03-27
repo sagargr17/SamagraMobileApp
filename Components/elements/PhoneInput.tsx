@@ -1,8 +1,7 @@
 import React from 'react';
-import {StyleSheet, TextInput, View, Image} from 'react-native';
-import {Text} from 'react-native';
-import {Logos} from '../../Assets/SVG/Exports/Exports';
+import {StyleSheet, TextInput, View, Text} from 'react-native';
 import {heightPercentageToDP, widthPercentageToDP} from 'react-native-responsive-screen';
+import {Logos} from '../../Assets/SVG/Exports/Exports';
 
 interface PhoneInputProps extends React.ComponentProps<typeof TextInput> {
   label?: string;
@@ -52,7 +51,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: heightPercentageToDP(1.8),
     color: '#2D2D2D',
-    marginBottom: heightPercentageToDP(1.4),
+    marginBottom: heightPercentageToDP(1),
   },
   wrapper: {
     flexDirection: 'row',

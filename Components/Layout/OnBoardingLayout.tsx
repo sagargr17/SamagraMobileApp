@@ -8,11 +8,11 @@ export const OnBoardingLayout = ({
   header,
 }: {
   children: React.ReactNode;
-  header: string;
+  header?: string;
 }) => {
   return (
     <View style={styles.wrapper}>
-      <Text style={styles.header}>{header}</Text>
+      {header && <Text style={styles.header}>{header}</Text>}
       {children}
     </View>
   );

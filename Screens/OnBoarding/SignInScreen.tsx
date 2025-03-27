@@ -1,16 +1,16 @@
 import React from 'react';
+import {View, Text, StyleSheet, Pressable} from 'react-native';
+import {TextInput} from 'react-native-paper';
 import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
-import {View, Text, StyleSheet} from 'react-native';
+import {Controller, useForm} from 'react-hook-form';
+import {heightPercentageToDP} from 'react-native-responsive-screen';
+import Authenticator from '../../Client/Token/Authenticator';
 import AppButton from '../../Components/elements/Button';
 import {Spacer} from '../../Components/elements/Spacer';
-import {Controller, useForm} from 'react-hook-form';
-import {ErrorText} from '../../Components/elements/ErrorText';
-import {TextInput} from 'react-native-paper';
-import {Link} from '@react-navigation/native';
-import Authenticator from '../../Client/Token/Authenticator';
-import {heightPercentageToDP} from 'react-native-responsive-screen';
-import {SocialForm} from '../../Components/Sections/SocialForm';
 import {OnBoardingLayout} from '../../Components/Layout/OnBoardingLayout';
+import {SocialForm} from '../../Components/Sections/SocialForm';
+import {ContinueDivider} from '../../Components/Sections/ContinueDivider';
+import {ErrorText} from '../../Components/elements/ErrorText';
 
 interface SignInScreenProps {
   navigation: OnBoardingStackNavigationProp<'SignUpScreen'>;
@@ -36,13 +36,13 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
 
   return (
     <OnBoardingLayout>
-      <Text style={styles.header}>Login With UserName</Text>
+      <Text style={styles.header}>Login With Email</Text>
       <Spacer />
       <Controller
         control={control}
         name="userName"
         rules={{
-          required: 'UserName address is required',
+          required: 'Username address is required',
         }}
         render={({field: {onChange, value}}) => (
           <View>
@@ -101,21 +101,17 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
       {errors.password && <ErrorText>{errors.password?.message}</ErrorText>}
       <Spacer />
       <View style={styles.extra}>
-        <Link style={styles.extraLink} screen={'OtpScreen'}>
-          Forgot Password?
-        </Link>
-        <Link style={styles.extraLink} screen={'SignUpScreen'}>
-          Don't have an Account?
-        </Link>
+        <Pressable onPress={() => navigation.navigate('OtpScreen')}>
+          <Text style={styles.extraLink}>Forgot Password?</Text>
+        </Pressable>
+        <Pressable onPress={() => navigation.navigate('SignUpScreen')}>
+          <Text style={styles.extraLink}>Don't have an Account?</Text>
+        </Pressable>
       </View>
       <Spacer />
       <AppButton onPress={handleSubmit(signIn)}>Login</AppButton>
       <Spacer />
-      <View style={styles.wrapperLines}>
-        <View style={styles.line} />
-        <Text style={styles.content}>OR CONTINUE WITH</Text>
-        {/* <View style={styles.line} /> */}
-      </View>
+      <ContinueDivider />
       <Spacer />
       <SocialForm />
     </OnBoardingLayout>
@@ -124,31 +120,10 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
 
 const styles = StyleSheet.create({
   header: {
-    fontSize: 39,
+    fontSize: heightPercentageToDP(2),
     fontWeight: 600,
-    marginBottom: 30,
+    textAlign: 'center',
     color: '#1D1D1D',
-  },
-  wrapper: {
-    flex: 1,
-    paddingTop: 100,
-    paddingLeft: 20,
-    paddingRight: 20,
-    backgroundColor: '#FDFDFD',
-  },
-  wrapperLines: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 20,
-  },
-  line: {
-    flex: 1,
-    borderTopWidth: 1,
-    borderColor: '#C0C0C0',
-  },
-  content: {
-    fontSize: 14,
-    color: '#787878',
   },
   extra: {
     flexDirection: 'row',
@@ -156,18 +131,19 @@ const styles = StyleSheet.create({
   },
   extraLink: {
     color: '#2A56FE',
-    fontSize: 16,
+    fontSize: heightPercentageToDP(1.6),
   },
   // Input
   inputLabel: {
-    fontSize: 14,
-    marginBottom: 8,
+    fontSize: heightPercentageToDP(1.8),
+    color: '#2D2D2D',
+    marginBottom: heightPercentageToDP(1),
   },
   inputWrapper: {
     overflow: 'hidden',
     borderWidth: 1,
     borderColor: '#C0C0C0',
-    borderRadius: 8,
+    borderRadius: heightPercentageToDP(1),
   },
   input: {
     backgroundColor: '#FDFDFD',

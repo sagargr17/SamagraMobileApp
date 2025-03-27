@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Pressable} from 'react-native';
 import {Spacer} from '../../Components/elements/Spacer';
 import {Link} from '@react-navigation/native';
 import {OtpInput} from 'react-native-otp-entry';
@@ -8,7 +8,7 @@ import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
-import { OnBoardingLayout } from '../../Components/Layout/OnBoardingLayout';
+import {OnBoardingLayout} from '../../Components/Layout/OnBoardingLayout';
 
 interface OptScreenProps {
   navigation: OnBoardingStackNavigationProp<'OtpScreen'>;
@@ -39,14 +39,12 @@ export const OtpScreen: React.FC<OptScreenProps> = ({navigation}) => {
   }, [timer]);
 
   return (
-    <OnBoardingLayout>
-      <Text style={styles.header}>Verify 6-digit OTP</Text>
+    <OnBoardingLayout header="Verify 6-digit OTP">
       <Text style={styles.subHeader}>
         1 Code sent to +44********456 phone number unless you already have an
         account{' '}
       </Text>
       <Spacer />
-      <Text>{otp}</Text>
       <OtpInput
         disabled={disabled}
         numberOfDigits={6}
@@ -70,10 +68,9 @@ export const OtpScreen: React.FC<OptScreenProps> = ({navigation}) => {
         <Text style={styles.resend}>Re-send OTP</Text>
       )}
       <Spacer height={10} />
-      {/* TODO: profiling */}
-      <Link style={styles.extraLink} screen={'SignInScreen'}>
-        Already have an account? Log in
-      </Link>
+      <Pressable onPress={() => navigation.navigate('SignInScreen')}>
+        <Text style={styles.extraLink}>Already have an account? Log in</Text>
+      </Pressable>
     </OnBoardingLayout>
   );
 };
@@ -97,14 +94,15 @@ const styles = StyleSheet.create({
     color: '#787878',
   },
   timer: {
-    fontSize: heightPercentageToDP(1.7),
+    fontSize: heightPercentageToDP(1.6),
     color: '#2D2D2D',
   },
   extraLink: {
     color: '#2A56FE',
-    fontSize: heightPercentageToDP(2),
+    fontSize: heightPercentageToDP(1.6),
   },
   resend: {
     color: '#2A56FE',
+    fontSize: heightPercentageToDP(1.6),
   },
 });
