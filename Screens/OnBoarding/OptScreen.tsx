@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
-import {View, Text, StyleSheet, Pressable} from 'react-native';
-import {Spacer} from '../../Components/elements/Spacer';
-import {Link} from '@react-navigation/native';
 import {OtpInput} from 'react-native-otp-entry';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
+import {Text, StyleSheet, Pressable} from 'react-native';
+import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
 import {OnBoardingLayout} from '../../Components/Layout/OnBoardingLayout';
+import {Spacer} from '../../Components/elements/Spacer';
 
 interface OptScreenProps {
   navigation: OnBoardingStackNavigationProp<'OtpScreen'>;
@@ -33,9 +32,7 @@ export const OtpScreen: React.FC<OptScreenProps> = ({navigation}) => {
       setTimer(prev => prev - 1);
     }, 1000);
 
-    return () => {
-      clearInterval(interval);
-    };
+    return () => clearInterval(interval);
   }, [timer]);
 
   return (
@@ -52,8 +49,8 @@ export const OtpScreen: React.FC<OptScreenProps> = ({navigation}) => {
         onFilled={() => onOtpSet}
         theme={{
           pinCodeContainerStyle: {
-            width: 54,
-            height: 54,
+            width: widthPercentageToDP(12),
+            height: heightPercentageToDP(6),
             backgroundColor: '#EAEAEA',
           },
           filledPinCodeContainerStyle: {
@@ -91,11 +88,12 @@ const styles = StyleSheet.create({
   },
   subHeader: {
     fontSize: heightPercentageToDP(1.7),
+    // marginTop: heightPercentageToDP(-2),
     color: '#787878',
   },
   timer: {
-    fontSize: heightPercentageToDP(1.6),
     color: '#2D2D2D',
+    fontSize: heightPercentageToDP(1.6),
   },
   extraLink: {
     color: '#2A56FE',
