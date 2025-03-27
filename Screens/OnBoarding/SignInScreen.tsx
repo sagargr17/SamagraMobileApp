@@ -1,6 +1,5 @@
 import React from 'react';
 import {View, Text, StyleSheet, Pressable} from 'react-native';
-import {TextInput} from 'react-native-paper';
 import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
 import {Controller, useForm} from 'react-hook-form';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
@@ -11,6 +10,7 @@ import {OnBoardingLayout} from '../../Components/Layout/OnBoardingLayout';
 import {SocialForm} from '../../Components/Sections/SocialForm';
 import {ContinueDivider} from '../../Components/Sections/ContinueDivider';
 import {ErrorText} from '../../Components/elements/ErrorText';
+import {Input} from '../../Components/elements/Input';
 
 interface SignInScreenProps {
   navigation: OnBoardingStackNavigationProp<'SignUpScreen'>;
@@ -45,26 +45,12 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
           required: 'Username address is required',
         }}
         render={({field: {onChange, value}}) => (
-          <View>
-            <Text style={styles.inputLabel}>User Name</Text>
-            <View
-              style={[
-                styles.inputWrapper,
-                !!errors.userName && styles.inputError,
-              ]}>
-              <TextInput
-                placeholder="User Name"
-                mode="outlined"
-                outlineColor="transparent"
-                activeOutlineColor="transparent"
-                underlineColor="transparent"
-                activeUnderlineColor="transparent"
-                style={styles.input}
-                value={value}
-                onChangeText={onChange}
-              />
-            </View>
-          </View>
+          <Input
+            label="Username"
+            placeholder="Username"
+            value={value}
+            onChangeText={onChange}
+          />
         )}
       />
       {errors.userName && <ErrorText>{errors.userName?.message}</ErrorText>}
@@ -76,26 +62,12 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
           required: 'Password is required',
         }}
         render={({field: {onChange, value}}) => (
-          <View>
-            <Text style={styles.inputLabel}>Password</Text>
-            <View
-              style={[
-                styles.inputWrapper,
-                !!errors.password && styles.inputError,
-              ]}>
-              <TextInput
-                placeholder="Password"
-                mode="outlined"
-                outlineColor="transparent"
-                activeOutlineColor="transparent"
-                underlineColor="transparent"
-                activeUnderlineColor="transparent"
-                style={styles.input}
-                value={value}
-                onChangeText={onChange}
-              />
-            </View>
-          </View>
+          <Input
+            label="Password"
+            placeholder="Password"
+            value={value}
+            onChangeText={onChange}
+          />
         )}
       />
       {errors.password && <ErrorText>{errors.password?.message}</ErrorText>}
@@ -134,23 +106,5 @@ const styles = StyleSheet.create({
   extraLink: {
     color: '#2A56FE',
     fontSize: heightPercentageToDP(1.6),
-  },
-  // Input
-  inputLabel: {
-    fontSize: heightPercentageToDP(1.8),
-    color: '#2D2D2D',
-    marginBottom: heightPercentageToDP(1),
-  },
-  inputWrapper: {
-    overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: '#C0C0C0',
-    borderRadius: heightPercentageToDP(1),
-  },
-  input: {
-    backgroundColor: '#FDFDFD',
-  },
-  inputError: {
-    borderColor: 'red',
   },
 });
