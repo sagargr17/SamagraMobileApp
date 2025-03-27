@@ -1,9 +1,7 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import {Button} from 'react-native-paper';
-import {
-  heightPercentageToDP,
-} from 'react-native-responsive-screen';
+import {heightPercentageToDP} from 'react-native-responsive-screen';
 
 interface AppButtonProps extends React.ComponentProps<typeof Button> {
   color?: 'primary' | 'secondary' | 'light' | 'danger';
@@ -51,7 +49,7 @@ const intent = StyleSheet.create({
     backgroundColor: '#EC4B3C',
   },
   light: {
-    //
+    backgroundColor: '#a9bafd',
   },
   secondary: {
     backgroundColor: '#43C769',

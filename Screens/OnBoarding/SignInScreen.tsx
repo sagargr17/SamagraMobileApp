@@ -109,7 +109,9 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
         </Pressable>
       </View>
       <Spacer />
-      <AppButton onPress={handleSubmit(signIn)}>Login</AppButton>
+      <AppButton color="light" onPress={handleSubmit(signIn)}>
+        Login
+      </AppButton>
       <Spacer />
       <ContinueDivider />
       <Spacer />
