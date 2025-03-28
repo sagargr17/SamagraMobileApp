@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as types from './graphql';
-import {TypedDocumentNode as DocumentNode} from '@graphql-typed-document-node/core';
+import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 
 /**
  * Map of all GraphQL operations in the project.
@@ -14,11 +14,12 @@ import {TypedDocumentNode as DocumentNode} from '@graphql-typed-document-node/co
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
-  '\n  query GetPublicItems{\n    getPublicItems {\n      nodes {\n        name\n      }\n    }\n  }\n': typeof types.GetPublicItemsDocument;
+    "\n  query GetPublicItems{\n    getPublicItems {\n      nodes {\n        name\n      }\n    }\n  }\n": typeof types.GetPublicItemsDocument,
+    "\nquery GetPublicItemsById($id: String!) {\n  getPublicItems(id: $id) {\n    nodes {\n      name\n    }\n  }\n}\n": typeof types.GetPublicItemsByIdDocument,
 };
 const documents: Documents = {
-  '\n  query GetPublicItems{\n    getPublicItems {\n      nodes {\n        name\n      }\n    }\n  }\n':
-    types.GetPublicItemsDocument,
+    "\n  query GetPublicItems{\n    getPublicItems {\n      nodes {\n        name\n      }\n    }\n  }\n": types.GetPublicItemsDocument,
+    "\nquery GetPublicItemsById($id: String!) {\n  getPublicItems(id: $id) {\n    nodes {\n      name\n    }\n  }\n}\n": types.GetPublicItemsByIdDocument,
 };
 
 /**
@@ -38,13 +39,14 @@ export function gql(source: string): unknown;
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(
-  source: '\n  query GetPublicItems{\n    getPublicItems {\n      nodes {\n        name\n      }\n    }\n  }\n',
-): (typeof documents)['\n  query GetPublicItems{\n    getPublicItems {\n      nodes {\n        name\n      }\n    }\n  }\n'];
+export function gql(source: "\n  query GetPublicItems{\n    getPublicItems {\n      nodes {\n        name\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetPublicItems{\n    getPublicItems {\n      nodes {\n        name\n      }\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\nquery GetPublicItemsById($id: String!) {\n  getPublicItems(id: $id) {\n    nodes {\n      name\n    }\n  }\n}\n"): (typeof documents)["\nquery GetPublicItemsById($id: String!) {\n  getPublicItems(id: $id) {\n    nodes {\n      name\n    }\n  }\n}\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};
 }
 
-export type DocumentType<TDocumentNode extends DocumentNode<any, any>> =
-  TDocumentNode extends DocumentNode<infer TType, any> ? TType : never;
+export type DocumentType<TDocumentNode extends DocumentNode<any, any>> = TDocumentNode extends DocumentNode<  infer TType,  any>  ? TType  : never;

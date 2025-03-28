@@ -36,9 +36,13 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
 
   const {data, loading, error} = useQuery(getPublicItems);
 
-  const {data: x, loading: y, error: ww} = useQuery(getPublicItemsById);
+  // const {
+  //   data: x,
+  //   loading: y,
+  //   error: ww,
+  // } = useQuery(getPublicItemsById, {variables: {id: ''}});
 
-  console.log('DATA', data?.getPublicItems?.nodes);
+  // console.log('DATA', x?.getPublicItems?.nodes);
 
   // console.log('DATA', data? );
 
