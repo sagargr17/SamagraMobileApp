@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import {Button} from 'react-native-paper';
+import {heightPercentageToDP} from 'react-native-responsive-screen';
 
 interface AppButtonProps extends React.ComponentProps<typeof Button> {
   color?: 'primary' | 'secondary' | 'light' | 'danger';
@@ -17,6 +18,7 @@ const AppButton = ({
     <Button
       textColor={mode === 'outlined' ? 'black' : 'white'}
       mode={mode}
+      labelStyle={styles.label}
       style={[styles.button, mode !== 'outlined' && intent[color]]}
       contentStyle={styles.buttonContent}
       onPress={onPress}
@@ -28,14 +30,14 @@ const AppButton = ({
 
 const styles = StyleSheet.create({
   button: {
-    fontSize: 16,
-    borderRadius: 50,
+    borderRadius: heightPercentageToDP(6),
+  },
+  label: {
+    fontSize: heightPercentageToDP(1.8),
   },
   buttonContent: {
-    paddingTop: 16,
-    paddingBottom: 16,
-    paddingLeft: 24,
-    paddingRight: 24,
+    paddingTop: heightPercentageToDP(1.2),
+    paddingBottom: heightPercentageToDP(1.2),
   },
 });
 
@@ -47,10 +49,10 @@ const intent = StyleSheet.create({
     backgroundColor: '#EC4B3C',
   },
   light: {
-    //
+    backgroundColor: '#a9bafd',
   },
   secondary: {
-    //
+    backgroundColor: '#43C769',
   },
 });
 
