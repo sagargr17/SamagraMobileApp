@@ -2,10 +2,10 @@ import React from 'react';
 import {View, StyleSheet, AppState} from 'react-native';
 import {TextInput, Button, Text} from 'react-native-paper';
 import {useForm, Controller} from 'react-hook-form';
-import Authenticator from '../../Client/Token/Authenticator';
+import Authenticator from '../../client/Token/Authenticator';
 import {RootStackNavigationProp} from '../../Navigators/RootStackNavigator';
-import {accessTokenGenerator} from '../../Client/Token/AccessTokenGenerator';
-import {getTokens} from '../../Client/Token/TokenAccess';
+import {accessTokenGenerator} from '../../client/Token/AccessTokenGenerator';
+import {getTokens} from '../../client/Token/TokenAccess';
 
 interface LoginFormProps {
   onLogin?: (data: LoginData) => void;

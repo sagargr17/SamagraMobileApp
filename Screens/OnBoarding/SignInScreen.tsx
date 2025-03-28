@@ -14,7 +14,7 @@ import {Controller, useForm} from 'react-hook-form';
 import {ErrorText} from '../../Components/Elements/ErrorText';
 import {TextInput} from 'react-native-paper';
 import {Link} from '@react-navigation/native';
-import Authenticator from '../../Client/Token/Authenticator';
+import Authenticator from '../../client/Token/Authenticator';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
 
 interface SignInScreenProps {

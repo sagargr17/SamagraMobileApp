@@ -9,7 +9,7 @@ import {
 import {GRAPHQL_ENDPOINT} from '../../Constants/SamagraConstants/SamagraEndpoints';
 
 export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
-  uri: 'http://api.samagranepal.com/graphql/',
+  uri: GRAPHQL_ENDPOINT,
   headers: {
     'content-type': 'application/json',
     // "Authorization": token

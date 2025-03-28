@@ -4,9 +4,9 @@ import React, {useEffect, useState} from 'react';
 import {AppState, useColorScheme} from 'react-native';
 import {PaperProvider} from 'react-native-paper';
 import {Provider, useSelector} from 'react-redux';
-import {accessTokenGenerator} from './Client/Token/AccessTokenGenerator';
-import {getTokens} from './Client/Token/TokenAccess';
-import {isTokenExpired} from './Client/Token/TokeValidator';
+import {accessTokenGenerator} from './client/Token/AccessTokenGenerator';
+import {getTokens} from './client/Token/TokenAccess';
+import {isTokenExpired} from './client/Token/TokeValidator';
 import {GRAPHQL_ENDPOINT} from './Constants/SamagraConstants/SamagraEndpoints';
 import {useTokenRefreshTimer} from './CustomHooks/useTokenRefreshTimer';
 import {RootStack} from './Navigators/RootStackNavigator';
@@ -65,7 +65,7 @@ function App(): React.JSX.Element {
   AppState.addEventListener('focus', async () => {
     const {userStatus, accessToken, refreshToken} = await getTokens();
 
-    console.log('User token status ', userStatus, accessToken, refreshToken);
+    // console.log('User token status ', userStatus, accessToken, refreshToken);
 
     if (userStatus && userStatus === 'true') {
       const refreshTimeCollector = await isTokennExpireHandle();

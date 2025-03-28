@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from 'react';
-import {clearTokens, getTokens} from '../Client/Token/TokenAccess';
-import {isTokenExpired} from '../Client/Token/TokeValidator';
-import {accessTokenGenerator} from '../Client/Token/AccessTokenGenerator';
+import {clearTokens, getTokens} from '../client/Token/TokenAccess';
+import {isTokenExpired} from '../client/Token/TokeValidator';
+import {accessTokenGenerator} from '../client/Token/AccessTokenGenerator';
 
 type useTokenRefreshTimer = () => React.FC;
 export function useTokenRefreshTimer(refreshingTime: number) {
