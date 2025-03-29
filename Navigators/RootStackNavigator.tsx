@@ -58,7 +58,7 @@ export const RootStack: React.FC = () => {
               ])
             : screenBuilder([
                 {screenName: 'OnBoarding', component: OnBoardingStackNavigator},
-                {screenName: 'TestScreen', component: SplashScreen},
+                // {screenName: 'TestScreen', component: SplashScreen}, //This Screen is for testing the codes
               ])}
         </RootStackBuilder.Navigator>
       ) : (

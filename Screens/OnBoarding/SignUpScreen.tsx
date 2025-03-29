@@ -3,9 +3,9 @@ import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingSt
 import {OnBoardingLayout} from '../../Components/Layout/OnBoardingLayout';
 import {SignUpForm} from '../../Components/Sections/SignUp/SignUpForm';
 import {SocialForm} from '../../Components/Sections/SocialForm';
-import { ContinueDivider } from '../../Components/Sections/ContinueDivider';
-import AppButton from '../../Components/Elements/Button';
+import {ContinueDivider} from '../../Components/Sections/ContinueDivider';
 import {Spacer} from '../../Components/Elements/Spacer';
+import AppButton from '../../Components/Elements/Button';
 
 interface OnBoardingScreenProps {
   navigation: OnBoardingStackNavigationProp<'SignUpScreen'>;
