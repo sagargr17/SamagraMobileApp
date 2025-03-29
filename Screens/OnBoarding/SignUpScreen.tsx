@@ -1,16 +1,11 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {
-  heightPercentageToDP,
-  widthPercentageToDP,
-} from 'react-native-responsive-screen';
 import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
-import AppButton from '../../Components/elements/Button';
-import {Spacer} from '../../Components/elements/Spacer';
 import {OnBoardingLayout} from '../../Components/Layout/OnBoardingLayout';
 import {SignUpForm} from '../../Components/Sections/SignUp/SignUpForm';
 import {SocialForm} from '../../Components/Sections/SocialForm';
 import { ContinueDivider } from '../../Components/Sections/ContinueDivider';
+import AppButton from '../../Components/Elements/Button';
+import {Spacer} from '../../Components/Elements/Spacer';
 
 interface OnBoardingScreenProps {
   navigation: OnBoardingStackNavigationProp<'SignUpScreen'>;

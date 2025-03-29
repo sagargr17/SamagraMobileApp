@@ -32,7 +32,7 @@ export async function isTokenExpired() {
     const decodedToken = await parseJwt(accessToken);
     // console.log('DEconding Token', decodedToken);
     const currentTime = Math.floor(Date.now() / 1000); // curent ko time in seconds
-    console.log('currentTime', currentTime, decodedToken.exp);
+    console.log('currentTime ExpireTime', currentTime, decodedToken.exp);
     return decodedToken.exp
       ? decodedToken.exp > currentTime
         ? decodedToken.exp - currentTime

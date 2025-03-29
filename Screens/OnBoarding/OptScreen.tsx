@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
+import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
+import {Text, StyleSheet, Pressable} from 'react-native';
+import {Spacer} from '../../Components/Elements/Spacer';
 import {OtpInput} from 'react-native-otp-entry';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
-import {Text, StyleSheet, Pressable} from 'react-native';
-import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
 import {OnBoardingLayout} from '../../Components/Layout/OnBoardingLayout';
-import {Spacer} from '../../Components/elements/Spacer';
 
 interface OptScreenProps {
   navigation: OnBoardingStackNavigationProp<'OtpScreen'>;

@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {getTokens} from '../../Client/Token/TokenAccess';
+import {getTokens} from '../../client/Token/TokenAccess';
 
 interface User {
   id: number;

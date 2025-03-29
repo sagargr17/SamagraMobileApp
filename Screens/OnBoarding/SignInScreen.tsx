@@ -1,16 +1,24 @@
 import React from 'react';
-import {View, Text, StyleSheet, Pressable} from 'react-native';
+import {Pressable} from 'react-native';
 import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
-import {Controller, useForm} from 'react-hook-form';
-import {heightPercentageToDP} from 'react-native-responsive-screen';
-import Authenticator from '../../Client/Token/Authenticator';
-import AppButton from '../../Components/elements/Button';
-import {Spacer} from '../../Components/elements/Spacer';
 import {OnBoardingLayout} from '../../Components/Layout/OnBoardingLayout';
 import {SocialForm} from '../../Components/Sections/SocialForm';
 import {ContinueDivider} from '../../Components/Sections/ContinueDivider';
-import {ErrorText} from '../../Components/elements/ErrorText';
-import {Input} from '../../Components/elements/Input';
+import {Input} from '../../Components/Elements/Input';
+import {
+  View,
+  Text,
+  StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+} from 'react-native';
+import AppButton from '../../Components/Elements/Button';
+import {Spacer} from '../../Components/Elements/Spacer';
+import {Controller, useForm} from 'react-hook-form';
+import {ErrorText} from '../../Components/Elements/ErrorText';
+import Authenticator from '../../client/Token/Authenticator';
+import {heightPercentageToDP} from 'react-native-responsive-screen';
 
 interface SignInScreenProps {
   navigation: OnBoardingStackNavigationProp<'SignUpScreen'>;
@@ -35,64 +43,71 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
   };
 
   return (
-    <OnBoardingLayout>
-      <Text style={styles.header}>Login With Email</Text>
-      <Spacer />
-      <Controller
-        control={control}
-        name="userName"
-        rules={{
-          required: 'Username address is required',
-        }}
-        render={({field: {onChange, value}}) => (
-          <Input
-            label="Username"
-            placeholder="Username"
-            value={value}
-            onChangeText={onChange}
+    <KeyboardAvoidingView
+      style={styles.keyboardContainer}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <ScrollView automaticallyAdjustKeyboardInsets={true}>
+        <OnBoardingLayout>
+          <Text style={styles.header}>Login With Email</Text>
+          <Spacer />
+          <Controller
+            control={control}
+            name="userName"
+            rules={{
+              required: 'UserName address is required',
+            }}
+            render={({field: {onChange, value}}) => (
+              <Input
+                label="Username"
+                placeholder="Username"
+                value={value}
+                onChangeText={onChange}
+              />
+            )}
           />
-        )}
-      />
-      {errors.userName && <ErrorText>{errors.userName?.message}</ErrorText>}
-      <Spacer height={20} />
-      <Controller
-        control={control}
-        name="password"
-        rules={{
-          required: 'Password is required',
-        }}
-        render={({field: {onChange, value}}) => (
-          <Input
-            label="Password"
-            placeholder="Password"
-            value={value}
-            onChangeText={onChange}
+          {errors.userName && <ErrorText>{errors.userName?.message}</ErrorText>}
+          <Spacer height={20} />
+          <Controller
+            control={control}
+            name="password"
+            rules={{
+              required: 'Password is required',
+            }}
+            render={({field: {onChange, value}}) => (
+              <Input
+                label="Password"
+                placeholder="Password"
+                value={value}
+                onChangeText={onChange}
+              />
+            )}
           />
-        )}
-      />
-      {errors.password && <ErrorText>{errors.password?.message}</ErrorText>}
-      <Spacer />
-      <View style={styles.extra}>
-        <Pressable onPress={() => navigation.navigate('OtpScreen')}>
-          <Text style={styles.extraLink}>Forgot Password?</Text>
-        </Pressable>
-        <Pressable onPress={() => navigation.navigate('SignUpScreen')}>
-          <Text style={styles.extraLink}>Don't have an Account?</Text>
-        </Pressable>
-      </View>
-      <Spacer />
-      <AppButton color="light" onPress={handleSubmit(signIn)}>
-        Login
-      </AppButton>
-      <Spacer />
-      <ContinueDivider />
-      <Spacer />
-      <SocialForm />
-    </OnBoardingLayout>
+          {errors.password && <ErrorText>{errors.password?.message}</ErrorText>}
+          <Spacer />
+          <View style={styles.extra}>
+            <Pressable onPress={() => navigation.navigate('OtpScreen')}>
+              <Text style={styles.extraLink}>Forgot Password?</Text>
+            </Pressable>
+            <Pressable onPress={() => navigation.navigate('SignUpScreen')}>
+              <Text style={styles.extraLink}>Don't have an Account?</Text>
+            </Pressable>
+          </View>
+          <Spacer />
+          <AppButton onPress={handleSubmit(signIn)}>Login</AppButton>
+          <Spacer />
+          <ContinueDivider />
+          <Spacer />
+          <SocialForm />
+        </OnBoardingLayout>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
+  keyboardContainer: {
+    flex: 1,
+  },
   header: {
     fontSize: heightPercentageToDP(2),
     fontWeight: 600,
