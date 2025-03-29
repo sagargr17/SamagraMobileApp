@@ -9,6 +9,7 @@ import {ServiceStackNavigator} from '../Stack/ServiceStackNavigator';
 type BottomTabParamList = {
   Home: undefined;
   Service: undefined;
+  More: undefined;
 };
 
 export const BottomTabBuilder = createBottomTabNavigator<BottomTabParamList>();
@@ -41,10 +42,15 @@ export const BottomTabNavigator: React.FC = () => {
       screenOptions={{
         // headerStyle: {height: 20},
         header: () => null,
+        tabBarStyle: {
+          // backgroundColor: ,
+          borderWidth: 0,
+        },
       }}>
       {screenBuilder([
         {screenName: 'Home', component: HomeStackNavigator},
         {screenName: 'Service', component: ServiceStackNavigator},
+        {screenName: 'More', component: ServiceStackNavigator},
       ])}
     </BottomTabBuilder.Navigator>
   );
