@@ -7,8 +7,15 @@ import {
 } from 'react-native-responsive-screen';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
 import AppButton from '../../Components/Elements/Button';
+import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
 
-export const ProfileSetupScreen = () => {
+interface ProfileSetupProps {
+  navigation: OnBoardingStackNavigationProp<'ProfileSetupScreen'>;
+}
+
+export const ProfileSetupScreen: React.FC<ProfileSetupProps> = ({
+  navigation,
+}) => {
   const {SamagraLogo} = Logos;
   return (
     <OnBoardingLayout>
@@ -29,7 +36,10 @@ export const ProfileSetupScreen = () => {
         </View>
         <View style={styles.content}>
           <AppButton color="secondary">Continue</AppButton>
-          <Pressable onPress={() => {}}>
+          <Pressable
+            onPress={() => {
+              navigation.navigate('SignInScreen');
+            }}>
             <Text style={styles.text}>Already Have an Account? Log In Now</Text>
           </Pressable>
         </View>

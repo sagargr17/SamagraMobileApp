@@ -26,7 +26,9 @@ export const SignUpScreen: React.FC<OnBoardingScreenProps> = ({navigation}) => {
         Continue with Email
       </AppButton>
       <Spacer />
-      <SocialForm />
+      <SocialForm
+        onAppleClick={() => navigation.navigate('ProfileSetupScreen')}
+      />
     </OnBoardingLayout>
   );
 };

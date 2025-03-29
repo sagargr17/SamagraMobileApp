@@ -34,7 +34,8 @@ const screenBuilder = (
       key={item.screenName}
       navigationKey="LoginFormKey"
       name={item.screenName}
-      component={item.component}></RootStackBuilder.Screen>
+      component={item.component}
+    />
   ));
 };
 
@@ -62,7 +63,7 @@ export const RootStack: React.FC = () => {
               ])}
         </RootStackBuilder.Navigator>
       ) : (
-        <ActivityIndicator></ActivityIndicator>
+        <ActivityIndicator />
       )}
     </>
   );

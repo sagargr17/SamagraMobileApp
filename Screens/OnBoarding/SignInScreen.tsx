@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    fontSize: heightPercentageToDP(2),
+    fontSize: heightPercentageToDP(2.2),
     fontWeight: 600,
     textAlign: 'center',
     color: '#1D1D1D',

@@ -6,12 +6,16 @@ import {
 } from 'react-native-responsive-screen';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
 
-export const SocialForm = () => {
+interface SocialProps {
+  onAppleClick?: () => void;
+}
+
+export const SocialForm: React.FC<SocialProps> = ({onAppleClick}) => {
   const {AppleLogo, GoogleLogo} = Logos;
   return (
     <View style={styles.social}>
       <View style={styles.socialItem}>
-        <Pressable onPress={() => {}}>
+        <Pressable onPress={onAppleClick}>
           <AppleLogo width={heightPercentageToDP(4)} />
         </Pressable>
       </View>

@@ -23,11 +23,12 @@ const styles = StyleSheet.create({
     fontSize: heightPercentageToDP(4),
     fontWeight: 700,
     marginBottom: heightPercentageToDP(4),
+    paddingTop: heightPercentageToDP(4),
     color: '#1D1D1D',
   },
   wrapper: {
     flex: 1,
-    paddingTop: heightPercentageToDP(8),
+    paddingTop: heightPercentageToDP(1.6),
     paddingLeft: heightPercentageToDP(2),
     paddingRight: heightPercentageToDP(2),
     backgroundColor: '#FDFDFD',

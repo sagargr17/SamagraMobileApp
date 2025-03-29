@@ -7,12 +7,14 @@ import {GetStartedScreen} from '../../Screens/OnBoarding/GetStartedScreen';
 import {SignUpScreen} from '../../Screens/OnBoarding/SignUpScreen';
 import {SignInScreen} from '../../Screens/OnBoarding/SignInScreen';
 import {OtpScreen} from '../../Screens/OnBoarding/OptScreen';
+import {ProfileSetupScreen} from '../../Screens/OnBoarding/ProfileSetupScreen';
 
 type OnBoardingStackParamList = {
   GetStartedScreen: undefined;
   SignUpScreen: undefined;
   SignInScreen: undefined;
   OtpScreen: undefined;
+  ProfileSetupScreen: undefined;
 };
 
 // Its The builder with the
@@ -47,13 +49,16 @@ export const OnBoardingStackNavigator: React.FC = () => {
     <>
       <OnBoardingStackBuilder.Navigator
         screenOptions={{
-          header: () => null,
+          headerTitle: '',
+          headerTransparent: true,
+          headerBackButtonDisplayMode: 'minimal',
         }}>
         {screenBuilder([
           {screenName: 'GetStartedScreen', component: GetStartedScreen},
-          {screenName: 'SignUpScreen', component: SignUpScreen},
           {screenName: 'SignInScreen', component: SignInScreen},
+          {screenName: 'SignUpScreen', component: SignUpScreen},
           {screenName: 'OtpScreen', component: OtpScreen},
+          {screenName: 'ProfileSetupScreen', component: ProfileSetupScreen},
         ])}
       </OnBoardingStackBuilder.Navigator>
     </>
