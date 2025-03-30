@@ -18,40 +18,14 @@ interface HomeScreenProps {
   navigation: HomeStackNavigationProp<'HomeScreen'>;
 }
 
-// const getPublicItemsss = gql`
-//   query {
-//     getPublicItems {
-//       nodes {
-//         name
-//       }
-//     }
-//   }
-// `;
-
 export const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
   // Testing Function , will be handle sepratedly for efficiendy in future
   const handleGoToHomeDetailScreen = () => {
     navigation.navigate('HomeDetailScreen');
   };
 
-  const {data, loading, error} = useQuery(getPublicItems);
-
-  // const {
-  //   data: x,
-  //   loading: y,
-  //   error: ww,
-  // } = useQuery(getPublicItemsById, {variables: {id: ''}});
-
-  // console.log('DATA', x?.getPublicItems?.nodes);
-
-  // console.log('DATA', data? );
-
-  // const {data, loading, error} = useGraphQLQuery<getPublicItems, GraphQLError>({
-  //   client,
-  //   query: getPublicItems,
-
-  //   variables: {},
-  // });
+  // const {data, loading, error} = useQuery(getPublicItems);
+  // console.log('DATAAA', data);
 
   return (
     <>
