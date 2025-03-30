@@ -11,6 +11,7 @@ const AppButton = ({
   children,
   color = 'primary',
   mode,
+  disabled,
   onPress,
   ...props
 }: AppButtonProps) => {
@@ -19,7 +20,11 @@ const AppButton = ({
       textColor={mode === 'outlined' ? 'black' : 'white'}
       mode={mode}
       labelStyle={styles.label}
-      style={[styles.button, mode !== 'outlined' && intent[color]]}
+      style={[
+        styles.button,
+        mode !== 'outlined' && intent[color],
+        disabled && styles.disabled,
+      ]}
       contentStyle={styles.buttonContent}
       onPress={onPress}
       {...props}>
@@ -38,6 +43,9 @@ const styles = StyleSheet.create({
   buttonContent: {
     paddingTop: heightPercentageToDP(1.2),
     paddingBottom: heightPercentageToDP(1.2),
+  },
+  disabled: {
+    opacity: 0.5,
   },
 });
 

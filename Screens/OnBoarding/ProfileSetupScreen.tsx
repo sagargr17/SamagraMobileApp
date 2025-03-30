@@ -35,7 +35,11 @@ export const ProfileSetupScreen: React.FC<ProfileSetupProps> = ({
           />
         </View>
         <View style={styles.content}>
-          <AppButton color="secondary">Continue</AppButton>
+          <AppButton
+            color="secondary"
+            onPress={() => navigation.navigate('ProfileCreateScreen')}>
+            Continue
+          </AppButton>
           <Pressable
             onPress={() => {
               navigation.navigate('SignInScreen');

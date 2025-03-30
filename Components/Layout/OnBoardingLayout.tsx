@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import {Text} from 'react-native-paper';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
 
@@ -11,10 +11,12 @@ export const OnBoardingLayout = ({
   header?: string;
 }) => {
   return (
-    <View style={styles.wrapper}>
-      {header && <Text style={styles.header}>{header}</Text>}
-      {children}
-    </View>
+    <ScrollView>
+      <View style={styles.wrapper}>
+        {header && <Text style={styles.header}>{header}</Text>}
+        {children}
+      </View>
+    </ScrollView>
   );
 };
 

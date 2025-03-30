@@ -18,7 +18,7 @@ export const Input: React.FC<InputProps> = ({
 }) => {
   return (
     <View>
-      <Text style={styles.inputLabel}>{label}</Text>
+      {label && <Text style={styles.inputLabel}>{label}</Text>}
       <View style={[styles.inputWrapper, !!error && styles.inputError]}>
         <TextInput
           placeholder={placeholder}
