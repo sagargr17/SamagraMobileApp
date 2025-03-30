@@ -1,14 +1,30 @@
-import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import React, {useEffect} from 'react';
+import {InteractionManager, StyleSheet, View} from 'react-native';
 import {Text} from 'react-native-paper';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
 import {MotiView} from 'moti';
+import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
 
-interface SplashScreenProps {}
+interface SplashScreenProps {
+  navigation: OnBoardingStackNavigationProp<'SplashScreen'>;
+}
 
-export const SplashScreen: React.FC<SplashScreenProps> = ({}) => {
+export const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
   const {SamagraLogo} = Logos;
+
+  useEffect(() => {
+    InteractionManager.runAfterInteractions(() => {
+      // Simulate a delay or animation completion
+      setTimeout(() => {
+        console.log(
+          'Splash screen fully rendered and interactions finished, navigating...',
+        );
+        navigation.navigate('GetStartedScreen');
+      }, 1350);
+    });
+  }, [navigation]);
+
   return (
     <View style={styles.wrapper}>
       <MotiView
@@ -45,7 +61,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({}) => {
           type: 'timing',
           duration: 700,
         }}>
-        <Text style={styles.title}>SAMAGRA APP</Text>
+        <Text style={styles.title}>SAMAGRA </Text>
       </MotiView>
     </View>
   );

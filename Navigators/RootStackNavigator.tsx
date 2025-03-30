@@ -8,6 +8,7 @@ import {useSelector} from 'react-redux';
 import {BottomTabNavigator} from './BottomTab/BottomTabNavigator';
 import {OnBoardingStackNavigator} from './Stack/OnBoardingStackNavigator';
 import {SplashScreen} from '../Screens/OnBoarding/SplashScreen';
+import {Tuple} from '@reduxjs/toolkit';
 
 type RootStackParamList = {
   TestScreen: undefined;
@@ -48,22 +49,18 @@ export const RootStack: React.FC = () => {
 
   return (
     <>
-      {userSignInStatus !== 'loading' ? (
-        <RootStackBuilder.Navigator
-          screenOptions={{
-            header: () => null,
-          }}>
-          {userSignInStatus === true
-            ? screenBuilder([
-                {screenName: 'BottomTab', component: BottomTabNavigator},
-              ])
-            : screenBuilder([
-                {screenName: 'OnBoarding', component: OnBoardingStackNavigator},
-              ])}
-        </RootStackBuilder.Navigator>
-      ) : (
-        <SplashScreen></SplashScreen>
-      )}
+      <RootStackBuilder.Navigator
+        screenOptions={{
+          header: () => null,
+        }}>
+        {userSignInStatus === true
+          ? screenBuilder([
+              {screenName: 'BottomTab', component: BottomTabNavigator},
+            ])
+          : screenBuilder([
+              {screenName: 'OnBoarding', component: OnBoardingStackNavigator},
+            ])}
+      </RootStackBuilder.Navigator>
     </>
   );
 };

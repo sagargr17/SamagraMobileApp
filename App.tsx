@@ -13,6 +13,7 @@ import {RootStack} from './Navigators/RootStackNavigator';
 import {MyDarkTheme, MyTheme} from './Prefrences/Prefrences';
 import {store} from './StateManagement/Store';
 import {login, logout} from './StateManagement/User/UserSlice';
+import BootSplash from 'react-native-bootsplash';
 
 // MAin Fuction To Token Refresh Handle
 const isTokennExpireHandle = async () => {
@@ -32,6 +33,13 @@ function App(): React.JSX.Element {
   const scheme = useColorScheme(); // Get the current color scheme
   const [themes, setTheme] = useState(MyTheme); // Default to light theme
   const [refreshingTime, setRefreshingTime] = useState<number>(10000); // This is the time of refreshing in the second
+
+  useEffect(() => {
+    const hide = async () => {
+      await BootSplash.hide({fade: true});
+    };
+    hide();
+  }, []);
 
   //This is the useEffect Function for changing the dark and bright mode
   useEffect(() => {

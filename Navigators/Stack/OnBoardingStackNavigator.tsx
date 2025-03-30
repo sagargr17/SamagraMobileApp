@@ -9,8 +9,10 @@ import {SignInScreen} from '../../Screens/OnBoarding/SignInScreen';
 import {OtpScreen} from '../../Screens/OnBoarding/OptScreen';
 import {ProfileSetupScreen} from '../../Screens/OnBoarding/ProfileSetupScreen';
 import {ProfileCreateScreen} from '../../Screens/OnBoarding/ProfileCreateScreen';
+import {SplashScreen} from '../../Screens/OnBoarding/SplashScreen';
 
 type OnBoardingStackParamList = {
+  SplashScreen: undefined;
   GetStartedScreen: undefined;
   SignUpScreen: undefined;
   SignInScreen: undefined;
@@ -56,6 +58,7 @@ export const OnBoardingStackNavigator: React.FC = () => {
           headerBackButtonDisplayMode: 'minimal',
         }}>
         {screenBuilder([
+          {screenName: 'SplashScreen', component: SplashScreen},
           {screenName: 'GetStartedScreen', component: GetStartedScreen},
           {screenName: 'SignInScreen', component: SignInScreen},
           {screenName: 'SignUpScreen', component: SignUpScreen},
