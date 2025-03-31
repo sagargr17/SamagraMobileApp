@@ -11,7 +11,7 @@ export const OnBoardingLayout = ({
   header?: string;
 }) => {
   return (
-    <ScrollView>
+    <ScrollView contentContainerStyle={styles.scrollArea}>
       <View style={styles.wrapper}>
         {header && <Text style={styles.header}>{header}</Text>}
         {children}
@@ -21,6 +21,9 @@ export const OnBoardingLayout = ({
 };
 
 const styles = StyleSheet.create({
+  scrollArea: {
+    flex: 1,
+  },
   header: {
     fontSize: heightPercentageToDP(4),
     fontWeight: 700,
