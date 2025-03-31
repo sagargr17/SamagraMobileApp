@@ -1,5 +1,13 @@
 import React from 'react';
-import {Pressable, StyleSheet, View, Text} from 'react-native';
+import {
+  Pressable,
+  StyleSheet,
+  View,
+  Text,
+  KeyboardAvoidingView,
+  ScrollView,
+  Platform,
+} from 'react-native';
 import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
 import {Controller, useForm} from 'react-hook-form';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
@@ -134,60 +142,67 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
     //     </View>
     //   </ScrollView>
     // </KeyboardAvoidingView>
-    <OnBoardingLayout>
-      <Text style={styles.header}>Login With Email</Text>
-      <Spacer />
-      <Controller
-        control={control}
-        name="userName"
-        rules={{
-          required: 'Username address is required',
-        }}
-        render={({field: {onChange, value}}) => (
-          <Input
-            label="Username"
-            placeholder="Username"
-            value={value}
-            onChangeText={onChange}
+
+    <KeyboardAvoidingView
+      style={styles.keyboardContainer}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <ScrollView automaticallyAdjustKeyboardInsets={true}>
+        <OnBoardingLayout>
+          <Text style={styles.header}>Login With Email</Text>
+          <Spacer />
+          <Controller
+            control={control}
+            name="userName"
+            rules={{
+              required: 'Username address is required',
+            }}
+            render={({field: {onChange, value}}) => (
+              <Input
+                label="Username"
+                placeholder="Username"
+                value={value}
+                onChangeText={onChange}
+              />
+            )}
           />
-        )}
-      />
-      {errors.userName && <ErrorText>{errors.userName?.message}</ErrorText>}
-      <Spacer height={20} />
-      <Controller
-        control={control}
-        name="password"
-        rules={{
-          required: 'Password is required',
-        }}
-        render={({field: {onChange, value}}) => (
-          <Input
-            label="Password"
-            placeholder="Password"
-            value={value}
-            onChangeText={onChange}
+          {errors.userName && <ErrorText>{errors.userName?.message}</ErrorText>}
+          <Spacer height={20} />
+          <Controller
+            control={control}
+            name="password"
+            rules={{
+              required: 'Password is required',
+            }}
+            render={({field: {onChange, value}}) => (
+              <Input
+                label="Password"
+                placeholder="Password"
+                value={value}
+                onChangeText={onChange}
+              />
+            )}
           />
-        )}
-      />
-      {errors.password && <ErrorText>{errors.password?.message}</ErrorText>}
-      <Spacer />
-      <View style={styles.extra}>
-        <Pressable onPress={() => navigation.navigate('OtpScreen')}>
-          <Text style={styles.extraLink}>Forgot Password?</Text>
-        </Pressable>
-        <Pressable onPress={() => navigation.navigate('SignUpScreen')}>
-          <Text style={styles.extraLink}>Don't have an Account?</Text>
-        </Pressable>
-      </View>
-      <Spacer />
-      <AppButton color="light" onPress={handleSubmit(signIn)}>
-        Login
-      </AppButton>
-      <Spacer />
-      <ContinueDivider />
-      <Spacer />
-      <SocialForm />
-    </OnBoardingLayout>
+          {errors.password && <ErrorText>{errors.password?.message}</ErrorText>}
+          <Spacer />
+          <View style={styles.extra}>
+            <Pressable onPress={() => navigation.navigate('OtpScreen')}>
+              <Text style={styles.extraLink}>Forgot Password?</Text>
+            </Pressable>
+            <Pressable onPress={() => navigation.navigate('SignUpScreen')}>
+              <Text style={styles.extraLink}>Don't have an Account?</Text>
+            </Pressable>
+          </View>
+          <Spacer />
+          <AppButton color="light" onPress={handleSubmit(signIn)}>
+            Login
+          </AppButton>
+          <Spacer />
+          <ContinueDivider />
+          <Spacer />
+          <SocialForm />
+        </OnBoardingLayout>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 

@@ -1,7 +1,7 @@
 import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
 import {NavigationContainer} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {AppState, useColorScheme} from 'react-native';
+import {AppState, StatusBar, useColorScheme} from 'react-native';
 import {PaperProvider} from 'react-native-paper';
 import {Provider, useSelector} from 'react-redux';
 import {accessTokenGenerator} from './client/Token/AccessTokenGenerator';
@@ -50,7 +50,7 @@ function App(): React.JSX.Element {
     }
   }, [scheme]);
 
-  // Code To make User Login
+  // Code To mnake User Login
   useEffect(() => {
     const getUserStatusHandle = async () => {
       const {userStatus, accessToken, refreshToken} = await getTokens();
@@ -98,6 +98,10 @@ function App(): React.JSX.Element {
       <NavigationContainer theme={themes}>
         <Provider store={store}>
           <PaperProvider>
+            <StatusBar
+              animated={true}
+              backgroundColor={themes.colors.background}
+            />
             <RootStack />
           </PaperProvider>
         </Provider>
