@@ -193,7 +193,7 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
 
 const styles = StyleSheet.create({
   keyboardContainer: {
-    flex: 1,
+    flex: 2,
   },
   header: {
     fontSize: heightPercentageToDP(2.2),
