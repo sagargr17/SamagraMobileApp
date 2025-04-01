@@ -1,11 +1,12 @@
-import { useIsFocused } from '@react-navigation/native';
-import React, { useMemo, useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import {useIsFocused} from '@react-navigation/native';
+import React, {useMemo, useState} from 'react';
+import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 import AppButton from '../Elements/Button';
+import {useTheme} from 'react-native-paper';
 
 interface Item {
   id: number;
@@ -33,6 +34,8 @@ const GetStarted = ({options, onDone}: GetStartedProps) => {
       onDone();
     }
   };
+
+  const {colors} = useTheme();
 
   useMemo(() => {
     if (isFocused && options.length > 0) {
@@ -68,10 +71,11 @@ const styles = StyleSheet.create({
   container: {
     height: 'auto',
     // backgroundColor: 'white',
-    borderRadius: widthPercentageToDP(4),
+    borderTopEndRadius: widthPercentageToDP(4),
     padding: heightPercentageToDP(2),
     paddingTop: heightPercentageToDP(2),
-    paddingBottom: heightPercentageToDP(6),
+    borderWidth: 0.1,
+    paddingBottom: heightPercentageToDP(4),
   },
   lineContainer: {
     flexDirection: 'row',
