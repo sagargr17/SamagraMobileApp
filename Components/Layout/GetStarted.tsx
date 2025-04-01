@@ -97,11 +97,15 @@ const styles = StyleSheet.create({
     fontSize: heightPercentageToDP(2),
     color: '#61646B',
     marginBottom: heightPercentageToDP(1),
+    fontFamily:"Poppins-Medium"
   },
   content: {
     fontSize: heightPercentageToDP(3),
     color: '#1D1D1D',
     marginBottom: heightPercentageToDP(6),
+    fontFamily:"Poppins-Regular",
+    fontWeight:"regular"
+
   },
 });
 
