@@ -36,6 +36,6 @@ const styles = StyleSheet.create({
     paddingTop: heightPercentageToDP(1.6),
     paddingLeft: heightPercentageToDP(2),
     paddingRight: heightPercentageToDP(2),
-    backgroundColor: '#FDFDFD',
+    // backgroundColor: '#FDFDFD',
   },
 });

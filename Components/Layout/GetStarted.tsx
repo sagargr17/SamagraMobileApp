@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, SafeAreaView} from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
+import React, { useMemo, useState } from 'react';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
-import {useIsFocused} from '@react-navigation/native';
 import AppButton from '../Elements/Button';
 
 interface Item {
@@ -34,7 +34,7 @@ const GetStarted = ({options, onDone}: GetStartedProps) => {
     }
   };
 
-  useEffect(() => {
+  useMemo(() => {
     if (isFocused && options.length > 0) {
       setStep(0);
     }
@@ -62,12 +62,12 @@ const GetStarted = ({options, onDone}: GetStartedProps) => {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: '#eaeeff',
+    // backgroundColor: '#eaeeff',
     justifyContent: 'flex-end',
   },
   container: {
     height: 'auto',
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
     borderRadius: widthPercentageToDP(4),
     padding: heightPercentageToDP(2),
     paddingTop: heightPercentageToDP(2),
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     width: widthPercentageToDP(12),
     height: heightPercentageToDP(0.4),
     borderRadius: widthPercentageToDP(12),
-    backgroundColor: '#D5D5D5',
+    // backgroundColor: '#D5D5D5',
   },
   activeLine: {
     backgroundColor: '#1F1F1F',
