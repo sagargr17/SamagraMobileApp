@@ -1,7 +1,11 @@
 import React from 'react';
 import {StyleSheet, TextInput, View, Text} from 'react-native';
-import {heightPercentageToDP, widthPercentageToDP} from 'react-native-responsive-screen';
+import {
+  heightPercentageToDP,
+  widthPercentageToDP,
+} from 'react-native-responsive-screen';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
+import {useTheme} from '@react-navigation/native';
 
 interface PhoneInputProps extends React.ComponentProps<typeof TextInput> {
   label?: string;
@@ -20,16 +24,23 @@ const PhoneInput = ({
     onChangeText && onChangeText(newText);
   };
   const {NepalFlag} = Logos;
+  const {colors} = useTheme();
 
   return (
     <View>
-      <Text style={styles.label}>{label}</Text>
-      <View style={[styles.wrapper, error && styles.wrapperError]}>
+      {label && (
+        <Text style={[styles.label, {color: colors.text}]}>{label}</Text>
+      )}
+      <View
+        style={[
+          styles.wrapper,
+          error && styles.wrapperError,
+          {backgroundColor: colors.card},
+        ]}>
         <NepalFlag
           height={heightPercentageToDP(5)}
-          width={heightPercentageToDP(4)}
         />
-        <Text style={styles.number}>+977</Text>
+        <Text style={[styles.number, {color: colors.text}]}>+977</Text>
         <View style={styles.textWrapper}>
           <TextInput
             keyboardType="numeric"
@@ -50,7 +61,6 @@ const PhoneInput = ({
 const styles = StyleSheet.create({
   label: {
     fontSize: heightPercentageToDP(1.8),
-    color: '#2D2D2D',
     marginBottom: heightPercentageToDP(1),
   },
   wrapper: {
