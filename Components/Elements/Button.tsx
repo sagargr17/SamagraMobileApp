@@ -1,7 +1,8 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 import {Button} from 'react-native-paper';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
+import {SamagraScaller} from '../../Utilities/CustomMethods';
 
 interface AppButtonProps extends React.ComponentProps<typeof Button> {
   color?: 'primary' | 'secondary' | 'light' | 'danger';
@@ -19,7 +20,12 @@ const AppButton = ({
     <Button
       textColor={mode === 'outlined' ? 'black' : 'white'}
       mode={mode}
-      labelStyle={styles.label}
+      labelStyle={[
+        styles.label,
+        {
+          fontSize: SamagraScaller({value: 16, scaleBy: 'width'}),
+        },
+      ]}
       style={[
         styles.button,
         mode !== 'outlined' && intent[color],
@@ -38,7 +44,7 @@ const styles = StyleSheet.create({
     borderRadius: heightPercentageToDP(6),
   },
   label: {
-    fontSize: heightPercentageToDP(1.8),
+    fontFamily: 'Poopins-Bold',
   },
   buttonContent: {
     paddingTop: heightPercentageToDP(1.2),
