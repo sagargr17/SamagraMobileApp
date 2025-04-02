@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Button, Text} from 'react-native-paper';
 import {HomeStackNavigationProp} from '../../../Navigators/Stack/HomeStackNavigator';
 import {ScrollView} from 'react-native';
@@ -15,6 +15,7 @@ import {
 } from '../../../GraphQL/Queries/ItemQueries';
 
 import ImageHandler from '../../../Utilities/ImageHandler';
+import Geolocation from '@react-native-community/geolocation';
 
 interface HomeScreenProps {
   navigation: HomeStackNavigationProp<'HomeScreen'>;
@@ -42,6 +43,19 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
       console.error('Image upload failed.');
     }
   }
+
+  useEffect(() => {
+    const config: any = {
+      skipPermissionRequests: false, // Set to true if you handle permissions elsewhere
+      authorizationLevel: 'whenInUse', // iOS only: 'whenInUse' or 'always'
+      locationProvider: 'fused', // Android only: 'auto', 'gps', 'network', or 'fused'
+    };
+
+    Geolocation.setRNConfiguration(config);
+
+    let rrr = Geolocation.getCurrentPosition(info => console.log(info));
+    console.log('Location....', rrr);
+  }, []);
 
   return (
     <>
