@@ -31,7 +31,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
 
   async function handleImageUploadFromCamera() {
     const image = await ImageHandler.selectFromGallery();
-    console.log('Image');
+    //
   }
 
   async function handleOpenCamera() {
@@ -97,7 +97,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
           style={{
             marginTop: 50,
           }}>
-          Camera Select from Gallery
+          Camera
         </Button>
       </ScrollView>
     </>

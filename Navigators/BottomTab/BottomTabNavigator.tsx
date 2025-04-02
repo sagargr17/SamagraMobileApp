@@ -43,8 +43,8 @@ export const BottomTabNavigator: React.FC = () => {
         // headerStyle: {height: 20},
         header: () => null,
         tabBarStyle: {
-          // backgroundColor: ,
           borderWidth: 0,
+          // backgroundColor: ,
         },
       }}>
       {screenBuilder([

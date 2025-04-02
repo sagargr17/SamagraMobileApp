@@ -63,7 +63,7 @@ export const OnBoardingStackNavigator: React.FC = () => {
           headerBackButtonMenuEnabled: true,
           headerBackVisible: true,
           headerStyle: {
-            backgroundColor: colors.background,
+            // backgroundColor: colors,
           },
           // headerLeft: () => <Text>Back</Text>,
         }}>

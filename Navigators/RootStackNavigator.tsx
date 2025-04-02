@@ -45,7 +45,7 @@ export const RootStack: React.FC = () => {
     (state: any) => state.user.isAuthenticated,
   );
 
-  console.log('RootSTackScreen::::', userSignInStatus);
+  // console.log('RootSTackScreen::::', userSignInStatus);
 
   return (
     <>
