@@ -8,11 +8,11 @@ const GOOGLE_FONT_HEAVY = 'Poppins-Black';
 const MyTheme = {
   dark: false,
   colors: {
-    primary: 'rgb(255, 45, 85)',
+    primary: 'rgba(99, 202, 78, 1)',
     background: 'rgb(242, 242, 242)',
     card: 'rgb(255, 255, 255)',
-    text: 'rgb(28, 28, 30)',
-    border: 'rgb(199, 199, 204)',
+    text: 'rgba(45, 45, 45, 1)',
+    border: 'rgb(192, 192, 192)',
     notification: 'rgb(255, 69, 58)',
   },
   fonts: {
@@ -38,7 +38,7 @@ const MyTheme = {
 const MyDarkTheme = {
   dark: true,
   colors: {
-    primary: 'rgb(255, 69, 58)',
+    primary: '',
     background: 'rgb(18, 18, 18)',
     card: 'rgb(30, 30, 30)',
     text: 'rgb(229, 229, 231)',

@@ -1,7 +1,12 @@
 import React from 'react';
 import {StyleSheet, TextInput, View, Text} from 'react-native';
-import {heightPercentageToDP, widthPercentageToDP} from 'react-native-responsive-screen';
+import {
+  heightPercentageToDP,
+  widthPercentageToDP,
+} from 'react-native-responsive-screen';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
+import {useTheme} from '@react-navigation/native';
+import {SamagraScaller} from '../../Utilities/CustomMethods';
 
 interface PhoneInputProps extends React.ComponentProps<typeof TextInput> {
   label?: string;
@@ -20,22 +25,55 @@ const PhoneInput = ({
     onChangeText && onChangeText(newText);
   };
   const {NepalFlag} = Logos;
+  const {colors, fonts} = useTheme();
 
   return (
     <View>
-      <Text style={styles.label}>{label}</Text>
-      <View style={[styles.wrapper, error && styles.wrapperError]}>
-        <NepalFlag
-          height={heightPercentageToDP(5)}
-          width={heightPercentageToDP(4)}
-        />
-        <Text style={styles.number}>+977</Text>
+      {label && (
+        <Text
+          style={[
+            styles.label,
+            {color: colors.text, fontFamily: fonts.regular.fontFamily},
+          ]}>
+          {label}
+        </Text>
+      )}
+      <View
+        style={[
+          styles.wrapper,
+          error && styles.wrapperError,
+          {backgroundColor: colors.card, borderColor: colors.border},
+        ]}>
+        <NepalFlag height={heightPercentageToDP(5)} />
+        <Text
+          style={[
+            styles.number,
+            {
+              color: colors.text,
+              fontFamily: fonts.regular.fontFamily,
+              lineHeight: SamagraScaller({
+                value: 22,
+                scaleBy: 'height',
+              }),
+            },
+          ]}>
+          +977
+        </Text>
         <View style={styles.textWrapper}>
           <TextInput
             keyboardType="numeric"
             inputMode="numeric"
-            placeholder="987654321"
-            style={styles.input}
+            placeholder="Phone Number"
+            style={[
+              styles.input,
+              {
+                fontFamily: fonts.regular.fontFamily,
+                lineHeight: SamagraScaller({
+                  value: 22,
+                  scaleBy: 'height',
+                }),
+              },
+            ]}
             value={value}
             dataDetectorTypes={'phoneNumber'}
             onChangeText={handleChange}
@@ -49,14 +87,19 @@ const PhoneInput = ({
 
 const styles = StyleSheet.create({
   label: {
-    fontSize: heightPercentageToDP(1.8),
-    color: '#2D2D2D',
-    marginBottom: heightPercentageToDP(1),
+    fontSize: SamagraScaller({
+      value: 16,
+      scaleBy: 'width',
+    }),
+    marginBottom: heightPercentageToDP(0.5),
+    lineHeight: SamagraScaller({
+      value: 19,
+      scaleBy: 'height',
+    }),
   },
   wrapper: {
     flexDirection: 'row',
     borderWidth: 1,
-    borderColor: '#C0C0C0',
     alignItems: 'center',
     gap: widthPercentageToDP(2),
     paddingTop: heightPercentageToDP(1),

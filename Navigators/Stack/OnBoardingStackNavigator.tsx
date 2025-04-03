@@ -1,5 +1,6 @@
 import {
   createNativeStackNavigator,
+  NativeStackNavigationOptions,
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
 import React from 'react';
@@ -12,6 +13,10 @@ import {ProfileCreateScreen} from '../../Screens/OnBoarding/ProfileCreateScreen'
 import {SplashScreen} from '../../Screens/OnBoarding/SplashScreen';
 import {Text} from 'react-native';
 import {useTheme} from '@react-navigation/native';
+import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {heightPercentageToDP} from 'react-native-responsive-screen';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {ColorSpace} from 'react-native-reanimated';
 
 type OnBoardingStackParamList = {
   SplashScreen: undefined;
@@ -38,10 +43,15 @@ export interface OnBoardingStackProps<
 }
 
 const screenBuilder = (
-  data: Array<{screenName: keyof OnBoardingStackParamList; component: any}>,
+  data: Array<{
+    screenName: keyof OnBoardingStackParamList;
+    component: any;
+    option?: NativeStackNavigationOptions;
+  }>,
 ) => {
   return data.map(item => (
     <OnBoardingStackBuilder.Screen
+      options={item.option}
       key={item.screenName}
       navigationKey="OnBoardingKey"
       name={item.screenName}
@@ -51,27 +61,50 @@ const screenBuilder = (
 };
 
 export const OnBoardingStackNavigator: React.FC = () => {
-  const {colors} = useTheme();
+  const {fonts, colors} = useTheme();
   return (
     <>
       <OnBoardingStackBuilder.Navigator
         screenOptions={{
-          headerTitle: '',
-          // headerTransparent: true,
-          headerBackButtonDisplayMode: 'minimal',
-          headerShadowVisible: false,
-          headerBackButtonMenuEnabled: true,
-          headerBackVisible: true,
-          headerStyle: {
-            // backgroundColor: colors,
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            fontFamily: fonts.medium.fontFamily,
+            fontSize: 16,
           },
-          // headerLeft: () => <Text>Back</Text>,
+          headerShadowVisible: false,
+          headerStyle: {
+            backgroundColor: colors.background,
+          },
         }}>
         {screenBuilder([
-          {screenName: 'SplashScreen', component: SplashScreen},
-          {screenName: 'GetStartedScreen', component: GetStartedScreen},
-          {screenName: 'SignInScreen', component: SignInScreen},
-          {screenName: 'SignUpScreen', component: SignUpScreen},
+          {
+            screenName: 'SplashScreen',
+            component: SplashScreen,
+            option: {
+              header: () => null,
+            },
+          },
+          {
+            screenName: 'GetStartedScreen',
+            component: GetStartedScreen,
+            option: {
+              header: () => null,
+            },
+          },
+          {
+            screenName: 'SignInScreen',
+            component: SignInScreen,
+            option: {
+              headerTitle: "Let's get Started",
+            },
+          },
+          {
+            screenName: 'SignUpScreen',
+            component: SignUpScreen,
+            option: {
+              headerTitle: "Let's get Started",
+            },
+          },
           {screenName: 'OtpScreen', component: OtpScreen},
           {screenName: 'ProfileSetupScreen', component: ProfileSetupScreen},
           {screenName: 'ProfileCreateScreen', component: ProfileCreateScreen},

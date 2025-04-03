@@ -1,3 +1,4 @@
+import {useTheme} from '@react-navigation/native';
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import {TextInput} from 'react-native-paper';
@@ -16,10 +17,18 @@ export const Input: React.FC<InputProps> = ({
   onChangeText,
   ...props
 }) => {
+  const {colors} = useTheme();
   return (
     <View>
-      {label && <Text style={styles.inputLabel}>{label}</Text>}
-      <View style={[styles.inputWrapper, !!error && styles.inputError]}>
+      {label && (
+        <Text style={[styles.inputLabel, {color: colors.text}]}>{label}</Text>
+      )}
+      <View
+        style={[
+          styles.inputWrapper,
+          {backgroundColor: colors.background, borderColor: colors.border},
+          !!error && styles.inputError,
+        ]}>
         <TextInput
           placeholder={placeholder}
           mode="outlined"
@@ -40,7 +49,6 @@ export const Input: React.FC<InputProps> = ({
 const styles = StyleSheet.create({
   inputLabel: {
     fontSize: heightPercentageToDP(1.8),
-    color: '#2D2D2D',
     marginBottom: heightPercentageToDP(1),
   },
   inputWrapper: {
@@ -50,9 +58,9 @@ const styles = StyleSheet.create({
     borderRadius: heightPercentageToDP(1),
   },
   input: {
-    backgroundColor: '#FDFDFD',
+    // backgroundColor: '#FDFDFD',
   },
   inputError: {
-    borderColor: 'red',
+    // borderColor: 'red',
   },
 });

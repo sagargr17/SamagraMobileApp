@@ -3,6 +3,8 @@ import {Dimensions, StyleSheet} from 'react-native';
 import {Button} from 'react-native-paper';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
 import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {useTheme} from '@react-navigation/native';
+import {MyDarkTheme, MyTheme} from '../../Prefrences/Prefrences';
 
 interface AppButtonProps extends React.ComponentProps<typeof Button> {
   color?: 'primary' | 'secondary' | 'light' | 'danger';
@@ -16,6 +18,8 @@ const AppButton = ({
   onPress,
   ...props
 }: AppButtonProps) => {
+  const {colors} = useTheme();
+
   return (
     <Button
       textColor={mode === 'outlined' ? 'black' : 'white'}
@@ -26,11 +30,8 @@ const AppButton = ({
           fontSize: SamagraScaller({value: 16, scaleBy: 'width'}),
         },
       ]}
-      style={[
-        styles.button,
-        mode !== 'outlined' && intent[color],
-        disabled && styles.disabled,
-      ]}
+      style={[styles.button, disabled && styles.disabled]}
+      buttonColor={colors.primary}
       contentStyle={styles.buttonContent}
       onPress={onPress}
       {...props}>
@@ -49,6 +50,7 @@ const styles = StyleSheet.create({
   buttonContent: {
     paddingTop: heightPercentageToDP(1.2),
     paddingBottom: heightPercentageToDP(1.2),
+    backgroundColor: 'orage',
   },
   disabled: {
     opacity: 0.5,

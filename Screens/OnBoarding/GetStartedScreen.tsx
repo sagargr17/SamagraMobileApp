@@ -14,14 +14,14 @@ export const GetStartedScreen: React.FC<OnBoardingScreenProps> = ({
       id: 1,
       title: 'Samagra',
       content:
-        'Exercitation consequat qui labore officia sit. qui labore officia sit.',
+        'Get trusted services from cleaning to repairs, anytime, anywhere.',
       buttonText: 'Get Started',
     },
     {
       id: 2,
       title: 'Samagra',
       content:
-        'Minim et nisi aliqua ad ut sit consequat. qui labore officia sit.',
+        'Get trusted products, from essentials to exclusives, anytime, anywhere.',
       buttonText: 'Done',
     },
   ];

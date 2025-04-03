@@ -17,13 +17,13 @@ export const SignUpScreen: React.FC<OnBoardingScreenProps> = ({navigation}) => {
   };
 
   return (
-    <OnBoardingLayout header={"Let's get Started!"}>
+    <OnBoardingLayout>
       <SignUpForm />
       <Spacer />
       <ContinueDivider />
       <Spacer />
       <AppButton mode="outlined" onPress={goLogin}>
-        Continue with Email
+        Continue with Username
       </AppButton>
       <Spacer />
       <SocialForm
