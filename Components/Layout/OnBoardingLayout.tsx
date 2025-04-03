@@ -1,3 +1,4 @@
+import {useTheme} from '@react-navigation/native';
 import React from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {Text} from 'react-native-paper';
@@ -10,10 +11,13 @@ export const OnBoardingLayout = ({
   children: React.ReactNode;
   header?: string;
 }) => {
+  const {colors} = useTheme();
   return (
     <ScrollView contentContainerStyle={styles.scrollArea}>
       <View style={styles.wrapper}>
-        {header && <Text style={styles.header}>{header}</Text>}
+        {header && (
+          <Text style={[styles.header, {color: colors.text}]}>{header}</Text>
+        )}
         {children}
       </View>
     </ScrollView>
@@ -29,13 +33,11 @@ const styles = StyleSheet.create({
     fontWeight: 700,
     marginBottom: heightPercentageToDP(4),
     paddingTop: heightPercentageToDP(4),
-    color: '#1D1D1D',
   },
   wrapper: {
     flex: 1,
     paddingTop: heightPercentageToDP(1.6),
     paddingLeft: heightPercentageToDP(2),
     paddingRight: heightPercentageToDP(2),
-    backgroundColor: '#FDFDFD',
   },
 });

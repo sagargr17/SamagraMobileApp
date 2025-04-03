@@ -10,6 +10,8 @@ import {OtpScreen} from '../../Screens/OnBoarding/OptScreen';
 import {ProfileSetupScreen} from '../../Screens/OnBoarding/ProfileSetupScreen';
 import {ProfileCreateScreen} from '../../Screens/OnBoarding/ProfileCreateScreen';
 import {SplashScreen} from '../../Screens/OnBoarding/SplashScreen';
+import {Text} from 'react-native';
+import {useTheme} from '@react-navigation/native';
 
 type OnBoardingStackParamList = {
   SplashScreen: undefined;
@@ -49,13 +51,21 @@ const screenBuilder = (
 };
 
 export const OnBoardingStackNavigator: React.FC = () => {
+  const {colors} = useTheme();
   return (
     <>
       <OnBoardingStackBuilder.Navigator
         screenOptions={{
           headerTitle: '',
-          headerTransparent: true,
+          // headerTransparent: true,
           headerBackButtonDisplayMode: 'minimal',
+          headerShadowVisible: false,
+          headerBackButtonMenuEnabled: true,
+          headerBackVisible: true,
+          headerStyle: {
+            backgroundColor: colors.background,
+          },
+          // headerLeft: () => <Text>Back</Text>,
         }}>
         {screenBuilder([
           {screenName: 'SplashScreen', component: SplashScreen},
