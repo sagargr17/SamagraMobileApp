@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
   inputWrapper: {
     overflow: 'hidden',
-    borderWidth: 1,
+    borderWidth: 0.2,
     borderColor: '#C0C0C0',
     borderRadius: heightPercentageToDP(1),
   },

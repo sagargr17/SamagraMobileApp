@@ -6,6 +6,8 @@ import {clearTokens} from '../../../client/Token/TokenAccess';
 // import {client} from '../../../Client/Graphql/PublicClient';
 // import {getPublicItems} from '../../../GraphQL/Queries/ItemQueries';
 
+import MapView from 'react-native-maps';
+
 import {useQuery} from '@apollo/client';
 // import {gql} from '../../../src/__generated__';
 import gql from 'graphql-tag';
@@ -64,7 +66,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
           marginTop: 100,
         }}>
         <Text>Home Screen</Text>
-        <Button
+        {/* <Button
           style={{
             marginBottom: 50,
           }}
@@ -112,7 +114,16 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
             marginTop: 50,
           }}>
           Camera
-        </Button>
+        </Button> */}
+
+        <MapView
+          initialRegion={{
+            latitude: 37.78825,
+            longitude: -122.4324,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        />
       </ScrollView>
     </>
   );
