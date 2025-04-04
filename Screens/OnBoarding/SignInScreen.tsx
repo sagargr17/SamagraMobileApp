@@ -116,7 +116,7 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
 
 const styles = StyleSheet.create({
   keyboardContainer: {
-    flex: 2,
+    flex: 1,
   },
   header: {
     fontSize: heightPercentageToDP(2.2),
@@ -128,10 +128,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  extraLink: {
-    color: '#2A56FE',
-    fontSize: heightPercentageToDP(1.6),
-  },
+
   image: {
     height: SamagraScaller({
       value: 190,
@@ -147,6 +144,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: SamagraScaller({
+      value: 5,
+      scaleBy: 'height',
+    }),
     // flex: 1,
     // paddingHorizontal: SamagraScaller({
     //   value: 10,

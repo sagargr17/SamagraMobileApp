@@ -5,6 +5,9 @@ import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {View, Text} from 'react-native'; // Import for Tab bar icons or labels
 import {HomeStackNavigator} from '../Stack/HomeStackNavigator';
 import {ServiceStackNavigator} from '../Stack/ServiceStackNavigator';
+import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {useTheme} from '@react-navigation/native';
+import {Logos} from '../../Assets/SVG/Exports/Exports';
 
 type BottomTabParamList = {
   Home: undefined;
@@ -37,16 +40,81 @@ const screenBuilder = (
 };
 
 export const BottomTabNavigator: React.FC = () => {
+  const {colors} = useTheme();
   return (
     <BottomTabBuilder.Navigator
-      screenOptions={{
-        // headerStyle: {height: 20},
+      screenOptions={({route}) => ({
         header: () => null,
-        tabBarStyle: {
-          borderWidth: 0,
-          // backgroundColor: ,
+        tabBarIcon: ({focused, color, size}) => {
+          const {Home, Service, More} = Logos;
+          const iconSize = SamagraScaller({value: 22, scaleBy: 'width'});
+
+          if (route.name === 'Home') {
+            return (
+              <Home
+                height={iconSize}
+                focused={focused}
+                color={color}
+                size={size}
+              />
+            );
+          }
+          if (route.name === 'More') {
+            return (
+              <More
+                height={iconSize}
+                focused={focused}
+                color={color}
+                size={size}
+              />
+            );
+          }
+          if (route.name === 'Service') {
+            return (
+              <Service
+                height={iconSize}
+                focused={focused}
+                color={color}
+                size={size}
+              />
+            );
+          }
+          return null;
         },
-      }}>
+        tabBarStyle: {
+          borderColor: colors.background,
+          backgroundColor: colors.background,
+          shadowOpacity: 0, // Use shadowOpacity for iOS
+          elevation: 0, // Use elevation for Android
+          // height: SamagraScaller({
+          //   value: 67,
+          //   scaleBy: 'height',
+          // }),
+          height: SamagraScaller({
+            value: 80,
+            scaleBy: 'height',
+          }),
+          paddingHorizontal: SamagraScaller({
+            value: 15,
+            scaleBy: 'height',
+          }),
+          paddingVertical: SamagraScaller({
+            value: 30,
+            scaleBy: 'height',
+          }),
+        },
+        tabBarLabelStyle: {
+          fontSize: SamagraScaller({
+            value: 14,
+            scaleBy: 'height',
+          }),
+          lineHeight: SamagraScaller({
+            value: 19,
+            scaleBy: 'height',
+          }),
+          fontFamily: 'Poppins-Regular',
+        },
+      })}>
       {screenBuilder([
         {screenName: 'Home', component: HomeStackNavigator},
         {screenName: 'Service', component: ServiceStackNavigator},

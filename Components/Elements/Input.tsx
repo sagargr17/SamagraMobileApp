@@ -22,14 +22,14 @@ export const Input: React.FC<InputProps> = ({
   onChangeText,
   ...props
 }) => {
-  const {colors} = useTheme();
-  // const inputRef: any = useRef(null);
+  const {colors, fonts} = useTheme();
+  const inputRef: any = useRef(null);
 
-  // useEffect(() => {
-  //   if (inputRef.current) {
-  //     inputRef.current.focus();
-  //   }
-  // }, []); // Empty dependency array ensures it runs only once after the initial render
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []); // Empty dependency array ensures it runs only once after the initial render
 
   return (
     <View>
@@ -47,7 +47,7 @@ export const Input: React.FC<InputProps> = ({
             fontSize={18}></TextComponet>
         )}
         <TextInput
-          // ref={label === 'Username' ? inputRef : null}
+          ref={label === 'Username' ? inputRef : null}
           placeholder={placeholder}
           mode="outlined"
           outlineColor={colors.border}
@@ -63,6 +63,7 @@ export const Input: React.FC<InputProps> = ({
               backgroundColor: colors.background,
               borderColor: colors.border,
               color: colors.text,
+              fontFamily: fonts.regular.fontFamily,
             },
           ]}
           value={value}
@@ -77,7 +78,7 @@ export const Input: React.FC<InputProps> = ({
 
 const styles = StyleSheet.create({
   inputLabel: {
-    // marginBottom: heightPercentageToDP(2),
+    marginBottom: heightPercentageToDP(2),
   },
   inputWrapper: {
     overflow: 'hidden',

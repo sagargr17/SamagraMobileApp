@@ -25,12 +25,7 @@ export const OnBoardingLayout = ({
       <ScrollView
         contentContainerStyle={styles.scrollArea}
         automaticallyAdjustKeyboardInsets={true}>
-        <View style={styles.wrapper}>
-          {header && (
-            <Text style={[styles.header, {color: colors.text}]}>{header}</Text>
-          )}
-          {children}
-        </View>
+        <View style={styles.wrapper}>{children}</View>
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -38,7 +33,7 @@ export const OnBoardingLayout = ({
 
 const styles = StyleSheet.create({
   keyboardContainer: {
-    flex: 1,
+    flex: 2,
   },
   scrollArea: {
     flex: 1,
@@ -51,7 +46,7 @@ const styles = StyleSheet.create({
   },
   wrapper: {
     flex: 1,
-    paddingTop: heightPercentageToDP(1.6),
+    // paddingTop: heightPercentageToDP(1.6),
     paddingLeft: heightPercentageToDP(2),
     paddingRight: heightPercentageToDP(2),
   },

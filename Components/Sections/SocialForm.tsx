@@ -61,13 +61,11 @@ export const SocialForm: React.FC<SocialProps> = ({onAppleClick}) => {
 const styles = StyleSheet.create({
   socialContainer: {
     flexDirection: 'row',
-    // overflow: 'hidden',
     justifyContent: 'space-around',
     height: SamagraScaller({
-      value:60,
-      scaleBy:"height"
-    })
-    // flex: 1,
+      value: 60,
+      scaleBy: 'height',
+    }),
   },
   socialItem: {
     flex: 1,
