@@ -41,19 +41,12 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
 
   return (
     <OnBoardingLayout>
-      <FastImage
-        resizeMode={FastImage.resizeMode.contain}
-        source={require('../../Assets/PNG/Sign.png')}
-        style={{
-          height: SamagraScaller({
-            value: 199,
-            scaleBy: 'height',
-          }),
-          width: SamagraScaller({
-            value: 199,
-            scaleBy: 'width',
-          }),
-        }}></FastImage>
+      <View style={styles.imageContainer}>
+        <FastImage
+          resizeMode={FastImage.resizeMode.contain}
+          source={require('../../Assets/PNG/Sign.png')}
+          style={[styles.image]}></FastImage>
+      </View>
       <Controller
         control={control}
         name="userName"
@@ -138,5 +131,26 @@ const styles = StyleSheet.create({
   extraLink: {
     color: '#2A56FE',
     fontSize: heightPercentageToDP(1.6),
+  },
+  image: {
+    height: SamagraScaller({
+      value: 190,
+      scaleBy: 'height',
+    }),
+    width: SamagraScaller({
+      value: 180,
+      scaleBy: 'width',
+    }),
+  },
+  imageContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    // flex: 1,
+    // paddingHorizontal: SamagraScaller({
+    //   value: 10,
+    //   scaleBy: 'height',
+    // }),
   },
 });

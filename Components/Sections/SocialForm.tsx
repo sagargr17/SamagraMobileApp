@@ -63,7 +63,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     // overflow: 'hidden',
     justifyContent: 'space-around',
-    flex: 0.2,
+    height: SamagraScaller({
+      value:60,
+      scaleBy:"height"
+    })
+    // flex: 1,
   },
   socialItem: {
     flex: 1,
