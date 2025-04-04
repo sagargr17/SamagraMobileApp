@@ -20,6 +20,7 @@ import {ErrorText} from '../../Components/Elements/ErrorText';
 import {Input} from '../../Components/Elements/Input';
 import Authenticator from '../../client/Token/Authenticator';
 import {useTheme} from '@react-navigation/native';
+import {TextComponet} from '../../Components/Elements/TextComponet';
 
 interface SignInScreenProps {
   navigation: OnBoardingStackNavigationProp<'SignUpScreen'>;
@@ -84,14 +85,21 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
           />
           {errors.password && <ErrorText>{errors.password?.message}</ErrorText>}
           <Spacer />
-          {/* <View style={styles.extra}>
+          <View style={styles.extra}>
             <Pressable onPress={() => navigation.navigate('OtpScreen')}>
-              <Text style={styles.extraLink}>Forgot Password?</Text>
+              <TextComponet
+                title="Forgot Password"
+                fontVariant="medium"></TextComponet>
             </Pressable>
             <Pressable onPress={() => navigation.navigate('SignUpScreen')}>
-              <Text style={styles.extraLink}>Don't have an Account?</Text>
+              <TextComponet
+                title="Forgot Password"
+                fontVariant="medium"></TextComponet>
             </Pressable>
-          </View> */}
+
+            {/* <Pressable
+              onPress={() => navigation.navigate('SignUpScreen')}></Pressable> */}
+          </View>
           <Spacer />
           <AppButton color="light" onPress={handleSubmit(signIn)}>
             Login

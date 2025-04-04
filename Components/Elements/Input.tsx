@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
       scaleBy: 'height',
     }),
     paddingHorizontal: SamagraScaller({
-      value: 5,
+      value: 1,
       scaleBy: 'width',
     }),
   },
