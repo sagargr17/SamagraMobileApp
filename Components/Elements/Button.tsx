@@ -18,20 +18,27 @@ const AppButton = ({
   onPress,
   ...props
 }: AppButtonProps) => {
-  const {colors} = useTheme();
+  const {colors, fonts} = useTheme();
 
   return (
     <Button
-      textColor={mode === 'outlined' ? 'black' : 'white'}
+      textColor={mode === 'outlined' ? '#2A56FE' : 'white'}
       mode={mode}
       labelStyle={[
         styles.label,
         {
           fontSize: SamagraScaller({value: 16, scaleBy: 'width'}),
+          fontFamily: fonts.medium.fontFamily,
         },
       ]}
-      style={[styles.button, disabled && styles.disabled]}
-      buttonColor={colors.primary}
+      style={[
+        styles.button,
+        disabled && styles.disabled,
+        {
+          borderColor: mode === 'outlined' ? '#2A56FE' : colors.border,
+        },
+      ]}
+      buttonColor={mode === 'outlined' ? colors.background : colors.primary}
       contentStyle={styles.buttonContent}
       onPress={onPress}
       {...props}>
@@ -50,7 +57,6 @@ const styles = StyleSheet.create({
   buttonContent: {
     paddingTop: heightPercentageToDP(1.2),
     paddingBottom: heightPercentageToDP(1.2),
-    backgroundColor: 'orage',
   },
   disabled: {
     opacity: 0.5,

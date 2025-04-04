@@ -1,6 +1,12 @@
 import {useTheme} from '@react-navigation/native';
 import React from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native';
 import {Text} from 'react-native-paper';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
 
@@ -13,18 +19,27 @@ export const OnBoardingLayout = ({
 }) => {
   const {colors} = useTheme();
   return (
-    <ScrollView contentContainerStyle={styles.scrollArea}>
-      <View style={styles.wrapper}>
-        {header && (
-          <Text style={[styles.header, {color: colors.text}]}>{header}</Text>
-        )}
-        {children}
-      </View>
-    </ScrollView>
+    <KeyboardAvoidingView
+      style={styles.keyboardContainer}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <ScrollView
+        contentContainerStyle={styles.scrollArea}
+        automaticallyAdjustKeyboardInsets={true}>
+        <View style={styles.wrapper}>
+          {header && (
+            <Text style={[styles.header, {color: colors.text}]}>{header}</Text>
+          )}
+          {children}
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
+  keyboardContainer: {
+    flex: 1,
+  },
   scrollArea: {
     flex: 1,
   },

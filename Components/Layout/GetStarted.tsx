@@ -1,6 +1,7 @@
 import {useIsFocused} from '@react-navigation/native';
 import React, {useMemo, useState} from 'react';
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import FastImage from '@d11/react-native-fast-image';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
@@ -46,6 +47,15 @@ const GetStarted = ({options, onDone}: GetStartedProps) => {
   return (
     <SafeAreaView style={styles.wrapper}>
       <View style={styles.container}>
+        <FastImage
+          style={{width: 'auto', height: 'auto'}}
+          source={{
+            uri: 'https://images.unsplash.com/photo-1624372635310-01d078c05dd9?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            priority: FastImage.priority.normal,
+          }}
+          resizeMode={FastImage.resizeMode.contain}
+        />
+
         <View style={styles.lineContainer}>
           {options.map((opt, index) => (
             <Text

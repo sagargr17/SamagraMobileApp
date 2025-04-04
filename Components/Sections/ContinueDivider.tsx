@@ -1,15 +1,27 @@
+import {useTheme} from '@react-navigation/native';
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+
 import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 
 export const ContinueDivider = () => {
+  const {colors, fonts} = useTheme();
+
   return (
     <View style={styles.wrapperLines}>
       <View style={styles.line} />
-      <Text style={styles.content}>OR CONTINUE WITH</Text>
+      <Text
+        style={[
+          styles.content,
+          {
+            fontFamily: fonts.medium.fontFamily,
+          },
+        ]}>
+        OR CONTINUE WITH
+      </Text>
       <View style={styles.line} />
     </View>
   );
@@ -27,7 +39,7 @@ const styles = StyleSheet.create({
     borderColor: '#C0C0C0',
   },
   content: {
-    fontSize: heightPercentageToDP(1.6),
+    // fontSize: heightPercentageToDP(1.6),
     color: '#787878',
   },
 });

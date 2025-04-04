@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import {StyleSheet, TextInput, View, Text} from 'react-native';
 import {
   heightPercentageToDP,
@@ -26,6 +26,13 @@ const PhoneInput = ({
   };
   const {NepalFlag} = Logos;
   const {colors, fonts} = useTheme();
+  const inputRef: any = useRef(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []); // Empty dependency array ensures it runs only once after the initial render
 
   return (
     <View>
@@ -61,9 +68,10 @@ const PhoneInput = ({
         </Text>
         <View style={styles.textWrapper}>
           <TextInput
+            ref={inputRef}
             keyboardType="numeric"
             inputMode="numeric"
-            placeholder="Phone Number"
+            // placeholder=""
             style={[
               styles.input,
               {

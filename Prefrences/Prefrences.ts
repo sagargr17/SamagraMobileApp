@@ -37,13 +37,13 @@ const MyTheme = {
 
 const MyDarkTheme = {
   dark: true,
-  colors: {
-    primary: '',
-    background: 'rgb(18, 18, 18)',
-    card: 'rgb(30, 30, 30)',
-    text: 'rgb(229, 229, 231)',
-    border: 'rgb(39, 39, 41)',
-    notification: 'rgb(255, 69, 58)',
+   colors: {
+    primary: 'white',
+    background: '#1D1D1D', //Black
+    card: '#0004', //Halka dark gray types
+    text: 'white',
+    border: '#EBEBEB', //HAlka WHite types
+    notification: '#ff6347', // NQ ko YEllow Notification
   },
   fonts: MyTheme.fonts,
 };

@@ -1,3 +1,4 @@
+import {useTheme} from '@react-navigation/native';
 import {
   createNativeStackNavigator,
   NativeStackNavigationOptions,
@@ -5,18 +6,12 @@ import {
 } from '@react-navigation/native-stack';
 import React from 'react';
 import {GetStartedScreen} from '../../Screens/OnBoarding/GetStartedScreen';
-import {SignUpScreen} from '../../Screens/OnBoarding/SignUpScreen';
-import {SignInScreen} from '../../Screens/OnBoarding/SignInScreen';
 import {OtpScreen} from '../../Screens/OnBoarding/OptScreen';
-import {ProfileSetupScreen} from '../../Screens/OnBoarding/ProfileSetupScreen';
 import {ProfileCreateScreen} from '../../Screens/OnBoarding/ProfileCreateScreen';
+import {ProfileSetupScreen} from '../../Screens/OnBoarding/ProfileSetupScreen';
+import {SignInScreen} from '../../Screens/OnBoarding/SignInScreen';
+import {SignUpScreen} from '../../Screens/OnBoarding/SignUpScreen';
 import {SplashScreen} from '../../Screens/OnBoarding/SplashScreen';
-import {Text} from 'react-native';
-import {useTheme} from '@react-navigation/native';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
-import {heightPercentageToDP} from 'react-native-responsive-screen';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {ColorSpace} from 'react-native-reanimated';
 
 type OnBoardingStackParamList = {
   SplashScreen: undefined;
@@ -95,7 +90,7 @@ export const OnBoardingStackNavigator: React.FC = () => {
             screenName: 'SignInScreen',
             component: SignInScreen,
             option: {
-              headerTitle: "Let's get Started",
+              headerTitle: 'Login With UserName',
             },
           },
           {
