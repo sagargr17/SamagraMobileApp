@@ -66,7 +66,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
           marginTop: 100,
         }}>
         <Text>Home Screen</Text>
-        {/* <Button
+        <Button
           style={{
             marginBottom: 50,
           }}
@@ -114,16 +114,16 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
             marginTop: 50,
           }}>
           Camera
-        </Button> */}
+        </Button>
 
-        <MapView
+        {/* <MapView
           initialRegion={{
             latitude: 37.78825,
             longitude: -122.4324,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           }}
-        />
+        /> */}
       </ScrollView>
     </>
   );

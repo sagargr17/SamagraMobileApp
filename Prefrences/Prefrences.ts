@@ -37,7 +37,7 @@ const MyTheme = {
 
 const MyDarkTheme = {
   dark: true,
-   colors: {
+  colors: {
     primary: 'white',
     background: '#1D1D1D', //Black
     card: '#0004', //Halka dark gray types

@@ -90,7 +90,7 @@ export const OnBoardingStackNavigator: React.FC = () => {
             screenName: 'SignInScreen',
             component: SignInScreen,
             option: {
-              headerTitle: 'Login With UserName',
+              headerTitle: 'Login With Username',
             },
           },
           {

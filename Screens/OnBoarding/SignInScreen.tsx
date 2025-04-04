@@ -50,10 +50,6 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <ScrollView automaticallyAdjustKeyboardInsets={true}>
         <OnBoardingLayout>
-          <Text style={[styles.header, {color: colors.text}]}>
-            Login With Email
-          </Text>
-          <Spacer />
           <Controller
             control={control}
             name="userName"
@@ -80,7 +76,7 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
             render={({field: {onChange, value}}) => (
               <Input
                 label="Password"
-                placeholder="Password"
+                placeholder="*********"
                 value={value}
                 onChangeText={onChange}
               />
@@ -88,14 +84,14 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
           />
           {errors.password && <ErrorText>{errors.password?.message}</ErrorText>}
           <Spacer />
-          <View style={styles.extra}>
+          {/* <View style={styles.extra}>
             <Pressable onPress={() => navigation.navigate('OtpScreen')}>
               <Text style={styles.extraLink}>Forgot Password?</Text>
             </Pressable>
             <Pressable onPress={() => navigation.navigate('SignUpScreen')}>
               <Text style={styles.extraLink}>Don't have an Account?</Text>
             </Pressable>
-          </View>
+          </View> */}
           <Spacer />
           <AppButton color="light" onPress={handleSubmit(signIn)}>
             Login

@@ -1,8 +1,13 @@
 import {useTheme} from '@react-navigation/native';
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import {TextInput} from 'react-native-paper';
-import {heightPercentageToDP} from 'react-native-responsive-screen';
+import {
+  heightPercentageToDP,
+  widthPercentageToDP,
+} from 'react-native-responsive-screen';
+import {TextComponet} from './TextComponet';
+import {SamagraScaller} from '../../Utilities/CustomMethods';
 
 interface InputProps extends React.ComponentProps<typeof TextInput> {
   label?: string;
@@ -18,28 +23,52 @@ export const Input: React.FC<InputProps> = ({
   ...props
 }) => {
   const {colors} = useTheme();
+  // const inputRef: any = useRef(null);
+
+  // useEffect(() => {
+  //   if (inputRef.current) {
+  //     inputRef.current.focus();
+  //   }
+  // }, []); // Empty dependency array ensures it runs only once after the initial render
+
   return (
     <View>
-      {label && (
-        <Text style={[styles.inputLabel, {color: colors.text}]}>{label}</Text>
-      )}
       <View
         style={[
           styles.inputWrapper,
           {backgroundColor: colors.background, borderColor: colors.border},
           !!error && styles.inputError,
         ]}>
+        {label && (
+          <TextComponet
+            title={label}
+            fontVariant="medium"
+            lineHeight={19}
+            fontSize={18}></TextComponet>
+        )}
         <TextInput
+          // ref={label === 'Username' ? inputRef : null}
           placeholder={placeholder}
           mode="outlined"
-          outlineColor="transparent"
-          activeOutlineColor="transparent"
+          outlineColor={colors.border}
+          activeOutlineColor={colors.border}
           underlineColor="transparent"
+          cursorColor={colors.primary}
+          placeholderTextColor={'#808080'}
+          tvParallaxMagnification={100}
           activeUnderlineColor="transparent"
-          style={styles.input}
+          style={[
+            styles.input,
+            {
+              backgroundColor: colors.background,
+              borderColor: colors.border,
+              color: colors.text,
+            },
+          ]}
           value={value}
           onChangeText={onChangeText}
           {...props}
+          secureTextEntry={label === 'Password' ? true : false}
         />
       </View>
     </View>
@@ -48,19 +77,32 @@ export const Input: React.FC<InputProps> = ({
 
 const styles = StyleSheet.create({
   inputLabel: {
-    fontSize: heightPercentageToDP(1.8),
-    marginBottom: heightPercentageToDP(1),
+    // marginBottom: heightPercentageToDP(2),
   },
   inputWrapper: {
     overflow: 'hidden',
-    borderWidth: 0.2,
+
     borderColor: '#C0C0C0',
-    borderRadius: heightPercentageToDP(1),
+    borderRadius: SamagraScaller({
+      value: 8,
+      scaleBy: 'height',
+    }),
+    paddingHorizontal: SamagraScaller({
+      value: 5,
+      scaleBy: 'width',
+    }),
   },
   input: {
-    // backgroundColor: '#FDFDFD',
+    marginVertical: SamagraScaller({
+      value: 4,
+      scaleBy: 'height',
+    }),
+    borderRadius: SamagraScaller({
+      value: 15,
+      scaleBy: 'height',
+    }),
   },
   inputError: {
-    // borderColor: 'red',
+    borderColor: 'red',
   },
 });
