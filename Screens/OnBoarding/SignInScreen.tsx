@@ -1,26 +1,20 @@
+import FastImage from '@d11/react-native-fast-image';
+import {useTheme} from '@react-navigation/native';
 import React from 'react';
-import {
-  Pressable,
-  StyleSheet,
-  View,
-  Text,
-  KeyboardAvoidingView,
-  ScrollView,
-  Platform,
-} from 'react-native';
-import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
 import {Controller, useForm} from 'react-hook-form';
+import {Pressable, StyleSheet, View} from 'react-native';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
 import AppButton from '../../Components/Elements/Button';
-import {Spacer} from '../../Components/Elements/Spacer';
-import {OnBoardingLayout} from '../../Components/Layout/OnBoardingLayout';
-import {SocialForm} from '../../Components/Sections/SocialForm';
-import {ContinueDivider} from '../../Components/Sections/ContinueDivider';
 import {ErrorText} from '../../Components/Elements/ErrorText';
 import {Input} from '../../Components/Elements/Input';
-import Authenticator from '../../client/Token/Authenticator';
-import {useTheme} from '@react-navigation/native';
+import {Spacer} from '../../Components/Elements/Spacer';
 import {TextComponet} from '../../Components/Elements/TextComponet';
+import {OnBoardingLayout} from '../../Components/Layout/OnBoardingLayout';
+import {ContinueDivider} from '../../Components/Sections/ContinueDivider';
+import {SocialForm} from '../../Components/Sections/SocialForm';
+import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
+import Authenticator from '../../client/Token/Authenticator';
+import {SamagraScaller} from '../../Utilities/CustomMethods';
 
 interface SignInScreenProps {
   navigation: OnBoardingStackNavigationProp<'SignUpScreen'>;
@@ -46,71 +40,84 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
   };
 
   return (
-    <KeyboardAvoidingView
-      style={styles.keyboardContainer}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <ScrollView automaticallyAdjustKeyboardInsets={true}>
-        <OnBoardingLayout>
-          <Controller
-            control={control}
-            name="userName"
-            rules={{
-              required: 'Username address is required',
-            }}
-            render={({field: {onChange, value}}) => (
-              <Input
-                label="Username"
-                placeholder="Username"
-                value={value}
-                onChangeText={onChange}
-              />
-            )}
+    <OnBoardingLayout>
+      <FastImage
+        resizeMode={FastImage.resizeMode.contain}
+        source={require('../../Assets/PNG/Sign.png')}
+        style={{
+          height: SamagraScaller({
+            value: 199,
+            scaleBy: 'height',
+          }),
+          width: SamagraScaller({
+            value: 199,
+            scaleBy: 'width',
+          }),
+        }}></FastImage>
+      <Controller
+        control={control}
+        name="userName"
+        rules={{
+          required: 'Username address is required',
+        }}
+        render={({field: {onChange, value}}) => (
+          <Input
+            label="Username"
+            placeholder="Username"
+            value={value}
+            onChangeText={onChange}
           />
-          {errors.userName && <ErrorText>{errors.userName?.message}</ErrorText>}
-          <Spacer height={20} />
-          <Controller
-            control={control}
-            name="password"
-            rules={{
-              required: 'Password is required',
-            }}
-            render={({field: {onChange, value}}) => (
-              <Input
-                label="Password"
-                placeholder="*********"
-                value={value}
-                onChangeText={onChange}
-              />
-            )}
+        )}
+      />
+      {errors.userName && <ErrorText>{errors.userName?.message}</ErrorText>}
+      <Spacer height={20} />
+      <Controller
+        control={control}
+        name="password"
+        rules={{
+          required: 'Password is required',
+        }}
+        render={({field: {onChange, value}}) => (
+          <Input
+            label="Password"
+            placeholder="*********"
+            value={value}
+            onChangeText={onChange}
           />
-          {errors.password && <ErrorText>{errors.password?.message}</ErrorText>}
-          <Spacer />
-          <View style={styles.extra}>
-            <Pressable onPress={() => navigation.navigate('OtpScreen')}>
-              <TextComponet
-                title="Forgot Password"
-                fontVariant="medium"></TextComponet>
-            </Pressable>
-            <Pressable onPress={() => navigation.navigate('SignUpScreen')}>
-              <TextComponet
-                title="Forgot Password"
-                fontVariant="medium"></TextComponet>
-            </Pressable>
+        )}
+      />
+      {errors.password && <ErrorText>{errors.password?.message}</ErrorText>}
+      <Spacer height={10} />
+      <View style={styles.extra}>
+        <Pressable onPress={() => navigation.navigate('OtpScreen')}>
+          <TextComponet
+            customStyle={{
+              color: 'blue',
+            }}
+            title="Forgot Password"
+            fontVariant="medium"></TextComponet>
+        </Pressable>
+        <Pressable onPress={() => navigation.navigate('SignUpScreen')}>
+          <TextComponet
+            customStyle={{
+              color: 'blue',
+            }}
+            title="Don’t have an Account?"
+            fontVariant="medium"></TextComponet>
+        </Pressable>
 
-            {/* <Pressable
+        {/* <Pressable
               onPress={() => navigation.navigate('SignUpScreen')}></Pressable> */}
-          </View>
-          <Spacer />
-          <AppButton color="light" onPress={handleSubmit(signIn)}>
-            Login
-          </AppButton>
-          <Spacer />
-          <ContinueDivider />
-          <Spacer />
-          <SocialForm />
-        </OnBoardingLayout>
-      </ScrollView>
-    </KeyboardAvoidingView>
+      </View>
+      <Spacer />
+      <AppButton color="light" onPress={handleSubmit(signIn)}>
+        Login
+      </AppButton>
+      <Spacer />
+      <ContinueDivider />
+      <Spacer />
+      <SocialForm />
+    </OnBoardingLayout>
   );
 };
 

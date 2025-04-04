@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     // overflow: 'hidden',
     justifyContent: 'space-around',
-    flex: 0.16,
+    flex: 0.2,
   },
   socialItem: {
     flex: 1,
