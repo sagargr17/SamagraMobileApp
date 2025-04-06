@@ -8,10 +8,13 @@ import {
 } from 'react-native-responsive-screen';
 import {TextComponet} from './TextComponet';
 import {SamagraScaller} from '../../Utilities/CustomMethods';
+// import {EvilIcons} from 'react-native-vector-icons/';
 
 interface InputProps extends React.ComponentProps<typeof TextInput> {
   label?: string;
   error?: boolean;
+  height?: number;
+  lef?: any;
 }
 
 export const Input: React.FC<InputProps> = ({
@@ -20,6 +23,8 @@ export const Input: React.FC<InputProps> = ({
   value,
   placeholder,
   onChangeText,
+  height = 50,
+  left = null,
   ...props
 }) => {
   const {colors, fonts} = useTheme();
@@ -38,38 +43,49 @@ export const Input: React.FC<InputProps> = ({
           styles.inputWrapper,
           {backgroundColor: colors.background, borderColor: colors.border},
           !!error && styles.inputError,
+          {
+            marginVertical: SamagraScaller({
+              value: 2,
+              scaleBy: 'average',
+            }),
+          },
         ]}>
         {label && (
           <TextComponet
             title={label}
-            fontVariant="medium"
+            fontVariant="regular"
             lineHeight={19}
             fontSize={18}></TextComponet>
         )}
         <TextInput
-          ref={label === 'Username' ? inputRef : null}
+          ref={inputRef}
           placeholder={placeholder}
           mode="outlined"
           outlineColor={colors.border}
           activeOutlineColor={colors.border}
           underlineColor="transparent"
-          cursorColor={colors.primary}
           placeholderTextColor={'#808080'}
           tvParallaxMagnification={100}
           activeUnderlineColor="transparent"
           style={[
             styles.input,
             {
-              backgroundColor: colors.background,
+              backgroundColor: '#F6F7F7',
               borderColor: colors.border,
-              color: colors.text,
+              color: 'orange',
               fontFamily: fonts.regular.fontFamily,
+              height: SamagraScaller({
+                value: height,
+                scaleBy: 'average',
+              }),
+              fontWeight: '100',
             },
           ]}
           value={value}
           onChangeText={onChangeText}
           {...props}
           secureTextEntry={label === 'Password' ? true : false}
+          left={left}
         />
       </View>
     </View>
@@ -78,7 +94,10 @@ export const Input: React.FC<InputProps> = ({
 
 const styles = StyleSheet.create({
   inputLabel: {
-    marginBottom: heightPercentageToDP(2),
+    marginBottom: SamagraScaller({
+      value: 2,
+      scaleBy: 'average',
+    }),
   },
   inputWrapper: {
     overflow: 'hidden',

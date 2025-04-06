@@ -3,6 +3,7 @@ import {Text} from 'react-native-paper';
 
 import {MapView} from '@maplibre/maplibre-react-native';
 import {StatusBar} from 'react-native';
+import {ServiceBottomSheet} from '../../../Components/Layout/ServiceBottomSheet';
 interface ServiceScreenProps {}
 
 // MapLibreGL.setAccessToken(null);
@@ -11,8 +12,8 @@ export const ServiceScreen: React.FC<ServiceScreenProps> = ({}) => {
   const styleUrl = `https://tiles.stadiamaps.com/styles/alidade_smooth.json?api_key=${apiKey}`;
   return (
     <>
-      <StatusBar hidden={true} animated={true} />
       <MapView style={{flex: 1}} />
+      <ServiceBottomSheet></ServiceBottomSheet>
     </>
   );
 };

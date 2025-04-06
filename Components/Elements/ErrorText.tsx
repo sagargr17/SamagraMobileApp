@@ -1,3 +1,4 @@
+import {useTheme} from '@react-navigation/native';
 import {StyleSheet} from 'react-native';
 import {Text} from 'react-native-paper';
 
@@ -5,7 +6,19 @@ interface ErrorTextProps {
   children: React.ReactNode;
 }
 export const ErrorText = ({children}: ErrorTextProps) => {
-  return <Text style={styles.text}>{children}</Text>;
+  const {fonts} = useTheme();
+
+  return (
+    <Text
+      style={[
+        styles.text,
+        {
+          fontFamily: fonts.regular.fontFamily,
+        },
+      ]}>
+      {children}
+    </Text>
+  );
 };
 
 const styles = StyleSheet.create({

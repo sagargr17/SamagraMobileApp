@@ -9,7 +9,7 @@ const MyTheme = {
   dark: false,
   colors: {
     primary: 'rgba(99, 202, 78, 1)',
-    background: 'rgb(242, 242, 242)',
+    background: 'rgb(255, 255, 255)',
     card: 'rgb(255, 255, 255)',
     text: 'rgba(45, 45, 45, 1)',
     border: 'rgb(192, 192, 192)',

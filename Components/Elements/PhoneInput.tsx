@@ -71,7 +71,6 @@ const PhoneInput = ({
             ref={inputRef}
             keyboardType="numeric"
             inputMode="numeric"
-            // placeholder=""
             style={[
               styles.input,
               {

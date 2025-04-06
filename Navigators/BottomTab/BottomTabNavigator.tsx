@@ -86,10 +86,6 @@ export const BottomTabNavigator: React.FC = () => {
           backgroundColor: colors.background,
           shadowOpacity: 0, // Use shadowOpacity for iOS
           elevation: 0, // Use elevation for Android
-          // height: SamagraScaller({
-          //   value: 67,
-          //   scaleBy: 'height',
-          // }),
           height: SamagraScaller({
             value: 80,
             scaleBy: 'height',
