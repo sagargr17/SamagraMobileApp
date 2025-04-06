@@ -34,10 +34,10 @@ export const Input: React.FC<InputProps> = ({
     if (inputRef.current) {
       inputRef.current.focus();
     }
-  }, []); // Empty dependency array ensures it runs only once after the initial render
+  }, []);
 
   return (
-    <View>
+    <View style={styles.inputContainer}>
       <View
         style={[
           styles.inputWrapper,
@@ -70,7 +70,7 @@ export const Input: React.FC<InputProps> = ({
           style={[
             styles.input,
             {
-              backgroundColor: '#F6F7F7',
+              backgroundColor: colors.background,
               borderColor: colors.border,
               color: 'orange',
               fontFamily: fonts.regular.fontFamily,
@@ -93,6 +93,12 @@ export const Input: React.FC<InputProps> = ({
 };
 
 const styles = StyleSheet.create({
+  inputContainer: {
+    marginVertical: SamagraScaller({
+      value: 2,
+      scaleBy: 'average',
+    }),
+  },
   inputLabel: {
     marginBottom: SamagraScaller({
       value: 2,
@@ -119,6 +125,10 @@ const styles = StyleSheet.create({
     }),
     borderRadius: SamagraScaller({
       value: 15,
+      scaleBy: 'height',
+    }),
+    borderWidth: SamagraScaller({
+      value: 0.1,
       scaleBy: 'height',
     }),
   },

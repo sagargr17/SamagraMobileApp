@@ -11,6 +11,7 @@ interface SamagraBottomSheetProps {
   title: string;
 }
 
+// This is the section component where element is not working at all
 export const SamagraBottomSheet: React.FC<SamagraBottomSheetProps> = ({
   children,
   title,
@@ -28,9 +29,11 @@ export const SamagraBottomSheet: React.FC<SamagraBottomSheetProps> = ({
     <>
       <GestureHandlerRootView style={styles.container}>
         <BottomSheet
+          animateOnMount={false}
           enablePanDownToClose={false}
           backgroundStyle={{backgroundColor: colors.card}}
           enableContentPanningGesture={false}
+          enableHandlePanningGesture={false}
           snapPoints={['100%']}
           ref={bottomSheetRef}
           onChange={handleSheetChanges}>
@@ -77,7 +80,7 @@ export const SamagraBottomSheet: React.FC<SamagraBottomSheetProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 0.8,
+    flex: 1,
     borderRadius: 40,
   },
   titleCotainer: {

@@ -50,6 +50,11 @@ const AppButton = ({
 const styles = StyleSheet.create({
   button: {
     borderRadius: heightPercentageToDP(6),
+    marginVertical: SamagraScaller({
+      value: 10,
+      scaleBy: 'average',
+    }),
+    backgroundColor: 'pink',
   },
   label: {
     fontFamily: 'Poopins-Bold',

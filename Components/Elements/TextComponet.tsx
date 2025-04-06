@@ -35,11 +35,11 @@ export const TextComponet: React.FC<TextComponetProps> = ({
           lineHeight: lineHeight
             ? SamagraScaller({
                 value: lineHeight ? lineHeight : 16,
-                scaleBy: 'height',
+                scaleBy: 'average',
               })
             : SamagraScaller({
                 value: 19,
-                scaleBy: 'height',
+                scaleBy: 'average',
               }),
         },
         customStyle,

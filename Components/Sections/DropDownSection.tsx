@@ -1,32 +1,65 @@
+import {useTheme} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import {TextInput} from 'react-native-paper';
+import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {TextComponet} from '../Elements/TextComponet';
 // import AntDesign from '@expo/vector-icons/AntDesign';
 
-const data = [
-  {label: 'Laundry', value: '1'},
-  {label: 'House Keeping', value: '2'},
-];
+interface DropdownComponentProps {
+  labelTitle?: string;
+  data: Array<{label: string; value: string}>;
+}
 
-const DropdownComponent = () => {
+export const DropdownComponent: React.FC<DropdownComponentProps> = ({
+  labelTitle: label,
+  data,
+}) => {
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
+  const {colors, fonts} = useTheme();
 
   return (
     <View style={styles.container}>
+      {label && (
+        <TextComponet
+          customStyle={{
+            marginBottom: SamagraScaller({
+              value: 5,
+              scaleBy: 'average',
+            }),
+          }}
+          title={label}
+          fontVariant="regular"
+          lineHeight={19}
+          fontSize={18}></TextComponet>
+      )}
       <Dropdown
-        style={[styles.dropdown, isFocus && {borderColor: 'blue'}]}
-        placeholderStyle={styles.placeholderStyle}
-        selectedTextStyle={styles.selectedTextStyle}
+        style={[styles.dropdown, isFocus && {borderColor: colors.border}]}
+        placeholderStyle={[
+          styles.placeholderStyle,
+          {
+            fontFamily: fonts.regular.fontFamily,
+          },
+        ]}
+        selectedTextStyle={[
+          styles.selectedTextStyle,
+          {
+            fontFamily: fonts.regular.fontFamily,
+          },
+        ]}
         inputSearchStyle={styles.inputSearchStyle}
         iconStyle={styles.iconStyle}
         data={data}
         search={false}
-        maxHeight={300}
+        maxHeight={SamagraScaller({
+          value: 150,
+          scaleBy: 'average',
+        })}
         labelField="label"
         valueField="value"
-        placeholder={!isFocus ? 'Select item' : '...'}
+        placeholder={!isFocus ? 'House Keeping' : '...'}
         searchPlaceholder="Search..."
         value={value}
         onFocus={() => setIsFocus(true)}
@@ -35,17 +68,22 @@ const DropdownComponent = () => {
           setValue(item.value);
           setIsFocus(false);
         }}
+        itemTextStyle={{
+          fontFamily: fonts.regular.fontFamily,
+          margin: 0,
+          padding: 0,
+        }}
       />
     </View>
   );
 };
 
-export default DropdownComponent;
-
 const styles = StyleSheet.create({
   container: {
-    // backgroundColor: 'white',
-    // padding: 16,
+    marginVertical: SamagraScaller({
+      value: 4,
+      scaleBy: 'average',
+    }),
   },
   dropdown: {
     height: 50,
@@ -71,7 +109,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   selectedTextStyle: {
-    fontSize: 16,
+    fontSize: SamagraScaller({
+      value: 16,
+      scaleBy: 'average',
+    }),
   },
   iconStyle: {
     width: 20,

@@ -98,11 +98,6 @@ function App(): React.JSX.Element {
       <NavigationContainer theme={themes}>
         <Provider store={store}>
           <PaperProvider>
-            {/* <StatusBar
-              hidden={false}
-              animated={true}
-              backgroundColor={themes.colors.background}
-            /> */}
             <RootStack />
           </PaperProvider>
         </Provider>
