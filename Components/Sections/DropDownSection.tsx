@@ -73,6 +73,12 @@ export const DropdownComponent: React.FC<DropdownComponentProps> = ({
           margin: 0,
           padding: 0,
         }}
+        containerStyle={{
+          borderRadius: SamagraScaller({
+            value: 2,
+            scaleBy: 'average',
+          }),
+        }}
       />
     </View>
   );

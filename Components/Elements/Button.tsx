@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
       value: 10,
       scaleBy: 'average',
     }),
-    backgroundColor: 'pink',
+    // backgroundColor: 'pink',
   },
   label: {
     fontFamily: 'Poopins-Bold',

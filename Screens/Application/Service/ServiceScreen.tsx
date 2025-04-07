@@ -12,7 +12,7 @@ export const ServiceScreen: React.FC<ServiceScreenProps> = ({}) => {
   const styleUrl = `https://tiles.stadiamaps.com/styles/alidade_smooth.json?api_key=${apiKey}`;
   return (
     <>
-      <MapView style={{flex: 1}} />
+      <MapView style={{flex: 0.8}} />
       <ServiceBottomSheet></ServiceBottomSheet>
     </>
   );

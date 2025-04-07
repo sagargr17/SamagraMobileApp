@@ -1,4 +1,7 @@
-import BottomSheet, {BottomSheetScrollView} from '@gorhom/bottom-sheet';
+import BottomSheet, {
+  BottomSheetScrollView,
+  BottomSheetView,
+} from '@gorhom/bottom-sheet';
 import {useTheme} from '@react-navigation/native';
 import React, {useCallback, useRef} from 'react';
 import {StyleSheet, View} from 'react-native';
@@ -9,12 +12,14 @@ import {TextComponet} from '../Elements/TextComponet';
 interface SamagraBottomSheetProps {
   children: () => React.ReactNode;
   title: string;
+  pannigGesture: boolean;
 }
 
 // This is the section component where element is not working at all
 export const SamagraBottomSheet: React.FC<SamagraBottomSheetProps> = ({
   children,
   title,
+  pannigGesture = false,
 }) => {
   const {colors} = useTheme();
   // ref
@@ -29,14 +34,16 @@ export const SamagraBottomSheet: React.FC<SamagraBottomSheetProps> = ({
     <>
       <GestureHandlerRootView style={styles.container}>
         <BottomSheet
-          animateOnMount={false}
+          enableDynamicSizing={true}
+          animateOnMount={true}
           enablePanDownToClose={false}
           backgroundStyle={{backgroundColor: colors.card}}
-          enableContentPanningGesture={false}
+          // enableContentPanningGesture={pannigGesture}
           enableHandlePanningGesture={false}
           snapPoints={['100%']}
           ref={bottomSheetRef}
-          onChange={handleSheetChanges}>
+          onChange={handleSheetChanges}
+          index={0}>
           <View
             style={[
               styles.titleCotainer,
@@ -58,8 +65,8 @@ export const SamagraBottomSheet: React.FC<SamagraBottomSheetProps> = ({
               title={'Request for ' + title}
               fontVariant="bold"></TextComponet>
           </View>
-          <BottomSheetScrollView
-            showsVerticalScrollIndicator={false}
+          <BottomSheetView
+            // showsVerticalScrollIndicator={false}
             style={[
               {
                 borderColor: colors.border,
@@ -67,11 +74,10 @@ export const SamagraBottomSheet: React.FC<SamagraBottomSheetProps> = ({
                   value: 20,
                   scaleBy: 'average',
                 }),
-                flex: 0.5,
               },
             ]}>
             {children()}
-          </BottomSheetScrollView>
+          </BottomSheetView>
         </BottomSheet>
       </GestureHandlerRootView>
     </>

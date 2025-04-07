@@ -48,6 +48,7 @@ export const ServiceBottomSheet: React.FC<ServiceBottomSheetProps> = ({}) => {
   return (
     <>
       <SamagraBottomSheet
+        pannigGesture={false}
         title="Laundry Service"
         children={childrenContent}></SamagraBottomSheet>
     </>
