@@ -14,6 +14,7 @@ import {MyDarkTheme, MyTheme} from './Prefrences/Prefrences';
 import {store} from './StateManagement/Store';
 import {login, logout} from './StateManagement/User/UserSlice';
 import BootSplash from 'react-native-bootsplash';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 // MAin Fuction To Token Refresh Handle
 const isTokennExpireHandle = async () => {
@@ -94,15 +95,20 @@ function App(): React.JSX.Element {
   useTokenRefreshTimer(refreshingTime);
 
   return (
-    <ApolloProvider client={client}>
-      <NavigationContainer theme={themes}>
-        <Provider store={store}>
-          <PaperProvider>
-            <RootStack />
-          </PaperProvider>
-        </Provider>
-      </NavigationContainer>
-    </ApolloProvider>
+    <GestureHandlerRootView
+      style={{
+        flex: 1,
+      }}>
+      <ApolloProvider client={client}>
+        <NavigationContainer theme={themes}>
+          <Provider store={store}>
+            <PaperProvider>
+              <RootStack />
+            </PaperProvider>
+          </Provider>
+        </NavigationContainer>
+      </ApolloProvider>
+    </GestureHandlerRootView>
   );
 }
 
