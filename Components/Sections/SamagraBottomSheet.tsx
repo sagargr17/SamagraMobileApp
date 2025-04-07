@@ -43,6 +43,9 @@ export const SamagraBottomSheet: React.FC<SamagraBottomSheetProps> = ({
         onChange={handleSheetChanges}
         style={{
           elevation: 0.2,
+        }}
+        containerStyle={{
+          borderRadius: 2,
         }}>
         <View
           style={[
@@ -54,12 +57,12 @@ export const SamagraBottomSheet: React.FC<SamagraBottomSheetProps> = ({
           <TextComponet
             customStyle={{
               padding: SamagraScaller({
-                value: 8,
+                value: 10,
                 scaleBy: 'average',
               }),
             }}
             fontSize={SamagraScaller({
-              value: 18,
+              value: 16,
               scaleBy: 'average',
             })}
             title={'Request for ' + title}
@@ -73,7 +76,7 @@ export const SamagraBottomSheet: React.FC<SamagraBottomSheetProps> = ({
                 value: 20,
                 scaleBy: 'average',
               }),
-              flex: 0.08,
+              flex: 0.07,
             },
           ]}>
           {children()}

@@ -33,7 +33,7 @@ export const DropdownComponent: React.FC<DropdownComponentProps> = ({
           title={label}
           fontVariant="regular"
           lineHeight={19}
-          fontSize={18}></TextComponet>
+          fontSize={16}></TextComponet>
       )}
       <Dropdown
         style={[styles.dropdown, isFocus && {borderColor: colors.border}]}

@@ -60,8 +60,14 @@ const styles = StyleSheet.create({
     fontFamily: 'Poopins-Bold',
   },
   buttonContent: {
-    paddingTop: heightPercentageToDP(1.2),
-    paddingBottom: heightPercentageToDP(1.2),
+    paddingTop: SamagraScaller({
+      value: 4,
+      scaleBy: 'average',
+    }),
+    paddingBottom: SamagraScaller({
+      value: 4,
+      scaleBy: 'average',
+    }),
   },
   disabled: {
     opacity: 0.5,

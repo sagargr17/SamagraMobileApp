@@ -42,7 +42,6 @@ export const ServiceStackNavigator: React.FC = () => {
         screenOptions={{
           header: () => null,
         }}>
-          
         {screenBuilder([
           {screenName: 'ServiceScreen', component: ServiceScreen},
           {screenName: 'ServiceDetailScreen', component: ServiceDetailScreen},
