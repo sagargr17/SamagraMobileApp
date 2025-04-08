@@ -1,5 +1,13 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  KeyboardAvoidingView,
+  ScrollView,
+} from 'react-native';
 import {OnBoardingLayout} from '../../Components/Layout/OnBoardingLayout';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
 import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
@@ -70,168 +78,186 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
 
   return (
     <OnBoardingLayout>
-      <View>
-        <Text style={styles.header}>Create Profile</Text>
-        <View>
-          <Text style={styles.photoTitle}>Add Your Photo</Text>
-          <View style={styles.photoWrapper}>
-            <TouchableOpacity onPress={handleImagePick} style={styles.circle}>
-              {imageUri ? (
-                <Image source={{uri: imageUri}} style={styles.image} />
-              ) : (
-                <Text style={styles.photoText}>+</Text>
-              )}
-            </TouchableOpacity>
-            <View style={styles.photoAddContent}>
-              <Camera height={16} />
-              <Text style={styles.photoAddText}>Add</Text>
+      <KeyboardAvoidingView
+        style={{
+          flex: 1,
+        }}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={{
+            flex: 1,
+          }}>
+          <View>
+            {/* <Text style={styles.header}>Create Profile</Text> */}
+            <View>
+              {/* <Text style={styles.photoTitle}>Add Your Photo</Text> */}
+              <View style={styles.photoWrapper}>
+                <TouchableOpacity
+                  onPress={handleImagePick}
+                  style={styles.circle}>
+                  {imageUri ? (
+                    <Image source={{uri: imageUri}} style={styles.image} />
+                  ) : (
+                    <Text style={styles.photoText}>+</Text>
+                  )}
+                </TouchableOpacity>
+                <View style={styles.photoAddContent}>
+                  <Camera height={16} />
+                  <Text style={styles.photoAddText}>Add</Text>
+                </View>
+              </View>
             </View>
+            <Controller
+              name="firstName"
+              control={control}
+              rules={{
+                required: 'First name is required',
+              }}
+              render={({field: {value, onChange}}) => (
+                <>
+                  <Input
+                    label="First name"
+                    placeholder="First Name"
+                    value={value}
+                    onChangeText={onChange}
+                  />
+                  {errors.firstName && (
+                    <ErrorText>{errors.firstName.message}</ErrorText>
+                  )}
+                </>
+              )}
+            />
+            <Spacer height={12} />
+            <Controller
+              name="lastName"
+              control={control}
+              rules={{
+                required: 'Last name is required',
+              }}
+              render={({field: {value, onChange}}) => (
+                <>
+                  <Input
+                    placeholder="Last Name"
+                    value={value}
+                    onChangeText={onChange}
+                  />
+                  {errors.lastName && (
+                    <ErrorText>{errors.lastName.message}</ErrorText>
+                  )}
+                </>
+              )}
+            />
+            <Spacer height={20} />
+            <Controller
+              name="email"
+              control={control}
+              rules={{
+                required: 'Email is required',
+              }}
+              render={({field: {value, onChange}}) => (
+                <>
+                  <Input
+                    label="Email"
+                    placeholder="Email Address"
+                    value={value}
+                    onChangeText={onChange}
+                  />
+                  {errors.email && (
+                    <ErrorText>{errors.email.message}</ErrorText>
+                  )}
+                </>
+              )}
+            />
+            <Spacer height={20} />
+            <Controller
+              name="phone"
+              control={control}
+              rules={{
+                required: 'Phone number is required',
+              }}
+              render={({field: {value, onChange}}) => (
+                <>
+                  <PhoneInput
+                    label="Phone Number"
+                    value={value}
+                    onChangeText={onChange}
+                  />
+                  {errors.phone && (
+                    <ErrorText>{errors.phone.message}</ErrorText>
+                  )}
+                </>
+              )}
+            />
+            <Spacer height={20} />
+            <Controller
+              name="password"
+              control={control}
+              rules={{
+                required: 'Password is required',
+              }}
+              render={({field: {value, onChange}}) => (
+                <>
+                  {/* TODO: add show text options */}
+                  <Input
+                    label="Password"
+                    placeholder="Password"
+                    secureTextEntry
+                    value={value}
+                    onChangeText={onChange}
+                  />
+                  {errors.password && (
+                    <ErrorText>{errors.password.message}</ErrorText>
+                  )}
+                </>
+              )}
+            />
+            <Spacer height={20} />
+            <Controller
+              name="confirmPassword"
+              control={control}
+              rules={{
+                required: 'Confirm Password is required',
+                validate: value =>
+                  value === password || 'Password do not match',
+              }}
+              render={({field: {value, onChange}}) => (
+                <>
+                  <Input
+                    label="Confirm Password"
+                    placeholder="Confirm Password"
+                    secureTextEntry
+                    value={value}
+                    onChangeText={onChange}
+                  />
+                  {errors.confirmPassword && (
+                    <ErrorText>{errors.confirmPassword.message}</ErrorText>
+                  )}
+                </>
+              )}
+            />
+            <Spacer height={10} />
+            <View style={styles.agreement}>
+              <Checkbox
+                status={agree ? 'checked' : 'unchecked'}
+                onPress={() => {
+                  setAgree(!agree);
+                }}
+              />
+              <Text style={styles.agreeText}>
+                I accept the privacy policy and terms of services
+              </Text>
+            </View>
+            <Spacer height={20} />
+            <AppButton
+              disabled={!agree}
+              color="secondary"
+              onPress={handleSubmit(onSubmit)}>
+              Continue
+            </AppButton>
+            {/* <Spacer height={20} /> */}
           </View>
-        </View>
-        <Controller
-          name="firstName"
-          control={control}
-          rules={{
-            required: 'First name is required',
-          }}
-          render={({field: {value, onChange}}) => (
-            <>
-              <Input
-                label="First name"
-                placeholder="First Name"
-                value={value}
-                onChangeText={onChange}
-              />
-              {errors.firstName && (
-                <ErrorText>{errors.firstName.message}</ErrorText>
-              )}
-            </>
-          )}
-        />
-        <Spacer height={12} />
-        <Controller
-          name="lastName"
-          control={control}
-          rules={{
-            required: 'Last name is required',
-          }}
-          render={({field: {value, onChange}}) => (
-            <>
-              <Input
-                placeholder="Last Name"
-                value={value}
-                onChangeText={onChange}
-              />
-              {errors.lastName && (
-                <ErrorText>{errors.lastName.message}</ErrorText>
-              )}
-            </>
-          )}
-        />
-        <Spacer height={20} />
-        <Controller
-          name="email"
-          control={control}
-          rules={{
-            required: 'Email is required',
-          }}
-          render={({field: {value, onChange}}) => (
-            <>
-              <Input
-                label="Email"
-                placeholder="Email Address"
-                value={value}
-                onChangeText={onChange}
-              />
-              {errors.email && <ErrorText>{errors.email.message}</ErrorText>}
-            </>
-          )}
-        />
-        <Spacer height={20} />
-        <Controller
-          name="phone"
-          control={control}
-          rules={{
-            required: 'Phone number is required',
-          }}
-          render={({field: {value, onChange}}) => (
-            <>
-              <PhoneInput
-                label="Phone Number"
-                value={value}
-                onChangeText={onChange}
-              />
-              {errors.phone && <ErrorText>{errors.phone.message}</ErrorText>}
-            </>
-          )}
-        />
-        <Spacer height={20} />
-        <Controller
-          name="password"
-          control={control}
-          rules={{
-            required: 'Password is required',
-          }}
-          render={({field: {value, onChange}}) => (
-            <>
-              {/* TODO: add show text options */}
-              <Input
-                label="Password"
-                placeholder="Password"
-                secureTextEntry
-                value={value}
-                onChangeText={onChange}
-              />
-              {errors.password && (
-                <ErrorText>{errors.password.message}</ErrorText>
-              )}
-            </>
-          )}
-        />
-        <Spacer height={20} />
-        <Controller
-          name="confirmPassword"
-          control={control}
-          rules={{
-            required: 'Confirm Password is required',
-            validate: value => value === password || 'Password do not match',
-          }}
-          render={({field: {value, onChange}}) => (
-            <>
-              <Input
-                label="Confirm Password"
-                placeholder="Confirm Password"
-                secureTextEntry
-                value={value}
-                onChangeText={onChange}
-              />
-              {errors.confirmPassword && (
-                <ErrorText>{errors.confirmPassword.message}</ErrorText>
-              )}
-            </>
-          )}
-        />
-        <Spacer height={10} />
-        <View style={styles.agreement}>
-          <Checkbox
-            status={agree ? 'checked' : 'unchecked'}
-            onPress={() => {
-              setAgree(!agree);
-            }}
-          />
-          <Text style={styles.agreeText}>
-            I accept the privacy policy and terms of services
-          </Text>
-        </View>
-        <Spacer height={60} />
-        <AppButton
-          disabled={!agree}
-          color="secondary"
-          onPress={handleSubmit(onSubmit)}>
-          Continue
-        </AppButton>
-        <Spacer height={20} />
-      </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </OnBoardingLayout>
   );
 };

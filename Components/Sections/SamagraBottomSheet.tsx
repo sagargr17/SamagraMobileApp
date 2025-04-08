@@ -45,7 +45,7 @@ export const SamagraBottomSheet: React.FC<SamagraBottomSheetProps> = ({
           elevation: 0.2,
         }}
         containerStyle={{
-          borderRadius: 2,
+          borderRadius: 10,
         }}>
         <View
           style={[
@@ -76,7 +76,7 @@ export const SamagraBottomSheet: React.FC<SamagraBottomSheetProps> = ({
                 value: 20,
                 scaleBy: 'average',
               }),
-              flex: 0.07,
+              flex: 0.08,
             },
           ]}>
           {children()}

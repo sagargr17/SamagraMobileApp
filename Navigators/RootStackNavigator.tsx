@@ -9,9 +9,10 @@ import {BottomTabNavigator} from './BottomTab/BottomTabNavigator';
 import {OnBoardingStackNavigator} from './Stack/OnBoardingStackNavigator';
 import {SplashScreen} from '../Screens/OnBoarding/SplashScreen';
 import {Tuple} from '@reduxjs/toolkit';
+import {ApplicationOverlayStackNavigator} from './Stack/ApplicationOverlayStackNavigator';
 
 type RootStackParamList = {
-  TestScreen: undefined;
+  ApplicationOverlay: undefined;
   BottomTab: undefined;
   OnBoarding: undefined;
 };
@@ -56,7 +57,10 @@ export const RootStack: React.FC = () => {
         {userSignInStatus === true
           ? screenBuilder([
               {screenName: 'BottomTab', component: BottomTabNavigator},
-              // {screenName: 'Overlay', component: OverlayStackNavigator},
+              {
+                screenName: 'ApplicationOverlay',
+                component: ApplicationOverlayStackNavigator,
+              },
             ])
           : screenBuilder([
               {screenName: 'OnBoarding', component: OnBoardingStackNavigator},

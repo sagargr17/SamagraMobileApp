@@ -7,10 +7,17 @@ import {SamagraScaller} from '../../Utilities/CustomMethods';
 import {TextInput} from 'react-native-paper';
 import {DropdownComponent} from '../Sections/DropDownSection';
 import AppButton from '../Elements/Button';
+import {ApplicationOverlayStackNavigationProp} from '../../Navigators/Stack/ApplicationOverlayStackNavigator';
+import {BottomTabProps} from '../../Navigators/BottomTab/BottomTabNavigator';
+import {RootStackNavigationProp} from '../../Navigators/RootStackNavigator';
 
-interface ServiceBottomSheetProps {}
+interface ServiceBottomSheetProps {
+  navigation: RootStackNavigationProp<'ApplicationOverlay'> | any;
+}
 
-export const ServiceBottomSheet: React.FC<ServiceBottomSheetProps> = ({}) => {
+export const ServiceBottomSheet: React.FC<ServiceBottomSheetProps> = ({
+  navigation,
+}) => {
   type childrenContent = () => React.ReactNode;
   const childrenContent = () => {
     const serviceData = [
@@ -40,7 +47,14 @@ export const ServiceBottomSheet: React.FC<ServiceBottomSheetProps> = ({}) => {
         <DropdownComponent
           data={timeData}
           labelTitle="Time"></DropdownComponent>
-        <AppButton>Search</AppButton>
+        <AppButton
+          onPress={() => {
+            navigation.navigate('ApplicationOverlay', {
+              screen: 'ServiceListScreen',
+            });
+          }}>
+          Search
+        </AppButton>
       </View>
     );
   };

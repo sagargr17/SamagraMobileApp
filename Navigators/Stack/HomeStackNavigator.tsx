@@ -42,9 +42,6 @@ export const HomeStackNavigator: React.FC = () => {
       <HomeStackBuilder.Navigator
         screenOptions={{
           headerTitle: '',
-          // headerBackTitle: 'back',
-
-          // headerBackButtonDisplayMode: 'minimal',
           headerTransparent: true,
           headerBackButtonDisplayMode: 'minimal',
         }}>

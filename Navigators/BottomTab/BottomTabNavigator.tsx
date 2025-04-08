@@ -8,7 +8,7 @@ import {ServiceStackNavigator} from '../Stack/ServiceStackNavigator';
 import {SamagraScaller} from '../../Utilities/CustomMethods';
 import {useTheme} from '@react-navigation/native';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
-import {MoreStackNavigator} from '../Stack/MoreStackNavigator';
+import {ApplicationOverlayStackNavigator} from '../Stack/ApplicationOverlayStackNavigator';
 
 type BottomTabParamList = {
   Home: undefined;
@@ -111,11 +111,12 @@ export const BottomTabNavigator: React.FC = () => {
           }),
           fontFamily: 'Poppins-Regular',
         },
-      })}>
+      })}
+      initialRouteName="Service">
       {screenBuilder([
         {screenName: 'Home', component: HomeStackNavigator},
         {screenName: 'Service', component: ServiceStackNavigator},
-        {screenName: 'More', component: MoreStackNavigator},
+        {screenName: 'More', component: ApplicationOverlayStackNavigator},
       ])}
     </BottomTabBuilder.Navigator>
   );

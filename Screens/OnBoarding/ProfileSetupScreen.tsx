@@ -8,6 +8,7 @@ import {
 import {Logos} from '../../Assets/SVG/Exports/Exports';
 import AppButton from '../../Components/Elements/Button';
 import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
+import {useTheme} from '@react-navigation/native';
 
 interface ProfileSetupProps {
   navigation: OnBoardingStackNavigationProp<'ProfileSetupScreen'>;
@@ -17,12 +18,20 @@ export const ProfileSetupScreen: React.FC<ProfileSetupProps> = ({
   navigation,
 }) => {
   const {SamagraLogo} = Logos;
+  const {colors, fonts} = useTheme();
+
   return (
     <OnBoardingLayout>
       <View style={styles.body}>
         <View>
-          <Text style={styles.header}>Let's setup profile</Text>
-          <Text style={styles.desc}>
+          <Text
+            style={[
+              styles.desc,
+              {
+                color: colors.text,
+                fontFamily: fonts.regular.fontFamily,
+              },
+            ]}>
             Since you are verified now, let’s get your profile setup now. You
             have complete your profile information, upload documents, vehicle
             information and bank details.

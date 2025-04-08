@@ -10,7 +10,7 @@ const MyTheme = {
   colors: {
     primary: 'rgba(99, 202, 78, 1)',
     background: 'rgb(255, 255, 255)',
-    card: 'rgb(255, 255, 255)',
+    card: 'rgb(252, 252, 252)',
     text: 'rgba(45, 45, 45, 1)',
     border: 'rgb(192, 192, 192)',
     notification: 'rgb(255, 69, 58)',

@@ -8,6 +8,7 @@ import {MyDarkTheme, MyTheme} from '../../Prefrences/Prefrences';
 
 interface AppButtonProps extends React.ComponentProps<typeof Button> {
   color?: 'primary' | 'secondary' | 'light' | 'danger';
+  customStyle?: any;
 }
 
 const AppButton = ({
@@ -19,10 +20,11 @@ const AppButton = ({
   ...props
 }: AppButtonProps) => {
   const {colors, fonts} = useTheme();
+  const {customStyle} = props;
 
   return (
     <Button
-      textColor={mode === 'outlined' ? '#2A56FE' : 'white'}
+      textColor={mode === 'outlined' ? colors.text : 'white'}
       mode={mode}
       labelStyle={[
         styles.label,
@@ -39,7 +41,7 @@ const AppButton = ({
         },
       ]}
       buttonColor={mode === 'outlined' ? colors.background : colors.primary}
-      contentStyle={styles.buttonContent}
+      contentStyle={[styles.buttonContent, customStyle]}
       onPress={onPress}
       {...props}>
       {children}
@@ -60,12 +62,8 @@ const styles = StyleSheet.create({
     fontFamily: 'Poopins-Bold',
   },
   buttonContent: {
-    paddingTop: SamagraScaller({
-      value: 4,
-      scaleBy: 'average',
-    }),
-    paddingBottom: SamagraScaller({
-      value: 4,
+    paddingVertical: SamagraScaller({
+      value: 3,
       scaleBy: 'average',
     }),
   },
