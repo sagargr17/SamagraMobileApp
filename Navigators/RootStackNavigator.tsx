@@ -56,6 +56,7 @@ export const RootStack: React.FC = () => {
         {userSignInStatus === true
           ? screenBuilder([
               {screenName: 'BottomTab', component: BottomTabNavigator},
+              // {screenName: 'Overlay', component: OverlayStackNavigator},
             ])
           : screenBuilder([
               {screenName: 'OnBoarding', component: OnBoardingStackNavigator},
