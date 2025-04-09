@@ -19,6 +19,7 @@ export const ServiceBottomSheet: React.FC<ServiceBottomSheetProps> = ({
   navigation,
 }) => {
   type childrenContent = () => React.ReactNode;
+
   const childrenContent = () => {
     const serviceData = [
       {label: 'Laundry', value: '1'},

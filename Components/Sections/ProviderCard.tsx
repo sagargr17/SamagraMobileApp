@@ -5,15 +5,18 @@ import {
   Icon,
   PaperProvider,
   ProgressBar,
+  Title,
 } from 'react-native-paper';
 import {SamagraScaller} from '../../Utilities/CustomMethods';
 import {TextComponet} from '../Elements/TextComponet';
 import {ProviderCardSkeleton} from '../Skeletons/ProviderCardSkeleton';
-import {SafeAreaView, StyleSheet, View} from 'react-native';
+import {SafeAreaView, StyleSheet, TouchableHighlight, View} from 'react-native';
 import FastImage from '@d11/react-native-fast-image';
 import AppButton from '../Elements/Button';
 import {useTheme} from '@react-navigation/native';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
+import {SamagraBottomSheet} from './SamagraBottomSheet';
+import {TouchableOpacity} from '@gorhom/bottom-sheet';
 
 interface ProviderCardProps {
   titleName: string;
@@ -21,6 +24,9 @@ interface ProviderCardProps {
   distance: number;
   rating: number;
   priceperhour: number;
+  setPersonalDetaile: React.Dispatch<React.SetStateAction<React.ReactNode>>;
+  // setIsProfileTapped: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsProfileTapped: any;
 }
 
 export const ProviderCard: React.FC<ProviderCardProps> = ({
@@ -29,6 +35,8 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
   distance,
   rating,
   priceperhour,
+  setIsProfileTapped,
+  setPersonalDetaile,
 }) => {
   const {colors} = useTheme();
   const {Star} = Logos;
@@ -40,7 +48,97 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
     }, 1000);
   }, [progressBarData]);
 
-  const content = () => {
+  type providerPrimarycontain = () => React.ReactNode;
+  const providerPrimarycontain = (allDetailDisplay: boolean = true) => (
+    <View style={ProviderCardStyle.dataContainer}>
+      <TouchableOpacity
+        style={{
+          backgroundColor: colors.card,
+        }}
+        onPress={() => {
+          setIsProfileTapped(setIsProfileTapped);
+          setPersonalDetaile(providerPrimarycontain(false));
+        }}>
+        <FastImage
+          style={[
+            ProviderCardStyle.image,
+            {
+              borderColor: colors.border,
+            },
+          ]}
+          source={{
+            uri: image,
+          }}></FastImage>
+      </TouchableOpacity>
+
+      <View style={ProviderCardStyle.textContainer}>
+        <TextComponet
+          title={titleName}
+          fontVariant="medium"
+          fontSize={17}
+          lineHeight={22}></TextComponet>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            marginTop: SamagraScaller({
+              value: 6,
+              scaleBy: 'average',
+            }),
+          }}>
+          {Array.from({length: rating}).map((_, index) => (
+            <Star key={index} />
+          ))}
+        </View>
+        <View
+          style={{
+            marginTop: SamagraScaller({
+              value: 6,
+              scaleBy: 'average',
+            }),
+          }}>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}>
+            <TextComponet
+              title={'Rs.' + priceperhour + ' per hour'}
+              fontVariant="regular"
+              fontSize={16}
+              lineHeight={22}></TextComponet>
+
+            <TextComponet
+              customStyle={{
+                marginLeft: 20,
+              }}
+              title={distance + ' km away'}
+              fontVariant="regular"
+              fontSize={16}
+              lineHeight={22}></TextComponet>
+          </View>
+          {allDetailDisplay ? (
+            <TextComponet
+              title={`Total: Rs.${priceperhour * 50}`}
+              fontVariant="bold"
+              fontSize={20}
+              lineHeight={28}
+              customStyle={{
+                color: colors.primary,
+              }}></TextComponet>
+          ) : null}
+        </View>
+      </View>
+    </View>
+  );
+
+  const bottomShitChildren = () => {
+    providerPrimarycontain(false);
+  };
+
+  const Cardcontent = () => {
     return (
       <View
         style={[
@@ -51,58 +149,7 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
           },
         ]}>
         <ProgressBar progress={progressBarData} color={colors.primary} />
-        <View style={ProviderCardStyle.dataContainer}>
-          <FastImage
-            style={[
-              ProviderCardStyle.image,
-              {
-                borderColor: colors.border,
-              },
-            ]}
-            source={{
-              uri: image,
-            }}></FastImage>
-
-          <View style={ProviderCardStyle.textContainer}>
-            <TextComponet
-              title={titleName}
-              fontVariant="medium"
-              fontSize={17}
-              lineHeight={22}></TextComponet>
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                marginTop: SamagraScaller({
-                  value: 6,
-                  scaleBy: 'average',
-                }),
-              }}>
-              {Array.from({length: rating}).map((_, index) => (
-                <Star key={index} />
-              ))}
-            </View>
-            <View
-              style={{
-                marginTop: SamagraScaller({
-                  value: 6,
-                  scaleBy: 'average',
-                }),
-              }}>
-              <TextComponet
-                title={'Rs.' + priceperhour + ' per hour'}
-                fontVariant="regular"
-                fontSize={16}
-                lineHeight={22}></TextComponet>
-
-              <TextComponet
-                title={distance + ' km away'}
-                fontVariant="regular"
-                fontSize={16}
-                lineHeight={22}></TextComponet>
-            </View>
-          </View>
-        </View>
+        {providerPrimarycontain()}
         <View style={[ProviderCardStyle.actionContainer]}>
           <AppButton
             customStyle={{
@@ -120,12 +167,6 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
             Decline
           </AppButton>
           <AppButton
-            customStyle={{
-              paddingVerticle: SamagraScaller({
-                value: 0.2,
-                scaleBy: 'average',
-              }),
-            }}
             onPress={() => {
               console.log('Accept');
             }}
@@ -151,7 +192,7 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
         <ProviderCardSkeleton></ProviderCardSkeleton>
       ) : (
         // ) : progressBarData > 1 ? null : (
-        content()
+        Cardcontent()
       )}
     </>
   );

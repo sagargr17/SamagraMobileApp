@@ -10,6 +10,8 @@ import {OnBoardingStackNavigator} from './Stack/OnBoardingStackNavigator';
 import {SplashScreen} from '../Screens/OnBoarding/SplashScreen';
 import {Tuple} from '@reduxjs/toolkit';
 import {ApplicationOverlayStackNavigator} from './Stack/ApplicationOverlayStackNavigator';
+import {StatusBar} from 'react-native';
+import {useTheme} from '@react-navigation/native';
 
 type RootStackParamList = {
   ApplicationOverlay: undefined;
@@ -45,9 +47,7 @@ export const RootStack: React.FC = () => {
   const userSignInStatus = useSelector(
     (state: any) => state.user.isAuthenticated,
   );
-
-  // console.log('RootSTackScreen::::', userSignInStatus);
-
+  const {colors} = useTheme();
   return (
     <>
       <RootStackBuilder.Navigator

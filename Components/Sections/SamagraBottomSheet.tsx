@@ -13,13 +13,15 @@ interface SamagraBottomSheetProps {
   children: () => React.ReactNode;
   title: string;
   pannigGesture: boolean;
+  flexHeight: number;
 }
 
 // This is the section component where element is not working at all
 export const SamagraBottomSheet: React.FC<SamagraBottomSheetProps> = ({
   children,
   title,
-  pannigGesture = false,
+  pannigGesture,
+  flexHeight,
 }) => {
   const {colors} = useTheme();
   // ref
@@ -37,16 +39,16 @@ export const SamagraBottomSheet: React.FC<SamagraBottomSheetProps> = ({
         animateOnMount={true}
         enablePanDownToClose={false}
         backgroundStyle={{backgroundColor: colors.card}}
-        enableContentPanningGesture={false}
+        enableContentPanningGesture={pannigGesture}
         snapPoints={['100%']}
         ref={bottomSheetRef}
         onChange={handleSheetChanges}
         style={{
-          elevation: 0.2,
-        }}
-        containerStyle={{
+          borderWidth: 0.1,
           borderRadius: 10,
-        }}>
+          borderColor: colors.border,
+        }}
+        containerStyle={{}}>
         <View
           style={[
             styles.titleCotainer,
@@ -76,7 +78,7 @@ export const SamagraBottomSheet: React.FC<SamagraBottomSheetProps> = ({
                 value: 20,
                 scaleBy: 'average',
               }),
-              flex: 0.08,
+              flex: flexHeight,
             },
           ]}>
           {children()}
