@@ -62,9 +62,11 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
   return (
     <>
       <ScrollView
-        style={{
-          marginTop: 100,
-        }}>
+        style={
+          {
+            // marginTop: 100,
+          }
+        }>
         <Text>Home Screen</Text>
         <Button
           style={{

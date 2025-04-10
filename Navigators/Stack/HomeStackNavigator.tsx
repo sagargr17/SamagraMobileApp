@@ -7,8 +7,10 @@ import {TestScreen} from '../../Screens/Application/User/TestScreen';
 import {HomeDetailScreen} from '../../Screens/Application/Home/HomeDetailScreen';
 import {HomeScreen} from '../../Screens/Application/Home/HomeScreen';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
+import {HomeLandingScreen} from '../../Screens/Application/Home/HomeLandingScreen';
 
 type HomeStackParamList = {
+  HomeLandingScreen: undefined;
   HomeScreen: undefined;
   HomeDetailScreen: undefined;
 };
@@ -41,12 +43,11 @@ export const HomeStackNavigator: React.FC = () => {
     <>
       <HomeStackBuilder.Navigator
         screenOptions={{
-          headerTitle: '',
-          headerTransparent: true,
-          headerBackButtonDisplayMode: 'minimal',
+          header: () => null,
         }}>
         {screenBuilder([
           {screenName: 'HomeScreen', component: HomeScreen},
+          {screenName: 'HomeLandingScreen', component: HomeLandingScreen},
           {screenName: 'HomeDetailScreen', component: HomeDetailScreen},
         ])}
       </HomeStackBuilder.Navigator>

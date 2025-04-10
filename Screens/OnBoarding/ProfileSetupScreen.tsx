@@ -9,6 +9,7 @@ import {Logos} from '../../Assets/SVG/Exports/Exports';
 import AppButton from '../../Components/Elements/Button';
 import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
 import {useTheme} from '@react-navigation/native';
+import {TextComponet} from '../../Components/Elements/TextComponet';
 
 interface ProfileSetupProps {
   navigation: OnBoardingStackNavigationProp<'ProfileSetupScreen'>;
@@ -53,7 +54,12 @@ export const ProfileSetupScreen: React.FC<ProfileSetupProps> = ({
             onPress={() => {
               navigation.navigate('SignInScreen');
             }}>
-            <Text style={styles.text}>Already Have an Account? Log In Now</Text>
+            <TextComponet
+              customStyle={styles.text}
+              fontVariant="bold"
+              fontSize={16}
+              lineHeight={22}
+              title="Already Have an Account? Log In Now"></TextComponet>
           </Pressable>
         </View>
       </View>
