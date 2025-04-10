@@ -254,7 +254,6 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
               onPress={handleSubmit(onSubmit)}>
               Continue
             </AppButton>
-            {/* <Spacer height={20} /> */}
           </View>
         </ScrollView>
       </KeyboardAvoidingView>

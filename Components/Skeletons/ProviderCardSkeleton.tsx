@@ -21,8 +21,6 @@ export const ProviderCardSkeleton: React.FC<
     LinearGradientComponent: LinearGradient,
   });
 
-  const sekeletonContent = () => {};
-
   return (
     <View
       style={[

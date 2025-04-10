@@ -24,8 +24,9 @@ const AppButton = ({
 
   return (
     <Button
-      textColor={mode === 'outlined' ? colors.text : 'white'}
+      rippleColor={colors.primary}
       mode={mode}
+      textColor={mode === 'outlined' ? colors.text : 'white'}
       labelStyle={[
         styles.label,
         {
@@ -33,15 +34,9 @@ const AppButton = ({
           fontFamily: fonts.medium.fontFamily,
         },
       ]}
-      style={[
-        styles.button,
-        disabled && styles.disabled,
-        {
-          borderColor: mode === 'outlined' ? colors.border : colors.border,
-        },
-      ]}
-      buttonColor={mode === 'outlined' ? colors.background : colors.primary}
-      contentStyle={[styles.buttonContent, customStyle]}
+      style={[styles.button, disabled && styles.disabled]}
+      buttonColor={mode === 'outlined' ? colors.card : colors.primary}
+      contentStyle={[styles.buttonContent]}
       onPress={onPress}
       {...props}>
       {children}

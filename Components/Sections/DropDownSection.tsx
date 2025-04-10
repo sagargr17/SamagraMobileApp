@@ -75,7 +75,7 @@ export const DropdownComponent: React.FC<DropdownComponentProps> = ({
         }}
         containerStyle={{
           borderRadius: SamagraScaller({
-            value: 2,
+            value: 12,
             scaleBy: 'average',
           }),
         }}
@@ -92,11 +92,21 @@ const styles = StyleSheet.create({
     }),
   },
   dropdown: {
-    height: 50,
+    height: SamagraScaller({
+      value: 56,
+      scaleBy: 'height',
+    }),
     borderColor: 'gray',
     borderWidth: 0.5,
     borderRadius: 8,
-    paddingHorizontal: 8,
+    paddingHorizontal: SamagraScaller({
+      value: 10,
+      scaleBy: 'height',
+    }),
+    paddingVertical: SamagraScaller({
+      value: 10,
+      scaleBy: 'height',
+    }),
   },
   icon: {
     marginRight: 5,

@@ -7,6 +7,9 @@ import Home from '../SVGImages/HomeBottomTab.svg';
 import More from '../SVGImages/MoreBottomTab.svg';
 import Service from '../SVGImages/ServiceBottomTab.svg';
 import Star from '../SVGImages/star.svg';
+import BellRing from '../SVGImages/BellRing.svg';
+import BellRingTail from '../SVGImages/BellRingTail.svg';
+import Location from '../SVGImages/Location.svg';
 
 export const Logos = {
   AppleLogo,
@@ -18,4 +21,7 @@ export const Logos = {
   Home,
   More,
   Star,
+  BellRing,
+  BellRingTail,
+  Location,
 };

@@ -18,15 +18,11 @@ export const PairButtons: React.FC<PairButtonsProps> = ({
   return (
     <View style={styles.actionContainer}>
       <AppButton
-        style={[styles.action]}
-        customStyle={{
-          borderColor: colors.border,
-        }}
-        color="light"
+        mode="outlined"
         onPress={() => {
-          onAcceptPress();
+          onDeclinPress();
         }}
-        mode="outlined">
+        style={[styles.action]}>
         Decline
       </AppButton>
       <AppButton

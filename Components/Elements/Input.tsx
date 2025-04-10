@@ -23,7 +23,7 @@ export const Input: React.FC<InputProps> = ({
   value,
   placeholder,
   onChangeText,
-  height = 44,
+  height = 54,
   left = null,
   ...props
 }) => {
@@ -64,19 +64,22 @@ export const Input: React.FC<InputProps> = ({
           activeOutlineColor={colors.border}
           placeholderTextColor={'#808080'}
           tvParallaxMagnification={100}
-          activeUnderlineColor="transparent"
+          // activeUnderlineColor="transparent"
           style={[
             styles.input,
             {
               backgroundColor: colors.background,
-              borderColor: colors.border,
-              color: 'orange',
+
               fontFamily: fonts.regular.fontFamily,
               height: SamagraScaller({
                 value: height,
                 scaleBy: 'average',
               }),
-              fontWeight: '100',
+              borderRadius: SamagraScaller({
+                value: 8,
+                scaleBy: 'average',
+              }),
+              borderWidth: 0.01,
             },
           ]}
           value={value}
@@ -122,7 +125,7 @@ const styles = StyleSheet.create({
       scaleBy: 'height',
     }),
     borderRadius: SamagraScaller({
-      value: 15,
+      value: 18,
       scaleBy: 'height',
     }),
     borderWidth: SamagraScaller({
