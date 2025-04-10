@@ -1,9 +1,9 @@
 import React from 'react';
 import {Controller, useForm} from 'react-hook-form';
-import PhoneInput from '../../../Components/Elements/PhoneInput';
-import AppButton from '../../../Components/Elements/Button';
-import {Spacer} from '../../../Components/Elements/Spacer';
-import {ErrorText} from '../../../Components/Elements/ErrorText';
+import PhoneInput from '../Elements/PhoneInput';
+import AppButton from '../Elements/Button';
+import {Spacer} from '../Elements/Spacer';
+import {ErrorText} from '../Elements/ErrorText';
 
 interface SignUpData {
   phone: string;

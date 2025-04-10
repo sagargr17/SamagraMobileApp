@@ -1,22 +1,14 @@
+import FastImage from '@d11/react-native-fast-image';
+import {TouchableOpacity} from '@gorhom/bottom-sheet';
+import {useTheme} from '@react-navigation/native';
 import React, {useEffect, useMemo, useState} from 'react';
-import {
-  Button,
-  Card,
-  Icon,
-  PaperProvider,
-  ProgressBar,
-  Title,
-} from 'react-native-paper';
+import {StyleSheet, View} from 'react-native';
+import {ProgressBar} from 'react-native-paper';
+import {Logos} from '../../Assets/SVG/Exports/Exports';
 import {SamagraScaller} from '../../Utilities/CustomMethods';
 import {TextComponet} from '../Elements/TextComponet';
 import {ProviderCardSkeleton} from '../Skeletons/ProviderCardSkeleton';
-import {SafeAreaView, StyleSheet, TouchableHighlight, View} from 'react-native';
-import FastImage from '@d11/react-native-fast-image';
-import AppButton from '../Elements/Button';
-import {useTheme} from '@react-navigation/native';
-import {Logos} from '../../Assets/SVG/Exports/Exports';
-import {SamagraBottomSheet} from './SamagraBottomSheet';
-import {TouchableOpacity} from '@gorhom/bottom-sheet';
+import {PairButtons} from './PairButtons';
 
 interface ProviderCardProps {
   titleName: string;
@@ -25,7 +17,6 @@ interface ProviderCardProps {
   rating: number;
   priceperhour: number;
   setPersonalDetaile: React.Dispatch<React.SetStateAction<React.ReactNode>>;
-  // setIsProfileTapped: React.Dispatch<React.SetStateAction<boolean>>;
   setIsProfileTapped: any;
 }
 
@@ -150,30 +141,13 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
         ]}>
         <ProgressBar progress={progressBarData} color={colors.primary} />
         {providerPrimarycontain()}
-        <View style={[ProviderCardStyle.actionContainer]}>
-          <AppButton
-            customStyle={{
-              paddingVerticle: SamagraScaller({
-                value: 0.2,
-                scaleBy: 'average',
-              }),
-            }}
-            color="light"
-            onPress={() => {
-              console.log('Delete');
-            }}
-            mode="outlined"
-            style={[ProviderCardStyle.action]}>
-            Decline
-          </AppButton>
-          <AppButton
-            onPress={() => {
-              console.log('Accept');
-            }}
-            style={[ProviderCardStyle.action]}>
-            Accept
-          </AppButton>
-        </View>
+        <PairButtons
+          onAcceptPress={() => {
+            console.log('Accept');
+          }}
+          onDeclinPress={() => {
+            console.log('Decline');
+          }}></PairButtons>
       </View>
     );
   };
@@ -217,6 +191,10 @@ const ProviderCardStyle = StyleSheet.create({
       height: 5,
       width: 0.1,
     },
+    padding: SamagraScaller({
+      value: 10,
+      scaleBy: 'average',
+    }),
   },
 
   dataContainer: {

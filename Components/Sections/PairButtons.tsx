@@ -1,0 +1,54 @@
+import {useTheme} from '@react-navigation/native';
+import React from 'react';
+import {StyleSheet, View} from 'react-native';
+import {SamagraScaller} from '../../Utilities/CustomMethods';
+import AppButton from '../Elements/Button';
+
+interface PairButtonsProps {
+  onAcceptPress: () => void;
+  onDeclinPress: () => void;
+}
+
+export const PairButtons: React.FC<PairButtonsProps> = ({
+  onAcceptPress,
+  onDeclinPress,
+}) => {
+  const {colors} = useTheme();
+
+  return (
+    <View style={styles.actionContainer}>
+      <AppButton
+        style={[styles.action]}
+        customStyle={{
+          borderColor: colors.border,
+        }}
+        color="light"
+        onPress={() => {
+          onAcceptPress();
+        }}
+        mode="outlined">
+        Decline
+      </AppButton>
+      <AppButton
+        onPress={() => {
+          onDeclinPress();
+        }}
+        style={[styles.action]}>
+        Accept
+      </AppButton>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  actionContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'space-around',
+  },
+  action: {
+    flex: 0.4,
+  },
+});

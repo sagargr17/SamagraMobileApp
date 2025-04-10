@@ -4,16 +4,13 @@ import {ProviderCard} from '../../../Components/Sections/ProviderCard';
 import {SamagraScaller} from '../../../Utilities/CustomMethods';
 import {SamagraBottomSheet} from '../../../Components/Sections/SamagraBottomSheet';
 import {TextComponet} from '../../../Components/Elements/TextComponet';
+import {PairButtons} from '../../../Components/Sections/PairButtons';
 
 interface ServiceListScreenProps {}
 
 export const ServiceListScreen: React.FC<ServiceListScreenProps> = ({}) => {
   const [personalUserDetail, setPersonalDetail] = useState<React.ReactNode>();
   const [isProfileTapped, setIsProfileTapped] = useState<boolean>(false);
-
-  //   setPersonalDetail: React.Dispatch<React.SetStateAction<React.ReactNode>>;
-
-  console.log('SErvice Screenn', isProfileTapped);
 
   return (
     <>
@@ -76,7 +73,7 @@ export const ServiceListScreen: React.FC<ServiceListScreenProps> = ({}) => {
           onClose={() => setIsProfileTapped(!isProfileTapped)}
           isOppen={isProfileTapped}
           // indexValue={isProfileTapped ? 0 : -1}
-          flexHeight={0.35}
+          flexHeight={0.17}
           pannigGesture={isProfileTapped ? true : false}
           title="Profile Details"
           children={() => (
@@ -88,6 +85,7 @@ export const ServiceListScreen: React.FC<ServiceListScreenProps> = ({}) => {
                     value: 16,
                     scaleBy: 'average',
                   }),
+                  flex: 1,
                 }}>
                 <View
                   style={{
@@ -118,6 +116,18 @@ export const ServiceListScreen: React.FC<ServiceListScreenProps> = ({}) => {
                     fontVariant="medium"
                     fontSize={18}
                     lineHeight={24}></TextComponet>
+                </View>
+                <View
+                  style={{
+                    flex: 0.5,
+                  }}>
+                  <PairButtons
+                    onAcceptPress={() => {
+                      console.log('Hello World');
+                    }}
+                    onDeclinPress={() => {
+                      console.log('Hello World');
+                    }}></PairButtons>
                 </View>
               </View>
             </>

@@ -37,7 +37,7 @@ const AppButton = ({
         styles.button,
         disabled && styles.disabled,
         {
-          borderColor: mode === 'outlined' ? '#2A56FE' : colors.border,
+          borderColor: mode === 'outlined' ? colors.border : colors.border,
         },
       ]}
       buttonColor={mode === 'outlined' ? colors.background : colors.primary}
@@ -56,7 +56,6 @@ const styles = StyleSheet.create({
       value: 10,
       scaleBy: 'average',
     }),
-    // backgroundColor: 'pink',
   },
   label: {
     fontFamily: 'Poopins-Bold',
