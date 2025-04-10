@@ -9,7 +9,11 @@ import Service from '../SVGImages/ServiceBottomTab.svg';
 import Star from '../SVGImages/star.svg';
 import BellRing from '../SVGImages/BellRing.svg';
 import BellRingTail from '../SVGImages/BellRingTail.svg';
-import Location from '../SVGImages/Location.svg';
+import Grocery from '../SVGImages/Grocery.svg';
+import HouseKeeping from '../SVGImages/HouseKeeping.svg';
+import Laundry from '../SVGImages/Laundry.svg';
+import Stationary from '../SVGImages/Stationary.svg';
+import Location from '../SVGImages/Location';
 
 export const Logos = {
   AppleLogo,
@@ -24,4 +28,8 @@ export const Logos = {
   BellRing,
   BellRingTail,
   Location,
+  Grocery,
+  HouseKeeping,
+  Stationary,
+  Laundry,
 };

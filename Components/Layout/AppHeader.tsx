@@ -9,14 +9,24 @@ import {StyleSheet} from 'react-native';
 import FastImage from '@d11/react-native-fast-image';
 import {Button} from 'react-native-paper';
 
-interface AppHeaderProps {}
+interface AppHeaderProps {
+  currentPosition: 'absolute' | 'relative' | 'static';
+}
 
-export const AppHeader: React.FC<AppHeaderProps> = ({}) => {
+export const AppHeader: React.FC<AppHeaderProps> = ({
+  currentPosition = 'relative',
+}) => {
   const {Location} = Logos;
   const {colors} = useTheme();
   return (
     <>
-      <View style={[styles.headerConntainer]}>
+      <View
+        style={[
+          styles.headerConntainer,
+          {
+            position: currentPosition,
+          },
+        ]}>
         <View
           style={{
             padding: SamagraScaller({
@@ -100,7 +110,6 @@ const styles = StyleSheet.create({
   headerConntainer: {
     display: 'flex',
     flexDirection: 'row',
-    position: 'absolute',
     top: 1,
     zIndex: 2,
     alignItems: 'center',
@@ -109,5 +118,6 @@ const styles = StyleSheet.create({
       scaleBy: 'width',
       value: 10,
     }),
+    backgroundColor: 'transparent',
   },
 });

@@ -20,7 +20,7 @@ export const ServiceLandingScreen: React.FC<ServiceLandingScreenProps> = ({
   const styleUrl = `https://tiles.stadiamaps.com/styles/alidade_smooth.json?api_key=${apiKey}`;
   return (
     <>
-      <AppHeader></AppHeader>
+      <AppHeader currentPosition="absolute"></AppHeader>
       <MapView style={{flex: 0.7}} />
       <ServiceBottomSheet navigation={navigation}></ServiceBottomSheet>
     </>

@@ -46,8 +46,8 @@ export const HomeStackNavigator: React.FC = () => {
           header: () => null,
         }}>
         {screenBuilder([
-          {screenName: 'HomeScreen', component: HomeScreen},
           {screenName: 'HomeLandingScreen', component: HomeLandingScreen},
+          {screenName: 'HomeScreen', component: HomeScreen},
           {screenName: 'HomeDetailScreen', component: HomeDetailScreen},
         ])}
       </HomeStackBuilder.Navigator>
