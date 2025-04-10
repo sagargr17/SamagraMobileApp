@@ -153,7 +153,7 @@ export const SamagraBottomSheet: React.FC<SamagraBottomSheetProps> = ({
   const {colors} = useTheme();
   const bottomSheetRef = useRef<BottomSheet>(null);
 
-  const snapPoints = isOppen ? ['100%'] : ['0%'];
+  const snapPoints = isOppen ? ['90%'] : ['0%'];
 
   useEffect(() => {
     if (isOppen) {

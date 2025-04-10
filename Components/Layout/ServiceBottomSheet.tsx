@@ -66,7 +66,7 @@ export const ServiceBottomSheet: React.FC<ServiceBottomSheetProps> = ({
         isOppen={true}
         flexHeight={0.08}
         pannigGesture={false}
-        title="Request for Laundry Service"
+        title="Request for House Keeping Service"
         children={childrenContent}></SamagraBottomSheet>
     </>
   );
