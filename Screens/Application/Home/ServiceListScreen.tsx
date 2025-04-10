@@ -1,18 +1,19 @@
 import React, {useState} from 'react';
-import {ScrollView, Text} from 'react-native';
+import {ScrollView, Text, View} from 'react-native';
 import {ProviderCard} from '../../../Components/Sections/ProviderCard';
 import {SamagraScaller} from '../../../Utilities/CustomMethods';
 import {SamagraBottomSheet} from '../../../Components/Sections/SamagraBottomSheet';
+import {TextComponet} from '../../../Components/Elements/TextComponet';
 
 interface ServiceListScreenProps {}
 
 export const ServiceListScreen: React.FC<ServiceListScreenProps> = ({}) => {
   const [personalUserDetail, setPersonalDetail] = useState<React.ReactNode>();
-  const [isProfileTapped, setIsProfileTapped] = useState<boolean>(true);
+  const [isProfileTapped, setIsProfileTapped] = useState<boolean>(false);
 
   //   setPersonalDetail: React.Dispatch<React.SetStateAction<React.ReactNode>>;
 
-  console.log('USer detail', personalUserDetail);
+  console.log('SErvice Screenn', isProfileTapped);
 
   return (
     <>
@@ -69,12 +70,58 @@ export const ServiceListScreen: React.FC<ServiceListScreenProps> = ({}) => {
           titleName="Janaki Gahatraj"
           image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKPSpYxVKvGp3PgZsipXAFa-Ldv6jHpN20QQ&s"></ProviderCard>
       </ScrollView>
-      {true ? (
+
+      {isProfileTapped ? (
         <SamagraBottomSheet
-          flexHeight={0.4}
-          pannigGesture={true}
-          title=""
-          children={() => personalUserDetail}></SamagraBottomSheet>
+          onClose={() => setIsProfileTapped(!isProfileTapped)}
+          isOppen={isProfileTapped}
+          // indexValue={isProfileTapped ? 0 : -1}
+          flexHeight={0.35}
+          pannigGesture={isProfileTapped ? true : false}
+          title="Profile Details"
+          children={() => (
+            <>
+              {personalUserDetail}
+              <View
+                style={{
+                  paddingHorizontal: SamagraScaller({
+                    value: 16,
+                    scaleBy: 'average',
+                  }),
+                }}>
+                <View
+                  style={{
+                    marginVertical: SamagraScaller({
+                      value: 6,
+                      scaleBy: 'average',
+                    }),
+                  }}>
+                  <TextComponet
+                    title={'E-mail:'}
+                    fontVariant="regular"
+                    fontSize={18}
+                    lineHeight={24}></TextComponet>
+                  <TextComponet
+                    title={'Ram@gmail.com'}
+                    fontVariant="medium"
+                    fontSize={18}
+                    lineHeight={24}></TextComponet>
+                </View>
+                <View>
+                  <TextComponet
+                    title={'Location:'}
+                    fontVariant="regular"
+                    fontSize={18}
+                    lineHeight={24}></TextComponet>
+                  <TextComponet
+                    title={'Baneswor, Bhimsengola'}
+                    fontVariant="medium"
+                    fontSize={18}
+                    lineHeight={24}></TextComponet>
+                </View>
+              </View>
+            </>
+          )}></SamagraBottomSheet>
       ) : null}
     </>
   );

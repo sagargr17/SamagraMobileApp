@@ -56,7 +56,7 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
           backgroundColor: colors.card,
         }}
         onPress={() => {
-          setIsProfileTapped(setIsProfileTapped);
+          setIsProfileTapped(true);
           setPersonalDetaile(providerPrimarycontain(false));
         }}>
         <FastImage
@@ -154,7 +154,7 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
           <AppButton
             customStyle={{
               paddingVerticle: SamagraScaller({
-                value: 1,
+                value: 0.2,
                 scaleBy: 'average',
               }),
             }}
@@ -218,6 +218,7 @@ const ProviderCardStyle = StyleSheet.create({
       width: 0.1,
     },
   },
+
   dataContainer: {
     display: 'flex',
     flexDirection: 'row',

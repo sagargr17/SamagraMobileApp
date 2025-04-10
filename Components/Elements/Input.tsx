@@ -61,7 +61,6 @@ export const Input: React.FC<InputProps> = ({
           ref={inputRef}
           placeholder={placeholder}
           mode="outlined"
-          // outlineColor={colors.border}
           activeOutlineColor={colors.border}
           placeholderTextColor={'#808080'}
           tvParallaxMagnification={100}
@@ -85,7 +84,6 @@ export const Input: React.FC<InputProps> = ({
           {...props}
           secureTextEntry={label === 'Password' ? true : false}
           left={left}
-
         />
       </View>
     </View>

@@ -7,8 +7,8 @@ import {ServiceBottomSheet} from '../../../Components/Layout/ServiceBottomSheet'
 import {RootStackNavigationProp} from '../../../Navigators/RootStackNavigator';
 import {UrlTile} from 'react-native-maps';
 interface ServiceScreenProps {
-  // navigation: RootStackNavigationProp<'ApplicationOverlay'>;
-  navigation: any;
+  navigation: RootStackNavigationProp<'ApplicationOverlay'>;
+  // navigation: any;
 }
 
 // MapLibreGL.setAccessToken(null);
@@ -17,7 +17,7 @@ export const ServiceScreen: React.FC<ServiceScreenProps> = ({navigation}) => {
   const styleUrl = `https://tiles.stadiamaps.com/styles/alidade_smooth.json?api_key=${apiKey}`;
   return (
     <>
-      <MapView style={{flex: 0.8}} />
+      <MapView style={{flex: 0.7}} />
       <ServiceBottomSheet navigation={navigation}></ServiceBottomSheet>
     </>
   );
