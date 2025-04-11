@@ -83,7 +83,6 @@ export const ServiceCategoryCardSlider: React.FC<
 
   return (
     <View style={{}}>
-      {/* <Spacer></Spacer> */}
       <TextComponet
         fontVariant="bold"
         fontSize={18}

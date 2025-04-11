@@ -59,7 +59,7 @@ export const DropdownComponent: React.FC<DropdownComponentProps> = ({
         })}
         labelField="label"
         valueField="value"
-        placeholder={!isFocus ? 'House Keeping' : '...'}
+        placeholder={!isFocus ? 'Select' : '...'}
         searchPlaceholder="Search..."
         value={value}
         onFocus={() => setIsFocus(true)}
@@ -78,6 +78,7 @@ export const DropdownComponent: React.FC<DropdownComponentProps> = ({
             value: 12,
             scaleBy: 'average',
           }),
+          margin: 0,
         }}
       />
     </View>
