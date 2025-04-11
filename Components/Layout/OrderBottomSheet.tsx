@@ -64,7 +64,7 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
     <>
       <SamagraBottomSheet
         isOppen={true}
-        flexHeight={0.08}
+        flexHeight={0.11}
         pannigGesture={false}
         title="Request for House Keeping Service"
         children={childrenContent}></SamagraBottomSheet>

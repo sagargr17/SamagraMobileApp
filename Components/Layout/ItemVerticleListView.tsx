@@ -57,7 +57,7 @@ export const ItemVerticleListView: React.FC<
     <View
       style={{
         marginHorizontal: SamagraScaller({
-          value: 10,
+          value: 14,
           scaleBy: 'average',
         }),
       }}>
