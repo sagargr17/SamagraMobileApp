@@ -4,12 +4,12 @@ import {TextComponet} from '../Elements/TextComponet';
 import {useTheme} from '@react-navigation/native';
 import {SamagraScaller} from '../../Utilities/CustomMethods';
 
-interface ServiceCategoryCardProps {
+interface ItemCategoryCardProps {
   title: string;
   icon: any;
 }
 
-export const ServiceCategoryCard: React.FC<ServiceCategoryCardProps> = ({
+export const ItemCategoryCard: React.FC<ItemCategoryCardProps> = ({
   title,
   icon,
 }) => {
@@ -24,14 +24,15 @@ export const ServiceCategoryCard: React.FC<ServiceCategoryCardProps> = ({
             value: 100,
             scaleBy: 'average',
           }),
-          margin: SamagraScaller({
+
+          marginRight: SamagraScaller({
             value: 13,
             scaleBy: 'average',
           }),
-          paddingHorizontal: SamagraScaller({
-            value: 17,
-            scaleBy: 'average',
-          }),
+          // paddingHorizontal: SamagraScaller({
+          //   value: 17,
+          //   scaleBy: 'average',
+          // }),
           paddingVertical: SamagraScaller({
             value: 23,
             scaleBy: 'average',

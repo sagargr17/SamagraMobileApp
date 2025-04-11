@@ -11,11 +11,11 @@ import {ApplicationOverlayStackNavigationProp} from '../../Navigators/Stack/Appl
 import {BottomTabProps} from '../../Navigators/BottomTab/BottomTabNavigator';
 import {RootStackNavigationProp} from '../../Navigators/RootStackNavigator';
 
-interface ServiceBottomSheetProps {
+interface OrderBottomSheetProps {
   navigation: RootStackNavigationProp<'ApplicationOverlay'> | any;
 }
 
-export const ServiceBottomSheet: React.FC<ServiceBottomSheetProps> = ({
+export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
   navigation,
 }) => {
   type childrenContent = () => React.ReactNode;

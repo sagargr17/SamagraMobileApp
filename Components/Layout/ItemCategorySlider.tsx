@@ -1,17 +1,16 @@
 import React from 'react';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
-import {ServiceCategoryCard} from '../Sections/ServiceCategoryCard';
+import {ItemCategoryCard} from '../Sections/ItemCategoryCard';
 import {FlatList, ScrollView, Text, View} from 'react-native';
 import {SamagraScaller} from '../../Utilities/CustomMethods';
 import {TextComponet} from '../Elements/TextComponet';
 import {useTheme} from '@react-navigation/native';
 import {Spacer} from '../Elements/Spacer';
+import {SectionHeader} from '../Sections/SectionHeader';
 
-interface ServiceCategoryCardProps {}
+interface ItemCategoryCardProps {}
 
-export const ServiceCategoryCardSlider: React.FC<
-  ServiceCategoryCardProps
-> = ({}) => {
+export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({}) => {
   const {Laundry, HouseKeeping, Grocery, Stationary} = Logos;
   const {colors} = useTheme();
 
@@ -82,24 +81,29 @@ export const ServiceCategoryCardSlider: React.FC<
   ];
 
   return (
-    <View style={{}}>
-      <TextComponet
-        fontVariant="bold"
-        fontSize={18}
-        lineHeight={30}
-        customStyle={{
-          paddingHorizontal: SamagraScaller({
-            value: 14,
+    <View
+      style={{
+        paddingHorizontal: SamagraScaller({
+          value: 10,
+          scaleBy: 'average',
+        }),
+      }}>
+      <SectionHeader
+        title="Category"
+        titleFontSize={18}
+        titleHeight={22}></SectionHeader>
+      <FlatList
+        contentContainerStyle={{
+          paddingVertical: SamagraScaller({
+            value: 12,
             scaleBy: 'average',
           }),
         }}
-        title={'Category >'}></TextComponet>
-      <FlatList
         showsHorizontalScrollIndicator={false}
         horizontal={true}
         data={data}
         renderItem={({item}) => (
-          <ServiceCategoryCard title={item.titte} icon={item.icon} />
+          <ItemCategoryCard title={item.titte} icon={item.icon} />
         )}></FlatList>
     </View>
   );

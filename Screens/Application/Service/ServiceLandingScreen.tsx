@@ -3,7 +3,7 @@ import {Text} from 'react-native-paper';
 
 import {MapView} from '@maplibre/maplibre-react-native';
 import {StatusBar} from 'react-native';
-import {ServiceBottomSheet} from '../../../Components/Layout/ServiceBottomSheet';
+import {OrderBottomSheet} from '../../../Components/Layout/OrderBottomSheet';
 import {RootStackNavigationProp} from '../../../Navigators/RootStackNavigator';
 import {UrlTile} from 'react-native-maps';
 import {AppHeader} from '../../../Components/Layout/AppHeader';
@@ -22,7 +22,7 @@ export const ServiceLandingScreen: React.FC<ServiceLandingScreenProps> = ({
     <>
       <AppHeader currentPosition="absolute"></AppHeader>
       <MapView style={{flex: 0.7}} />
-      <ServiceBottomSheet navigation={navigation}></ServiceBottomSheet>
+      <OrderBottomSheet navigation={navigation}></OrderBottomSheet>
     </>
   );
 };

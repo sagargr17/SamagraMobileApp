@@ -22,6 +22,7 @@ import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingSt
 import Authenticator from '../../client/Token/Authenticator';
 import {SamagraScaller} from '../../Utilities/CustomMethods';
 import {GestureHandlerRootView, ScrollView} from 'react-native-gesture-handler';
+import {Logos} from '../../Assets/SVG/Exports/Exports';
 
 interface SignInScreenProps {
   navigation: OnBoardingStackNavigationProp<'SignUpScreen'>;
@@ -34,6 +35,7 @@ interface SignInData {
 
 export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
   const {colors} = useTheme();
+  const {LoginAvatar} = Logos;
   const {
     control,
     handleSubmit,
@@ -61,11 +63,9 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
         >
           <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.imageContainer}>
-              <FastImage
-                resizeMode={FastImage.resizeMode.contain}
-                source={require('../../Assets/PNG/Sign.png')}
-                style={[styles.image]}></FastImage>
+              <LoginAvatar></LoginAvatar>
             </View>
+
             <Controller
               control={control}
               name="userName"
