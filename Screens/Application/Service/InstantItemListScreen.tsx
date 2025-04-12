@@ -6,9 +6,11 @@ import {SamagraBottomSheet} from '../../../Components/Sections/SamagraBottomShee
 import {TextComponet} from '../../../Components/Elements/TextComponet';
 import {PairButtons} from '../../../Components/Sections/PairButtons';
 
-interface ServiceListScreenProps {}
+interface InstantItemListScreenProps {}
 
-export const ServiceListScreen: React.FC<ServiceListScreenProps> = ({}) => {
+export const InstantItemListScreen: React.FC<
+  InstantItemListScreenProps
+> = ({}) => {
   const [personalUserDetail, setPersonalDetail] = useState<React.ReactNode>();
   const [isProfileTapped, setIsProfileTapped] = useState<boolean>(false);
 

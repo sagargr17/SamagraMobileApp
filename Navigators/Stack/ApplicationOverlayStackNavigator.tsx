@@ -5,7 +5,7 @@ import {
 } from '@react-navigation/native-stack';
 import React from 'react';
 import {MoreScreen} from '../../Screens/Application/More/MoreScreen';
-import {ServiceListScreen} from '../../Screens/Application/Service/ServiceListScreen';
+import {InstantItemListScreen} from '../../Screens/Application/Service/InstantItemListScreen';
 
 type ApplicationOverlayMoreStackParamList = {
   ServiceListScreen: undefined;
@@ -49,7 +49,7 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
         {screenBuilder([
           {
             screenName: 'ServiceListScreen',
-            component: ServiceListScreen,
+            component: InstantItemListScreen,
             option: {
               header: () => null,
             },

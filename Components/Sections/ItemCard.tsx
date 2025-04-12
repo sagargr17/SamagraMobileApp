@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Image, StyleSheet, TextInputComponent} from 'react-native';
-import {Card, IconButton} from 'react-native-paper';
+import {Card, IconButton, TouchableRipple} from 'react-native-paper';
 import {TextComponet} from '../Elements/TextComponet';
 import {useTheme} from '@react-navigation/native';
 import {SamagraScaller, titleRange} from '../../Utilities/CustomMethods';
@@ -41,7 +41,9 @@ export const ItemCard: React.FC<ItemCardProps> = ({
           }),
         },
       ]}>
-      <View
+      <TouchableRipple
+        rippleColor={colors.primary}
+        onPress={() => console.log('REEEEE')}
         style={[
           {
             backgroundColor: colors.card,
@@ -51,60 +53,62 @@ export const ItemCard: React.FC<ItemCardProps> = ({
             }),
           },
         ]}>
-        <View>
-          <Image
-            source={{uri: cardImage}}
-            style={styles.image}
-            resizeMode="cover"
-          />
-          <IconButton
-            icon="heart-outline"
-            size={24}
-            onPress={() => console.log('Added to wishlist')}
-            style={styles.wishlistButton}
-            iconColor={colors.notification}
-          />
-        </View>
-        <View
-          style={{
-            paddingHorizontal: SamagraScaller({
-              value: 10,
-              scaleBy: 'average',
-            }),
-            paddingTop: SamagraScaller({
-              value: 14,
-              scaleBy: 'average',
-            }),
-          }}>
-          <TextComponet
-            fontVariant="medium"
-            fontSize={18}
-            lineHeight={17}
-            title={titleRange(title)}
-          />
-          <View style={styles.bottomContainer}>
-            <TextComponet
-              fontVariant="bold"
-              fontSize={18}
-              customStyle={{
-                color: colors.text,
-              }}
-              title={`₹ ${price}`}
+        <>
+          <View>
+            <Image
+              source={{uri: cardImage}}
+              style={styles.image}
+              resizeMode="cover"
             />
-            <View style={styles.ratingContainer}>
+            <IconButton
+              icon="heart-outline"
+              size={24}
+              onPress={() => console.log('Added to wishlist')}
+              style={styles.wishlistButton}
+              iconColor={colors.notification}
+            />
+          </View>
+          <View
+            style={{
+              paddingHorizontal: SamagraScaller({
+                value: 10,
+                scaleBy: 'average',
+              }),
+              paddingTop: SamagraScaller({
+                value: 14,
+                scaleBy: 'average',
+              }),
+            }}>
+            <TextComponet
+              fontVariant="medium"
+              fontSize={18}
+              lineHeight={17}
+              title={titleRange(title)}
+            />
+            <View style={styles.bottomContainer}>
               <TextComponet
-                fontVariant="medium"
-                fontSize={14}
+                fontVariant="bold"
+                fontSize={18}
                 customStyle={{
-                  color: colors.notification,
+                  color: colors.text,
                 }}
-                title={rating.toString()}
+                title={`₹ ${price}`}
               />
-              <IconButton icon="star" size={20} iconColor={'#FFA902'} />
+              <View style={styles.ratingContainer}>
+                <TextComponet
+                  fontVariant="medium"
+                  fontSize={14}
+                  customStyle={{
+                    color: colors.notification,
+                  }}
+                  title={rating.toString()}
+                />
+                <IconButton icon="star" size={20} iconColor={'#FFA902'} />
+              </View>
             </View>
           </View>
-        </View>
-      </View>
+        </>
+      </TouchableRipple>
     </View>
   );
 };

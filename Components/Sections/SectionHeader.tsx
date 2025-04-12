@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import {TextComponet} from '../Elements/TextComponet';
 import {SamagraScaller} from '../../Utilities/CustomMethods';
-import {IconButton} from 'react-native-paper';
+import {Icon, IconButton} from 'react-native-paper';
 
 interface SectionHeaderProps {
   titleFontSize: number;
@@ -27,22 +27,23 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
         fontSize={titleFontSize}
         lineHeight={titleHeight}
         title={'Category'}></TextComponet>
-      <IconButton
+      <Icon
         size={SamagraScaller({
           value: 30,
           scaleBy: 'height',
         })}
-        icon={'chevron-right'}
-        style={{
-          margin: 0,
-          padding: 0,
-          borderRadius: 0,
-          height: SamagraScaller({
-            value: 25,
-            scaleBy: 'average',
-          }),
-          bottom: 2,
-        }}></IconButton>
+        source={'chevron-right'}
+        // style={{
+        //   margin: 0,
+        //   padding: 0,
+        //   borderRadius: 0,
+        //   height: SamagraScaller({
+        //     value: 25,
+        //     scaleBy: 'average',
+        //   }),
+        //   bottom: 2,
+        // }}
+      ></Icon>
     </View>
   );
 };
