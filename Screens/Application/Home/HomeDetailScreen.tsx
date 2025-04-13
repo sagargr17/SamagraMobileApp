@@ -30,10 +30,7 @@ export const HomeDetailScreen: React.FC<HomeDetailScreenProps> = ({}) => {
           },
         ]}></ImageSliderModal>
       <Spacer></Spacer>
-      <Divider
-        style={{
-          height: 1.5,
-        }}></Divider>
+      <Divider></Divider>
       <Spacer></Spacer>
       <ScrollView
         showsVerticalScrollIndicator={false}

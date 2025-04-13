@@ -226,11 +226,11 @@ const ProviderCardStyle = StyleSheet.create({
   },
   image: {
     height: SamagraScaller({
-      value: 65,
+      value: 50,
       scaleBy: 'average',
     }),
     width: SamagraScaller({
-      value: 65,
+      value: 50,
       scaleBy: 'average',
     }),
     borderRadius: SamagraScaller({
