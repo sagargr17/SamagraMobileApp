@@ -38,9 +38,11 @@ export const HomeDetailScreen: React.FC<HomeDetailScreenProps> = ({}) => {
           flex: 1,
         }}>
         <View>
-          <TextComponet
-            title={titleCase('asjdjksadh')}
-            fontVariant="regular"></TextComponet>
+          <view>
+            <TextComponet
+              title={titleCase('asjdjksadh')}
+              fontVariant="regular"></TextComponet>
+          </view>
         </View>
       </ScrollView>
     </>
