@@ -20,7 +20,7 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
   const [totalPrice, setTotalPrice] = useState<number>(320);
 
   const handleTotalPrice = (Quantity: number) => {
-    setTotalPrice(totalPrice * Quantity);
+    setTotalPrice(320 * Quantity);
   };
 
   return (

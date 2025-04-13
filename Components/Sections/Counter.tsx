@@ -78,7 +78,7 @@ export const Counter: React.FC<CounterProps> = ({setTotal}) => {
             onPress={() => {
               if (quantity > 1) {
                 setText(quantity - 1);
-                setTotal(quantity);
+                setTotal(quantity - 1);
               }
             }}></IconButton>
           <View
@@ -93,7 +93,7 @@ export const Counter: React.FC<CounterProps> = ({setTotal}) => {
             size={16}
             onPress={() => {
               setText(quantity + 1);
-              setTotal(quantity);
+              setTotal(quantity + 1);
             }}></IconButton>
         </View>
       </View>
