@@ -1,5 +1,6 @@
 import {
   createNativeStackNavigator,
+  NativeStackNavigationOptions,
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
 import React from 'react';
@@ -8,11 +9,15 @@ import {HomeDetailScreen} from '../../Screens/Application/Home/HomeDetailScreen'
 import {HomeScreen} from '../../Screens/Application/Home/HomeScreen';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
 import {HomeLandingScreen} from '../../Screens/Application/Home/HomeLandingScreen';
+import {RouteProp, useTheme} from '@react-navigation/native';
+import {titleCase} from '../../Utilities/CustomMethods';
 
 type HomeStackParamList = {
   HomeLandingScreen: undefined;
   HomeScreen: undefined;
-  HomeDetailScreen: undefined;
+  HomeDetailScreen: {
+    name: string;
+  };
 };
 
 // Its The builder with the
@@ -26,11 +31,30 @@ export interface HomeStackProps<T extends keyof HomeStackParamList> {
   navigation: HomeStackNavigationProp<T>;
 }
 
+export type HomeDetailScreenRouteProp = RouteProp<
+  HomeStackParamList,
+  'HomeDetailScreen'
+>;
+
 const screenBuilder = (
-  data: Array<{screenName: keyof HomeStackParamList; component: any}>,
+  data: Array<{
+    screenName: keyof HomeStackParamList;
+    component: any;
+    // option?: NativeStackNavigationOptions;
+    option?:
+      | NativeStackNavigationOptions
+      | ((props: {
+          route: RouteProp<HomeStackParamList, keyof HomeStackParamList>;
+          navigation: NativeStackNavigationProp<
+            HomeStackParamList,
+            keyof HomeStackParamList
+          >;
+        }) => NativeStackNavigationOptions);
+  }>,
 ) => {
   return data.map(item => (
     <HomeStackBuilder.Screen
+      options={item.option}
       key={item.screenName}
       navigationKey={Math.random().toString()}
       name={item.screenName}
@@ -39,16 +63,37 @@ const screenBuilder = (
 };
 
 export const HomeStackNavigator: React.FC = () => {
+  const {colors, fonts} = useTheme();
   return (
     <>
       <HomeStackBuilder.Navigator
         screenOptions={{
-          header: () => null,
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            fontFamily: fonts.medium.fontFamily,
+            fontSize: 16,
+          },
+          headerShadowVisible: false,
+          headerStyle: {
+            backgroundColor: colors.background,
+          },
         }}>
         {screenBuilder([
-          {screenName: 'HomeLandingScreen', component: HomeLandingScreen},
+          {
+            screenName: 'HomeLandingScreen',
+            component: HomeLandingScreen,
+            option: {
+              header: () => null,
+            },
+          },
           {screenName: 'HomeScreen', component: HomeScreen},
-          {screenName: 'HomeDetailScreen', component: HomeDetailScreen},
+          {
+            screenName: 'HomeDetailScreen',
+            component: HomeDetailScreen,
+            option: ({route}: {route: any}) => ({
+              title: titleCase(route.params.name),
+            }),
+          },
         ])}
       </HomeStackBuilder.Navigator>
     </>

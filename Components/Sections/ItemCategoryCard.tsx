@@ -17,6 +17,7 @@ export const ItemCategoryCard: React.FC<ItemCategoryCardProps> = ({
 
   return (
     <TouchableOpacity
+      id={`${Math.random()}`}
       style={[
         {
           backgroundColor: colors.primary,
@@ -29,10 +30,6 @@ export const ItemCategoryCard: React.FC<ItemCategoryCardProps> = ({
             value: 13,
             scaleBy: 'average',
           }),
-          // paddingHorizontal: SamagraScaller({
-          //   value: 17,
-          //   scaleBy: 'average',
-          // }),
           paddingVertical: SamagraScaller({
             value: 23,
             scaleBy: 'average',

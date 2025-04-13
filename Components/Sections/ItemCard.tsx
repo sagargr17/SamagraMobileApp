@@ -2,8 +2,9 @@ import React from 'react';
 import {View, Image, StyleSheet, TextInputComponent} from 'react-native';
 import {Card, IconButton, TouchableRipple} from 'react-native-paper';
 import {TextComponet} from '../Elements/TextComponet';
-import {useTheme} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 import {SamagraScaller, titleRange} from '../../Utilities/CustomMethods';
+import {HomeStackNavigationProp} from '../../Navigators/Stack/HomeStackNavigator';
 
 interface ItemCardProps {
   cardImage: string;
@@ -23,6 +24,8 @@ export const ItemCard: React.FC<ItemCardProps> = ({
   marginTop = 0,
 }) => {
   const {colors} = useTheme();
+  const navigation =
+    useNavigation<HomeStackNavigationProp<'HomeDetailScreen'>>();
 
   return (
     <View
@@ -43,7 +46,11 @@ export const ItemCard: React.FC<ItemCardProps> = ({
       ]}>
       <TouchableRipple
         rippleColor={colors.primary}
-        onPress={() => console.log('REEEEE')}
+        onPress={() => {
+          navigation.navigate('HomeDetailScreen', {
+            name: title,
+          });
+        }}
         style={[
           {
             backgroundColor: colors.card,

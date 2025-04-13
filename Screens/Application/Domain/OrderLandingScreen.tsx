@@ -7,13 +7,13 @@ import {OrderBottomSheet} from '../../../Components/Layout/OrderBottomSheet';
 import {RootStackNavigationProp} from '../../../Navigators/RootStackNavigator';
 import {UrlTile} from 'react-native-maps';
 import {AppHeader} from '../../../Components/Layout/AppHeader';
-interface ServiceLandingScreenProps {
+interface OrderLandingScreenProps {
   navigation: RootStackNavigationProp<'ApplicationOverlay'>;
   // navigation: any;
 }
 
 // MapLibreGL.setAccessToken(null);
-export const ServiceLandingScreen: React.FC<ServiceLandingScreenProps> = ({
+export const OrderLandingScreen: React.FC<OrderLandingScreenProps> = ({
   navigation,
 }) => {
   const apiKey = '2334a549-2942-4103-a5fb-6cc3d2ff1780';

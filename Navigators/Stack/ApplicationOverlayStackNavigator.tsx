@@ -5,7 +5,7 @@ import {
 } from '@react-navigation/native-stack';
 import React from 'react';
 import {MoreScreen} from '../../Screens/Application/More/MoreScreen';
-import {InstantItemListScreen} from '../../Screens/Application/Service/InstantItemListScreen';
+import {InstantItemListScreen} from '../../Screens/Application/Domain/OrderItemListScreen';
 
 type ApplicationOverlayMoreStackParamList = {
   ServiceListScreen: undefined;

@@ -4,8 +4,8 @@ import {
 } from '@react-navigation/native-stack';
 import React from 'react';
 import {TestScreen} from '../../Screens/Application/User/TestScreen';
-import {ServiceLandingScreen} from '../../Screens/Application/Service/ServiceLandingScreen';
-import {ServiceDetailScreen} from '../../Screens/Application/Service/ServiceDetailScreen';
+import {OrderLandingScreen} from '../../Screens/Application/Domain/OrderLandingScreen';
+import {ServiceDetailScreen} from '../../Screens/Application/Domain/ServiceDetailScreen';
 
 type ServiceStackParamList = {
   ServiceScreen: undefined;
@@ -43,7 +43,7 @@ export const ServiceStackNavigator: React.FC = () => {
           header: () => null,
         }}>
         {screenBuilder([
-          {screenName: 'ServiceScreen', component: ServiceLandingScreen},
+          {screenName: 'ServiceScreen', component: OrderLandingScreen},
           {screenName: 'ServiceDetailScreen', component: ServiceDetailScreen},
         ])}
       </ServiceStackBuilder.Navigator>

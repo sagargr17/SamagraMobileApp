@@ -5,7 +5,7 @@ import {Divider} from 'react-native-paper';
 import {Spacer} from '../../../Components/Elements/Spacer';
 import {AppHeader} from '../../../Components/Layout/AppHeader';
 import {ItemCategoryCardSlider} from '../../../Components/Layout/ItemCategorySlider';
-import {ItemVerticleListView} from '../../../Components/Layout/ItemVerticleListView';
+import {ItemCardVerticleSlider} from '../../../Components/Layout/ItemCardVerticleSlider';
 import SamagraBanner from '../../../Components/Sections/SamagraBanner';
 import {SamagraSerchBar} from '../../../Components/Sections/SamagraSerchBar';
 
@@ -16,6 +16,7 @@ export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
 
   return (
     <ScrollView
+      showsVerticalScrollIndicator={false}
       style={{
         flex: 1,
       }}>
@@ -34,7 +35,7 @@ export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
       <ItemCategoryCardSlider></ItemCategoryCardSlider>
       <Spacer></Spacer>
       <Divider></Divider>
-      <ItemVerticleListView></ItemVerticleListView>
+      <ItemCardVerticleSlider></ItemCardVerticleSlider>
       <Spacer></Spacer>
     </ScrollView>
   );

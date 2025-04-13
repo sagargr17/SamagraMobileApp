@@ -4,11 +4,12 @@ import {ItemCard} from '../Sections/ItemCard';
 import {Spacer} from '../Elements/Spacer';
 import {View} from 'react-native';
 import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {HomeStackNavigationProp} from '../../Navigators/Stack/HomeStackNavigator';
 
-interface ItemVerticleListViewProps {}
+interface ItemCardVerticleSliderProps {}
 
-export const ItemVerticleListView: React.FC<
-  ItemVerticleListViewProps
+export const ItemCardVerticleSlider: React.FC<
+  ItemCardVerticleSliderProps
 > = ({}) => {
   const item: Array<{
     cardImage: string;
@@ -32,7 +33,7 @@ export const ItemVerticleListView: React.FC<
     },
     {
       cardImage:
-        'https://images.pexels.com/photos/592815/pexels-photo-592815.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       title: 'LOREM Black Dummy Watch',
       price: '45,999',
       rating: 4.8,
@@ -78,6 +79,8 @@ export const ItemVerticleListView: React.FC<
           console.log('INdexx value');
           return (
             <View
+              key={index}
+              id={`${index}`}
               style={{
                 // marginTop: ,
                 paddingTop: index % 2 === 0 ? 0 : 20,
