@@ -5,7 +5,7 @@ import {
 } from '@react-navigation/native-stack';
 import React from 'react';
 import {TestScreen} from '../../Screens/Application/User/TestScreen';
-import {HomeDetailScreen} from '../../Screens/Application/Home/HomeDetailScreen';
+
 import {HomeScreen} from '../../Screens/Application/Home/HomeScreen';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
 import {HomeLandingScreen} from '../../Screens/Application/Home/HomeLandingScreen';
@@ -30,11 +30,6 @@ export type HomeStackNavigationProp<T extends keyof HomeStackParamList> =
 export interface HomeStackProps<T extends keyof HomeStackParamList> {
   navigation: HomeStackNavigationProp<T>;
 }
-
-export type HomeDetailScreenRouteProp = RouteProp<
-  HomeStackParamList,
-  'HomeDetailScreen'
->;
 
 const screenBuilder = (
   data: Array<{
@@ -87,13 +82,6 @@ export const HomeStackNavigator: React.FC = () => {
             },
           },
           {screenName: 'HomeScreen', component: HomeScreen},
-          {
-            screenName: 'HomeDetailScreen',
-            component: HomeDetailScreen,
-            option: ({route}: {route: any}) => ({
-              title: titleCase(route.params.name),
-            }),
-          },
         ])}
       </HomeStackBuilder.Navigator>
     </>

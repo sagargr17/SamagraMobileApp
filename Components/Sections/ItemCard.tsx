@@ -5,6 +5,7 @@ import {TextComponet} from '../Elements/TextComponet';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import {SamagraScaller, titleRange} from '../../Utilities/CustomMethods';
 import {HomeStackNavigationProp} from '../../Navigators/Stack/HomeStackNavigator';
+import {ApplicationOverlayStackNavigationProp} from '../../Navigators/Stack/ApplicationOverlayStackNavigator';
 
 interface ItemCardProps {
   cardImage: string;
@@ -24,8 +25,8 @@ export const ItemCard: React.FC<ItemCardProps> = ({
   marginTop = 0,
 }) => {
   const {colors} = useTheme();
-  const navigation =
-    useNavigation<HomeStackNavigationProp<'HomeDetailScreen'>>();
+  const navigation: any = useNavigation();
+  // useNavigation<ApplicationOverlayStackNavigationProp<'ItemDetailScreen'>>();
 
   return (
     <View
@@ -47,8 +48,11 @@ export const ItemCard: React.FC<ItemCardProps> = ({
       <TouchableRipple
         rippleColor={colors.primary}
         onPress={() => {
-          navigation.navigate('HomeDetailScreen', {
-            name: title,
+          navigation.navigate('ApplicationOverlay', {
+            screen: 'ItemDetailScreen',
+            params: {
+              name: title,
+            },
           });
         }}
         style={[

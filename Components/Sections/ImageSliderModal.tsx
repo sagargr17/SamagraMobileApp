@@ -24,7 +24,7 @@ export const ImageSliderModal: React.FC<ImageSliderModalProps> = ({images}) => {
         images={images.map(x => x.url)}
         imageHeight={SamagraScaller({
           value: 362,
-          scaleBy: 'average',
+          scaleBy: 'height',
         })}
         dotSize={10}
         dotColor="silver"
@@ -34,9 +34,6 @@ export const ImageSliderModal: React.FC<ImageSliderModalProps> = ({images}) => {
         imageLabel={true}
         extrapolate="clamp"
         autoSlideInterval={100000}
-        containerStyle={{
-          marginTop: 0,
-        }}
         radius={5}
       />
 
@@ -56,11 +53,11 @@ export const ImageSliderModal: React.FC<ImageSliderModalProps> = ({images}) => {
               {...props}
               style={{
                 width: SamagraScaller({
-                  value: 393,
+                  value: 400,
                   scaleBy: 'width',
                 }),
                 height: SamagraScaller({
-                  value: 362,
+                  value: 260,
                   scaleBy: 'width',
                 }),
 
