@@ -19,6 +19,7 @@ import {Spacer} from '../../Components/Elements/Spacer';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
 import {Input} from '../../Components/Elements/Input';
 import PhoneInput from '../../Components/Elements/PhoneInput';
+import {SamagraScaller} from '../../Utilities/CustomMethods';
 
 interface ProfileCreateProps {
   navigation: OnBoardingStackNavigationProp<'ProfileCreateScreen'>;
@@ -86,6 +87,10 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
           showsVerticalScrollIndicator={false}
           style={{
             flex: 1,
+            paddingVertical: SamagraScaller({
+              value: 20,
+              scaleBy: 'height',
+            }),
           }}>
           <View>
             {/* <Text style={styles.header}>Create Profile</Text> */}
@@ -238,6 +243,7 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
             <Spacer height={10} />
             <View style={styles.agreement}>
               <Checkbox
+                color="green"
                 status={agree ? 'checked' : 'unchecked'}
                 onPress={() => {
                   setAgree(!agree);

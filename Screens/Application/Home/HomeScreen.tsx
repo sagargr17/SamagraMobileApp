@@ -26,7 +26,7 @@ interface HomeScreenProps {
 export const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
   // Testing Function , will be handle sepratedly for efficiendy in future
   const handleGoToHomeDetailScreen = () => {
-    navigation.navigate('HomeDetailScreen');
+    // navigation.navigate('HomeDetailScreen');
   };
 
   // const {data, loading, error} = useQuery(getPublicItems);

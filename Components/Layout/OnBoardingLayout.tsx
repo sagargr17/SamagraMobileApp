@@ -23,6 +23,7 @@ export const OnBoardingLayout = ({
       style={styles.keyboardContainer}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <ScrollView
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollArea}
         automaticallyAdjustKeyboardInsets={true}>
         <View style={styles.wrapper}>{children}</View>
@@ -33,10 +34,10 @@ export const OnBoardingLayout = ({
 
 const styles = StyleSheet.create({
   keyboardContainer: {
-    flex: 2,
+    // flex: 1,
   },
   scrollArea: {
-    flex: 1,
+    // flex: 1,
   },
   header: {
     fontSize: heightPercentageToDP(4),

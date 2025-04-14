@@ -55,7 +55,7 @@ export const Input: React.FC<InputProps> = ({
             title={label}
             fontVariant="regular"
             lineHeight={19}
-            fontSize={18}></TextComponet>
+            fontSize={16}></TextComponet>
         )}
         <TextInput
           ref={inputRef}
@@ -79,7 +79,7 @@ export const Input: React.FC<InputProps> = ({
                 value: 8,
                 scaleBy: 'average',
               }),
-              borderWidth: 0.01,
+              // borderWidth: 0.01,
             },
           ]}
           value={value}
@@ -87,6 +87,15 @@ export const Input: React.FC<InputProps> = ({
           {...props}
           secureTextEntry={label === 'Password' ? true : false}
           left={left}
+          contentStyle={{
+            minHeight: 0,
+            fontFamily: fonts.regular.fontFamily,
+            fontSize: SamagraScaller({
+              value: 15,
+              scaleBy: 'height',
+            }),
+            // lineHeight: 22,
+          }}
         />
       </View>
     </View>
@@ -96,7 +105,7 @@ export const Input: React.FC<InputProps> = ({
 const styles = StyleSheet.create({
   inputContainer: {
     marginVertical: SamagraScaller({
-      value: 2,
+      value: 0,
       scaleBy: 'average',
     }),
   },
@@ -121,7 +130,7 @@ const styles = StyleSheet.create({
   },
   input: {
     marginVertical: SamagraScaller({
-      value: 4,
+      value: 2,
       scaleBy: 'height',
     }),
     borderRadius: SamagraScaller({
@@ -129,7 +138,7 @@ const styles = StyleSheet.create({
       scaleBy: 'height',
     }),
     borderWidth: SamagraScaller({
-      value: 0.1,
+      value: 0.001,
       scaleBy: 'height',
     }),
   },
