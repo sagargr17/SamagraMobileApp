@@ -15,6 +15,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
   titleFontSize = 18,
   titleHeight = 30,
   isIcon = true,
+  title
 }) => {
   return (
     <View
@@ -28,7 +29,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
         fontVariant="bold"
         fontSize={titleFontSize}
         lineHeight={titleHeight}
-        title={'Category'}></TextComponet>
+        title={title}></TextComponet>
 
       {isIcon ? (
         <Icon

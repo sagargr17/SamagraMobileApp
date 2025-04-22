@@ -64,6 +64,7 @@ export const ItemCardVerticleSlider: React.FC<
       }}>
       <Spacer height={10}></Spacer>
       <SectionHeader
+        isIcon={false}
         title="PopularProduct"
         titleFontSize={18}
         titleHeight={22}></SectionHeader>
