@@ -35,8 +35,10 @@ export const ImageSliderModal: React.FC<ImageSliderModalProps> = ({images}) => {
         extrapolate="clamp"
         autoSlideInterval={100000}
         radius={5}
+        containerStyle={{
+          margin: 0,
+        }}
       />
-
       <Modal
         visible={visible}
         transparent={false}

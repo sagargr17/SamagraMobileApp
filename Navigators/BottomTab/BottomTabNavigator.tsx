@@ -2,7 +2,7 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 
-import {View, Text} from 'react-native'; // Import for Tab bar icons or labels
+import {View, Text, Alert} from 'react-native'; // Import for Tab bar icons or labels
 import {HomeStackNavigator} from '../Stack/HomeStackNavigator';
 import {ServiceStackNavigator} from '../Stack/ServiceStackNavigator';
 import {SamagraScaller} from '../../Utilities/CustomMethods';
@@ -85,7 +85,8 @@ export const BottomTabNavigator: React.FC = () => {
         },
         tabBarStyle: {
           borderColor: colors.background,
-          backgroundColor: colors.background,
+          
+          // backgroundColor: colors.background,
           shadowOpacity: 0, // Use shadowOpacity for iOS
           elevation: 0, // Use elevation for Android
           height: SamagraScaller({
@@ -112,6 +113,7 @@ export const BottomTabNavigator: React.FC = () => {
           }),
           fontFamily: 'Poppins-Regular',
         },
+        
       })}
       initialRouteName="Service">
       {screenBuilder([
