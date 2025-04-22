@@ -9,6 +9,7 @@ import {ItemDetailScreenRouteProp} from '../../Navigators/Stack/ApplicationOverl
 import {SamagraScaller, titleCase} from '../../Utilities/CustomMethods';
 import {Counter} from '../../Components/Sections/Counter';
 import {ItemCheckOut} from '../../Components/Sections/ItemCheckOut';
+import {CommentLayout} from '../../Components/Layout/CommentLayout';
 
 interface ItemDetailScreenProps {
   route: ItemDetailScreenRouteProp;
@@ -67,7 +68,7 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
             }}>
             <TextComponet
               fontSize={24}
-              lineHeight={36}
+              lineHeight={20}
               title={titleCase(name)}
               fontVariant="regular"></TextComponet>
             <IconButton
@@ -146,9 +147,9 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
               handleTotalPrice(Quantity)
             }></Counter>
 
-          <Spacer height={20}></Spacer>
+          <Spacer height={10}></Spacer>
           <Divider></Divider>
-          
+          <CommentLayout></CommentLayout>
         </ScrollView>
         <ItemCheckOut totalPrice={totalPrice}></ItemCheckOut>
       </View>

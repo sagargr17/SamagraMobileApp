@@ -21,17 +21,22 @@ export const ItemCheckOut: React.FC<ItemCheckOutProps> = ({totalPrice = 0}) => {
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding:SamagraScaller({
-            value:16,
-            scaleBy:"average"
-          })
+          paddingTop: SamagraScaller({
+            value: 5,
+            scaleBy: 'average',
+          }),
+
+          paddingBottom: SamagraScaller({
+            value: 5,
+            scaleBy: 'average',
+          }),
+          paddingHorizontal:SamagraScaller({
+            value: 16,
+            scaleBy: 'average',
+          }),
+          
         }}>
-        <View
-          style={
-            {
-              // flex:0.3
-            }
-          }>
+        <View>
           <TextComponet
             fontSize={16}
             lineHeight={36}

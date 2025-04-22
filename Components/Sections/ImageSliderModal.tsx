@@ -23,7 +23,7 @@ export const ImageSliderModal: React.FC<ImageSliderModalProps> = ({images}) => {
         testID="imageSlider_testID"
         images={images.map(x => x.url)}
         imageHeight={SamagraScaller({
-          value: 352,
+          value: 322,
           scaleBy: 'height',
         })}
         dotSize={10}
