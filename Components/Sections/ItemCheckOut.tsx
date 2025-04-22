@@ -22,12 +22,12 @@ export const ItemCheckOut: React.FC<ItemCheckOutProps> = ({totalPrice = 0}) => {
           alignItems: 'center',
           justifyContent: 'space-between',
           paddingTop: SamagraScaller({
-            value: 5,
+            value: 10,
             scaleBy: 'average',
           }),
 
           paddingBottom: SamagraScaller({
-            value: 5,
+            value: 15,
             scaleBy: 'average',
           }),
           paddingHorizontal:SamagraScaller({
@@ -39,28 +39,35 @@ export const ItemCheckOut: React.FC<ItemCheckOutProps> = ({totalPrice = 0}) => {
         <View>
           <TextComponet
             fontSize={16}
-            lineHeight={36}
+            lineHeight={26}
             title={'TOTAL PRICE'}
-            fontVariant="medium"></TextComponet>
+            fontVariant="bold"></TextComponet>
           <TextComponet
             fontSize={20}
-            lineHeight={36}
+            lineHeight={20}
             title={`₹ ${totalPrice}`}
-            fontVariant="medium"></TextComponet>
+            customStyle={{
+              color:colors.primary
+            }}
+            fontVariant="bold"></TextComponet>
         </View>
 
         <View
           style={{
             display: 'flex',
             flexDirection: 'row',
-            flex: 0.9,
+            flex: 0.95,
             alignItems: 'center',
             justifyContent: 'space-around',
+            marginLeft:SamagraScaller({
+              value:10,
+              scaleBy:"width"
+            })
           }}>
           <AppButton
             onPress={() => null}
             style={{
-              // flex: 0.8,
+              
               alignItems: 'center',
               backgroundColor: 'orange',
             }}>

@@ -6,6 +6,7 @@ import {SamagraScaller} from '../../Utilities/CustomMethods';
 import {CommentCard} from '../Sections/CommentCard';
 import {useTheme} from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
+import {Item} from 'react-native-paper/lib/typescript/components/Drawer/Drawer';
 interface CommentLayoutProps {}
 
 export const CommentLayout: React.FC<CommentLayoutProps> = ({}) => {
@@ -37,18 +38,28 @@ export const CommentLayout: React.FC<CommentLayoutProps> = ({}) => {
         title="Rating and Reviews"
         fontSize={16}
         lineHeight={22}
-        fontVariant="medium"></TextComponet>
+        fontVariant="bold"></TextComponet>
 
-      {
+      {/* {
         <FlatList
           data={dummyData}
+          contentContainerStyle={{
+            height:200
+          }}
           renderItem={({item, index}) => (
             <CommentCard
               commentor={item.commentor}
               commentDescription={item.commentDescription}
               key={index}></CommentCard>
           )}></FlatList>
-      }
+      } */}
+
+      {dummyData.map((item, index) => (
+        <CommentCard
+          commentor={item.commentor}
+          commentDescription={item.commentDescription}
+          key={index}></CommentCard>
+      ))}
     </>
   );
 };

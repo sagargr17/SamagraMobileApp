@@ -19,7 +19,7 @@ export const CommentCard: React.FC<CommentCardProps> = ({
     <>
       <View
         style={{
-          backgroundColor: "gray",
+          backgroundColor: colors.card,
           borderColor:colors.border,
           marginVertical:SamagraScaller({
             value:2,
@@ -28,15 +28,20 @@ export const CommentCard: React.FC<CommentCardProps> = ({
           padding:SamagraScaller({
             value:8,
             scaleBy:"average"
-          })
+          }),
+          borderRadius:SamagraScaller({
+            value:8,
+            scaleBy:"average"
+          }),
+          borderWidth:0.2
         }}>
         <TextComponet
           title={commentor}
-          fontVariant="medium" fontSize={18} lineHeight={18}></TextComponet>
+          fontVariant="medium" fontSize={16} lineHeight={22}></TextComponet>
         <TextComponet
         fontSize={14}
           title={commentDescription}
-          fontVariant="medium" lineHeight={18}></TextComponet>
+          fontVariant="regular" lineHeight={18}></TextComponet>
       </View>
     </>
   );

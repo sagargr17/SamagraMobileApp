@@ -70,7 +70,13 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
               fontSize={24}
               lineHeight={20}
               title={titleCase(name)}
-              fontVariant="regular"></TextComponet>
+              fontVariant="regular"
+              customStyle={{
+                margin:0,
+                padding:0,
+              }}
+              
+              ></TextComponet>
             <IconButton
               icon="heart-outline"
               size={24}
