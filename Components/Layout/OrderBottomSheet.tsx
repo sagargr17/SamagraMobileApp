@@ -10,7 +10,7 @@ import AppButton from '../Elements/Button';
 import {ApplicationOverlayStackNavigationProp} from '../../Navigators/Stack/ApplicationOverlayStackNavigator';
 import {BottomTabProps} from '../../Navigators/BottomTab/BottomTabNavigator';
 import {RootStackNavigationProp} from '../../Navigators/RootStackNavigator';
-import { ItemCategoryCardSlider } from './ItemCategorySlider';
+import {ItemCategoryCardSlider} from './ItemCategorySlider';
 
 interface OrderBottomSheetProps {
   navigation: RootStackNavigationProp<'ApplicationOverlay'> | any;
@@ -20,7 +20,6 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
   navigation,
 }) => {
   type childrenContent = () => React.ReactNode;
-
   const childrenContent = () => {
     const serviceData = [
       {label: 'Laundry', value: '1'},
@@ -66,7 +65,6 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
   return (
     <>
       <SamagraBottomSheet
-      
         isOppen={true}
         flexHeight={0}
         pannigGesture={false}
