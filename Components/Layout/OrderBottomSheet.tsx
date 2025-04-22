@@ -10,6 +10,7 @@ import AppButton from '../Elements/Button';
 import {ApplicationOverlayStackNavigationProp} from '../../Navigators/Stack/ApplicationOverlayStackNavigator';
 import {BottomTabProps} from '../../Navigators/BottomTab/BottomTabNavigator';
 import {RootStackNavigationProp} from '../../Navigators/RootStackNavigator';
+import { ItemCategoryCardSlider } from './ItemCategorySlider';
 
 interface OrderBottomSheetProps {
   navigation: RootStackNavigationProp<'ApplicationOverlay'> | any;
@@ -32,6 +33,8 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
 
     return (
       <View style={styles.childrenContainer}>
+        <ItemCategoryCardSlider size="regular"></ItemCategoryCardSlider>
+
         <Input
           label="Your Location"
           placeholder=""
@@ -63,8 +66,9 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
   return (
     <>
       <SamagraBottomSheet
+      
         isOppen={true}
-        flexHeight={0.11}
+        flexHeight={0}
         pannigGesture={false}
         title="Request for House Keeping Service"
         children={childrenContent}></SamagraBottomSheet>

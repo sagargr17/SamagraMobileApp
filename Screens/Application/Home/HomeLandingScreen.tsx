@@ -32,7 +32,7 @@ export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
 
       <Spacer></Spacer>
 
-      <ItemCategoryCardSlider></ItemCategoryCardSlider>
+      <ItemCategoryCardSlider size='large'></ItemCategoryCardSlider>
       <Spacer></Spacer>
       <Divider></Divider>
       <ItemCardVerticleSlider></ItemCardVerticleSlider>

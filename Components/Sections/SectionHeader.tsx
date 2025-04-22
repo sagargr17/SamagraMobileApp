@@ -8,11 +8,13 @@ interface SectionHeaderProps {
   titleFontSize: number;
   titleHeight: number;
   title: string;
+  isIcon: boolean;
 }
 
 export const SectionHeader: React.FC<SectionHeaderProps> = ({
   titleFontSize = 18,
   titleHeight = 30,
+  isIcon = true,
 }) => {
   return (
     <View
@@ -27,23 +29,15 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
         fontSize={titleFontSize}
         lineHeight={titleHeight}
         title={'Category'}></TextComponet>
-      <Icon
-        size={SamagraScaller({
-          value: 30,
-          scaleBy: 'height',
-        })}
-        source={'chevron-right'}
-        // style={{
-        //   margin: 0,
-        //   padding: 0,
-        //   borderRadius: 0,
-        //   height: SamagraScaller({
-        //     value: 25,
-        //     scaleBy: 'average',
-        //   }),
-        //   bottom: 2,
-        // }}
-      ></Icon>
+
+      {isIcon ? (
+        <Icon
+          size={SamagraScaller({
+            value: 30,
+            scaleBy: 'height',
+          })}
+          source={'chevron-right'}></Icon>
+      ) : null}
     </View>
   );
 };

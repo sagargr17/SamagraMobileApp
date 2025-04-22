@@ -191,27 +191,7 @@ export const SamagraBottomSheet: React.FC<SamagraBottomSheetProps> = ({
         flex: 0.01,
         borderWidth: 1,
       }}>
-      <View
-        style={[
-          styles.titleCotainer,
-          {
-            borderColor: colors.border,
-          },
-        ]}>
-        <TextComponet
-          customStyle={{
-            padding: SamagraScaller({
-              value: 10,
-              scaleBy: 'average',
-            }),
-          }}
-          fontSize={SamagraScaller({
-            value: 16,
-            scaleBy: 'average',
-          })}
-          title={title}
-          fontVariant="bold"></TextComponet>
-      </View>
+     
       <BottomSheetView
         style={[
           {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
 import {ItemCategoryCard} from '../Sections/ItemCategoryCard';
 import {FlatList, ScrollView, Text, View} from 'react-native';
@@ -8,10 +8,16 @@ import {useTheme} from '@react-navigation/native';
 import {Spacer} from '../Elements/Spacer';
 import {SectionHeader} from '../Sections/SectionHeader';
 
-interface ItemCategoryCardProps {}
+interface ItemCategoryCardProps {
+  size: 'regular' | 'large';
+}
 
-export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({}) => {
+export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({
+  size = 'large',
+}) => {
   const {Laundry, HouseKeeping, Grocery, Stationary} = Logos;
+  const [selectedCategory, setSelectedCategory] = useState<string>('Laundry');
+
   const {colors} = useTheme();
 
   const data: Array<{
@@ -23,11 +29,11 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({}) => {
       icon: (
         <Laundry
           height={SamagraScaller({
-            value: 40,
+            value: size === 'large' ? 40 : 30,
             scaleBy: 'average',
           })}
           width={SamagraScaller({
-            value: 40,
+            value: 30,
             scaleBy: 'average',
           })}
         />
@@ -38,11 +44,11 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({}) => {
       icon: (
         <HouseKeeping
           height={SamagraScaller({
-            value: 40,
+            value: size === 'large' ? 40 : 30,
             scaleBy: 'average',
           })}
           width={SamagraScaller({
-            value: 40,
+            value: 30,
             scaleBy: 'average',
           })}
         />
@@ -53,11 +59,11 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({}) => {
       icon: (
         <Grocery
           height={SamagraScaller({
-            value: 40,
+            value: size === 'large' ? 40 : 30,
             scaleBy: 'average',
           })}
           width={SamagraScaller({
-            value: 40,
+            value: 30,
             scaleBy: 'average',
           })}
         />
@@ -68,11 +74,11 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({}) => {
       icon: (
         <Stationary
           height={SamagraScaller({
-            value: 40,
+            value: size === 'large' ? 40 : 30,
             scaleBy: 'average',
           })}
           width={SamagraScaller({
-            value: 40,
+            value: 30,
             scaleBy: 'average',
           })}
         />
@@ -80,30 +86,44 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({}) => {
     },
   ];
 
+  const onPress = (categoryTitle = 'Laundry') => {
+    size === 'large'
+      ? console.log('Navigation')
+      : setSelectedCategory(categoryTitle);
+  };
+
   return (
     <View
       style={{
         paddingHorizontal: SamagraScaller({
-          value: 10,
+          value: size === 'large' ? 10 : 0,
           scaleBy: 'average',
         }),
       }}>
       <SectionHeader
+        isIcon={size === 'large' ? true : false}
         title="Category"
-        titleFontSize={18}
+        titleFontSize={size === 'large' ? 18 : 16}
         titleHeight={22}></SectionHeader>
       <FlatList
         contentContainerStyle={{
           paddingVertical: SamagraScaller({
-            value: 12,
+            value: size === 'large' ? 12 : 8,
             scaleBy: 'average',
           }),
         }}
         showsHorizontalScrollIndicator={false}
         horizontal={true}
         data={data}
-        renderItem={({item}) => (
-          <ItemCategoryCard title={item.titte} icon={item.icon} />
+        renderItem={({item, index}) => (
+          <ItemCategoryCard
+            onPress={() => onPress(item.titte)}
+            selectedCategory={size === 'large' ? item.titte : selectedCategory}
+            size={size}
+            key={index}
+            title={item.titte}
+            icon={item.icon}
+          />
         )}></FlatList>
     </View>
   );

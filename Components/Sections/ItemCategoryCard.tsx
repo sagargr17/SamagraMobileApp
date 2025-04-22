@@ -7,22 +7,28 @@ import {SamagraScaller} from '../../Utilities/CustomMethods';
 interface ItemCategoryCardProps {
   title: string;
   icon: any;
+  size: 'large' | 'regular';
+  selectedCategory: string;
+  onPress: () => void;
 }
 
 export const ItemCategoryCard: React.FC<ItemCategoryCardProps> = ({
   title,
   icon,
+  size = 'large',
+  selectedCategory,
+  onPress,
 }) => {
   const {colors} = useTheme();
 
   return (
     <TouchableOpacity
-      id={`${Math.random()}`}
+      onPress={onPress}
       style={[
         {
-          backgroundColor: colors.primary,
+          backgroundColor: selectedCategory === title ? colors.primary : 'gray',
           height: SamagraScaller({
-            value: 100,
+            value: size === 'large' ? 100 : 70,
             scaleBy: 'average',
           }),
 
@@ -31,7 +37,7 @@ export const ItemCategoryCard: React.FC<ItemCategoryCardProps> = ({
             scaleBy: 'average',
           }),
           paddingVertical: SamagraScaller({
-            value: 23,
+            value: size === 'large' ? 23 : 12,
             scaleBy: 'average',
           }),
           borderRadius: SamagraScaller({
@@ -43,7 +49,7 @@ export const ItemCategoryCard: React.FC<ItemCategoryCardProps> = ({
           flexDirection: 'column',
           justifyContent: 'space-around',
           width: SamagraScaller({
-            value: 100,
+            value: size === 'large' ? 100 : 70,
             scaleBy: 'average',
           }),
         },
@@ -51,7 +57,7 @@ export const ItemCategoryCard: React.FC<ItemCategoryCardProps> = ({
       {icon}
       <TextComponet
         fontVariant="medium"
-        fontSize={16}
+        fontSize={size === 'large' ? 16 : 12}
         lineHeight={30}
         customStyle={{
           color: colors.background,
