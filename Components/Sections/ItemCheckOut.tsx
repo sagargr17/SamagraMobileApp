@@ -22,7 +22,12 @@ export const ItemCheckOut: React.FC<ItemCheckOutProps> = ({totalPrice = 0}) => {
           alignItems: 'center',
           justifyContent: 'space-between',
         }}>
-        <View>
+        <View
+          style={
+            {
+              // flex:0.3
+            }
+          }>
           <TextComponet
             fontSize={16}
             lineHeight={36}
@@ -34,22 +39,51 @@ export const ItemCheckOut: React.FC<ItemCheckOutProps> = ({totalPrice = 0}) => {
             title={`₹ ${totalPrice}`}
             fontVariant="medium"></TextComponet>
         </View>
-        <AppButton
+
+        <View
           style={{
-            flex: 0.4,
+            display: 'flex',
+            flexDirection: 'row',
+            flex:0.9,
             alignItems: 'center',
+            justifyContent: 'space-around',
           }}>
-          CheckOut
-          <View>
-            <Icon
-              color={colors.background}
-              source={'chevron-right'}
-              size={SamagraScaller({
-                value: 30,
-                scaleBy: 'average',
-              })}></Icon>
-          </View>
-        </AppButton>
+          <AppButton
+            onPress={() => null}
+            style={{
+              // flex: 0.8,
+              alignItems: 'center',
+            }}>
+            Buy Now
+            <View>
+              <Icon
+                color={colors.background}
+                source={'chevron-right'}
+                size={SamagraScaller({
+                  value: 30,
+                  scaleBy: 'average',
+                })}></Icon>
+            </View>
+          </AppButton>
+
+          <AppButton
+            onPress={() => null}
+            style={{
+              // flex: 0.8,
+              alignItems: 'center',
+            }}>
+            Check Out
+            <View>
+              <Icon
+                color={colors.background}
+                source={'chevron-right'}
+                size={SamagraScaller({
+                  value: 30,
+                  scaleBy: 'average',
+                })}></Icon>
+            </View>
+          </AppButton>
+        </View>
       </View>
     </>
   );

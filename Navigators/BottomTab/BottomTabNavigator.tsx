@@ -48,8 +48,12 @@ export const BottomTabNavigator: React.FC = () => {
       screenOptions={({route}) => ({
         header: () => null,
         tabBarIcon: ({focused, color, size}) => {
+          
           const {Home, Service, More} = Logos;
+
           const iconSize = SamagraScaller({value: 22, scaleBy: 'width'});
+
+          // console.log(">>>>>", iconSize,Service , More)
 
           if (route.name === 'Home') {
             return (
@@ -113,8 +117,11 @@ export const BottomTabNavigator: React.FC = () => {
           }),
           fontFamily: 'Poppins-Regular',
         },
+         
         
+
       })}
+      
       initialRouteName="Service">
       {screenBuilder([
         {screenName: 'Home', component: HomeStackNavigator},

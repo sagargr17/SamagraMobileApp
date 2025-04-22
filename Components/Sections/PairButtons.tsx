@@ -7,11 +7,16 @@ import AppButton from '../Elements/Button';
 interface PairButtonsProps {
   onAcceptPress: () => void;
   onDeclinPress: () => void;
+  onAccepTitle:string,
+  onDeclineTitle:string
+
 }
 
 export const PairButtons: React.FC<PairButtonsProps> = ({
   onAcceptPress,
   onDeclinPress,
+  onAccepTitle="Accept",
+  onDeclineTitle="Decline"
 }) => {
   const {colors} = useTheme();
 

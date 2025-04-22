@@ -7,7 +7,7 @@ import {ProgressBar} from 'react-native-paper';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
 import {SamagraScaller} from '../../Utilities/CustomMethods';
 import {TextComponet} from '../Elements/TextComponet';
-import {ProviderCardSkeleton} from '../Skeletons/ProviderCardSkeleton';
+import {ProviderCardSkeleton} from '../ErrorLoadingHandling/Skeletons/ProviderCardSkeleton';
 import {PairButtons} from './PairButtons';
 
 interface ProviderCardProps {
