@@ -37,15 +37,16 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
             url: 'https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHdhdGNofGVufDB8fDB8fHww',
           },
         ]}></ImageSliderModal>
-      
+
       <Divider></Divider>
       <Spacer height={5}></Spacer>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
+
+      <View
         style={{
           flex: 1,
         }}>
-        <View
+        <ScrollView
+          showsVerticalScrollIndicator={false}
           style={{
             paddingLeft: SamagraScaller({
               value: 16,
@@ -144,12 +145,13 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
             setTotal={(Quantity: number) =>
               handleTotalPrice(Quantity)
             }></Counter>
+
           <Spacer height={20}></Spacer>
           <Divider></Divider>
-          <Spacer height={25}></Spacer>
-          <ItemCheckOut totalPrice={totalPrice}></ItemCheckOut>
-        </View>
-      </ScrollView>
+          {/* <Spacer height={25}></Spacer> */}
+        </ScrollView>
+        <ItemCheckOut totalPrice={totalPrice}></ItemCheckOut>
+      </View>
     </>
   );
 };

@@ -21,6 +21,10 @@ export const ItemCheckOut: React.FC<ItemCheckOutProps> = ({totalPrice = 0}) => {
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'space-between',
+          padding:SamagraScaller({
+            value:16,
+            scaleBy:"average"
+          })
         }}>
         <View
           style={
@@ -44,7 +48,7 @@ export const ItemCheckOut: React.FC<ItemCheckOutProps> = ({totalPrice = 0}) => {
           style={{
             display: 'flex',
             flexDirection: 'row',
-            flex:0.9,
+            flex: 0.9,
             alignItems: 'center',
             justifyContent: 'space-around',
           }}>
@@ -53,6 +57,7 @@ export const ItemCheckOut: React.FC<ItemCheckOutProps> = ({totalPrice = 0}) => {
             style={{
               // flex: 0.8,
               alignItems: 'center',
+              backgroundColor: 'orange',
             }}>
             Buy Now
             <View>
