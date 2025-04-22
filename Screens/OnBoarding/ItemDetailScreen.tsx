@@ -148,7 +148,7 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
 
           <Spacer height={20}></Spacer>
           <Divider></Divider>
-          {/* <Spacer height={25}></Spacer> */}
+          
         </ScrollView>
         <ItemCheckOut totalPrice={totalPrice}></ItemCheckOut>
       </View>
