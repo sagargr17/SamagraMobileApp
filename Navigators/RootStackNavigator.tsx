@@ -1,17 +1,13 @@
+import { useTheme } from '@react-navigation/native';
 import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
 import React from 'react';
-import {ActivityIndicator} from 'react-native-paper';
-import {useSelector} from 'react-redux';
-import {BottomTabNavigator} from './BottomTab/BottomTabNavigator';
-import {OnBoardingStackNavigator} from './Stack/OnBoardingStackNavigator';
-import {SplashScreen} from '../Screens/OnBoarding/SplashScreen';
-import {Tuple} from '@reduxjs/toolkit';
-import {ApplicationOverlayStackNavigator} from './Stack/ApplicationOverlayStackNavigator';
-import {StatusBar} from 'react-native';
-import {useTheme} from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { BottomTabNavigator } from './BottomTab/BottomTabNavigator';
+import { ApplicationOverlayStackNavigator } from './Stack/ApplicationOverlayStackNavigator';
+import { OnBoardingStackNavigator } from './Stack/OnBoardingStackNavigator';
 
 type RootStackParamList = {
   ApplicationOverlay: undefined;

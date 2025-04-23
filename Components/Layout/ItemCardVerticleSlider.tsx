@@ -1,6 +1,6 @@
 import React from 'react';
 import {SectionHeader} from '../Sections/SectionHeader';
-import {ItemCard} from '../Sections/ItemCard';
+import {ItemCard} from '../Sections/Cards/ItemCard';
 import {Spacer} from '../Elements/Spacer';
 import {View} from 'react-native';
 import {SamagraScaller} from '../../Utilities/CustomMethods';

@@ -1,4 +1,4 @@
-import React, {Children} from 'react';
+import React, {Children, useState} from 'react';
 import {SamagraBottomSheet} from '../Sections/SamagraBottomSheet';
 import {Text, View, StyleSheet} from 'react-native';
 import {useTheme} from '@react-navigation/native';
@@ -28,7 +28,10 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
     const timeData = [
       {label: '2Hr', value: '1'},
       {label: '1Hr', value: '2'},
+      {label: '3Hr', value: '3'},
+      {label: '4Hr', value: '4'},
     ];
+    const [pressedElement, setPressedElement] = useState<string>("");
 
     return (
       <View style={styles.childrenContainer}>
@@ -44,9 +47,9 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
             />
           }></Input>
 
-        <DropdownComponent
+        {/* <DropdownComponent
           data={serviceData}
-          labelTitle="Please Select the Service"></DropdownComponent>
+          labelTitle="Please Select the Service"></DropdownComponent> */}
         <DropdownComponent
           data={timeData}
           labelTitle="Time"></DropdownComponent>

@@ -1,12 +1,14 @@
 import React, {useState} from 'react';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
-import {ItemCategoryCard} from '../Sections/ItemCategoryCard';
+import {ItemCategoryCard} from '../Sections/Cards/ItemCategoryCard';
 import {FlatList, ScrollView, Text, View} from 'react-native';
 import {SamagraScaller} from '../../Utilities/CustomMethods';
 import {TextComponet} from '../Elements/TextComponet';
-import {useTheme} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 import {Spacer} from '../Elements/Spacer';
 import {SectionHeader} from '../Sections/SectionHeader';
+import {HomeStackNavigationProp} from '../../Navigators/Stack/HomeStackNavigator';
+import {HomeStackProps} from '../../Navigators/Stack/ApplicationOverlayStackNavigator';
 
 interface ItemCategoryCardProps {
   size: 'regular' | 'large';
@@ -17,7 +19,8 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({
 }) => {
   const {Laundry, HouseKeeping, Grocery, Stationary} = Logos;
   const [selectedCategory, setSelectedCategory] = useState<string>('Laundry');
-
+  const navigation =
+    useNavigation<HomeStackNavigationProp<'CategoryListScreen'>>();
   const {colors} = useTheme();
 
   const data: Array<{
@@ -88,7 +91,7 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({
 
   const onPress = (categoryTitle = 'Laundry') => {
     size === 'large'
-      ? console.log('Navigation')
+      ? navigation.navigate("CategoryListScreen")
       : setSelectedCategory(categoryTitle);
   };
 
@@ -101,6 +104,7 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({
         }),
       }}>
       <SectionHeader
+        onPress={() => onPress()}  
         isIcon={size === 'large' ? true : false}
         title="Category"
         titleFontSize={size === 'large' ? 18 : 16}

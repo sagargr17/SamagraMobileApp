@@ -1,11 +1,11 @@
 import React from 'react';
 import {View, Image, StyleSheet, TextInputComponent} from 'react-native';
 import {Card, IconButton, TouchableRipple} from 'react-native-paper';
-import {TextComponet} from '../Elements/TextComponet';
+import {TextComponet} from '../../Elements/TextComponet';
 import {useNavigation, useTheme} from '@react-navigation/native';
-import {SamagraScaller, titleRange} from '../../Utilities/CustomMethods';
-import {HomeStackNavigationProp} from '../../Navigators/Stack/HomeStackNavigator';
-import {ApplicationOverlayStackNavigationProp} from '../../Navigators/Stack/ApplicationOverlayStackNavigator';
+import {SamagraScaller, titleRange} from '../../../Utilities/CustomMethods';
+import {HomeStackNavigationProp} from '../../../Navigators/Stack/HomeStackNavigator';
+import {ApplicationOverlayStackNavigationProp} from '../../../Navigators/Stack/ApplicationOverlayStackNavigator';
 
 interface ItemCardProps {
   cardImage: string;

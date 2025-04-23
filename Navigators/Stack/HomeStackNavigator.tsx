@@ -11,6 +11,7 @@ import {heightPercentageToDP} from 'react-native-responsive-screen';
 import {HomeLandingScreen} from '../../Screens/Application/Home/HomeLandingScreen';
 import {RouteProp, useTheme} from '@react-navigation/native';
 import {titleCase} from '../../Utilities/CustomMethods';
+import {CategoryListScreen} from '../../Screens/Application/Home/CategoryListScreen';
 
 type HomeStackParamList = {
   HomeLandingScreen: undefined;
@@ -18,6 +19,7 @@ type HomeStackParamList = {
   HomeDetailScreen: {
     name: string;
   };
+  CategoryListScreen: undefined;
 };
 
 // Its The builder with the
@@ -82,6 +84,7 @@ export const HomeStackNavigator: React.FC = () => {
             },
           },
           {screenName: 'HomeScreen', component: HomeScreen},
+          {screenName: 'CategoryListScreen', component: CategoryListScreen},
         ])}
       </HomeStackBuilder.Navigator>
     </>

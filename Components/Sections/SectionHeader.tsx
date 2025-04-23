@@ -9,16 +9,19 @@ interface SectionHeaderProps {
   titleHeight: number;
   title: string;
   isIcon: boolean;
+  onPress: () => void;
 }
 
 export const SectionHeader: React.FC<SectionHeaderProps> = ({
   titleFontSize = 18,
   titleHeight = 30,
   isIcon = true,
-  title
+  title,
+  onPress,
 }) => {
   return (
     <View
+      onTouchEnd={onPress}
       style={{
         display: 'flex',
         flexDirection: 'row',

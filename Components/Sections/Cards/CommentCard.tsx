@@ -1,8 +1,8 @@
 import React from 'react';
 import {View} from 'react-native';
 
-import {TextComponet} from '../Elements/TextComponet';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {TextComponet} from '../../Elements/TextComponet';
+import {SamagraScaller} from '../../../Utilities/CustomMethods';
 import { useTheme } from '@react-navigation/native';
 interface CommentCardProps {
   commentor: string;

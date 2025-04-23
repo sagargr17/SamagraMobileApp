@@ -4,11 +4,11 @@ import {useTheme} from '@react-navigation/native';
 import React, {useEffect, useMemo, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {ProgressBar} from 'react-native-paper';
-import {Logos} from '../../Assets/SVG/Exports/Exports';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
-import {TextComponet} from '../Elements/TextComponet';
-import {ProviderCardSkeleton} from '../ErrorLoadingHandling/Skeletons/ProviderCardSkeleton';
-import {PairButtons} from './PairButtons';
+import {Logos} from '../../../Assets/SVG/Exports/Exports';
+import {SamagraScaller} from '../../../Utilities/CustomMethods';
+import {TextComponet} from '../../Elements/TextComponet';
+import {ProviderCardSkeleton} from '../../ErrorLoadingHandling/Skeletons/ProviderCardSkeleton';
+import {PairButtons} from '../PairButtons';
 
 interface ProviderCardProps {
   titleName: string;

@@ -59,8 +59,8 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
     console.log('Location....', rrr);
   }, []);
 
-  return (
-    <>
+  const test = () => {
+    return (
       <ScrollView
         style={
           {
@@ -119,14 +119,20 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
         </Button>
 
         {/* <MapView
-          initialRegion={{
-            latitude: 37.78825,
-            longitude: -122.4324,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          }}
-        /> */}
+        initialRegion={{
+          latitude: 37.78825,
+          longitude: -122.4324,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+      /> */}
       </ScrollView>
+    );
+  };
+
+  return (
+    <>
+      
     </>
   );
 };

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {ScrollView, Text, View} from 'react-native';
-import {ProviderCard} from '../../../Components/Sections/ProviderCard';
+import {ProviderCard} from '../../../Components/Sections/Cards/ProviderCard';
 import {SamagraScaller} from '../../../Utilities/CustomMethods';
 import {SamagraBottomSheet} from '../../../Components/Sections/SamagraBottomSheet';
 import {TextComponet} from '../../../Components/Elements/TextComponet';

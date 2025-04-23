@@ -3,7 +3,7 @@ import {FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {TextComponet} from '../Elements/TextComponet';
 
 import {SamagraScaller} from '../../Utilities/CustomMethods';
-import {CommentCard} from '../Sections/CommentCard';
+import {CommentCard} from '../Sections/Cards/CommentCard';
 import {useTheme} from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
 import {Item} from 'react-native-paper/lib/typescript/components/Drawer/Drawer';

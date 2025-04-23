@@ -56,7 +56,7 @@ export const ItemCheckOut: React.FC<ItemCheckOutProps> = ({totalPrice = 0}) => {
           style={{
             display: 'flex',
             flexDirection: 'row',
-            flex: 0.95,
+            // flex: 0.95,
             alignItems: 'center',
             justifyContent: 'space-around',
             marginLeft:SamagraScaller({
@@ -87,6 +87,10 @@ export const ItemCheckOut: React.FC<ItemCheckOutProps> = ({totalPrice = 0}) => {
             onPress={() => null}
             style={{
               // flex: 0.8,
+              marginLeft:SamagraScaller({
+                value:2,
+                scaleBy:"average"
+              }),
               alignItems: 'center',
             }}>
             Check Out
