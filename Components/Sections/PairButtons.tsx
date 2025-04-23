@@ -7,8 +7,8 @@ import AppButton from '../Elements/Button';
 interface PairButtonsProps {
   onAcceptPress: () => void;
   onDeclinPress: () => void;
-  onAccepTitle:string,
-  onDeclineTitle:string
+  onAccepTitle?:string,
+  onDeclineTitle?:string
 
 }
 
