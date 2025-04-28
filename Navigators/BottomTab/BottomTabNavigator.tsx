@@ -1,15 +1,12 @@
+import { BottomTabNavigationProp, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 
-import {View, Text, Alert} from 'react-native'; // Import for Tab bar icons or labels
-import {HomeStackNavigator} from '../Stack/HomeStackNavigator';
-import {ServiceStackNavigator} from '../Stack/ServiceStackNavigator';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
-import {useTheme} from '@react-navigation/native';
-import {Logos} from '../../Assets/SVG/Exports/Exports';
-import {ApplicationOverlayStackNavigator} from '../Stack/ApplicationOverlayStackNavigator';
-import {HomeScreen} from '../../Screens/Application/Home/HomeScreen';
+import { useTheme } from '@react-navigation/native';
+import { Logos } from '../../Assets/SVG/Exports/Exports';
+import { SamagraScaller } from '../../Utilities/CustomMethods';
+import { HomeStackNavigator } from '../Stack/HomeStackNavigator';
+import { MoreStackNavigator } from '../Stack/MoreStackNavigator';
+import { ServiceStackNavigator } from '../Stack/ServiceStackNavigator';
 
 type BottomTabParamList = {
   Home: undefined;
@@ -48,7 +45,6 @@ export const BottomTabNavigator: React.FC = () => {
       screenOptions={({route}) => ({
         header: () => null,
         tabBarIcon: ({focused, color, size}) => {
-          
           const {Home, Service, More} = Logos;
 
           const iconSize = SamagraScaller({value: 22, scaleBy: 'width'});
@@ -89,7 +85,7 @@ export const BottomTabNavigator: React.FC = () => {
         },
         tabBarStyle: {
           borderColor: colors.background,
-          
+
           // backgroundColor: colors.background,
           shadowOpacity: 0, // Use shadowOpacity for iOS
           elevation: 0, // Use elevation for Android
@@ -117,16 +113,12 @@ export const BottomTabNavigator: React.FC = () => {
           }),
           fontFamily: 'Poppins-Regular',
         },
-         
-        
-
       })}
-      
       initialRouteName="Service">
       {screenBuilder([
         {screenName: 'Home', component: HomeStackNavigator},
         {screenName: 'Service', component: ServiceStackNavigator},
-        {screenName: 'More', component: HomeScreen},
+        {screenName: 'More', component: MoreStackNavigator},
       ])}
     </BottomTabBuilder.Navigator>
   );

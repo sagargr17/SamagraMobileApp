@@ -6,7 +6,6 @@ import {
 import React from 'react';
 import {TestScreen} from '../../Screens/Application/User/TestScreen';
 
-import {HomeScreen} from '../../Screens/Application/Home/HomeScreen';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
 import {HomeLandingScreen} from '../../Screens/Application/Home/HomeLandingScreen';
 import {RouteProp, useTheme} from '@react-navigation/native';
@@ -15,7 +14,6 @@ import {CategoryListScreen} from '../../Screens/Application/Home/CategoryListScr
 
 type HomeStackParamList = {
   HomeLandingScreen: undefined;
-  HomeScreen: undefined;
   HomeDetailScreen: {
     name: string;
   };
@@ -61,6 +59,8 @@ const screenBuilder = (
 
 export const HomeStackNavigator: React.FC = () => {
   const {colors, fonts} = useTheme();
+
+
   return (
     <>
       <HomeStackBuilder.Navigator
@@ -83,7 +83,7 @@ export const HomeStackNavigator: React.FC = () => {
               header: () => null,
             },
           },
-          {screenName: 'HomeScreen', component: HomeScreen},
+
           {screenName: 'CategoryListScreen', component: CategoryListScreen},
         ])}
       </HomeStackBuilder.Navigator>
