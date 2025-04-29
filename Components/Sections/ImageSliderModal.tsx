@@ -43,7 +43,7 @@ export const ImageSliderModal: React.FC<ImageSliderModalProps> = ({images}) => {
         visible={visible}
         transparent={false}
         style={{
-          height: 20,
+          height: 2000,
         }}>
         <ImageViewer
           imageUrls={images}

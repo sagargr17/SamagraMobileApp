@@ -8,11 +8,17 @@ import {useTheme} from '@react-navigation/native';
 import {Divider} from 'react-native-paper';
 import {Item} from 'react-native-paper/lib/typescript/components/Drawer/Drawer';
 import {SamagraBottomSheet} from '../Sections/SamagraBottomSheet';
-interface CommentLayoutProps {}
+import {Input} from '../Elements/Input';
+interface CommentLayoutProps {
+  onCloseHandle?: (status: any) => void;
+}
 
-export const CommentLayout: React.FC<CommentLayoutProps> = ({}) => {
+export const CommentLayout: React.FC<CommentLayoutProps> = ({
+  onCloseHandle,
+}) => {
   const {colors} = useTheme();
   const [isCommentOpen, setIsCommentopen] = useState<boolean>(false);
+  const [selectedcommentCardDetails, setCommentDetails] = useState<string>('');
 
   const dummyData = [
     {
@@ -45,16 +51,18 @@ export const CommentLayout: React.FC<CommentLayoutProps> = ({}) => {
   return (
     <>
       <View
-        
         style={{
           marginHorizontal: SamagraScaller({
             value: 12,
             scaleBy: 'average',
           }),
-          
         }}>
         {/*This is the layout of the Item Screenn  */}
-        <TouchableOpacity onPress={() => setIsCommentopen(!isCommentOpen)}>
+        <TouchableOpacity
+          onPress={() => {
+            setIsCommentopen(!isCommentOpen);
+            onCloseHandle ? onCloseHandle(isCommentOpen) : null;
+          }}>
           <TextComponet
             customStyle={{
               marginVertical: SamagraScaller({
@@ -67,29 +75,36 @@ export const CommentLayout: React.FC<CommentLayoutProps> = ({}) => {
             fontSize={16}
             lineHeight={22}
             fontVariant="bold"></TextComponet>
+
           <CommentCard
+            starter={isCommentOpen}
             commentor={dummyData[0].commentor}
             commentDescription={dummyData[0].commentDescription}></CommentCard>
         </TouchableOpacity>
       </View>
-
-      <SamagraBottomSheet
-        onClose={() => setIsCommentopen(!isCommentOpen)}
-        customStyle={{
-          zIndex:100
-        }}
-        isOppen={isCommentOpen}
-        pannigGesture={true}
-        flexHeight={2}
-        title="Reviews"
-        children={() =>
-          dummyData.map((item, index) => (
-            <CommentCard
-              commentor={item.commentor}
-              commentDescription={item.commentDescription}
-              key={index}></CommentCard>
-          ))
-        }></SamagraBottomSheet>
+      {isCommentOpen ? (
+        <SamagraBottomSheet
+          onClose={() => {
+            setIsCommentopen(!isCommentOpen);
+            onCloseHandle ? onCloseHandle(isCommentOpen) : null;
+          }}
+          customStyle={{
+            zIndex: 200,
+            padding: 0,
+          }}
+          isOppen={isCommentOpen}
+          pannigGesture={true}
+          flexHeight={1}
+          title="Reviews"
+          children={() =>
+            dummyData.map((item, index) => (
+              <CommentCard
+                commentor={item.commentor}
+                commentDescription={item.commentDescription}
+                key={index}></CommentCard>
+            ))
+          }></SamagraBottomSheet>
+      ) : null}
     </>
   );
 };

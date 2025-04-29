@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ScrollView, TextComponent, View} from 'react-native';
 import {Button, Text} from 'react-native-paper';
 import {clearTokens} from '../../../client/Token/TokenAccess';

@@ -1,47 +1,73 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View} from 'react-native';
 
 import {TextComponet} from '../../Elements/TextComponet';
 import {SamagraScaller} from '../../../Utilities/CustomMethods';
-import { useTheme } from '@react-navigation/native';
+import {useTheme} from '@react-navigation/native';
+import {Input} from '../../Elements/Input';
+import {Icon} from 'react-native-paper';
 interface CommentCardProps {
   commentor: string;
   commentDescription: string;
+  starter?: boolean;
 }
 
 export const CommentCard: React.FC<CommentCardProps> = ({
   commentor,
   commentDescription,
+  starter = false,
 }) => {
   const {colors} = useTheme();
+  const [isReplyCommentVisible, setIsReplyCommentVisible] =
+    useState<boolean>(false);
 
   return (
     <>
       <View
         style={{
           backgroundColor: colors.card,
-          borderColor:colors.border,
-          marginVertical:SamagraScaller({
-            value:2,
-            scaleBy:"average"
+          borderColor: isReplyCommentVisible ? colors.primary : colors.border,
+          marginVertical: SamagraScaller({
+            value: 8,
+            scaleBy: 'average',
           }),
-          padding:SamagraScaller({
-            value:8,
-            scaleBy:"average"
+          padding: SamagraScaller({
+            value: 8,
+            scaleBy: 'average',
           }),
-          borderRadius:SamagraScaller({
-            value:8,
-            scaleBy:"average"
+          borderRadius: SamagraScaller({
+            value: 8,
+            scaleBy: 'average',
           }),
-          borderWidth:0.2
+          borderWidth: isReplyCommentVisible ? 0.7 : 0.3,
         }}>
-        <TextComponet
-          title={commentor}
-          fontVariant="medium" fontSize={16} lineHeight={22}></TextComponet>
-        <TextComponet
-        fontSize={14}
-          title={commentDescription}
-          fontVariant="regular" lineHeight={18}></TextComponet>
+        <View
+          onTouchEnd={() => setIsReplyCommentVisible(!isReplyCommentVisible)}>
+          <TextComponet
+            title={commentor}
+            fontVariant="medium"
+            fontSize={16}
+            lineHeight={22}></TextComponet>
+
+          <TextComponet
+            fontSize={14}
+            title={commentDescription}
+            fontVariant="regular"
+            lineHeight={18}></TextComponet>
+        </View>
+        {isReplyCommentVisible ? (
+          <Input
+            onBlur={() => setIsReplyCommentVisible(!isReplyCommentVisible)}
+            placeholderTextColor={'gray'}
+            outlineStyle={{
+              borderWidth: 0.4,
+            }}
+            height={40}
+            placeholder="Reply....."
+            right={
+              <Icon color={'red'} size={40} source={'feather'}></Icon>
+            }></Input>
+        ) : null}
       </View>
     </>
   );

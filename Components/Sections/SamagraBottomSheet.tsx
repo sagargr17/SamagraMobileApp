@@ -75,6 +75,7 @@ export const SamagraBottomSheet: React.FC<SamagraBottomSheetProps> = ({
         customStyle,
       ]}>
       <BottomSheetScrollView
+        showsVerticalScrollIndicator={false}
         style={[
           {
             borderColor: colors.border,
@@ -82,7 +83,7 @@ export const SamagraBottomSheet: React.FC<SamagraBottomSheetProps> = ({
               value: 20,
               scaleBy: 'average',
             }),
-            flex: flexHeight,
+            flex: 100,
           },
         ]}>
         {children()}

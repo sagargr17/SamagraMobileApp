@@ -15,6 +15,7 @@ interface InputProps extends React.ComponentProps<typeof TextInput> {
   error?: boolean;
   height?: number;
   lef?: any;
+  right?: any;
 }
 
 export const Input: React.FC<InputProps> = ({
@@ -25,6 +26,7 @@ export const Input: React.FC<InputProps> = ({
   onChangeText,
   height = 54,
   left = null,
+  right,
   ...props
 }) => {
   const {colors, fonts} = useTheme();
@@ -79,7 +81,8 @@ export const Input: React.FC<InputProps> = ({
                 value: 8,
                 scaleBy: 'average',
               }),
-              // borderWidth: 0.01,
+              borderWidth: 0.01,
+              borderColor: colors.border,
             },
           ]}
           value={value}
@@ -91,11 +94,12 @@ export const Input: React.FC<InputProps> = ({
             minHeight: 0,
             fontFamily: fonts.regular.fontFamily,
             fontSize: SamagraScaller({
-              value: 15,
+              value: 14,
               scaleBy: 'height',
             }),
             // lineHeight: 22,
           }}
+          right={right}
         />
       </View>
     </View>
