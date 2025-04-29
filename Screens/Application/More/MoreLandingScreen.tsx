@@ -15,6 +15,7 @@ import {SamagraScaller} from '../../../Utilities/CustomMethods';
 import {TextComponet} from '../../../Components/Elements/TextComponet';
 import FastImage from '@d11/react-native-fast-image';
 import AppButton from '../../../Components/Elements/Button';
+import {useTheme} from '@react-navigation/native';
 
 interface MoreLandingScreenProps {
   navigation: any;
@@ -129,6 +130,8 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({
   //   );
   // };
 
+  const {colors} = useTheme();
+
   return (
     <View
       style={{
@@ -147,6 +150,13 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({
             value: 20,
             scaleBy: 'average',
           }),
+          borderWidth: 0.5,
+          paddingHorizontal: SamagraScaller({
+            value: 10,
+            scaleBy: 'average',
+          }),
+          borderRadius: 10,
+          borderColor: colors.border,
         }}>
         <FastImage
           style={{
@@ -161,7 +171,13 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({
             uri: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
           }}
           resizeMode="cover"></FastImage>
-        <View>
+        <View
+          style={{
+            marginLeft: SamagraScaller({
+              value: 8,
+              scaleBy: 'average',
+            }),
+          }}>
           <TextComponet
             title="Sarita Thapa"
             customStyle={{
@@ -204,20 +220,64 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({
               fontVariant="regular"
               fontSize={14}
               lineHeight={20}></TextComponet>
-            <TextComponet
-              title="2 Services"
-              customStyle={{
-                textAlign: 'left',
-                marginLeft: SamagraScaller({
-                  value: 5,
-                  scaleBy: 'average',
-                }),
-              }}
-              fontVariant="regular"
-              fontSize={14}
-              lineHeight={20}></TextComponet>
           </View>
+
+              
+
+
         </View>
+      </View>
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}>
+        <PoppedCard
+          customStyle={{
+            flex: 0.48,
+          }}
+          // comment="Personal Change"
+          onPress={() => console.log('setting')}
+          title="History"
+          variant="large"
+          iconName="history"></PoppedCard>
+        <PoppedCard
+          customStyle={{
+            flex: 0.48,
+          }}
+          // comment="Personal Change"
+          onPress={() => console.log('setting')}
+          title="Activity"
+          variant="small"
+          iconName="chart-bar-stacked"></PoppedCard>
+      </View>
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}>
+        <PoppedCard
+          customStyle={{
+            flex: 0.48,
+          }}
+          // comment="Personal Change"
+          onPress={() => console.log('setting')}
+          title="Customer Service"
+          variant="large"
+          iconName="card-account-phone"></PoppedCard>
+        <PoppedCard
+          customStyle={{
+            flex: 0.48,
+          }}
+          // comment="Personal Change"
+          onPress={() => console.log('setting')}
+          title="Recent"
+          variant="small"
+          iconName="view-comfy"></PoppedCard>
       </View>
 
       <View
@@ -232,71 +292,25 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({
           title="Items"
           variant="large"
           comment="Stocks,Orders & Other Shop Management"
+          iconName="basket-unfill"></PoppedCard>
+        <PoppedCard
+          onPress={() => console.log('Error')}
+          title="Manage Shop"
+          variant="large"
+          comment="Stocks,Orders & Other Shop Management"
           iconName="store"></PoppedCard>
         <PoppedCard
           onPress={() => console.log('Error')}
-          title="Account"
+          title="Personal Account"
           variant="large"
           comment="Profile, Update User"
           iconName="account"></PoppedCard>
         <PoppedCard
           onPress={() => console.log('Error')}
-          title="Setting"
+          title="App Setting"
           variant="large"
           comment="Personal & Shop Setting"
-          iconName="account-cog-outline"></PoppedCard>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}>
-          <PoppedCard
-            customStyle={{
-              flex: 0.48,
-            }}
-            // comment="Personal Change"
-            onPress={() => console.log('setting')}
-            title="History"
-            variant="large"
-            iconName="history"></PoppedCard>
-          <PoppedCard
-            customStyle={{
-              flex: 0.48,
-            }}
-            // comment="Personal Change"
-            onPress={() => console.log('setting')}
-            title="Activity"
-            variant="small"
-            iconName="chart-bar-stacked"></PoppedCard>
-        </View>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}>
-          <PoppedCard
-            customStyle={{
-              flex: 0.48,
-            }}
-            // comment="Personal Change"
-            onPress={() => console.log('setting')}
-            title="Customer Service"
-            variant="large"
-            iconName="card-account-phone"></PoppedCard>
-          <PoppedCard
-            customStyle={{
-              flex: 0.48,
-            }}
-            // comment="Personal Change"
-            onPress={() => console.log('setting')}
-            title="MoreOption"
-            variant="small"
-            iconName="roman-numeral-10"></PoppedCard>
-        </View>
+          iconName="wrench"></PoppedCard>
 
         <AppButton onPress={() => console.log('Result')} color="danger">
           Logout

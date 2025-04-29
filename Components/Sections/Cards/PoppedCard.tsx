@@ -62,7 +62,7 @@ export const PoppedCard: React.FC<PoppedCardProps> = ({
             <Icon
               source={iconName}
               size={SamagraScaller({value: 30, scaleBy: 'average'})}
-              color={colors.text}
+              color={"gray"}
             />
           </View>
         )}
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 1,
     shadowRadius: 10,
-    marginVertical: SamagraScaller({value: 8, scaleBy: 'average'}),
+    marginVertical: SamagraScaller({value: 5, scaleBy: 'average'}),
     // marginHorizontal: SamagraScaller({value: 16, scaleBy: 'average'}),
   },
   contentContainer: {
