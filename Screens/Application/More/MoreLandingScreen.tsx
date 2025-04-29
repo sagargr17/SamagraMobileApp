@@ -221,10 +221,6 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({
               fontSize={14}
               lineHeight={20}></TextComponet>
           </View>
-
-              
-
-
         </View>
       </View>
       <View
@@ -233,6 +229,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'space-between',
+          marginTop:8
         }}>
         <PoppedCard
           customStyle={{
@@ -283,7 +280,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({
       <View
         style={{
           marginVertical: SamagraScaller({
-            value: 8,
+            value: 4,
             scaleBy: 'average',
           }),
         }}>
@@ -291,13 +288,13 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({
           onPress={() => console.log('Error')}
           title="Items"
           variant="large"
-          comment="Stocks,Orders & Other Shop Management"
+          comment="Stocks,Orders & Other  Management"
           iconName="basket-unfill"></PoppedCard>
         <PoppedCard
           onPress={() => console.log('Error')}
           title="Manage Shop"
           variant="large"
-          comment="Stocks,Orders & Other Shop Management"
+          comment="Shops, Details and management "
           iconName="store"></PoppedCard>
         <PoppedCard
           onPress={() => console.log('Error')}
