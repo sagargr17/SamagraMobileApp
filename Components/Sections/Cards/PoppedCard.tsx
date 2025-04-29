@@ -45,10 +45,13 @@ export const PoppedCard: React.FC<PoppedCardProps> = ({
       style={[
         styles.viewContainer,
         {
-          // width: cardWidth,
           backgroundColor: colors.card,
           borderColor: colors.border,
           shadowColor: colors.border,
+          padding:
+            variant === 'large'
+              ? SamagraScaller({value: 10, scaleBy: 'average'})
+              : SamagraScaller({value: 8, scaleBy: 'average'}),
         },
         customStyle,
       ]}
@@ -59,7 +62,7 @@ export const PoppedCard: React.FC<PoppedCardProps> = ({
             <Icon
               source={iconName}
               size={SamagraScaller({value: 30, scaleBy: 'average'})}
-              color={colors.primary}
+              color={colors.text}
             />
           </View>
         )}
@@ -89,7 +92,7 @@ export const PoppedCard: React.FC<PoppedCardProps> = ({
 const styles = StyleSheet.create({
   viewContainer: {
     borderWidth: SamagraScaller({
-      value: 0.2,
+      value: 0.5,
       scaleBy: 'average',
     }),
     borderRadius: SamagraScaller({value: 8, scaleBy: 'average'}),

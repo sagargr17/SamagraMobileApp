@@ -31,7 +31,7 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
       {label: '3Hr', value: '3'},
       {label: '4Hr', value: '4'},
     ];
-    const [pressedElement, setPressedElement] = useState<string>("");
+    const [pressedElement, setPressedElement] = useState<string>('');
 
     return (
       <View style={styles.childrenContainer}>
@@ -47,9 +47,6 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
             />
           }></Input>
 
-        {/* <DropdownComponent
-          data={serviceData}
-          labelTitle="Please Select the Service"></DropdownComponent> */}
         <DropdownComponent
           data={timeData}
           labelTitle="Time"></DropdownComponent>

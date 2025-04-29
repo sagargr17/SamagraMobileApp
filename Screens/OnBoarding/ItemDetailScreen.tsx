@@ -48,16 +48,18 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
         }}>
         <ScrollView
           showsVerticalScrollIndicator={false}
-          style={{
-            paddingLeft: SamagraScaller({
-              value: 16,
-              scaleBy: 'average',
-            }),
-            paddingRight: SamagraScaller({
-              value: 16,
-              scaleBy: 'average',
-            }),
-          }}>
+          style={
+            {
+              paddingLeft: SamagraScaller({
+                value: 16,
+                scaleBy: 'average',
+              }),
+              paddingRight: SamagraScaller({
+                value: 16,
+                scaleBy: 'average',
+              }),
+            }
+          }>
           <View
             style={{
               display: 'flex',
@@ -72,11 +74,9 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
               title={titleCase(name)}
               fontVariant="regular"
               customStyle={{
-                margin:0,
-                padding:0,
-              }}
-              
-              ></TextComponet>
+                margin: 0,
+                padding: 0,
+              }}></TextComponet>
             <IconButton
               icon="heart-outline"
               size={24}
@@ -97,10 +97,6 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
               customStyle={{
                 backgroundColor: 'gray',
                 color: colors.background,
-                paddingVerticle: SamagraScaller({
-                  value: 8,
-                  scaleBy: 'height',
-                }),
                 paddingHorizontal: SamagraScaller({
                   value: 8,
                   scaleBy: 'height',
@@ -155,8 +151,8 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
 
           <Spacer height={10}></Spacer>
           <Divider></Divider>
-          <CommentLayout></CommentLayout>
         </ScrollView>
+        <CommentLayout></CommentLayout>
         <ItemCheckOut totalPrice={totalPrice}></ItemCheckOut>
       </View>
     </>

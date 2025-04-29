@@ -2,14 +2,15 @@ import {useTheme} from '@react-navigation/native';
 import React from 'react';
 import {Text} from 'react-native-paper';
 import {SamagraScaller} from '../../Utilities/CustomMethods';
-import {NamedStyles, TextStyle} from 'react-native';
+import { TextStyle } from 'react-native';
+
 
 interface TextComponetProps {
   title: string;
   fontVariant: 'regular' | 'medium' | 'bold' | 'heavy';
   lineHeight?: number;
   fontSize?: number;
-  customStyle?: any;
+  customStyle?: TextStyle;
 }
 
 export const TextComponet: React.FC<TextComponetProps> = ({
