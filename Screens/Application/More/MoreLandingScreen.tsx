@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {ScrollView, TextComponent, View} from 'react-native';
+import {ScrollView, TextComponent, TouchableOpacity, View} from 'react-native';
 import {Button, Text} from 'react-native-paper';
 import {clearTokens} from '../../../client/Token/TokenAccess';
 import {HomeStackNavigationProp} from '../../../Navigators/Stack/HomeStackNavigator';
@@ -222,6 +222,36 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({
               lineHeight={20}></TextComponet>
           </View>
         </View>
+
+        <TouchableOpacity>
+          <TextComponet
+            title="P"
+            customStyle={{
+              textAlign: 'right',
+              marginLeft: SamagraScaller({
+                value: 5,
+                scaleBy: 'average',
+              }),
+              backgroundColor: 'orange',
+              paddingHorizontal: SamagraScaller({
+                value: 15,
+                scaleBy: 'average',
+              }),
+              paddingVertical: SamagraScaller({
+                value: 10,
+                scaleBy: 'average',
+              }),
+              borderRadius: 45,
+              color: 'white',
+              left: SamagraScaller({
+                value: 50,
+                scaleBy: 'width',
+              }),
+            }}
+            fontVariant="bold"
+            fontSize={30}
+            lineHeight={30}></TextComponet>
+        </TouchableOpacity>
       </View>
       <View
         style={{
@@ -229,7 +259,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'space-between',
-          marginTop:8
+          marginTop: 8,
         }}>
         <PoppedCard
           customStyle={{
