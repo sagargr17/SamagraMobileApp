@@ -1,4 +1,4 @@
-import {useTheme} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 import {ScrollView} from 'moti';
 import React from 'react';
 import {Divider} from 'react-native-paper';
@@ -8,11 +8,13 @@ import {ItemCategoryCardSlider} from '../../../Components/Layout/ItemCategorySli
 import {ItemCardVerticleSlider} from '../../../Components/Layout/ItemCardVerticleSlider';
 import SamagraBanner from '../../../Components/Sections/SamagraBanner';
 import {SamagraSerchBar} from '../../../Components/Sections/SamagraSerchBar';
+import {HomeStackNavigationProp} from '../../../Navigators/Stack/HomeStackNavigator';
 
 interface HomeLandingScreenProps {}
 
 export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
   const {fonts} = useTheme();
+  const navigation: any = useNavigation();
 
   return (
     <ScrollView
@@ -27,12 +29,16 @@ export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
       <Spacer height={15}></Spacer>
 
       <SamagraSerchBar
-        onPress={() => console.log('pressing')}></SamagraSerchBar>
+        onPress={() =>
+          navigation.navigate('ItemDetailScreen', {
+            name: 'Titan Watch',
+          })
+        }></SamagraSerchBar>
       <SamagraBanner></SamagraBanner>
 
       <Spacer></Spacer>
 
-      <ItemCategoryCardSlider size='large'></ItemCategoryCardSlider>
+      <ItemCategoryCardSlider size="large"></ItemCategoryCardSlider>
       <Spacer></Spacer>
       <Divider></Divider>
       <ItemCardVerticleSlider></ItemCardVerticleSlider>

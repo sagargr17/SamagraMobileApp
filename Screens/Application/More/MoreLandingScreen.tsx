@@ -293,7 +293,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({
           }}
           // comment="Personal Change"
           onPress={() => console.log('setting')}
-          title="Customer Service"
+          title="Contact  "
           variant="large"
           iconName="card-account-phone"></PoppedCard>
         <PoppedCard
@@ -322,7 +322,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({
           iconName="basket-unfill"></PoppedCard>
         <PoppedCard
           onPress={() => console.log('Error')}
-          title="Manage Shop"
+          title="Manage Store"
           variant="large"
           comment="Shops, Details and management "
           iconName="store"></PoppedCard>
