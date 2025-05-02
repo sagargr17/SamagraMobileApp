@@ -5,16 +5,21 @@ import {
 } from '@react-navigation/native-stack';
 import React from 'react';
 import {MoreScreen} from '../../Screens/Application/More/MoreScreen';
-import {InstantItemListScreen} from '../../Screens/Application/Domain/OrderItemListScreen';
+import {InstantItemListScreen as OrderListItemListScreen} from '../../Screens/Application/Domain/OrderItemListScreen';
 import {RouteProp, useTheme} from '@react-navigation/native';
 import {HomeItemDetailScreen} from '../../Screens/Application/Home/HomeItemDetailScreen';
 import {titleCase} from '../../Utilities/CustomMethods';
 import {ItemDetailScreen} from '../../Screens/OnBoarding/ItemDetailScreen';
+import {SearchBar} from 'react-native-screens';
+import {ShopItemsScreen} from '../../Screens/Application/More/ShopItemsScreen';
 
 type ApplicationOverlayMoreStackParamList = {
-  ServiceListScreen: undefined;
+  OrderListScreen: undefined;
   ItemDetailScreen: {
     name: string;
+  };
+  ShopItemsScreen: {
+    shopName: string;
   };
 };
 
@@ -26,16 +31,28 @@ export type ApplicationOverlayStackNavigationProp<
   T extends keyof ApplicationOverlayMoreStackParamList,
 > = NativeStackNavigationProp<ApplicationOverlayMoreStackParamList, T>;
 
-export interface HomeStackProps<
+export interface ApplicationOverlayStackProps<
   T extends keyof ApplicationOverlayMoreStackParamList,
 > {
   navigation: ApplicationOverlayStackNavigationProp<T>;
 }
 
+
+// This are the extraction of the individual pros
 export type ItemDetailScreenRouteProp = RouteProp<
   ApplicationOverlayMoreStackParamList,
   'ItemDetailScreen'
 >;
+
+export type ShopItemScreenRouteProp = RouteProp<
+  ApplicationOverlayMoreStackParamList,
+  'ShopItemsScreen'
+>;
+
+
+
+
+
 
 const screenBuilder = (
   data: Array<{
@@ -62,8 +79,8 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
       <ApplicationOverlayStackBuilder.Navigator>
         {screenBuilder([
           {
-            screenName: 'ServiceListScreen',
-            component: InstantItemListScreen,
+            screenName: 'OrderListScreen',
+            component: OrderListItemListScreen,
             option: {
               header: () => null,
             },
@@ -79,6 +96,20 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
                 fontSize: 16,
               },
               headerShadowVisible: false,
+            }),
+          },
+          {
+            screenName: 'ShopItemsScreen',
+            component: ShopItemsScreen,
+            option: ({route}: {route: any}) => ({
+              title: titleCase(route.params.name),
+              headerTitleAlign: 'center',
+              headerTitleStyle: {
+                fontFamily: fonts.medium.fontFamily,
+                fontSize: 16,
+              },
+              headerShadowVisible: false,
+              SearchBar,
             }),
           },
         ])}

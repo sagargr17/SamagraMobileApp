@@ -5,7 +5,6 @@ import {clearTokens} from '../../../client/Token/TokenAccess';
 import {HomeStackNavigationProp} from '../../../Navigators/Stack/HomeStackNavigator';
 // import {client} from '../../../Client/Graphql/PublicClient';
 // import {getPublicItems} from '../../../GraphQL/Queries/ItemQueries';
-
 // import {gql} from '../../../src/__generated__';
 
 import Geolocation from '@react-native-community/geolocation';
@@ -15,15 +14,16 @@ import {SamagraScaller} from '../../../Utilities/CustomMethods';
 import {TextComponet} from '../../../Components/Elements/TextComponet';
 import FastImage from '@d11/react-native-fast-image';
 import AppButton from '../../../Components/Elements/Button';
-import {useTheme} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
+import {
+  ApplicationOverlayStackProps,
+  ItemDetailScreenRouteProp,
+  ShopItemScreenRouteProp,
+} from '../../../Navigators/Stack/ApplicationOverlayStackNavigator';
 
-interface MoreLandingScreenProps {
-  navigation: any;
-}
+interface MoreLandingScreenProps {}
 
-export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({
-  navigation,
-}) => {
+export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
   // Testing Function , will be handle sepratedly for efficiendy in future
   const handleGoToHomeDetailScreen = () => {
     // navigation.navigate('HomeDetailScreen');
@@ -129,8 +129,8 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({
   //     </ScrollView>
   //   );
   // };
-
   const {colors} = useTheme();
+  const navigation = useNavigation<any>();
 
   return (
     <View
@@ -315,7 +315,28 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({
           }),
         }}>
         <PoppedCard
-          onPress={() => console.log('Error')}
+          onPress={() =>
+            // navigation.navigate('ShopItemsScreen', {
+            //   shopName: 'Hamro Shop',
+            // })
+            {
+              // navigation.navigation.navigate('ShopItemsScreen', {
+              //   shopName: 'mySHopITems',
+              // });
+              // .navigate('ApplicationOverlay', {
+              //   screen: 'ItemDetailScreen',
+              //   params: {
+              //     name: title,
+              //   },
+              // });
+              navigation.navigate('ApplicationOverlay', {
+                screen: 'ShopItemsScreen',
+                params: {
+                  name: "Hamro Shop",
+                },
+              });
+            }
+          }
           title="Items"
           variant="large"
           comment="Stocks,Orders & Other  Management"
