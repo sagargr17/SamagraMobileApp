@@ -1,5 +1,5 @@
 import {useTheme} from '@react-navigation/native';
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import ImageHandler from '../../../Utilities/ImageHandler';
 import Geolocation from '@react-native-community/geolocation';
 import {ScrollView, Text} from 'react-native';
@@ -10,11 +10,22 @@ import {
   useCameraPermission,
 } from 'react-native-vision-camera';
 import {SamagraScaller} from '../../../Utilities/CustomMethods';
+import AppButton from '../../../Components/Elements/Button';
+import FastImage from '@d11/react-native-fast-image';
 
 interface AddItemScreenProps {}
 
 export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
   const {colors} = useTheme();
+  const [image, setImages] = useState<Array<any>>([]);
+
+  const testPicker = async () => {
+    let rrr: any = await ImageHandler.selectFromGallery();
+    console.log('RRRR', rrr);
+
+    setImages(rrr);
+  };
+
   // Testing Function , will be handle sepratedly for efficiendy in future
   const handleGoToHomeDetailScreen = () => {
     // navigation.navigate('HomeDetailScreen');
@@ -54,6 +65,7 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
   // const device = useCameraDevice('back');
 
   const device = useCameraDevice('back');
+  console.log('Device ....', device);
   const {hasPermission} = useCameraPermission();
   console.log('Camera Permisssion,', hasPermission);
 
@@ -66,16 +78,55 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
   const test = () => {
     return (
       <ScrollView>
-        {device ? (
+        {/* {device ? (
           <Camera
             ref={camera}
             style={{
               flex: 1,
+              height: SamagraScaller({
+                value: 800,
+                scaleBy: 'height',
+              }),
+              borderRadius: 80,
+              // marginHorizontal:100,
+              borderWidth: 20,
+              borderColor: 'black',
             }}
             device={device}
             isActive={true}
           />
-        ) : null}
+        ) : null} */}
+        <Button
+          onPress={() => testPicker()}
+          style={{
+            // bottom: 50,
+            backgroundColor: 'pink',
+            height: 200,
+          }}>
+          Click
+        </Button>
+        {(image && image.length > 0) ?? (
+          <FastImage
+            style={{
+              height: 100,
+              width: 100,
+            }}
+            source={{
+              uri: image[0].uri,
+            }}></FastImage>
+        )}
+
+        {/* <Button
+          icon="camera"
+          mode="contained"
+          onPress={() => handleImageUploadFromCamera()}
+          style={{
+            marginTop: 50,
+            bottom: 200,
+          }}>
+          Upload Image from Gallery
+        </Button>
+        <Text>Hellow</Text> */}
 
         {/* <Text>Home Screen</Text>
         <Button

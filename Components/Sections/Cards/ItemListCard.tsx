@@ -1,7 +1,7 @@
 import FastImage from '@d11/react-native-fast-image';
 import {useTheme} from '@react-navigation/native';
 import {View} from 'moti';
-import React from 'react';
+import React, {useState} from 'react';
 import {Icon, Surface, Text, TouchableRipple} from 'react-native-paper';
 import {StyleSheet} from 'react-native';
 import {SamagraScaller} from '../../../Utilities/CustomMethods';
@@ -19,6 +19,7 @@ interface ItemListCardProps {
 
 export const ItemListtCard: React.FC<ItemListCardProps> = ({item}) => {
   const {colors} = useTheme();
+ 
 
   return (
     <Surface
