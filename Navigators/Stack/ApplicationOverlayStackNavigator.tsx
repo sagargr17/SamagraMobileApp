@@ -21,6 +21,7 @@ type ApplicationOverlayMoreStackParamList = {
   ShopItemsScreen: {
     shopName: string;
   };
+  AddItem: undefined;
 };
 
 // Its The builder with the
@@ -37,7 +38,6 @@ export interface ApplicationOverlayStackProps<
   navigation: ApplicationOverlayStackNavigationProp<T>;
 }
 
-
 // This are the extraction of the individual pros
 export type ItemDetailScreenRouteProp = RouteProp<
   ApplicationOverlayMoreStackParamList,
@@ -48,11 +48,6 @@ export type ShopItemScreenRouteProp = RouteProp<
   ApplicationOverlayMoreStackParamList,
   'ShopItemsScreen'
 >;
-
-
-
-
-
 
 const screenBuilder = (
   data: Array<{
@@ -100,6 +95,20 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
           },
           {
             screenName: 'ShopItemsScreen',
+            component: ShopItemsScreen,
+            option: ({route}: {route: any}) => ({
+              title: titleCase(route.params.name),
+              headerTitleAlign: 'center',
+              headerTitleStyle: {
+                fontFamily: fonts.medium.fontFamily,
+                fontSize: 16,
+              },
+              headerShadowVisible: false,
+              SearchBar,
+            }),
+          },
+          {
+            screenName: 'AddItem',
             component: ShopItemsScreen,
             option: ({route}: {route: any}) => ({
               title: titleCase(route.params.name),

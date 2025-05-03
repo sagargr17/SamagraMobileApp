@@ -7,7 +7,7 @@ import {SamagraScaller, titleRange} from '../../../Utilities/CustomMethods';
 import {HomeStackNavigationProp} from '../../../Navigators/Stack/HomeStackNavigator';
 import {ApplicationOverlayStackNavigationProp} from '../../../Navigators/Stack/ApplicationOverlayStackNavigator';
 
-interface ItemCardProps {
+interface ItemMiniCardProps {
   cardImage: string;
   title: string;
   price: string;
@@ -16,7 +16,7 @@ interface ItemCardProps {
   marginTop?: number;
 }
 
-export const ItemCard: React.FC<ItemCardProps> = ({
+export const ItemMiniCard: React.FC<ItemMiniCardProps> = ({
   cardImage,
   title,
   price,

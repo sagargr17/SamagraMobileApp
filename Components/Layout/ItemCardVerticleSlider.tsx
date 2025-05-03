@@ -1,6 +1,6 @@
 import React from 'react';
 import {SectionHeader} from '../Sections/SectionHeader';
-import {ItemCard} from '../Sections/Cards/ItemCard';
+import {ItemMiniCard} from '../Sections/Cards/ItemMiniCard';
 import {Spacer} from '../Elements/Spacer';
 import {View} from 'react-native';
 import {SamagraScaller} from '../../Utilities/CustomMethods';
@@ -87,7 +87,7 @@ export const ItemCardVerticleSlider: React.FC<
                 // marginTop: ,
                 paddingTop: index % 2 === 0 ? 0 : 20,
               }}>
-              <ItemCard
+              <ItemMiniCard
                 key={index}
                 margin={5}
                 // marginTop={index % 2 !== 0 ? 0 : 10}

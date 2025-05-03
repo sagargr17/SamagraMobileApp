@@ -1,5 +1,5 @@
 import React from 'react';
-import {SamagraScaller} from '../../../Utilities/CustomMethods';
+import {SamagraScaller} from '../../Utilities/CustomMethods';
 import {createGradientShimmer} from 'react-native-gradient-shimmer';
 import LinearGradient from 'react-native-linear-gradient';
 
