@@ -1,20 +1,37 @@
 import React from 'react';
 import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 
-import {useTheme} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 import {TextComponet} from '../../../Components/Elements/TextComponet';
 import {SliderSwitcher} from '../../../Components/Layout/SliderSwitcher';
 import {ItemListtCard} from '../../../Components/Sections/Cards/ItemListCard';
+import {
+  AddItemScreenRouteProp,
+  ApplicationOverlayStackNavigationProp,
+  ApplicationOverlayStackProps,
+} from '../../../Navigators/Stack/ApplicationOverlayStackNavigator';
+import {titleCase} from '../../../Utilities/CustomMethods';
 
 interface ShopItemsScreenProps {}
 
 export const ShopItemsScreen: React.FC<ShopItemsScreenProps> = ({}) => {
   const {colors} = useTheme();
+  const navigation =
+    useNavigation<ApplicationOverlayStackNavigationProp<'AddItemScreen'>>();
+  // const navigation: any = useNavigation();
 
   return (
     <>
-      <SliderSwitcher popupIcon="camera" popupButtoName="Add Item">
+      <SliderSwitcher
+        popupIcon="camera"
+        popupButtonName="Add Item"
+        popupButtonPressed={() =>
+          navigation.navigate('AddItemScreen', {
+            shopName: 'Hamro SHop',
+          })
+        }>
         {/* <TextComponet title="All" fontVariant="regular"></TextComponet> */}
+
         <ScrollView key="All">
           <ItemListtCard
             title="All"

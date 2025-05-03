@@ -13,15 +13,17 @@ import {Icon} from 'react-native-paper';
 import AppButton from '../Elements/Button';
 interface SliderSwitcherProps {
   children: React.ReactNode;
-  popupButtoName: string;
+  popupButtonName: string;
   popupIcon: string;
+  popupButtonPressed: () => void;
 }
 
 // Slider Switcher  Layout you just have to pass the component
 export const SliderSwitcher: React.FC<SliderSwitcherProps> = ({
   children,
-  popupButtoName = 'Add Item',
+  popupButtonName: popupButtoName = 'Add Item',
   popupIcon,
+  popupButtonPressed,
 }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const theme = useTheme();
@@ -146,7 +148,7 @@ export const SliderSwitcher: React.FC<SliderSwitcherProps> = ({
         </ScrollView>
 
         <AppButton
-          onPress={() => console.log('>>>>')}
+          onPress={() => popupButtonPressed()}
           icon={'camera'}
           style={{
             borderRadius: 50,

@@ -12,6 +12,7 @@ import {titleCase} from '../../Utilities/CustomMethods';
 import {ItemDetailScreen} from '../../Screens/OnBoarding/ItemDetailScreen';
 import {SearchBar} from 'react-native-screens';
 import {ShopItemsScreen} from '../../Screens/Application/More/ShopItemsScreen';
+import {AddItemScreen} from '../../Screens/Application/More/AddItemScreen';
 
 type ApplicationOverlayMoreStackParamList = {
   OrderListScreen: undefined;
@@ -21,13 +22,16 @@ type ApplicationOverlayMoreStackParamList = {
   ShopItemsScreen: {
     shopName: string;
   };
-  AddItem: undefined;
+  AddItemScreen: {
+    shopName: string;
+  };
 };
 
 // Its The builder with the
 export const ApplicationOverlayStackBuilder =
   createNativeStackNavigator<ApplicationOverlayMoreStackParamList>();
 
+// While Calling useNnavigation we pass thi type
 export type ApplicationOverlayStackNavigationProp<
   T extends keyof ApplicationOverlayMoreStackParamList,
 > = NativeStackNavigationProp<ApplicationOverlayMoreStackParamList, T>;
@@ -47,6 +51,11 @@ export type ItemDetailScreenRouteProp = RouteProp<
 export type ShopItemScreenRouteProp = RouteProp<
   ApplicationOverlayMoreStackParamList,
   'ShopItemsScreen'
+>;
+
+export type AddItemScreenRouteProp = RouteProp<
+  ApplicationOverlayMoreStackParamList,
+  'AddItemScreen'
 >;
 
 const screenBuilder = (
@@ -108,10 +117,10 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
             }),
           },
           {
-            screenName: 'AddItem',
-            component: ShopItemsScreen,
+            screenName: 'AddItemScreen',
+            component: AddItemScreen,
             option: ({route}: {route: any}) => ({
-              title: titleCase(route.params.name),
+              title: titleCase(route.params.shopName),
               headerTitleAlign: 'center',
               headerTitleStyle: {
                 fontFamily: fonts.medium.fontFamily,
