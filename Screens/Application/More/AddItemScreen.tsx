@@ -45,12 +45,7 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
   // This is the Testing Cmponent
   const test = () => {
     return (
-      <ScrollView
-        style={
-          {
-            // marginTop: 100,
-          }
-        }>
+      <ScrollView>
         <Text>Home Screen</Text>
         <Button
           style={{

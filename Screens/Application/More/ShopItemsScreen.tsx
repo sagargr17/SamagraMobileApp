@@ -1,16 +1,11 @@
 import React from 'react';
-import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {ScrollView} from 'react-native';
 
 import {useNavigation, useTheme} from '@react-navigation/native';
 import {TextComponet} from '../../../Components/Elements/TextComponet';
 import {SliderSwitcher} from '../../../Components/Layout/SliderSwitcher';
 import {ItemListtCard} from '../../../Components/Sections/Cards/ItemListCard';
-import {
-  AddItemScreenRouteProp,
-  ApplicationOverlayStackNavigationProp,
-  ApplicationOverlayStackProps,
-} from '../../../Navigators/Stack/ApplicationOverlayStackNavigator';
-import {titleCase} from '../../../Utilities/CustomMethods';
+import {ApplicationOverlayStackNavigationProp} from '../../../Navigators/Stack/ApplicationOverlayStackNavigator';
 
 interface ShopItemsScreenProps {}
 

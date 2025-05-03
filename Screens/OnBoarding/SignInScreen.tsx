@@ -63,7 +63,7 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
         >
           <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.imageContainer}>
-              <LoginAvatar></LoginAvatar>
+              {/* <LoginAvatar></LoginAvatar> */}
             </View>
 
             <Controller

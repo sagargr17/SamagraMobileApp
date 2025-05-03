@@ -9,7 +9,7 @@ import {getTokens} from '../../client/Token/TokenAccess';
 
 interface LoginFormProps {
   onLogin?: (data: LoginData) => void;
-  navigation: RootStackNavigationProp<'TestScreen'>;
+  navigation: any;
 }
 
 interface LoginData {
