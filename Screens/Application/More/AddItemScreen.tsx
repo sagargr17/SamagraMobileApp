@@ -1,9 +1,16 @@
 import {useTheme} from '@react-navigation/native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import ImageHandler from '../../../Utilities/ImageHandler';
 import Geolocation from '@react-native-community/geolocation';
 import {ScrollView, Text} from 'react-native';
 import {Button} from 'react-native-paper';
+import {
+  Camera,
+  useCameraDevice,
+  useCameraPermission,
+} from 'react-native-vision-camera';
+import {SamagraScaller} from '../../../Utilities/CustomMethods';
+
 interface AddItemScreenProps {}
 
 export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
@@ -40,13 +47,37 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
     Geolocation.setRNConfiguration(config);
 
     let rrr = Geolocation.getCurrentPosition(info => console.log(info));
+
+    // handleOpenCamera();
   }, []);
+
+  // const device = useCameraDevice('back');
+
+  const device = useCameraDevice('back');
+  const {hasPermission} = useCameraPermission();
+  console.log('Camera Permisssion,', hasPermission);
+
+  const camera = useRef<Camera>(null);
+
+  //   if (!hasPermission) return <PermissionsPage />;
+  //   if (device == null) return <NoCameraDeviceError />;
 
   // This is the Testing Cmponent
   const test = () => {
     return (
       <ScrollView>
-        <Text>Home Screen</Text>
+        {device ? (
+          <Camera
+            ref={camera}
+            style={{
+              flex: 1,
+            }}
+            device={device}
+            isActive={true}
+          />
+        ) : null}
+
+        {/* <Text>Home Screen</Text>
         <Button
           style={{
             marginBottom: 50,
@@ -95,19 +126,10 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
             marginTop: 50,
           }}>
           Camera
-        </Button>
-
-        {/* <MapView
-        initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-      /> */}
+        </Button> */}
       </ScrollView>
     );
   };
 
-  return <></>;
+  return <>{test()}</>;
 };
