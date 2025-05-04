@@ -1,16 +1,16 @@
-import { RouteProp, useTheme } from '@react-navigation/native';
+import {RouteProp, useTheme} from '@react-navigation/native';
 import {
   createNativeStackNavigator,
   NativeStackNavigationOptions,
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
 import React from 'react';
-import { SearchBar } from 'react-native-screens';
-import { InstantItemListScreen as OrderListItemListScreen } from '../../Screens/Application/Domain/OrderItemListScreen';
-import { AddItemScreen } from '../../Screens/Application/More/AddItemScreen';
-import { ShopItemsScreen } from '../../Screens/Application/More/ShopItemsScreen';
-import { ItemDetailScreen } from '../../Screens/OnBoarding/ItemDetailScreen';
-import { titleCase } from '../../Utilities/CustomMethods';
+import {SearchBar} from 'react-native-screens';
+import {InstantItemListScreen as OrderListItemListScreen} from '../../Screens/Application/Domain/OrderItemListScreen';
+import {AddItemScreen} from '../../Screens/Application/More/AddItemScreen';
+import {ShopItemsScreen} from '../../Screens/Application/More/ShopItemsScreen';
+import {ItemDetailScreen} from '../../Screens/OnBoarding/ItemDetailScreen';
+import {titleCase} from '../../Utilities/CustomMethods';
 
 type ApplicationOverlayMoreStackParamList = {
   OrderListScreen: undefined;
@@ -117,16 +117,21 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
           {
             screenName: 'AddItemScreen',
             component: AddItemScreen,
-            option: ({route}: {route: any}) => ({
-              title: titleCase(route.params.shopName),
-              headerTitleAlign: 'center',
-              headerTitleStyle: {
-                fontFamily: fonts.medium.fontFamily,
-                fontSize: 16,
-              },
-              headerShadowVisible: false,
-              SearchBar,
-            }),
+
+            // option: ({route}: {route: any}) => ({
+            //   title: titleCase(route.params.shopName),
+            //   headerTitleAlign: 'center',
+            //   headerTitleStyle: {
+            //     fontFamily: fonts.medium.fontFamily,
+            //     fontSize: 16,
+            //   },
+            //   headerShadowVisible: false,
+            //   SearchBar,
+
+            // }),
+            option: {
+              header: () => null,
+            },
           },
         ])}
       </ApplicationOverlayStackBuilder.Navigator>

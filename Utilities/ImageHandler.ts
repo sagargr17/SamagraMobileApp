@@ -164,6 +164,7 @@ import {Image} from 'react-native-compressor';
 import * as MultipleImagePicker from '@baronha/react-native-multiple-image-picker';
 
 class ImageHandler {
+  // Validates the image
   private static validateImage(
     fileSize: number | undefined,
     fileType: string | undefined,
@@ -182,6 +183,7 @@ class ImageHandler {
     return true;
   }
 
+  // Compress The Image
   private static async compressImage(
     uri: string,
   ): Promise<string | ArrayBuffer | null> {
@@ -199,50 +201,7 @@ class ImageHandler {
     }
   }
 
-  public static async openCamera(): Promise<{
-    uri: string;
-    type: string;
-    name: string;
-  } | null> {
-    try {
-      const cameraPermission = await Camera.requestCameraPermission();
-      if (cameraPermission !== 'granted') {
-        Alert.alert(
-          'Camera Permission Required',
-          'Please grant camera permission to use this feature.',
-          [{text: 'OK'}],
-        );
-        return null;
-      }
-
-      const photo = await Camera.takeIameg({
-        qualityPrioritization: 'speed',
-        flash: 'off', // You can customize flash mode
-      });
-
-      if (photo?.path) {
-        const compressedUri: any = await this.compressImage(
-          `file://${photo.path}`,
-        );
-        console.log('Compressed image from camera:', compressedUri);
-
-        const fileName = photo.path.split('/').pop();
-        const type = 'image/jpeg'; // Vision Camera defaults to JPEG
-
-        return {
-          uri: `file://${photo.path}`, // Or potentially the compressed URI if you want to use that directly
-          type: type,
-          name: fileName || 'camera_image.jpg',
-        };
-      }
-      return null;
-    } catch (error: any) {
-      console.error('Camera error:', error.message);
-      Alert.alert('Camera Error', error.message, [{text: 'OK'}]);
-      return null;
-    }
-  }
-
+  // Select From Gallery
   public static async selectFromGallery(
     multiple: boolean = true,
     maxSelected: number = 10,
@@ -272,7 +231,7 @@ class ImageHandler {
                 uri: image.path, // Or use compressedUri
                 type: image.mime,
                 name:
-                  image.filename ||
+                  image.fileName ||
                   `gallery_image_${Date.now()}.${image.mime.split('/')[1]}`,
               }
             : null;
@@ -286,7 +245,7 @@ class ImageHandler {
                 uri: image.path, // Or use compressedUri
                 type: image.mime,
                 name:
-                  image.filename ||
+                  image.fileName ||
                   `gallery_image_${Date.now()}.${image.mime.split('/')[1]}`,
               });
             }
@@ -302,26 +261,7 @@ class ImageHandler {
     }
   }
 
-  // public static async selectSingleImage(): Promise<{
-  //   uri: string;
-  //   type: string;
-  //   name: string;
-  // } | null> {
-  //   return this.selectSingleImage().then(x => return{
-  //     uri: x?.uri;
-  //     type: x?.type;
-  //     name: x?.name;
-  //   });
-  // }
-
-  // public static async selectMultipleImages(): Promise<
-  //   {uri: string; type: string; name: string}[] | null
-  // > {
-  //   return this.selectFromGallery(true);
-  // }
-
-  // Upload Image , this uploads the image
-
+  // Uploading Image
   public static async uploadImage(image: {
     uri: string;
     type: string;
