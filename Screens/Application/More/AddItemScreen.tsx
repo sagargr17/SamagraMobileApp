@@ -20,13 +20,6 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
   const {colors} = useTheme();
   const [image, setImages] = useState<Array<any>>([]);
 
-  const testPicker = async () => {
-    let rrr: any = await ImageHandler.selectFromGallery();
-    console.log('RRRR', rrr);
-
-    setImages(rrr);
-  };
-
   // Testing Function , will be handle sepratedly for efficiendy in future
   const handleGoToHomeDetailScreen = () => {
     // navigation.navigate('HomeDetailScreen');
@@ -57,19 +50,14 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
   // const device = useCameraDevice('back');
 
   const devices = useCameraDevice('back');
-  console.log('Device ....', devices);
+
   const {hasPermission} = useCameraPermission();
-  console.log('Camera Permisssion,', hasPermission);
 
-  const camera = useRef<Camera>(null);
+  const camera: any | null = useRef<Camera>(null);
 
-  //   if (!hasPermission) return <PermissionsPage />;
-  //   if (device == null) return <NoCameraDeviceError />;
+  // if (!hasPermission) return <PermissionsPage />;
 
   const [isCameraActive, setIsCameraActive] = useState(true);
-  // const camera = useRef<Camera>(null);
-  // const devices = useCameraDevices();
-  // const device = devices.back; // Or another preferred camera
 
   useEffect(() => {
     // Optional: Request camera permission on component mount
@@ -80,26 +68,27 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
     });
   }, []);
 
+  // THis is the Image captured By Cameras
   const handleTakePhoto = async () => {
-    if (camera.current && devices) {
-      // try {
-      //   const photo = await camera.current.takePhoto();
-      //   console.log('Photo taken:', photo.path);
-      //   // Process the photo here (e.g., display it, save it)
-      //   // Stop the camera by setting isCameraActive to false
-      //   setIsCameraActive(false);
-      // } catch (error) {
-      //   console.error('Failed to take photo!', error);
-      // }
+    const photo: any = await camera.current.takePhoto();
+    if (photo) {
+      const compressedImage = await ImageHandler.compressImage(photo.path);
+      console.log('Camera:Final Compressed  Image', compressedImage);
+      setImages([{uri: compressedImage}]);
+
+      setIsCameraActive(false);
     }
   };
 
-  const handleGoBack = () => {
-    // You might want to navigate back or perform other actions
-    console.log('Going back');
-    // Optionally reactivate the camera if needed later
-    setIsCameraActive(true);
+  // Galley Image Pickers
+  const testPicker = async () => {
+    let rrr: any = await ImageHandler.selectFromGallery();
+    console.log('Gallery:Multiple Image', rrr);
+    setImages([{uri: rrr}]);
+    setIsCameraActive(false);
   };
+
+  const handleGoBack = () => {};
 
   if (!devices) {
     return <Text>No camera available</Text>;
@@ -109,43 +98,9 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
   const test = () => {
     return (
       <ScrollView>
-        <StatusBar
-          animated={true}
-          backgroundColor="black"
-          // barStyle={statusBarStyle}
-          // showHideTransition={statusBarTransition}
-          // hidden={hidden}
-        />
+        <StatusBar animated={true} backgroundColor="black" />
         {devices ? (
           <>
-            {/* <Camera
-              ref={camera}
-              style={{
-                flex: 1,
-                height: SamagraScaller({
-                  value: 700,
-                  scaleBy: 'height',
-                }),
-                borderRadius: 80,
-                // marginHorizontal:100,
-                borderWidth: 20,
-                borderColor: 'black',
-              }}
-              device={device}
-              isActive={true}
-              photo={true}
-            />
-            <AppButton
-              onPress={async (camera: any) => {
-                const photo: any = await camera.current.takePhoto();
-                console.log('Clicked image ', photo);
-              }}
-              style={{
-                bottom: 200,
-              }}>
-              Click{' '}
-            </AppButton> */}
-
             <View style={styles.container}>
               {isCameraActive ? (
                 <View
@@ -172,12 +127,37 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
                   />
                 </View>
               ) : (
-                <View style={styles.previewContainer}>
-                  <Text>Photo Taken!</Text>
-                  {/* <Button  title="Go Back" onPress={handleGoBack} /> */}
-                  <AppButton onPress={handleGoBack}>Go BAck</AppButton>
-                  {/* You could display the taken photo here using an <Image> component */}
-                </View>
+                <>
+                  <TouchableRipple
+                    onPress={() => testPicker()}
+                    style={{
+                      // right: 20,
+                      backgroundColor: 'gray',
+                      opacity: 0.8,
+                      borderRadius: 45,
+                      padding: SamagraScaller({
+                        value: 15,
+                        scaleBy: 'average',
+                      }),
+                      top: 3,
+                    }}>
+                    <Icon size={30} source={'file-image'} color="white"></Icon>
+                  </TouchableRipple>
+                  <FastImage
+                    style={{
+                      height: SamagraScaller({
+                        value: 875,
+                        scaleBy: 'height',
+                      }),
+                      width: '100%',
+                    }}
+                    source={{
+                      uri: image[0].uri,
+                      // uri: image[0].uri,
+                      // uri: 'file://data/user/0/com.samagraapp/cache/mrousavy6063523767819267427.jpg',
+                    }}
+                    resizeMode="contain"></FastImage>
+                </>
               )}
 
               <View
@@ -203,103 +183,28 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
                       }}>
                       <Icon size={32} source={'camera'} color="white"></Icon>
                     </AppButton>
+                    <TouchableRipple
+                      onPress={() => testPicker()}
+                      style={{
+                        left: 20,
+                        backgroundColor: 'gray',
+                        borderRadius: 45,
+                        padding: SamagraScaller({
+                          value: 15,
+                          scaleBy: 'average',
+                        }),
+                      }}>
+                      <Icon
+                        size={30}
+                        source={'file-image'}
+                        color="white"></Icon>
+                    </TouchableRipple>
                   </View>
                 )}
-
-                <TouchableRipple
-                  onPress={() => ImageHandler.selectFromGallery()}
-                  style={{
-                    left: 20,
-                    backgroundColor: 'gray',
-                    borderRadius: 45,
-                    padding: SamagraScaller({
-                      value: 15,
-                      scaleBy: 'average',
-                    }),
-                  }}>
-                  <Icon size={30} source={'file-image'} color="white"></Icon>
-                </TouchableRipple>
               </View>
             </View>
           </>
         ) : null}
-
-        {(image && image.length > 0) ?? (
-          <FastImage
-            style={{
-              height: 100,
-              width: 100,
-            }}
-            source={
-              {
-                // uri: image[0].uri,
-                // uri: 'file://data/user/0/com.samagraapp/cache/mrousavy6063523767819267427.jpg',
-              }
-            }></FastImage>
-        )}
-
-        {/* <Button
-          icon="camera"
-          mode="contained"
-          onPress={() => handleImageUploadFromCamera()}
-          style={{
-            marginTop: 50,
-            bottom: 200,
-          }}>
-          Upload Image from Gallery
-        </Button>
-        <Text>Hellow</Text> */}
-
-        {/* <Text>Home Screen</Text>
-        <Button
-          style={{
-            marginBottom: 50,
-          }}
-          icon="camera"
-          mode="contained"
-          onPress={handleGoToHomeDetailScreen}>
-          Go to HomeDetail Screen
-        </Button>
-        <Button icon="camera" mode="contained">
-          Logout
-        </Button>
-        <Button
-          icon="camera"
-          mode="contained"
-          // onPress={}
-          style={{
-            marginTop: 50,
-          }}>
-          Public Data
-        </Button>
-        <Button
-          icon="camera"
-          mode="contained"
-          // onPress={}
-          style={{
-            marginTop: 50,
-          }}>
-          Push Data
-        </Button>
-
-        <Button
-          icon="camera"
-          mode="contained"
-          onPress={() => handleImageUploadFromCamera()}
-          style={{
-            marginTop: 50,
-          }}>
-          Upload Image from Gallery
-        </Button>
-        <Button
-          icon="camera"
-          mode="contained"
-          onPress={() => handleOpenCamera()}
-          style={{
-            marginTop: 50,
-          }}>
-          Camera
-        </Button> */}
       </ScrollView>
     );
   };
@@ -322,6 +227,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    height: 200,
+    height: 400,
   },
 });

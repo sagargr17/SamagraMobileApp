@@ -184,7 +184,7 @@ class ImageHandler {
   }
 
   // Compress The Image
-  private static async compressImage(
+  public static async compressImage(
     uri: string,
   ): Promise<string | ArrayBuffer | null> {
     try {
@@ -193,7 +193,7 @@ class ImageHandler {
         quality: 0.8,
       });
 
-      console.log('Compressed image', result);
+      console.log('Processed Image', result);
       return result;
     } catch (error) {
       console.error('Compression error:', error);
