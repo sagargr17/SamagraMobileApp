@@ -16,6 +16,7 @@ import PhoneInput from '../../../Components/Elements/PhoneInput';
 import {ImageUploader} from '../../../Components/Layout/ImageUploader';
 import {TextComponet} from '../../../Components/Elements/TextComponet';
 import {Logos} from '../../../Assets/SVG/Exports/Exports';
+import {Input} from '../../../Components/Elements/Input';
 
 interface AddItemScreenProps {}
 
@@ -25,9 +26,11 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
   const [index, setIndnex] = useState<{
     indexNumber: number;
     title: string;
+    description: string;
   }>({
     indexNumber: 1,
-    title: 'Basic Detail',
+    title: 'Primary Detail',
+    description: 'Product Name, Price & More',
   });
 
   const {AddItem} = Logos;
@@ -219,66 +222,240 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
     );
   };
 
-  const childrenCompoenet = () => (
+  const basicDetailsForm = () => (
+    <>
+      <ScrollView>
+        <View
+          style={{
+            padding: SamagraScaller({
+              value: 16,
+              scaleBy: 'average',
+            }),
+          }}>
+          <View>
+            <Input
+              height={12}
+              maxLength={15}
+              style={{
+                borderWidth: 0.1,
+                marginTop: 6,
+              }}
+              label="Name"></Input>
+          </View>
+          <View
+            style={{
+              marginTop: 8,
+            }}>
+            <Input
+              multiline={true}
+              maxLength={15}
+              style={{
+                borderWidth: 0.1,
+                marginTop: 6,
+              }}
+              label="Description"></Input>
+          </View>
+          <View
+            style={{
+              marginTop: 8,
+            }}>
+            <Input
+              maxLength={15}
+              style={{
+                borderWidth: 0.1,
+                marginTop: 6,
+              }}
+              label="Address"></Input>
+          </View>
+          <View
+            style={{
+              marginTop: 8,
+            }}>
+            <Input
+              keyboardType="numeric"
+              maxLength={15}
+              style={{
+                borderWidth: 0.1,
+                marginTop: 6,
+              }}
+              label="Price"></Input>
+          </View>
+        </View>
+      </ScrollView>
+      <AppButton
+        onPress={() =>
+          setIndnex({
+            indexNumber: 2,
+            title: 'Secondary Detail',
+            description: 'Stock, Delivery Time, Comments.',
+          })
+        }
+        style={{
+          width: 100,
+          left: 20,
+          bottom: 20,
+          borderRadius: 12,
+          backgroundColor: 'rgba(0, 0, 128, 0.87)',
+        }}>
+        <Text>{index.indexNumber === 1 ? 'Next' : 'Save'}</Text>
+      </AppButton>
+    </>
+  );
+  const productDetailsForm = () => (
+    <>
+      <ScrollView>
+        <View
+          style={{
+            padding: SamagraScaller({
+              value: 16,
+              scaleBy: 'average',
+            }),
+          }}>
+          <View>
+            <Input
+              height={12}
+              maxLength={15}
+              style={{
+                borderWidth: 0.1,
+                marginTop: 6,
+              }}
+              label="Stock"></Input>
+          </View>
+          <View
+            style={{
+              marginTop: 8,
+            }}>
+            <Input
+              multiline={true}
+              maxLength={15}
+              style={{
+                borderWidth: 0.1,
+                marginTop: 6,
+              }}
+              label="Delivery Time"></Input>
+          </View>
+          <View
+            style={{
+              marginTop: 8,
+            }}>
+            <Input
+              maxLength={15}
+              style={{
+                borderWidth: 0.1,
+                marginTop: 6,
+              }}
+              label="Comment"></Input>
+          </View>
+        </View>
+      </ScrollView>
+      <AppButton
+        onPress={() =>
+          setIndnex({
+            indexNumber: 2,
+            title: 'Secondary Detail',
+            description: 'Stock, Delivery Time, Comments.',
+          })
+        }
+        style={{
+          // width: 100,
+          // left: 20,
+          // bottom: 20,
+          // position: 'absolute',
+          borderRadius: 12,
+        }}>
+        <Text>{index.indexNumber === 1 ? 'Next' : 'Save'}</Text>
+      </AppButton>
+    </>
+  );
+
+  const childrenCompoenet = (
+    indexNumber: number,
+    title: string,
+    descriptionn: string,
+  ) => (
     <>
       <View
         style={{
           paddingHorizontal: 15,
-          paddingVertical: 10,
+          paddingVertical: 16,
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'flex-start',
-          backgroundColor: 'rgba(0, 0, 128, 0.87)',
-          // marginHorizontal: SamagraScaller({
-          //   value: 8,
-          //   scaleBy: 'width',
-          // }),
-          // borderRadius: 12,
+          backgroundColor:
+            index.indexNumber === 1 ? 'rgba(0, 0, 128, 0.87)' : colors.primary,
         }}>
-        <TextComponet
-          title={`${index.indexNumber}`}
-          fontVariant="medium"
-          lineHeight={40}
-          fontSize={25}
-          customStyle={{
-            backgroundColor: 'rgba(164, 164, 255, 0.31)',
-            paddingHorizontal: 13,
-            borderRadius: 45,
-            color: 'white',
-          }}></TextComponet>
-        <TextComponet
-          title={index.title}
-          fontVariant="medium"
-          lineHeight={40}
-          customStyle={{
-            color: 'white',
-            marginLeft: 10,
-          }}
-          fontSize={25}></TextComponet>
-      </View>
-      <View
-        style={{
-          // height: 200,
-          width: 200,
-          alignItems: 'center',
-          marginLeft: SamagraScaller({
-            value: 120,
-            scaleBy: 'width',
-          }),
-          flex: 0.39,
-          alignContent: 'center',
-          flexDirection: 'row',
-          justifyContent: 'center',
-          // justifyContent: 'center',
-        }}>
-        <AddItem></AddItem>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
+          <TouchableRipple
+            onPress={() => {
+              setIndnex({
+                indexNumber: 1,
+                title: 'Primary Detail',
+                description: 'Product Name, Price ,Location & More',
+              });
+            }}
+            style={{
+              marginRight: 8,
+            }}>
+            <Icon size={24} color="white" source={'arrow-left'}></Icon>
+          </TouchableRipple>
+          <TextComponet
+            title={`${index.indexNumber}`}
+            fontVariant="medium"
+            lineHeight={40}
+            fontSize={25}
+            customStyle={{
+              backgroundColor:
+                index.indexNumber === 1
+                  ? 'rgba(136, 129, 240, 0.87)'
+                  : 'rgba(139, 233, 155, 0.87)',
+              paddingHorizontal: 12,
+              borderRadius: 45,
+              color: 'white',
+            }}></TextComponet>
+        </View>
+
+        <View>
+          <TextComponet
+            title={index.title}
+            fontVariant="medium"
+            lineHeight={20}
+            customStyle={{
+              color: 'white',
+              marginLeft: 10,
+            }}
+            fontSize={25}></TextComponet>
+
+          <TextComponet
+            title={descriptionn}
+            fontVariant="medium"
+            fontSize={14}
+            customStyle={{
+              marginHorizontal: SamagraScaller({
+                value: 8,
+                scaleBy: 'width',
+              }),
+              marginLeft: 10,
+              color: 'white',
+            }}></TextComponet>
+        </View>
       </View>
     </>
   );
 
   return (
     <>
-      <ImageUploader children={childrenCompoenet()}></ImageUploader>
+      <ImageUploader
+        children={childrenCompoenet(
+          index.indexNumber,
+          index.title,
+          index.description,
+        )}></ImageUploader>
+      {index.indexNumber === 1 ? basicDetailsForm() : productDetailsForm()}
     </>
   );
 };

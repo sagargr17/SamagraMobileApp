@@ -55,7 +55,7 @@ export const Input: React.FC<InputProps> = ({
         {label && (
           <TextComponet
             title={label}
-            fontVariant="regular"
+            fontVariant="medium"
             lineHeight={19}
             fontSize={16}></TextComponet>
         )}
