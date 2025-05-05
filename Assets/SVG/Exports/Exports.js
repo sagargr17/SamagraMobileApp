@@ -16,6 +16,7 @@ import Stationary from '../SVGImages/Stationary.svg';
 import Location from '../SVGImages/Location';
 import SearchIcon from '../SVGImages/SearchIcon';
 import LoginAvatar from '../SVGImages/LoginAvatar';
+import AddItem from '../SVGImages/AddItem';
 
 export const Logos = {
   AppleLogo,
@@ -36,4 +37,5 @@ export const Logos = {
   Laundry,
   LoginAvatar,
   SearchIcon,
+  AddItem,
 };

@@ -188,17 +188,61 @@ class ImageHandler {
     uri: string,
   ): Promise<string | ArrayBuffer | null> {
     try {
-      console.log('Compressinggggg');
       const result = await Image.compress(uri, {
         quality: 0.8,
       });
 
-      console.log('Processed Image', result);
       return result;
     } catch (error) {
       console.error('Compression error:', error);
       return null;
     }
+  }
+
+  // public static async multipleImageCompressing(images: any) {
+  //   console.log('>><<<');
+  //   let compressedImageCollection: Array<any> = [];
+  //    images.map(async (image: any) => {
+  //     const compressedUri = await this.compressImage(image.path);
+  //     console.log('Loop compressed Image Image', compressedUri);
+  //     if (compressedUri) {
+  //       console.log('pushed', compressedUri);
+  //       compressedImageCollection.push({
+  //         uri: compressedUri, // Or use compressedUri
+  //         type: image.mime,
+  //         name:
+  //           image.fileName ||
+  //           `gallery_image_${Date.now()}.${image.mime.split('/')[1]}`,
+  //       });
+  //     }
+  //   });
+  //   console.log('compressed final image', compressedImageCollection);
+  //   return compressedImageCollection;
+  // }
+
+  public static async multipleImageCompressing(images: any) {
+    console.log('>><<<');
+    const compressionPromises = images.map(async (image: any) => {
+      const compressedUri = await this.compressImage(image.path);
+      console.log('Loop compressed Image Image', compressedUri);
+      if (compressedUri) {
+        return {
+          uri: compressedUri,
+          type: image.mime,
+          name:
+            image.fileName ||
+            `gallery_image_${Date.now()}.${image.mime.split('/')[1]}`,
+        };
+      }
+      return null;
+    });
+
+    const compressedImageCollection = (
+      await Promise.all(compressionPromises)
+    ).filter(item => item !== null) as any[];
+
+    console.log('compressed final image', compressedImageCollection);
+    return compressedImageCollection;
   }
 
   // Select From Gallery
@@ -220,39 +264,16 @@ class ImageHandler {
         usedCameraButton: false,
         allowedImageTypes: ['image/jpeg', 'image/png'],
       });
-      console.log('Selected Imagesssss', images);
 
-      if (images && images.length > 0) {
-        if (!multiple) {
-          const image = images[0];
-          const compressedUri = await this.compressImage(image.path);
-          return compressedUri
-            ? {
-                uri: image.path, // Or use compressedUri
-                type: image.mime,
-                name:
-                  image.fileName ||
-                  `gallery_image_${Date.now()}.${image.mime.split('/')[1]}`,
-              }
-            : null;
-        } else {
-          const processedImages: {uri: string; type: string; name: string}[] =
-            [];
-          for (const image of images) {
-            const compressedUri = await this.compressImage(image.path);
-            if (compressedUri) {
-              processedImages.push({
-                uri: image.path, // Or use compressedUri
-                type: image.mime,
-                name:
-                  image.fileName ||
-                  `gallery_image_${Date.now()}.${image.mime.split('/')[1]}`,
-              });
-            }
-          }
-          return processedImages;
+      if (images) {
+        let result = await this.multipleImageCompressing(images);
+        console.log('Multiple iamged from compressing function..', result);
+
+        if (result) {
+          return result;
         }
       }
+
       return null;
     } catch (error: any) {
       console.error('Image picker error:', error.message);

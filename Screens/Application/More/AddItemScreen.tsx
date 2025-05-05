@@ -13,12 +13,24 @@ import {SamagraScaller} from '../../../Utilities/CustomMethods';
 import AppButton from '../../../Components/Elements/Button';
 import FastImage from '@d11/react-native-fast-image';
 import PhoneInput from '../../../Components/Elements/PhoneInput';
+import {ImageUploader} from '../../../Components/Layout/ImageUploader';
+import {TextComponet} from '../../../Components/Elements/TextComponet';
+import {Logos} from '../../../Assets/SVG/Exports/Exports';
 
 interface AddItemScreenProps {}
 
 export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
   const {colors} = useTheme();
   const [image, setImages] = useState<Array<any>>([]);
+  const [index, setIndnex] = useState<{
+    indexNumber: number;
+    title: string;
+  }>({
+    indexNumber: 1,
+    title: 'Basic Detail',
+  });
+
+  const {AddItem} = Logos;
 
   // Testing Function , will be handle sepratedly for efficiendy in future
   const handleGoToHomeDetailScreen = () => {
@@ -47,26 +59,17 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
     // handleOpenCamera();
   }, []);
 
-  // const device = useCameraDevice('back');
-
   const devices = useCameraDevice('back');
-
   const {hasPermission} = useCameraPermission();
-
   const camera: any | null = useRef<Camera>(null);
 
   // if (!hasPermission) return <PermissionsPage />;
 
   const [isCameraActive, setIsCameraActive] = useState(true);
 
-  useEffect(() => {
-    // Optional: Request camera permission on component mount
-    Camera.requestCameraPermission().then(permission => {
-      if (permission !== 'granted') {
-        console.warn('Camera permission not granted!');
-      }
-    });
-  }, []);
+  if (!devices) {
+    return <Text>No camera available</Text>;
+  }
 
   // THis is the Image captured By Cameras
   const handleTakePhoto = async () => {
@@ -80,19 +83,18 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
     }
   };
 
+  // {image.length > 0 ? (
+  //                   image.map(item=>())
+  //                 ) : null}
+
   // Galley Image Pickers
   const testPicker = async () => {
     let rrr: any = await ImageHandler.selectFromGallery();
+
     console.log('Gallery:Multiple Image', rrr);
-    setImages([{uri: rrr}]);
+    setImages(rrr);
     setIsCameraActive(false);
   };
-
-  const handleGoBack = () => {};
-
-  if (!devices) {
-    return <Text>No camera available</Text>;
-  }
 
   // This is the Testing Cmponent
   const test = () => {
@@ -129,32 +131,38 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
               ) : (
                 <>
                   <TouchableRipple
-                    onPress={() => testPicker()}
+                    onPress={() => setIsCameraActive(!isCameraActive)}
                     style={{
-                      // right: 20,
+                      top: 5,
                       backgroundColor: 'gray',
                       opacity: 0.8,
                       borderRadius: 45,
                       padding: SamagraScaller({
-                        value: 15,
+                        value: 12,
                         scaleBy: 'average',
                       }),
-                      top: 3,
+                      position: 'absolute',
+                      zIndex: 100,
+                      left: 10,
                     }}>
-                    <Icon size={30} source={'file-image'} color="white"></Icon>
+                    <Icon
+                      size={15}
+                      source={'close-thick'}
+                      color={colors.notification}></Icon>
                   </TouchableRipple>
+
                   <FastImage
                     style={{
                       height: SamagraScaller({
-                        value: 875,
+                        value: 400,
                         scaleBy: 'height',
                       }),
                       width: '100%',
+                      backgroundColor: colors.text,
                     }}
                     source={{
                       uri: image[0].uri,
-                      // uri: image[0].uri,
-                      // uri: 'file://data/user/0/com.samagraapp/cache/mrousavy6063523767819267427.jpg',
+                      // uri: 'file:///data/user/0/com.samagraapp/cache/85a72812-4982-440a-b7b0-6bb4a68b80e5.jpg',
                     }}
                     resizeMode="contain"></FastImage>
                 </>
@@ -171,18 +179,20 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
                   alignItems: 'center',
                 }}>
                 {isCameraActive && (
-                  <View style={styles.buttonContainer}>
-                    <AppButton
-                      onPress={handleTakePhoto}
-                      style={{
-                        padding: SamagraScaller({
-                          value: 10,
-                          scaleBy: 'average',
-                        }),
-                        // bottom
-                      }}>
-                      <Icon size={32} source={'camera'} color="white"></Icon>
-                    </AppButton>
+                  <>
+                    <View style={styles.buttonContainer}>
+                      <AppButton
+                        onPress={handleTakePhoto}
+                        style={{
+                          padding: SamagraScaller({
+                            value: 10,
+                            scaleBy: 'average',
+                          }),
+                          // bottom
+                        }}>
+                        <Icon size={32} source={'camera'} color="white"></Icon>
+                      </AppButton>
+                    </View>
                     <TouchableRipple
                       onPress={() => testPicker()}
                       style={{
@@ -199,7 +209,7 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
                         source={'file-image'}
                         color="white"></Icon>
                     </TouchableRipple>
-                  </View>
+                  </>
                 )}
               </View>
             </View>
@@ -209,7 +219,68 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
     );
   };
 
-  return <>{test()}</>;
+  const childrenCompoenet = () => (
+    <>
+      <View
+        style={{
+          paddingHorizontal: 15,
+          paddingVertical: 10,
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'flex-start',
+          backgroundColor: 'rgba(0, 0, 128, 0.87)',
+          // marginHorizontal: SamagraScaller({
+          //   value: 8,
+          //   scaleBy: 'width',
+          // }),
+          // borderRadius: 12,
+        }}>
+        <TextComponet
+          title={`${index.indexNumber}`}
+          fontVariant="medium"
+          lineHeight={40}
+          fontSize={25}
+          customStyle={{
+            backgroundColor: 'rgba(164, 164, 255, 0.31)',
+            paddingHorizontal: 13,
+            borderRadius: 45,
+            color: 'white',
+          }}></TextComponet>
+        <TextComponet
+          title={index.title}
+          fontVariant="medium"
+          lineHeight={40}
+          customStyle={{
+            color: 'white',
+            marginLeft: 10,
+          }}
+          fontSize={25}></TextComponet>
+      </View>
+      <View
+        style={{
+          // height: 200,
+          width: 200,
+          alignItems: 'center',
+          marginLeft: SamagraScaller({
+            value: 120,
+            scaleBy: 'width',
+          }),
+          flex: 0.39,
+          alignContent: 'center',
+          flexDirection: 'row',
+          justifyContent: 'center',
+          // justifyContent: 'center',
+        }}>
+        <AddItem></AddItem>
+      </View>
+    </>
+  );
+
+  return (
+    <>
+      <ImageUploader children={childrenCompoenet()}></ImageUploader>
+    </>
+  );
 };
 
 const styles = StyleSheet.create({
