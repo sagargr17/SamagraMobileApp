@@ -15,6 +15,7 @@ import {store} from './StateManagement/Store';
 import {login, logout} from './StateManagement/User/UserSlice';
 import BootSplash from 'react-native-bootsplash';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {Camera} from 'react-native-vision-camera';
 
 // MAin Fuction To Token Refresh Handle
 const isTokennExpireHandle = async () => {
@@ -93,6 +94,15 @@ function App(): React.JSX.Element {
 
   // Refreshes according to the life expectation of the token
   useTokenRefreshTimer(refreshingTime);
+
+  // This is for the image upload
+  useEffect(() => {
+    Camera.requestCameraPermission().then(permission => {
+      if (permission !== 'granted') {
+        console.warn('Camera permission not granted!');
+      }
+    });
+  }, []);
 
   return (
     <GestureHandlerRootView

@@ -33,13 +33,13 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({children}) => {
     }
   };
 
-  useEffect(() => {
-    Camera.requestCameraPermission().then(permission => {
-      if (permission !== 'granted') {
-        console.warn('Camera permission not granted!');
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   Camera.requestCameraPermission().then(permission => {
+  //     if (permission !== 'granted') {
+  //       console.warn('Camera permission not granted!');
+  //     }
+  //   });
+  // }, []);
 
   // Galley Image Pickers
   const imageFromGallery = async () => {
