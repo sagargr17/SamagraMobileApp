@@ -212,28 +212,14 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
           }),
         }}>
         <PoppedCard
-          onPress={() =>
-            // navigation.navigate('ShopItemsScreen', {
-            //   shopName: 'Hamro Shop',
-            // })
-            {
-              // navigation.navigation.navigate('ShopItemsScreen', {
-              //   shopName: 'mySHopITems',
-              // });
-              // .navigate('ApplicationOverlay', {
-              //   screen: 'ItemDetailScreen',
-              //   params: {
-              //     name: title,
-              //   },
-              // });
-              navigation.navigate('ApplicationOverlay', {
-                screen: 'ShopItemsScreen',
-                params: {
-                  name: 'Hamro Shop',
-                },
-              });
-            }
-          }
+          onPress={() => {
+            navigation.navigate('ApplicationOverlay', {
+              screen: 'ShopItemsScreen',
+              params: {
+                name: 'Hamro Shop',
+              },
+            });
+          }}
           title="Items"
           variant="large"
           comment="Stocks,Orders & Other  Management"

@@ -62,7 +62,7 @@ export const PoppedCard: React.FC<PoppedCardProps> = ({
             <Icon
               source={iconName}
               size={SamagraScaller({value: 30, scaleBy: 'average'})}
-              color={"gray"}
+              color={'gray'}
             />
           </View>
         )}

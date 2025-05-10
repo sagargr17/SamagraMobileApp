@@ -23,7 +23,7 @@ export const ItemListtCard: React.FC<ItemListCardProps> = ({item}) => {
 
   return (
     <Surface
-      elevation={3}
+      elevation={1}
       style={[styles.container, {backgroundColor: colors.card}]}>
       <TouchableRipple
         onPress={() => console.log('Result')}

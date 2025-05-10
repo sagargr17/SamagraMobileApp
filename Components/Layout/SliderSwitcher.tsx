@@ -11,6 +11,7 @@ import {useTheme} from '@react-navigation/native';
 import {SamagraScaller} from '../../Utilities/CustomMethods';
 import {Icon} from 'react-native-paper';
 import AppButton from '../Elements/Button';
+
 interface SliderSwitcherProps {
   children: React.ReactNode;
   popupButtonName: string;
@@ -26,6 +27,9 @@ export const SliderSwitcher: React.FC<SliderSwitcherProps> = ({
   popupButtonPressed,
 }) => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [scrollTimeout, setScrollTimeout] = useState<NodeJS.Timeout | null>(
+    null,
+  );
   const theme = useTheme();
   const scrollViewRef = useRef<any>(null);
   const childrenArray = React.Children.toArray(children);
@@ -38,28 +42,43 @@ export const SliderSwitcher: React.FC<SliderSwitcherProps> = ({
 
   const handleTabPress = (index: number) => {
     setActiveIndex(index);
-    // Programmatically scroll to the corresponding content
     scrollViewRef.current?.scrollTo({x: index * screenWidth, animated: true});
   };
 
   const handleScroll = (event: any) => {
-    const contentOffset = event.nativeEvent.contentOffset.x;
-    const newIndex = Math.round(contentOffset / screenWidth);
-    setActiveIndex(newIndex);
+    if (event && event.nativeEvent) {
+      event.persist(); // Persist the synthetic event
+
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+      setScrollTimeout(
+        setTimeout(() => {
+          const contentOffset = event.nativeEvent.contentOffset.x;
+          const newIndex = Math.round(contentOffset / screenWidth);
+          setActiveIndex(newIndex);
+          setScrollTimeout(null);
+        }, 100), // Adjust the delay (in milliseconds) as needed
+      );
+    }
   };
 
   const handleScrollBeginDrag = () => {
-    // Optional: Add logic if needed when scrolling starts
+    if (scrollTimeout) {
+      clearTimeout(scrollTimeout);
+      setScrollTimeout(null);
+    }
   };
 
   const handleScrollEndDrag = (event: any) => {
-    const contentOffset = event.nativeEvent.contentOffset.x;
-    const finalIndex = Math.round(contentOffset / screenWidth);
-    setActiveIndex(finalIndex);
+    if (event && event.nativeEvent) {
+      const contentOffset = event.nativeEvent.contentOffset.x;
+      const finalIndex = Math.round(contentOffset / screenWidth);
+      setActiveIndex(finalIndex);
+    }
   };
 
   useEffect(() => {
-    // Ensure the scroll view is at the correct position on initial load or when activeIndex changes programmatically
     scrollViewRef.current?.scrollTo({
       x: activeIndex * screenWidth,
       animated: true,
@@ -133,7 +152,7 @@ export const SliderSwitcher: React.FC<SliderSwitcherProps> = ({
           horizontal
           pagingEnabled
           showsHorizontalScrollIndicator={false}
-          onScroll={handleScroll}
+          onScroll={handleScroll} // Using the debounced handleScroll with setTimeout
           onScrollBeginDrag={handleScrollBeginDrag}
           onScrollEndDrag={handleScrollEndDrag}
           scrollEventThrottle={16} // Optimize scroll event handling

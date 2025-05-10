@@ -23,6 +23,7 @@ type ApplicationOverlayMoreStackParamList = {
   AddItemScreen: {
     shopName: string;
   };
+  MyShops: undefined;
 };
 
 // Its The builder with the
@@ -104,7 +105,7 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
             screenName: 'ShopItemsScreen',
             component: ShopItemsScreen,
             option: ({route}: {route: any}) => ({
-              title: titleCase(route.params.name),
+              title: titleCase(''),
               headerTitleAlign: 'center',
               headerTitleStyle: {
                 fontFamily: fonts.medium.fontFamily,
@@ -112,6 +113,22 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
               },
               headerShadowVisible: false,
               SearchBar,
+              // header: () => null,
+            }),
+          },
+          {
+            screenName: 'MyShops',
+            component: ShopItemsScreen,
+            option: ({route}: {route: any}) => ({
+              title: titleCase(''),
+              headerTitleAlign: 'center',
+              headerTitleStyle: {
+                fontFamily: fonts.medium.fontFamily,
+                fontSize: 16,
+              },
+              headerShadowVisible: false,
+              SearchBar,
+              // header: () => null,
             }),
           },
           {
