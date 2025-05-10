@@ -27,6 +27,8 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
   const {colors} = useTheme();
   const navigation = useNavigation<any>();
 
+  let userLogoutHandle = () => clearTokens();
+
   return (
     <View
       style={{
@@ -255,7 +257,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
           comment="Personal & Shop Setting"
           iconName="wrench"></PoppedCard>
 
-        <AppButton onPress={() => console.log('Result')} color="danger">
+        <AppButton onPress={userLogoutHandle} color="danger">
           Logout
         </AppButton>
       </View>

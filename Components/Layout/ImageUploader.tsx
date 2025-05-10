@@ -208,7 +208,6 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({children}) => {
                 </View>
               </>
             )}
-
             <View
               style={{
                 bottom: SamagraScaller({
@@ -222,17 +221,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({children}) => {
               {isCameraActive && (
                 <>
                   <View style={styles.buttonContainer}>
-                    <AppButton
-                      onPress={handleTakePhoto}
-                      style={
-                        {
-                          //   padding: SamagraScaller({
-                          //     value: 10,
-                          //     scaleBy: 'average',
-                          //   }),
-                          // bottom
-                        }
-                      }>
+                    <AppButton onPress={handleTakePhoto}>
                       <Icon size={32} source={'camera'} color="white"></Icon>
                     </AppButton>
                   </View>

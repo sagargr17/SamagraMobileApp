@@ -118,17 +118,6 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
             screenName: 'AddItemScreen',
             component: AddItemScreen,
 
-            // option: ({route}: {route: any}) => ({
-            //   title: titleCase(route.params.shopName),
-            //   headerTitleAlign: 'center',
-            //   headerTitleStyle: {
-            //     fontFamily: fonts.medium.fontFamily,
-            //     fontSize: 16,
-            //   },
-            //   headerShadowVisible: false,
-            //   SearchBar,
-
-            // }),
             option: {
               header: () => null,
             },

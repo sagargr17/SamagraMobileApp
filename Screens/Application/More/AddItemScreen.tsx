@@ -1,22 +1,20 @@
-import {useTheme} from '@react-navigation/native';
-import React, {useEffect, useRef, useState} from 'react';
-import ImageHandler from '../../../Utilities/ImageHandler';
 import Geolocation from '@react-native-community/geolocation';
-import {ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
-import {Button, Icon, TouchableRipple} from 'react-native-paper';
+import { useTheme } from '@react-navigation/native';
+import React, { useEffect, useRef, useState } from 'react';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Icon, TouchableRipple } from 'react-native-paper';
 import {
   Camera,
   useCameraDevice,
   useCameraPermission,
 } from 'react-native-vision-camera';
-import {SamagraScaller} from '../../../Utilities/CustomMethods';
+import { Logos } from '../../../Assets/SVG/Exports/Exports';
 import AppButton from '../../../Components/Elements/Button';
-import FastImage from '@d11/react-native-fast-image';
-import PhoneInput from '../../../Components/Elements/PhoneInput';
-import {ImageUploader} from '../../../Components/Layout/ImageUploader';
-import {TextComponet} from '../../../Components/Elements/TextComponet';
-import {Logos} from '../../../Assets/SVG/Exports/Exports';
-import {Input} from '../../../Components/Elements/Input';
+import { Input } from '../../../Components/Elements/Input';
+import { TextComponet } from '../../../Components/Elements/TextComponet';
+import { ImageUploader } from '../../../Components/Layout/ImageUploader';
+import { SamagraScaller } from '../../../Utilities/CustomMethods';
+import ImageHandler from '../../../Utilities/ImageHandler';
 
 interface AddItemScreenProps {}
 
@@ -40,9 +38,7 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
     // navigation.navigate('HomeDetailScreen');
   };
 
-  //   const {data, loading, error} = useQuery(getPublicItems);
-  //   console.log('DATAAA', data);
-
+ 
   async function handleImageUploadFromCamera() {
     const image = await ImageHandler.selectFromGallery();
     //
@@ -84,142 +80,6 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
 
       setIsCameraActive(false);
     }
-  };
-
-  // {image.length > 0 ? (
-  //                   image.map(item=>())
-  //                 ) : null}
-
-  // Galley Image Pickers
-  const testPicker = async () => {
-    let rrr: any = await ImageHandler.selectFromGallery();
-
-    console.log('Gallery:Multiple Image', rrr);
-    setImages(rrr);
-    setIsCameraActive(false);
-  };
-
-  // This is the Testing Cmponent
-  const test = () => {
-    return (
-      <ScrollView>
-        <StatusBar animated={true} backgroundColor="black" />
-        {devices ? (
-          <>
-            <View style={styles.container}>
-              {isCameraActive ? (
-                <View
-                  style={{
-                    borderColor: colors.primary,
-                    borderRadius: 12,
-                  }}>
-                  <Camera
-                    zoom={2}
-                    preview={true}
-                    onPreviewStarted={() => console.log('Preview started!')}
-                    onPreviewStopped={() => console.log('Preview stopped!')}
-                    photo={true}
-                    ref={camera}
-                    style={{
-                      height: SamagraScaller({
-                        value: 875,
-                        scaleBy: 'height',
-                      }),
-                      flex: 1,
-                    }}
-                    device={devices}
-                    isActive={isCameraActive} // Ensure isActive is bound to the state
-                  />
-                </View>
-              ) : (
-                <>
-                  <TouchableRipple
-                    onPress={() => setIsCameraActive(!isCameraActive)}
-                    style={{
-                      top: 5,
-                      backgroundColor: 'gray',
-                      opacity: 0.8,
-                      borderRadius: 45,
-                      padding: SamagraScaller({
-                        value: 12,
-                        scaleBy: 'average',
-                      }),
-                      position: 'absolute',
-                      zIndex: 100,
-                      left: 10,
-                    }}>
-                    <Icon
-                      size={15}
-                      source={'close-thick'}
-                      color={colors.notification}></Icon>
-                  </TouchableRipple>
-
-                  <FastImage
-                    style={{
-                      height: SamagraScaller({
-                        value: 400,
-                        scaleBy: 'height',
-                      }),
-                      width: '100%',
-                      backgroundColor: colors.text,
-                    }}
-                    source={{
-                      uri: image[0].uri,
-                      // uri: 'file:///data/user/0/com.samagraapp/cache/85a72812-4982-440a-b7b0-6bb4a68b80e5.jpg',
-                    }}
-                    resizeMode="contain"></FastImage>
-                </>
-              )}
-
-              <View
-                style={{
-                  bottom: SamagraScaller({
-                    value: 150,
-                    scaleBy: 'height',
-                  }),
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}>
-                {isCameraActive && (
-                  <>
-                    <View style={styles.buttonContainer}>
-                      <AppButton
-                        onPress={handleTakePhoto}
-                        style={{
-                          padding: SamagraScaller({
-                            value: 10,
-                            scaleBy: 'average',
-                          }),
-                          // bottom
-                        }}>
-                        <Icon size={32} source={'camera'} color="white"></Icon>
-                      </AppButton>
-                    </View>
-                    <TouchableRipple
-                      onPress={() => testPicker()}
-                      style={{
-                        left: 20,
-                        backgroundColor: 'gray',
-                        borderRadius: 45,
-                        padding: SamagraScaller({
-                          value: 15,
-                          scaleBy: 'average',
-                        }),
-                      }}>
-                      <Icon
-                        size={30}
-                        source={'file-image'}
-                        color="white"></Icon>
-                    </TouchableRipple>
-                  </>
-                )}
-              </View>
-            </View>
-          </>
-        ) : null}
-      </ScrollView>
-    );
   };
 
   const basicDetailsForm = () => (
@@ -301,6 +161,7 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
       </AppButton>
     </>
   );
+
   const productDetailsForm = () => (
     <>
       <ScrollView>
@@ -357,10 +218,6 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
           })
         }
         style={{
-          // width: 100,
-          // left: 20,
-          // bottom: 20,
-          // position: 'absolute',
           borderRadius: 12,
         }}>
         <Text>{index.indexNumber === 1 ? 'Next' : 'Save'}</Text>

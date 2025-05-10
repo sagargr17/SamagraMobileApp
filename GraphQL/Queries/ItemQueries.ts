@@ -1,5 +1,3 @@
-import {DocumentNode} from 'graphql';
-// import gql from 'graphql-tag';
 import {gql} from '../../src/__generated__/gql';
 
 export const getPublicItems = gql(`
@@ -21,3 +19,19 @@ query GetPublicItemsById($id: String!) {
   }
 }
 `);
+
+export const productQueries = gql(`query productQueries {
+  getProductCategories {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
+
+    nodes {
+      id
+      isProduct
+      name
+      imageUrl
+    }
+  }
+}`);

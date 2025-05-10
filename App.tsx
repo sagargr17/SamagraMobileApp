@@ -56,7 +56,6 @@ function App(): React.JSX.Element {
   useEffect(() => {
     const getUserStatusHandle = async () => {
       const {userStatus, accessToken, refreshToken} = await getTokens();
-      console.log('USER STATUSSSs', userStatus, accessToken, refreshToken);
 
       userStatus === 'true'
         ? store.dispatch(
