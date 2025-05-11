@@ -4,10 +4,13 @@ import {Text} from 'react-native-paper';
 import {SliderSwitcher} from '../../../Components/Layout/SliderSwitcher';
 import {View} from 'moti';
 import FastImage from '@d11/react-native-fast-image';
+import {Logos} from '../../../Assets/SVG/Exports/Exports';
+import {ShopDisplayCard} from '../../../Components/Sections/ShopDisplayCard';
 interface MyShopsProps {}
 
 export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
   const {colors} = useTheme();
+  const {Shop1, Shop2, WelcomeShop} = Logos;
 
   const TopParts = () => {
     <></>;
@@ -17,17 +20,44 @@ export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
     <>
       <SliderSwitcher upperContainerFlexHeight={0.07}>
         <View key="Hamro Bijuli Pasal">
-          <FastImage></FastImage>
+          <ShopDisplayCard
+            shop={{
+              icon: <Shop1 height={400} width={'90%'}></Shop1>,
+              shopName: 'Hamro Bijuli Pasal',
+              shopDescription: 'All the Electronic Appliances available Here',
+              rating: 4,
+              item: {
+                totalProduct: 167,
+                totalServices: 2,
+              },
+
+              owner: {
+                owner: {
+                  ownerName: 'Sagar Gahatraj',
+                  phoneNumber: '+9779841150390',
+                },
+              },
+            }}></ShopDisplayCard>
         </View>
         <View key="Hamro Retal Shop">
-          <FastImage
-            source={{
-              uri: 'https://images.unsplash.com/photo-1706117948438-826d8018505a?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJpdmF0ZSUyMGNhcnxlbnwwfHwwfHx8MA%3D%3D',
-            }}
-            style={{
-              height: 200,
-              width: 200,
-            }}></FastImage>
+          <ShopDisplayCard
+            shop={{
+              icon: <Shop2 height={350} width={'60%'}></Shop2>,
+              shopName: 'Hamro Bijuli Pasal',
+              shopDescription: 'All the Electronic Appliances available Here',
+              rating: 4,
+              item: {
+                totalProduct: 167,
+                totalServices: 2,
+              },
+
+              owner: {
+                owner: {
+                  ownerName: 'Sagar Gahatraj',
+                  phoneNumber: '+9779841150390',
+                },
+              },
+            }}></ShopDisplayCard>
         </View>
         <View key="Janta Garage">
           <FastImage></FastImage>

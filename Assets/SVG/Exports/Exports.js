@@ -17,6 +17,11 @@ import Location from '../SVGImages/Location';
 import SearchIcon from '../SVGImages/SearchIcon';
 import LoginAvatar from '../SVGImages/LoginAvatar';
 import AddItem from '../SVGImages/AddItem';
+import Shop1 from '../SVGImages/Shop1';
+import Shop2 from '../SVGImages/Shop2';
+import WelcomeShop from '../SVGImages/WelcomeShop';
+
+
 
 export const Logos = {
   AppleLogo,
@@ -38,4 +43,7 @@ export const Logos = {
   LoginAvatar,
   SearchIcon,
   AddItem,
+  Shop1,
+  Shop2,
+  WelcomeShop,
 };

@@ -1,9 +1,50 @@
 import {useTheme} from '@react-navigation/native';
 import React from 'react';
-interface ShopDisplayCardProps {}
+import {Logos} from '../../Assets/SVG/Exports/Exports';
+import {View} from 'moti';
+import {BasicCard} from '../Layout/BasicCard';
+import {Surface} from 'react-native-paper';
+import {TextComponet} from '../Elements/TextComponet';
+interface ShopDisplayCardProps {
+  shop: {
+    icon: any;
+    shopName: string;
+    shopDescription: string;
+    rating: number;
+    item: {
+      totalProduct: number;
+      totalServices: number;
+    };
 
-export const ShopDisplayCard: React.FC<ShopDisplayCardProps> = ({}) => {
+    owner: {
+      owner: {
+        ownerName: string;
+        phoneNumber: string;
+      };
+    };
+  };
+}
+
+export const ShopDisplayCard: React.FC<ShopDisplayCardProps> = ({shop}) => {
   const {colors} = useTheme();
 
-  return <></>;
+  return (
+    <>
+      <View>
+        <View
+          style={{
+            alignItems: 'center',
+          }}>
+          {shop.icon}
+        </View>
+        <View>
+          {/* <Surface elevation={2}>
+            {[{...shop}].map(item => (
+              <TextComponet title={item.item.ShopName}></TextComponet>
+            ))}
+          </Surface> */}
+        </View>
+      </View>
+    </>
+  );
 };

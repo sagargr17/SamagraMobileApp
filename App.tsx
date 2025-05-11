@@ -108,6 +108,7 @@ function App(): React.JSX.Element {
       style={{
         flex: 1,
       }}>
+        <StatusBar backgroundColor={"orage"}></StatusBar>
       <ApolloProvider client={client}>
         <NavigationContainer theme={themes}>
           <Provider store={store}>
