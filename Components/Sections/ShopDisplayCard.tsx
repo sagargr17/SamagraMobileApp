@@ -1,8 +1,8 @@
 import {useTheme} from '@react-navigation/native';
 import React from 'react';
-interface ShopCardProps {}
+interface ShopDisplayCardProps {}
 
-export const ShopCard: React.FC<ShopCardProps> = ({}) => {
+export const ShopDisplayCard: React.FC<ShopDisplayCardProps> = ({}) => {
   const {colors} = useTheme();
 
   return <></>;

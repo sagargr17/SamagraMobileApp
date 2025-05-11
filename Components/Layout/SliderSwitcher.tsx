@@ -5,18 +5,22 @@ import {
   StyleSheet,
   TouchableOpacity,
   View,
+  ViewStyle,
 } from 'react-native';
 import {TextComponet} from '../Elements/TextComponet';
 import {useTheme} from '@react-navigation/native';
 import {SamagraScaller} from '../../Utilities/CustomMethods';
-import {Icon} from 'react-native-paper';
+import {Icon, Surface} from 'react-native-paper';
 import AppButton from '../Elements/Button';
 
 interface SliderSwitcherProps {
   children: React.ReactNode;
-  popupButtonName: string;
-  popupIcon: string;
-  popupButtonPressed: () => void;
+  popupButtonName?: string;
+  popupIcon?: string;
+  popupButtonPressed?: () => void;
+  upperContainerFlexHeight?: number;
+  bottomContainerFlexHeight?: number;
+  isBottomContainerMovable?: boolean;
 }
 
 // Slider Switcher  Layout you just have to pass the component
@@ -25,6 +29,9 @@ export const SliderSwitcher: React.FC<SliderSwitcherProps> = ({
   popupButtonName: popupButtoName = 'Add Item',
   popupIcon,
   popupButtonPressed,
+  upperContainerFlexHeight: upperContainer = 0.055,
+  bottomContainerFlexHeight: bottomContainer = 1,
+  isBottomContainerMovable = true,
 }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [scrollTimeout, setScrollTimeout] = useState<NodeJS.Timeout | null>(
@@ -87,13 +94,21 @@ export const SliderSwitcher: React.FC<SliderSwitcherProps> = ({
 
   return (
     <View style={{flex: 1}}>
-      <View
+      <Surface elevation={1}
         style={{
-          flex: 0.055,
-          padding: SamagraScaller({
-            value: 2,
+          flex: upperContainer,
+          paddingVertical: SamagraScaller({
+            value: 10,
             scaleBy: 'average',
           }),
+          paddingHorizontal: SamagraScaller({
+            value: 4,
+            scaleBy: 'average',
+          }),
+          backgroundColor:colors.background
+
+
+
         }}>
         <ScrollView
           horizontal
@@ -115,6 +130,7 @@ export const SliderSwitcher: React.FC<SliderSwitcherProps> = ({
                     value: 40,
                     scaleBy: 'average',
                   }),
+                  marginTop: 5,
                 },
               ]}>
               <TextComponet
@@ -137,17 +153,17 @@ export const SliderSwitcher: React.FC<SliderSwitcherProps> = ({
             </TouchableOpacity>
           ))}
         </ScrollView>
-      </View>
+      </Surface>
       <View
         style={{
-          flex: 1,
+          flex: bottomContainer,
           marginVertical: SamagraScaller({
             value: 14,
             scaleBy: 'average',
           }),
-          //   backgroundColor: 'pink',
         }}>
         <ScrollView
+          showsVerticalScrollIndicator={false}
           ref={scrollViewRef}
           horizontal
           pagingEnabled
@@ -165,27 +181,28 @@ export const SliderSwitcher: React.FC<SliderSwitcherProps> = ({
             </View>
           ))}
         </ScrollView>
-
-        <AppButton
-          onPress={() => popupButtonPressed()}
-          icon={'camera'}
-          style={{
-            borderRadius: 50,
-            bottom: 10,
-            width: 120,
-            right: 10,
-            position: 'absolute',
-          }}
-          contentStyle={{
-            padding: 8,
-          }}>
-          <TextComponet
-            customStyle={{
-              color: 'white',
+        {popupButtoName && popupButtonPressed && popupIcon ? (
+          <AppButton
+            onPress={() => popupButtonPressed()}
+            icon={'camera'}
+            style={{
+              borderRadius: 50,
+              bottom: 10,
+              width: 120,
+              right: 10,
+              position: 'absolute',
             }}
-            title={popupButtoName}
-            fontVariant="regular"></TextComponet>
-        </AppButton>
+            contentStyle={{
+              padding: 8,
+            }}>
+            <TextComponet
+              customStyle={{
+                color: 'white',
+              }}
+              title={popupButtoName}
+              fontVariant="regular"></TextComponet>
+          </AppButton>
+        ) : null}
       </View>
     </View>
   );
@@ -217,7 +234,7 @@ const styles = StyleSheet.create({
   activeIndicator: {
     height: 2,
     // backgroundColor: 'pink',
-    width: '80%',
+    width: '100%',
     marginTop: 2,
   },
   contentContainer: {

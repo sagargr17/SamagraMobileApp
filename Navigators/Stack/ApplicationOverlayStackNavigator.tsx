@@ -11,6 +11,7 @@ import {AddItemScreen} from '../../Screens/Application/More/AddItemScreen';
 import {ShopItemsScreen} from '../../Screens/Application/More/ShopItemsScreen';
 import {ItemDetailScreen} from '../../Screens/OnBoarding/ItemDetailScreen';
 import {titleCase} from '../../Utilities/CustomMethods';
+import {MyShopsScreen} from '../../Screens/Application/More/MyShopsScreen';
 
 type ApplicationOverlayMoreStackParamList = {
   OrderListScreen: undefined;
@@ -23,7 +24,7 @@ type ApplicationOverlayMoreStackParamList = {
   AddItemScreen: {
     shopName: string;
   };
-  MyShops: undefined;
+  MyShopsScreen: undefined;
 };
 
 // Its The builder with the
@@ -113,12 +114,12 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
               },
               headerShadowVisible: false,
               SearchBar,
-              // header: () => null,
+              header: () => null,
             }),
           },
           {
-            screenName: 'MyShops',
-            component: ShopItemsScreen,
+            screenName: 'MyShopsScreen',
+            component: MyShopsScreen,
             option: ({route}: {route: any}) => ({
               title: titleCase(''),
               headerTitleAlign: 'center',
@@ -128,7 +129,7 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
               },
               headerShadowVisible: false,
               SearchBar,
-              // header: () => null,
+              header: () => null,
             }),
           },
           {

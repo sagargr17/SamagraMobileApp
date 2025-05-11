@@ -1,25 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import {ScrollView, TextComponent, TouchableOpacity, View} from 'react-native';
-import {Button, Text} from 'react-native-paper';
+import React from 'react';
+import {TouchableOpacity, View} from 'react-native';
 import {clearTokens} from '../../../client/Token/TokenAccess';
-import {HomeStackNavigationProp} from '../../../Navigators/Stack/HomeStackNavigator';
-// import {client} from '../../../Client/Graphql/PublicClient';
-// import {getPublicItems} from '../../../GraphQL/Queries/ItemQueries';
-// import {gql} from '../../../src/__generated__';
-
-import Geolocation from '@react-native-community/geolocation';
-import {PoppedCard} from '../../../Components/Sections/Cards/PoppedCard';
-import ImageHandler from '../../../Utilities/ImageHandler';
-import {SamagraScaller} from '../../../Utilities/CustomMethods';
-import {TextComponet} from '../../../Components/Elements/TextComponet';
 import FastImage from '@d11/react-native-fast-image';
-import AppButton from '../../../Components/Elements/Button';
 import {useNavigation, useTheme} from '@react-navigation/native';
-import {
-  ApplicationOverlayStackProps,
-  ItemDetailScreenRouteProp,
-  ShopItemScreenRouteProp,
-} from '../../../Navigators/Stack/ApplicationOverlayStackNavigator';
+import AppButton from '../../../Components/Elements/Button';
+import {TextComponet} from '../../../Components/Elements/TextComponet';
+import {PoppedCard} from '../../../Components/Sections/Cards/PoppedCard';
+import {SamagraScaller} from '../../../Utilities/CustomMethods';
 
 interface MoreLandingScreenProps {}
 
@@ -225,7 +212,14 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
           comment="Stocks,Orders & Other  Management"
           iconName="basket-unfill"></PoppedCard>
         <PoppedCard
-          onPress={() => console.log('Error')}
+          onPress={() => {
+            navigation.navigate('ApplicationOverlay', {
+              screen: 'MyShopsScreen',
+              params: {
+                name: 'Hamro Shop',
+              },
+            });
+          }}
           title="Manage Store"
           variant="large"
           comment="Shops, Details and management "
