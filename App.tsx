@@ -16,6 +16,12 @@ import {login, logout} from './StateManagement/User/UserSlice';
 import BootSplash from 'react-native-bootsplash';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {Camera} from 'react-native-vision-camera';
+import {fetch, useNetInfo} from '@react-native-community/netinfo';
+import {Logos} from './Assets/SVG/Exports/Exports';
+import {SamagraScaller} from './Utilities/CustomMethods';
+import {View} from 'moti';
+import AppButton from './Components/Elements/Button';
+import {TextComponet} from './Components/Elements/TextComponet';
 
 // MAin Fuction To Token Refresh Handle
 const isTokennExpireHandle = async () => {
@@ -35,6 +41,9 @@ function App(): React.JSX.Element {
   const scheme = useColorScheme(); // Get the current color scheme
   const [themes, setTheme] = useState(MyTheme); // Default to light theme
   const [refreshingTime, setRefreshingTime] = useState<number>(10000); // This is the time of refreshing in the second
+  const [internetStatus, setInternetStatus] = useState<boolean>(false); //Active == true | No Internet  ==
+  const [tryAgainInternet, setTryAgainInternet] = useState<boolean>(false); //Active == true | No Internet  ==
+  const {InternetUnAvailable} = Logos;
 
   useEffect(() => {
     const hide = async () => {
@@ -103,6 +112,15 @@ function App(): React.JSX.Element {
     });
   }, []);
 
+  // This Checks the internet Connectivity
+  useEffect(() => {
+    fetch().then(state => {
+      console.log('Connection type', state.type);
+      console.log('Is connected?', state.isConnected);
+      setInternetStatus(state.isConnected ? state.isConnected : false);
+    });
+  }, [tryAgainInternet]);
+
   return (
     <GestureHandlerRootView
       style={{
@@ -111,15 +129,51 @@ function App(): React.JSX.Element {
       <StatusBar
         backgroundColor={themes.colors.background}
         barStyle={'dark-content'}></StatusBar>
-      <ApolloProvider client={client}>
-        <NavigationContainer theme={themes}>
-          <Provider store={store}>
-            <PaperProvider>
-              <RootStack />
-            </PaperProvider>
-          </Provider>
-        </NavigationContainer>
-      </ApolloProvider>
+      <NavigationContainer theme={themes}>
+        {internetStatus ? (
+          <ApolloProvider client={client}>
+            <Provider store={store}>
+              <PaperProvider>
+                <RootStack />
+              </PaperProvider>
+            </Provider>
+          </ApolloProvider>
+        ) : (
+          <View
+            style={{
+              flex: 1,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <>
+              <InternetUnAvailable
+                height={SamagraScaller({
+                  value: 250,
+                  scaleBy: 'average',
+                })}
+                width="80%"></InternetUnAvailable>
+              <TextComponet
+                customStyle={{
+                  color: themes.colors.notification,
+                }}
+                fontVariant="regular"
+                fontSize={14}
+                title="Please Check Your Internet and Try again !"></TextComponet>
+            </>
+            <AppButton
+              style={{
+                width: '70%',
+                marginVertical: SamagraScaller({
+                  scaleBy: 'height',
+                  value: 25,
+                }),
+              }}
+              onPress={() => setTryAgainInternet(!tryAgainInternet)}>
+              Try Again
+            </AppButton>
+          </View>
+        )}
+      </NavigationContainer>
     </GestureHandlerRootView>
   );
 }

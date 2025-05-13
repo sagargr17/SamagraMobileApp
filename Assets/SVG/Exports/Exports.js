@@ -20,8 +20,7 @@ import AddItem from '../SVGImages/AddItem';
 import Shop1 from '../SVGImages/Shop1';
 import Shop2 from '../SVGImages/Shop2';
 import WelcomeShop from '../SVGImages/WelcomeShop';
-
-
+import InternetUnAvailable from '../SVGImages/InternetUnAvailable';
 
 export const Logos = {
   AppleLogo,
@@ -46,4 +45,5 @@ export const Logos = {
   Shop1,
   Shop2,
   WelcomeShop,
+  InternetUnAvailable,
 };
