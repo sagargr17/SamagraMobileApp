@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {TextStyle, View} from 'react-native';
 import {TextComponet} from '../Elements/TextComponet';
 import {SamagraScaller} from '../../Utilities/CustomMethods';
 import {Icon, IconButton} from 'react-native-paper';
@@ -10,6 +10,7 @@ interface SectionHeaderProps {
   title: string;
   isIcon: boolean;
   onPress: () => void;
+  style?:TextStyle
 }
 
 export const SectionHeader: React.FC<SectionHeaderProps> = ({
@@ -18,6 +19,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
   isIcon = true,
   title,
   onPress,
+  style
 }) => {
   return (
     <View
@@ -29,6 +31,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
         justifyContent: 'space-between',
       }}>
       <TextComponet
+        customStyle={style}
         fontVariant="bold"
         fontSize={titleFontSize}
         lineHeight={titleHeight}

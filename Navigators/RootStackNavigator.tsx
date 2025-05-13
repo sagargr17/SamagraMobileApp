@@ -50,7 +50,7 @@ export const RootStack: React.FC = () => {
         screenOptions={{
           header: () => null,
         }}>
-        {userSignInStatus === false //change this to true
+        {userSignInStatus === true //change this to true
           ? screenBuilder([
               {screenName: 'BottomTab', component: BottomTabNavigator},
               {

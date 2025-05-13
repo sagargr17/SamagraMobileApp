@@ -5,8 +5,10 @@ import {View} from 'moti';
 import {BasicCard} from '../Layout/BasicCard';
 import {Surface} from 'react-native-paper';
 import {TextComponet} from '../Elements/TextComponet';
+
 interface ShopDisplayCardProps {
   shop: {
+    id: string;
     icon: any;
     shopName: string;
     shopDescription: string;
@@ -33,17 +35,11 @@ export const ShopDisplayCard: React.FC<ShopDisplayCardProps> = ({shop}) => {
       <View>
         <View
           style={{
-            alignItems: 'center',
+            alignItems: "center",
           }}>
           {shop.icon}
         </View>
-        <View>
-          {/* <Surface elevation={2}>
-            {[{...shop}].map(item => (
-              <TextComponet title={item.item.ShopName}></TextComponet>
-            ))}
-          </Surface> */}
-        </View>
+        <View></View>
       </View>
     </>
   );

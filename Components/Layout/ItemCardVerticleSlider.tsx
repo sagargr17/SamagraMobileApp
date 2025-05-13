@@ -2,15 +2,19 @@ import React from 'react';
 import {SectionHeader} from '../Sections/SectionHeader';
 import {ItemMiniCard} from '../Sections/Cards/ItemMiniCard';
 import {Spacer} from '../Elements/Spacer';
-import {View} from 'react-native';
+import {TextStyle, View} from 'react-native';
 import {SamagraScaller} from '../../Utilities/CustomMethods';
 import {HomeStackNavigationProp} from '../../Navigators/Stack/HomeStackNavigator';
 
-interface ItemCardVerticleSliderProps {}
+interface ItemCardVerticleSliderProps {
+  titleHeader?: string;
+  titleHeaderStyle?: TextStyle;
+}
 
-export const ItemCardVerticleSlider: React.FC<
-  ItemCardVerticleSliderProps
-> = ({}) => {
+export const ItemCardVerticleSlider: React.FC<ItemCardVerticleSliderProps> = ({
+  titleHeader = 'Latest products',
+  titleHeaderStyle,
+}) => {
   const item: Array<{
     cardImage: string;
     title: string;
@@ -66,9 +70,10 @@ export const ItemCardVerticleSlider: React.FC<
       <SectionHeader
         onPress={() => console.log('PRessing')}
         isIcon={false}
-        title="PopularProduct"
+        title={titleHeader}
         titleFontSize={18}
-        titleHeight={22}></SectionHeader>
+        titleHeight={22}
+        style={titleHeaderStyle}></SectionHeader>
       <Spacer height={10}></Spacer>
       <View
         style={{

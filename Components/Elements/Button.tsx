@@ -1,10 +1,9 @@
+import {useTheme} from '@react-navigation/native';
 import React from 'react';
-import {Dimensions, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {Button} from 'react-native-paper';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
 import {SamagraScaller} from '../../Utilities/CustomMethods';
-import {useTheme} from '@react-navigation/native';
-import {MyDarkTheme, MyTheme} from '../../Prefrences/Prefrences';
 
 interface AppButtonProps extends React.ComponentProps<typeof Button> {
   color?: 'primary' | 'secondary' | 'light' | 'danger';
@@ -24,7 +23,7 @@ const AppButton = ({
 
   return (
     <Button
-      rippleColor={color === 'primary' ? colors.primary : "#fcaeb6"}
+      rippleColor={color === 'primary' ? colors.primary : '#fcaeb6'}
       mode={mode}
       textColor={mode === 'outlined' ? colors.text : 'white'}
       labelStyle={[
