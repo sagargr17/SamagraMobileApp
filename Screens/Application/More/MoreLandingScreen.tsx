@@ -34,7 +34,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
             value: 20,
             scaleBy: 'average',
           }),
-          borderWidth: 0.5,
+          borderWidth: 0.3,
           paddingHorizontal: SamagraScaller({
             value: 10,
             scaleBy: 'average',

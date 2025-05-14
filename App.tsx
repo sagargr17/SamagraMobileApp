@@ -128,7 +128,11 @@ function App(): React.JSX.Element {
       }}>
       <StatusBar
         backgroundColor={themes.colors.background}
-        barStyle={'dark-content'}></StatusBar>
+        barStyle={
+          themes.colors.background === 'rgb(255, 255, 255)'
+            ? 'dark-content'
+            : 'light-content'
+        }></StatusBar>
       <NavigationContainer theme={themes}>
         {internetStatus ? (
           <ApolloProvider client={client}>

@@ -77,7 +77,7 @@ export const PoppedCard: React.FC<PoppedCardProps> = ({
             <TextComponet
               fontVariant="regular"
               fontSize={14}
-              lineHeight={20}
+              lineHeight={24}
               title={comment} // Comment using the title prop
               customStyle={styles.comment}
             />
@@ -92,11 +92,11 @@ export const PoppedCard: React.FC<PoppedCardProps> = ({
 const styles = StyleSheet.create({
   viewContainer: {
     borderWidth: SamagraScaller({
-      value: 0.5,
+      value: 0.2,
       scaleBy: 'average',
     }),
     borderRadius: SamagraScaller({value: 8, scaleBy: 'average'}),
-    elevation: 2, // For Android shadow
+    // elevation: 0.4, // For Android shadow
 
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 1,
