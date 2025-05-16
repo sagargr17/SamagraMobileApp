@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {SamagraScaller} from '../../../Utilities/CustomMethods';
 import {TextComponet} from '../../Elements/TextComponet';
-import {Icon} from 'react-native-paper';
+import {Icon, TouchableRipple} from 'react-native-paper';
 // import {Icon} from '../../Elements/Icon'; // Assuming you have an Icon component
 
 interface PoppedCardProps {
@@ -41,7 +41,8 @@ export const PoppedCard: React.FC<PoppedCardProps> = ({
       : SamagraScaller({value: 150, scaleBy: 'average'}); // Example small width
 
   return (
-    <TouchableOpacity
+    <TouchableRipple
+      rippleColor={'#dffcd7'}
       style={[
         styles.viewContainer,
         {
@@ -85,7 +86,7 @@ export const PoppedCard: React.FC<PoppedCardProps> = ({
         </View>
         {children && <View style={styles.childrenContainer}>{children}</View>}
       </View>
-    </TouchableOpacity>
+    </TouchableRipple>
   );
 };
 

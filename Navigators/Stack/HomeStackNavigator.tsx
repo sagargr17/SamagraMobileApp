@@ -11,6 +11,7 @@ import {HomeLandingScreen} from '../../Screens/Application/Home/HomeLandingScree
 import {RouteProp, useTheme} from '@react-navigation/native';
 import {titleCase} from '../../Utilities/CustomMethods';
 import {CategoryListScreen} from '../../Screens/Application/Home/CategoryListScreen';
+import {ProgressBar, Provider} from 'react-native-paper';
 
 type HomeStackParamList = {
   HomeLandingScreen: undefined;
@@ -60,9 +61,14 @@ const screenBuilder = (
 export const HomeStackNavigator: React.FC = () => {
   const {colors, fonts} = useTheme();
 
-
   return (
     <>
+      <ProgressBar
+        indeterminate
+        color={colors.primary}
+        style={{
+          height: 2,
+        }}></ProgressBar>
       <HomeStackBuilder.Navigator
         screenOptions={{
           headerTitleAlign: 'center',

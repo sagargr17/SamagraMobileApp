@@ -2,7 +2,7 @@ import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
 import {NavigationContainer} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {AppState, StatusBar, useColorScheme} from 'react-native';
-import {PaperProvider} from 'react-native-paper';
+import {PaperProvider, ProgressBar} from 'react-native-paper';
 import {Provider, useSelector} from 'react-redux';
 import {accessTokenGenerator} from './client/Token/AccessTokenGenerator';
 import {getTokens} from './client/Token/TokenAccess';

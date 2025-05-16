@@ -12,6 +12,7 @@ import {ProfileSetupScreen} from '../../Screens/OnBoarding/ProfileSetupScreen';
 import {SignInScreen} from '../../Screens/OnBoarding/SignInScreen';
 import {SignUpScreen} from '../../Screens/OnBoarding/SignUpScreen';
 import {SplashScreen} from '../../Screens/OnBoarding/SplashScreen';
+import {ProgressBar} from 'react-native-paper';
 
 type OnBoardingStackParamList = {
   SplashScreen: undefined;

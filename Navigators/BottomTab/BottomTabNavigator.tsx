@@ -1,12 +1,15 @@
-import { BottomTabNavigationProp, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {
+  BottomTabNavigationProp,
+  createBottomTabNavigator,
+} from '@react-navigation/bottom-tabs';
 import React from 'react';
 
-import { useTheme } from '@react-navigation/native';
-import { Logos } from '../../Assets/SVG/Exports/Exports';
-import { SamagraScaller } from '../../Utilities/CustomMethods';
-import { HomeStackNavigator } from '../Stack/HomeStackNavigator';
-import { MoreStackNavigator } from '../Stack/MoreStackNavigator';
-import { ServiceStackNavigator } from '../Stack/ServiceStackNavigator';
+import {useTheme} from '@react-navigation/native';
+import {Logos} from '../../Assets/SVG/Exports/Exports';
+import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {HomeStackNavigator} from '../Stack/HomeStackNavigator';
+import {MoreStackNavigator} from '../Stack/MoreStackNavigator';
+import {ServiceStackNavigator} from '../Stack/ServiceStackNavigator';
 
 type BottomTabParamList = {
   Home: undefined;

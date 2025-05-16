@@ -1,10 +1,10 @@
+import ImageSlider from '@coder-shubh/react-native-image-slider';
 import {useTheme} from '@react-navigation/native';
 import React, {useState} from 'react';
-import {FlatList, Image, Modal, TouchableOpacity} from 'react-native';
+import {Image, Modal} from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
+import {IconButton} from 'react-native-paper';
 import {SamagraScaller} from '../../Utilities/CustomMethods';
-import FastImage from '@d11/react-native-fast-image';
-import ImageSlider from '@coder-shubh/react-native-image-slider';
 
 interface ImageSliderModalProps {
   images: Array<{
@@ -23,7 +23,7 @@ export const ImageSliderModal: React.FC<ImageSliderModalProps> = ({images}) => {
         testID="imageSlider_testID"
         images={images.map(x => x.url)}
         imageHeight={SamagraScaller({
-          value: 322,
+          value: 320.5,
           scaleBy: 'height',
         })}
         dotSize={10}
@@ -39,36 +39,53 @@ export const ImageSliderModal: React.FC<ImageSliderModalProps> = ({images}) => {
           margin: 0,
         }}
       />
-      <Modal
-        visible={visible}
-        transparent={false}
-        style={{
-          height: 2000,
-        }}>
-        <ImageViewer
-          imageUrls={images}
-          onSwipeDown={() => setVisible(!visible)}
-          enableSwipeDown
-          saveToLocalByLongPress={false}
-          renderImage={props => (
-            <Image
-              {...props}
-              style={{
-                width: SamagraScaller({
-                  value: 400,
-                  scaleBy: 'width',
-                }),
-                height: SamagraScaller({
-                  value: 260,
-                  scaleBy: 'width',
-                }),
+      {visible ? (
+        <Modal
+          visible={visible}
+          transparent={false}
+          style={
+            {
+              // height: 2000,
+            }
+          }>
+          <IconButton
+            rippleColor={'gray'}
+            style={{
+              position: 'absolute',
+              top: SamagraScaller({
+                value: 5,
+                scaleBy: 'height',
+              }),
+              zIndex: 2,
+            }}
+            icon="close-circle"
+            iconColor="white"
+            onPress={() => setVisible(!visible)}></IconButton>
+          <ImageViewer
+            imageUrls={images}
+            onSwipeDown={() => setVisible(!visible)}
+            enableSwipeDown
+            saveToLocalByLongPress={false}
+            renderImage={props => (
+              <Image
+                {...props}
+                style={{
+                  width: SamagraScaller({
+                    value: 400,
+                    scaleBy: 'width',
+                  }),
+                  height: SamagraScaller({
+                    value: 260,
+                    scaleBy: 'width',
+                  }),
 
-                resizeMode: 'contain', // or 'cover' if you want full fit
-              }}
-            />
-          )}
-        />
-      </Modal>
+                  resizeMode: 'contain', // or 'cover' if you want full fit
+                }}
+              />
+            )}
+          />
+        </Modal>
+      ) : null}
     </>
   );
 };

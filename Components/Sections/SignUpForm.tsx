@@ -45,7 +45,7 @@ export const SignUpForm = () => {
       />
       {errors.phone && <ErrorText>{errors.phone?.message}</ErrorText>}
       <Spacer />
-      <AppButton color="secondary" onPress={handleSubmit(onButtonPress)}>
+      <AppButton color="primary" onPress={handleSubmit(onButtonPress)}>
         Continue
       </AppButton>
     </>

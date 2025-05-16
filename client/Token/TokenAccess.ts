@@ -38,6 +38,8 @@ export async function getTokens() {
 
 type clearTokens = () => void | unknown;
 export async function clearTokens() {
+  console.log('Result');
+
   try {
     await Keychain.resetGenericPassword({service: 'accessToken'});
     await Keychain.resetGenericPassword({service: 'refreshToken'});

@@ -175,11 +175,13 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
           customStyle={{
             flex: 0.48,
           }}
-          // comment="Personal Change"
           onPress={() => console.log('setting')}
-          title="Contact  "
+          title="Favourite"
           variant="large"
-          iconName="card-account-phone"></PoppedCard>
+          iconName="heart-outline"
+          
+          
+          ></PoppedCard>
         <PoppedCard
           customStyle={{
             flex: 0.48,

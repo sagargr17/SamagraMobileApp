@@ -1,20 +1,20 @@
-import {useNavigation, useTheme} from '@react-navigation/native';
-import {ScrollView} from 'moti';
+import { useNavigation, useTheme } from '@react-navigation/native';
+import { ScrollView } from 'moti';
 import React from 'react';
-import {Divider} from 'react-native-paper';
-import {Spacer} from '../../../Components/Elements/Spacer';
-import {AppHeader} from '../../../Components/Layout/AppHeader';
-import {ItemCategoryCardSlider} from '../../../Components/Layout/ItemCategorySlider';
-import {ItemCardVerticleSlider} from '../../../Components/Layout/ItemCardVerticleSlider';
+import { Divider } from 'react-native-paper';
+import { Spacer } from '../../../Components/Elements/Spacer';
+import { AppHeader } from '../../../Components/Layout/AppHeader';
+import { ItemCardVerticleSlider } from '../../../Components/Layout/ItemCardVerticleSlider';
+import { ItemCategoryCardSlider } from '../../../Components/Layout/ItemCategorySlider';
 import SamagraBanner from '../../../Components/Sections/SamagraBanner';
-import {SamagraSerchBar} from '../../../Components/Sections/SamagraSerchBar';
-import {HomeStackNavigationProp} from '../../../Navigators/Stack/HomeStackNavigator';
+import { SamagraSerchBar } from '../../../Components/Sections/SamagraSerchBar';
 
 interface HomeLandingScreenProps {}
 
 export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
   const {fonts} = useTheme();
   const navigation: any = useNavigation();
+  const {colors} = useTheme();
 
   return (
     <ScrollView
@@ -22,9 +22,10 @@ export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
       style={{
         flex: 1,
       }}>
+      
       <AppHeader currentPosition="relative"></AppHeader>
 
-      <Spacer height={30}></Spacer>
+      <Spacer height={10}></Spacer>
       <Divider></Divider>
       <Spacer height={15}></Spacer>
 

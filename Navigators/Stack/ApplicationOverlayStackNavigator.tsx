@@ -12,6 +12,7 @@ import {ShopItemsScreen} from '../../Screens/Application/More/ShopItemsScreen';
 import {ItemDetailScreen} from '../../Screens/OnBoarding/ItemDetailScreen';
 import {titleCase} from '../../Utilities/CustomMethods';
 import {MyShopsScreen} from '../../Screens/Application/More/MyShopsScreen';
+import {ProgressBar} from 'react-native-paper';
 
 type ApplicationOverlayMoreStackParamList = {
   OrderListScreen: undefined;

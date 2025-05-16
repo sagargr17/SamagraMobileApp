@@ -1,6 +1,5 @@
-import FastImage from '@d11/react-native-fast-image';
 import {useTheme} from '@react-navigation/native';
-import React from 'react';
+import React, {useState} from 'react';
 import {Controller, useForm} from 'react-hook-form';
 import {
   KeyboardAvoidingView,
@@ -9,7 +8,11 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+import {GestureHandlerRootView, ScrollView} from 'react-native-gesture-handler';
+import {ProgressBar} from 'react-native-paper';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
+import {Logos} from '../../Assets/SVG/Exports/Exports';
+import Authenticator from '../../client/Token/Authenticator';
 import AppButton from '../../Components/Elements/Button';
 import {ErrorText} from '../../Components/Elements/ErrorText';
 import {Input} from '../../Components/Elements/Input';
@@ -19,10 +22,7 @@ import {OnBoardingLayout} from '../../Components/Layout/OnBoardingLayout';
 import {ContinueDivider} from '../../Components/Sections/ContinueDivider';
 import {SocialForm} from '../../Components/Sections/SocialForm';
 import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
-import Authenticator from '../../client/Token/Authenticator';
 import {SamagraScaller} from '../../Utilities/CustomMethods';
-import {GestureHandlerRootView, ScrollView} from 'react-native-gesture-handler';
-import {Logos} from '../../Assets/SVG/Exports/Exports';
 
 interface SignInScreenProps {
   navigation: OnBoardingStackNavigationProp<'SignUpScreen'>;
@@ -35,6 +35,8 @@ interface SignInData {
 
 export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
   const {colors} = useTheme();
+  const [isButtonPressedLoading, setIsButtonPressedloading] =
+    useState<boolean>(false);
   const {LoginAvatar} = Logos;
   const {
     control,
@@ -43,100 +45,111 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
   } = useForm<SignInData>();
 
   const signIn = async (data: SignInData) => {
+    setIsButtonPressedloading(!isButtonPressedLoading);
     console.log('Login Data:', data.userName, data.password);
     let login = await Authenticator(data.userName, data.password);
     console.log('Login Result:::', login);
   };
 
   return (
-    <OnBoardingLayout>
-      <GestureHandlerRootView
-        style={{
-          flex: 1,
-        }}>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    <>
+      {isButtonPressedLoading ? (
+        <ProgressBar
+          color={colors.primary}
+          style={{
+            height: 2,
+          }}
+          indeterminate></ProgressBar>
+      ) : null}
+      <OnBoardingLayout>
+        <GestureHandlerRootView
           style={{
             flex: 1,
-          }}
-          keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0} // Adjust as needed
-        >
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <View style={styles.imageContainer}>
-              {/* <LoginAvatar></LoginAvatar> */}
-            </View>
-
-            <Controller
-              control={control}
-              name="userName"
-              rules={{
-                required: 'Username address is required',
-              }}
-              render={({field: {onChange, value}}) => (
-                <Input
-                  label="Username"
-                  placeholder="Username"
-                  value={value}
-                  onChangeText={onChange}
-                />
+            marginTop: SamagraScaller({
+              value: 20,
+              scaleBy: 'height',
+            }),
+          }}>
+          <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={{
+              flex: 1,
+            }}
+            keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0} // Adjust as needed
+          >
+            <ScrollView showsVerticalScrollIndicator={false}>
+              <Controller
+                control={control}
+                name="userName"
+                rules={{
+                  required: 'Username address is required',
+                }}
+                render={({field: {onChange, value}}) => (
+                  <Input
+                    label="Username"
+                    placeholder="Username"
+                    value={value}
+                    onChangeText={onChange}
+                  />
+                )}
+              />
+              {errors.userName && (
+                <ErrorText>{errors.userName?.message}</ErrorText>
               )}
-            />
-            {errors.userName && (
-              <ErrorText>{errors.userName?.message}</ErrorText>
-            )}
-            <Spacer height={20} />
-            <Controller
-              control={control}
-              name="password"
-              rules={{
-                required: 'Password is required',
-              }}
-              render={({field: {onChange, value}}) => (
-                <Input
-                  label="Password"
-                  placeholder="*********"
-                  value={value}
-                  onChangeText={onChange}
-                />
+              <Spacer height={20} />
+              <Controller
+                control={control}
+                name="password"
+                rules={{
+                  required: 'Password is required',
+                }}
+                render={({field: {onChange, value}}) => (
+                  <Input
+                    label="Password"
+                    placeholder="*********"
+                    value={value}
+                    onChangeText={onChange}
+                  />
+                )}
+              />
+              {errors.password && (
+                <ErrorText>{errors.password?.message}</ErrorText>
               )}
-            />
-            {errors.password && (
-              <ErrorText>{errors.password?.message}</ErrorText>
-            )}
-            <Spacer height={10} />
-            <View style={styles.extra}>
-              <Pressable onPress={() => navigation.navigate('OtpScreen')}>
-                <TextComponet
-                  customStyle={{
-                    color: 'blue',
-                  }}
-                  title="Forgot Password"
-                  fontVariant="medium"></TextComponet>
-              </Pressable>
-              <Pressable onPress={() => navigation.navigate('SignUpScreen')}>
-                <TextComponet
-                  customStyle={{
-                    color: 'blue',
-                  }}
-                  title="Don’t have an Account?"
-                  fontVariant="medium"></TextComponet>
-              </Pressable>
+              <Spacer height={10} />
+              <View style={styles.extra}>
+                <Pressable onPress={() => navigation.navigate('OtpScreen')}>
+                  <TextComponet
+                    customStyle={{
+                      color: 'blue',
+                    }}
+                    title="Forgot Password"
+                    fontVariant="medium"></TextComponet>
+                </Pressable>
+                <Pressable onPress={() => navigation.navigate('SignUpScreen')}>
+                  <TextComponet
+                    customStyle={{
+                      color: 'blue',
+                    }}
+                    title="Don’t have an Account?"
+                    fontVariant="medium"></TextComponet>
+                </Pressable>
 
-              {/* <Pressable
+                {/* <Pressable
               onPress={() => navigation.navigate('SignUpScreen')}></Pressable> */}
-            </View>
-            <Spacer />
-            <AppButton color="light" onPress={handleSubmit(signIn)}>
-              Login
-            </AppButton>
-            <Spacer />
-            <ContinueDivider />
-            <Spacer />
-            <SocialForm />
-          </ScrollView>
-        </KeyboardAvoidingView>
-      </GestureHandlerRootView>
-    </OnBoardingLayout>
+              </View>
+              <Spacer />
+              <AppButton color="primary" onPress={handleSubmit(signIn)}>
+                Loginsss
+              </AppButton>
+              <Spacer />
+              <ContinueDivider />
+              <Spacer />
+              <SocialForm />
+            </ScrollView>
+          </KeyboardAvoidingView>
+        </GestureHandlerRootView>
+      </OnBoardingLayout>
+    </>
   );
 };
 

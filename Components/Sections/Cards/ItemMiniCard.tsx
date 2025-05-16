@@ -26,7 +26,6 @@ export const ItemMiniCard: React.FC<ItemMiniCardProps> = ({
 }) => {
   const {colors} = useTheme();
   const navigation: any = useNavigation();
-  // useNavigation<ApplicationOverlayStackNavigationProp<'ItemDetailScreen'>>();
 
   return (
     <View
@@ -134,7 +133,7 @@ const styles = StyleSheet.create({
       value: 30,
       scaleBy: 'width',
     }),
-    elevation: 2,
+    elevation: 0.7,
     // margin: 20,
   },
 

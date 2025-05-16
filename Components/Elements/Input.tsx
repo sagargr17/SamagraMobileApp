@@ -56,17 +56,19 @@ export const Input: React.FC<InputProps> = ({
           <TextComponet
             title={label}
             fontVariant="medium"
-            lineHeight={19}
+            lineHeight={20}
             fontSize={16}></TextComponet>
         )}
         <TextInput
           ref={inputRef}
           placeholder={placeholder}
           mode="outlined"
-          activeOutlineColor={colors.border}
+          outlineStyle={{
+            borderWidth: 1,
+          }}
+          activeOutlineColor={colors.primary}
           placeholderTextColor={'#808080'}
           tvParallaxMagnification={100}
-          // activeUnderlineColor="transparent"
           style={[
             styles.input,
             {
@@ -81,7 +83,7 @@ export const Input: React.FC<InputProps> = ({
                 value: 8,
                 scaleBy: 'average',
               }),
-              borderWidth: 0.01,
+
               borderColor: colors.border,
             },
           ]}

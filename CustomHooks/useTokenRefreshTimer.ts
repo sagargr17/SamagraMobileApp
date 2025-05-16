@@ -9,8 +9,8 @@ export function useTokenRefreshTimer(refreshingTime: number) {
 
   useEffect(() => {
     async function startTimer() {
-      const {refreshToken, userStatus} = await getTokens();
-      console.log('Refreshing the Token', refreshingTime);
+      const {refreshToken, userStatus, accessToken} = await getTokens();
+      console.log('Refreshing the Token', refreshingTime, accessToken);
 
       if (userStatus === 'true')
         if ((await isTokenExpired()) === true) {
