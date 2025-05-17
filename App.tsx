@@ -22,6 +22,7 @@ import {SamagraScaller} from './Utilities/CustomMethods';
 import {View} from 'moti';
 import AppButton from './Components/Elements/Button';
 import {TextComponet} from './Components/Elements/TextComponet';
+import {SingnlePageError} from './Components/Sections/ErrorHandling/SinglePageError';
 
 // MAin Fuction To Token Refresh Handle
 const isTokennExpireHandle = async () => {
@@ -143,39 +144,20 @@ function App(): React.JSX.Element {
             </Provider>
           </ApolloProvider>
         ) : (
-          <View
-            style={{
-              flex: 1,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            <>
-              <InternetUnAvailable
-                height={SamagraScaller({
-                  value: 250,
-                  scaleBy: 'average',
-                })}
-                width="80%"></InternetUnAvailable>
-              <TextComponet
-                customStyle={{
-                  color: themes.colors.notification,
-                }}
-                fontVariant="regular"
-                fontSize={14}
-                title="Please Check Your Internet and Try again !"></TextComponet>
-            </>
-            <AppButton
-              style={{
-                width: '70%',
-                marginVertical: SamagraScaller({
-                  scaleBy: 'height',
-                  value: 25,
-                }),
-              }}
-              onPress={() => setTryAgainInternet(!tryAgainInternet)}>
-              Try Again
-            </AppButton>
-          </View>
+          <SingnlePageError
+            detail={{
+              icon: (
+                <InternetUnAvailable
+                  height={SamagraScaller({
+                    value: 250,
+                    scaleBy: 'average',
+                  })}
+                  width="80%"></InternetUnAvailable>
+              ),
+              title: 'Please Check Your Internet and Try again !',
+              onButtonPress: () => setTryAgainInternet(!tryAgainInternet),
+              buttonTitle: 'Try Again',
+            }}></SingnlePageError>
         )}
       </NavigationContainer>
     </GestureHandlerRootView>

@@ -13,7 +13,7 @@ import {ServiceStackNavigator} from '../Stack/ServiceStackNavigator';
 
 type BottomTabParamList = {
   Home: undefined;
-  Service: undefined;
+  Order: undefined;
   More: undefined;
 };
 
@@ -74,7 +74,7 @@ export const BottomTabNavigator: React.FC = () => {
               />
             );
           }
-          if (route.name === 'Service') {
+          if (route.name === 'Order') {
             return (
               <Service
                 height={iconSize}
@@ -117,10 +117,10 @@ export const BottomTabNavigator: React.FC = () => {
           fontFamily: 'Poppins-Regular',
         },
       })}
-      initialRouteName="Service">
+      initialRouteName="Order">
       {screenBuilder([
         {screenName: 'Home', component: HomeStackNavigator},
-        {screenName: 'Service', component: ServiceStackNavigator},
+        {screenName: 'Order', component: ServiceStackNavigator},
         {screenName: 'More', component: MoreStackNavigator},
       ])}
     </BottomTabBuilder.Navigator>
