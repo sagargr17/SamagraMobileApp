@@ -7,7 +7,7 @@ interface User {
   email: string;
 }
 
-interface UserState {
+export interface UserState {
   user: User | null;
   isAuthenticated: boolean | string;
 }
@@ -22,7 +22,6 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action: PayloadAction<User>) => {
-      console.log('USER GETS LOGINNNNNNN');
       // state.user = action.payload;
       state.isAuthenticated = true;
     },

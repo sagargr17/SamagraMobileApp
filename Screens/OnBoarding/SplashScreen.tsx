@@ -21,7 +21,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
           'Splash screen fully rendered and interactions finished, navigating...',
         );
         navigation.navigate('GetStartedScreen');
-      }, 1350);
+      }, 1400);
     });
   }, [navigation]);
 
@@ -35,7 +35,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
         }}
         animate={{
           opacity: 1,
-          scale: 1,
+          scale: 1.3,
           translateY: 0, // Moves to its original position
         }}
         transition={{
@@ -55,13 +55,13 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
         }}
         animate={{
           opacity: 1,
-          scale: 1,
+          scale: 0.8 ,
         }}
         transition={{
           type: 'timing',
           duration: 700,
         }}>
-        <Text style={styles.title}>SAMAGRA </Text>
+        <Text style={styles.title}>SAMAGRA</Text>
       </MotiView>
     </View>
   );

@@ -4,6 +4,10 @@ import * as Keychain from 'react-native-keychain';
 import {API_URL} from '../../Constants/SamagraConstants/SamagraEndpoints';
 import {store} from '../../StateManagement/Store';
 import {login} from '../../StateManagement/User/UserSlice';
+import {
+  hideLoader,
+  showLoader,
+} from '../../StateManagement/Error&loadingHandle/LoaderState';
 
 interface AuthResponse {
   access_token: string;
@@ -13,14 +17,7 @@ interface AuthResponse {
 
 type Authenticator = (userName: string, password: string) => number | void;
 async function Authenticator(userName: string, password: string) {
-  console.log(
-    'Authenticating user:',
-    userName,
-    password,
-    CLIENT_ID,
-    CLIENT_SECRET,
-  );
-
+  store.dispatch(showLoader());
   const requestBody = new URLSearchParams({
     client_id: CLIENT_ID,
     username: userName,
@@ -38,24 +35,22 @@ async function Authenticator(userName: string, password: string) {
     });
     const data = await response.json();
 
-    console.log('respond', response, response.ok);
-
     if (response.ok) {
       await saveTokens(data);
+      store.dispatch(hideLoader());
       return 200;
     }
     return handleAuthErrors(data);
   } catch (error) {
+    store.dispatch(hideLoader());
     console.error('Authentication Error:', error);
-    return 400;
     showErrorAlert();
+    return 400;
   }
 }
 
 export async function saveTokens(data: AuthResponse): Promise<void> {
-  console.log('Savinggg token1');
   try {
-    console.log('SAving Token', data);
     await Keychain.setGenericPassword('accessToken', data.access_token, {
       service: 'accessToken',
     });

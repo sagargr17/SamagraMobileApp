@@ -63,12 +63,6 @@ export const HomeStackNavigator: React.FC = () => {
 
   return (
     <>
-      <ProgressBar
-        indeterminate
-        color={colors.primary}
-        style={{
-          height: 2,
-        }}></ProgressBar>
       <HomeStackBuilder.Navigator
         screenOptions={{
           headerTitleAlign: 'center',

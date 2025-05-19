@@ -6,6 +6,8 @@ import {useNavigation, useTheme} from '@react-navigation/native';
 import {SamagraScaller, titleRange} from '../../../Utilities/CustomMethods';
 import {HomeStackNavigationProp} from '../../../Navigators/Stack/HomeStackNavigator';
 import {ApplicationOverlayStackNavigationProp} from '../../../Navigators/Stack/ApplicationOverlayStackNavigator';
+import {useAppDispatch} from '../../../StateManagement/hooks';
+import {showLoader} from '../../../StateManagement/Error&loadingHandle/LoaderState';
 
 interface ItemMiniCardProps {
   cardImage: string;
@@ -26,6 +28,7 @@ export const ItemMiniCard: React.FC<ItemMiniCardProps> = ({
 }) => {
   const {colors} = useTheme();
   const navigation: any = useNavigation();
+  const dispatch = useAppDispatch();
 
   return (
     <View
@@ -47,6 +50,8 @@ export const ItemMiniCard: React.FC<ItemMiniCardProps> = ({
       <TouchableRipple
         rippleColor={colors.primary}
         onPress={() => {
+          dispatch(showLoader());
+
           navigation.navigate('ApplicationOverlay', {
             screen: 'ItemDetailScreen',
             params: {

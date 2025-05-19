@@ -1,13 +1,13 @@
 import FastImage from '@d11/react-native-fast-image';
-import {useTheme} from '@react-navigation/native';
-import React, {useEffect, useRef, useState} from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
-import {Icon, TouchableRipple} from 'react-native-paper';
-import {Camera, useCameraDevice} from 'react-native-vision-camera';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
+import { useTheme } from '@react-navigation/native';
+import React, { useRef, useState } from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import { Icon, TouchableRipple } from 'react-native-paper';
+import { Camera, useCameraDevice } from 'react-native-vision-camera';
+import { SamagraScaller } from '../../Utilities/CustomMethods';
 import ImageHandler from '../../Utilities/ImageHandler';
 import AppButton from '../Elements/Button';
-import {TextComponet} from '../Elements/TextComponet';
+import { TextComponet } from '../Elements/TextComponet';
 interface ImageUploaderProps {
   children?: React.ReactNode;
 }

@@ -4,6 +4,8 @@ import {StyleSheet} from 'react-native';
 import {Button} from 'react-native-paper';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
 import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {useAppDispatch} from '../../StateManagement/hooks';
+import {showLoader} from '../../StateManagement/Error&loadingHandle/LoaderState';
 
 interface AppButtonProps extends React.ComponentProps<typeof Button> {
   color?: 'primary' | 'secondary' | 'light' | 'danger';
@@ -20,9 +22,12 @@ const AppButton = ({
 }: AppButtonProps) => {
   const {colors, fonts} = useTheme();
   const {customStyle} = props;
-
+  const dispatch = useAppDispatch();
   return (
     <Button
+      onTouchStart={() => {
+        dispatch(showLoader());
+      }}
       rippleColor={color === 'primary' ? colors.primary : '#fcaeb6'}
       mode={mode}
       textColor={mode === 'outlined' ? colors.text : 'white'}

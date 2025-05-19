@@ -1,15 +1,15 @@
-import {useTheme} from '@react-navigation/native';
+import {useIsFocused, useTheme} from '@react-navigation/native';
 import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
-import React, {useEffect, useState} from 'react';
-import {useSelector} from 'react-redux';
+import React, {useCallback} from 'react';
+import {ProgressBar} from 'react-native-paper';
+import {useAppDispatch, useAppSelector} from '../StateManagement/hooks';
 import {BottomTabNavigator} from './BottomTab/BottomTabNavigator';
 import {ApplicationOverlayStackNavigator} from './Stack/ApplicationOverlayStackNavigator';
 import {OnBoardingStackNavigator} from './Stack/OnBoardingStackNavigator';
-import {useNetInfo} from '@react-native-community/netinfo';
-import {Text} from 'react-native';
+import {hideLoader} from '../StateManagement/Error&loadingHandle/LoaderState';
 
 type RootStackParamList = {
   ApplicationOverlay: undefined;
@@ -42,12 +42,21 @@ const screenBuilder = (
 };
 
 export const RootStack: React.FC = () => {
-  const userSignInStatus = useSelector(
-    (state: any) => state.user.isAuthenticated,
-  );
+  const userSignInStatus = useAppSelector(state => state.user.isAuthenticated);
+  const {colors} = useTheme();
+  const loaderStatus = useAppSelector(state => state.loader.isLoading);
+  const isFocused = useIsFocused();
+  const dispatch = useAppDispatch();
+
+  useCallback(() => {
+    dispatch(hideLoader());
+  }, [isFocused]);
 
   return (
     <>
+      {loaderStatus ? (
+        <ProgressBar indeterminate color={colors.primary}></ProgressBar>
+      ) : null}
       <RootStackBuilder.Navigator
         screenOptions={{
           header: () => null,

@@ -9,7 +9,6 @@ import {
   View,
 } from 'react-native';
 import {GestureHandlerRootView, ScrollView} from 'react-native-gesture-handler';
-import {ProgressBar} from 'react-native-paper';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
 import Authenticator from '../../client/Token/Authenticator';
@@ -23,6 +22,8 @@ import {ContinueDivider} from '../../Components/Sections/ContinueDivider';
 import {SocialForm} from '../../Components/Sections/SocialForm';
 import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
 import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {useAppDispatch} from '../../StateManagement/hooks';
+import {showLoader} from '../../StateManagement/Error&loadingHandle/LoaderState';
 
 interface SignInScreenProps {
   navigation: OnBoardingStackNavigationProp<'SignUpScreen'>;
@@ -43,24 +44,15 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
     handleSubmit,
     formState: {errors},
   } = useForm<SignInData>();
+  const dispatch = useAppDispatch();
 
   const signIn = async (data: SignInData) => {
-    setIsButtonPressedloading(!isButtonPressedLoading);
-    console.log('Login Data:', data.userName, data.password);
-    let login = await Authenticator(data.userName, data.password);
-    console.log('Login Result:::', login);
+    dispatch(showLoader());
+    await Authenticator(data.userName, data.password);
   };
 
   return (
     <>
-      {isButtonPressedLoading ? (
-        <ProgressBar
-          color={colors.primary}
-          style={{
-            height: 2,
-          }}
-          indeterminate></ProgressBar>
-      ) : null}
       <OnBoardingLayout>
         <GestureHandlerRootView
           style={{
@@ -139,7 +131,7 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
               </View>
               <Spacer />
               <AppButton color="primary" onPress={handleSubmit(signIn)}>
-                Loginsss
+                Logins
               </AppButton>
               <Spacer />
               <ContinueDivider />

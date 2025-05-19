@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {clearTokens, getTokens} from '../client/Token/TokenAccess';
 import {isTokenExpired} from '../client/Token/TokeValidator';
 import {accessTokenGenerator} from '../client/Token/AccessTokenGenerator';
@@ -10,23 +10,21 @@ export function useTokenRefreshTimer(refreshingTime: number) {
   useEffect(() => {
     async function startTimer() {
       const {refreshToken, userStatus, accessToken} = await getTokens();
-      console.log('Refreshing the Token', refreshingTime, accessToken);
+      // console.log('Refreshing the Token', refreshingTime, accessToken);
 
       if (userStatus === 'true')
         if ((await isTokenExpired()) === true) {
           if (typeof window !== 'undefined') {
             intervalIdRef.current = window.setInterval(async () => {
-              console.log('Time Refreshingggg', refreshingTime);
-
               if (refreshToken) {
-                console.log('Refreshing', refreshingTime);
-                accessTokenGenerator(refreshToken);
+                let result = await accessTokenGenerator(refreshToken);
+                return result;
               } else {
                 await clearTokens();
               }
             }, refreshingTime);
           } else {
-            console.log('Nno Window FOund');
+            console.log('No Window FOund');
           }
         }
     }
@@ -40,4 +38,5 @@ export function useTokenRefreshTimer(refreshingTime: number) {
       }
     };
   }, [refreshingTime]);
+  return 200;
 }

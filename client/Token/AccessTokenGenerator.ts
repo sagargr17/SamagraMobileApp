@@ -6,7 +6,6 @@ type accessTokenGenerator = (refreshToken: string) => void | number;
 
 export const accessTokenGenerator = async (refreshToken: string) => {
   console.log('Access Token Refreshinggggg', refreshToken);
-  console.log('RefreshToken', refreshToken);
 
   try {
     const response = await fetch(`${config.issuer}/connect/token`, {
@@ -29,7 +28,6 @@ export const accessTokenGenerator = async (refreshToken: string) => {
     }
 
     const data = await response.json();
-    console.log('DATAAAAa', data);
     await saveTokens(data);
   } catch (error) {
     console.error('Error refreshing token:', error);

@@ -1,6 +1,7 @@
 import {useTheme} from '@react-navigation/native';
 import React from 'react';
 import {ItemCategoryCardSlider} from '../../../Components/Layout/ItemCategorySlider';
+import {SamagraLoader} from '../../../Components/Sections/ErrorHandling/SamagraLoader';
 interface CategoryListScreenProps {}
 
 export const CategoryListScreen: React.FC<CategoryListScreenProps> = ({}) => {
@@ -8,7 +9,8 @@ export const CategoryListScreen: React.FC<CategoryListScreenProps> = ({}) => {
 
   return (
     <>
-      <ItemCategoryCardSlider size="large"></ItemCategoryCardSlider>
+      {/* <ItemCategoryCardSlider size="large"></ItemCategoryCardSlider> */}
+      <SamagraLoader></SamagraLoader>
     </>
   );
 };
