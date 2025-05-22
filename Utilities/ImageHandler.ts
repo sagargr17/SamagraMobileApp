@@ -2,6 +2,12 @@ import * as MultipleImagePicker from '@baronha/react-native-multiple-image-picke
 import {Alert, Platform} from 'react-native';
 import {Image} from 'react-native-compressor';
 
+export interface OutPutImageType {
+  uri: string;
+  type: string;
+  name: string;
+}
+
 class ImageHandler {
   // Validates the image
   private static validateImage(
@@ -23,15 +29,27 @@ class ImageHandler {
   }
 
   // Compress The Image
-  public static async compressImage(
-    uri: string,
-  ): Promise<string | ArrayBuffer | null> {
+  public static async compressImage(image: {
+    isMirrored: boolean;
+    path: string;
+    isRawPhoto: false;
+    height: number;
+    orientation: string;
+    width: number;
+  }): Promise<OutPutImageType | null> {
     try {
-      const result = await Image.compress(uri, {
+      const result: string = await Image.compress(image.path, {
         quality: 0.8,
       });
+      if (result) {
+        return {
+          uri: result,
+          type: 'image/jpeg',
+          name: `gallery_image_${Date.now()}`,
+        };
+      }
 
-      return result;
+      return null;
     } catch (error) {
       console.error('Compression error:', error);
       return null;
@@ -39,10 +57,8 @@ class ImageHandler {
   }
 
   public static async multipleImageCompressing(images: any) {
-    console.log('>><<<');
     const compressionPromises = images.map(async (image: any) => {
       const compressedUri = await this.compressImage(image.path);
-      console.log('Loop compressed Image Image', compressedUri);
       if (compressedUri) {
         return {
           uri: compressedUri,
@@ -101,18 +117,23 @@ class ImageHandler {
   }
 
   // Uploading Image
-  public static async uploadImage(image: {
-    uri: string;
-    type: string;
-    name: string;
-  }): Promise<string | null> {
-    const serverUrl = 'https://yourserver.com/upload'; // Change this to your server endpoint
+  public static async uploadImage(
+    images: {
+      uri: string;
+      type: string;
+      name: string;
+    }[],
+  ): Promise<string | null> {
+    const serverUrl = 'http://static.samagranepalcom/'; // Change this to your server endpoint
 
     const formData: any = new FormData();
-    formData.append('file', {
-      uri: Platform.OS === 'ios' ? image.uri.replace('file://', '') : image.uri,
-      type: image.type,
-      name: image.name,
+    images.map(image => {
+      formData.append('file', {
+        uri:
+          Platform.OS === 'ios' ? image.uri.replace('file://', '') : image.uri,
+        type: image.type,
+        name: image.name,
+      });
     });
 
     try {

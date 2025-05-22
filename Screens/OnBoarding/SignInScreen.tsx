@@ -125,9 +125,6 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
                     title="Don’t have an Account?"
                     fontVariant="medium"></TextComponet>
                 </Pressable>
-
-                {/* <Pressable
-              onPress={() => navigation.navigate('SignUpScreen')}></Pressable> */}
               </View>
               <Spacer />
               <AppButton color="primary" onPress={handleSubmit(signIn)}>

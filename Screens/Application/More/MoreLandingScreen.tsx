@@ -178,10 +178,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
           onPress={() => console.log('setting')}
           title="Favourite"
           variant="large"
-          iconName="heart-outline"
-          
-          
-          ></PoppedCard>
+          iconName="heart-outline"></PoppedCard>
         <PoppedCard
           customStyle={{
             flex: 0.48,
@@ -216,10 +213,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
         <PoppedCard
           onPress={() => {
             navigation.navigate('ApplicationOverlay', {
-              screen: 'MyShopsScreen',
-              params: {
-                name: 'Hamro Shop',
-              },
+              screen: 'AddShopScreen',
             });
           }}
           title="Manage Store"

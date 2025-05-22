@@ -1,9 +1,10 @@
 import React from 'react';
-import {Controller, useForm} from 'react-hook-form';
+import {Controller, Form, useForm} from 'react-hook-form';
 import PhoneInput from '../Elements/PhoneInput';
 import AppButton from '../Elements/Button';
 import {Spacer} from '../Elements/Spacer';
 import {ErrorText} from '../Elements/ErrorText';
+import {Button} from 'react-native';
 
 interface SignUpData {
   phone: string;
@@ -45,6 +46,7 @@ export const SignUpForm = () => {
       />
       {errors.phone && <ErrorText>{errors.phone?.message}</ErrorText>}
       <Spacer />
+
       <AppButton color="primary" onPress={handleSubmit(onButtonPress)}>
         Continue
       </AppButton>

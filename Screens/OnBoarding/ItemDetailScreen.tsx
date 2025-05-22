@@ -41,6 +41,112 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
     dispatch(hideLoader());
   }, 1000);
 
+  const itemDetailContainer = () => {
+    return (
+      <View
+        style={{
+          paddingLeft: SamagraScaller({
+            value: 16,
+            scaleBy: 'average',
+          }),
+          paddingRight: SamagraScaller({
+            value: 16,
+            scaleBy: 'average',
+          }),
+        }}>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            // backgroundColor: 'orange',
+            justifyContent: 'space-between',
+          }}>
+          <TextComponet
+            fontSize={24}
+            lineHeight={20}
+            title={titleCase(name)}
+            fontVariant="regular"
+            customStyle={{
+              margin: 0,
+              padding: 0,
+            }}></TextComponet>
+          <IconButton
+            icon="heart-outline"
+            size={24}
+            onPress={() => console.log('Added to wishlist')}
+            style={styles.wishlistButton}
+            iconColor={colors.notification}
+          />
+        </View>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            // backgroundColor: 'pink',
+            justifyContent: 'flex-start',
+          }}>
+          <TextComponet
+            customStyle={{
+              backgroundColor: 'gray',
+              color: colors.background,
+              paddingHorizontal: SamagraScaller({
+                value: 8,
+                scaleBy: 'height',
+              }),
+            }}
+            fontSize={14}
+            title={titleCase('423 Sold')}
+            fontVariant="regular"></TextComponet>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              height: 24,
+            }}>
+            <IconButton
+              icon="star"
+              size={20}
+              style={{
+                marginRight: 0,
+                paddingRight: 0,
+              }}
+              iconColor={'#FFA902'}
+            />
+            <TextComponet
+              fontSize={14}
+              title={titleCase('4.3 (53 Reviews)')}
+              fontVariant="regular"></TextComponet>
+          </View>
+        </View>
+        <Spacer height={12}></Spacer>
+        <View>
+          <TextComponet
+            fontSize={16}
+            lineHeight={21}
+            title={titleCase('Description')}
+            fontVariant="medium"></TextComponet>
+          <Spacer height={8}></Spacer>
+          <TextComponet
+            fontSize={14}
+            title={titleCase(
+              'Lorem ipsum dolor sit amet consectetur. Malesuada faucibus viverra eget ridiculus a nec amet in. In turpis etiam tristique sit enim proin pulvinar.',
+            )}
+            fontVariant="regular"></TextComponet>
+        </View>
+
+        <Spacer height={25}></Spacer>
+        <Counter
+          setTotal={(Quantity: number) => handleTotalPrice(Quantity)}></Counter>
+
+        <Spacer height={10}></Spacer>
+        <Divider></Divider>
+      </View>
+    );
+  };
+
   return (
     <>
       {isLoading ? (
@@ -68,120 +174,14 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
               flex: 1,
             }}>
             <ScrollView showsVerticalScrollIndicator={false} style={{}}>
-              <View
-                style={{
-                  paddingLeft: SamagraScaller({
-                    value: 16,
-                    scaleBy: 'average',
-                  }),
-                  paddingRight: SamagraScaller({
-                    value: 16,
-                    scaleBy: 'average',
-                  }),
-                }}>
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    // backgroundColor: 'orange',
-                    justifyContent: 'space-between',
-                  }}>
-                  <TextComponet
-                    fontSize={24}
-                    lineHeight={20}
-                    title={titleCase(name)}
-                    fontVariant="regular"
-                    customStyle={{
-                      margin: 0,
-                      padding: 0,
-                    }}></TextComponet>
-                  <IconButton
-                    icon="heart-outline"
-                    size={24}
-                    onPress={() => console.log('Added to wishlist')}
-                    style={styles.wishlistButton}
-                    iconColor={colors.notification}
-                  />
-                </View>
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    // backgroundColor: 'pink',
-                    justifyContent: 'flex-start',
-                  }}>
-                  <TextComponet
-                    customStyle={{
-                      backgroundColor: 'gray',
-                      color: colors.background,
-                      paddingHorizontal: SamagraScaller({
-                        value: 8,
-                        scaleBy: 'height',
-                      }),
-                    }}
-                    fontSize={14}
-                    title={titleCase('423 Sold')}
-                    fontVariant="regular"></TextComponet>
-                  <View
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      height: 24,
-                    }}>
-                    <IconButton
-                      icon="star"
-                      size={20}
-                      style={{
-                        marginRight: 0,
-                        paddingRight: 0,
-                      }}
-                      iconColor={'#FFA902'}
-                    />
-                    <TextComponet
-                      fontSize={14}
-                      title={titleCase('4.3 (53 Reviews)')}
-                      fontVariant="regular"></TextComponet>
-                  </View>
-                </View>
-                <Spacer height={12}></Spacer>
-                <View>
-                  <TextComponet
-                    fontSize={16}
-                    lineHeight={21}
-                    title={titleCase('Description')}
-                    fontVariant="medium"></TextComponet>
-                  <Spacer height={8}></Spacer>
-                  <TextComponet
-                    fontSize={14}
-                    title={titleCase(
-                      'Lorem ipsum dolor sit amet consectetur. Malesuada faucibus viverra eget ridiculus a nec amet in. In turpis etiam tristique sit enim proin pulvinar.',
-                    )}
-                    fontVariant="regular"></TextComponet>
-                </View>
-
-                <Spacer height={25}></Spacer>
-                <Counter
-                  setTotal={(Quantity: number) =>
-                    handleTotalPrice(Quantity)
-                  }></Counter>
-
-                <Spacer height={10}></Spacer>
-                <Divider></Divider>
-              </View>
-
+              {itemDetailContainer()}
               <CommentLayout
                 onCloseHandle={status => {
-                  console.log('Resultttt', status);
                   setIsCheckoutVisible(status);
                 }}></CommentLayout>
             </ScrollView>
-            {isCheckoutVisible ? (
+            {isCheckoutVisible ?? (
               <ItemCheckOut totalPrice={totalPrice}></ItemCheckOut>
-            ) : (
-              false
             )}
           </View>
         </>

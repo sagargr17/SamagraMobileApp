@@ -7,12 +7,13 @@ import {
 import React from 'react';
 import {SearchBar} from 'react-native-screens';
 import {InstantItemListScreen as OrderListItemListScreen} from '../../Screens/Application/Domain/OrderItemListScreen';
-import {AddItemScreen} from '../../Screens/Application/More/AddItemScreen';
+import {AddItemScreen} from '../../Screens/Application/More/Shop/AddItemScreen';
 import {ShopItemsScreen} from '../../Screens/Application/More/ShopItemsScreen';
 import {ItemDetailScreen} from '../../Screens/OnBoarding/ItemDetailScreen';
 import {titleCase} from '../../Utilities/CustomMethods';
 import {MyShopsScreen} from '../../Screens/Application/More/MyShopsScreen';
 import {ProgressBar} from 'react-native-paper';
+import {AddShopScreen} from '../../Screens/Application/More/Shop/AddShopScreen';
 
 type ApplicationOverlayMoreStackParamList = {
   OrderListScreen: undefined;
@@ -26,6 +27,7 @@ type ApplicationOverlayMoreStackParamList = {
     shopName: string;
   };
   MyShopsScreen: undefined;
+  AddShopScreen: undefined;
 };
 
 // Its The builder with the
@@ -136,6 +138,15 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
           {
             screenName: 'AddItemScreen',
             component: AddItemScreen,
+
+            option: {
+              header: () => null,
+            },
+          },
+
+          {
+            screenName: 'AddShopScreen',
+            component: AddShopScreen,
 
             option: {
               header: () => null,

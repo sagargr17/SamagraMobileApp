@@ -29,7 +29,7 @@ export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
       style={{
         flex: 1,
       }}>
-      {/* <SliderSwitcher upperContainerFlexHeight={0.07}>
+      <SliderSwitcher upperContainerFlexHeight={0.07}>
         <ScrollView key="Create New Shop">
           <ShopDisplayCard
             shop={{
@@ -324,11 +324,7 @@ export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
               },
             }}></ShopDisplayCard>
         </View>
-      </SliderSwitcher> */}
-
-       
-
-
+      </SliderSwitcher>
     </View>
   );
 };

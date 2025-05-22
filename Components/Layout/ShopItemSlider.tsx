@@ -3,9 +3,14 @@ import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {TextComponet} from '../Elements/TextComponet';
 import {useTheme} from '@react-navigation/native';
 import {SamagraScaller} from '../../Utilities/CustomMethods';
-interface MyShopItemsSliderProps {}
+import {ItemViewModel, PageInfo} from '../../src/__generated__/graphql';
+interface MyShopItemsSliderProps {
+  pageInfo: PageInfo;
+}
 
-export const ShopItemsSlider: React.FC<MyShopItemsSliderProps> = ({}) => {
+export const ShopItemsSlider: React.FC<MyShopItemsSliderProps> = ({
+  pageInfo,
+}) => {
   const {colors} = useTheme();
 
   return (

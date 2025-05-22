@@ -28,7 +28,7 @@ const AppButton = ({
       onTouchStart={() => {
         dispatch(showLoader());
       }}
-      rippleColor={color === 'primary' ? colors.primary : '#fcaeb6'}
+      rippleColor={'#ddfcd9'}
       mode={mode}
       textColor={mode === 'outlined' ? colors.text : 'white'}
       labelStyle={[

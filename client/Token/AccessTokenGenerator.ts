@@ -21,6 +21,8 @@ export const accessTokenGenerator = async (refreshToken: string) => {
       }).toString(),
     });
 
+    console.log('Result', response);
+
     if (!response.ok) {
       const errorData = await response.json();
       console.error('Error while Refreshing:', errorData);

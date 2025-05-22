@@ -1,22 +1,26 @@
 import FastImage from '@d11/react-native-fast-image';
-import { useTheme } from '@react-navigation/native';
-import React, { useRef, useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
-import { Icon, TouchableRipple } from 'react-native-paper';
-import { Camera, useCameraDevice } from 'react-native-vision-camera';
-import { SamagraScaller } from '../../Utilities/CustomMethods';
-import ImageHandler from '../../Utilities/ImageHandler';
+import {useTheme} from '@react-navigation/native';
+import React, {useRef, useState} from 'react';
+import {ScrollView, StyleSheet, View} from 'react-native';
+import {Icon, TouchableRipple} from 'react-native-paper';
+import {Camera, useCameraDevice} from 'react-native-vision-camera';
+import {SamagraScaller} from '../../Utilities/CustomMethods';
+import ImageHandler, {OutPutImageType} from '../../Utilities/ImageHandler';
 import AppButton from '../Elements/Button';
-import { TextComponet } from '../Elements/TextComponet';
+import {TextComponet} from '../Elements/TextComponet';
 interface ImageUploaderProps {
   children?: React.ReactNode;
+  setFinalImage: React.Dispatch<React.SetStateAction<any>>;
 }
 
-export const ImageUploader: React.FC<ImageUploaderProps> = ({children}) => {
+export const ImageUploader: React.FC<ImageUploaderProps> = ({
+  children,
+  setFinalImage,
+}) => {
   const {colors} = useTheme();
   const [cameraType, setCameraType] = useState<'front' | 'back'>('back');
   const devices = useCameraDevice(cameraType);
-  const [images, setImages] = useState<Array<any>>([]);
+  const [images, setImages] = useState<Array<OutPutImageType | null>>([]);
   const [isCameraActive, setIsCameraActive] = useState(true);
 
   const camera: any | null = useRef<Camera>(null);
@@ -24,38 +28,28 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({children}) => {
   // THis is the Image captured By Cameras
   const handleTakePhoto = async () => {
     const photo: any = await camera.current.takePhoto();
-    if (photo) {
-      const compressedImage = await ImageHandler.compressImage(photo.path);
-      console.log('Camera:Final Compressed  Image', compressedImage);
-      setImages([{uri: compressedImage}]);
+    console.log('>>>', photo);
 
+    if (photo) {
+      const compressedImage = await ImageHandler.compressImage(photo);
+      setImages([compressedImage]);
+      setFinalImage([{uri: compressedImage}]);
       setIsCameraActive(false);
     }
   };
 
-  // useEffect(() => {
-  //   Camera.requestCameraPermission().then(permission => {
-  //     if (permission !== 'granted') {
-  //       console.warn('Camera permission not granted!');
-  //     }
-  //   });
-  // }, []);
-
   // Galley Image Pickers
   const imageFromGallery = async () => {
     let GalleryImages: any = await ImageHandler.selectFromGallery();
-
-    console.log('Gallery:Multiple Image', GalleryImages);
-
+    console.log('>>>>', GalleryImages);
     setImages(GalleryImages);
-    // setImages([{uri: rrr}]);
+    setFinalImage(GalleryImages);
+
     setIsCameraActive(false);
   };
 
   const handleImageRemove = (selectedImage: any) => {
-    console.log('IMage,', images);
     let crossedDAta = images.filter((e: any) => e.name !== selectedImage.name);
-
     setImages(crossedDAta);
   };
 
@@ -141,7 +135,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({children}) => {
                           }}>
                           <FastImage
                             source={{
-                              uri: image.uri,
+                              uri: image?.uri,
                             }}
                             style={{
                               height: SamagraScaller({
