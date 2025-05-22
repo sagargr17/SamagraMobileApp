@@ -1,15 +1,14 @@
-import {useIsFocused, useTheme} from '@react-navigation/native';
+import { useIsFocused, useTheme } from '@react-navigation/native';
 import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
-import React, {useCallback} from 'react';
-import {ProgressBar} from 'react-native-paper';
-import {useAppDispatch, useAppSelector} from '../StateManagement/hooks';
-import {BottomTabNavigator} from './BottomTab/BottomTabNavigator';
-import {ApplicationOverlayStackNavigator} from './Stack/ApplicationOverlayStackNavigator';
-import {OnBoardingStackNavigator} from './Stack/OnBoardingStackNavigator';
-import {hideLoader} from '../StateManagement/Error&loadingHandle/LoaderState';
+import React, { useCallback } from 'react';
+import { hideLoader } from '../StateManagement/Error&loadingHandle/LoaderState';
+import { useAppDispatch, useAppSelector } from '../StateManagement/hooks';
+import { BottomTabNavigator } from './BottomTab/BottomTabNavigator';
+import { ApplicationOverlayStackNavigator } from './Stack/ApplicationOverlayStackNavigator';
+import { OnBoardingStackNavigator } from './Stack/OnBoardingStackNavigator';
 
 type RootStackParamList = {
   ApplicationOverlay: undefined;

@@ -28,7 +28,6 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
   // THis is the Image captured By Cameras
   const handleTakePhoto = async () => {
     const photo: any = await camera.current.takePhoto();
-    console.log('>>>', photo);
 
     if (photo) {
       const compressedImage = await ImageHandler.compressImage(photo);

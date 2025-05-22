@@ -13,7 +13,6 @@ interface MoreLandingScreenProps {}
 export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
   const {colors} = useTheme();
   const navigation = useNavigation<any>();
-
   let userLogoutHandle = () => clearTokens();
 
   return (

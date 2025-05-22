@@ -18,6 +18,7 @@ import {addItems} from '../../../../GraphQL/Mutation/ItemMutation';
 import {getPublicItems} from '../../../../GraphQL/Queries/ItemQueries';
 import {SamagraScaller} from '../../../../Utilities/CustomMethods';
 import ImageHandler from '../../../../Utilities/ImageHandler';
+import {Item, ItemInputDto} from '../../../../src/__generated__/graphql';
 
 interface AddItemScreenProps {}
 
@@ -39,156 +40,21 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
     // navigation.navigate('HomeDetailScreen');
   };
 
-  async function handleImageUploadFromCamera() {
-    const image = await ImageHandler.selectFromGallery();
-    //
-  }
+  // useEffect(() => {
+  //   const config: any = {
+  //     skipPermissionRequests: false, // Set to true if you handle permissions elsewhere
+  //     authorizationLevel: 'whenInUse', // iOS only: 'whenInUse' or 'always'
+  //     locationProvider: 'fused', // Android only: 'auto', 'gps', 'network', or 'fused'
+  //   };
 
-  useEffect(() => {
-    const config: any = {
-      skipPermissionRequests: false, // Set to true if you handle permissions elsewhere
-      authorizationLevel: 'whenInUse', // iOS only: 'whenInUse' or 'always'
-      locationProvider: 'fused', // Android only: 'auto', 'gps', 'network', or 'fused'
-    };
+  //   Geolocation.setRNConfiguration(config);
 
-    Geolocation.setRNConfiguration(config);
+  //   let rrr = Geolocation.getCurrentPosition(info => console.log(info));
 
-    let rrr = Geolocation.getCurrentPosition(info => console.log(info));
-
-    // handleOpenCamera();
-  }, []);
-
-  const devices = useCameraDevice('back');
-  const {hasPermission} = useCameraPermission();
-  const camera: any | null = useRef<Camera>(null);
+  //   // handleOpenCamera()
+  // }, []);
 
   // if (!hasPermission) return useMutation<PermissionsPage />;
-
-  const basicDetailsForm = (styles: any) => (
-    <>
-      <ScrollView>
-        {index.indexNumber === 1 ? (
-          <View
-            style={{
-              padding: SamagraScaller({
-                value: 16,
-                scaleBy: 'average',
-              }),
-            }}>
-            <View>
-              <Input
-                height={12}
-                maxLength={15}
-                style={{
-                  borderWidth: 0.1,
-                  marginTop: 6,
-                }}
-                label="Name"></Input>
-            </View>
-            <View
-              style={{
-                marginTop: 8,
-              }}>
-              <Input
-                multiline={true}
-                maxLength={15}
-                style={{
-                  borderWidth: 0.1,
-                  marginTop: 6,
-                }}
-                label="Description"></Input>
-            </View>
-            <View
-              style={{
-                marginTop: 8,
-              }}>
-              <Input
-                maxLength={15}
-                style={{
-                  borderWidth: 0.1,
-                  marginTop: 6,
-                }}
-                label="Address"></Input>
-            </View>
-            <View
-              style={{
-                marginTop: 8,
-              }}>
-              <Input
-                keyboardType="numeric"
-                maxLength={15}
-                style={{
-                  borderWidth: 0.1,
-                  marginTop: 6,
-                }}
-                label="Price"></Input>
-            </View>
-          </View>
-        ) : (
-          <View
-            style={{
-              padding: SamagraScaller({
-                value: 16,
-                scaleBy: 'average',
-              }),
-            }}>
-            <View>
-              <Input
-                height={12}
-                maxLength={15}
-                style={{
-                  borderWidth: 0.1,
-                  marginTop: 6,
-                }}
-                label="Stock"></Input>
-            </View>
-            <View
-              style={{
-                marginTop: 8,
-              }}>
-              <Input
-                multiline={true}
-                maxLength={15}
-                style={{
-                  borderWidth: 0.1,
-                  marginTop: 6,
-                }}
-                label="Delivery Time"></Input>
-            </View>
-            <View
-              style={{
-                marginTop: 8,
-              }}>
-              <Input
-                maxLength={15}
-                style={{
-                  borderWidth: 0.1,
-                  marginTop: 6,
-                }}
-                label="Comment"></Input>
-            </View>
-          </View>
-        )}
-      </ScrollView>
-      <AppButton
-        onPress={() =>
-          setIndnex({
-            indexNumber: 2,
-            title: 'Secondary Detail',
-            description: 'Stock, Delivery Time, Comments.',
-          })
-        }
-        style={{
-          width: 100,
-          left: 20,
-          bottom: 20,
-          borderRadius: 12,
-          backgroundColor: 'rgba(0, 0, 128, 0.87)',
-        }}>
-        <Text>{index.indexNumber === 1 ? 'Next' : 'Save'}</Text>
-      </AppButton>
-    </>
-  );
 
   const childrenCompoenet = (
     indexNumber: number,
@@ -269,21 +135,43 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
     </>
   );
 
-  interface LoginFormValues {
-    email: string;
-    password: string;
-  }
-
   const [finalImage, setFinalImage] = useState<any>();
   const {data, loading, error} = useQuery(getPublicItems);
   const [
-    mutateFunction,
+    addNewitem,
     {data: mutateData, loading: mutateLoading, error: mutateError},
   ] = useMutation(addItems);
 
-  const handleLoginSubmit = (data: any) => {
+  const handleLoginSubmit = async (data: any) => {
     console.log('Login Form Submitted!', data);
+    try {
+      let response = await addNewitem({
+        variables: {
+          name: 'toolkit',
+          shopId: '146078e0-4bba-40db-8517-308a009bea3d',
+          price: 700,
+          description: 'saasto and rarmro',
+          unit: 'pcs',
+          stockQuantity: 200,
+          imageUrls: [
+            'https://m.media-amazon.com/images/I/8102HF0GGBL._AC_UF350,350_QL80_.jpg',
+          ],
+          location: 'Butwal',
+          prefrenceItemName: 'electronics',
+          isCondition: 'New',
+          categoryId: '1',
+          currency: 'npr',
+        },
+      });
+    } catch (e) {
+      console.log('Error >>>', e);
+    }
   };
+
+  {
+    mutateError ?? console.log('Mutation Error::', mutateError);
+  }
+
   return (
     <>
       <ImageUploader
@@ -293,18 +181,33 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
           index.title,
           index.description,
         )}></ImageUploader>
-      <AppForm<LoginFormValues>
+
+      <AppForm<ItemInputDto>
         formConfig={[
           {
-            name: 'email', // Must match a key in LoginFormValues
-            label: 'Email Address',
-            placeholder: 'user@example.com',
+            name: 'name', // Must match a key in LoginFormValues
+            label: 'Name',
+            placeholder: 'Name',
             type: 'email', // Custom prop for keyboard type
             rules: {
               minLength: {
                 value: 3,
                 message: 'Too Short',
               },
+              maxLength: {
+                value: 12,
+                message: 'too long',
+              },
+              required: 'Required',
+            },
+            defaultValue: {},
+          },
+          {
+            name: 'price', // Must match a key in LoginFormValues
+            label: 'Price',
+            placeholder: 'Price',
+            type: 'number', // Custom prop for keyboard type
+            rules: {
               maxLength: {
                 value: 20,
                 message: 'too long',
@@ -313,13 +216,67 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
             },
           },
           {
-            name: 'password', // Must match a key in LoginFormValues
-            label: 'Password',
-            placeholder: 'Password@example.com',
-            type: 'password', // Custom prop for keyboard type
+            name: 'description', // Must match a key in LoginFormValues
+            label: 'About Item',
+            placeholder: 'About Item',
+            type: 'text', // Custom prop for keyboard type
             rules: {
               maxLength: {
                 value: 20,
+                message: 'too long',
+              },
+              required: 'Required',
+            },
+          },
+
+          {
+            name: 'stockQuantity', // Must match a key in LoginFormValues
+            label: 'Quantity',
+            placeholder: 'Eg: 230',
+            type: 'text', // Custom prop for keyboard type
+            rules: {
+              maxLength: {
+                value: 9,
+                message: 'too long',
+              },
+              required: 'Required',
+            },
+          },
+
+          {
+            name: 'unit', // Must match a key in LoginFormValues
+            label: 'Unit',
+            placeholder: 'Eg: Kg, Hour',
+            type: 'text', // Custom prop for keyboard type
+            rules: {
+              maxLength: {
+                value: 9,
+                message: 'too long',
+              },
+              required: 'Required',
+            },
+          },
+          {
+            name: 'currency', // Must match a key in LoginFormValues
+            label: 'Currency',
+            placeholder: 'Eg: Npr',
+            type: 'text', // Custom prop for keyboard type
+            rules: {
+              maxLength: {
+                value: 9,
+                message: 'too long',
+              },
+              required: 'Required',
+            },
+          },
+          {
+            name: 'location', // Must match a key in LoginFormValues
+            label: 'Location',
+            placeholder: '23',
+            type: 'text', // Custom prop for keyboard type
+            rules: {
+              maxLength: {
+                value: 9,
                 message: 'too long',
               },
               required: 'Required',

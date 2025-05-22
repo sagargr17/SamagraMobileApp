@@ -1,8 +1,16 @@
-import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
+import {
+  ApolloClient,
+  ApolloProvider,
+  concat,
+  createHttpLink,
+  from,
+  InMemoryCache,
+} from '@apollo/client';
+import {setContext} from '@apollo/client/link/context';
 import {fetch as netInfoFetch} from '@react-native-community/netinfo';
 import {NavigationContainer} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {AppState, Button, StatusBar, Text, useColorScheme} from 'react-native';
+import {AppState, StatusBar, useColorScheme} from 'react-native';
 import BootSplash from 'react-native-bootsplash';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {PaperProvider} from 'react-native-paper';
@@ -12,6 +20,7 @@ import {Logos} from './Assets/SVG/Exports/Exports';
 import {accessTokenGenerator} from './client/Token/AccessTokenGenerator';
 import {getTokens} from './client/Token/TokenAccess';
 import {isTokenExpired} from './client/Token/TokeValidator';
+import {SamagraLoader} from './Components/Sections/ErrorHandling/SamagraLoader';
 import {SingnlePageError} from './Components/Sections/ErrorHandling/SinglePageError';
 import {GRAPHQL_ENDPOINT} from './Constants/SamagraConstants/SamagraEndpoints';
 import {useTokenRefreshTimer} from './CustomHooks/useTokenRefreshTimer';
@@ -20,9 +29,6 @@ import {MyDarkTheme, MyTheme} from './Prefrences/Prefrences';
 import {store} from './StateManagement/Store';
 import {login, logout} from './StateManagement/User/UserSlice';
 import {SamagraScaller} from './Utilities/CustomMethods';
-import {BooleanOperationFilterInput} from './src/__generated__/graphql';
-import {SamagraLoader} from './Components/Sections/ErrorHandling/SamagraLoader';
-import AppButton from './Components/Elements/Button';
 
 // MAin Fuction To Token Refresh Handle
 const isTokennExpireHandle = async () => {
@@ -31,9 +37,29 @@ const isTokennExpireHandle = async () => {
   return isTokenExpiredStatus;
 };
 
+// creating HTTP Link
+const httpLink = createHttpLink({
+  uri: GRAPHQL_ENDPOINT,
+});
+
+// 2. Create an auth link
+const authLink = setContext(async (_, {headers}) => {
+  // Get the authentication token from local storage (or wherever you store it)
+  const {userStatus, accessToken, refreshToken} = await getTokens();
+  console.log('Tokennn', accessToken);
+
+  // Return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      authorization: accessToken ? `Bearer ${accessToken}` : '',
+    },
+  };
+});
+
 // Initialize Apollo Client
 const client = new ApolloClient({
-  uri: GRAPHQL_ENDPOINT,
+  link: concat(authLink, httpLink),
   cache: new InMemoryCache(),
 });
 
@@ -101,8 +127,6 @@ function App(): React.JSX.Element {
   useEffect(() => {
     const getUserStatusHandle = async () => {
       const {userStatus, accessToken, refreshToken} = await getTokens();
-      console.log('Access Token', accessToken);
-
       userStatus === 'true'
         ? store.dispatch(
             login({
@@ -144,8 +168,6 @@ function App(): React.JSX.Element {
       }
     });
   }, []);
-
-  // Testing Code
 
   return (
     <GestureHandlerRootView

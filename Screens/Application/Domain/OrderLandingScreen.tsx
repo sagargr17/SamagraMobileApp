@@ -30,8 +30,12 @@ export const OrderLandingScreen: React.FC<OrderLandingScreenProps> = ({
 
     Geolocation.setRNConfiguration(config);
 
-    let rrr = Geolocation.getCurrentPosition(info => console.log(info));
-    console.log('Location....', rrr);
+
+    
+
+    let rrr = Geolocation.getCurrentPosition(info =>
+      console.log('USER LOCATION ', info),
+    );
   }, []);
 
   return (
