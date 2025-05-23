@@ -137,6 +137,10 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
 
   const [finalImage, setFinalImage] = useState<any>();
   const {data, loading, error} = useQuery(getPublicItems);
+  // const [
+  //   addNewitem,
+  //   {data: mutateData, loading: mutateLoading, error: mutateError},
+  // ] = useMutation(addItems);
   const [
     addNewitem,
     {data: mutateData, loading: mutateLoading, error: mutateError},
