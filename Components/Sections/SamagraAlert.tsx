@@ -1,3 +1,4 @@
+import {useTheme} from '@react-navigation/native';
 import * as React from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
 import {Dialog, Portal, Text} from 'react-native-paper';
@@ -19,13 +20,19 @@ export const SamagraAlert: React.FC<AlertProps> = ({
 }) => {
   const [visible, setVisible] = React.useState(false);
   const hideDialog = () => setVisible(!visible);
+  const {colors} = useTheme();
 
   return (
     <Portal>
-      <Dialog visible={true} onDismiss={hideDialog}>
+      <Dialog
+        visible={true}
+        onDismiss={hideDialog}
+        style={{
+          backgroundColor: colors.background,
+        }}>
         {!scrollable ? (
           <>
-            <Dialog.Icon icon={"alert"} />
+            <Dialog.Icon icon={'alert'} />
             <Dialog.Title style={styles.title}>{title}</Dialog.Title>
             <Dialog.Content>
               <Text variant="bodyMedium">{description}</Text>

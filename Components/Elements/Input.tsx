@@ -56,7 +56,7 @@ export const Input: React.FC<InputProps> = ({
           <TextComponet
             title={label}
             fontVariant="regular"
-            lineHeight={20}
+            lineHeight={24}
             fontSize={16}></TextComponet>
         )}
         <TextInput

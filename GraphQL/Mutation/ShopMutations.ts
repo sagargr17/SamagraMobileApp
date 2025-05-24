@@ -1,7 +1,7 @@
 import {gql} from '../../src/__generated__';
 
 // Adding  Shop
-export const addShop = gql(`mutation addShop (
+export const createNewShop = gql(`mutation createNewShop (
   $shopName: String!
   $aboutShop: String!
   $coverImageUrl: String!
@@ -9,7 +9,7 @@ export const addShop = gql(`mutation addShop (
   $location: String!
   $phoneNumber: String!
 ) {
-  addShop(
+  createShop(
     shop: {
       name: $shopName
       aboutShop: $aboutShop

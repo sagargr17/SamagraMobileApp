@@ -5,8 +5,6 @@ import {saveTokens} from './Authenticator';
 type accessTokenGenerator = (refreshToken: string) => void | number;
 
 export const accessTokenGenerator = async (refreshToken: string) => {
-  console.log('Access Token Refreshinggggg', refreshToken);
-
   try {
     const response = await fetch(`${config.issuer}/connect/token`, {
       method: 'POST',
@@ -21,7 +19,7 @@ export const accessTokenGenerator = async (refreshToken: string) => {
       }).toString(),
     });
 
-    console.log('Result', response);
+    console.log('SuccessFull Refreshing:', response);
 
     if (!response.ok) {
       const errorData = await response.json();

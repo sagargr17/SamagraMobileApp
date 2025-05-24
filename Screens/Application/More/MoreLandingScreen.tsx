@@ -212,7 +212,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
         <PoppedCard
           onPress={() => {
             navigation.navigate('ApplicationOverlay', {
-              screen: 'AddShopScreen',
+              screen: 'MyShopsScreen',
             });
           }}
           title="Manage Store"

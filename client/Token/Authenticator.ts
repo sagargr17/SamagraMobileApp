@@ -50,6 +50,8 @@ async function Authenticator(userName: string, password: string) {
 }
 
 export async function saveTokens(data: AuthResponse): Promise<void> {
+  console.log('Refreshed Token Data', data);
+
   try {
     await Keychain.setGenericPassword('accessToken', data.access_token, {
       service: 'accessToken',

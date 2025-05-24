@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '../StateManagement/hooks';
 import { BottomTabNavigator } from './BottomTab/BottomTabNavigator';
 import { ApplicationOverlayStackNavigator } from './Stack/ApplicationOverlayStackNavigator';
 import { OnBoardingStackNavigator } from './Stack/OnBoardingStackNavigator';
+import { ProgressBar } from 'react-native-paper';
 
 type RootStackParamList = {
   ApplicationOverlay: undefined;

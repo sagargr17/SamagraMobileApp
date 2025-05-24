@@ -1,8 +1,8 @@
 import {gql} from '../../src/__generated__';
 
 // Adding  Shop Items
-export const addItems = gql(`
- mutation addItems (
+export const createNewProduct = gql(`
+ mutation createNewProduct(
   $name: String!
   $price: Decimal!
   $description: String!
@@ -11,13 +11,9 @@ export const addItems = gql(`
   $stockQuantity: Int!
   $imageUrls: [String!]!
   $unit: String!
-  $currency: String!
   $location: String!
-  $prefrenceItemName: [String!]!
-  $isCondition: String!
-
 ) {
-  addProduct(
+  createProduct(
     product: {
       name: $name
       price: $price
@@ -26,12 +22,10 @@ export const addItems = gql(`
       categoryId: $categoryId
       stockQuantity: $stockQuantity
       imageUrls: $imageUrls
-      currency: $currency
+      currency: "रु"
       location: $location
       unit: $unit
-      preferredItemNames: $prefrenceItemName
-      condition: $isCondition
-      itemId: "lksajdlajsldkjasldkj"
+      condition: "new"
     }
   ) {
     id

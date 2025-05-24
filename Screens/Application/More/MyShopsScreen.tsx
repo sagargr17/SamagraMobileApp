@@ -20,10 +20,6 @@ export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
   const {colors} = useTheme();
   const {Shop1, Shop2, WelcomeShop} = Logos;
 
-  const TopParts = () => {
-    <></>;
-  };
-
   return (
     <View
       style={{

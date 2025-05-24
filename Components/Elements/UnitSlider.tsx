@@ -1,9 +1,10 @@
 import {useTheme} from '@react-navigation/native';
 import React, {useState} from 'react';
-import {ViewStyle} from 'react-native';
-import {TextComponet} from './TextComponet';
-import {useSharedValue} from 'react-native-reanimated';
+import {View, ViewStyle} from 'react-native';
 import {Slider} from 'react-native-awesome-slider';
+import {useSharedValue} from 'react-native-reanimated';
+import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {TextComponet} from './TextComponet';
 interface UnitSliderProps {
   sliderOption: {
     max: number;
@@ -24,13 +25,45 @@ export const UnitSlider: React.FC<UnitSliderProps> = ({
   const [value, setValue] = useState<number>(1);
   const progress = useSharedValue(30);
   const min = useSharedValue(sliderOption.min);
-  const max = useSharedValue(sliderOption.max);
+  const max = useSharedValue(10);
+
+  
   return (
-    <>
+    <View
+      style={{
+        marginBottom: SamagraScaller({
+          value: 12,
+          scaleBy: 'height',
+        }),
+      }}>
       <TextComponet
-        title={label + progress.value}
-        fontVariant="regular"></TextComponet>
-      <Slider progress={progress} minimumValue={min} maximumValue={max} />
-    </>
+        title={label}
+        fontVariant="regular"
+        customStyle={{
+          marginBottom: SamagraScaller({
+            value: 8,
+            scaleBy: 'height',
+          }),
+        }}></TextComponet>
+      <Slider
+        containerStyle={{
+          height: 2,
+        }}
+        theme={{
+          disableMinTrackTintColor: '#fff',
+          maximumTrackTintColor: 'gray',
+          minimumTrackTintColor: colors.primary,
+          cacheTrackTintColor: '#333',
+          bubbleBackgroundColor: '#666',
+          heartbeatColor: '#999',
+        }}
+        progress={progress}
+        minimumValue={min}
+        maximumValue={max}
+        bubble={(value: any) => {
+          return `${Math.round(value * 100) / 100}`;
+        }}
+      />
+    </View>
   );
 };

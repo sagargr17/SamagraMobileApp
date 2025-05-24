@@ -93,7 +93,7 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
           : null}
         {pressedElement === 'global' || 'time' ? (
           <UnitSlider
-            label='Time'
+            label="Time in hour"
             sliderOption={{
               max: 4,
               min: 1,
@@ -102,14 +102,14 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
             }}></UnitSlider>
         ) : null}
 
-          <AppButton
-            onPress={() => {
-              navigation.navigate('ApplicationOverlay', {
-                screen: 'ServiceListScreen',
-              });
-            }}>
-            Search
-          </AppButton>
+        <AppButton
+          onPress={() => {
+            navigation.navigate('ApplicationOverlay', {
+              screen: 'ServiceListScreen',
+            });
+          }}>
+          Search
+        </AppButton>
         {/* {pressedElement !== 'global' ? (
         ) : null} */}
       </View>
@@ -119,7 +119,9 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
   return (
     <>
       <SamagraBottomSheet
-        // onClose={() => setPressedElement('global')}
+        customStyle={{
+          zIndex: 100,
+        }}
         isOppen={true}
         flexHeight={0}
         pannigGesture={false}

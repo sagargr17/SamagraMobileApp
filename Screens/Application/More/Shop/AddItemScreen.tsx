@@ -1,15 +1,16 @@
-import { useMutation, useQuery } from '@apollo/client';
-import { useTheme } from '@react-navigation/native';
-import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Icon, TouchableRipple } from 'react-native-paper';
-import { TextComponet } from '../../../../Components/Elements/TextComponet';
-import { AppForm } from '../../../../Components/Layout/AppForm';
-import { ImageUploader } from '../../../../Components/Layout/ImageUploader';
-import { addItems } from '../../../../GraphQL/Mutation/ItemMutation';
-import { getPublicItems } from '../../../../GraphQL/Queries/ItemQueries';
-import { SamagraScaller } from '../../../../Utilities/CustomMethods';
-import { ItemInputDto } from '../../../../src/__generated__/graphql';
+import {useMutation, useQuery} from '@apollo/client';
+import {useTheme} from '@react-navigation/native';
+import React, {useState} from 'react';
+import {Alert, StyleSheet, Text, View} from 'react-native';
+import {Icon, ProgressBar, TouchableRipple} from 'react-native-paper';
+import {TextComponet} from '../../../../Components/Elements/TextComponet';
+import {AppForm} from '../../../../Components/Layout/AppForm';
+import {ImageUploader} from '../../../../Components/Layout/ImageUploader';
+import {createNewProduct} from '../../../../GraphQL/Mutation/ItemMutation';
+import {getPublicItems} from '../../../../GraphQL/Queries/ItemQueries';
+import {SamagraScaller} from '../../../../Utilities/CustomMethods';
+import {CreateProductRequestInput} from '../../../../src/__generated__/graphql';
+import {SamagraAlert} from '../../../../Components/Sections/SamagraAlert';
 
 interface AddItemScreenProps {}
 
@@ -25,27 +26,6 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
     title: 'Primary Detail',
     description: 'Product Name, Price & More',
   });
-
-  // Testing Function , will be handle sepratedly for efficiendy in future
-  const handleGoToHomeDetailScreen = () => {
-    // navigation.navigate('HomeDetailScreen');
-  };
-
-  // useEffect(() => {
-  //   const config: any = {
-  //     skipPermissionRequests: false, // Set to true if you handle permissions elsewhere
-  //     authorizationLevel: 'whenInUse', // iOS only: 'whenInUse' or 'always'
-  //     locationProvider: 'fused', // Android only: 'auto', 'gps', 'network', or 'fused'
-  //   };
-
-  //   Geolocation.setRNConfiguration(config);
-
-  //   let rrr = Geolocation.getCurrentPosition(info => console.log(info));
-
-  //   // handleOpenCamera()
-  // }, []);
-
-  // if (!hasPermission) return useMutation<PermissionsPage />;
 
   const childrenCompoenet = (
     indexNumber: number,
@@ -133,43 +113,48 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
   //   {data: mutateData, loading: mutateLoading, error: mutateError},
   // ] = useMutation(addItems);
   const [
-    addNewitem,
+    createNewItem,
     {data: mutateData, loading: mutateLoading, error: mutateError},
-  ] = useMutation(addItems);
+  ] = useMutation(createNewProduct);
 
-  const handleLoginSubmit = async (data: any) => {
-    console.log('Login Form Submitted!', data);
+  // const authenti = GetAuthenticateClient;
+  const handleLoginSubmit = async (data: CreateProductRequestInput) => {
+    console.log('DAta', data.price, data);
     try {
-      let response = await addNewitem({
+      let response = await createNewItem({
         variables: {
-          name: 'toolkit',
-          shopId: '146078e0-4bba-40db-8517-308a009bea3d',
-          price: 700,
-          description: 'saasto and rarmro',
-          unit: 'pcs',
-          stockQuantity: 200,
+          name: data.name,
+          shopId: '4f227bb5-c411-452f-b745-0678eb9c9580',
+          price: Number(data.price),
+          description: data.description,
+          unit: data.unit,
+          stockQuantity: Number(data.stockQuantity),
           imageUrls: [
             'https://m.media-amazon.com/images/I/8102HF0GGBL._AC_UF350,350_QL80_.jpg',
           ],
-          location: 'Butwal',
-          prefrenceItemName: 'electronics',
-          isCondition: 'New',
+          location: data.location,
           categoryId: '1',
-          currency: '$',
         },
       });
-      console.log('ResultFFF', response.data);
+
+      console.log('>>>', response);
     } catch (e) {
-      console.log('Error >>>', e);
+      console.log('LOGGg', e);
     }
   };
 
-  console.log('>>>Mutation Error::', mutateError);
-  console.log('>>>DATA', mutateData);
-  console.log('>>>loading', mutateLoading);
-
   return (
     <>
+      {mutateLoading === true ? (
+        <ProgressBar color={colors.primary} indeterminate></ProgressBar>
+      ) : null}
+      {mutateData ? (
+        <SamagraAlert
+          key={1}
+          title="Completed"
+          description="Item Added SuccessFully"
+          icon="read"></SamagraAlert>
+      ) : null}
       <ImageUploader
         setFinalImage={setFinalImage}
         children={childrenCompoenet(
@@ -178,7 +163,7 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
           index.description,
         )}></ImageUploader>
 
-      <AppForm<ItemInputDto>
+      <AppForm<CreateProductRequestInput>
         formConfig={[
           {
             name: 'name', // Must match a key in LoginFormValues
@@ -229,7 +214,7 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
             name: 'stockQuantity', // Must match a key in LoginFormValues
             label: 'Quantity',
             placeholder: 'Eg: 230',
-            type: 'text', // Custom prop for keyboard type
+            type: 'number', // Custom prop for keyboard type
             rules: {
               maxLength: {
                 value: 9,
@@ -243,19 +228,6 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
             name: 'unit', // Must match a key in LoginFormValues
             label: 'Unit',
             placeholder: 'Eg: Kg, Hour',
-            type: 'text', // Custom prop for keyboard type
-            rules: {
-              maxLength: {
-                value: 9,
-                message: 'too long',
-              },
-              required: 'Required',
-            },
-          },
-          {
-            name: 'currency', // Must match a key in LoginFormValues
-            label: 'Currency',
-            placeholder: 'Eg: Npr',
             type: 'text', // Custom prop for keyboard type
             rules: {
               maxLength: {
