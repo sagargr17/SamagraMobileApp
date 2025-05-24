@@ -180,9 +180,7 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
                   setIsCheckoutVisible(status);
                 }}></CommentLayout>
             </ScrollView>
-            {isCheckoutVisible ?? (
-              <ItemCheckOut totalPrice={totalPrice}></ItemCheckOut>
-            )}
+            <ItemCheckOut totalPrice={totalPrice}></ItemCheckOut>
           </View>
         </>
       )}

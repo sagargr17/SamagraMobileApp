@@ -1,24 +1,15 @@
-import {useMutation, useQuery} from '@apollo/client';
-import Geolocation from '@react-native-community/geolocation';
-import {useTheme} from '@react-navigation/native';
-import React, {useEffect, useRef, useState} from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import {Icon, TouchableRipple} from 'react-native-paper';
-import {
-  Camera,
-  useCameraDevice,
-  useCameraPermission,
-} from 'react-native-vision-camera';
-import AppButton from '../../../../Components/Elements/Button';
-import {Input} from '../../../../Components/Elements/Input';
-import {TextComponet} from '../../../../Components/Elements/TextComponet';
-import {AppForm} from '../../../../Components/Layout/AppForm';
-import {ImageUploader} from '../../../../Components/Layout/ImageUploader';
-import {addItems} from '../../../../GraphQL/Mutation/ItemMutation';
-import {getPublicItems} from '../../../../GraphQL/Queries/ItemQueries';
-import {SamagraScaller} from '../../../../Utilities/CustomMethods';
-import ImageHandler from '../../../../Utilities/ImageHandler';
-import {Item, ItemInputDto} from '../../../../src/__generated__/graphql';
+import { useMutation, useQuery } from '@apollo/client';
+import { useTheme } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Icon, TouchableRipple } from 'react-native-paper';
+import { TextComponet } from '../../../../Components/Elements/TextComponet';
+import { AppForm } from '../../../../Components/Layout/AppForm';
+import { ImageUploader } from '../../../../Components/Layout/ImageUploader';
+import { addItems } from '../../../../GraphQL/Mutation/ItemMutation';
+import { getPublicItems } from '../../../../GraphQL/Queries/ItemQueries';
+import { SamagraScaller } from '../../../../Utilities/CustomMethods';
+import { ItemInputDto } from '../../../../src/__generated__/graphql';
 
 interface AddItemScreenProps {}
 
@@ -164,17 +155,18 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
           prefrenceItemName: 'electronics',
           isCondition: 'New',
           categoryId: '1',
-          currency: 'npr',
+          currency: '$',
         },
       });
+      console.log('ResultFFF', response.data);
     } catch (e) {
       console.log('Error >>>', e);
     }
   };
 
-  {
-    mutateError ?? console.log('Mutation Error::', mutateError);
-  }
+  console.log('>>>Mutation Error::', mutateError);
+  console.log('>>>DATA', mutateData);
+  console.log('>>>loading', mutateLoading);
 
   return (
     <>

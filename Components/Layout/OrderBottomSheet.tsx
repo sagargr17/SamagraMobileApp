@@ -1,16 +1,15 @@
-import React, {Children, useState} from 'react';
-import {SamagraBottomSheet} from '../Sections/SamagraBottomSheet';
-import {Text, View, StyleSheet} from 'react-native';
 import {useTheme} from '@react-navigation/native';
-import {Input} from '../Elements/Input';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
-import {TextInput} from 'react-native-paper';
-import {DropdownComponent} from '../Sections/DropDownSection';
-import AppButton from '../Elements/Button';
-import {ApplicationOverlayStackNavigationProp} from '../../Navigators/Stack/ApplicationOverlayStackNavigator';
-import {BottomTabProps} from '../../Navigators/BottomTab/BottomTabNavigator';
+import React, {useState} from 'react';
+import {StyleSheet, View} from 'react-native';
+import {Icon, TextInput} from 'react-native-paper';
 import {RootStackNavigationProp} from '../../Navigators/RootStackNavigator';
+import {SamagraScaller} from '../../Utilities/CustomMethods';
+import AppButton from '../Elements/Button';
+import {Input} from '../Elements/Input';
+import {DropdownComponent} from '../Sections/DropDownSection';
+import {SamagraBottomSheet} from '../Sections/SamagraBottomSheet';
 import {ItemCategoryCardSlider} from './ItemCategorySlider';
+import {UnitSlider} from '../Elements/UnitSlider';
 
 interface OrderBottomSheetProps {
   navigation: RootStackNavigationProp<'ApplicationOverlay'> | any;
@@ -19,8 +18,11 @@ interface OrderBottomSheetProps {
 export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
   navigation,
 }) => {
+  const {colors} = useTheme();
   type childrenContent = () => React.ReactNode;
+  const [pressedElement, setPressedElement] = useState<string>('global');
   const childrenContent = () => {
+    // Testing Datas are below
     const serviceData = [
       {label: 'Laundry', value: '1'},
       {label: 'House Keeping', value: '2'},
@@ -31,33 +33,85 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
       {label: '3Hr', value: '3'},
       {label: '4Hr', value: '4'},
     ];
-    const [pressedElement, setPressedElement] = useState<string>('');
+
+    type inputElement = () => React.ReactNode;
+    const inputElement = (info: {
+      label: string;
+      placeHolder: string;
+      icon?: React.ReactElement;
+    }) => {
+      return (
+        <Input
+          style={{
+            marginBottom: SamagraScaller({
+              value: 5,
+              scaleBy: 'average',
+            }),
+            backgroundColor: colors.card,
+          }}
+          onPress={() => setPressedElement('location')}
+          label={info.label}
+          placeholder={info.placeHolder}
+          left={info.icon ?? info.icon}></Input>
+      );
+    };
 
     return (
       <View style={styles.childrenContainer}>
         <ItemCategoryCardSlider size="regular"></ItemCategoryCardSlider>
 
-        <Input
-          label="Your Location"
-          placeholder=""
-          left={
-            <TextInput.Icon
-              icon="map-marker-outline"
-              size={SamagraScaller({value: 22, scaleBy: 'average'})}
-            />
-          }></Input>
+        {pressedElement === 'global' || 'location'
+          ? inputElement({
+              label: 'Location',
+              placeHolder: 'Baneswor',
+              icon: (
+                <TextInput.Icon
+                  color={colors.primary}
+                  size={SamagraScaller({
+                    value: 22,
+                    scaleBy: 'average',
+                  })}
+                  icon={'map-marker-radius-outline'}></TextInput.Icon>
+              ),
+            })
+          : null}
 
-        <DropdownComponent
-          data={timeData}
-          labelTitle="Time"></DropdownComponent>
-        <AppButton
-          onPress={() => {
-            navigation.navigate('ApplicationOverlay', {
-              screen: 'ServiceListScreen',
-            });
-          }}>
-          Search
-        </AppButton>
+        {pressedElement === 'global' || 'description'
+          ? inputElement({
+              label: 'Description',
+              placeHolder: 'Baneswor',
+              icon: (
+                <TextInput.Icon
+                  color={colors.primary}
+                  size={SamagraScaller({
+                    value: 22,
+                    scaleBy: 'average',
+                  })}
+                  icon={'comment-edit-outline'}></TextInput.Icon>
+              ),
+            })
+          : null}
+        {pressedElement === 'global' || 'time' ? (
+          <UnitSlider
+            label='Time'
+            sliderOption={{
+              max: 4,
+              min: 1,
+              maximumTrackTintColor: 'gray',
+              minimumTrackTintColor: colors.primary,
+            }}></UnitSlider>
+        ) : null}
+
+          <AppButton
+            onPress={() => {
+              navigation.navigate('ApplicationOverlay', {
+                screen: 'ServiceListScreen',
+              });
+            }}>
+            Search
+          </AppButton>
+        {/* {pressedElement !== 'global' ? (
+        ) : null} */}
       </View>
     );
   };
@@ -65,6 +119,7 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
   return (
     <>
       <SamagraBottomSheet
+        // onClose={() => setPressedElement('global')}
         isOppen={true}
         flexHeight={0}
         pannigGesture={false}

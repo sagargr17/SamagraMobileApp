@@ -55,7 +55,7 @@ export const Input: React.FC<InputProps> = ({
         {label && (
           <TextComponet
             title={label}
-            fontVariant="medium"
+            fontVariant="regular"
             lineHeight={20}
             fontSize={16}></TextComponet>
         )}
@@ -99,7 +99,6 @@ export const Input: React.FC<InputProps> = ({
               value: 14,
               scaleBy: 'height',
             }),
-            // lineHeight: 22,
           }}
           right={right}
         />
