@@ -224,7 +224,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
           title="Personal Account"
           variant="large"
           comment="Profile, Update User"
-          iconName="account"></PoppedCard>
+          iconName="account"></PoppedCard>``
         <PoppedCard
           onPress={() => console.log('Error')}
           title="App Setting"
