@@ -113,15 +113,15 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
   //   {data: mutateData, loading: mutateLoading, error: mutateError},
   // ] = useMutation(addItems);
   const [
-    createNewItem,
+    createNewItemFn,
     {data: mutateData, loading: mutateLoading, error: mutateError},
   ] = useMutation(createNewProduct);
 
   // const authenti = GetAuthenticateClient;
-  const handleLoginSubmit = async (data: CreateProductRequestInput) => {
+  const handleCreateItemSubmit = async (data: CreateProductRequestInput) => {
     console.log('DAta', data.price, data);
     try {
-      let response = await createNewItem({
+      let response = await createNewItemFn({
         variables: {
           name: data.name,
           shopId: '4f227bb5-c411-452f-b745-0678eb9c9580',
@@ -252,7 +252,7 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
           },
         ]}
         submitButtonText="Test"
-        onFormSubmit={handleLoginSubmit}></AppForm>
+        onFormSubmit={handleCreateItemSubmit}></AppForm>
     </>
   );
 };

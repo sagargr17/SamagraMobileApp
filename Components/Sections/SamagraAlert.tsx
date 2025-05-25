@@ -1,7 +1,8 @@
 import {useTheme} from '@react-navigation/native';
 import * as React from 'react';
-import {ScrollView, StyleSheet} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import {Dialog, Portal, Text} from 'react-native-paper';
+import AppButton from '../Elements/Button';
 
 interface AlertProps {
   title: string;
@@ -31,13 +32,16 @@ export const SamagraAlert: React.FC<AlertProps> = ({
           backgroundColor: colors.background,
         }}>
         {!scrollable ? (
-          <>
+          <View>
             <Dialog.Icon icon={'alert'} />
             <Dialog.Title style={styles.title}>{title}</Dialog.Title>
             <Dialog.Content>
               <Text variant="bodyMedium">{description}</Text>
+              {onAgreeHandle ? (
+                <AppButton onPress={onAgreeHandle}>OK</AppButton>
+              ) : null}
             </Dialog.Content>
-          </>
+          </View>
         ) : (
           <Dialog.ScrollArea>
             <ScrollView contentContainerStyle={{paddingHorizontal: 24}}>

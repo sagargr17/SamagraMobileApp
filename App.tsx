@@ -63,6 +63,10 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+
+
+
+
 // Main Modules
 function App(): React.JSX.Element {
   // const [refreshingTime, setRefreshingTime] = useState<number>(1800000); // This is the time of refreshing in the second set Default to 1000
@@ -83,46 +87,40 @@ function App(): React.JSX.Element {
   // Refreshing Time checker
   // It Checks Weather the client SErver is Working Fine or not
   useEffect(() => {
-    netInfoFetch().then(state => {
-      if (state.isConnected) {
-        setInternetStatus({
-          loading: false,
-          status: state.isConnected,
-        });
-        if (timeBasedRefreshing === 400 && !serverError) {
-          setServerError(true);
-        } else {
-          setServerError(false);
-
-          if (scheme === 'dark') {
-            setTheme(MyDarkTheme);
+    netInfoFetch()
+      .then(state => {
+        if (state.isConnected) {
+          setInternetStatus({
+            loading: false,
+            status: state.isConnected,
+          });
+          if (timeBasedRefreshing === 400 && !serverError) {
+            setServerError(true);
           } else {
-            setTheme(MyTheme);
+            setServerError(false);
+
+            if (scheme === 'dark') {
+              setTheme(MyDarkTheme);
+            } else {
+              setTheme(MyTheme);
+            }
           }
+        } else {
+          setInternetStatus({
+            loading: false,
+            status: false,
+          });
         }
-      } else {
-        setInternetStatus({
-          loading: false,
-          status: false,
-        });
-      }
-    });
+      })
+      .then(x => BootSplash.hide({fade: true}))
+      .catch(error => console.log('Error::', error));
 
-    const hide = () => {
-      BootSplash.hide({fade: true});
-    };
+    // const hide = () => {
 
-    return hide();
+    // };
+
+    // return () => null;
   }, [refreshingTime, internetStatus, scheme]);
-
-  //This is the useEffect Function for changing the dark and bright mode
-  // useEffect(() => {
-  //   if (scheme === 'dark') {
-  //     setTheme(MyDarkTheme);
-  //   } else {
-  //     setTheme(MyTheme);
-  //   }
-  // }, [scheme]);
 
   // Code To mnake User Login
   useEffect(() => {
@@ -144,8 +142,6 @@ function App(): React.JSX.Element {
   //This is the code for the refresh token , when the app is coming from , background to foreground
   AppState.addEventListener('focus', async () => {
     const {userStatus, accessToken, refreshToken} = await getTokens();
-
-    console.log('<<<TOKEN', accessToken, refreshingTime);
 
     if (userStatus && userStatus === 'true') {
       const refreshTimeCollector = await isTokennExpireHandle();
@@ -193,8 +189,9 @@ function App(): React.JSX.Element {
           }></StatusBar>
         <NavigationContainer theme={themes}>
           {internetStatus.loading === true ? (
-            <SamagraLoader></SamagraLoader>
-          ) : internetStatus.status === true ? (
+            <></>
+          ) : // <SamagraLoader></SamagraLoader>
+          internetStatus.status === true ? (
             serverError ? ( // change this to serverError while in production
               <SingnlePageError
                 detail={{

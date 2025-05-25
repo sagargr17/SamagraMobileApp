@@ -84,8 +84,6 @@ export const AppForm = <TFormValues extends FieldValues>({
                       : 'default'
                   }
                   secureTextEntry={item.type === 'password'}
-                  // You might also pass 'error' prop to your Input component if it changes its style
-                  // error={!!(errors[item.name as string])}
                 />
               )}
             />

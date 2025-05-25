@@ -1,5 +1,5 @@
 import React from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import {ScrollView, TouchableOpacity, View} from 'react-native';
 import {clearTokens} from '../../../client/Token/TokenAccess';
 import FastImage from '@d11/react-native-fast-image';
 import {useNavigation, useTheme} from '@react-navigation/native';
@@ -16,7 +16,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
   let userLogoutHandle = () => clearTokens();
 
   return (
-    <View
+    <ScrollView
       style={{
         padding: SamagraScaller({
           value: 10,
@@ -236,6 +236,6 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
           Logout
         </AppButton>
       </View>
-    </View>
+    </ScrollView>
   );
 };

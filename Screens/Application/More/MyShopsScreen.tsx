@@ -1,5 +1,5 @@
 import {useTheme} from '@react-navigation/native';
-import React from 'react';
+import React, {useState} from 'react';
 import {SliderSwitcher} from '../../../Components/Layout/SliderSwitcher';
 
 import {Logos} from '../../../Assets/SVG/Exports/Exports';
@@ -8,11 +8,19 @@ import {SamagraBottomSheet} from '../../../Components/Sections/SamagraBottomShee
 import {ShopDisplayCard} from '../../../Components/Sections/ShopDisplayCard';
 import {SamagraScaller} from '../../../Utilities/CustomMethods';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import {Badge, Icon, Surface} from 'react-native-paper';
+import {Badge, Icon, ProgressBar, Surface} from 'react-native-paper';
 import FastImage from '@d11/react-native-fast-image';
 import {ItemCardVerticleSlider} from '../../../Components/Layout/ItemCardVerticleSlider';
 import AppButton from '../../../Components/Elements/Button';
 import {PoppedCard} from '../../../Components/Sections/Cards/PoppedCard';
+import {AppForm} from '../../../Components/Layout/AppForm';
+import {
+  CreateProductRequestInput,
+  ShopInputDto,
+} from '../../../src/__generated__/graphql';
+import {useMutation} from '@apollo/client';
+import {createNewShop} from '../../../GraphQL/Mutation/ShopMutations';
+import {SamagraAlert} from '../../../Components/Sections/SamagraAlert';
 
 interface MyShopsProps {}
 
@@ -20,34 +28,121 @@ export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
   const {colors} = useTheme();
   const {Shop1, Shop2, WelcomeShop} = Logos;
 
+  const TopParts = () => {
+    <></>;
+  };
+
+  const [createNewShopFn, {data, loading, error}] = useMutation(createNewShop);
+  const [siStatus, setStatus] = useState<boolean>(false);
+
+  const handlCreateShopSubmit = async (data: ShopInputDto) => {
+    try {
+      const response = createNewShopFn({
+        variables: {
+          shopName: data.name,
+          phoneNumber: data.phoneNumber,
+          aboutShop: data.aboutShop,
+          profileImageUrl:
+            'https://t3.ftcdn.net/jpg/02/72/92/40/360_F_272924092_IhPcJtGqD3cHcomwtGqAsZ34GgNENkYW.jpg',
+          coverImageUrl:
+            'https://t3.ftcdn.net/jpg/02/72/92/40/360_F_272924092_IhPcJtGqD3cHcomwtGqAsZ34GgNENkYW.jpg',
+          location: data.location,
+        },
+      });
+      if ((await response).data) {
+        setStatus(!siStatus);
+      }
+    } catch (error) {
+      console.log('Error whilem adding SHop', error);
+    }
+  };
+
+  console.log('????', siStatus);
+
   return (
     <View
       style={{
         flex: 1,
       }}>
+      {siStatus === true ? (
+        <SamagraAlert
+          onAgreeHandle={() => setStatus(!siStatus)}
+          key={1}
+          title="Completed"
+          description="Item Added SuccessFully"
+          icon="read"></SamagraAlert>
+      ) : null}
+
       <SliderSwitcher upperContainerFlexHeight={0.07}>
         <ScrollView key="Create New Shop">
+          {loading ?? <ProgressBar indeterminate></ProgressBar>}
           <ShopDisplayCard
             shop={{
               id: `${Math.random()}`,
               icon: (
                 <>
-                  <Shop1
-                    height={SamagraScaller({
-                      value: 450,
-                      scaleBy: 'height',
-                    })}
-                    width={'80%'}></Shop1>
-                  <AppButton
-                    onPress={() => console.log('Add item')}
-                    style={{
-                      width: SamagraScaller({
-                        value: 300,
-                        scaleBy: 'average',
-                      }),
-                    }}>
-                    Add Item
-                  </AppButton>
+                  <AppForm<ShopInputDto>
+                    formConfig={[
+                      {
+                        name: 'name', // Must match a key in LoginFormValues
+                        label: 'Name',
+                        placeholder: 'Your Dispaly Shop Name',
+                        type: 'email', // Custom prop for keyboard type
+                        rules: {
+                          minLength: {
+                            value: 3,
+                            message: 'Too Short',
+                          },
+                          maxLength: {
+                            value: 12,
+                            message: 'too long',
+                          },
+                          required: 'Required',
+                        },
+                      },
+                      {
+                        name: 'location', // Must match a key in LoginFormValues
+                        label: 'Loation',
+                        placeholder: 'your shop address',
+                        type: 'text', // Custom prop for keyboard type
+                        rules: {
+                          maxLength: {
+                            value: 20,
+                            message: 'too long',
+                          },
+                          required: 'Required',
+                        },
+                      },
+                      {
+                        name: 'phoneNumber', // Must match a key in LoginFormValues
+                        label: 'Phone Number*',
+                        placeholder: '984****',
+                        type: 'text', // Custom prop for keyboard type
+                        rules: {
+                          maxLength: {
+                            value: 20,
+                            message: 'too long',
+                          },
+                          required: 'Required',
+                        },
+                      },
+
+                      {
+                        name: 'aboutShop', // Must match a key in LoginFormValues
+                        label: 'Shop Description',
+                        placeholder: 'Shop Is Awesome',
+                        type: 'text', // Custom prop for keyboard type
+                        rules: {
+                          maxLength: {
+                            value: 9,
+                            message: 'too long',
+                          },
+                          required: 'Required',
+                        },
+                      },
+                    ]}
+                    submitButtonText="Test"
+                    onFormSubmit={handlCreateShopSubmit}></AppForm>
                 </>
               ),
               shopName: 'Hamro Bijuli Pasal',
