@@ -18,8 +18,10 @@ type Documents = {
     "mutation createNewShop (\n  $shopName: String!\n  $aboutShop: String!\n  $coverImageUrl: String!\n  $profileImageUrl: String!\n  $location: String!\n  $phoneNumber: String!\n) {\n  createShop(\n    shop: {\n      name: $shopName\n      aboutShop: $aboutShop\n      coverImageUrl: $coverImageUrl\n      profileImageUrl: $profileImageUrl\n      location: $location\n      phoneNumber: $phoneNumber\n    }\n  ) {\n    id\n  }\n}\n": typeof types.CreateNewShopDocument,
     "\nquery GetPublicItems {\n  getPublicItems {\n    nodes {\n      name\n      imageUrls\n      price\n      starRating\n    }\n  }\n}\n": typeof types.GetPublicItemsDocument,
     "\nquery GetPublicItemsById($id: String!) {\n  getPublicItems(id: $id) {\n    nodes {\n      name\n    }\n  }\n}\n": typeof types.GetPublicItemsByIdDocument,
-    "query productQueries {\n  getProductCategories {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n    }\n\n    nodes {\n      id\n      isProduct\n      name\n      imageUrl\n    }\n  }\n}": typeof types.ProductQueriesDocument,
-    "query GetPersonalItems {\n  getItems {\n    nodes {\n      name\n      price\n      starRating\n    }\n  }\n}\n": typeof types.GetPersonalItemsDocument,
+    "query productCategoryQueries {\n  getProductCategories {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n    }\n\n    nodes {\n      id\n      isProduct\n      name\n      imageUrl\n    }\n  }\n}": typeof types.ProductCategoryQueriesDocument,
+    "query GetPersonalItems {\n  getItems {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n      startCursor\n      endCursor\n    }\n    nodes {\n      name\n      price\n      starRating\n    }\n  }\n}\n": typeof types.GetPersonalItemsDocument,
+    "\n  query GetPaginatedPersonalItems($after: String) {\n  getItems (after: $after) {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n      startCursor\n      endCursor\n    }\n    nodes {\n      name\n      price\n      starRating\n    }\n  }\n}\n": typeof types.GetPaginatedPersonalItemsDocument,
+    "\nquery GetMySHops {\n  getShops {\n    nodes {\n      name\n      aboutShop\n      stars {\n        stars\n      }\n      location\n    }\n  }\n}\n": typeof types.GetMySHopsDocument,
     "\n  query GetLoginUser {\n  getUser {\n    username\n    pofileImageUrl\n  }\n}\n": typeof types.GetLoginUserDocument,
 };
 const documents: Documents = {
@@ -27,8 +29,10 @@ const documents: Documents = {
     "mutation createNewShop (\n  $shopName: String!\n  $aboutShop: String!\n  $coverImageUrl: String!\n  $profileImageUrl: String!\n  $location: String!\n  $phoneNumber: String!\n) {\n  createShop(\n    shop: {\n      name: $shopName\n      aboutShop: $aboutShop\n      coverImageUrl: $coverImageUrl\n      profileImageUrl: $profileImageUrl\n      location: $location\n      phoneNumber: $phoneNumber\n    }\n  ) {\n    id\n  }\n}\n": types.CreateNewShopDocument,
     "\nquery GetPublicItems {\n  getPublicItems {\n    nodes {\n      name\n      imageUrls\n      price\n      starRating\n    }\n  }\n}\n": types.GetPublicItemsDocument,
     "\nquery GetPublicItemsById($id: String!) {\n  getPublicItems(id: $id) {\n    nodes {\n      name\n    }\n  }\n}\n": types.GetPublicItemsByIdDocument,
-    "query productQueries {\n  getProductCategories {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n    }\n\n    nodes {\n      id\n      isProduct\n      name\n      imageUrl\n    }\n  }\n}": types.ProductQueriesDocument,
-    "query GetPersonalItems {\n  getItems {\n    nodes {\n      name\n      price\n      starRating\n    }\n  }\n}\n": types.GetPersonalItemsDocument,
+    "query productCategoryQueries {\n  getProductCategories {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n    }\n\n    nodes {\n      id\n      isProduct\n      name\n      imageUrl\n    }\n  }\n}": types.ProductCategoryQueriesDocument,
+    "query GetPersonalItems {\n  getItems {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n      startCursor\n      endCursor\n    }\n    nodes {\n      name\n      price\n      starRating\n    }\n  }\n}\n": types.GetPersonalItemsDocument,
+    "\n  query GetPaginatedPersonalItems($after: String) {\n  getItems (after: $after) {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n      startCursor\n      endCursor\n    }\n    nodes {\n      name\n      price\n      starRating\n    }\n  }\n}\n": types.GetPaginatedPersonalItemsDocument,
+    "\nquery GetMySHops {\n  getShops {\n    nodes {\n      name\n      aboutShop\n      stars {\n        stars\n      }\n      location\n    }\n  }\n}\n": types.GetMySHopsDocument,
     "\n  query GetLoginUser {\n  getUser {\n    username\n    pofileImageUrl\n  }\n}\n": types.GetLoginUserDocument,
 };
 
@@ -65,11 +69,19 @@ export function gql(source: "\nquery GetPublicItemsById($id: String!) {\n  getPu
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "query productQueries {\n  getProductCategories {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n    }\n\n    nodes {\n      id\n      isProduct\n      name\n      imageUrl\n    }\n  }\n}"): (typeof documents)["query productQueries {\n  getProductCategories {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n    }\n\n    nodes {\n      id\n      isProduct\n      name\n      imageUrl\n    }\n  }\n}"];
+export function gql(source: "query productCategoryQueries {\n  getProductCategories {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n    }\n\n    nodes {\n      id\n      isProduct\n      name\n      imageUrl\n    }\n  }\n}"): (typeof documents)["query productCategoryQueries {\n  getProductCategories {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n    }\n\n    nodes {\n      id\n      isProduct\n      name\n      imageUrl\n    }\n  }\n}"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "query GetPersonalItems {\n  getItems {\n    nodes {\n      name\n      price\n      starRating\n    }\n  }\n}\n"): (typeof documents)["query GetPersonalItems {\n  getItems {\n    nodes {\n      name\n      price\n      starRating\n    }\n  }\n}\n"];
+export function gql(source: "query GetPersonalItems {\n  getItems {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n      startCursor\n      endCursor\n    }\n    nodes {\n      name\n      price\n      starRating\n    }\n  }\n}\n"): (typeof documents)["query GetPersonalItems {\n  getItems {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n      startCursor\n      endCursor\n    }\n    nodes {\n      name\n      price\n      starRating\n    }\n  }\n}\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query GetPaginatedPersonalItems($after: String) {\n  getItems (after: $after) {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n      startCursor\n      endCursor\n    }\n    nodes {\n      name\n      price\n      starRating\n    }\n  }\n}\n"): (typeof documents)["\n  query GetPaginatedPersonalItems($after: String) {\n  getItems (after: $after) {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n      startCursor\n      endCursor\n    }\n    nodes {\n      name\n      price\n      starRating\n    }\n  }\n}\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\nquery GetMySHops {\n  getShops {\n    nodes {\n      name\n      aboutShop\n      stars {\n        stars\n      }\n      location\n    }\n  }\n}\n"): (typeof documents)["\nquery GetMySHops {\n  getShops {\n    nodes {\n      name\n      aboutShop\n      stars {\n        stars\n      }\n      location\n    }\n  }\n}\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

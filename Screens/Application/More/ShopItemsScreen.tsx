@@ -1,15 +1,17 @@
 import React from 'react';
-import {ActivityIndicator, FlatList, ScrollView, Text} from 'react-native';
+import {ActivityIndicator, FlatList, Text} from 'react-native';
 
 import {useQuery} from '@apollo/client';
 import {useNavigation, useTheme} from '@react-navigation/native';
+import {View} from 'moti';
 import {TextComponet} from '../../../Components/Elements/TextComponet';
 import {SliderSwitcher} from '../../../Components/Layout/SliderSwitcher';
 import {ItemListtCard} from '../../../Components/Sections/Cards/ItemListCard';
+import {
+  getPaginatedPersonalItems,
+  getPersonalItems,
+} from '../../../GraphQL/Queries/ItemQueries';
 import {ApplicationOverlayStackNavigationProp} from '../../../Navigators/Stack/ApplicationOverlayStackNavigator';
-import {getPersonalItems} from '../../../GraphQL/Queries/ItemQueries';
-import {LoneSchemaDefinitionRule} from 'graphql';
-import {View} from 'moti';
 
 interface ShopItemsScreenProps {}
 
@@ -17,9 +19,16 @@ export const ShopItemsScreen: React.FC<ShopItemsScreenProps> = ({}) => {
   const {colors} = useTheme();
   const navigation =
     useNavigation<ApplicationOverlayStackNavigationProp<'AddItemScreen'>>();
-  const {data, loading, error} = useQuery(getPersonalItems);
+  const {data, loading, error, variables} = useQuery(getPersonalItems, {
+    fetchPolicy: 'cache-first',
+  });
 
-  console.log('Query shop Items Response', data, loading, error);
+  const {
+    data: x,
+    loading: y,
+    error: z,
+    fetchMore,
+  } = useQuery(getPaginatedPersonalItems);
 
   return (
     <>
@@ -39,6 +48,15 @@ export const ShopItemsScreen: React.FC<ShopItemsScreenProps> = ({}) => {
               data.getItems.nodes?.length > 0 ? (
                 <>
                   <FlatList
+                    onScrollEndDrag={() => {
+                      data.getItems?.pageInfo.hasNextPage
+                        ? fetchMore({
+                            variables: {
+                              after: data.getItems.pageInfo.endCursor,
+                            },
+                          })
+                        : null;
+                    }}
                     data={data.getItems.nodes}
                     renderItem={({item, index}) => (
                       <ItemListtCard
@@ -46,18 +64,12 @@ export const ShopItemsScreen: React.FC<ShopItemsScreenProps> = ({}) => {
                         item={{
                           name: item?.name ? item.name : 'not found',
                           price: item?.price ? item?.price : 'not found',
-                          // imageUrl:
-                          //   item &&
-                          //   item.imageUrls &&
-                          //   item.imageUrls.length > 0 &&
-                          //   item.imageUrls[0]
-                          //     ? item.imageUrls[0]
-                          //     : 'https://img.freepik.com/free-vector/oops-404-error-with-broken-robot-concept-illustration_114360-5529.jpg?semt=ais_hybrid&w=740',
                           imageUrl:
                             'https://img.freepik.com/free-vector/oops-404-error-with-broken-robot-concept-illustration_114360-5529.jpg?semt=ais_hybrid&w=740',
                           rating: item?.starRating ? item.starRating : 3,
                         }}></ItemListtCard>
                     )}></FlatList>
+                  {y ?? <ActivityIndicator></ActivityIndicator>}
                 </>
               ) : (
                 <>
@@ -65,7 +77,7 @@ export const ShopItemsScreen: React.FC<ShopItemsScreenProps> = ({}) => {
                 </>
               )
             ) : (
-              <Text>SomeThing Went Wrong</Text>
+              <ActivityIndicator />
             )}
           </>
         </View>

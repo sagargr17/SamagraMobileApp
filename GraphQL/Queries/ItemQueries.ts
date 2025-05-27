@@ -1,5 +1,6 @@
 import {gql} from '../../src/__generated__/gql';
 
+// Public Items
 export const getPublicItems = gql(`
 query GetPublicItems {
   getPublicItems {
@@ -23,7 +24,8 @@ query GetPublicItemsById($id: String!) {
 }
 `);
 
-export const productQueries = gql(`query productQueries {
+// ProductCategories
+export const productCategoryQueries = gql(`query productCategoryQueries {
   getProductCategories {
     pageInfo {
       hasNextPage
@@ -39,8 +41,33 @@ export const productQueries = gql(`query productQueries {
   }
 }`);
 
+// Personal Items
 export const getPersonalItems = gql(`query GetPersonalItems {
   getItems {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+    nodes {
+      name
+      price
+      starRating
+    }
+  }
+}
+`);
+
+export const getPaginatedPersonalItems = gql(`
+  query GetPaginatedPersonalItems($after: String) {
+  getItems (after: $after) {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
     nodes {
       name
       price

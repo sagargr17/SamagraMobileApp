@@ -21,7 +21,8 @@ import {
 import {useMutation, useQuery} from '@apollo/client';
 import {createNewShop} from '../../../GraphQL/Mutation/ShopMutations';
 import {SamagraAlert} from '../../../Components/Sections/SamagraAlert';
-import { getPersonalItems } from '../../../GraphQL/Queries/ItemQueries';
+import {getPersonalItems} from '../../../GraphQL/Queries/ItemQueries';
+import {myShops} from '../../../GraphQL/Queries/PrivateShop';
 
 interface MyShopsProps {}
 
@@ -34,11 +35,13 @@ export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
   };
 
   const [createNewShopFn, {data, loading, error}] = useMutation(createNewShop);
+  const {
+    data: shopListData,
+    loading: shopListLoading,
+    error: shopListError,
+  } = useQuery(myShops);
   const [siStatus, setStatus] = useState<boolean>(false);
-
-
-
-  
+  // const
 
   const handlCreateShopSubmit = async (data: ShopInputDto) => {
     try {
@@ -61,8 +64,6 @@ export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
       console.log('Error whilem adding SHop', error);
     }
   };
-
-  console.log('????', siStatus);
 
   return (
     <View
