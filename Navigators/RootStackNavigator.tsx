@@ -1,15 +1,19 @@
-import { useIsFocused, useTheme } from '@react-navigation/native';
+import {useIsFocused, useTheme} from '@react-navigation/native';
 import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
-import React, { useCallback } from 'react';
-import { hideLoader } from '../StateManagement/Error&loadingHandle/LoaderState';
-import { useAppDispatch, useAppSelector } from '../StateManagement/hooks';
-import { BottomTabNavigator } from './BottomTab/BottomTabNavigator';
-import { ApplicationOverlayStackNavigator } from './Stack/ApplicationOverlayStackNavigator';
-import { OnBoardingStackNavigator } from './Stack/OnBoardingStackNavigator';
-import { ProgressBar } from 'react-native-paper';
+import React, {useCallback, useEffect} from 'react';
+import {hideLoader} from '../StateManagement/Error&loadingHandle/LoaderState';
+import {useAppDispatch, useAppSelector} from '../StateManagement/hooks';
+import {BottomTabNavigator} from './BottomTab/BottomTabNavigator';
+import {ApplicationOverlayStackNavigator} from './Stack/ApplicationOverlayStackNavigator';
+import {OnBoardingStackNavigator} from './Stack/OnBoardingStackNavigator';
+import {useQuery} from '@apollo/client';
+import {getLoginUser} from '../GraphQL/Queries/UserQueries';
+import {login} from '../StateManagement/User/UserSlice';
+import {State} from 'react-native-gesture-handler';
+import {getTokens} from '../client/Token/TokenAccess';
 
 type RootStackParamList = {
   ApplicationOverlay: undefined;
@@ -51,6 +55,8 @@ export const RootStack: React.FC = () => {
   useCallback(() => {
     dispatch(hideLoader());
   }, [isFocused]);
+
+  // UserBased Login
 
   return (
     <>

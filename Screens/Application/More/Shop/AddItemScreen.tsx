@@ -11,6 +11,7 @@ import {getPublicItems} from '../../../../GraphQL/Queries/ItemQueries';
 import {SamagraScaller} from '../../../../Utilities/CustomMethods';
 import {CreateProductRequestInput} from '../../../../src/__generated__/graphql';
 import {SamagraAlert} from '../../../../Components/Sections/SamagraAlert';
+import {getLoginUser} from '../../../../GraphQL/Queries/UserQueries';
 
 interface AddItemScreenProps {}
 
@@ -107,11 +108,8 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
   );
 
   const [finalImage, setFinalImage] = useState<any>();
-  const {data, loading, error} = useQuery(getPublicItems);
-  // const [
-  //   addNewitem,
-  //   {data: mutateData, loading: mutateLoading, error: mutateError},
-  // ] = useMutation(addItems);
+  const {data, loading, error} = useQuery(getLoginUser);
+
   const [
     createNewItemFn,
     {data: mutateData, loading: mutateLoading, error: mutateError},

@@ -18,9 +18,10 @@ import {
   CreateProductRequestInput,
   ShopInputDto,
 } from '../../../src/__generated__/graphql';
-import {useMutation} from '@apollo/client';
+import {useMutation, useQuery} from '@apollo/client';
 import {createNewShop} from '../../../GraphQL/Mutation/ShopMutations';
 import {SamagraAlert} from '../../../Components/Sections/SamagraAlert';
+import { getPersonalItems } from '../../../GraphQL/Queries/ItemQueries';
 
 interface MyShopsProps {}
 
@@ -34,6 +35,10 @@ export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
 
   const [createNewShopFn, {data, loading, error}] = useMutation(createNewShop);
   const [siStatus, setStatus] = useState<boolean>(false);
+
+
+
+  
 
   const handlCreateShopSubmit = async (data: ShopInputDto) => {
     try {

@@ -4,11 +4,10 @@ import {View} from 'moti';
 import React, {useState} from 'react';
 import {Icon, Surface, Text, TouchableRipple} from 'react-native-paper';
 import {StyleSheet} from 'react-native';
-import {SamagraScaller} from '../../../Utilities/CustomMethods';
+import {SamagraScaller, titleCase} from '../../../Utilities/CustomMethods';
 import {TextComponet} from '../../Elements/TextComponet';
 
 interface ItemListCardProps {
-  title?: string;
   item: {
     name: string;
     price: number;
@@ -19,11 +18,10 @@ interface ItemListCardProps {
 
 export const ItemListtCard: React.FC<ItemListCardProps> = ({item}) => {
   const {colors} = useTheme();
- 
 
   return (
     <Surface
-      elevation={1}
+      elevation={0}
       style={[styles.container, {backgroundColor: colors.card}]}>
       <TouchableRipple
         onPress={() => console.log('Result')}
@@ -45,28 +43,28 @@ export const ItemListtCard: React.FC<ItemListCardProps> = ({item}) => {
           </View>
           <View style={styles.pricingContainer}>
             <TextComponet
-              fontSize={25}
+              fontSize={16}
               fontVariant="medium"
-              lineHeight={18}
-              title={`${item.name}`}></TextComponet>
+              lineHeight={24}
+              title={titleCase(item.name)}></TextComponet>
             <View
               style={{
                 display: 'flex',
               }}>
-              <TextComponet
-                customStyle={{
-                  color: colors.primary,
-                }}
-                fontSize={18}
-                fontVariant="bold"
-                lineHeight={35}
-                title={`रु.${item.price.toFixed(2)}`}></TextComponet>
               <View style={styles.ratingContainer}>
                 <Icon source="star" size={16} color={colors.notification} />
                 <Text style={[styles.ratingText, {color: colors.text}]}>
                   {item.rating.toFixed(1)}
                 </Text>
               </View>
+              <TextComponet
+                customStyle={{
+                  color: colors.primary,
+                }}
+                fontSize={25}
+                fontVariant="bold"
+                lineHeight={50}
+                title={`रु.${item.price.toFixed(2)}`}></TextComponet>
             </View>
           </View>
         </View>
@@ -103,8 +101,7 @@ const styles = StyleSheet.create({
   },
   pricingContainer: {
     flexDirection: 'column',
-    alignItems: 'center',
-    // justifyContent: 'space-between',
+    alignItems: 'flex-start',
   },
 
   ratingContainer: {
@@ -113,6 +110,9 @@ const styles = StyleSheet.create({
   },
   ratingText: {
     marginLeft: 4,
-    fontSize: 14,
+    fontSize: SamagraScaller({
+      value: 16,
+      scaleBy: 'average',
+    }),
   },
 });

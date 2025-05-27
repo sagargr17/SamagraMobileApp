@@ -14,7 +14,7 @@ export const GetAuthenticateClient = new ApolloClient({
   uri: GRAPHQL_ENDPOINT,
   headers: {
     'content-type': 'application/json',
-    // Authorization: `Bearer ${tokenHandler() !== null ? tokenHandler() : null}`,
+    Authorization: `Bearer ${tokenHandler() !== null ? tokenHandler() : null}`,
   },
   cache: new InMemoryCache(),
 });

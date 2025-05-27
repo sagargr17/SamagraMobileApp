@@ -7,6 +7,10 @@ import AppButton from '../../../Components/Elements/Button';
 import {TextComponet} from '../../../Components/Elements/TextComponet';
 import {PoppedCard} from '../../../Components/Sections/Cards/PoppedCard';
 import {SamagraScaller} from '../../../Utilities/CustomMethods';
+import {useAppSelector} from '../../../StateManagement/hooks';
+import {useQuery} from '@apollo/client';
+import {getLoginUser} from '../../../GraphQL/Queries/UserQueries';
+import {ActivityIndicator} from 'react-native-paper';
 
 interface MoreLandingScreenProps {}
 
@@ -14,6 +18,9 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
   const {colors} = useTheme();
   const navigation = useNavigation<any>();
   let userLogoutHandle = () => clearTokens();
+  const {data, loading, error} = useQuery(getLoginUser);
+
+  console.log('DATA', data);
 
   return (
     <ScrollView
@@ -23,64 +30,52 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
           scaleBy: 'average',
         }),
       }}>
-      <View
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'flex-start',
-          paddingVertical: SamagraScaller({
-            value: 20,
-            scaleBy: 'average',
-          }),
-          borderWidth: 0.3,
-          paddingHorizontal: SamagraScaller({
-            value: 10,
-            scaleBy: 'average',
-          }),
-          borderRadius: 10,
-          borderColor: colors.border,
-        }}>
-        <FastImage
-          style={{
-            height: 60,
-            width: 60,
-            borderRadius: SamagraScaller({
-              scaleBy: 'width',
-              value: 100,
-            }),
-          }}
-          source={{
-            uri: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-          }}
-          resizeMode="cover"></FastImage>
+      {loading ?? <ActivityIndicator color="orange"></ActivityIndicator>}
+      {error ? <ActivityIndicator color="orange"></ActivityIndicator> : null}
+      {data && data.getUser && data.getUser.username ? (
         <View
           style={{
-            marginLeft: SamagraScaller({
-              value: 8,
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+            paddingVertical: SamagraScaller({
+              value: 20,
               scaleBy: 'average',
             }),
+            borderWidth: 0.3,
+            paddingHorizontal: SamagraScaller({
+              value: 10,
+              scaleBy: 'average',
+            }),
+            borderRadius: 10,
+            borderColor: colors.border,
           }}>
-          <TextComponet
-            title="Sarita Thapa"
-            customStyle={{
-              textAlign: 'left',
-              marginLeft: SamagraScaller({
-                value: 5,
-                scaleBy: 'average',
+          <FastImage
+            style={{
+              height: 60,
+              width: 60,
+              borderRadius: SamagraScaller({
+                scaleBy: 'width',
+                value: 100,
               }),
             }}
-            fontVariant="bold"
-            fontSize={30}
-            lineHeight={30}></TextComponet>
+            source={{
+              uri: data.getUser.pofileImageUrl
+                ? data.getUser.pofileImageUrl
+                : 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            }}
+            resizeMode="cover"></FastImage>
           <View
             style={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
+              marginLeft: SamagraScaller({
+                value: 8,
+                scaleBy: 'average',
+              }),
+              flex: 0.45,
             }}>
             <TextComponet
-              title="12 Shops"
+              title={data.getUser?.username}
               customStyle={{
                 textAlign: 'left',
                 marginLeft: SamagraScaller({
@@ -88,54 +83,75 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
                   scaleBy: 'average',
                 }),
               }}
-              fontVariant="regular"
-              fontSize={14}
-              lineHeight={20}></TextComponet>
-            <TextComponet
-              title="1009 Items"
-              customStyle={{
-                textAlign: 'left',
-                marginLeft: SamagraScaller({
-                  value: 5,
-                  scaleBy: 'average',
-                }),
-              }}
-              fontVariant="regular"
-              fontSize={14}
-              lineHeight={20}></TextComponet>
+              fontVariant="medium"
+              fontSize={30}
+              lineHeight={35}></TextComponet>
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <TextComponet
+                title="12 Shops"
+                customStyle={{
+                  textAlign: 'left',
+                  marginLeft: SamagraScaller({
+                    value: 5,
+                    scaleBy: 'average',
+                  }),
+                }}
+                fontVariant="regular"
+                fontSize={14}
+                lineHeight={20}></TextComponet>
+              <TextComponet
+                title="1009 Items"
+                customStyle={{
+                  textAlign: 'left',
+                  marginLeft: SamagraScaller({
+                    value: 5,
+                    scaleBy: 'average',
+                  }),
+                }}
+                fontVariant="regular"
+                fontSize={14}
+                lineHeight={20}></TextComponet>
+            </View>
           </View>
-        </View>
 
-        <TouchableOpacity>
-          <TextComponet
-            title="P"
-            customStyle={{
-              textAlign: 'right',
-              marginLeft: SamagraScaller({
-                value: 5,
-                scaleBy: 'average',
-              }),
-              backgroundColor: 'orange',
-              paddingHorizontal: SamagraScaller({
-                value: 15,
-                scaleBy: 'average',
-              }),
-              paddingVertical: SamagraScaller({
-                value: 10,
-                scaleBy: 'average',
-              }),
-              borderRadius: 45,
-              color: 'white',
-              left: SamagraScaller({
-                value: 50,
-                scaleBy: 'width',
-              }),
-            }}
-            fontVariant="bold"
-            fontSize={30}
-            lineHeight={30}></TextComponet>
-        </TouchableOpacity>
-      </View>
+          {/* <TouchableOpacity>
+            <TextComponet
+              title="P"
+              customStyle={{
+                textAlign: 'right',
+                marginLeft: SamagraScaller({
+                  value: 5,
+                  scaleBy: 'average',
+                }),
+                backgroundColor: 'orange',
+                paddingHorizontal: SamagraScaller({
+                  value: 15,
+                  scaleBy: 'average',
+                }),
+                paddingVertical: SamagraScaller({
+                  value: 10,
+                  scaleBy: 'average',
+                }),
+                borderRadius: 45,
+                color: 'white',
+                left: SamagraScaller({
+                  value: 50,
+                  scaleBy: 'width',
+                }),
+              }}
+              fontVariant="bold"
+              fontSize={30}
+              lineHeight={30}></TextComponet>
+          </TouchableOpacity> */}
+        </View>
+      ) : (
+        <ActivityIndicator color="red"></ActivityIndicator>
+      )}
       <View
         style={{
           display: 'flex',
@@ -224,14 +240,13 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
           title="Personal Account"
           variant="large"
           comment="Profile, Update User"
-          iconName="account"></PoppedCard>``
+          iconName="account"></PoppedCard>
         <PoppedCard
           onPress={() => console.log('Error')}
           title="App Setting"
           variant="large"
           comment="Personal & Shop Setting"
           iconName="wrench"></PoppedCard>
-
         <AppButton onPress={userLogoutHandle} color="danger">
           Logout
         </AppButton>

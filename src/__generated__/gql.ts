@@ -16,16 +16,20 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
 type Documents = {
     "\n mutation createNewProduct(\n  $name: String!\n  $price: Decimal!\n  $description: String!\n  $shopId: String!\n  $categoryId: String!\n  $stockQuantity: Int!\n  $imageUrls: [String!]!\n  $unit: String!\n  $location: String!\n) {\n  createProduct(\n    product: {\n      name: $name\n      price: $price\n      description: $description\n      shopId: $shopId\n      categoryId: $categoryId\n      stockQuantity: $stockQuantity\n      imageUrls: $imageUrls\n      currency: \"रु\"\n      location: $location\n      unit: $unit\n      condition: \"new\"\n    }\n  ) {\n    id\n  }\n}\n  ": typeof types.CreateNewProductDocument,
     "mutation createNewShop (\n  $shopName: String!\n  $aboutShop: String!\n  $coverImageUrl: String!\n  $profileImageUrl: String!\n  $location: String!\n  $phoneNumber: String!\n) {\n  createShop(\n    shop: {\n      name: $shopName\n      aboutShop: $aboutShop\n      coverImageUrl: $coverImageUrl\n      profileImageUrl: $profileImageUrl\n      location: $location\n      phoneNumber: $phoneNumber\n    }\n  ) {\n    id\n  }\n}\n": typeof types.CreateNewShopDocument,
-    "\n  query GetPublicItems{\n    getPublicItems {\n      nodes {\n        name\n      }\n    }\n  }\n": typeof types.GetPublicItemsDocument,
+    "\nquery GetPublicItems {\n  getPublicItems {\n    nodes {\n      name\n      imageUrls\n      price\n      starRating\n    }\n  }\n}\n": typeof types.GetPublicItemsDocument,
     "\nquery GetPublicItemsById($id: String!) {\n  getPublicItems(id: $id) {\n    nodes {\n      name\n    }\n  }\n}\n": typeof types.GetPublicItemsByIdDocument,
     "query productQueries {\n  getProductCategories {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n    }\n\n    nodes {\n      id\n      isProduct\n      name\n      imageUrl\n    }\n  }\n}": typeof types.ProductQueriesDocument,
+    "query GetPersonalItems {\n  getItems {\n    nodes {\n      name\n      price\n      starRating\n    }\n  }\n}\n": typeof types.GetPersonalItemsDocument,
+    "\n  query GetLoginUser {\n  getUser {\n    username\n    pofileImageUrl\n  }\n}\n": typeof types.GetLoginUserDocument,
 };
 const documents: Documents = {
     "\n mutation createNewProduct(\n  $name: String!\n  $price: Decimal!\n  $description: String!\n  $shopId: String!\n  $categoryId: String!\n  $stockQuantity: Int!\n  $imageUrls: [String!]!\n  $unit: String!\n  $location: String!\n) {\n  createProduct(\n    product: {\n      name: $name\n      price: $price\n      description: $description\n      shopId: $shopId\n      categoryId: $categoryId\n      stockQuantity: $stockQuantity\n      imageUrls: $imageUrls\n      currency: \"रु\"\n      location: $location\n      unit: $unit\n      condition: \"new\"\n    }\n  ) {\n    id\n  }\n}\n  ": types.CreateNewProductDocument,
     "mutation createNewShop (\n  $shopName: String!\n  $aboutShop: String!\n  $coverImageUrl: String!\n  $profileImageUrl: String!\n  $location: String!\n  $phoneNumber: String!\n) {\n  createShop(\n    shop: {\n      name: $shopName\n      aboutShop: $aboutShop\n      coverImageUrl: $coverImageUrl\n      profileImageUrl: $profileImageUrl\n      location: $location\n      phoneNumber: $phoneNumber\n    }\n  ) {\n    id\n  }\n}\n": types.CreateNewShopDocument,
-    "\n  query GetPublicItems{\n    getPublicItems {\n      nodes {\n        name\n      }\n    }\n  }\n": types.GetPublicItemsDocument,
+    "\nquery GetPublicItems {\n  getPublicItems {\n    nodes {\n      name\n      imageUrls\n      price\n      starRating\n    }\n  }\n}\n": types.GetPublicItemsDocument,
     "\nquery GetPublicItemsById($id: String!) {\n  getPublicItems(id: $id) {\n    nodes {\n      name\n    }\n  }\n}\n": types.GetPublicItemsByIdDocument,
     "query productQueries {\n  getProductCategories {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n    }\n\n    nodes {\n      id\n      isProduct\n      name\n      imageUrl\n    }\n  }\n}": types.ProductQueriesDocument,
+    "query GetPersonalItems {\n  getItems {\n    nodes {\n      name\n      price\n      starRating\n    }\n  }\n}\n": types.GetPersonalItemsDocument,
+    "\n  query GetLoginUser {\n  getUser {\n    username\n    pofileImageUrl\n  }\n}\n": types.GetLoginUserDocument,
 };
 
 /**
@@ -53,7 +57,7 @@ export function gql(source: "mutation createNewShop (\n  $shopName: String!\n  $
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  query GetPublicItems{\n    getPublicItems {\n      nodes {\n        name\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetPublicItems{\n    getPublicItems {\n      nodes {\n        name\n      }\n    }\n  }\n"];
+export function gql(source: "\nquery GetPublicItems {\n  getPublicItems {\n    nodes {\n      name\n      imageUrls\n      price\n      starRating\n    }\n  }\n}\n"): (typeof documents)["\nquery GetPublicItems {\n  getPublicItems {\n    nodes {\n      name\n      imageUrls\n      price\n      starRating\n    }\n  }\n}\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -62,6 +66,14 @@ export function gql(source: "\nquery GetPublicItemsById($id: String!) {\n  getPu
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "query productQueries {\n  getProductCategories {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n    }\n\n    nodes {\n      id\n      isProduct\n      name\n      imageUrl\n    }\n  }\n}"): (typeof documents)["query productQueries {\n  getProductCategories {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n    }\n\n    nodes {\n      id\n      isProduct\n      name\n      imageUrl\n    }\n  }\n}"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "query GetPersonalItems {\n  getItems {\n    nodes {\n      name\n      price\n      starRating\n    }\n  }\n}\n"): (typeof documents)["query GetPersonalItems {\n  getItems {\n    nodes {\n      name\n      price\n      starRating\n    }\n  }\n}\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query GetLoginUser {\n  getUser {\n    username\n    pofileImageUrl\n  }\n}\n"): (typeof documents)["\n  query GetLoginUser {\n  getUser {\n    username\n    pofileImageUrl\n  }\n}\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};

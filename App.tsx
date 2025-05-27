@@ -4,6 +4,7 @@ import {
   concat,
   createHttpLink,
   InMemoryCache,
+  useQuery,
 } from '@apollo/client';
 import {setContext} from '@apollo/client/link/context';
 import {fetch as netInfoFetch} from '@react-native-community/netinfo';
@@ -63,10 +64,6 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-
-
-
-
 // Main Modules
 function App(): React.JSX.Element {
   // const [refreshingTime, setRefreshingTime] = useState<number>(1800000); // This is the time of refreshing in the second set Default to 1000
@@ -121,17 +118,17 @@ function App(): React.JSX.Element {
 
     // return () => null;
   }, [refreshingTime, internetStatus, scheme]);
+  // const {data, loading, error}  = useQuery()
 
-  // Code To mnake User Login
+  // UserBased Login
   useEffect(() => {
     const getUserStatusHandle = async () => {
-      const {userStatus, accessToken, refreshToken} = await getTokens();
+      const {userStatus} = await getTokens();
+
       userStatus === 'true'
         ? store.dispatch(
             login({
-              id: 1,
-              email: 'sagar@gmail.com',
-              name: 'sagar',
+              isAuthenticated: true,
             }),
           )
         : store.dispatch(logout());

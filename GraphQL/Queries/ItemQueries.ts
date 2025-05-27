@@ -1,13 +1,16 @@
 import {gql} from '../../src/__generated__/gql';
 
 export const getPublicItems = gql(`
-  query GetPublicItems{
-    getPublicItems {
-      nodes {
-        name
-      }
+query GetPublicItems {
+  getPublicItems {
+    nodes {
+      name
+      imageUrls
+      price
+      starRating
     }
   }
+}
 `);
 
 export const getPublicItemsById = gql(`
@@ -35,3 +38,14 @@ export const productQueries = gql(`query productQueries {
     }
   }
 }`);
+
+export const getPersonalItems = gql(`query GetPersonalItems {
+  getItems {
+    nodes {
+      name
+      price
+      starRating
+    }
+  }
+}
+`);
