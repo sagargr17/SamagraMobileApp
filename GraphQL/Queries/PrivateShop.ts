@@ -12,6 +12,8 @@ query GetMySHops {
         stars
       }
       location
+      phoneNumber
+      profileImageUrl
     }
   }
 }

@@ -21,7 +21,7 @@ type Documents = {
     "query productCategoryQueries {\n  getProductCategories {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n    }\n\n    nodes {\n      id\n      isProduct\n      name\n      imageUrl\n    }\n  }\n}": typeof types.ProductCategoryQueriesDocument,
     "query GetPersonalItems {\n  getItems {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n      startCursor\n      endCursor\n    }\n    nodes {\n      name\n      price\n      starRating\n    }\n  }\n}\n": typeof types.GetPersonalItemsDocument,
     "\n  query GetPaginatedPersonalItems($after: String) {\n  getItems (after: $after) {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n      startCursor\n      endCursor\n    }\n    nodes {\n      name\n      price\n      starRating\n    }\n  }\n}\n": typeof types.GetPaginatedPersonalItemsDocument,
-    "\nquery GetMySHops {\n  getShops {\n    nodes {\n      name\n      aboutShop\n      stars {\n        stars\n      }\n      location\n    }\n  }\n}\n": typeof types.GetMySHopsDocument,
+    "\nquery GetMySHops {\n  getShops {\n    nodes {\n      name\n      aboutShop\n      stars {\n        stars\n      }\n      location\n      phoneNumber\n      profileImageUrl\n    }\n  }\n}\n": typeof types.GetMySHopsDocument,
     "\n  query GetLoginUser {\n  getUser {\n    username\n    pofileImageUrl\n  }\n}\n": typeof types.GetLoginUserDocument,
 };
 const documents: Documents = {
@@ -32,7 +32,7 @@ const documents: Documents = {
     "query productCategoryQueries {\n  getProductCategories {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n    }\n\n    nodes {\n      id\n      isProduct\n      name\n      imageUrl\n    }\n  }\n}": types.ProductCategoryQueriesDocument,
     "query GetPersonalItems {\n  getItems {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n      startCursor\n      endCursor\n    }\n    nodes {\n      name\n      price\n      starRating\n    }\n  }\n}\n": types.GetPersonalItemsDocument,
     "\n  query GetPaginatedPersonalItems($after: String) {\n  getItems (after: $after) {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n      startCursor\n      endCursor\n    }\n    nodes {\n      name\n      price\n      starRating\n    }\n  }\n}\n": types.GetPaginatedPersonalItemsDocument,
-    "\nquery GetMySHops {\n  getShops {\n    nodes {\n      name\n      aboutShop\n      stars {\n        stars\n      }\n      location\n    }\n  }\n}\n": types.GetMySHopsDocument,
+    "\nquery GetMySHops {\n  getShops {\n    nodes {\n      name\n      aboutShop\n      stars {\n        stars\n      }\n      location\n      phoneNumber\n      profileImageUrl\n    }\n  }\n}\n": types.GetMySHopsDocument,
     "\n  query GetLoginUser {\n  getUser {\n    username\n    pofileImageUrl\n  }\n}\n": types.GetLoginUserDocument,
 };
 
@@ -81,7 +81,7 @@ export function gql(source: "\n  query GetPaginatedPersonalItems($after: String)
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\nquery GetMySHops {\n  getShops {\n    nodes {\n      name\n      aboutShop\n      stars {\n        stars\n      }\n      location\n    }\n  }\n}\n"): (typeof documents)["\nquery GetMySHops {\n  getShops {\n    nodes {\n      name\n      aboutShop\n      stars {\n        stars\n      }\n      location\n    }\n  }\n}\n"];
+export function gql(source: "\nquery GetMySHops {\n  getShops {\n    nodes {\n      name\n      aboutShop\n      stars {\n        stars\n      }\n      location\n      phoneNumber\n      profileImageUrl\n    }\n  }\n}\n"): (typeof documents)["\nquery GetMySHops {\n  getShops {\n    nodes {\n      name\n      aboutShop\n      stars {\n        stars\n      }\n      location\n      phoneNumber\n      profileImageUrl\n    }\n  }\n}\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

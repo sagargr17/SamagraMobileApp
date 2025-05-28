@@ -94,7 +94,8 @@ export const SliderSwitcher: React.FC<SliderSwitcherProps> = ({
 
   return (
     <View style={{flex: 1}}>
-      <Surface elevation={1}
+      <Surface
+        elevation={1}
         style={{
           flex: upperContainer,
           paddingVertical: SamagraScaller({
@@ -105,15 +106,13 @@ export const SliderSwitcher: React.FC<SliderSwitcherProps> = ({
             value: 4,
             scaleBy: 'average',
           }),
-          backgroundColor:colors.background
-
-
-
+          backgroundColor: colors.background,
         }}>
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          style={styles.tabBarContainer}>
+          style={styles.tabBarContainer}
+          onScroll={handleScroll}>
           {tabsData.map((tab, index) => (
             <TouchableOpacity
               key={tab.key}
@@ -183,7 +182,10 @@ export const SliderSwitcher: React.FC<SliderSwitcherProps> = ({
         </ScrollView>
         {popupButtoName && popupButtonPressed && popupIcon ? (
           <AppButton
-            onPress={() => popupButtonPressed()}
+            onPress={() => {
+              popupButtonPressed();
+              scrollViewRef.current.scrollToEnd({animated: true});
+            }}
             icon={'camera'}
             style={{
               borderRadius: 50,

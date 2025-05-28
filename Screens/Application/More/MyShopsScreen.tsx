@@ -1,5 +1,5 @@
 import {useTheme} from '@react-navigation/native';
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {SliderSwitcher} from '../../../Components/Layout/SliderSwitcher';
 
 import {Logos} from '../../../Assets/SVG/Exports/Exports';
@@ -16,6 +16,7 @@ import {PoppedCard} from '../../../Components/Sections/Cards/PoppedCard';
 import {AppForm} from '../../../Components/Layout/AppForm';
 import {
   CreateProductRequestInput,
+  GetMySHopsQuery,
   ShopInputDto,
 } from '../../../src/__generated__/graphql';
 import {useMutation, useQuery} from '@apollo/client';
@@ -23,26 +24,22 @@ import {createNewShop} from '../../../GraphQL/Mutation/ShopMutations';
 import {SamagraAlert} from '../../../Components/Sections/SamagraAlert';
 import {getPersonalItems} from '../../../GraphQL/Queries/ItemQueries';
 import {myShops} from '../../../GraphQL/Queries/PrivateShop';
+import {FlatList} from 'react-native-gesture-handler';
+import {MyShopDisplay} from '../../../Components/Layout/MyShopDisplay';
+import {SamagraLoader} from '../../../Components/Sections/ErrorHandling/SamagraLoader';
 
 interface MyShopsProps {}
 
 export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
+  // Themes
   const {colors} = useTheme();
   const {Shop1, Shop2, WelcomeShop} = Logos;
 
-  const TopParts = () => {
-    <></>;
-  };
-
+  // Status
   const [createNewShopFn, {data, loading, error}] = useMutation(createNewShop);
-  const {
-    data: shopListData,
-    loading: shopListLoading,
-    error: shopListError,
-  } = useQuery(myShops);
   const [siStatus, setStatus] = useState<boolean>(false);
-  // const
 
+  // Handles the Shops Items
   const handlCreateShopSubmit = async (data: ShopInputDto) => {
     try {
       const response = createNewShopFn({
@@ -65,22 +62,188 @@ export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
     }
   };
 
+  // const children = (data: GetMySHopsQuery) => {
+  //   <>
+  //     <FlatList
+  //       data={data.getShops?.nodes}
+  //       renderItem={({item, index}) => (
+
+  //       )}></FlatList>
+  //   </>;
+  // };
+
+  const [isCreateNewShop, setIsCreateNewShop] = useState<boolean>(false);
+
+  const {
+    data: myShopsData,
+    loading: myShopsLoading,
+    error: myShopsError,
+  } = useQuery(myShops);
+
+  console.log('Result', myShopsData, myShopsLoading, myShopsError);
+
   return (
     <View
       style={{
         flex: 1,
       }}>
+      {myShopsLoading ? <SamagraLoader></SamagraLoader> : null}
+
       {siStatus === true ? (
         <SamagraAlert
-          onAgreeHandle={() => setStatus(!siStatus)}
+          onAgreeHandle={() => setStatus(true)}
           key={1}
           title="Completed"
           description="Item Added SuccessFully"
           icon="read"></SamagraAlert>
       ) : null}
-
       <SliderSwitcher upperContainerFlexHeight={0.07}>
-        <ScrollView key="Create New Shop">
+        {myShopsData &&
+        myShopsData.getShops &&
+        myShopsData.getShops.nodes &&
+        myShopsData.getShops.nodes.length > 0
+          ? myShopsData?.getShops?.nodes.map((item, index) => (
+              <MyShopDisplay
+                onCreateNewShop={() => setIsCreateNewShop(!isCreateNewShop)}
+                key={index}
+                shop={{
+                  name:
+                    myShopsData?.getShops &&
+                    myShopsData.getShops.nodes &&
+                    myShopsData.getShops.nodes[index]?.aboutShop
+                      ? myShopsData.getShops.nodes[index]?.aboutShop
+                      : 'not mentioned',
+                  aboutShop:
+                    myShopsData?.getShops &&
+                    myShopsData.getShops.nodes &&
+                    myShopsData.getShops.nodes[index]?.aboutShop
+                      ? myShopsData.getShops.nodes[index]?.aboutShop
+                      : 'not mentioned',
+                  phoneNumber:
+                    myShopsData &&
+                    myShopsData.getShops?.nodes &&
+                    myShopsData.getShops?.nodes.length > 0 &&
+                    myShopsData.getShops.nodes[index]?.phoneNumber
+                      ? myShopsData.getShops.nodes[index].phoneNumber
+                      : 'not mentioned',
+                  stars: {
+                    stars: 3,
+                  },
+                  location:
+                    myShopsData &&
+                    myShopsData.getShops?.nodes &&
+                    myShopsData.getShops?.nodes.length > 0 &&
+                    myShopsData.getShops.nodes[index]?.location
+                      ? myShopsData.getShops.nodes[index].location
+                      : 'not mentioned',
+                  profileImageUrl: '',
+                }}
+                navigationHandles={{
+                  onHitoryNavigationHandle: () => console.log('going'),
+                  onManageStocksNavigationHandle: () => console.log('going'),
+                  onProductNavigationHandle: () => console.log('going'),
+                  onServiceNavigationHadle: () => console.log('going'),
+                  onPendingOrdersNavigationHandle: () =>
+                    console.log('Pennding'),
+                }}></MyShopDisplay>
+            ))
+          : null}
+
+        {isCreateNewShop === true ? (
+          <ScrollView key="Create New Shop">
+            {loading ?? <ProgressBar indeterminate></ProgressBar>}
+            <ShopDisplayCard
+              shop={{
+                id: `${Math.random()}`,
+                icon: (
+                  <>
+                    <AppForm<ShopInputDto>
+                      formConfig={[
+                        {
+                          name: 'name', // Must match a key in LoginFormValues
+                          label: 'Name',
+                          placeholder: 'Your Dispaly Shop Name',
+                          type: 'email', // Custom prop for keyboard type
+                          rules: {
+                            minLength: {
+                              value: 3,
+                              message: 'Too Short',
+                            },
+                            maxLength: {
+                              value: 12,
+                              message: 'too long',
+                            },
+                            required: 'Required',
+                          },
+                        },
+                        {
+                          name: 'location', // Must match a key in LoginFormValues
+                          label: 'Loation',
+                          placeholder: 'your shop address',
+                          type: 'text', // Custom prop for keyboard type
+                          rules: {
+                            maxLength: {
+                              value: 20,
+                              message: 'too long',
+                            },
+                            required: 'Required',
+                          },
+                        },
+                        {
+                          name: 'phoneNumber', // Must match a key in LoginFormValues
+                          label: 'Phone Number*',
+                          placeholder: '984****',
+                          type: 'text', // Custom prop for keyboard type
+                          rules: {
+                            maxLength: {
+                              value: 20,
+                              message: 'too long',
+                            },
+                            required: 'Required',
+                          },
+                        },
+
+                        {
+                          name: 'aboutShop', // Must match a key in LoginFormValues
+                          label: 'Shop Description',
+                          placeholder: 'Shop Is Awesome',
+                          type: 'text', // Custom prop for keyboard type
+                          rules: {
+                            maxLength: {
+                              value: 9,
+                              message: 'too long',
+                            },
+                            required: 'Required',
+                          },
+                        },
+                      ]}
+                      submitButtonText="Test"
+                      onFormSubmit={handlCreateShopSubmit}></AppForm>
+                  </>
+                ),
+                shopName: 'Hamro Bijuli Pasal',
+                shopDescription: 'All the Electronic Appliances available Here',
+                rating: 4,
+                item: {
+                  totalProduct: 167,
+                  totalServices: 2,
+                },
+
+                owner: {
+                  owner: {
+                    ownerName: 'Sagar Gahatraj',
+                    phoneNumber: '+9779841150390',
+                  },
+                },
+              }}></ShopDisplayCard>
+          </ScrollView>
+        ) : null}
+      </SliderSwitcher>
+
+      {/* {myShopsData && myShopsData.getShops && myShopsData.getShops.nodes
+          ? children(myShopsData)
+          : null} */}
+      {/* <ScrollView key="Create New Shop">
           {loading ?? <ProgressBar indeterminate></ProgressBar>}
           <ShopDisplayCard
             shop={{
@@ -420,8 +583,7 @@ export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
                 },
               },
             }}></ShopDisplayCard>
-        </View>
-      </SliderSwitcher>
+        </View> */}
     </View>
   );
 };
