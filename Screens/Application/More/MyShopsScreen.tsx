@@ -26,7 +26,14 @@ export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
 
   // Status
   const [createNewShopFn, {data, loading, error}] = useMutation(createNewShop);
-  const [siStatus, setStatus] = useState<boolean>(false);
+  const [isNewShopTabClicked, setIsNewShopTabClicked] =
+    useState<boolean>(false);
+  const [isShopCreated, setIsShopCreated] = useState<boolean>(false);
+  const {
+    data: myShopsData,
+    loading: myShopsLoading,
+    error: myShopsError,
+  } = useQuery(myShops);
 
   // Handles the Shops Items
   const handlCreateShopSubmit = async (data: ShopInputDto) => {
@@ -44,6 +51,7 @@ export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
         },
       });
       if (response.data) {
+        setIsShopCreated(!isShopCreated);
         showMessage({
           message: 'Shop Added SuccessFully !!',
           type: 'success',
@@ -60,13 +68,6 @@ export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
       console.log('Error whilem adding SHop', error);
     }
   };
-  const [isCreateNewShop, setIsCreateNewShop] = useState<boolean>(false);
-
-  const {
-    data: myShopsData,
-    loading: myShopsLoading,
-    error: myShopsError,
-  } = useQuery(myShops);
 
   return (
     <>
@@ -78,33 +79,52 @@ export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
             flex: 1,
           }}>
           <SliderSwitcher upperContainerFlexHeight={0.07}>
-            {isCreateNewShop === true ? (
+            {isNewShopTabClicked === true ? (
               <ScrollView
                 key="Create New Shop"
                 style={{
                   flex: 1,
                 }}>
-                {loading ? <ProgressBar indeterminate></ProgressBar> : null}
+                {loading ? (
+                  <ProgressBar
+                    color={colors.primary}
+                    indeterminate></ProgressBar>
+                ) : null}
+                {/* isShopCreated */}
 
                 <ShopDisplayCard
                   shop={{
                     id: `${Math.random()}`,
                     icon: (
                       <>
+                        {isShopCreated ? (
+                          <ConfettiCannon
+                            onAnimationEnd={() => {
+                              console.log('Animation END');
+                              setIsShopCreated(!isShopCreated);
+                            }}
+                            onAnimationStop={() => {
+                              console.log('Annimation popper Stops');
+                              setIsShopCreated(!isShopCreated);
+                            }}
+                            count={2000}
+                            origin={{x: -10, y: 0}}
+                          />
+                        ) : null}
                         <AppForm<ShopInputDto>
                           formConfig={[
                             {
                               name: 'name', // Must match a key in LoginFormValues
                               label: 'Name',
                               placeholder: 'Your Dispaly Shop Name',
-                              type: 'email', // Custom prop for keyboard type
+                              type: 'text', // Custom prop for keyboard type
                               rules: {
                                 minLength: {
                                   value: 3,
                                   message: 'Too Short',
                                 },
                                 maxLength: {
-                                  value: 12,
+                                  value: 25,
                                   message: 'too long',
                                 },
                                 required: 'Required',
@@ -117,7 +137,7 @@ export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
                               type: 'text', // Custom prop for keyboard type
                               rules: {
                                 maxLength: {
-                                  value: 20,
+                                  value: 30,
                                   message: 'too long',
                                 },
                                 required: 'Required',
@@ -130,7 +150,7 @@ export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
                               type: 'text', // Custom prop for keyboard type
                               rules: {
                                 maxLength: {
-                                  value: 20,
+                                  value: 10,
                                   message: 'too long',
                                 },
                                 required: 'Required',
@@ -140,11 +160,12 @@ export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
                             {
                               name: 'aboutShop', // Must match a key in LoginFormValues
                               label: 'Shop Description',
-                              placeholder: 'Shop Is Awesome',
+                              placeholder:
+                                '" Hami kaha sabai harware ko saman pauncha "',
                               type: 'text', // Custom prop for keyboard type
                               rules: {
                                 maxLength: {
-                                  value: 9,
+                                  value: 50,
                                   message: 'too long',
                                 },
                                 required: 'Required',
@@ -153,9 +174,6 @@ export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
                           ]}
                           submitButtonText="Submit"
                           onFormSubmit={handlCreateShopSubmit}></AppForm>
-                        {data ? (
-                          <ConfettiCannon count={200} origin={{x: -10, y: 0}} />
-                        ) : null}
                       </>
                     ),
                     shopName: 'Hamro Bijuli Pasal',
@@ -182,7 +200,7 @@ export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
             myShopsData.getShops.nodes.length > 0
               ? myShopsData?.getShops?.nodes.map((item, index) => (
                   <MyShopDisplay
-                    onCreateNewShop={() => setIsCreateNewShop(!isCreateNewShop)}
+                    onCreateNewShop={() => setIsNewShopTabClicked(true)}
                     key={index}
                     shop={{
                       name:

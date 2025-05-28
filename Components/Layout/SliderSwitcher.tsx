@@ -23,7 +23,6 @@ interface SliderSwitcherProps {
   isBottomContainerMovable?: boolean;
 }
 
-// Slider Switcher  Layout you just have to pass the component
 export const SliderSwitcher: React.FC<SliderSwitcherProps> = ({
   children,
   popupButtonName: popupButtoName = 'Add Item',
@@ -31,66 +30,54 @@ export const SliderSwitcher: React.FC<SliderSwitcherProps> = ({
   popupButtonPressed,
   upperContainerFlexHeight: upperContainer = 0.055,
   bottomContainerFlexHeight: bottomContainer = 1,
-  isBottomContainerMovable = true,
+  // isBottomContainerMovable = true, // Removed as it's not used
 }) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [scrollTimeout, setScrollTimeout] = useState<NodeJS.Timeout | null>(
-    null,
-  );
-  const theme = useTheme();
-  const scrollViewRef = useRef<any>(null);
+  const scrollViewRef = useRef<ScrollView>(null);
   const childrenArray = React.Children.toArray(children);
   const tabsData = childrenArray.map((child: any) => ({
-    key: child.key || `tab-${Math.random()}`, // Ensure each child has a key
-    title: child.key.split('$')[1] || 'Tab', // Expecting a 'title' prop on the children
+    key: child.key || `tab-${Math.random()}`,
+    title: child.key.split('$')[1] || 'Tab',
   }));
   const {width: screenWidth} = Dimensions.get('window');
   const {colors} = useTheme();
 
+  const isScrollingByDrag = useRef(false);
+
   const handleTabPress = (index: number) => {
-    setActiveIndex(index);
-    scrollViewRef.current?.scrollTo({x: index * screenWidth, animated: true});
-  };
-
-  const handleScroll = (event: any) => {
-    if (event && event.nativeEvent) {
-      event.persist(); // Persist the synthetic event
-
-      if (scrollTimeout) {
-        clearTimeout(scrollTimeout);
-      }
-      setScrollTimeout(
-        setTimeout(() => {
-          const contentOffset = event.nativeEvent.contentOffset.x;
-          const newIndex = Math.round(contentOffset / screenWidth);
-          setActiveIndex(newIndex);
-          setScrollTimeout(null);
-        }, 100), // Adjust the delay (in milliseconds) as needed
-      );
+    if (index !== activeIndex) {
+      setActiveIndex(index);
+      scrollViewRef.current?.scrollTo({x: index * screenWidth, animated: true});
     }
   };
+
+  const handleScroll = (event: any) => {};
 
   const handleScrollBeginDrag = () => {
-    if (scrollTimeout) {
-      clearTimeout(scrollTimeout);
-      setScrollTimeout(null);
-    }
+    isScrollingByDrag.current = true; // User has started dragging
   };
 
-  const handleScrollEndDrag = (event: any) => {
-    if (event && event.nativeEvent) {
-      const contentOffset = event.nativeEvent.contentOffset.x;
-      const finalIndex = Math.round(contentOffset / screenWidth);
-      setActiveIndex(finalIndex);
+  const handleScrollEndDrag = () => {};
+
+  const handleMomentumScrollEnd = (event: any) => {
+    isScrollingByDrag.current = false; // User has stopped dragging/flinging
+    const contentOffset = event.nativeEvent.contentOffset.x;
+    const newIndex = Math.round(contentOffset / screenWidth);
+
+    // Only update activeIndex if it's genuinely different from the current
+    if (newIndex !== activeIndex) {
+      setActiveIndex(newIndex);
     }
   };
 
   useEffect(() => {
-    scrollViewRef.current?.scrollTo({
-      x: activeIndex * screenWidth,
-      animated: true,
-    });
-  }, [activeIndex]);
+    if (!isScrollingByDrag.current) {
+      scrollViewRef.current?.scrollTo({
+        x: activeIndex * screenWidth,
+        animated: true,
+      });
+    }
+  }, [activeIndex, screenWidth]);
 
   return (
     <View style={{flex: 1}}>
@@ -111,15 +98,13 @@ export const SliderSwitcher: React.FC<SliderSwitcherProps> = ({
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          style={styles.tabBarContainer}
-          onScroll={handleScroll}>
+          style={styles.tabBarContainer}>
           {tabsData.map((tab, index) => (
             <TouchableOpacity
               key={tab.key}
               onPress={() => handleTabPress(index)}
               style={[
                 styles.tabItem,
-                activeIndex === index && styles.activeTabItem,
                 {
                   backgroundColor:
                     activeIndex === index
@@ -141,10 +126,7 @@ export const SliderSwitcher: React.FC<SliderSwitcherProps> = ({
                   style={[
                     styles.activeIndicator,
                     {
-                      backgroundColor:
-                        activeIndex === index
-                          ? colors.primary
-                          : colors.background,
+                      backgroundColor: colors.primary,
                     },
                   ]}
                 />
@@ -156,8 +138,8 @@ export const SliderSwitcher: React.FC<SliderSwitcherProps> = ({
       <View
         style={{
           flex: bottomContainer,
-          marginVertical: SamagraScaller({
-            value: 14,
+          marginBottom: SamagraScaller({
+            value: 1,
             scaleBy: 'average',
           }),
         }}>
@@ -165,13 +147,15 @@ export const SliderSwitcher: React.FC<SliderSwitcherProps> = ({
           showsVerticalScrollIndicator={false}
           ref={scrollViewRef}
           horizontal
-          pagingEnabled
+          pagingEnabled // This is key for snapping to pages
           showsHorizontalScrollIndicator={false}
-          onScroll={handleScroll} // Using the debounced handleScroll with setTimeout
+          onScroll={handleScroll} // Still listen, but its main purpose now is less about activeIndex
           onScrollBeginDrag={handleScrollBeginDrag}
-          onScrollEndDrag={handleScrollEndDrag}
-          scrollEventThrottle={16} // Optimize scroll event handling
-          style={{flex: 2}}>
+          onScrollEndDrag={handleScrollEndDrag} // Fired when finger lifts
+          onMomentumScrollEnd={handleMomentumScrollEnd} // Fired when scroll animation stops
+          scrollEventThrottle={16}
+          style={{flex: 1}}
+          contentContainerStyle={{flexGrow: 1}}>
           {childrenArray.map((child: any, index) => (
             <View
               key={child.key || `content-${index}`}
@@ -184,19 +168,17 @@ export const SliderSwitcher: React.FC<SliderSwitcherProps> = ({
           <AppButton
             onPress={() => {
               popupButtonPressed();
-              setActiveIndex(childrenArray.length+2);
-              // scrollViewRef.current.scrollToEnd({animated: true});
             }}
-            icon={'camera'}
+            icon={popupIcon}
             style={{
-              borderRadius: 50,
-              bottom: 10,
-              width: 120,
-              right: 10,
+              borderRadius: SamagraScaller({value: 50, scaleBy: 'average'}),
+              bottom: SamagraScaller({value: 10, scaleBy: 'average'}),
+              width: SamagraScaller({value: 120, scaleBy: 'average'}),
+              right: SamagraScaller({value: 10, scaleBy: 'average'}),
               position: 'absolute',
             }}
             contentStyle={{
-              padding: 8,
+              padding: SamagraScaller({value: 8, scaleBy: 'average'}),
             }}>
             <TextComponet
               customStyle={{
@@ -212,31 +194,15 @@ export const SliderSwitcher: React.FC<SliderSwitcherProps> = ({
 };
 
 const styles = StyleSheet.create({
-  tabBarContainer: {
-    // backgroundColor: 'orange',
-    padding: 0,
-  },
-
+  tabBarContainer: {},
   tabItem: {
     paddingHorizontal: 25,
-
     alignItems: 'center',
     justifyContent: 'center',
-    // marginHorizontal: 8,
-    flex: 2,
   },
   activeTabItem: {},
-  tabLabel: {
-    fontSize: 16,
-    color: 'orange',
-  },
-  activeTabLabel: {
-    fontWeight: 'bold',
-    color: '#6200EE', // Example primary color
-  },
   activeIndicator: {
     height: 2,
-    // backgroundColor: 'pink',
     width: '100%',
     marginTop: 2,
   },

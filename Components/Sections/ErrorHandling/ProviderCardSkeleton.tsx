@@ -115,7 +115,7 @@ export const ProviderCardSkeleton: React.FC<
           />
         </View>
       </View>
-      <View style={[ProviderCardSkeletonStyle.actionContainer]}>
+      {/* <View style={[ProviderCardSkeletonStyle.actionContainer]}>
         <CustomGradientShimmer
           height={SamagraScaller({
             value: 40,
@@ -160,7 +160,7 @@ export const ProviderCardSkeleton: React.FC<
             },
           ]}
         />
-      </View>
+      </View> */}
     </View>
   );
 };
