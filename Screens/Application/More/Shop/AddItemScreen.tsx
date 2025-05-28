@@ -12,6 +12,7 @@ import {SamagraScaller} from '../../../../Utilities/CustomMethods';
 import {CreateProductRequestInput} from '../../../../src/__generated__/graphql';
 import {SamagraAlert} from '../../../../Components/Sections/SamagraAlert';
 import {getLoginUser} from '../../../../GraphQL/Queries/UserQueries';
+import {showMessage} from 'react-native-flash-message';
 
 interface AddItemScreenProps {}
 
@@ -108,6 +109,7 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
   );
 
   const [finalImage, setFinalImage] = useState<any>();
+
   const {data, loading, error} = useQuery(getLoginUser);
 
   const [
@@ -117,7 +119,6 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
 
   // const authenti = GetAuthenticateClient;
   const handleCreateItemSubmit = async (data: CreateProductRequestInput) => {
-    console.log('DAta', data.price, data);
     try {
       let response = await createNewItemFn({
         variables: {
@@ -135,7 +136,21 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
         },
       });
 
-      console.log('>>>', response);
+      console.log('Response Error', response);
+
+      if (response.data) {
+        showMessage({
+          message: 'Item Added Successfully',
+          type: 'success',
+          // floating: true,
+        });
+      }
+      if (response.errors) {
+        showMessage({
+          message: response.errors[0].message,
+          type: 'danger',
+        });
+      }
     } catch (e) {
       console.log('LOGGg', e);
     }
@@ -143,23 +158,20 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
 
   return (
     <>
-      {mutateLoading === true ? (
-        <ProgressBar color={colors.primary} indeterminate></ProgressBar>
-      ) : null}
-      {mutateData ? (
-        <SamagraAlert
-          key={1}
-          title="Completed"
-          description="Item Added SuccessFully"
-          icon="read"></SamagraAlert>
-      ) : null}
       <ImageUploader
         setFinalImage={setFinalImage}
-        children={childrenCompoenet(
-          index.indexNumber,
-          index.title,
-          index.description,
-        )}></ImageUploader>
+        children={
+          <>
+            {mutateLoading === true ? (
+              <ProgressBar color={colors.primary} indeterminate></ProgressBar>
+            ) : null}
+            {childrenCompoenet(
+              index.indexNumber,
+              index.title,
+              index.description,
+            )}
+          </>
+        }></ImageUploader>
 
       <AppForm<CreateProductRequestInput>
         formConfig={[

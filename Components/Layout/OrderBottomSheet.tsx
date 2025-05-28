@@ -93,6 +93,12 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
           : null}
         {pressedElement === 'global' || 'time' ? (
           <UnitSlider
+            // style={{
+            //   marginTop: SamagraScaller({
+            //     value: 15,
+            //     scaleBy: 'average',
+            //   }),
+            // }}
             label="Time in hour"
             sliderOption={{
               max: 4,

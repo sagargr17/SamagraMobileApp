@@ -28,8 +28,6 @@ export const SamagraBottomSheet: React.FC<SamagraBottomSheetProps> = ({
   onClose,
   customStyle,
 }) => {
-  console.log('IS PROFIE TAB', isOppen);
-
   const {colors} = useTheme();
   const bottomSheetRef = useRef<BottomSheet>(null);
 

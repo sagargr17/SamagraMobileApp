@@ -11,6 +11,7 @@ import {useAppSelector} from '../../../StateManagement/hooks';
 import {useQuery} from '@apollo/client';
 import {getLoginUser} from '../../../GraphQL/Queries/UserQueries';
 import {ActivityIndicator} from 'react-native-paper';
+import {ProviderCardSkeleton} from '../../../Components/Sections/ErrorHandling/ProviderCardSkeleton';
 
 interface MoreLandingScreenProps {}
 
@@ -31,7 +32,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
         }),
       }}>
       {loading ?? <ActivityIndicator color="orange"></ActivityIndicator>}
-      {error ? <ActivityIndicator color="orange"></ActivityIndicator> : null}
+      {error ? <ActivityIndicator color="red"></ActivityIndicator> : null}
       {data && data.getUser && data.getUser.username ? (
         <View
           style={{
@@ -150,7 +151,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
           </TouchableOpacity> */}
         </View>
       ) : (
-        <ActivityIndicator color="red"></ActivityIndicator>
+        <ProviderCardSkeleton></ProviderCardSkeleton>
       )}
       <View
         style={{

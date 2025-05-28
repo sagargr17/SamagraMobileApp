@@ -14,6 +14,9 @@ import {getLoginUser} from '../GraphQL/Queries/UserQueries';
 import {login} from '../StateManagement/User/UserSlice';
 import {State} from 'react-native-gesture-handler';
 import {getTokens} from '../client/Token/TokenAccess';
+import FlashMessage from 'react-native-flash-message';
+import {SamagraScaller} from '../Utilities/CustomMethods';
+import {ProgressBar} from 'react-native-paper';
 
 type RootStackParamList = {
   ApplicationOverlay: undefined;
@@ -47,10 +50,11 @@ const screenBuilder = (
 
 export const RootStack: React.FC = () => {
   const userSignInStatus = useAppSelector(state => state.user.isAuthenticated);
-  const {colors} = useTheme();
+  const {colors, fonts} = useTheme();
   const loaderStatus = useAppSelector(state => state.loader.isLoading);
   const isFocused = useIsFocused();
   const dispatch = useAppDispatch();
+  const font = fonts['regular'];
 
   useCallback(() => {
     dispatch(hideLoader());
@@ -63,6 +67,22 @@ export const RootStack: React.FC = () => {
       {/* {loaderStatus ? (
         <ProgressBar indeterminate color={colors.primary}></ProgressBar>
       ) : null} */}
+      <FlashMessage
+        position="top"
+        textStyle={{
+          fontFamily: font.fontFamily,
+          fontSize: SamagraScaller({
+            value: 16,
+            scaleBy: 'height',
+          }),
+          color: colors.text,
+          lineHeight: SamagraScaller({
+            value: 16,
+            scaleBy: 'average',
+          }),
+          fontWeight: 'regular',
+        }}
+      />
       <RootStackBuilder.Navigator
         screenOptions={{
           header: () => null,

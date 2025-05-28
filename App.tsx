@@ -29,6 +29,7 @@ import {MyDarkTheme, MyTheme} from './Prefrences/Prefrences';
 import {store} from './StateManagement/Store';
 import {login, logout} from './StateManagement/User/UserSlice';
 import {SamagraScaller} from './Utilities/CustomMethods';
+import FlashMessage from 'react-native-flash-message';
 
 // MAin Fuction To Token Refresh Handle
 const isTokennExpireHandle = async () => {
@@ -177,9 +178,6 @@ function App(): React.JSX.Element {
       style={{
         flex: 1,
       }}>
-      {/* <Button
-        title="Token"
-        onPress={() => console.log('>>>', refreshingTime)}></Button> */}
       <Provider store={store}>
         <StatusBar
           backgroundColor={themes.colors.background}

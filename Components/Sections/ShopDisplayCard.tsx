@@ -35,7 +35,7 @@ export const ShopDisplayCard: React.FC<ShopDisplayCardProps> = ({shop}) => {
       <View>
         <View
           style={{
-            alignItems: "center",
+            // alignItems: "center",
           }}>
           {shop.icon}
         </View>

@@ -184,7 +184,8 @@ export const SliderSwitcher: React.FC<SliderSwitcherProps> = ({
           <AppButton
             onPress={() => {
               popupButtonPressed();
-              scrollViewRef.current.scrollToEnd({animated: true});
+              setActiveIndex(childrenArray.length+2);
+              // scrollViewRef.current.scrollToEnd({animated: true});
             }}
             icon={'camera'}
             style={{
