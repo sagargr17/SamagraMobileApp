@@ -13,6 +13,13 @@ interface ItemListCardProps {
     price: number;
     imageUrl: string;
     rating: number;
+    stocks?: number;
+    shop: {
+      name: string;
+    };
+  };
+  buttonDetails?: {
+    title: string;
   };
 }
 
@@ -43,7 +50,7 @@ export const ItemListtCard: React.FC<ItemListCardProps> = ({item}) => {
           </View>
           <View style={styles.pricingContainer}>
             <TextComponet
-              fontSize={16}
+              fontSize={18}
               fontVariant="medium"
               lineHeight={24}
               title={titleCase(item.name)}></TextComponet>
@@ -59,12 +66,32 @@ export const ItemListtCard: React.FC<ItemListCardProps> = ({item}) => {
               </View>
               <TextComponet
                 customStyle={{
-                  color: colors.primary,
+                  color: '#6cad8b',
                 }}
-                fontSize={25}
-                fontVariant="bold"
-                lineHeight={50}
-                title={`रु.${item.price.toFixed(2)}`}></TextComponet>
+                fontSize={18}
+                fontVariant="regular"
+                lineHeight={24}
+                title={titleCase(item.shop.name)}></TextComponet>
+              {!item.stocks ? (
+                <TextComponet
+                  customStyle={{
+                    color: item.stocks ? colors.text : colors.primary,
+                  }}
+                  fontSize={item.stocks ? 16 : 25}
+                  fontVariant={item.stocks ? 'medium' : 'bold'}
+                  lineHeight={28}
+                  title={`रु.${item.price.toFixed(2)}`}></TextComponet>
+              ) : null}
+              {item.stocks ? (
+                <TextComponet
+                  customStyle={{
+                    color: colors.primary,
+                  }}
+                  fontSize={25}
+                  fontVariant="bold"
+                  lineHeight={24}
+                  title={`QTY : ${item.stocks} `}></TextComponet>
+              ) : null}
             </View>
           </View>
         </View>

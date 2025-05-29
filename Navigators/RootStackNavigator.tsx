@@ -64,25 +64,9 @@ export const RootStack: React.FC = () => {
 
   return (
     <>
-      {/* {loaderStatus ? (
+      {loaderStatus ? (
         <ProgressBar indeterminate color={colors.primary}></ProgressBar>
-      ) : null} */}
-      <FlashMessage
-        position="top"
-        textStyle={{
-          fontFamily: font.fontFamily,
-          fontSize: SamagraScaller({
-            value: 16,
-            scaleBy: 'height',
-          }),
-          color: colors.text,
-          lineHeight: SamagraScaller({
-            value: 16,
-            scaleBy: 'average',
-          }),
-          fontWeight: 'regular',
-        }}
-      />
+      ) : null}
       <RootStackBuilder.Navigator
         screenOptions={{
           header: () => null,

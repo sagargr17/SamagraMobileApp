@@ -25,9 +25,6 @@ const AppButton = ({
   const dispatch = useAppDispatch();
   return (
     <Button
-      onTouchStart={() => {
-        dispatch(showLoader());
-      }}
       rippleColor={'#ddfcd9'}
       mode={mode}
       textColor={mode === 'outlined' ? colors.text : 'white'}

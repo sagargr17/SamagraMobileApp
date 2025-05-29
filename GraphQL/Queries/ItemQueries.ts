@@ -54,6 +54,10 @@ export const getPersonalItems = gql(`query GetPersonalItems {
       name
       price
       starRating
+      stockQuantity
+      shop {
+        name
+      }
     }
   }
 }

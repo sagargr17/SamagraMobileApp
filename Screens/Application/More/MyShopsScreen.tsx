@@ -16,12 +16,19 @@ import {createNewShop} from '../../../GraphQL/Mutation/ShopMutations';
 import {myShops} from '../../../GraphQL/Queries/PrivateShop';
 import {ShopInputDto} from '../../../src/__generated__/graphql';
 import ConfettiCannon from 'react-native-confetti-cannon';
+import {SamagraScaller} from '../../../Utilities/CustomMethods';
+import {useAppDispatch} from '../../../StateManagement/hooks';
+import {
+  hideLoader,
+  showLoader,
+} from '../../../StateManagement/Error&loadingHandle/LoaderState';
+import {hide} from 'react-native-bootsplash';
 
 interface MyShopsProps {}
 
 export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
   // Themes
-  const {colors} = useTheme();
+  const {colors, fonts} = useTheme();
   const {Shop1, Shop2, WelcomeShop} = Logos;
 
   // Status
@@ -35,8 +42,12 @@ export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
     error: myShopsError,
   } = useQuery(myShops);
 
+  const dispatch = useAppDispatch();
+
   // Handles the Shops Items
   const handlCreateShopSubmit = async (data: ShopInputDto) => {
+    dispatch(showLoader());
+
     try {
       const response = await createNewShopFn({
         variables: {
@@ -52,20 +63,66 @@ export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
       });
       if (response.data) {
         setIsShopCreated(!isShopCreated);
+        dispatch(hideLoader());
+
         showMessage({
           message: 'Shop Added SuccessFully !!',
+          description: 'New Shop Has been Created Please visit It.',
           type: 'success',
+          textStyle: {
+            fontFamily: fonts.regular.fontFamily,
+            fontWeight: 'regular',
+            fontSize: SamagraScaller({
+              value: 14,
+              scaleBy: 'average',
+            }),
+          },
+          statusBarHeight: SamagraScaller({
+            value: 15,
+            scaleBy: 'average',
+          }),
         });
       }
 
       if (response.errors) {
+        dispatch(hideLoader());
         showMessage({
-          message: response.errors[0].message,
+          message: 'Opps, Something Went Wrong!',
           type: 'danger',
+          description: 'Please , try after sometimes',
+          textStyle: {
+            fontFamily: fonts.regular.fontFamily,
+            fontWeight: 'regular',
+            fontSize: SamagraScaller({
+              value: 14,
+              scaleBy: 'average',
+            }),
+          },
+          statusBarHeight: SamagraScaller({
+            value: 15,
+            scaleBy: 'average',
+          }),
         });
       }
     } catch (error) {
-      console.log('Error whilem adding SHop', error);
+      dispatch(hideLoader());
+      showMessage({
+        message: 'Opps, Something Went Wrong!',
+        type: 'danger',
+        description: 'Please , try after sometimes',
+        textStyle: {
+          fontFamily: fonts.regular.fontFamily,
+          fontWeight: 'regular',
+          fontSize: SamagraScaller({
+            value: 14,
+            scaleBy: 'average',
+          }),
+        },
+        statusBarHeight: SamagraScaller({
+          value: 15,
+          scaleBy: 'average',
+        }),
+      });
     }
   };
 
@@ -85,11 +142,6 @@ export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
                 style={{
                   flex: 1,
                 }}>
-                {loading ? (
-                  <ProgressBar
-                    color={colors.primary}
-                    indeterminate></ProgressBar>
-                ) : null}
                 {/* isShopCreated */}
 
                 <ShopDisplayCard
@@ -97,20 +149,6 @@ export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
                     id: `${Math.random()}`,
                     icon: (
                       <>
-                        {isShopCreated ? (
-                          <ConfettiCannon
-                            onAnimationEnd={() => {
-                              console.log('Animation END');
-                              setIsShopCreated(!isShopCreated);
-                            }}
-                            onAnimationStop={() => {
-                              console.log('Annimation popper Stops');
-                              setIsShopCreated(!isShopCreated);
-                            }}
-                            count={2000}
-                            origin={{x: -10, y: 0}}
-                          />
-                        ) : null}
                         <AppForm<ShopInputDto>
                           formConfig={[
                             {
@@ -201,7 +239,7 @@ export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
               ? myShopsData?.getShops?.nodes.map((item, index) => (
                   <MyShopDisplay
                     onCreateNewShop={() => setIsNewShopTabClicked(true)}
-                    key={index}
+                    key={`${index + 1}. ${item?.name} `}
                     shop={{
                       name:
                         myShopsData?.getShops &&

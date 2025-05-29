@@ -42,6 +42,8 @@ class ImageHandler {
         quality: 0.8,
       });
       if (result) {
+        console.log('Sinngle Compressing Image Success::', result);
+
         return {
           uri: result,
           type: 'image/jpeg',
@@ -51,7 +53,7 @@ class ImageHandler {
 
       return null;
     } catch (error) {
-      console.error('Compression error:', error);
+      console.error('Single Compression error:', error);
       return null;
     }
   }

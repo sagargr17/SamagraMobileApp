@@ -1,7 +1,7 @@
 import {useTheme} from '@react-navigation/native';
 import React, {useEffect, useRef} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
-import {TextInput} from 'react-native-paper';
+import {Icon, TextInput} from 'react-native-paper';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
@@ -100,7 +100,7 @@ export const Input: React.FC<InputProps> = ({
               scaleBy: 'height',
             }),
           }}
-          right={right}
+          right={<Icon size={20} source={'eye-outline'} color="red"></Icon>}
         />
       </View>
     </View>

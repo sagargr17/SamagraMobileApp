@@ -12,6 +12,7 @@ import {
   getPersonalItems,
 } from '../../../GraphQL/Queries/ItemQueries';
 import {ApplicationOverlayStackNavigationProp} from '../../../Navigators/Stack/ApplicationOverlayStackNavigator';
+import {SamagraLoader} from '../../../Components/Sections/ErrorHandling/SamagraLoader';
 
 interface ShopItemsScreenProps {}
 
@@ -40,14 +41,14 @@ export const ShopItemsScreen: React.FC<ShopItemsScreenProps> = ({}) => {
             shopName: 'Hamro SHop',
           })
         }>
-        <View key="Pending">
+        <View key="All">
           <>
             {loading ?? <ActivityIndicator />}
-
             {data && data.getItems && data.getItems.nodes ? (
               data.getItems.nodes?.length > 0 ? (
                 <>
                   <FlatList
+                    showsVerticalScrollIndicator={false}
                     onScrollEndDrag={() => {
                       data.getItems?.pageInfo.hasNextPage
                         ? fetchMore({
@@ -67,6 +68,64 @@ export const ShopItemsScreen: React.FC<ShopItemsScreenProps> = ({}) => {
                           imageUrl:
                             'https://img.freepik.com/free-vector/oops-404-error-with-broken-robot-concept-illustration_114360-5529.jpg?semt=ais_hybrid&w=740',
                           rating: item?.starRating ? item.starRating : 3,
+                          shop: {
+                            name:
+                              item?.shop && item.shop.name
+                                ? item.shop.name
+                                : 'not found',
+                          },
+                        }}></ItemListtCard>
+                    )}></FlatList>
+                  {y ?? <SamagraLoader></SamagraLoader>}
+                </>
+              ) : (
+                <>
+                  <Text>No Any Item Founds</Text>
+                </>
+              )
+            ) : (
+              <ActivityIndicator />
+            )}
+          </>
+        </View>
+        <View key="Stocks">
+          <>
+            {loading ?? <ActivityIndicator />}
+
+            {data && data.getItems && data.getItems.nodes ? (
+              data.getItems.nodes?.length > 0 ? (
+                <>
+                  <FlatList
+                    showsVerticalScrollIndicator={false}
+                    onScrollEndDrag={() => {
+                      data.getItems?.pageInfo.hasNextPage
+                        ? fetchMore({
+                            variables: {
+                              after: data.getItems.pageInfo.endCursor,
+                            },
+                          })
+                        : null;
+                    }}
+                    data={data.getItems.nodes}
+                    renderItem={({item, index}) => (
+                      <ItemListtCard
+                        key={index}
+                        item={{
+                          name: item?.name ? item.name : 'not found',
+                          price: item?.price ? item?.price : 'not found',
+                          imageUrl:
+                            'https://img.freepik.com/free-vector/oops-404-error-with-broken-robot-concept-illustration_114360-5529.jpg?semt=ais_hybrid&w=740',
+                          rating: item?.starRating ? item.starRating : 3,
+                          stocks:
+                            item && item.stockQuantity
+                              ? item?.stockQuantity
+                              : 10,
+                          shop: {
+                            name:
+                              item?.shop && item.shop.name
+                                ? item.shop.name
+                                : 'not found',
+                          },
                         }}></ItemListtCard>
                     )}></FlatList>
                   {y ?? <ActivityIndicator></ActivityIndicator>}
@@ -81,10 +140,7 @@ export const ShopItemsScreen: React.FC<ShopItemsScreenProps> = ({}) => {
             )}
           </>
         </View>
-        <TextComponet
-          key={'Stock'}
-          title="Stocks"
-          fontVariant="regular"></TextComponet>
+
         <TextComponet title="Adds" fontVariant="regular"></TextComponet>
         <TextComponet title="Price" fontVariant="regular"></TextComponet>
         <TextComponet title="ItemStatics" fontVariant="regular"></TextComponet>

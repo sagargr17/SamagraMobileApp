@@ -173,11 +173,30 @@ function App(): React.JSX.Element {
     });
   }, []);
 
+  const font = themes.fonts['regular'];
+
   return (
     <GestureHandlerRootView
       style={{
         flex: 1,
       }}>
+      <FlashMessage
+        position="top"
+        textStyle={{
+          fontFamily: font.fontFamily,
+          fontSize: SamagraScaller({
+            value: 16,
+            scaleBy: 'height',
+          }),
+          color: themes.colors.text,
+          lineHeight: SamagraScaller({
+            value: 100,
+            scaleBy: 'average',
+          }),
+          fontWeight: 'regular',
+        }}
+        floating={true}
+      />
       <Provider store={store}>
         <StatusBar
           backgroundColor={themes.colors.background}

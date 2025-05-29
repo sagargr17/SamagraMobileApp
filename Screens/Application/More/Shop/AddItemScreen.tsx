@@ -1,23 +1,22 @@
 import {useMutation, useQuery} from '@apollo/client';
 import {useTheme} from '@react-navigation/native';
 import React, {useState} from 'react';
-import {Alert, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import {showMessage} from 'react-native-flash-message';
 import {Icon, ProgressBar, TouchableRipple} from 'react-native-paper';
 import {TextComponet} from '../../../../Components/Elements/TextComponet';
 import {AppForm} from '../../../../Components/Layout/AppForm';
 import {ImageUploader} from '../../../../Components/Layout/ImageUploader';
 import {createNewProduct} from '../../../../GraphQL/Mutation/ItemMutation';
-import {getPublicItems} from '../../../../GraphQL/Queries/ItemQueries';
 import {SamagraScaller} from '../../../../Utilities/CustomMethods';
 import {CreateProductRequestInput} from '../../../../src/__generated__/graphql';
-import {SamagraAlert} from '../../../../Components/Sections/SamagraAlert';
-import {getLoginUser} from '../../../../GraphQL/Queries/UserQueries';
-import {showMessage} from 'react-native-flash-message';
+import {useAppDispatch} from '../../../../StateManagement/hooks';
+import {hideLoader} from '../../../../StateManagement/Error&loadingHandle/LoaderState';
 
 interface AddItemScreenProps {}
 
 export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
-  const {colors} = useTheme();
+  const {colors, fonts} = useTheme();
   const [image, setImages] = useState<Array<any>>([]);
   const [index, setIndnex] = useState<{
     indexNumber: number;
@@ -109,15 +108,12 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
   );
 
   const [finalImage, setFinalImage] = useState<any>();
-
-  const {data, loading, error} = useQuery(getLoginUser);
-
   const [
     createNewItemFn,
     {data: mutateData, loading: mutateLoading, error: mutateError},
   ] = useMutation(createNewProduct);
+  const dispatch = useAppDispatch();
 
-  // const authenti = GetAuthenticateClient;
   const handleCreateItemSubmit = async (data: CreateProductRequestInput) => {
     try {
       let response = await createNewItemFn({
@@ -139,20 +135,66 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
       console.log('Response Error', response);
 
       if (response.data) {
+        dispatch(hideLoader());
+
         showMessage({
           message: 'Item Added Successfully',
+          description: 'New Shop Has been Created Please visit It.',
+
           type: 'success',
-          // floating: true,
+          textStyle: {
+            fontFamily: fonts.regular.fontFamily,
+            fontWeight: 'regular',
+            fontSize: SamagraScaller({
+              value: 14,
+              scaleBy: 'average',
+            }),
+          },
+          statusBarHeight: SamagraScaller({
+            value: 15,
+            scaleBy: 'average',
+          }),
         });
       }
       if (response.errors) {
+        dispatch(hideLoader());
         showMessage({
-          message: response.errors[0].message,
+          message: 'Opps, Something Went Wrong!',
           type: 'danger',
+          description: 'Please , try after sometimes',
+          textStyle: {
+            fontFamily: fonts.regular.fontFamily,
+            fontWeight: 'regular',
+            fontSize: SamagraScaller({
+              value: 14,
+              scaleBy: 'average',
+            }),
+          },
+          statusBarHeight: SamagraScaller({
+            value: 15,
+            scaleBy: 'average',
+          }),
         });
       }
     } catch (e) {
-      console.log('LOGGg', e);
+      dispatch(hideLoader());
+      showMessage({
+        message: 'Opps, Something Went Wrong!',
+        type: 'danger',
+        description: 'Please , try after sometimes',
+        textStyle: {
+          fontFamily: fonts.regular.fontFamily,
+          fontWeight: 'regular',
+          fontSize: SamagraScaller({
+            value: 14,
+            scaleBy: 'average',
+          }),
+        },
+        statusBarHeight: SamagraScaller({
+          value: 15,
+          scaleBy: 'average',
+        }),
+      });
     }
   };
 
@@ -250,7 +292,7 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
           {
             name: 'location', // Must match a key in LoginFormValues
             label: 'Location',
-            placeholder: '23',
+            placeholder: 'Baneswor, Kathmandu',
             type: 'text', // Custom prop for keyboard type
             rules: {
               maxLength: {
@@ -261,7 +303,7 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
             },
           },
         ]}
-        submitButtonText="Test"
+        submitButtonText="Submit"
         onFormSubmit={handleCreateItemSubmit}></AppForm>
     </>
   );

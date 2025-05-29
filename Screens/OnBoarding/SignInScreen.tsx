@@ -1,6 +1,6 @@
-import {useTheme} from '@react-navigation/native';
-import React, {useState} from 'react';
-import {Controller, useForm} from 'react-hook-form';
+import { useTheme } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -8,22 +8,22 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import {GestureHandlerRootView, ScrollView} from 'react-native-gesture-handler';
-import {heightPercentageToDP} from 'react-native-responsive-screen';
-import {Logos} from '../../Assets/SVG/Exports/Exports';
+import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
+import { Logos } from '../../Assets/SVG/Exports/Exports';
 import Authenticator from '../../client/Token/Authenticator';
 import AppButton from '../../Components/Elements/Button';
-import {ErrorText} from '../../Components/Elements/ErrorText';
-import {Input} from '../../Components/Elements/Input';
-import {Spacer} from '../../Components/Elements/Spacer';
-import {TextComponet} from '../../Components/Elements/TextComponet';
-import {OnBoardingLayout} from '../../Components/Layout/OnBoardingLayout';
-import {ContinueDivider} from '../../Components/Sections/ContinueDivider';
-import {SocialForm} from '../../Components/Sections/SocialForm';
-import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
-import {useAppDispatch} from '../../StateManagement/hooks';
-import {showLoader} from '../../StateManagement/Error&loadingHandle/LoaderState';
+import { ErrorText } from '../../Components/Elements/ErrorText';
+import { Input } from '../../Components/Elements/Input';
+import { Spacer } from '../../Components/Elements/Spacer';
+import { TextComponet } from '../../Components/Elements/TextComponet';
+import { OnBoardingLayout } from '../../Components/Layout/OnBoardingLayout';
+import { ContinueDivider } from '../../Components/Sections/ContinueDivider';
+import { SocialForm } from '../../Components/Sections/SocialForm';
+import { OnBoardingStackNavigationProp } from '../../Navigators/Stack/OnBoardingStackNavigator';
+import { showLoader } from '../../StateManagement/Error&loadingHandle/LoaderState';
+import { useAppDispatch } from '../../StateManagement/hooks';
+import { SamagraScaller } from '../../Utilities/CustomMethods';
 
 interface SignInScreenProps {
   navigation: OnBoardingStackNavigationProp<'SignUpScreen'>;

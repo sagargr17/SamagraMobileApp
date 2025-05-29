@@ -8,6 +8,9 @@ import {
   hideLoader,
   showLoader,
 } from '../../StateManagement/Error&loadingHandle/LoaderState';
+import {showMessage} from 'react-native-flash-message';
+import {MyTheme} from '../../Prefrences/Prefrences';
+import {SamagraScaller} from '../../Utilities/CustomMethods';
 
 interface AuthResponse {
   access_token: string;
@@ -15,7 +18,15 @@ interface AuthResponse {
   error_description?: string;
 }
 
-type Authenticator = (userName: string, password: string) => number | void;
+type Authenticator = (
+  userName: string,
+  password: string,
+) =>
+  | number
+  | {
+      status: string;
+      message: string;
+    };
 async function Authenticator(userName: string, password: string) {
   store.dispatch(showLoader());
   const requestBody = new URLSearchParams({
@@ -27,7 +38,6 @@ async function Authenticator(userName: string, password: string) {
   }).toString();
 
   try {
-    console.log('Inside the Try Block');
     const response = await fetch(API_URL, {
       method: 'POST',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
@@ -40,11 +50,35 @@ async function Authenticator(userName: string, password: string) {
       store.dispatch(hideLoader());
       return 200;
     }
+
+    console.log('Response while calling', data);
+
     return handleAuthErrors(data);
   } catch (error) {
+    console.log('Catch Handle', error);
+    showMessage({
+      message: 'Invalid Credentials',
+      description: 'Your Id or Password may mismatched !',
+      type: 'danger',
+
+      textStyle: {
+        fontFamily: MyTheme.fonts.regular.fontFamily,
+        fontWeight: 'regular',
+        fontSize: SamagraScaller({
+          value: 14,
+          scaleBy: 'average',
+        }),
+      },
+      statusBarHeight: SamagraScaller({
+        value: 15,
+        scaleBy: 'average',
+      }),
+      // hideStatusBar: true,
+    });
     store.dispatch(hideLoader());
-    console.error('Authentication Error:', error);
-    showErrorAlert();
+
+    // console.error('Authentication Error:', error);
+    // showErrorAlert();
     return 400;
   }
 }
@@ -64,9 +98,10 @@ export async function saveTokens(data: AuthResponse): Promise<void> {
     });
     store.dispatch(
       login({
-        id: 1,
-        name: 'sagar',
-        email: 'sagarsoocer@gmail.com',
+        // id: 1,
+        // name: 'sagar',
+        // email: 'sagarsoocer@gmail.com',
+        isAuthenticated: true,
       }),
     );
   } catch (error) {
@@ -81,19 +116,8 @@ function handleAuthErrors(data: AuthResponse): number {
     ERPNNC: 401,
     ERIUC: 402,
   };
-
-  return errorMap[data.error_description || ''] || 400;
-}
-
-function showErrorAlert(): void {
-  Alert.alert(
-    'Something Went Wrong',
-    'Please try again or check your internet connection.',
-    [
-      {text: 'Cancel', onPress: () => null, style: 'cancel'},
-      // {text: 'Ok', onPress: () => BackHandler.exitApp()},
-    ],
-  );
+  let result = errorMap[data.error_description || ''] || 400;
+  return result;
 }
 
 export default Authenticator;
