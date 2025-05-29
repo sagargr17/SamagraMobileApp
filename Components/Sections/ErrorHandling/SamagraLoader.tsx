@@ -34,7 +34,7 @@ export const SamagraLoader: React.FC<SamagraLoaderProps> = ({}) => {
           }),
           opacity: 0.8,
         }}
-        title="Loading"
+        title="Loading.."
         fontSize={18}
         lineHeight={28}
         fontVariant="regular"></TextComponet>

@@ -34,10 +34,10 @@ export const OnBoardingLayout = ({
 
 const styles = StyleSheet.create({
   keyboardContainer: {
-    // flex: 1,
+    flex: 1,
   },
   scrollArea: {
-    // flex: 1,
+    flex: 1,
   },
   header: {
     fontSize: heightPercentageToDP(4),

@@ -12,8 +12,34 @@ import {useQuery} from '@apollo/client';
 import {getLoginUser} from '../../../GraphQL/Queries/UserQueries';
 import {ActivityIndicator} from 'react-native-paper';
 import {ProviderCardSkeleton} from '../../../Components/Sections/ErrorHandling/ProviderCardSkeleton';
+import {UserProfileMiniCard} from '../../../Components/Sections/Cards/UserProfileMiniCard';
 
 interface MoreLandingScreenProps {}
+
+const flexDetailsItems = [
+  {
+    firstRow: [
+      {
+        title: 'History',
+        iconName: 'history',
+      },
+      {
+        title: ' Activity',
+        iconName: 'chart-bar-stacked',
+      },
+    ],
+    secondRow: [
+      {
+        title: 'Favourite',
+        iconName: 'heart-outline',
+      },
+      {
+        title: 'recent',
+        iconName: 'view-comfy',
+      },
+    ],
+  },
+];
 
 export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
   const {colors} = useTheme();
@@ -21,7 +47,47 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
   let userLogoutHandle = () => clearTokens();
   const {data, loading, error} = useQuery(getLoginUser);
 
-  console.log('DATA', data);
+  // Column Navigation
+  const columnDetailsList = [
+    {
+      title: 'Quick Access',
+      iconName: 'basket-unfill',
+      onPress: () => {
+        navigation.navigate('ApplicationOverlay', {
+          screen: 'MyShopItemsScreen',
+          params: {
+            name: 'Hamro Shop',
+          },
+        });
+      },
+      comment: 'Stocks,Orders & Other  Management',
+    },
+    {
+      onPress: () => {
+        navigation.navigate('ApplicationOverlay', {
+          screen: 'MyShopsScreen',
+        });
+      },
+      title: 'Manage Store',
+      variant: 'large',
+      comment: 'Shops, Details and management ',
+      iconName: 'store',
+    },
+    {
+      onPress: () => console.log('Error'),
+      title: 'Personal Account',
+      variant: 'large',
+      comment: 'Profile, Update User',
+      iconName: 'account',
+    },
+    {
+      onPress: () => console.log('Error'),
+      title: 'App Setting',
+      variant: 'large',
+      comment: 'Personal & Shop Setting',
+      iconName: 'wrench',
+    },
+  ];
 
   return (
     <ScrollView
@@ -34,176 +100,59 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
       {loading ?? <ActivityIndicator color="orange"></ActivityIndicator>}
       {error ? <ActivityIndicator color="red"></ActivityIndicator> : null}
       {data && data.getUser && data.getUser.username ? (
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'flex-start',
-            paddingVertical: SamagraScaller({
-              value: 20,
-              scaleBy: 'average',
-            }),
-            borderWidth: 0.3,
-            paddingHorizontal: SamagraScaller({
-              value: 10,
-              scaleBy: 'average',
-            }),
-            borderRadius: 10,
-            borderColor: colors.border,
-          }}>
-          <FastImage
-            style={{
-              height: 60,
-              width: 60,
-              borderRadius: SamagraScaller({
-                scaleBy: 'width',
-                value: 100,
-              }),
-            }}
-            source={{
-              uri: data.getUser.pofileImageUrl
-                ? data.getUser.pofileImageUrl
-                : 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-            }}
-            resizeMode="cover"></FastImage>
-          <View
-            style={{
-              marginLeft: SamagraScaller({
-                value: 8,
-                scaleBy: 'average',
-              }),
-              flex: 0.45,
-            }}>
-            <TextComponet
-              title={data.getUser?.username}
-              customStyle={{
-                textAlign: 'left',
-                marginLeft: SamagraScaller({
-                  value: 5,
-                  scaleBy: 'average',
-                }),
-              }}
-              fontVariant="medium"
-              fontSize={30}
-              lineHeight={35}></TextComponet>
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <TextComponet
-                title="12 Shops"
-                customStyle={{
-                  textAlign: 'left',
-                  marginLeft: SamagraScaller({
-                    value: 5,
-                    scaleBy: 'average',
-                  }),
-                }}
-                fontVariant="regular"
-                fontSize={14}
-                lineHeight={20}></TextComponet>
-              <TextComponet
-                title="1009 Items"
-                customStyle={{
-                  textAlign: 'left',
-                  marginLeft: SamagraScaller({
-                    value: 5,
-                    scaleBy: 'average',
-                  }),
-                }}
-                fontVariant="regular"
-                fontSize={14}
-                lineHeight={20}></TextComponet>
-            </View>
-          </View>
-
-          {/* <TouchableOpacity>
-            <TextComponet
-              title="P"
-              customStyle={{
-                textAlign: 'right',
-                marginLeft: SamagraScaller({
-                  value: 5,
-                  scaleBy: 'average',
-                }),
-                backgroundColor: 'orange',
-                paddingHorizontal: SamagraScaller({
-                  value: 15,
-                  scaleBy: 'average',
-                }),
-                paddingVertical: SamagraScaller({
-                  value: 10,
-                  scaleBy: 'average',
-                }),
-                borderRadius: 45,
-                color: 'white',
-                left: SamagraScaller({
-                  value: 50,
-                  scaleBy: 'width',
-                }),
-              }}
-              fontVariant="bold"
-              fontSize={30}
-              lineHeight={30}></TextComponet>
-          </TouchableOpacity> */}
-        </View>
+        <UserProfileMiniCard
+          user={{
+            username: data.getUser?.username,
+            profileImageUrl: data.getUser.pofileImageUrl
+              ? data.getUser.pofileImageUrl
+              : 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+          }}></UserProfileMiniCard>
       ) : (
         <ProviderCardSkeleton></ProviderCardSkeleton>
       )}
+
       <View
         style={{
           display: 'flex',
           flexDirection: 'row',
-          alignItems: 'center',
+
           justifyContent: 'space-between',
           marginTop: 8,
+          alignItems: 'center',
         }}>
-        <PoppedCard
-          customStyle={{
-            flex: 0.48,
-          }}
-          // comment="Personal Change"
-          onPress={() => console.log('setting')}
-          title="History"
-          variant="large"
-          iconName="history"></PoppedCard>
-        <PoppedCard
-          customStyle={{
-            flex: 0.48,
-          }}
-          // comment="Personal Change"
-          onPress={() => console.log('setting')}
-          title="Activity"
-          variant="small"
-          iconName="chart-bar-stacked"></PoppedCard>
+        {flexDetailsItems[0].firstRow.map((item, index) => (
+          <PoppedCard
+            key={Math.random()}
+            customStyle={{
+              flex: 0.48,
+            }}
+            variant="small"
+            title={item.title}
+            iconName={item.iconName}
+            onPress={() => {
+              // console.log
+            }}></PoppedCard>
+        ))}
       </View>
       <View
         style={{
           display: 'flex',
           flexDirection: 'row',
-          alignItems: 'center',
+
           justifyContent: 'space-between',
+          marginTop: 8,
+          alignItems: 'center',
         }}>
-        <PoppedCard
-          customStyle={{
-            flex: 0.48,
-          }}
-          onPress={() => console.log('setting')}
-          title="Favourite"
-          variant="large"
-          iconName="heart-outline"></PoppedCard>
-        <PoppedCard
-          customStyle={{
-            flex: 0.48,
-          }}
-          // comment="Personal Change"
-          onPress={() => console.log('setting')}
-          title="Recent"
-          variant="small"
-          iconName="view-comfy"></PoppedCard>
+        {flexDetailsItems[0].secondRow.map((item, index) => (
+          <PoppedCard
+            key={index}
+            customStyle={{
+              flex: 0.48,
+            }}
+            variant="small"
+            title={item.title}
+            iconName={item.iconName}></PoppedCard>
+        ))}
       </View>
 
       <View
@@ -213,41 +162,16 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
             scaleBy: 'average',
           }),
         }}>
-        <PoppedCard
-          onPress={() => {
-            navigation.navigate('ApplicationOverlay', {
-              screen: 'ShopItemsScreen',
-              params: {
-                name: 'Hamro Shop',
-              },
-            });
-          }}
-          title="Items"
-          variant="large"
-          comment="Stocks,Orders & Other  Management"
-          iconName="basket-unfill"></PoppedCard>
-        <PoppedCard
-          onPress={() => {
-            navigation.navigate('ApplicationOverlay', {
-              screen: 'MyShopsScreen',
-            });
-          }}
-          title="Manage Store"
-          variant="large"
-          comment="Shops, Details and management "
-          iconName="store"></PoppedCard>
-        <PoppedCard
-          onPress={() => console.log('Error')}
-          title="Personal Account"
-          variant="large"
-          comment="Profile, Update User"
-          iconName="account"></PoppedCard>
-        <PoppedCard
-          onPress={() => console.log('Error')}
-          title="App Setting"
-          variant="large"
-          comment="Personal & Shop Setting"
-          iconName="wrench"></PoppedCard>
+        {columnDetailsList.map((item, index) => (
+          <PoppedCard
+            key={index}
+            variant="large"
+            title={item.title}
+            iconName={item.iconName}
+            onPress={item.onPress}
+            comment={item.comment}></PoppedCard>
+        ))}
+
         <AppButton onPress={userLogoutHandle} color="danger">
           Logout
         </AppButton>

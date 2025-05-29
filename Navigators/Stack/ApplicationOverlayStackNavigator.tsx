@@ -1,26 +1,28 @@
-import {RouteProp, useTheme} from '@react-navigation/native';
+import {RouteProp, useNavigation, useTheme} from '@react-navigation/native';
 import {
   createNativeStackNavigator,
   NativeStackNavigationOptions,
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
 import React from 'react';
+import {View} from 'react-native';
+import {Icon, TouchableRipple} from 'react-native-paper';
 import {SearchBar} from 'react-native-screens';
+import {TextComponet} from '../../Components/Elements/TextComponet';
 import {InstantItemListScreen as OrderListItemListScreen} from '../../Screens/Application/Domain/OrderItemListScreen';
-import {AddItemScreen} from '../../Screens/Application/More/Shop/AddItemScreen';
-import {ShopItemsScreen} from '../../Screens/Application/More/ShopItemsScreen';
-import {ItemDetailScreen} from '../../Screens/OnBoarding/ItemDetailScreen';
-import {titleCase} from '../../Utilities/CustomMethods';
 import {MyShopsScreen} from '../../Screens/Application/More/MyShopsScreen';
-import {ProgressBar} from 'react-native-paper';
+import {AddItemScreen} from '../../Screens/Application/More/Shop/AddItemScreen';
 import {AddShopScreen} from '../../Screens/Application/More/Shop/AddShopScreen';
+import {MyShopItemsScreen} from '../../Screens/Application/More/MyShopItemsScreen';
+import {ItemDetailScreen} from '../../Screens/OnBoarding/ItemDetailScreen';
+import {SamagraScaller, titleCase} from '../../Utilities/CustomMethods';
 
 type ApplicationOverlayMoreStackParamList = {
   OrderListScreen: undefined;
   ItemDetailScreen: {
     name: string;
   };
-  ShopItemsScreen: {
+  MyShopItemsScreen: {
     shopName: string;
   };
   AddItemScreen: {
@@ -53,7 +55,7 @@ export type ItemDetailScreenRouteProp = RouteProp<
 
 export type ShopItemScreenRouteProp = RouteProp<
   ApplicationOverlayMoreStackParamList,
-  'ShopItemsScreen'
+  'MyShopItemsScreen'
 >;
 
 export type AddItemScreenRouteProp = RouteProp<
@@ -80,10 +82,49 @@ const screenBuilder = (
 
 export const ApplicationOverlayStackNavigator: React.FC = () => {
   const {fonts, colors} = useTheme();
+  const navigation = useNavigation<any>();
 
   return (
     <>
-      <ApplicationOverlayStackBuilder.Navigator>
+      <ApplicationOverlayStackBuilder.Navigator
+        screenOptions={{
+          headerRight: () => (
+            <TouchableRipple
+              onPress={() => {
+                navigation.navigate('ApplicationOverlay', {
+                  screen: 'AddShopScreen',
+                });
+              }}>
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  borderWidth: 0.8,
+                  borderRadius: 8,
+                  padding: SamagraScaller({
+                    value: 8,
+                    scaleBy: 'average',
+                  }),
+                  borderColor: colors.border,
+                }}>
+                <Icon
+                  source={'home-edit'}
+                  size={20}
+                  color={colors.primary}></Icon>
+                <TextComponet
+                  title="New Shop"
+                  fontSize={16}
+                  fontVariant="regular"></TextComponet>
+              </View>
+            </TouchableRipple>
+          ),
+          headerBackButtonDisplayMode: 'minimal',
+          headerTitleStyle:{
+            fontWeight:"normal",
+            color:"orange"
+          }
+        }}>
         {screenBuilder([
           {
             screenName: 'OrderListScreen',
@@ -106,8 +147,8 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
             }),
           },
           {
-            screenName: 'ShopItemsScreen',
-            component: ShopItemsScreen,
+            screenName: 'MyShopItemsScreen',
+            component: MyShopItemsScreen,
             option: ({route}: {route: any}) => ({
               title: titleCase(''),
               headerTitleAlign: 'center',
@@ -124,16 +165,17 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
             screenName: 'MyShopsScreen',
             component: MyShopsScreen,
             option: ({route}: {route: any}) => ({
-              title: titleCase(''),
-              headerTitleAlign: 'center',
+              title: titleCase('My Shops'),
+              headerTitleAlign: 'left',
               headerTitleStyle: {
                 fontFamily: fonts.medium.fontFamily,
                 fontSize: 16,
+                
               },
               headerShadowVisible: false,
-              SearchBar,
-              header: () => null,
+              
             }),
+
           },
           {
             screenName: 'AddItemScreen',

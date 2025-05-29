@@ -94,12 +94,11 @@ export const PoppedCard: React.FC<PoppedCardProps> = ({
 const styles = StyleSheet.create({
   viewContainer: {
     borderRadius: SamagraScaller({value: 8, scaleBy: 'average'}),
-    // elevation: 0.4, // For Android shadow
-
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: {width: 0, height: 10},
     shadowOpacity: 1,
     shadowRadius: 10,
     marginVertical: SamagraScaller({value: 5, scaleBy: 'average'}),
+    borderWidth: 0.1,
   },
   contentContainer: {
     flexDirection: 'row',

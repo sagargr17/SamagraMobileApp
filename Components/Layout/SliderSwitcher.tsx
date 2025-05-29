@@ -1,4 +1,10 @@
-import React, {RefObject, useEffect, useRef, useState} from 'react';
+import React, {
+  ReactElement,
+  RefObject,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import {
   Dimensions,
   ScrollView,
@@ -41,14 +47,12 @@ export const SliderSwitcher: React.FC<SliderSwitcherProps> = ({
   }));
   const {width: screenWidth} = Dimensions.get('window');
   const {colors} = useTheme();
-
+  const itemScrollRef = useRef<any>(null);
   const isScrollingByDrag = useRef(false);
 
   const handleTabPress = (index: number) => {
-    if (index !== activeIndex) {
-      setActiveIndex(index);
-      scrollViewRef.current?.scrollTo({x: index * screenWidth, animated: true});
-    }
+    setActiveIndex(index);
+    scrollViewRef.current?.scrollTo({x: index * screenWidth, animated: true});
   };
 
   const handleScroll = (event: any) => {};
@@ -65,9 +69,11 @@ export const SliderSwitcher: React.FC<SliderSwitcherProps> = ({
     const newIndex = Math.round(contentOffset / screenWidth);
 
     // Only update activeIndex if it's genuinely different from the current
-    if (newIndex !== activeIndex) {
-      setActiveIndex(newIndex);
-    }
+    setActiveIndex(newIndex);
+    scrollViewRef.current?.scrollTo({
+      x: newIndex * screenWidth,
+      animated: true,
+    });
   };
 
   useEffect(() => {
@@ -77,7 +83,7 @@ export const SliderSwitcher: React.FC<SliderSwitcherProps> = ({
         animated: true,
       });
     }
-  }, [activeIndex, screenWidth]);
+  }, [screenWidth]);
 
   return (
     <View style={{flex: 1}}>
@@ -96,6 +102,7 @@ export const SliderSwitcher: React.FC<SliderSwitcherProps> = ({
           backgroundColor: colors.background,
         }}>
         <ScrollView
+          ref={itemScrollRef}
           horizontal
           showsHorizontalScrollIndicator={false}
           style={styles.tabBarContainer}>
@@ -106,10 +113,6 @@ export const SliderSwitcher: React.FC<SliderSwitcherProps> = ({
               style={[
                 styles.tabItem,
                 {
-                  backgroundColor:
-                    activeIndex === index
-                      ? 'rgba(46, 204, 112, 0.12)'
-                      : colors.background,
                   borderRadius: SamagraScaller({
                     value: 40,
                     scaleBy: 'average',
@@ -194,7 +197,10 @@ export const SliderSwitcher: React.FC<SliderSwitcherProps> = ({
 };
 
 const styles = StyleSheet.create({
-  tabBarContainer: {},
+  tabBarContainer: {
+    height: 15,
+    backgroundColor: 'orang',
+  },
   tabItem: {
     paddingHorizontal: 25,
     alignItems: 'center',

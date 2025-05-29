@@ -22,6 +22,7 @@ import WelcomeShop from '../SVGImages/WelcomeShop';
 import InternetUnAvailable from '../SVGImages/InternetUnAvailable';
 import NoItemFound from '../SVGImages/NoItemFound';
 import ServerDown from '../SVGImages/ServerDown';
+import Construction from '../SVGImages/construction';
 
 export const Logos = {
   AppleLogo,
@@ -48,4 +49,5 @@ export const Logos = {
   InternetUnAvailable,
   NoItemFound,
   ServerDown,
+  Construction,
 };

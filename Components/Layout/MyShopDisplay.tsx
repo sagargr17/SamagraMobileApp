@@ -27,20 +27,20 @@ interface MyShopDisplayProps {
     onManageStocksNavigationHandle?: () => void;
     onHitoryNavigationHandle?: () => void;
   };
-  onCreateNewShop: () => void;
+  // onCreateNewShop: () => void;
 }
 
 export const MyShopDisplay: React.FC<MyShopDisplayProps> = ({
   shop,
   navigationHandles,
-  onCreateNewShop,
+  // onCreateNewShop,
 }) => {
   const {colors} = useTheme();
 
   return (
     <>
       <View
-        key="Hamro Retal Shop"
+        key={shop.name}
         style={{
           paddingHorizontal: SamagraScaller({
             value: 14,
@@ -105,10 +105,15 @@ export const MyShopDisplay: React.FC<MyShopDisplayProps> = ({
             </>
           ) : null}
         </ScrollView>
-
         <SamagraBottomSheet
           children={() => (
-            <View>
+            <View
+              style={{
+                paddingBottom: SamagraScaller({
+                  value: 15,
+                  scaleBy: 'height',
+                }),
+              }}>
               <View
                 style={{
                   display: 'flex',
@@ -209,9 +214,6 @@ export const MyShopDisplay: React.FC<MyShopDisplayProps> = ({
                   Close Shop
                 </AppButton>
               </View>
-              <AppButton onPress={() => onCreateNewShop()}>
-                Create New Shop
-              </AppButton>
             </View>
           )}
           isOppen={true}
