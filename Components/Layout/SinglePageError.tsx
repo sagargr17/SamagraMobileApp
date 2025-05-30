@@ -1,9 +1,9 @@
 import React from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useTheme} from '@react-navigation/native';
-import {TextComponet} from '../../Elements/TextComponet';
-import AppButton from '../../Elements/Button';
-import {SamagraScaller} from '../../../Utilities/CustomMethods';
+import {TextComponet} from '../Elements/TextComponet';
+import AppButton from '../Elements/Button';
+import {SamagraScaller} from '../../Utilities/CustomMethods';
 interface SingnlePageErrorProps {
   detail: {
     icon: any;

@@ -5,7 +5,7 @@ import {SamagraScaller} from '../../../Utilities/CustomMethods';
 import {SamagraBottomSheet} from '../../../Components/Sections/SamagraBottomSheet';
 import {TextComponet} from '../../../Components/Elements/TextComponet';
 import {PairButtons} from '../../../Components/Sections/PairButtons';
-import {SingnlePageError} from '../../../Components/Sections/ErrorHandling/SinglePageError';
+import {SingnlePageError} from '../../../Components/Layout/SinglePageError';
 import {Logos} from '../../../Assets/SVG/Exports/Exports';
 
 interface OrderItemListScreenProps {}

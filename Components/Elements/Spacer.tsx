@@ -1,5 +1,5 @@
-import {View} from 'react-native';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
+import { View } from 'react-native';
+import { SamagraScaller } from '../../Utilities/CustomMethods';
 
 export const Spacer = ({
   height = SamagraScaller({

@@ -20,8 +20,8 @@ import {Logos} from './Assets/SVG/Exports/Exports';
 import {accessTokenGenerator} from './client/Token/AccessTokenGenerator';
 import {getTokens} from './client/Token/TokenAccess';
 import {isTokenExpired} from './client/Token/TokeValidator';
-import {SamagraLoader} from './Components/Sections/ErrorHandling/SamagraLoader';
-import {SingnlePageError} from './Components/Sections/ErrorHandling/SinglePageError';
+import {SamagraLoader} from './Components/Sections/RequestHandling/Loading/SamagraLoader';
+import {SingnlePageError} from './Components/Layout/SinglePageError';
 import {GRAPHQL_ENDPOINT} from './Constants/SamagraConstants/SamagraEndpoints';
 import {useTokenRefreshTimer} from './CustomHooks/useTokenRefreshTimer';
 import {RootStack} from './Navigators/RootStackNavigator';
@@ -80,6 +80,7 @@ function App(): React.JSX.Element {
   }); //Active == true | No Internet  ==
   const [serverError, setServerError] = useState<boolean>(false); //Active == true | No Internet  ==
   const {InternetUnAvailable, ServerDown} = Logos;
+  const font = themes.fonts['regular'];
 
   // Refreshing Time checker
   // It Checks Weather the client SErver is Working Fine or not
@@ -111,29 +112,33 @@ function App(): React.JSX.Element {
       })
       .then(x => BootSplash.hide({fade: true}))
       .catch(error => console.log('Error::', error));
-
-    // const hide = () => {
-
-    // };
-
-    // return () => null;
   }, [refreshingTime, internetStatus, scheme]);
   // const {data, loading, error}  = useQuery()
 
   // UserBased Login
   useEffect(() => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
     const getUserStatusHandle = async () => {
-      const {userStatus} = await getTokens();
-
-      userStatus === 'true'
-        ? store.dispatch(
-            login({
-              isAuthenticated: true,
-            }),
-          )
-        : store.dispatch(logout());
+      try {
+        const {userStatus} = await getTokens();
+        userStatus === 'true'
+          ? store.dispatch(
+              login({
+                isAuthenticated: true,
+              }),
+            )
+          : store.dispatch(logout());
+      } catch (e) {
+        abortController.abort();
+      } finally {
+      }
     };
     getUserStatusHandle();
+
+    return () => {
+      abortController.abort();
+    };
   }, []);
 
   //This is the code for the refresh token , when the app is coming from , background to foreground
@@ -142,8 +147,6 @@ function App(): React.JSX.Element {
 
     if (userStatus && userStatus === 'true') {
       const refreshTimeCollector = await isTokennExpireHandle();
-      console.log('?>>>>', refreshTimeCollector);
-
       typeof refreshTimeCollector === 'number' &&
       refreshTimeCollector !== refreshingTime
         ? setRefreshingTime(refreshTimeCollector * 1000)
@@ -166,9 +169,8 @@ function App(): React.JSX.Element {
         console.warn('Camera permission not granted!');
       }
     });
+    return () => {};
   }, []);
-
-  const font = themes.fonts['regular'];
 
   return (
     <GestureHandlerRootView
@@ -203,8 +205,7 @@ function App(): React.JSX.Element {
         <NavigationContainer theme={themes}>
           {internetStatus.loading === true ? (
             <></>
-          ) : // <SamagraLoader></SamagraLoader>
-          internetStatus.status === true ? (
+          ) : internetStatus.status === true ? (
             serverError ? ( // change this to serverError while in production
               <SingnlePageError
                 detail={{

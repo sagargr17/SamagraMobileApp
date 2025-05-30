@@ -1,21 +1,19 @@
-import {useIsFocused} from '@react-navigation/native';
-import React, {useMemo, useState} from 'react';
+import FastImage from '@d11/react-native-fast-image';
+import { useIsFocused } from '@react-navigation/native';
+import React, { useMemo, useState } from 'react';
 import {
   ActivityIndicator,
   SafeAreaView,
-  StatusBar,
   StyleSheet,
   Text,
-  View,
+  View
 } from 'react-native';
-import FastImage from '@d11/react-native-fast-image';
+import { useTheme } from 'react-native-paper';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 import AppButton from '../Elements/Button';
-import {useTheme} from 'react-native-paper';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
 
 interface Item {
   id: number;

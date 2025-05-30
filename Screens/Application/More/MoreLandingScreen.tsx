@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {ScrollView, TouchableOpacity, View} from 'react-native';
 import {clearTokens} from '../../../client/Token/TokenAccess';
 import FastImage from '@d11/react-native-fast-image';
@@ -8,10 +8,10 @@ import {TextComponet} from '../../../Components/Elements/TextComponet';
 import {PoppedCard} from '../../../Components/Sections/Cards/PoppedCard';
 import {SamagraScaller} from '../../../Utilities/CustomMethods';
 import {useAppSelector} from '../../../StateManagement/hooks';
-import {useQuery} from '@apollo/client';
+import {useLazyQuery, useQuery} from '@apollo/client';
 import {getLoginUser} from '../../../GraphQL/Queries/UserQueries';
 import {ActivityIndicator} from 'react-native-paper';
-import {ProviderCardSkeleton} from '../../../Components/Sections/ErrorHandling/ProviderCardSkeleton';
+import {ProviderCardSkeleton} from '../../../Components/Sections/RequestHandling/Loading/Skeletons/ProviderCardSkeleton';
 import {UserProfileMiniCard} from '../../../Components/Sections/Cards/UserProfileMiniCard';
 
 interface MoreLandingScreenProps {}
@@ -45,7 +45,8 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
   const {colors} = useTheme();
   const navigation = useNavigation<any>();
   let userLogoutHandle = () => clearTokens();
-  const {data, loading, error} = useQuery(getLoginUser);
+  const [getLoginUserQuery, {data, loading, error}] =
+    useLazyQuery(getLoginUser);
 
   // Column Navigation
   const columnDetailsList = [
@@ -88,6 +89,12 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
       iconName: 'wrench',
     },
   ];
+
+  useEffect(() => {
+    getLoginUserQuery();
+
+    return () => {};
+  }, []);
 
   return (
     <ScrollView

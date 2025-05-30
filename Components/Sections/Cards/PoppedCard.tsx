@@ -7,6 +7,7 @@ import {
   ViewStyle,
   Dimensions,
   TouchableHighlight,
+  TouchableWithoutFeedbackBase,
 } from 'react-native';
 import {SamagraScaller} from '../../../Utilities/CustomMethods';
 import {TextComponet} from '../../Elements/TextComponet';
@@ -42,8 +43,8 @@ export const PoppedCard: React.FC<PoppedCardProps> = ({
       : SamagraScaller({value: 150, scaleBy: 'average'}); // Example small width
 
   return (
-    <TouchableHighlight
-      underlayColor={'#e3e3e3'}
+    <TouchableRipple
+      // underlayColor={'#e3e3e3'}
       style={[
         styles.viewContainer,
         {
@@ -87,7 +88,7 @@ export const PoppedCard: React.FC<PoppedCardProps> = ({
         </View>
         {children && <View style={styles.childrenContainer}>{children}</View>}
       </View>
-    </TouchableHighlight>
+    </TouchableRipple>
   );
 };
 

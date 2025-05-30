@@ -1,23 +1,20 @@
+import { useTheme } from '@react-navigation/native';
 import React, {
-  ReactElement,
-  RefObject,
   useEffect,
   useRef,
-  useState,
+  useState
 } from 'react';
 import {
   Dimensions,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
-  View,
-  ViewStyle,
+  View
 } from 'react-native';
-import {TextComponet} from '../Elements/TextComponet';
-import {useTheme} from '@react-navigation/native';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
-import {Icon, Surface} from 'react-native-paper';
+import { Surface } from 'react-native-paper';
+import { SamagraScaller } from '../../Utilities/CustomMethods';
 import AppButton from '../Elements/Button';
+import { TextComponet } from '../Elements/TextComponet';
 
 interface SliderSwitcherProps {
   children: React.ReactNode;

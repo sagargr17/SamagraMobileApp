@@ -1,13 +1,9 @@
 import {useTheme} from '@react-navigation/native';
 import React, {useEffect, useRef} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {Icon, TextInput} from 'react-native-paper';
-import {
-  heightPercentageToDP,
-  widthPercentageToDP,
-} from 'react-native-responsive-screen';
-import {TextComponet} from './TextComponet';
 import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {TextComponet} from './TextComponet';
 // import {EvilIcons} from 'react-native-vector-icons/';
 
 interface InputProps extends React.ComponentProps<typeof TextInput> {
@@ -32,11 +28,11 @@ export const Input: React.FC<InputProps> = ({
   const {colors, fonts} = useTheme();
   const inputRef: any = useRef(null);
 
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (inputRef.current) {
+  //     inputRef.current.focus();
+  //   }
+  // }, []);
 
   return (
     <View style={styles.inputContainer}>

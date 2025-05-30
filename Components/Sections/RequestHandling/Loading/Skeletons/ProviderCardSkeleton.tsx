@@ -7,7 +7,7 @@ import {
 } from 'react-native-gradient-shimmer';
 import LinearGradient from 'react-native-linear-gradient';
 import {PaperProvider} from 'react-native-paper';
-import {SamagraScaller} from '../../../Utilities/CustomMethods';
+import {SamagraScaller} from '../../../../../Utilities/CustomMethods';
 
 interface ProviderCardSkeletonProps {}
 

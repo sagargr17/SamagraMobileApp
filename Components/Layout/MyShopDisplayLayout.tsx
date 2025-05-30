@@ -9,7 +9,7 @@ import {Badge, Icon, Surface} from 'react-native-paper';
 import FastImage from '@d11/react-native-fast-image';
 import {TextComponet} from '../Elements/TextComponet';
 import AppButton from '../Elements/Button';
-interface MyShopDisplayProps {
+interface MyShopDisplayLayoutProps {
   shop: {
     name: string;
     aboutShop: string;
@@ -30,7 +30,7 @@ interface MyShopDisplayProps {
   // onCreateNewShop: () => void;
 }
 
-export const MyShopDisplay: React.FC<MyShopDisplayProps> = ({
+export const MyShopDisplayLayout: React.FC<MyShopDisplayLayoutProps> = ({
   shop,
   navigationHandles,
   // onCreateNewShop,

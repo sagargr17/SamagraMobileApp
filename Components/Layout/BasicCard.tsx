@@ -1,8 +1,8 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity, View, ViewStyle} from 'react-native';
+import { View, ViewStyle } from 'react-native';
 
-import {useTheme} from '@react-navigation/native';
-import {TextComponet} from '../Elements/TextComponet';
+import { useTheme } from '@react-navigation/native';
+import { TextComponet } from '../Elements/TextComponet';
 interface BasicCardProps {
   item: Array<{
     name: string;

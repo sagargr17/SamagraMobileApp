@@ -40,7 +40,6 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
   // Galley Image Pickers
   const imageFromGallery = async () => {
     let GalleryImages: any = await ImageHandler.selectFromGallery();
-    console.log('>>>>', GalleryImages);
     setImages(GalleryImages);
     setFinalImage(GalleryImages);
 
@@ -175,11 +174,8 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
                       <TouchableRipple
                         onPress={() => setIsCameraActive(!isCameraActive)}
                         style={{
-                          // top: 2,
-                          //   backgroundColor: 'gray',
                           opacity: 0.8,
                           borderRadius: 45,
-
                           height: SamagraScaller({
                             value: 50,
                             scaleBy: 'height',

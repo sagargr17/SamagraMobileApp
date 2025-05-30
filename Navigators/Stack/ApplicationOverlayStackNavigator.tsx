@@ -91,6 +91,7 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
           headerRight: () => (
             <TouchableRipple
               onPress={() => {
+                console.log('Nanvigation');
                 navigation.navigate('ApplicationOverlay', {
                   screen: 'AddShopScreen',
                 });
@@ -120,10 +121,10 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
             </TouchableRipple>
           ),
           headerBackButtonDisplayMode: 'minimal',
-          headerTitleStyle:{
-            fontWeight:"normal",
-            color:"orange"
-          }
+          headerTitleStyle: {
+            fontWeight: 'normal',
+            color: 'orange',
+          },
         }}>
         {screenBuilder([
           {
@@ -170,12 +171,9 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
               headerTitleStyle: {
                 fontFamily: fonts.medium.fontFamily,
                 fontSize: 16,
-                
               },
               headerShadowVisible: false,
-              
             }),
-
           },
           {
             screenName: 'AddItemScreen',

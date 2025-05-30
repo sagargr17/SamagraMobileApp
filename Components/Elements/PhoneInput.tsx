@@ -1,11 +1,11 @@
+import {useTheme} from '@react-navigation/native';
 import React, {useEffect, useRef} from 'react';
-import {StyleSheet, TextInput, View, Text} from 'react-native';
+import {StyleSheet, Text, TextInput, View} from 'react-native';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
-import {useTheme} from '@react-navigation/native';
 import {SamagraScaller} from '../../Utilities/CustomMethods';
 
 interface PhoneInputProps extends React.ComponentProps<typeof TextInput> {

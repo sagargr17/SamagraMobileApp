@@ -10,7 +10,7 @@ import {SamagraScaller, titleCase} from '../../Utilities/CustomMethods';
 import {Counter} from '../../Components/Sections/Counter';
 import {ItemCheckOut} from '../../Components/Sections/ItemCheckOut';
 import {CommentLayout} from '../../Components/Layout/CommentLayout';
-import {SamagraLoader} from '../../Components/Sections/ErrorHandling/SamagraLoader';
+import {SamagraLoader} from '../../Components/Sections/RequestHandling/Loading/SamagraLoader';
 import {useAppDispatch} from '../../StateManagement/hooks';
 import {
   hideLoader,

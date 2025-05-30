@@ -2,8 +2,7 @@ import {useTheme} from '@react-navigation/native';
 import React from 'react';
 import {Text} from 'react-native-paper';
 import {SamagraScaller} from '../../Utilities/CustomMethods';
-import { TextStyle } from 'react-native';
-
+import {TextStyle} from 'react-native';
 
 interface TextComponetProps {
   title: string;

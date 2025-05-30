@@ -11,7 +11,7 @@ import {Text} from 'react-native-paper';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
 
 export const OnBoardingLayout = ({
-  children,
+children,
   header,
 }: {
   children: React.ReactNode;

@@ -1,6 +1,6 @@
 import React from 'react';
+import {TouchableOpacity} from 'react-native';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
-import {TouchableOpacity, View} from 'react-native';
 import {SamagraScaller} from '../../Utilities/CustomMethods';
 
 interface NotifcaitonIconProps {}

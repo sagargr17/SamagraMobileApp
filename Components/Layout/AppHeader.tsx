@@ -1,13 +1,12 @@
+import {useTheme} from '@react-navigation/native';
 import {View} from 'moti';
 import React from 'react';
+import {StyleSheet} from 'react-native';
+import {IconButton} from 'react-native-paper';
+import {Logos} from '../../Assets/SVG/Exports/Exports';
+import {SamagraScaller} from '../../Utilities/CustomMethods';
 import {NotifcaitonIcon} from '../Elements/NotifcaitonIcon';
 import {TextComponet} from '../Elements/TextComponet';
-import {Logos} from '../../Assets/SVG/Exports/Exports';
-import {useTheme} from '@react-navigation/native';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
-import {StyleSheet} from 'react-native';
-import FastImage from '@d11/react-native-fast-image';
-import {Button, Icon, IconButton} from 'react-native-paper';
 
 interface AppHeaderProps {
   currentPosition: 'absolute' | 'relative' | 'static';
@@ -105,7 +104,6 @@ const styles = StyleSheet.create({
     top: 1,
     zIndex: 2,
     alignItems: 'center',
-    // justifyContent: 'space-evenly',
     marginHorizontal: SamagraScaller({
       scaleBy: 'width',
       value: 10,

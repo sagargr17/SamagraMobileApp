@@ -1,40 +1,92 @@
 import {useTheme} from '@react-navigation/native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {SliderSwitcher} from '../../../Components/Layout/SliderSwitcher';
 
-import {useMutation, useQuery} from '@apollo/client';
-import {StyleSheet, View} from 'react-native';
-import {MyShopDisplay} from '../../../Components/Layout/MyShopDisplay';
-import {SamagraLoader} from '../../../Components/Sections/ErrorHandling/SamagraLoader';
+import {useLazyQuery, useMutation, useQuery} from '@apollo/client';
+import {ActivityIndicatorComponent, StyleSheet, View} from 'react-native';
+import {MyShopDisplayLayout} from '../../../Components/Layout/MyShopDisplayLayout';
+import {SamagraLoader} from '../../../Components/Sections/RequestHandling/Loading/SamagraLoader';
 import {createNewShop} from '../../../GraphQL/Mutation/ShopMutations';
 import {myShops} from '../../../GraphQL/Queries/PrivateShop';
 import {useAppDispatch} from '../../../StateManagement/hooks';
+import {ActivityIndicator, Text} from 'react-native-paper';
 
 interface MyShopsProps {}
 
 export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
   // Themes
   const {fonts} = useTheme();
+  const dispatch = useAppDispatch();
+
   // const navigationn
 
   // Status
   const [createNewShopFn, {data, loading, error}] = useMutation(createNewShop);
   const [isShopCreated, setIsShopCreated] = useState<boolean>(false);
-  const {
-    data: myShopsData,
-    loading: myShopsLoading,
-    error: myShopsError,
-  } = useQuery(myShops, {
-    fetchPolicy: 'network-only',
+  const [
+    myShopsQuery,
+    {data: myShopsData, loading: myShopsLoading, error: myShopsError},
+  ] = useLazyQuery(myShops, {
+    fetchPolicy: 'cache-and-network',
   });
 
-  const dispatch = useAppDispatch();
+  useEffect(() => {
+    myShopsQuery();
 
-  // Handles the Shops Items
+    return () => {};
+  }, []);
 
+  let index = 0;
   return (
     <>
       {myShopsLoading ? (
+        <SamagraLoader></SamagraLoader>
+      ) : (
+        <MyShopDisplayLayout
+          // onCreateNewShop={() => setIsNewShopTabClicked(true)}
+          key={`${index + 1} `}
+          shop={{
+            name:
+              myShopsData?.getShops &&
+              myShopsData.getShops.nodes &&
+              myShopsData.getShops.nodes[index]?.aboutShop
+                ? myShopsData.getShops.nodes[index]?.aboutShop
+                : 'not mentioned',
+            aboutShop:
+              myShopsData?.getShops &&
+              myShopsData.getShops.nodes &&
+              myShopsData.getShops.nodes[index]?.aboutShop
+                ? myShopsData.getShops.nodes[index]?.aboutShop
+                : 'not mentioned',
+            phoneNumber:
+              myShopsData &&
+              myShopsData.getShops?.nodes &&
+              myShopsData.getShops?.nodes.length > 0 &&
+              myShopsData.getShops.nodes[index]?.phoneNumber
+                ? myShopsData.getShops.nodes[index].phoneNumber
+                : 'not mentioned',
+            stars: {
+              stars: 3,
+            },
+            location:
+              myShopsData &&
+              myShopsData.getShops?.nodes &&
+              myShopsData.getShops?.nodes.length > 0 &&
+              myShopsData.getShops.nodes[index]?.location
+                ? myShopsData.getShops.nodes[index].location
+                : 'not mentioned',
+            profileImageUrl: '',
+          }}
+          navigationHandles={{
+            onHitoryNavigationHandle: () => console.log('going'),
+            onManageStocksNavigationHandle: () => console.log('going'),
+            onProductNavigationHandle: () => console.log('going'),
+            onServiceNavigationHadle: () => console.log('going'),
+            onPendingOrdersNavigationHandle: () => console.log('going'),
+          }}></MyShopDisplayLayout>
+      )}
+
+      {/* {myShopsLoading ? (
         <SamagraLoader></SamagraLoader>
       ) : (
         <View
@@ -47,7 +99,7 @@ export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
             myShopsData.getShops.nodes &&
             myShopsData.getShops.nodes.length > 0
               ? myShopsData?.getShops?.nodes.map((item, index) => (
-                  <MyShopDisplay
+                  <MyShopDisplayLayout
                     // onCreateNewShop={() => setIsNewShopTabClicked(true)}
                     key={`${index + 1}. ${item?.name} `}
                     shop={{
@@ -90,12 +142,12 @@ export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
                       onServiceNavigationHadle: () => console.log('going'),
                       onPendingOrdersNavigationHandle: () =>
                         console.log('going'),
-                    }}></MyShopDisplay>
+                    }}></MyShopDisplayLayout>
                 ))
               : null}
           </SliderSwitcher>
         </View>
-      )}
+      )} */}
     </>
   );
 };

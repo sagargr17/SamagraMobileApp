@@ -1,14 +1,11 @@
-import React, {useState} from 'react';
-import {FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {TextComponet} from '../Elements/TextComponet';
+import React, { useState } from 'react';
+import { TouchableOpacity, View } from 'react-native';
+import { TextComponet } from '../Elements/TextComponet';
 
-import {SamagraScaller} from '../../Utilities/CustomMethods';
-import {CommentCard} from '../Sections/Cards/CommentCard';
-import {useTheme} from '@react-navigation/native';
-import {Divider} from 'react-native-paper';
-import {Item} from 'react-native-paper/lib/typescript/components/Drawer/Drawer';
-import {SamagraBottomSheet} from '../Sections/SamagraBottomSheet';
-import {Input} from '../Elements/Input';
+import { useTheme } from '@react-navigation/native';
+import { SamagraScaller } from '../../Utilities/CustomMethods';
+import { CommentCard } from '../Sections/Cards/CommentCard';
+import { SamagraBottomSheet } from '../Sections/SamagraBottomSheet';
 interface CommentLayoutProps {
   onCloseHandle?: (status: any) => void;
 }

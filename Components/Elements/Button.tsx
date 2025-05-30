@@ -3,9 +3,8 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import {Button} from 'react-native-paper';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
 import {useAppDispatch} from '../../StateManagement/hooks';
-import {showLoader} from '../../StateManagement/Error&loadingHandle/LoaderState';
+import {SamagraScaller} from '../../Utilities/CustomMethods';
 
 interface AppButtonProps extends React.ComponentProps<typeof Button> {
   color?: 'primary' | 'secondary' | 'light' | 'danger';

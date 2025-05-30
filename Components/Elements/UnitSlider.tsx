@@ -27,7 +27,6 @@ export const UnitSlider: React.FC<UnitSliderProps> = ({
   const min = useSharedValue(sliderOption.min);
   const max = useSharedValue(10);
 
-  
   return (
     <View
       style={{
