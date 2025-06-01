@@ -2,8 +2,8 @@ import React from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {Swing, Chase} from 'react-native-animated-spinkit';
-import {AreaMapper} from '../../../../Utilities/CustomMethods';
-import {TextComponet} from '../../../Elements/TextComponet';
+import {AreaMapper} from '../../../Utilities/CustomMethods';
+import {TextComponet} from '../../Elements/TextComponet';
 
 interface SamagraLoaderProps {}
 

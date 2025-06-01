@@ -7,7 +7,7 @@ import {
 } from 'react-native-gradient-shimmer';
 import LinearGradient from 'react-native-linear-gradient';
 import {PaperProvider} from 'react-native-paper';
-import {AreaMapper} from '../../../../../Utilities/CustomMethods';
+import {AreaMapper} from '../../../../Utilities/CustomMethods';
 
 interface ProviderCardSkeletonProps {}
 

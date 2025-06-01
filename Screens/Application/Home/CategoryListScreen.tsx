@@ -1,7 +1,7 @@
 import {useTheme} from '@react-navigation/native';
 import React from 'react';
 import {ItemCategoryCardSlider} from '../../../Components/Layout/ItemCategorySlider';
-import {SamagraLoader} from '../../../Components/Sections/RequestHandling/Loading/SamagraLoader';
+import {SamagraLoader} from '../../../Components/Sections/Loading/SamagraLoader';
 interface CategoryListScreenProps {}
 
 export const CategoryListScreen: React.FC<CategoryListScreenProps> = ({}) => {

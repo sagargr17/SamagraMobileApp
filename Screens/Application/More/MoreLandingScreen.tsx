@@ -11,7 +11,7 @@ import {useAppSelector} from '../../../StateManagement/hooks';
 import {useLazyQuery, useQuery} from '@apollo/client';
 import {getLoginUser} from '../../../GraphQL/Queries/UserQueries';
 import {ActivityIndicator} from 'react-native-paper';
-import {ProviderCardSkeleton} from '../../../Components/Sections/RequestHandling/Loading/Skeletons/ProviderCardSkeleton';
+import {ProviderCardSkeleton} from '../../../Components/Sections/Loading/Skeletons/ProviderCardSkeleton';
 import {UserProfileMiniCard} from '../../../Components/Sections/Cards/UserProfileMiniCard';
 
 interface MoreLandingScreenProps {}

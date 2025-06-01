@@ -5,7 +5,7 @@ import {SliderSwitcher} from '../../../Components/Layout/SliderSwitcher';
 import {useLazyQuery, useMutation, useQuery} from '@apollo/client';
 import {ActivityIndicatorComponent, StyleSheet, View} from 'react-native';
 import {MyShopDisplayLayout} from '../../../Components/Layout/MyShopDisplayLayout';
-import {SamagraLoader} from '../../../Components/Sections/RequestHandling/Loading/SamagraLoader';
+import {SamagraLoader} from '../../../Components/Sections/Loading/SamagraLoader';
 import {createNewShop} from '../../../GraphQL/Mutation/ShopMutations';
 import {myShops} from '../../../GraphQL/Queries/PrivateShop';
 import {useAppDispatch} from '../../../StateManagement/hooks';

@@ -20,7 +20,7 @@ import {Logos} from './Assets/SVG/Exports/Exports';
 import {accessTokenGenerator} from './client/Token/AccessTokenGenerator';
 import {getTokens} from './client/Token/TokenAccess';
 import {isTokenExpired} from './client/Token/TokeValidator';
-import {SamagraLoader} from './Components/Sections/RequestHandling/Loading/SamagraLoader';
+import {SamagraLoader} from './Components/Sections/Loading/SamagraLoader';
 import {SingnlePageError} from './Components/Layout/SinglePageError';
 import {GRAPHQL_ENDPOINT} from './Constants/SamagraConstants/SamagraEndpoints';
 import {useTokenRefreshTimer} from './CustomHooks/useTokenRefreshTimer';

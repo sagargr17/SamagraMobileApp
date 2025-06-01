@@ -5,7 +5,7 @@ import React, {useEffect, useState} from 'react';
 import {FlatList, Text} from 'react-native';
 import {SliderSwitcher} from '../../../Components/Layout/SliderSwitcher';
 import {ItemListtCard} from '../../../Components/Sections/Cards/ItemListCard';
-import {SamagraLoader} from '../../../Components/Sections/RequestHandling/Loading/SamagraLoader';
+import {SamagraLoader} from '../../../Components/Sections/Loading/SamagraLoader';
 import {getPersonalItems} from '../../../GraphQL/Queries/ItemQueries';
 import {ApplicationOverlayStackNavigationProp} from '../../../Navigators/Stack/ApplicationOverlayStackNavigator';
 import {GetAuthenticateClient} from '../../../client/Graphql/AuthenticatedClient';
@@ -25,7 +25,6 @@ export const MyShopItemsScreen: React.FC<MyShopItemsScreenProps> = ({}) => {
 
   // const authenticatedClient = GetAuthenticateClient;
   // const [data, setData] = useState();
-
   // Calling the Effect
   useEffect(() => {
     console.log('Component is focused:', isFocused);
