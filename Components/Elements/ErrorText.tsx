@@ -1,7 +1,7 @@
 import {useTheme} from '@react-navigation/native';
 import {StyleSheet} from 'react-native';
 import {Text} from 'react-native-paper';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {AreaMapper} from '../../Utilities/CustomMethods';
 
 interface ErrorTextProps {
   children: React.ReactNode;
@@ -24,7 +24,7 @@ export const ErrorText = ({children}: ErrorTextProps) => {
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: SamagraScaller({
+    fontSize: AreaMapper({
       value: 15,
       scaleBy: 'average',
     }),

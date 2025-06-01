@@ -6,8 +6,8 @@ import { Spacer } from '../../../Components/Elements/Spacer';
 import { AppHeader } from '../../../Components/Layout/AppHeader';
 import { ItemCardVerticleSlider } from '../../../Components/Layout/ItemCardVerticleSlider';
 import { ItemCategoryCardSlider } from '../../../Components/Layout/ItemCategorySlider';
-import SamagraBanner from '../../../Components/Sections/SamagraBanner';
-import { SamagraSerchBar } from '../../../Components/Sections/SamagraSerchBar';
+import AppBanner from '../../../Components/Sections/AppBanner';
+import { AppSerchBar } from '../../../Components/Sections/AppSerchBar';
 
 interface HomeLandingScreenProps {}
 
@@ -29,13 +29,13 @@ export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
       <Divider></Divider>
       <Spacer height={15}></Spacer>
 
-      <SamagraSerchBar
+      <AppSerchBar
         onPress={() =>
           navigation.navigate('ItemDetailScreen', {
             name: 'Titan Watch',
           })
-        }></SamagraSerchBar>
-      <SamagraBanner></SamagraBanner>
+        }></AppSerchBar>
+      <AppBanner></AppBanner>
 
       <Spacer></Spacer>
 

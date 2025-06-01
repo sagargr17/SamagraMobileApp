@@ -4,7 +4,7 @@ import {View} from 'moti';
 import React, {useState} from 'react';
 import {Icon, Surface, Text, TouchableRipple} from 'react-native-paper';
 import {StyleSheet} from 'react-native';
-import {SamagraScaller, titleCase} from '../../../Utilities/CustomMethods';
+import {AreaMapper, titleCase} from '../../../Utilities/CustomMethods';
 import {TextComponet} from '../../Elements/TextComponet';
 
 interface ItemListCardProps {
@@ -109,9 +109,9 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   imageContainer: {
-    width: SamagraScaller({value: 100, scaleBy: 'width'}),
-    height: SamagraScaller({value: 100, scaleBy: 'height'}),
-    marginRight: SamagraScaller({value: 10, scaleBy: 'height'}),
+    width: AreaMapper({value: 100, scaleBy: 'width'}),
+    height: AreaMapper({value: 100, scaleBy: 'height'}),
+    marginRight: AreaMapper({value: 10, scaleBy: 'height'}),
   },
   image: {
     width: '100%',
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   },
   ratingText: {
     marginLeft: 4,
-    fontSize: SamagraScaller({
+    fontSize: AreaMapper({
       value: 16,
       scaleBy: 'average',
     }),

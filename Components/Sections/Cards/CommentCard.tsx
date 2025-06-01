@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View} from 'react-native';
 
 import {TextComponet} from '../../Elements/TextComponet';
-import {SamagraScaller} from '../../../Utilities/CustomMethods';
+import {AreaMapper} from '../../../Utilities/CustomMethods';
 import {useTheme} from '@react-navigation/native';
 import {Input} from '../../Elements/Input';
 import {Icon} from 'react-native-paper';
@@ -27,15 +27,15 @@ export const CommentCard: React.FC<CommentCardProps> = ({
         style={{
           backgroundColor: colors.card,
           borderColor: isReplyCommentVisible ? colors.primary : colors.border,
-          marginVertical: SamagraScaller({
+          marginVertical: AreaMapper({
             value: 8,
             scaleBy: 'average',
           }),
-          padding: SamagraScaller({
+          padding: AreaMapper({
             value: 8,
             scaleBy: 'average',
           }),
-          borderRadius: SamagraScaller({
+          borderRadius: AreaMapper({
             value: 8,
             scaleBy: 'average',
           }),

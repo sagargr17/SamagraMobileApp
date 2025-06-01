@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useTheme} from '@react-navigation/native';
-import {SamagraScaller} from '../../../Utilities/CustomMethods';
+import {AreaMapper} from '../../../Utilities/CustomMethods';
 import FastImage from '@d11/react-native-fast-image';
 import {TextComponet} from '../../Elements/TextComponet';
 interface UserProfileMiniCardProps {
@@ -24,12 +24,12 @@ export const UserProfileMiniCard: React.FC<UserProfileMiniCardProps> = ({
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'flex-start',
-          paddingVertical: SamagraScaller({
+          paddingVertical: AreaMapper({
             value: 20,
             scaleBy: 'average',
           }),
           borderWidth: 0.3,
-          paddingHorizontal: SamagraScaller({
+          paddingHorizontal: AreaMapper({
             value: 10,
             scaleBy: 'average',
           }),
@@ -40,7 +40,7 @@ export const UserProfileMiniCard: React.FC<UserProfileMiniCardProps> = ({
           style={{
             height: 60,
             width: 60,
-            borderRadius: SamagraScaller({
+            borderRadius: AreaMapper({
               scaleBy: 'width',
               value: 100,
             }),
@@ -51,7 +51,7 @@ export const UserProfileMiniCard: React.FC<UserProfileMiniCardProps> = ({
           resizeMode="cover"></FastImage>
         <View
           style={{
-            marginLeft: SamagraScaller({
+            marginLeft: AreaMapper({
               value: 8,
               scaleBy: 'average',
             }),
@@ -61,7 +61,7 @@ export const UserProfileMiniCard: React.FC<UserProfileMiniCardProps> = ({
             title={user.username}
             customStyle={{
               textAlign: 'left',
-              marginLeft: SamagraScaller({
+              marginLeft: AreaMapper({
                 value: 5,
                 scaleBy: 'average',
               }),
@@ -79,7 +79,7 @@ export const UserProfileMiniCard: React.FC<UserProfileMiniCardProps> = ({
               title="12 Shops"
               customStyle={{
                 textAlign: 'left',
-                marginLeft: SamagraScaller({
+                marginLeft: AreaMapper({
                   value: 5,
                   scaleBy: 'average',
                 }),
@@ -91,7 +91,7 @@ export const UserProfileMiniCard: React.FC<UserProfileMiniCardProps> = ({
               title="1009 Items"
               customStyle={{
                 textAlign: 'left',
-                marginLeft: SamagraScaller({
+                marginLeft: AreaMapper({
                   value: 5,
                   scaleBy: 'average',
                 }),

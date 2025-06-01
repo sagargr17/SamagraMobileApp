@@ -11,7 +11,7 @@ import {useMutation} from '@apollo/client';
 import {createNewShop} from '../../../../GraphQL/Mutation/ShopMutations';
 import {ShopDisplayCard} from '../../../../Components/Sections/ShopDisplayCard';
 import {AppForm} from '../../../../Components/Layout/AppForm';
-import {SamagraScaller} from '../../../../Utilities/CustomMethods';
+import {AreaMapper} from '../../../../Utilities/CustomMethods';
 import {showMessage} from 'react-native-flash-message';
 import {Surface} from 'react-native-paper';
 import {TextComponet} from '../../../../Components/Elements/TextComponet';
@@ -60,12 +60,12 @@ export const AddShopScreen: React.FC<AddShopScreenProps> = ({}) => {
           textStyle: {
             fontFamily: fonts.regular.fontFamily,
             fontWeight: 'regular',
-            fontSize: SamagraScaller({
+            fontSize: AreaMapper({
               value: 14,
               scaleBy: 'average',
             }),
           },
-          statusBarHeight: SamagraScaller({
+          statusBarHeight: AreaMapper({
             value: 15,
             scaleBy: 'average',
           }),
@@ -82,12 +82,12 @@ export const AddShopScreen: React.FC<AddShopScreenProps> = ({}) => {
           textStyle: {
             fontFamily: fonts.regular.fontFamily,
             fontWeight: 'regular',
-            fontSize: SamagraScaller({
+            fontSize: AreaMapper({
               value: 14,
               scaleBy: 'average',
             }),
           },
-          statusBarHeight: SamagraScaller({
+          statusBarHeight: AreaMapper({
             value: 15,
             scaleBy: 'average',
           }),
@@ -102,12 +102,12 @@ export const AddShopScreen: React.FC<AddShopScreenProps> = ({}) => {
         textStyle: {
           fontFamily: fonts.regular.fontFamily,
           fontWeight: 'regular',
-          fontSize: SamagraScaller({
+          fontSize: AreaMapper({
             value: 14,
             scaleBy: 'average',
           }),
         },
-        statusBarHeight: SamagraScaller({
+        statusBarHeight: AreaMapper({
           value: 15,
           scaleBy: 'average',
         }),
@@ -129,11 +129,11 @@ export const AddShopScreen: React.FC<AddShopScreenProps> = ({}) => {
             alignItems: 'center',
           }}>
           <Construction
-            height={SamagraScaller({
+            height={AreaMapper({
               value: 275,
               scaleBy: 'average',
             })}
-            width={SamagraScaller({
+            width={AreaMapper({
               value: 275,
               scaleBy: 'average',
             })}></Construction>
@@ -142,7 +142,7 @@ export const AddShopScreen: React.FC<AddShopScreenProps> = ({}) => {
         <Surface
           style={{
             backgroundColor: colors.background,
-            padding: SamagraScaller({
+            padding: AreaMapper({
               value: 10,
               scaleBy: 'average',
             }),

@@ -51,7 +51,7 @@ export const AppForm = <TFormValues extends FieldValues>({
     handleSubmit,
     formState: {errors},
   } = useForm<TFormValues>({
-    // defaultValues: defaultValues, // Pass defaultValues here
+    // Pass the Default Values
   });
 
   return (
@@ -87,7 +87,7 @@ export const AppForm = <TFormValues extends FieldValues>({
                 />
               )}
             />
-            {/* --- FIX START: Correct Error Display --- */}
+
             {/* Check if an error exists for the current item.name */}
             {errors[item.name as string] && (
               <ErrorText>

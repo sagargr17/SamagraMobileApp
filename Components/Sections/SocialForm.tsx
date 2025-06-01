@@ -6,7 +6,7 @@ import {
 } from 'react-native-responsive-screen';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
 import {useTheme} from '@react-navigation/native';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {AreaMapper} from '../../Utilities/CustomMethods';
 import {TextComponet} from '../Elements/TextComponet';
 
 interface SocialProps {
@@ -27,7 +27,7 @@ export const SocialForm: React.FC<SocialProps> = ({onAppleClick}) => {
             },
           ]}>
           <AppleLogo
-            height={SamagraScaller({
+            height={AreaMapper({
               value: 30,
               scaleBy: 'width',
             })}
@@ -62,32 +62,32 @@ const styles = StyleSheet.create({
   socialContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    height: SamagraScaller({
+    height: AreaMapper({
       value: 60,
       scaleBy: 'height',
     }),
   },
   socialItem: {
     flex: 1,
-    paddingVertical: SamagraScaller({
+    paddingVertical: AreaMapper({
       value: 12,
       scaleBy: 'width',
     }),
-    paddingLeft: SamagraScaller({
+    paddingLeft: AreaMapper({
       value: 48,
       scaleBy: 'height',
     }),
-    paddingRight: SamagraScaller({
+    paddingRight: AreaMapper({
       value: 48,
       scaleBy: 'height',
     }),
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: SamagraScaller({
+    borderWidth: AreaMapper({
       value: 1,
       scaleBy: 'height',
     }),
-    borderRadius: SamagraScaller({
+    borderRadius: AreaMapper({
       value: 28,
       scaleBy: 'width',
     }),

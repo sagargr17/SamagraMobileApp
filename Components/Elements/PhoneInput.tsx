@@ -6,7 +6,7 @@ import {
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {AreaMapper} from '../../Utilities/CustomMethods';
 
 interface PhoneInputProps extends React.ComponentProps<typeof TextInput> {
   label?: string;
@@ -58,7 +58,7 @@ const PhoneInput = ({
             {
               color: colors.text,
               fontFamily: fonts.regular.fontFamily,
-              lineHeight: SamagraScaller({
+              lineHeight: AreaMapper({
                 value: 22,
                 scaleBy: 'height',
               }),
@@ -75,7 +75,7 @@ const PhoneInput = ({
               styles.input,
               {
                 fontFamily: fonts.regular.fontFamily,
-                lineHeight: SamagraScaller({
+                lineHeight: AreaMapper({
                   value: 22,
                   scaleBy: 'height',
                 }),
@@ -94,12 +94,12 @@ const PhoneInput = ({
 
 const styles = StyleSheet.create({
   label: {
-    fontSize: SamagraScaller({
+    fontSize: AreaMapper({
       value: 16,
       scaleBy: 'width',
     }),
     marginBottom: heightPercentageToDP(0.5),
-    lineHeight: SamagraScaller({
+    lineHeight: AreaMapper({
       value: 19,
       scaleBy: 'height',
     }),

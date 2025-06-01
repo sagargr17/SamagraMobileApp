@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, ViewStyle } from 'react-native';
+import {StyleSheet, View, ViewStyle} from 'react-native';
 
-import { useTheme } from '@react-navigation/native';
-import { TextComponet } from '../Elements/TextComponet';
+import {useTheme} from '@react-navigation/native';
+import {TextComponet} from '../Elements/TextComponet';
 interface BasicCardProps {
   item: Array<{
     name: string;
@@ -15,12 +15,7 @@ export const BasicCard: React.FC<BasicCardProps> = ({item}) => {
   const {colors} = useTheme();
 
   return (
-    <View
-      style={{
-        backgroundColor: 'pink',
-        flex: 1,
-        padding: 10,
-      }}>
+    <View style={styles.wrapperStyle}>
       {item.map(item => (
         <TextComponet
           title={item.name}
@@ -29,3 +24,11 @@ export const BasicCard: React.FC<BasicCardProps> = ({item}) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  wrapperStyle: {
+    backgroundColor: 'pink',
+    flex: 1,
+    padding: 10,
+  },
+});

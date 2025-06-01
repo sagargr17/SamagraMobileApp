@@ -9,7 +9,7 @@ import {
   TouchableHighlight,
   TouchableWithoutFeedbackBase,
 } from 'react-native';
-import {SamagraScaller} from '../../../Utilities/CustomMethods';
+import {AreaMapper} from '../../../Utilities/CustomMethods';
 import {TextComponet} from '../../Elements/TextComponet';
 import {Icon, TouchableRipple} from 'react-native-paper';
 // import {Icon} from '../../Elements/Icon'; // Assuming you have an Icon component
@@ -40,7 +40,7 @@ export const PoppedCard: React.FC<PoppedCardProps> = ({
   const cardWidth =
     variant === 'large'
       ? '92%'
-      : SamagraScaller({value: 150, scaleBy: 'average'}); // Example small width
+      : AreaMapper({value: 150, scaleBy: 'average'}); // Example small width
 
   return (
     <TouchableRipple
@@ -53,8 +53,8 @@ export const PoppedCard: React.FC<PoppedCardProps> = ({
           shadowColor: colors.border,
           padding:
             variant === 'large'
-              ? SamagraScaller({value: 10, scaleBy: 'average'})
-              : SamagraScaller({value: 8, scaleBy: 'average'}),
+              ? AreaMapper({value: 10, scaleBy: 'average'})
+              : AreaMapper({value: 8, scaleBy: 'average'}),
         },
         customStyle,
       ]}
@@ -64,7 +64,7 @@ export const PoppedCard: React.FC<PoppedCardProps> = ({
           <View style={styles.iconContainer}>
             <Icon
               source={iconName}
-              size={SamagraScaller({value: 30, scaleBy: 'average'})}
+              size={AreaMapper({value: 30, scaleBy: 'average'})}
               color={'gray'}
             />
           </View>
@@ -94,26 +94,26 @@ export const PoppedCard: React.FC<PoppedCardProps> = ({
 
 const styles = StyleSheet.create({
   viewContainer: {
-    borderRadius: SamagraScaller({value: 8, scaleBy: 'average'}),
+    borderRadius: AreaMapper({value: 8, scaleBy: 'average'}),
     shadowOffset: {width: 0, height: 10},
     shadowOpacity: 1,
     shadowRadius: 10,
-    marginVertical: SamagraScaller({value: 5, scaleBy: 'average'}),
+    marginVertical: AreaMapper({value: 5, scaleBy: 'average'}),
     borderWidth: 0.1,
   },
   contentContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: SamagraScaller({value: 12, scaleBy: 'average'}),
+    padding: AreaMapper({value: 12, scaleBy: 'average'}),
   },
   iconContainer: {
-    marginRight: SamagraScaller({value: 12, scaleBy: 'average'}),
+    marginRight: AreaMapper({value: 12, scaleBy: 'average'}),
   },
   textContainer: {
     flex: 1,
   },
   title: {
-    fontSize: SamagraScaller({value: 16, scaleBy: 'average'}),
+    fontSize: AreaMapper({value: 16, scaleBy: 'average'}),
     fontWeight: 'bold',
   },
   comment: {
@@ -121,6 +121,6 @@ const styles = StyleSheet.create({
     opacity: 0.35,
   },
   childrenContainer: {
-    marginTop: SamagraScaller({value: 12, scaleBy: 'average'}),
+    marginTop: AreaMapper({value: 12, scaleBy: 'average'}),
   },
 });

@@ -10,7 +10,7 @@ import {
 } from '../../StateManagement/Error&loadingHandle/LoaderState';
 import {showMessage} from 'react-native-flash-message';
 import {MyTheme} from '../../Prefrences/Prefrences';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {AreaMapper} from '../../Utilities/CustomMethods';
 
 interface AuthResponse {
   access_token: string;
@@ -64,12 +64,12 @@ async function Authenticator(userName: string, password: string) {
       textStyle: {
         fontFamily: MyTheme.fonts.regular.fontFamily,
         fontWeight: 'regular',
-        fontSize: SamagraScaller({
+        fontSize: AreaMapper({
           value: 14,
           scaleBy: 'average',
         }),
       },
-      statusBarHeight: SamagraScaller({
+      statusBarHeight: AreaMapper({
         value: 15,
         scaleBy: 'average',
       }),

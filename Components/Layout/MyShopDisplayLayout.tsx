@@ -1,14 +1,16 @@
 import React from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useTheme} from '@react-navigation/native';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {AreaMapper} from '../../Utilities/CustomMethods';
 import {ScrollView} from 'react-native-gesture-handler';
 import {PoppedCard} from '../Sections/Cards/PoppedCard';
-import {SamagraBottomSheet} from '../Sections/SamagraBottomSheet';
+import {AppBottomSheet} from '../Sections/AppBottomSheet';
 import {Badge, Icon, Surface} from 'react-native-paper';
 import FastImage from '@d11/react-native-fast-image';
 import {TextComponet} from '../Elements/TextComponet';
 import AppButton from '../Elements/Button';
+import {Rating} from '../Elements/Rating';
+
 interface MyShopDisplayLayoutProps {
   shop: {
     name: string;
@@ -33,28 +35,18 @@ interface MyShopDisplayLayoutProps {
 export const MyShopDisplayLayout: React.FC<MyShopDisplayLayoutProps> = ({
   shop,
   navigationHandles,
-  // onCreateNewShop,
 }) => {
   const {colors} = useTheme();
 
   return (
     <>
-      <View
-        key={shop.name}
-        style={{
-          paddingHorizontal: SamagraScaller({
-            value: 14,
-            scaleBy: 'average',
-          }),
-          paddingTop: 0,
-          flex: 1,
-        }}>
+      <View key={shop.name} style={styles.wrapper}>
         <ScrollView
           style={{
             flex: 1,
           }}
           contentContainerStyle={{
-            height: SamagraScaller({
+            height: AreaMapper({
               value: 80,
               scaleBy: 'height',
             }),
@@ -81,7 +73,6 @@ export const MyShopDisplayLayout: React.FC<MyShopDisplayLayoutProps> = ({
                     style={{
                       bottom: 30,
                       left: 17,
-                      // backgroundColor: 'green',
                     }}>
                     120
                   </Badge>
@@ -105,11 +96,11 @@ export const MyShopDisplayLayout: React.FC<MyShopDisplayLayoutProps> = ({
             </>
           ) : null}
         </ScrollView>
-        <SamagraBottomSheet
+        <AppBottomSheet
           children={() => (
             <View
               style={{
-                paddingBottom: SamagraScaller({
+                paddingBottom: AreaMapper({
                   value: 15,
                   scaleBy: 'height',
                 }),
@@ -144,12 +135,7 @@ export const MyShopDisplayLayout: React.FC<MyShopDisplayLayoutProps> = ({
                       flexDirection: 'column',
                       // alignItems: 'center',
                     }}>
-                    <View style={styles.ratingContainer}>
-                      <Icon source="star" size={16} color={'gold'} />
-                      <Icon source="star" size={16} color={'gold'} />
-                      <Icon source="star" size={16} color={'gold'} />
-                      <Icon source="star" size={16} color={'gold'} />
-                    </View>
+                    <Rating ratingNumber={4}></Rating>
                     <TextComponet
                       customStyle={{
                         color: 'orange',
@@ -185,16 +171,10 @@ export const MyShopDisplayLayout: React.FC<MyShopDisplayLayoutProps> = ({
                     lineHeight={18}></TextComponet>
                 </View>
               </View>
-              <View
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-around',
-                }}>
+              <View style={styles.appButtonWrapper}>
                 <AppButton
                   style={{
-                    marginTop: SamagraScaller({
+                    marginTop: AreaMapper({
                       value: 12,
                       scaleBy: 'height',
                     }),
@@ -205,7 +185,7 @@ export const MyShopDisplayLayout: React.FC<MyShopDisplayLayoutProps> = ({
                 <AppButton
                   color="light"
                   style={{
-                    marginTop: SamagraScaller({
+                    marginTop: AreaMapper({
                       value: 12,
                       scaleBy: 'height',
                     }),
@@ -219,13 +199,21 @@ export const MyShopDisplayLayout: React.FC<MyShopDisplayLayoutProps> = ({
           isOppen={true}
           flexHeight={1}
           pannigGesture={false}
-          title="Request for House Keeping Service"></SamagraBottomSheet>
+          title="Request for House Keeping Service"></AppBottomSheet>
       </View>
     </>
   );
 };
 
 const styles = StyleSheet.create({
+  wrapper: {
+    paddingHorizontal: AreaMapper({
+      value: 14,
+      scaleBy: 'average',
+    }),
+    paddingTop: 0,
+    flex: 1,
+  },
   ratingContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -233,5 +221,12 @@ const styles = StyleSheet.create({
   ratingText: {
     marginLeft: 4,
     fontSize: 14,
+  },
+
+  appButtonWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
   },
 });

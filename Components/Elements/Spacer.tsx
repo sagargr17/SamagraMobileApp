@@ -1,8 +1,8 @@
 import {View} from 'react-native';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {AreaMapper} from '../../Utilities/CustomMethods';
 
 export const Spacer = ({
-  height = SamagraScaller({
+  height = AreaMapper({
     value: 25,
     scaleBy: 'average',
   }),

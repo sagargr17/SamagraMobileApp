@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {TextComponet} from '../../Elements/TextComponet';
 import {useTheme} from '@react-navigation/native';
-import {SamagraScaller} from '../../../Utilities/CustomMethods';
+import {AreaMapper} from '../../../Utilities/CustomMethods';
 
 interface ItemCategoryCardProps {
   title: string;
@@ -27,20 +27,20 @@ export const ItemCategoryCard: React.FC<ItemCategoryCardProps> = ({
       style={[
         {
           backgroundColor: selectedCategory === title ? colors.primary : 'gray',
-          height: SamagraScaller({
+          height: AreaMapper({
             value: size === 'large' ? 100 : 70,
             scaleBy: 'average',
           }),
 
-          marginRight: SamagraScaller({
+          marginRight: AreaMapper({
             value: 13,
             scaleBy: 'average',
           }),
-          paddingVertical: SamagraScaller({
+          paddingVertical: AreaMapper({
             value: size === 'large' ? 23 : 12,
             scaleBy: 'average',
           }),
-          borderRadius: SamagraScaller({
+          borderRadius: AreaMapper({
             value: 12,
             scaleBy: 'average',
           }),
@@ -48,7 +48,7 @@ export const ItemCategoryCard: React.FC<ItemCategoryCardProps> = ({
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-around',
-          width: SamagraScaller({
+          width: AreaMapper({
             value: size === 'large' ? 100 : 70,
             scaleBy: 'average',
           }),

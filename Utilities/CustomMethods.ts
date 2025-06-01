@@ -5,7 +5,7 @@ interface InputScale {
   scaleBy: 'width' | 'height' | 'average';
 }
 
-export function SamagraScaller(input: InputScale): number {
+export function AreaMapper(input: InputScale): number {
   const screenWidth = Dimensions.get('window').width;
   const screenHeight = Dimensions.get('window').height;
 

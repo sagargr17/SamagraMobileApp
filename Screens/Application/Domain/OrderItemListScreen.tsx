@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {ScrollView, Text, View} from 'react-native';
 import {ProviderCard} from '../../../Components/Sections/Cards/ProviderCard';
-import {SamagraScaller} from '../../../Utilities/CustomMethods';
-import {SamagraBottomSheet} from '../../../Components/Sections/SamagraBottomSheet';
+import {AreaMapper} from '../../../Utilities/CustomMethods';
+import {AppBottomSheet} from '../../../Components/Sections/AppBottomSheet';
 import {TextComponet} from '../../../Components/Elements/TextComponet';
 import {PairButtons} from '../../../Components/Sections/PairButtons';
 import {SingnlePageError} from '../../../Components/Layout/SinglePageError';
@@ -27,11 +27,11 @@ export const InstantItemListScreen: React.FC<
         <ScrollView
           showsVerticalScrollIndicator={false}
           style={{
-            paddingTop: SamagraScaller({
+            paddingTop: AreaMapper({
               value: 10,
               scaleBy: 'height',
             }),
-            paddingBottom: SamagraScaller({
+            paddingBottom: AreaMapper({
               value: 10,
               scaleBy: 'height',
             }),
@@ -88,7 +88,7 @@ export const InstantItemListScreen: React.FC<
           }}></SingnlePageError>
       )}
       {isProfileTapped ? (
-        <SamagraBottomSheet
+        <AppBottomSheet
           onClose={() => setIsProfileTapped(!isProfileTapped)}
           isOppen={isProfileTapped}
           // indexValue={isProfileTapped ? 0 : -1}
@@ -100,7 +100,7 @@ export const InstantItemListScreen: React.FC<
               {personalUserDetail}
               <View
                 style={{
-                  paddingHorizontal: SamagraScaller({
+                  paddingHorizontal: AreaMapper({
                     value: 16,
                     scaleBy: 'average',
                   }),
@@ -108,7 +108,7 @@ export const InstantItemListScreen: React.FC<
                 }}>
                 <View
                   style={{
-                    marginVertical: SamagraScaller({
+                    marginVertical: AreaMapper({
                       value: 6,
                       scaleBy: 'average',
                     }),
@@ -150,7 +150,7 @@ export const InstantItemListScreen: React.FC<
                 </View>
               </View>
             </>
-          )}></SamagraBottomSheet>
+          )}></AppBottomSheet>
       ) : null}
     </>
   );

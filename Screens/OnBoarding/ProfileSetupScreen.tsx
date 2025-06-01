@@ -10,7 +10,7 @@ import AppButton from '../../Components/Elements/Button';
 import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
 import {useTheme} from '@react-navigation/native';
 import {TextComponet} from '../../Components/Elements/TextComponet';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {AreaMapper} from '../../Utilities/CustomMethods';
 
 interface ProfileSetupProps {
   navigation: OnBoardingStackNavigationProp<'ProfileSetupScreen'>;
@@ -41,11 +41,11 @@ export const ProfileSetupScreen: React.FC<ProfileSetupProps> = ({
         </View>
         <View style={styles.logo}>
           <SamagraLogo
-            height={SamagraScaller({
+            height={AreaMapper({
               value: 261,
               scaleBy: 'height',
             })}
-            width={SamagraScaller({
+            width={AreaMapper({
               value: 261,
               scaleBy: 'width',
             })}
@@ -94,11 +94,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: SamagraScaller({
+    marginTop: AreaMapper({
       value: 128,
       scaleBy: 'height',
     }),
-    marginBottom: SamagraScaller({
+    marginBottom: AreaMapper({
       value: 103,
       scaleBy: 'height',
     }),

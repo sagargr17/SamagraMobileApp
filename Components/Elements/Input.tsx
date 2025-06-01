@@ -2,7 +2,7 @@ import {useTheme} from '@react-navigation/native';
 import React, {useEffect, useRef} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Icon, TextInput} from 'react-native-paper';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {AreaMapper} from '../../Utilities/CustomMethods';
 import {TextComponet} from './TextComponet';
 // import {EvilIcons} from 'react-native-vector-icons/';
 
@@ -42,7 +42,7 @@ export const Input: React.FC<InputProps> = ({
           {backgroundColor: colors.background, borderColor: colors.border},
           !!error && styles.inputError,
           {
-            marginVertical: SamagraScaller({
+            marginVertical: AreaMapper({
               value: 2,
               scaleBy: 'average',
             }),
@@ -71,11 +71,11 @@ export const Input: React.FC<InputProps> = ({
               backgroundColor: colors.background,
 
               fontFamily: fonts.regular.fontFamily,
-              height: SamagraScaller({
+              height: AreaMapper({
                 value: height,
                 scaleBy: 'average',
               }),
-              borderRadius: SamagraScaller({
+              borderRadius: AreaMapper({
                 value: 8,
                 scaleBy: 'average',
               }),
@@ -91,7 +91,7 @@ export const Input: React.FC<InputProps> = ({
           contentStyle={{
             minHeight: 0,
             fontFamily: fonts.regular.fontFamily,
-            fontSize: SamagraScaller({
+            fontSize: AreaMapper({
               value: 14,
               scaleBy: 'height',
             }),
@@ -105,13 +105,13 @@ export const Input: React.FC<InputProps> = ({
 
 const styles = StyleSheet.create({
   inputContainer: {
-    marginVertical: SamagraScaller({
+    marginVertical: AreaMapper({
       value: 0,
       scaleBy: 'average',
     }),
   },
   inputLabel: {
-    marginBottom: SamagraScaller({
+    marginBottom: AreaMapper({
       value: 2,
       scaleBy: 'average',
     }),
@@ -120,25 +120,25 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
 
     borderColor: '#C0C0C0',
-    borderRadius: SamagraScaller({
+    borderRadius: AreaMapper({
       value: 8,
       scaleBy: 'height',
     }),
-    paddingHorizontal: SamagraScaller({
+    paddingHorizontal: AreaMapper({
       value: 1,
       scaleBy: 'width',
     }),
   },
   input: {
-    marginVertical: SamagraScaller({
+    marginVertical: AreaMapper({
       value: 2,
       scaleBy: 'height',
     }),
-    borderRadius: SamagraScaller({
+    borderRadius: AreaMapper({
       value: 18,
       scaleBy: 'height',
     }),
-    borderWidth: SamagraScaller({
+    borderWidth: AreaMapper({
       value: 0.001,
       scaleBy: 'height',
     }),

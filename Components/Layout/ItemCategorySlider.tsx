@@ -1,11 +1,11 @@
-import {useNavigation, useTheme} from '@react-navigation/native';
-import React, {useState} from 'react';
-import {FlatList, View} from 'react-native';
-import {Logos} from '../../Assets/SVG/Exports/Exports';
-import {HomeStackNavigationProp} from '../../Navigators/Stack/HomeStackNavigator';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
-import {ItemCategoryCard} from '../Sections/Cards/ItemCategoryCard';
-import {SectionHeader} from '../Sections/SectionHeader';
+import { useNavigation, useTheme } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { FlatList, StyleSheet, View } from 'react-native';
+import { Logos } from '../../Assets/SVG/Exports/Exports';
+import { HomeStackNavigationProp } from '../../Navigators/Stack/HomeStackNavigator';
+import { AreaMapper } from '../../Utilities/CustomMethods';
+import { ItemCategoryCard } from '../Sections/Cards/ItemCategoryCard';
+import { SectionHeader } from '../Sections/SectionHeader';
 
 interface ItemCategoryCardProps {
   size: 'regular' | 'large';
@@ -20,68 +20,47 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({
     useNavigation<HomeStackNavigationProp<'CategoryListScreen'>>();
   const {colors} = useTheme();
 
+  const styles = StyleSheet.create({
+    wrapper: {
+      paddingHorizontal: AreaMapper({
+        value: size === 'large' ? 10 : 0,
+        scaleBy: 'average',
+      }),
+    },
+    icon: {
+      height: AreaMapper({
+        value: size === 'large' ? 40 : 30,
+        scaleBy: 'average',
+      }),
+      width: AreaMapper({
+        value: 30,
+        scaleBy: 'average',
+      }),
+    },
+  });
+
   const data: Array<{
     titte: string;
     icon: any;
   }> = [
     {
       titte: 'Laundry',
-      icon: (
-        <Laundry
-          height={SamagraScaller({
-            value: size === 'large' ? 40 : 30,
-            scaleBy: 'average',
-          })}
-          width={SamagraScaller({
-            value: 30,
-            scaleBy: 'average',
-          })}
-        />
-      ),
+      icon: <Laundry />,
     },
     {
       titte: 'Cleaning',
       icon: (
-        <HouseKeeping
-          height={SamagraScaller({
-            value: size === 'large' ? 40 : 30,
-            scaleBy: 'average',
-          })}
-          width={SamagraScaller({
-            value: 30,
-            scaleBy: 'average',
-          })}
-        />
+        <HouseKeeping height={styles.icon.height} width={styles.icon.width} />
       ),
     },
     {
       titte: 'Grocery',
-      icon: (
-        <Grocery
-          height={SamagraScaller({
-            value: size === 'large' ? 40 : 30,
-            scaleBy: 'average',
-          })}
-          width={SamagraScaller({
-            value: 30,
-            scaleBy: 'average',
-          })}
-        />
-      ),
+      icon: <Grocery height={styles.icon.height} width={styles.icon.width} />,
     },
     {
       titte: 'Stationary',
       icon: (
-        <Stationary
-          height={SamagraScaller({
-            value: size === 'large' ? 40 : 30,
-            scaleBy: 'average',
-          })}
-          width={SamagraScaller({
-            value: 30,
-            scaleBy: 'average',
-          })}
-        />
+        <Stationary height={styles.icon.height} width={styles.icon.width} />
       ),
     },
   ];
@@ -93,13 +72,7 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({
   };
 
   return (
-    <View
-      style={{
-        paddingHorizontal: SamagraScaller({
-          value: size === 'large' ? 10 : 0,
-          scaleBy: 'average',
-        }),
-      }}>
+    <View style={styles.wrapper}>
       <SectionHeader
         onPress={() => onPress()}
         isIcon={size === 'large' ? true : false}
@@ -108,7 +81,7 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({
         titleHeight={22}></SectionHeader>
       <FlatList
         contentContainerStyle={{
-          paddingVertical: SamagraScaller({
+          paddingVertical: AreaMapper({
             value: size === 'large' ? 12 : 8,
             scaleBy: 'average',
           }),

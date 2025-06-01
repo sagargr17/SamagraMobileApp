@@ -1,7 +1,7 @@
 import React from 'react';
 import {TextStyle, View} from 'react-native';
 import {TextComponet} from '../Elements/TextComponet';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {AreaMapper} from '../../Utilities/CustomMethods';
 import {Icon, IconButton} from 'react-native-paper';
 
 interface SectionHeaderProps {
@@ -39,7 +39,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
 
       {isIcon ? (
         <Icon
-          size={SamagraScaller({
+          size={AreaMapper({
             value: 30,
             scaleBy: 'height',
           })}

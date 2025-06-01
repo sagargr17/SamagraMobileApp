@@ -6,7 +6,7 @@ import {useTheme} from '@react-navigation/native';
 import React, {useCallback, useEffect, useRef} from 'react';
 import {StyleSheet, View, ViewStyle} from 'react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {AreaMapper} from '../../Utilities/CustomMethods';
 import {TextComponet} from '../Elements/TextComponet';
 
 interface SamagraBottomSheetProps {
@@ -19,7 +19,7 @@ interface SamagraBottomSheetProps {
   customStyle?: ViewStyle;
 }
 
-export const SamagraBottomSheet: React.FC<SamagraBottomSheetProps> = ({
+export const AppBottomSheet: React.FC<SamagraBottomSheetProps> = ({
   children,
   title,
   pannigGesture,
@@ -77,7 +77,7 @@ export const SamagraBottomSheet: React.FC<SamagraBottomSheetProps> = ({
         style={[
           {
             borderColor: colors.border,
-            paddingHorizontal: SamagraScaller({
+            paddingHorizontal: AreaMapper({
               value: 20,
               scaleBy: 'average',
             }),
@@ -97,16 +97,16 @@ const styles = StyleSheet.create({
       height: 2,
       width: 2,
     },
-    borderWidth: SamagraScaller({
+    borderWidth: AreaMapper({
       value: 1,
       scaleBy: 'average',
     }),
     boxShadow: '2',
-    borderRadius: SamagraScaller({
+    borderRadius: AreaMapper({
       value: 10,
       scaleBy: 'average',
     }),
-    marginHorizontal: SamagraScaller({
+    marginHorizontal: AreaMapper({
       value: 20,
       scaleBy: 'average',
     }),

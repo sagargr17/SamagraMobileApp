@@ -1,18 +1,19 @@
 import FastImage from '@d11/react-native-fast-image';
-import { useIsFocused } from '@react-navigation/native';
-import React, { useMemo, useState } from 'react';
+import {useIsFocused} from '@react-navigation/native';
+import React, {useMemo, useState} from 'react';
 import {
   ActivityIndicator,
   SafeAreaView,
   StyleSheet,
   Text,
-  View
+  View,
 } from 'react-native';
-import { useTheme } from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
+import {AreaMapper} from '../../Utilities/CustomMethods';
 import AppButton from '../Elements/Button';
 
 interface Item {
@@ -54,12 +55,7 @@ const GetStarted = ({options, onDone}: GetStartedProps) => {
     <SafeAreaView style={styles.wrapper}>
       <FastImage
         onLoadStart={() => <ActivityIndicator></ActivityIndicator>}
-        style={{
-          height: 400,
-          width: widthPercentageToDP(100),
-          // backgroundColor: 'orange',
-          flex: 2,
-        }}
+        style={styles.headerimage}
         source={{
           uri:
             step === 1
@@ -127,6 +123,15 @@ const styles = StyleSheet.create({
     marginBottom: heightPercentageToDP(6),
     fontFamily: 'Poppins-Regular',
     fontWeight: 'regular',
+  },
+
+  headerimage: {
+    height: 400,
+    width: AreaMapper({
+      value: 100,
+      scaleBy: 'average',
+    }),
+    flex: 2,
   },
 });
 

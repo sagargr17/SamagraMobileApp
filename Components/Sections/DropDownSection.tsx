@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import {TextInput} from 'react-native-paper';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {AreaMapper} from '../../Utilities/CustomMethods';
 import {TextComponet} from '../Elements/TextComponet';
 // import AntDesign from '@expo/vector-icons/AntDesign';
 
@@ -25,7 +25,7 @@ export const DropdownComponent: React.FC<DropdownComponentProps> = ({
       {label && (
         <TextComponet
           customStyle={{
-            marginBottom: SamagraScaller({
+            marginBottom: AreaMapper({
               value: 5,
               scaleBy: 'average',
             }),
@@ -53,7 +53,7 @@ export const DropdownComponent: React.FC<DropdownComponentProps> = ({
         iconStyle={styles.iconStyle}
         data={data}
         search={false}
-        maxHeight={SamagraScaller({
+        maxHeight={AreaMapper({
           value: 150,
           scaleBy: 'average',
         })}
@@ -74,7 +74,7 @@ export const DropdownComponent: React.FC<DropdownComponentProps> = ({
           padding: 0,
         }}
         containerStyle={{
-          borderRadius: SamagraScaller({
+          borderRadius: AreaMapper({
             value: 12,
             scaleBy: 'average',
           }),
@@ -87,24 +87,24 @@ export const DropdownComponent: React.FC<DropdownComponentProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: SamagraScaller({
+    marginVertical: AreaMapper({
       value: 4,
       scaleBy: 'average',
     }),
   },
   dropdown: {
-    height: SamagraScaller({
+    height: AreaMapper({
       value: 56,
       scaleBy: 'height',
     }),
     borderColor: 'gray',
     borderWidth: 0.5,
     borderRadius: 8,
-    paddingHorizontal: SamagraScaller({
+    paddingHorizontal: AreaMapper({
       value: 10,
       scaleBy: 'height',
     }),
-    paddingVertical: SamagraScaller({
+    paddingVertical: AreaMapper({
       value: 10,
       scaleBy: 'height',
     }),
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   selectedTextStyle: {
-    fontSize: SamagraScaller({
+    fontSize: AreaMapper({
       value: 16,
       scaleBy: 'average',
     }),

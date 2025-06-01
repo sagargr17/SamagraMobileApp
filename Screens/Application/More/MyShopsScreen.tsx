@@ -18,8 +18,6 @@ export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
   const {fonts} = useTheme();
   const dispatch = useAppDispatch();
 
-  // const navigationn
-
   // Status
   const [createNewShopFn, {data, loading, error}] = useMutation(createNewShop);
   const [isShopCreated, setIsShopCreated] = useState<boolean>(false);

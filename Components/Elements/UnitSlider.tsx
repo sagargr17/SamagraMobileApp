@@ -1,9 +1,9 @@
 import {useTheme} from '@react-navigation/native';
 import React, {useState} from 'react';
-import {View, ViewStyle} from 'react-native';
+import {StyleSheet, View, ViewStyle} from 'react-native';
 import {Slider} from 'react-native-awesome-slider';
 import {useSharedValue} from 'react-native-reanimated';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {AreaMapper} from '../../Utilities/CustomMethods';
 import {TextComponet} from './TextComponet';
 interface UnitSliderProps {
   sliderOption: {
@@ -28,26 +28,13 @@ export const UnitSlider: React.FC<UnitSliderProps> = ({
   const max = useSharedValue(10);
 
   return (
-    <View
-      style={{
-        marginBottom: SamagraScaller({
-          value: 12,
-          scaleBy: 'height',
-        }),
-      }}>
+    <View style={styles.wrapper}>
       <TextComponet
         title={label}
         fontVariant="regular"
-        customStyle={{
-          marginBottom: SamagraScaller({
-            value: 8,
-            scaleBy: 'height',
-          }),
-        }}></TextComponet>
+        customStyle={styles.wrapper}></TextComponet>
       <Slider
-        containerStyle={{
-          height: 2,
-        }}
+        containerStyle={styles.sliderStyle}
         theme={{
           disableMinTrackTintColor: '#fff',
           maximumTrackTintColor: 'gray',
@@ -66,3 +53,23 @@ export const UnitSlider: React.FC<UnitSliderProps> = ({
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  wrapper: {
+    marginBottom: AreaMapper({
+      value: 12,
+      scaleBy: 'height',
+    }),
+  },
+
+  titleStyle: {
+    marginBottom: AreaMapper({
+      value: 8,
+      scaleBy: 'height',
+    }),
+  },
+
+  sliderStyle: {
+    height: 2,
+  },
+});

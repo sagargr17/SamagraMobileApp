@@ -6,7 +6,7 @@ import {Spacer} from '../../Components/Elements/Spacer';
 import {TextComponet} from '../../Components/Elements/TextComponet';
 import {ImageSliderModal} from '../../Components/Sections/ImageSliderModal';
 import {ItemDetailScreenRouteProp} from '../../Navigators/Stack/ApplicationOverlayStackNavigator';
-import {SamagraScaller, titleCase} from '../../Utilities/CustomMethods';
+import {AreaMapper, titleCase} from '../../Utilities/CustomMethods';
 import {Counter} from '../../Components/Sections/Counter';
 import {ItemCheckOut} from '../../Components/Sections/ItemCheckOut';
 import {CommentLayout} from '../../Components/Layout/CommentLayout';
@@ -17,6 +17,7 @@ import {
   showLoader,
 } from '../../StateManagement/Error&loadingHandle/LoaderState';
 import {hide} from 'react-native-bootsplash';
+import {Rating} from '../../Components/Elements/Rating';
 
 interface ItemDetailScreenProps {
   route: ItemDetailScreenRouteProp;
@@ -45,11 +46,11 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
     return (
       <View
         style={{
-          paddingLeft: SamagraScaller({
+          paddingLeft: AreaMapper({
             value: 16,
             scaleBy: 'average',
           }),
-          paddingRight: SamagraScaller({
+          paddingRight: AreaMapper({
             value: 16,
             scaleBy: 'average',
           }),
@@ -91,7 +92,7 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
             customStyle={{
               backgroundColor: 'gray',
               color: colors.background,
-              paddingHorizontal: SamagraScaller({
+              paddingHorizontal: AreaMapper({
                 value: 8,
                 scaleBy: 'height',
               }),
@@ -99,27 +100,7 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
             fontSize={14}
             title={titleCase('423 Sold')}
             fontVariant="regular"></TextComponet>
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              height: 24,
-            }}>
-            <IconButton
-              icon="star"
-              size={20}
-              style={{
-                marginRight: 0,
-                paddingRight: 0,
-              }}
-              iconColor={'#FFA902'}
-            />
-            <TextComponet
-              fontSize={14}
-              title={titleCase('4.3 (53 Reviews)')}
-              fontVariant="regular"></TextComponet>
-          </View>
+          <Rating></Rating>
         </View>
         <Spacer height={12}></Spacer>
         <View>

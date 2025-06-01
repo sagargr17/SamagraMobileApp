@@ -4,7 +4,7 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import {IconButton} from 'react-native-paper';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {AreaMapper} from '../../Utilities/CustomMethods';
 import {NotifcaitonIcon} from '../Elements/NotifcaitonIcon';
 import {TextComponet} from '../Elements/TextComponet';
 
@@ -27,51 +27,23 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
           },
         ]}>
         <View
-          style={{
-            padding: SamagraScaller({
-              value: 10,
-              scaleBy: 'average',
-            }),
-            backgroundColor: colors.background,
-            borderRadius: SamagraScaller({
-              value: 200,
-              scaleBy: 'average',
-            }),
-            borderWidth: 0.3,
-            borderColor: colors.border,
-          }}>
+          style={[
+            styles.notificationContainer,
+            {
+              backgroundColor: colors.background,
+              borderColor: colors.border,
+            },
+          ]}>
           <NotifcaitonIcon></NotifcaitonIcon>
         </View>
         <View
-          style={{
-            flex: 2,
-            display: 'flex',
-            flexDirection: 'row',
-            backgroundColor: colors.background,
-            paddingVertical: SamagraScaller({
-              value: 16,
-              scaleBy: 'height',
-            }),
-            paddingHorizontal: SamagraScaller({
-              value: 12,
-              scaleBy: 'width',
-            }),
-            borderRadius: SamagraScaller({
-              value: 52,
-              scaleBy: 'average',
-            }),
-            shadowOffset: {
-              height: 2,
-              width: 2,
+          style={[
+            styles.locationContainer,
+            {
+              backgroundColor: colors.background,
+              borderColor: colors.border,
             },
-            borderWidth: 0.3,
-            marginHorizontal: SamagraScaller({
-              value: 16,
-              scaleBy: 'width',
-            }),
-            alignItems: 'center',
-            borderColor: colors.border,
-          }}>
+          ]}>
           <Location></Location>
           <TextComponet
             title="Baneswor, Kathmandu"
@@ -82,7 +54,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
             iconColor={colors.text}
             onPress={() => console.log('TOuched')}
             icon={'cart-outline'}
-            size={SamagraScaller({
+            size={AreaMapper({
               value: 28,
               scaleBy: 'average',
             })}
@@ -104,10 +76,52 @@ const styles = StyleSheet.create({
     top: 1,
     zIndex: 2,
     alignItems: 'center',
-    marginHorizontal: SamagraScaller({
+    marginHorizontal: AreaMapper({
       scaleBy: 'width',
       value: 10,
     }),
     backgroundColor: 'transparent',
+  },
+
+  notificationContainer: {
+    padding: AreaMapper({
+      value: 10,
+      scaleBy: 'average',
+    }),
+
+    borderRadius: AreaMapper({
+      value: 200,
+      scaleBy: 'average',
+    }),
+    borderWidth: 0.3,
+  },
+
+  locationContainer: {
+    flex: 2,
+    display: 'flex',
+    flexDirection: 'row',
+
+    paddingVertical: AreaMapper({
+      value: 16,
+      scaleBy: 'height',
+    }),
+    paddingHorizontal: AreaMapper({
+      value: 12,
+      scaleBy: 'width',
+    }),
+    borderRadius: AreaMapper({
+      value: 52,
+      scaleBy: 'average',
+    }),
+    shadowOffset: {
+      height: 2,
+      width: 2,
+    },
+    borderWidth: 0.3,
+    marginHorizontal: AreaMapper({
+      value: 16,
+      scaleBy: 'width',
+    }),
+    alignItems: 'center',
   },
 });

@@ -3,7 +3,7 @@ import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {TextComponet} from '../Elements/TextComponet';
 import AppButton from '../Elements/Button';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {AreaMapper} from '../../Utilities/CustomMethods';
 interface SingnlePageErrorProps {
   detail: {
     icon: any;
@@ -29,7 +29,7 @@ export const SingnlePageError: React.FC<SingnlePageErrorProps> = ({detail}) => {
               alignContent: 'center',
               justifyContent: 'center',
               textAlign: 'center',
-              marginHorizontal: SamagraScaller({
+              marginHorizontal: AreaMapper({
                 value: 43,
                 scaleBy: 'width',
               }),
@@ -42,7 +42,7 @@ export const SingnlePageError: React.FC<SingnlePageErrorProps> = ({detail}) => {
         <View
           style={{
             alignItems: 'center',
-            marginTop: SamagraScaller({
+            marginTop: AreaMapper({
               value: 21,
               scaleBy: 'height',
             }),
@@ -66,7 +66,7 @@ const style = StyleSheet.create({
   },
 
   buttonStyle: {
-    width: SamagraScaller({
+    width: AreaMapper({
       value: 220,
       scaleBy: 'width',
     }),
@@ -76,7 +76,7 @@ const style = StyleSheet.create({
     alignItems: 'center',
     textAlign: 'justify',
 
-    marginHorizontal: SamagraScaller({
+    marginHorizontal: AreaMapper({
       value: 43,
       scaleBy: 'width',
     }),

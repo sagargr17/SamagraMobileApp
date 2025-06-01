@@ -3,11 +3,11 @@ import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Icon, TextInput} from 'react-native-paper';
 import {RootStackNavigationProp} from '../../Navigators/RootStackNavigator';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {AreaMapper} from '../../Utilities/CustomMethods';
 import AppButton from '../Elements/Button';
 import {Input} from '../Elements/Input';
 import {DropdownComponent} from '../Sections/DropDownSection';
-import {SamagraBottomSheet} from '../Sections/SamagraBottomSheet';
+import {AppBottomSheet} from '../Sections/AppBottomSheet';
 import {ItemCategoryCardSlider} from './ItemCategorySlider';
 import {UnitSlider} from '../Elements/UnitSlider';
 
@@ -43,7 +43,7 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
       return (
         <Input
           style={{
-            marginBottom: SamagraScaller({
+            marginBottom: AreaMapper({
               value: 5,
               scaleBy: 'average',
             }),
@@ -67,7 +67,7 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
               icon: (
                 <TextInput.Icon
                   color={colors.primary}
-                  size={SamagraScaller({
+                  size={AreaMapper({
                     value: 22,
                     scaleBy: 'average',
                   })}
@@ -83,7 +83,7 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
               icon: (
                 <TextInput.Icon
                   color={colors.primary}
-                  size={SamagraScaller({
+                  size={AreaMapper({
                     value: 22,
                     scaleBy: 'average',
                   })}
@@ -124,7 +124,7 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
 
   return (
     <>
-      <SamagraBottomSheet
+      <AppBottomSheet
         customStyle={{
           zIndex: 100,
         }}
@@ -132,14 +132,14 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
         flexHeight={0}
         pannigGesture={false}
         title="Request for House Keeping Service"
-        children={childrenContent}></SamagraBottomSheet>
+        children={childrenContent}></AppBottomSheet>
     </>
   );
 };
 
 const styles = StyleSheet.create({
   childrenContainer: {
-    paddingVertical: SamagraScaller({
+    paddingVertical: AreaMapper({
       scaleBy: 'average',
       value: 10,
     }),

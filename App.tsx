@@ -28,7 +28,7 @@ import {RootStack} from './Navigators/RootStackNavigator';
 import {MyDarkTheme, MyTheme} from './Prefrences/Prefrences';
 import {store} from './StateManagement/Store';
 import {login, logout} from './StateManagement/User/UserSlice';
-import {SamagraScaller} from './Utilities/CustomMethods';
+import {AreaMapper} from './Utilities/CustomMethods';
 import FlashMessage from 'react-native-flash-message';
 
 // MAin Fuction To Token Refresh Handle
@@ -181,12 +181,12 @@ function App(): React.JSX.Element {
         position="top"
         textStyle={{
           fontFamily: font.fontFamily,
-          fontSize: SamagraScaller({
+          fontSize: AreaMapper({
             value: 16,
             scaleBy: 'height',
           }),
           color: themes.colors.text,
-          lineHeight: SamagraScaller({
+          lineHeight: AreaMapper({
             value: 100,
             scaleBy: 'average',
           }),
@@ -211,7 +211,7 @@ function App(): React.JSX.Element {
                 detail={{
                   icon: (
                     <ServerDown
-                      height={SamagraScaller({
+                      height={AreaMapper({
                         value: 250,
                         scaleBy: 'average',
                       })}
@@ -234,7 +234,7 @@ function App(): React.JSX.Element {
               detail={{
                 icon: (
                   <InternetUnAvailable
-                    height={SamagraScaller({
+                    height={AreaMapper({
                       value: 250,
                       scaleBy: 'average',
                     })}

@@ -12,7 +12,7 @@ import {
   View
 } from 'react-native';
 import { Surface } from 'react-native-paper';
-import { SamagraScaller } from '../../Utilities/CustomMethods';
+import { AreaMapper } from '../../Utilities/CustomMethods';
 import AppButton from '../Elements/Button';
 import { TextComponet } from '../Elements/TextComponet';
 
@@ -88,11 +88,11 @@ export const SliderSwitcher: React.FC<SliderSwitcherProps> = ({
         elevation={1}
         style={{
           flex: upperContainer,
-          paddingVertical: SamagraScaller({
+          paddingVertical: AreaMapper({
             value: 10,
             scaleBy: 'average',
           }),
-          paddingHorizontal: SamagraScaller({
+          paddingHorizontal: AreaMapper({
             value: 4,
             scaleBy: 'average',
           }),
@@ -110,7 +110,7 @@ export const SliderSwitcher: React.FC<SliderSwitcherProps> = ({
               style={[
                 styles.tabItem,
                 {
-                  borderRadius: SamagraScaller({
+                  borderRadius: AreaMapper({
                     value: 40,
                     scaleBy: 'average',
                   }),
@@ -138,7 +138,7 @@ export const SliderSwitcher: React.FC<SliderSwitcherProps> = ({
       <View
         style={{
           flex: bottomContainer,
-          marginBottom: SamagraScaller({
+          marginBottom: AreaMapper({
             value: 1,
             scaleBy: 'average',
           }),
@@ -171,14 +171,14 @@ export const SliderSwitcher: React.FC<SliderSwitcherProps> = ({
             }}
             icon={popupIcon}
             style={{
-              borderRadius: SamagraScaller({value: 50, scaleBy: 'average'}),
-              bottom: SamagraScaller({value: 10, scaleBy: 'average'}),
-              width: SamagraScaller({value: 120, scaleBy: 'average'}),
-              right: SamagraScaller({value: 10, scaleBy: 'average'}),
+              borderRadius: AreaMapper({value: 50, scaleBy: 'average'}),
+              bottom: AreaMapper({value: 10, scaleBy: 'average'}),
+              width: AreaMapper({value: 120, scaleBy: 'average'}),
+              right: AreaMapper({value: 10, scaleBy: 'average'}),
               position: 'absolute',
             }}
             contentStyle={{
-              padding: SamagraScaller({value: 8, scaleBy: 'average'}),
+              padding: AreaMapper({value: 8, scaleBy: 'average'}),
             }}>
             <TextComponet
               customStyle={{

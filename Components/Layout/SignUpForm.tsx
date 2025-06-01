@@ -5,6 +5,7 @@ import AppButton from '../Elements/Button';
 import {Spacer} from '../Elements/Spacer';
 import {ErrorText} from '../Elements/ErrorText';
 import {Button} from 'react-native';
+import {userRules} from '../../GlobalParams/Forms/Rules';
 
 interface SignUpData {
   phone: string;
@@ -26,13 +27,7 @@ export const SignUpForm = () => {
       <Controller
         control={control}
         name="phone"
-        rules={{
-          required: 'Phone number is required',
-          minLength: {
-            value: 10,
-            message: 'Phone number must be at least 10 digits',
-          },
-        }}
+        rules={userRules.phoneRules}
         render={({field: {onChange, value}}) => (
           <>
             <PhoneInput

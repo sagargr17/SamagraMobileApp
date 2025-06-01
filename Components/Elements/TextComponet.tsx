@@ -1,7 +1,7 @@
 import {useTheme} from '@react-navigation/native';
 import React from 'react';
 import {Text} from 'react-native-paper';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {AreaMapper} from '../../Utilities/CustomMethods';
 import {TextStyle} from 'react-native';
 
 interface TextComponetProps {
@@ -27,17 +27,17 @@ export const TextComponet: React.FC<TextComponetProps> = ({
       style={[
         {
           fontFamily: font.fontFamily,
-          fontSize: SamagraScaller({
+          fontSize: AreaMapper({
             value: fontSize ? fontSize : 16,
             scaleBy: 'height',
           }),
           color: colors.text,
           lineHeight: lineHeight
-            ? SamagraScaller({
+            ? AreaMapper({
                 value: lineHeight ? lineHeight : 16,
                 scaleBy: 'average',
               })
-            : SamagraScaller({
+            : AreaMapper({
                 value: 19,
                 scaleBy: 'average',
               }),
@@ -48,3 +48,4 @@ export const TextComponet: React.FC<TextComponetProps> = ({
     </Text>
   );
 };
+

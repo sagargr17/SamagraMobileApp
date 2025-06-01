@@ -4,7 +4,7 @@ import React, {useState} from 'react';
 import {Image, Modal} from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import {IconButton} from 'react-native-paper';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {AreaMapper} from '../../Utilities/CustomMethods';
 
 interface ImageSliderModalProps {
   images: Array<{
@@ -22,7 +22,7 @@ export const ImageSliderModal: React.FC<ImageSliderModalProps> = ({images}) => {
         onTouchEnd={() => setVisible(!visible)}
         testID="imageSlider_testID"
         images={images.map(x => x.url)}
-        imageHeight={SamagraScaller({
+        imageHeight={AreaMapper({
           value: 320.5,
           scaleBy: 'height',
         })}
@@ -52,7 +52,7 @@ export const ImageSliderModal: React.FC<ImageSliderModalProps> = ({images}) => {
             rippleColor={'gray'}
             style={{
               position: 'absolute',
-              top: SamagraScaller({
+              top: AreaMapper({
                 value: 5,
                 scaleBy: 'height',
               }),
@@ -70,11 +70,11 @@ export const ImageSliderModal: React.FC<ImageSliderModalProps> = ({images}) => {
               <Image
                 {...props}
                 style={{
-                  width: SamagraScaller({
+                  width: AreaMapper({
                     value: 400,
                     scaleBy: 'width',
                   }),
-                  height: SamagraScaller({
+                  height: AreaMapper({
                     value: 260,
                     scaleBy: 'width',
                   }),

@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# SamagraMobileApp
-=======
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Getting Started
@@ -98,4 +95,26 @@ To learn more about React Native, take a look at the following resources:
 - [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
 - [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
 - [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
->>>>>>> master
+
+
+
+
+ Project High Level Doc:
+
+
+<!-- Component  -->
+
+ 1.Elements
+    --Elements are the small unit for the layout which is reusable .
+    --Eg:Text, Button, InputTypes. It Might be sometimes Pure or composite with react-native-paper
+ 2. SEction 
+    -- Components  Sections are the composition of the elements
+    Eg: Card, SearchBar DropDowns and   
+    Its then single Entry of the UI .
+ 3. Layout
+   --- Layout is the Structure layout or the Placemennt of the UI . 
+   ?? We need Layout so we could create our section reusable and call the sections dynamically .
+      --Our Layout is based on the Parameters  passed from the Global Params    
+
+ 4. Where the data is passed in the screen from .  
+    -- 

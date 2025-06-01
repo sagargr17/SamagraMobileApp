@@ -1,10 +1,12 @@
+// This CompoenntComponent Have to Updaten
+
 import FastImage from '@d11/react-native-fast-image';
 import {useTheme} from '@react-navigation/native';
 import React, {useRef, useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {Icon, TouchableRipple} from 'react-native-paper';
 import {Camera, useCameraDevice} from 'react-native-vision-camera';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {AreaMapper} from '../../Utilities/CustomMethods';
 import ImageHandler, {OutPutImageType} from '../../Utilities/ImageHandler';
 import AppButton from '../Elements/Button';
 import {TextComponet} from '../Elements/TextComponet';
@@ -72,13 +74,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
                   enableZoomGesture={true}
                   photo={true}
                   ref={camera}
-                  style={{
-                    height: SamagraScaller({
-                      value: 870,
-                      scaleBy: 'height',
-                    }),
-                    //   flex: 2,
-                  }}
+                  style={styles.camera}
                   device={devices}
                   isActive={isCameraActive} // Ensure isActive is bound to the state
                 />
@@ -86,24 +82,13 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
             ) : (
               <>
                 <View
-                  style={{
-                    marginHorizontal: SamagraScaller({
-                      value: 8,
-                      scaleBy: 'width',
-                    }),
-                    marginVertical: SamagraScaller({
-                      value: 8,
-                      scaleBy: 'width',
-                    }),
-                    borderRadius: SamagraScaller({
-                      value: 8,
-                      scaleBy: 'average',
-                    }),
-                    backgroundColor: colors.card,
-                    borderColor: colors.border,
-                    padding: 5,
-                    borderWidth: 0.1,
-                  }}>
+                  style={[
+                    styles.imageListContainer,
+                    {
+                      backgroundColor: colors.card,
+                      borderColor: colors.border,
+                    },
+                  ]}>
                   <View
                     style={{
                       padding: 2,
@@ -118,7 +103,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
                     horizontal={true}
                     contentContainerStyle={{
                       padding: 5,
-                      marginVertical: SamagraScaller({
+                      marginVertical: AreaMapper({
                         value: 8,
                         scaleBy: 'height',
                       }),
@@ -135,34 +120,10 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
                             source={{
                               uri: image?.uri,
                             }}
-                            style={{
-                              height: SamagraScaller({
-                                value: 65,
-                                scaleBy: 'height',
-                              }),
-                              width: SamagraScaller({
-                                value: 65,
-                                scaleBy: 'width',
-                              }),
-                              borderRadius: 12,
-                            }}></FastImage>
+                            style={styles.image}></FastImage>
                           <TouchableRipple
                             onPress={() => handleImageRemove(image)}
-                            style={{
-                              // top: 2,
-                              backgroundColor: 'gray',
-                              opacity: 0.8,
-                              borderRadius: 45,
-                              padding: SamagraScaller({
-                                value: 1,
-                                scaleBy: 'average',
-                              }),
-                              height: 20,
-                              // position: 'absolute',
-                              zIndex: 5,
-                              right: 20,
-                              bottom: 2,
-                            }}>
+                            style={styles.closeRipple}>
                             <Icon
                               size={20}
                               source={'close-thick'}
@@ -173,19 +134,9 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
                     ) : (
                       <TouchableRipple
                         onPress={() => setIsCameraActive(!isCameraActive)}
-                        style={{
-                          opacity: 0.8,
-                          borderRadius: 45,
-                          height: SamagraScaller({
-                            value: 50,
-                            scaleBy: 'height',
-                          }),
-                          zIndex: 5,
-
-                          bottom: 2,
-                        }}>
+                        style={styles.cameraIconTouchableRiple}>
                         <Icon
-                          size={SamagraScaller({
+                          size={AreaMapper({
                             value: 40,
                             scaleBy: 'average',
                           })}
@@ -199,7 +150,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
             )}
             <View
               style={{
-                bottom: SamagraScaller({
+                bottom: AreaMapper({
                   value: 150,
                   scaleBy: 'height',
                 }),
@@ -220,7 +171,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
                       left: 20,
                       backgroundColor: 'gray',
                       borderRadius: 45,
-                      padding: SamagraScaller({
+                      padding: AreaMapper({
                         value: 15,
                         scaleBy: 'average',
                       }),
@@ -250,5 +201,66 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: 400,
+  },
+  camera: {
+    height: AreaMapper({
+      value: 870,
+      scaleBy: 'height',
+    }),
+  },
+
+  imageListContainer: {
+    marginHorizontal: AreaMapper({
+      value: 8,
+      scaleBy: 'width',
+    }),
+    marginVertical: AreaMapper({
+      value: 8,
+      scaleBy: 'width',
+    }),
+    borderRadius: AreaMapper({
+      value: 8,
+      scaleBy: 'average',
+    }),
+    padding: 5,
+    borderWidth: 0.1,
+  },
+
+  image: {
+    height: AreaMapper({
+      value: 65,
+      scaleBy: 'height',
+    }),
+    width: AreaMapper({
+      value: 65,
+      scaleBy: 'width',
+    }),
+    borderRadius: 12,
+  },
+
+  cameraIconTouchableRiple: {
+    opacity: 0.8,
+    borderRadius: 45,
+    height: AreaMapper({
+      value: 50,
+      scaleBy: 'height',
+    }),
+    zIndex: 5,
+
+    bottom: 2,
+  },
+  closeRipple: {
+    backgroundColor: 'gray',
+    opacity: 0.8,
+    borderRadius: 45,
+    padding: AreaMapper({
+      value: 1,
+      scaleBy: 'average',
+    }),
+    height: 20,
+
+    zIndex: 5,
+    right: 20,
+    bottom: 2,
   },
 });

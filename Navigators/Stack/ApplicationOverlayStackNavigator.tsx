@@ -15,7 +15,7 @@ import {AddItemScreen} from '../../Screens/Application/More/Shop/AddItemScreen';
 import {AddShopScreen} from '../../Screens/Application/More/Shop/AddShopScreen';
 import {MyShopItemsScreen} from '../../Screens/Application/More/MyShopItemsScreen';
 import {ItemDetailScreen} from '../../Screens/OnBoarding/ItemDetailScreen';
-import {SamagraScaller, titleCase} from '../../Utilities/CustomMethods';
+import {AreaMapper, titleCase} from '../../Utilities/CustomMethods';
 
 type ApplicationOverlayMoreStackParamList = {
   OrderListScreen: undefined;
@@ -103,7 +103,7 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
                   alignItems: 'center',
                   borderWidth: 0.8,
                   borderRadius: 8,
-                  padding: SamagraScaller({
+                  padding: AreaMapper({
                     value: 8,
                     scaleBy: 'average',
                   }),

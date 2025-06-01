@@ -12,7 +12,7 @@ interface AlertProps {
   scrollable?: boolean;
 }
 
-export const SamagraAlert: React.FC<AlertProps> = ({
+export const AppAlert: React.FC<AlertProps> = ({
   title,
   description,
   icon = 'alert',

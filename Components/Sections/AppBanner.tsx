@@ -12,7 +12,8 @@ import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {AreaMapper} from '../../Utilities/CustomMethods';
+import {styles} from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetScrollable/BottomSheetFlashList';
 
 // Units for Height and Width to adjust for different screen
 const width = Dimensions.get('window').width;
@@ -24,7 +25,7 @@ const flatList = createRef<any>();
 let scrolled: number = 0;
 setInterval(() => {
   if (scrolled < width * 4) {
-    scrolled += SamagraScaller({
+    scrolled += AreaMapper({
       value: 300,
       scaleBy: 'width',
     });
@@ -44,19 +45,10 @@ const DATA = [
   'https://images.pexels.com/photos/8487360/pexels-photo-8487360.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
 ];
 
-interface SamagraBannerProps {}
-const SamagraBanner: React.FC<SamagraBannerProps> = () => {
+interface AppBannerProps {}
+const AppBanner: React.FC<AppBannerProps> = () => {
   return (
-    <SafeAreaView
-      style={{
-        position: 'relative',
-        marginVertical: heightPercentageToDP(2),
-        marginBottom: 5,
-        paddingHorizontal: SamagraScaller({
-          value: 8,
-          scaleBy: 'average',
-        }),
-      }}>
+    <SafeAreaView style={style.wrapper}>
       <View
         style={{
           elevation: 10,
@@ -65,19 +57,7 @@ const SamagraBanner: React.FC<SamagraBannerProps> = () => {
           data={DATA}
           ref={flatList}
           renderItem={({item, index}) => (
-            <View
-              style={{
-                width: SamagraScaller({
-                  value: 304,
-                  scaleBy: 'width',
-                }),
-                position: 'relative',
-                marginRight: widthPercentageToDP(2),
-                height: SamagraScaller({
-                  value: 155,
-                  scaleBy: 'average',
-                }),
-              }}>
+            <View style={style.imageContainer}>
               <FastImage
                 style={[
                   style.image,
@@ -108,9 +88,19 @@ const SamagraBanner: React.FC<SamagraBannerProps> = () => {
 };
 
 const style = StyleSheet.create({
+  wrapper: {
+    position: 'relative',
+    marginVertical: heightPercentageToDP(2),
+    marginBottom: 5,
+    paddingHorizontal: AreaMapper({
+      value: 8,
+      scaleBy: 'average',
+    }),
+  },
+
   image: {
     resizeMode: 'contain',
-    borderWidth: SamagraScaller({
+    borderWidth: AreaMapper({
       value: 1,
       scaleBy: 'average',
     }),
@@ -121,6 +111,18 @@ const style = StyleSheet.create({
     shadowOpacity: 0.9,
     shadowRadius: 3,
   },
+  imageContainer: {
+    width: AreaMapper({
+      value: 304,
+      scaleBy: 'width',
+    }),
+    position: 'relative',
+    marginRight: widthPercentageToDP(2),
+    height: AreaMapper({
+      value: 155,
+      scaleBy: 'average',
+    }),
+  },
 });
 
-export default SamagraBanner;
+export default AppBanner;

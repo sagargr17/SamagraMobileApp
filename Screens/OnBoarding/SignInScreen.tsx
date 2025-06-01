@@ -23,7 +23,8 @@ import { SocialForm } from '../../Components/Sections/SocialForm';
 import { OnBoardingStackNavigationProp } from '../../Navigators/Stack/OnBoardingStackNavigator';
 import { showLoader } from '../../StateManagement/Error&loadingHandle/LoaderState';
 import { useAppDispatch } from '../../StateManagement/hooks';
-import { SamagraScaller } from '../../Utilities/CustomMethods';
+import { AreaMapper } from '../../Utilities/CustomMethods';
+import { userRules } from '../../GlobalParams/Forms/Rules';
 
 interface SignInScreenProps {
   navigation: OnBoardingStackNavigationProp<'SignUpScreen'>;
@@ -57,7 +58,7 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
         <GestureHandlerRootView
           style={{
             flex: 1,
-            marginTop: SamagraScaller({
+            marginTop: AreaMapper({
               value: 20,
               scaleBy: 'height',
             }),
@@ -73,9 +74,7 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
               <Controller
                 control={control}
                 name="userName"
-                rules={{
-                  required: 'Username address is required',
-                }}
+                rules={userRules.userName}
                 render={({field: {onChange, value}}) => (
                   <Input
                     label="Username"
@@ -92,9 +91,7 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
               <Controller
                 control={control}
                 name="password"
-                rules={{
-                  required: 'Password is required',
-                }}
+                rules={userRules.password}
                 render={({field: {onChange, value}}) => (
                   <Input
                     label="Password"
@@ -158,11 +155,11 @@ const styles = StyleSheet.create({
   },
 
   image: {
-    height: SamagraScaller({
+    height: AreaMapper({
       value: 190,
       scaleBy: 'height',
     }),
-    width: SamagraScaller({
+    width: AreaMapper({
       value: 180,
       scaleBy: 'width',
     }),
@@ -172,7 +169,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: SamagraScaller({
+    marginBottom: AreaMapper({
       value: 5,
       scaleBy: 'height',
     }),

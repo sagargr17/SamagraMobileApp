@@ -2,7 +2,7 @@ import React from 'react';
 import {Alert, View} from 'react-native';
 import {IconButton, TextInput} from 'react-native-paper';
 import {TextComponet} from '../Elements/TextComponet';
-import {SamagraScaller, titleCase} from '../../Utilities/CustomMethods';
+import {AreaMapper, titleCase} from '../../Utilities/CustomMethods';
 import {useTheme} from '@react-navigation/native';
 
 interface CounterProps {
@@ -21,7 +21,7 @@ export const Counter: React.FC<CounterProps> = ({setTotal}) => {
         justifyContent: 'space-between',
         alignItems: 'center',
 
-        height: SamagraScaller({
+        height: AreaMapper({
           value: 40,
           scaleBy: 'height',
         }),
@@ -39,12 +39,12 @@ export const Counter: React.FC<CounterProps> = ({setTotal}) => {
           justifyContent: 'space-between',
           flex: 0.7,
           backgroundColor: '#F4F4F4',
-          height: SamagraScaller({
+          height: AreaMapper({
             value: 40,
             scaleBy: 'height',
           }),
           borderBottomColor: colors.primary,
-          borderBottomWidth: SamagraScaller({
+          borderBottomWidth: AreaMapper({
             value: 1,
             scaleBy: 'height',
           }),
@@ -67,7 +67,7 @@ export const Counter: React.FC<CounterProps> = ({setTotal}) => {
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
-            paddingHorizontal: SamagraScaller({
+            paddingHorizontal: AreaMapper({
               value: 4,
               scaleBy: 'average',
             }),
@@ -83,7 +83,7 @@ export const Counter: React.FC<CounterProps> = ({setTotal}) => {
             }}></IconButton>
           <View
             style={{
-              width: SamagraScaller({
+              width: AreaMapper({
                 value: 4,
                 scaleBy: 'average',
               }),

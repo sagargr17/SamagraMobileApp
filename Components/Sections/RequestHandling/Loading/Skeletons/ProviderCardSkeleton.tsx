@@ -7,7 +7,7 @@ import {
 } from 'react-native-gradient-shimmer';
 import LinearGradient from 'react-native-linear-gradient';
 import {PaperProvider} from 'react-native-paper';
-import {SamagraScaller} from '../../../../../Utilities/CustomMethods';
+import {AreaMapper} from '../../../../../Utilities/CustomMethods';
 
 interface ProviderCardSkeletonProps {}
 
@@ -32,17 +32,17 @@ export const ProviderCardSkeleton: React.FC<
       ]}>
       <View style={ProviderCardSkeletonStyle.dataContainer}>
         <CustomGradientShimmer
-          height={SamagraScaller({
+          height={AreaMapper({
             value: 65,
             scaleBy: 'average',
           })}
-          width={SamagraScaller({
+          width={AreaMapper({
             value: 65,
             scaleBy: 'average',
           })}
           style={[
             {
-              borderRadius: SamagraScaller({
+              borderRadius: AreaMapper({
                 value: 80,
                 scaleBy: 'average',
               }),
@@ -52,17 +52,17 @@ export const ProviderCardSkeleton: React.FC<
 
         <View style={ProviderCardSkeletonStyle.textContainer}>
           <CustomGradientShimmer
-            height={SamagraScaller({
+            height={AreaMapper({
               value: 17,
               scaleBy: 'average',
             })}
-            width={SamagraScaller({
+            width={AreaMapper({
               value: 250,
               scaleBy: 'average',
             })}
             style={[
               {
-                borderRadius: SamagraScaller({
+                borderRadius: AreaMapper({
                   value: 80,
                   scaleBy: 'average',
                 }),
@@ -70,21 +70,21 @@ export const ProviderCardSkeleton: React.FC<
             ]}
           />
           <CustomGradientShimmer
-            height={SamagraScaller({
+            height={AreaMapper({
               value: 17,
               scaleBy: 'average',
             })}
-            width={SamagraScaller({
+            width={AreaMapper({
               value: 180,
               scaleBy: 'average',
             })}
             style={[
               {
-                borderRadius: SamagraScaller({
+                borderRadius: AreaMapper({
                   value: 80,
                   scaleBy: 'average',
                 }),
-                marginTop: SamagraScaller({
+                marginTop: AreaMapper({
                   value: 8,
                   scaleBy: 'average',
                 }),
@@ -92,21 +92,21 @@ export const ProviderCardSkeleton: React.FC<
             ]}
           />
           <CustomGradientShimmer
-            height={SamagraScaller({
+            height={AreaMapper({
               value: 17,
               scaleBy: 'average',
             })}
-            width={SamagraScaller({
+            width={AreaMapper({
               value: 100,
               scaleBy: 'average',
             })}
             style={[
               {
-                borderRadius: SamagraScaller({
+                borderRadius: AreaMapper({
                   value: 80,
                   scaleBy: 'average',
                 }),
-                marginTop: SamagraScaller({
+                marginTop: AreaMapper({
                   value: 8,
                   scaleBy: 'average',
                 }),
@@ -167,15 +167,15 @@ export const ProviderCardSkeleton: React.FC<
 
 const ProviderCardSkeletonStyle = StyleSheet.create({
   cardContainer: {
-    borderWidth: SamagraScaller({
+    borderWidth: AreaMapper({
       value: 0.4,
       scaleBy: 'average',
     }),
-    margin: SamagraScaller({
+    margin: AreaMapper({
       value: 8,
       scaleBy: 'average',
     }),
-    borderRadius: SamagraScaller({
+    borderRadius: AreaMapper({
       value: 8,
       scaleBy: 'average',
     }),
@@ -189,43 +189,43 @@ const ProviderCardSkeletonStyle = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginTop: SamagraScaller({
+    marginTop: AreaMapper({
       value: 16,
       scaleBy: 'average',
     }),
-    marginVertical: SamagraScaller({
+    marginVertical: AreaMapper({
       value: 16,
       scaleBy: 'average',
     }),
-    paddingHorizontal: SamagraScaller({
+    paddingHorizontal: AreaMapper({
       value: 16,
       scaleBy: 'average',
     }),
   },
   textContainer: {
-    marginHorizontal: SamagraScaller({
+    marginHorizontal: AreaMapper({
       value: 16,
       scaleBy: 'average',
     }),
-    lineHeight: SamagraScaller({
+    lineHeight: AreaMapper({
       value: 22,
       scaleBy: 'average',
     }),
   },
   image: {
-    height: SamagraScaller({
+    height: AreaMapper({
       value: 65,
       scaleBy: 'average',
     }),
-    width: SamagraScaller({
+    width: AreaMapper({
       value: 65,
       scaleBy: 'average',
     }),
-    borderRadius: SamagraScaller({
+    borderRadius: AreaMapper({
       value: 80,
       scaleBy: 'average',
     }),
-    borderWidth: SamagraScaller({
+    borderWidth: AreaMapper({
       value: 2,
       scaleBy: 'average',
     }),
@@ -236,7 +236,7 @@ const ProviderCardSkeletonStyle = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
-    marginVertical: SamagraScaller({
+    marginVertical: AreaMapper({
       value: 8,
       scaleBy: 'average',
     }),

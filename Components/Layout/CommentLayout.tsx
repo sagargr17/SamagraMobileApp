@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { TouchableOpacity, View } from 'react-native';
-import { TextComponet } from '../Elements/TextComponet';
+import React, {useState} from 'react';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {TextComponet} from '../Elements/TextComponet';
 
-import { useTheme } from '@react-navigation/native';
-import { SamagraScaller } from '../../Utilities/CustomMethods';
-import { CommentCard } from '../Sections/Cards/CommentCard';
-import { SamagraBottomSheet } from '../Sections/SamagraBottomSheet';
+import {useTheme} from '@react-navigation/native';
+import {AreaMapper} from '../../Utilities/CustomMethods';
+import {CommentCard} from '../Sections/Cards/CommentCard';
+import {AppBottomSheet} from '../Sections/AppBottomSheet';
 interface CommentLayoutProps {
   onCloseHandle?: (status: any) => void;
 }
@@ -47,13 +47,7 @@ export const CommentLayout: React.FC<CommentLayoutProps> = ({
 
   return (
     <>
-      <View
-        style={{
-          marginHorizontal: SamagraScaller({
-            value: 12,
-            scaleBy: 'average',
-          }),
-        }}>
+      <View style={[style.viewContainer]}>
         {/*This is the layout of the Item Screenn  */}
         <TouchableOpacity
           onPress={() => {
@@ -62,10 +56,6 @@ export const CommentLayout: React.FC<CommentLayoutProps> = ({
           }}>
           <TextComponet
             customStyle={{
-              marginVertical: SamagraScaller({
-                value: 10,
-                scaleBy: 'height',
-              }),
               color: colors.text,
             }}
             title="Rating and Reviews"
@@ -79,8 +69,9 @@ export const CommentLayout: React.FC<CommentLayoutProps> = ({
             commentDescription={dummyData[0].commentDescription}></CommentCard>
         </TouchableOpacity>
       </View>
+
       {isCommentOpen ? (
-        <SamagraBottomSheet
+        <AppBottomSheet
           onClose={() => {
             setIsCommentopen(!isCommentOpen);
             onCloseHandle ? onCloseHandle(isCommentOpen) : null;
@@ -100,8 +91,24 @@ export const CommentLayout: React.FC<CommentLayoutProps> = ({
                 commentDescription={item.commentDescription}
                 key={index}></CommentCard>
             ))
-          }></SamagraBottomSheet>
+          }></AppBottomSheet>
       ) : null}
     </>
   );
 };
+
+const style = StyleSheet.create({
+  viewContainer: {
+    marginHorizontal: AreaMapper({
+      value: 12,
+      scaleBy: 'average',
+    }),
+  },
+
+  textStyle: {
+    marginVertical: AreaMapper({
+      value: 10,
+      scaleBy: 'height',
+    }),
+  },
+});

@@ -1,5 +1,5 @@
 import React from 'react';
-import {SamagraScaller} from '../../../../../Utilities/CustomMethods';
+import {AreaMapper} from '../../../../../Utilities/CustomMethods';
 import {createGradientShimmer} from 'react-native-gradient-shimmer';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -13,17 +13,17 @@ export const SerchBarSkeletonn: React.FC<SerchBarSkeletonnProps> = ({}) => {
   });
   return (
     <CustomGradientShimmer
-      height={SamagraScaller({
+      height={AreaMapper({
         value: 65,
         scaleBy: 'average',
       })}
-      width={SamagraScaller({
+      width={AreaMapper({
         value: 65,
         scaleBy: 'average',
       })}
       style={[
         {
-          borderRadius: SamagraScaller({
+          borderRadius: AreaMapper({
             value: 80,
             scaleBy: 'average',
           }),

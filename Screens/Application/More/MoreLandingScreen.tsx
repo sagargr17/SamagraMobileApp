@@ -6,7 +6,7 @@ import {useNavigation, useTheme} from '@react-navigation/native';
 import AppButton from '../../../Components/Elements/Button';
 import {TextComponet} from '../../../Components/Elements/TextComponet';
 import {PoppedCard} from '../../../Components/Sections/Cards/PoppedCard';
-import {SamagraScaller} from '../../../Utilities/CustomMethods';
+import {AreaMapper} from '../../../Utilities/CustomMethods';
 import {useAppSelector} from '../../../StateManagement/hooks';
 import {useLazyQuery, useQuery} from '@apollo/client';
 import {getLoginUser} from '../../../GraphQL/Queries/UserQueries';
@@ -99,7 +99,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
   return (
     <ScrollView
       style={{
-        padding: SamagraScaller({
+        padding: AreaMapper({
           value: 10,
           scaleBy: 'average',
         }),
@@ -164,7 +164,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
 
       <View
         style={{
-          marginVertical: SamagraScaller({
+          marginVertical: AreaMapper({
             value: 4,
             scaleBy: 'average',
           }),

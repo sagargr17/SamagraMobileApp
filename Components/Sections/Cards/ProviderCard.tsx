@@ -5,7 +5,7 @@ import React, {useEffect, useMemo, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {ProgressBar} from 'react-native-paper';
 import {Logos} from '../../../Assets/SVG/Exports/Exports';
-import {SamagraScaller} from '../../../Utilities/CustomMethods';
+import {AreaMapper} from '../../../Utilities/CustomMethods';
 import {TextComponet} from '../../Elements/TextComponet';
 import {ProviderCardSkeleton} from '../RequestHandling/Loading/Skeletons/ProviderCardSkeleton';
 import {PairButtons} from '../PairButtons';
@@ -72,7 +72,7 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
           style={{
             display: 'flex',
             flexDirection: 'row',
-            marginTop: SamagraScaller({
+            marginTop: AreaMapper({
               value: 6,
               scaleBy: 'average',
             }),
@@ -83,7 +83,7 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
         </View>
         <View
           style={{
-            marginTop: SamagraScaller({
+            marginTop: AreaMapper({
               value: 6,
               scaleBy: 'average',
             }),
@@ -174,15 +174,15 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
 
 const ProviderCardStyle = StyleSheet.create({
   cardContainer: {
-    borderWidth: SamagraScaller({
+    borderWidth: AreaMapper({
       value: 0.4,
       scaleBy: 'average',
     }),
-    margin: SamagraScaller({
+    margin: AreaMapper({
       value: 8,
       scaleBy: 'average',
     }),
-    borderRadius: SamagraScaller({
+    borderRadius: AreaMapper({
       value: 8,
       scaleBy: 'average',
     }),
@@ -191,7 +191,7 @@ const ProviderCardStyle = StyleSheet.create({
       height: 5,
       width: 0.1,
     },
-    padding: SamagraScaller({
+    padding: AreaMapper({
       value: 10,
       scaleBy: 'average',
     }),
@@ -201,43 +201,43 @@ const ProviderCardStyle = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginTop: SamagraScaller({
+    marginTop: AreaMapper({
       value: 16,
       scaleBy: 'average',
     }),
-    marginVertical: SamagraScaller({
+    marginVertical: AreaMapper({
       value: 16,
       scaleBy: 'average',
     }),
-    paddingHorizontal: SamagraScaller({
+    paddingHorizontal: AreaMapper({
       value: 16,
       scaleBy: 'average',
     }),
   },
   textContainer: {
-    marginHorizontal: SamagraScaller({
+    marginHorizontal: AreaMapper({
       value: 16,
       scaleBy: 'average',
     }),
-    lineHeight: SamagraScaller({
+    lineHeight: AreaMapper({
       value: 22,
       scaleBy: 'average',
     }),
   },
   image: {
-    height: SamagraScaller({
+    height: AreaMapper({
       value: 50,
       scaleBy: 'average',
     }),
-    width: SamagraScaller({
+    width: AreaMapper({
       value: 50,
       scaleBy: 'average',
     }),
-    borderRadius: SamagraScaller({
+    borderRadius: AreaMapper({
       value: 80,
       scaleBy: 'average',
     }),
-    borderWidth: SamagraScaller({
+    borderWidth: AreaMapper({
       value: 2,
       scaleBy: 'average',
     }),
@@ -248,7 +248,7 @@ const ProviderCardStyle = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
-    marginVertical: SamagraScaller({
+    marginVertical: AreaMapper({
       value: 8,
       scaleBy: 'average',
     }),

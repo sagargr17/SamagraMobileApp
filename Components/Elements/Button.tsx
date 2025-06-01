@@ -4,7 +4,7 @@ import {StyleSheet} from 'react-native';
 import {Button} from 'react-native-paper';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
 import {useAppDispatch} from '../../StateManagement/hooks';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {AreaMapper} from '../../Utilities/CustomMethods';
 
 interface AppButtonProps extends React.ComponentProps<typeof Button> {
   color?: 'primary' | 'secondary' | 'light' | 'danger';
@@ -30,7 +30,6 @@ const AppButton = ({
       labelStyle={[
         styles.label,
         {
-          fontSize: SamagraScaller({value: 16, scaleBy: 'width'}),
           fontFamily: fonts.medium.fontFamily,
         },
       ]}
@@ -53,37 +52,22 @@ const AppButton = ({
 const styles = StyleSheet.create({
   button: {
     borderRadius: heightPercentageToDP(6),
-    marginVertical: SamagraScaller({
+    marginVertical: AreaMapper({
       value: 10,
       scaleBy: 'average',
     }),
   },
   label: {
-    fontFamily: 'Poopins-Bold',
+    fontSize: AreaMapper({value: 16, scaleBy: 'width'}),
   },
   buttonContent: {
-    paddingVertical: SamagraScaller({
+    paddingVertical: AreaMapper({
       value: 3,
       scaleBy: 'average',
     }),
   },
   disabled: {
     opacity: 0.5,
-  },
-});
-
-const intent = StyleSheet.create({
-  primary: {
-    backgroundColor: '#1FD0C9',
-  },
-  danger: {
-    backgroundColor: '#EC4B3C',
-  },
-  light: {
-    backgroundColor: '#a9bafd',
-  },
-  secondary: {
-    backgroundColor: '#43C769',
   },
 });
 

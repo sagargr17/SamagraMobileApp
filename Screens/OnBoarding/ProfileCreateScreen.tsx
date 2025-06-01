@@ -19,7 +19,7 @@ import {Spacer} from '../../Components/Elements/Spacer';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
 import {Input} from '../../Components/Elements/Input';
 import PhoneInput from '../../Components/Elements/PhoneInput';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {AreaMapper} from '../../Utilities/CustomMethods';
 
 interface ProfileCreateProps {
   navigation: OnBoardingStackNavigationProp<'ProfileCreateScreen'>;
@@ -87,7 +87,7 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
           showsVerticalScrollIndicator={false}
           style={{
             flex: 1,
-            paddingVertical: SamagraScaller({
+            paddingVertical: AreaMapper({
               value: 20,
               scaleBy: 'height',
             }),

@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {Swing, Chase} from 'react-native-animated-spinkit';
-import {SamagraScaller} from '../../../../Utilities/CustomMethods';
+import {AreaMapper} from '../../../../Utilities/CustomMethods';
 import {TextComponet} from '../../../Elements/TextComponet';
 
 interface SamagraLoaderProps {}
@@ -22,13 +22,13 @@ export const SamagraLoader: React.FC<SamagraLoaderProps> = ({}) => {
       }}>
       <Chase
         color={colors.primary}
-        size={SamagraScaller({
+        size={AreaMapper({
           value: 50,
           scaleBy: 'average',
         })}></Chase>
       <TextComponet
         customStyle={{
-          marginTop: SamagraScaller({
+          marginTop: AreaMapper({
             value: 20,
             scaleBy: 'height',
           }),

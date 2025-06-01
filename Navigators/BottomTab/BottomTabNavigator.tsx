@@ -6,7 +6,7 @@ import React from 'react';
 
 import {useTheme} from '@react-navigation/native';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {AreaMapper} from '../../Utilities/CustomMethods';
 import {HomeStackNavigator} from '../Stack/HomeStackNavigator';
 import {MoreStackNavigator} from '../Stack/MoreStackNavigator';
 import {ServiceStackNavigator} from '../Stack/ServiceStackNavigator';
@@ -51,7 +51,7 @@ export const BottomTabNavigator: React.FC = () => {
         tabBarIcon: ({focused, color, size}) => {
           const {Home, Service, More} = Logos;
 
-          const iconSize = SamagraScaller({value: 22, scaleBy: 'width'});
+          const iconSize = AreaMapper({value: 22, scaleBy: 'width'});
 
           if (route.name === 'Home') {
             return (
@@ -91,25 +91,25 @@ export const BottomTabNavigator: React.FC = () => {
           // backgroundColor: colors.background,
           shadowOpacity: 0, // Use shadowOpacity for iOS
           elevation: 0, // Use elevation for Android
-          height: SamagraScaller({
+          height: AreaMapper({
             value: 80,
             scaleBy: 'height',
           }),
-          paddingHorizontal: SamagraScaller({
+          paddingHorizontal: AreaMapper({
             value: 15,
             scaleBy: 'height',
           }),
-          paddingVertical: SamagraScaller({
+          paddingVertical: AreaMapper({
             value: 30,
             scaleBy: 'height',
           }),
         },
         tabBarLabelStyle: {
-          fontSize: SamagraScaller({
+          fontSize: AreaMapper({
             value: 14,
             scaleBy: 'height',
           }),
-          lineHeight: SamagraScaller({
+          lineHeight: AreaMapper({
             value: 19,
             scaleBy: 'height',
           }),

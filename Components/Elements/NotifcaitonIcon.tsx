@@ -1,12 +1,12 @@
 import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {AreaMapper} from '../../Utilities/CustomMethods';
 
 interface NotifcaitonIconProps {}
 
 export const NotifcaitonIcon: React.FC<NotifcaitonIconProps> = ({}) => {
-  const {BellRing, BellRingTail} = Logos;
+  const {"BellRing": Icon, BellRingTail} = Logos;
 
   return (
     <TouchableOpacity
@@ -15,20 +15,20 @@ export const NotifcaitonIcon: React.FC<NotifcaitonIconProps> = ({}) => {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingHorizontal: SamagraScaller({
+        paddingHorizontal: AreaMapper({
           value: 3,
           scaleBy: 'average',
         }),
       }}>
-      <BellRing
-        width={SamagraScaller({
+      <Icon
+        width={AreaMapper({
           value: 20,
           scaleBy: 'average',
         })}
-        height={SamagraScaller({
+        height={AreaMapper({
           value: 20,
           scaleBy: 'average',
-        })}></BellRing>
+        })}></Icon>
       <BellRingTail></BellRingTail>
     </TouchableOpacity>
   );

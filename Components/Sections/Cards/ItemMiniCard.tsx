@@ -3,7 +3,7 @@ import {View, Image, StyleSheet, TextInputComponent} from 'react-native';
 import {Card, IconButton, TouchableRipple} from 'react-native-paper';
 import {TextComponet} from '../../Elements/TextComponet';
 import {useNavigation, useTheme} from '@react-navigation/native';
-import {SamagraScaller, titleRange} from '../../../Utilities/CustomMethods';
+import {AreaMapper, titleRange} from '../../../Utilities/CustomMethods';
 import {HomeStackNavigationProp} from '../../../Navigators/Stack/HomeStackNavigator';
 import {ApplicationOverlayStackNavigationProp} from '../../../Navigators/Stack/ApplicationOverlayStackNavigator';
 import {useAppDispatch} from '../../../StateManagement/hooks';
@@ -37,11 +37,11 @@ export const ItemMiniCard: React.FC<ItemMiniCardProps> = ({
         {
           backgroundColor: colors.card,
           padding: 0,
-          margin: SamagraScaller({
+          margin: AreaMapper({
             value: margin,
             scaleBy: 'average',
           }),
-          marginTop: SamagraScaller({
+          marginTop: AreaMapper({
             value: marginTop,
             scaleBy: 'average',
           }),
@@ -62,7 +62,7 @@ export const ItemMiniCard: React.FC<ItemMiniCardProps> = ({
         style={[
           {
             backgroundColor: colors.card,
-            borderRadius: SamagraScaller({
+            borderRadius: AreaMapper({
               value: 12,
               scaleBy: 'average',
             }),
@@ -85,11 +85,11 @@ export const ItemMiniCard: React.FC<ItemMiniCardProps> = ({
           </View>
           <View
             style={{
-              paddingHorizontal: SamagraScaller({
+              paddingHorizontal: AreaMapper({
                 value: 10,
                 scaleBy: 'average',
               }),
-              paddingTop: SamagraScaller({
+              paddingTop: AreaMapper({
                 value: 14,
                 scaleBy: 'average',
               }),
@@ -130,11 +130,11 @@ export const ItemMiniCard: React.FC<ItemMiniCardProps> = ({
 
 const styles = StyleSheet.create({
   card: {
-    width: SamagraScaller({
+    width: AreaMapper({
       value: 172,
       scaleBy: 'width',
     }),
-    borderRadius: SamagraScaller({
+    borderRadius: AreaMapper({
       value: 30,
       scaleBy: 'width',
     }),
@@ -148,15 +148,15 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   image: {
-    height: SamagraScaller({
+    height: AreaMapper({
       value: 130,
       scaleBy: 'height',
     }),
-    width: SamagraScaller({
+    width: AreaMapper({
       value: 172,
       scaleBy: 'width',
     }),
-    borderRadius: SamagraScaller({
+    borderRadius: AreaMapper({
       value: 10,
       scaleBy: 'width',
     }),

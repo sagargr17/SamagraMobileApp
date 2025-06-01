@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import {TextComponet} from '../Elements/TextComponet';
 import AppButton from '../Elements/Button';
 import {Icon} from 'react-native-paper';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {AreaMapper} from '../../Utilities/CustomMethods';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {useTheme} from '@react-navigation/native';
 
@@ -21,16 +21,16 @@ export const ItemCheckOut: React.FC<ItemCheckOutProps> = ({totalPrice = 0}) => {
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'space-between',
-          paddingTop: SamagraScaller({
+          paddingTop: AreaMapper({
             value: 10,
             scaleBy: 'average',
           }),
 
-          paddingBottom: SamagraScaller({
+          paddingBottom: AreaMapper({
             value: 15,
             scaleBy: 'average',
           }),
-          paddingHorizontal:SamagraScaller({
+          paddingHorizontal:AreaMapper({
             value: 16,
             scaleBy: 'average',
           }),
@@ -59,7 +59,7 @@ export const ItemCheckOut: React.FC<ItemCheckOutProps> = ({totalPrice = 0}) => {
             // flex: 0.95,
             alignItems: 'center',
             justifyContent: 'space-around',
-            marginLeft:SamagraScaller({
+            marginLeft:AreaMapper({
               value:10,
               scaleBy:"width"
             })
@@ -76,7 +76,7 @@ export const ItemCheckOut: React.FC<ItemCheckOutProps> = ({totalPrice = 0}) => {
               <Icon
                 color={colors.background}
                 source={'chevron-right'}
-                size={SamagraScaller({
+                size={AreaMapper({
                   value: 30,
                   scaleBy: 'average',
                 })}></Icon>
@@ -87,7 +87,7 @@ export const ItemCheckOut: React.FC<ItemCheckOutProps> = ({totalPrice = 0}) => {
             onPress={() => null}
             style={{
               // flex: 0.8,
-              marginLeft:SamagraScaller({
+              marginLeft:AreaMapper({
                 value:2,
                 scaleBy:"average"
               }),
@@ -98,7 +98,7 @@ export const ItemCheckOut: React.FC<ItemCheckOutProps> = ({totalPrice = 0}) => {
               <Icon
                 color={colors.background}
                 source={'chevron-right'}
-                size={SamagraScaller({
+                size={AreaMapper({
                   value: 30,
                   scaleBy: 'average',
                 })}></Icon>

@@ -8,7 +8,7 @@ import {TextComponet} from '../../../../Components/Elements/TextComponet';
 import {AppForm} from '../../../../Components/Layout/AppForm';
 import {ImageUploader} from '../../../../Components/Layout/ImageUploader';
 import {createNewProduct} from '../../../../GraphQL/Mutation/ItemMutation';
-import {SamagraScaller} from '../../../../Utilities/CustomMethods';
+import {AreaMapper} from '../../../../Utilities/CustomMethods';
 import {CreateProductRequestInput} from '../../../../src/__generated__/graphql';
 import {useAppDispatch} from '../../../../StateManagement/hooks';
 import {hideLoader} from '../../../../StateManagement/Error&loadingHandle/LoaderState';
@@ -95,7 +95,7 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
             fontVariant="medium"
             fontSize={14}
             customStyle={{
-              marginHorizontal: SamagraScaller({
+              marginHorizontal: AreaMapper({
                 value: 8,
                 scaleBy: 'width',
               }),
@@ -145,12 +145,12 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
           textStyle: {
             fontFamily: fonts.regular.fontFamily,
             fontWeight: 'regular',
-            fontSize: SamagraScaller({
+            fontSize: AreaMapper({
               value: 14,
               scaleBy: 'average',
             }),
           },
-          statusBarHeight: SamagraScaller({
+          statusBarHeight: AreaMapper({
             value: 15,
             scaleBy: 'average',
           }),
@@ -165,12 +165,12 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
           textStyle: {
             fontFamily: fonts.regular.fontFamily,
             fontWeight: 'regular',
-            fontSize: SamagraScaller({
+            fontSize: AreaMapper({
               value: 14,
               scaleBy: 'average',
             }),
           },
-          statusBarHeight: SamagraScaller({
+          statusBarHeight: AreaMapper({
             value: 15,
             scaleBy: 'average',
           }),
@@ -185,12 +185,12 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
         textStyle: {
           fontFamily: fonts.regular.fontFamily,
           fontWeight: 'regular',
-          fontSize: SamagraScaller({
+          fontSize: AreaMapper({
             value: 14,
             scaleBy: 'average',
           }),
         },
-        statusBarHeight: SamagraScaller({
+        statusBarHeight: AreaMapper({
           value: 15,
           scaleBy: 'average',
         }),
