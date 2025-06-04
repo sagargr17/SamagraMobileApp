@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import {useTheme} from '@react-navigation/native';
 import {useSubscription} from '@apollo/client';
+import {useTheme} from '@react-navigation/native';
+import React, {useState} from 'react';
 import {getSubscribedData} from '../../../GraphQL/Subscription/Subscription';
+import {Text} from 'react-native';
+import {ReceivedOrderListScreen} from './ReceivedOrdersListScreen';
 interface ReceivedOffersListScreenProps {}
 
 export const ReceivedOffersListScreen: React.FC<
@@ -19,9 +20,11 @@ export const ReceivedOffersListScreen: React.FC<
     },
   });
 
-  console.log('LOG', data);
-
   const {colors} = useTheme();
 
-  return <></>;
+  return (
+    <>
+      <ReceivedOrderListScreen></ReceivedOrderListScreen>
+    </>
+  );
 };

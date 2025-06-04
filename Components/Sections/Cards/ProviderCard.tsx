@@ -133,8 +133,6 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
     </View>
   );
 
-  console.log('pro');
-
   const Cardcontent = () => {
     return (
       <>

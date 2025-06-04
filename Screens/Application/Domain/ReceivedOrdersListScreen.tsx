@@ -12,6 +12,8 @@ import {getSubscribedData} from '../../../GraphQL/Subscription/Subscription';
 import {GetDataSubscription} from '../../../src/__generated__/graphql';
 import {useNavigation} from '@react-navigation/native';
 import {ProviderCardSkeleton} from '../../../Components/Sections/Loading/Skeletons/ProviderCardSkeleton';
+import {createItemRequestOfferMutation} from '../../../GraphQL/Mutation/ItemRequestMutation';
+import {showMessage} from 'react-native-flash-message';
 
 interface ReceivedOrderListScreenProps {}
 
@@ -23,22 +25,65 @@ export const ReceivedOrderListScreen: React.FC<
   const [orderlist, setOrderList] = useState<Array<GetDataSubscription>>([]);
   const navigation = useNavigation<any>();
   const {NoItemFound} = Logos;
-  // const {data, loading, error} = useSubscription(getSubscribedData, {
-  //   onData: ({client, data}) => {
-  //     console.log('Result', data);
+  const {data, loading, error} = useSubscription(getSubscribedData, {
+    onData: ({client, data}) => {
+      console.log('Subscribed Data', data);
 
-  //     if (data.data && data.data.events) {
-  //       if (data.data?.events?.eventName === 'orderRecieved') {
-  //         setOrderList([data.data, ...orderlist]);
-  //       }
-  //     }
-  //   },
-  // });
+      if (data.data && data.data.events) {
+        if (data.data?.events?.eventName === 'orderRecieved') {
+          setOrderList([data.data, ...orderlist]);
+        }
+      }
+    },
+  });
 
-  // const [aaceptOrderFn, {data, loading, error}] = useMutation();
+  const [
+    createItemRequestOfferFn,
+    {
+      data: createItemRequestOfferFnData,
+      loading: createItemRequestOfferLoading,
+      error: createItemRequestOfferFnError,
+    },
+  ] = useMutation(createItemRequestOfferMutation);
 
-  const onAcceptHandle = () => {
-    console.log('Result.....');
+  console.log(
+    'Accepting Mutation',
+    createItemRequestOfferFnData,
+    createItemRequestOfferLoading,
+    createItemRequestOfferFnError,
+  );
+
+  const onAcceptHandle = async (reqeustId: string) => {
+    try {
+      console.log('Result.....', reqeustId);
+      let response = createItemRequestOfferFn({
+        variables: {
+          requestId: reqeustId,
+        },
+      });
+
+      let data = (await response).data;
+      console.log('Responnd DATA', data);
+
+      if (data) {
+        showMessage({
+          message: 'Request Sent SuccessFully',
+          description: 'We will notifiy you if request has been accepted ',
+          type: 'success',
+          style: {
+            height: 60,
+          },
+        });
+      }
+    } catch (e) {
+      console.log('Error Messaghe', e);
+
+      showMessage({
+        message: 'Action Failed',
+        description: 'Something Went Wrong',
+        type: 'danger',
+      });
+    }
   };
 
   return (
@@ -61,7 +106,17 @@ export const ReceivedOrderListScreen: React.FC<
               renderItem={({item, index}) => (
                 <ProviderCard
                   isProgressBarEnable={false}
-                  onAcceptButtonPress={onAcceptHandle}
+                  onAcceptButtonPress={() =>
+                    item.events &&
+                    item.events.data &&
+                    item.events.id &&
+                    item.events.data.itemRequestCreated?.id &&
+                    item.events.data.itemRequestCreated?.itemRequest?.id
+                      ? onAcceptHandle(
+                          item.events?.data.itemRequestCreated?.itemRequest?.id,
+                        )
+                      : null
+                  }
                   setIsProfileTapped={setIsProfileTapped}
                   setPersonalDetaile={setPersonalDetail}
                   priceperhour={Math.floor(Math.random() * 5) + 1}
@@ -162,7 +217,8 @@ export const ReceivedOrderListScreen: React.FC<
                   }}>
                   <PairButtons
                     onAcceptPress={() => {
-                      console.log('Hello World');
+                      console.log('Result');
+                      // onAcceptHandle()
                     }}
                     onDeclinPress={() => {
                       console.log('Hello World');

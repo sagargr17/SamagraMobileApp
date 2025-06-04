@@ -16,9 +16,11 @@ import {AddShopScreen} from '../../Screens/Application/More/Shop/AddShopScreen';
 import {MyShopItemsScreen} from '../../Screens/Application/More/MyShopItemsScreen';
 import {ItemDetailScreen} from '../../Screens/OnBoarding/ItemDetailScreen';
 import {AreaMapper, titleCase} from '../../Utilities/CustomMethods';
+import {ReceivedOffersListScreen} from '../../Screens/Application/Domain/ReceivedOffersListScreen';
 
 type ApplicationOverlayMoreStackParamList = {
-  OrderListScreen: undefined;
+  ReceivedOrderListScreen: undefined;
+  ReceivedOfferListScreen: undefined;
   ItemDetailScreen: {
     name: string;
   };
@@ -128,8 +130,15 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
         }}>
         {screenBuilder([
           {
-            screenName: 'OrderListScreen',
+            screenName: 'ReceivedOrderListScreen',
             component: ReceivedOrderListScreen,
+            option: {
+              header: () => null,
+            },
+          },
+          {
+            screenName: 'ReceivedOfferListScreen',
+            component: ReceivedOffersListScreen,
             option: {
               header: () => null,
             },

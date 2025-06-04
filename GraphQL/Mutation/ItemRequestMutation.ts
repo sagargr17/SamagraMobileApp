@@ -8,8 +8,8 @@ export const CreateItemRequestMutation =
 }
 `);
 
-export const acceptMutation = gql(`
-mutation($requestId:String!){
+export const createItemRequestOfferMutation = gql(`
+mutation createItemRequestOfferMutation($requestId:String!){
   createItemRequestOffer(itemRequestId: $requestId){
     id
   }

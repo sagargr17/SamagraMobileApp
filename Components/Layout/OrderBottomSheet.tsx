@@ -112,15 +112,14 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
         ) : null}
 
         <AppButton
+          disabled={loading}
           onPress={() => {
             createItemRequestFn().then(x => {
-              if (x.data) {
-                console.log('Navigate.....', x.data);
+              console.log('Resultt......');
 
-                navigation.navigate('ApplicationOverlay', {
-                  screen: 'OrderListScreen',
-                });
-              }
+              navigation.navigate('ApplicationOverlay', {
+                screen: 'ReceivedOfferListScreen',
+              });
             });
           }}>
           {loading ? (
