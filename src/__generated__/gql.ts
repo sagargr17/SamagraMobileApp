@@ -25,7 +25,7 @@ type Documents = {
     "\n  query GetPaginatedPersonalItems($after: String) {\n  getItems (after: $after) {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n      startCursor\n      endCursor\n    }\n    nodes {\n      name\n      price\n      starRating\n    }\n  }\n}\n": typeof types.GetPaginatedPersonalItemsDocument,
     "\nquery GetMySHops {\n  getShops {\n    nodes {\n      name\n      aboutShop\n      stars {\n        stars\n      }\n      location\n      phoneNumber\n      profileImageUrl\n    }\n  }\n}\n": typeof types.GetMySHopsDocument,
     "\n  query GetLoginUser {\n  getUser {\n    username\n    pofileImageUrl\n  }\n}\n": typeof types.GetLoginUserDocument,
-    "\n    subscription GetData{\n        events{\n            id\n            eventName\n            data{\n            itemRequestCreated{\n                id\n                itemRequest{\n                    id\n            }\n            }\n            }\n    }\n} \n": typeof types.GetDataDocument,
+    "\n    subscription GetData {\n  events {\n    id\n    eventName\n    data {\n      itemRequestCreated {\n        id\n        itemRequest {\n          id\n        }\n      }\n      order {\n        id\n        fullName\n      }\n    }\n  }\n}\n": typeof types.GetDataDocument,
 };
 const documents: Documents = {
     "\n mutation createNewProduct(\n  $name: String!\n  $price: Decimal!\n  $description: String!\n  $shopId: String!\n  $categoryId: String!\n  $stockQuantity: Int!\n  $imageUrls: [String!]!\n  $unit: String!\n  $location: String!\n) {\n  createProduct(\n    product: {\n      name: $name\n      price: $price\n      description: $description\n      shopId: $shopId\n      categoryId: $categoryId\n      stockQuantity: $stockQuantity\n      imageUrls: $imageUrls\n      currency: \"रु\"\n      location: $location\n      unit: $unit\n      condition: \"new\"\n    }\n  ) {\n    id\n  }\n}\n  ": types.CreateNewProductDocument,
@@ -39,7 +39,7 @@ const documents: Documents = {
     "\n  query GetPaginatedPersonalItems($after: String) {\n  getItems (after: $after) {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n      startCursor\n      endCursor\n    }\n    nodes {\n      name\n      price\n      starRating\n    }\n  }\n}\n": types.GetPaginatedPersonalItemsDocument,
     "\nquery GetMySHops {\n  getShops {\n    nodes {\n      name\n      aboutShop\n      stars {\n        stars\n      }\n      location\n      phoneNumber\n      profileImageUrl\n    }\n  }\n}\n": types.GetMySHopsDocument,
     "\n  query GetLoginUser {\n  getUser {\n    username\n    pofileImageUrl\n  }\n}\n": types.GetLoginUserDocument,
-    "\n    subscription GetData{\n        events{\n            id\n            eventName\n            data{\n            itemRequestCreated{\n                id\n                itemRequest{\n                    id\n            }\n            }\n            }\n    }\n} \n": types.GetDataDocument,
+    "\n    subscription GetData {\n  events {\n    id\n    eventName\n    data {\n      itemRequestCreated {\n        id\n        itemRequest {\n          id\n        }\n      }\n      order {\n        id\n        fullName\n      }\n    }\n  }\n}\n": types.GetDataDocument,
 };
 
 /**
@@ -103,7 +103,7 @@ export function gql(source: "\n  query GetLoginUser {\n  getUser {\n    username
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n    subscription GetData{\n        events{\n            id\n            eventName\n            data{\n            itemRequestCreated{\n                id\n                itemRequest{\n                    id\n            }\n            }\n            }\n    }\n} \n"): (typeof documents)["\n    subscription GetData{\n        events{\n            id\n            eventName\n            data{\n            itemRequestCreated{\n                id\n                itemRequest{\n                    id\n            }\n            }\n            }\n    }\n} \n"];
+export function gql(source: "\n    subscription GetData {\n  events {\n    id\n    eventName\n    data {\n      itemRequestCreated {\n        id\n        itemRequest {\n          id\n        }\n      }\n      order {\n        id\n        fullName\n      }\n    }\n  }\n}\n"): (typeof documents)["\n    subscription GetData {\n  events {\n    id\n    eventName\n    data {\n      itemRequestCreated {\n        id\n        itemRequest {\n          id\n        }\n      }\n      order {\n        id\n        fullName\n      }\n    }\n  }\n}\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};
