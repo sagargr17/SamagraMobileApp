@@ -82,7 +82,7 @@ export const CommentLayout: React.FC<CommentLayoutProps> = ({
           }}
           isOppen={isCommentOpen}
           pannigGesture={true}
-          flexHeight={1}
+          flexHeight={0.5}
           title="Reviews"
           children={() =>
             dummyData.map((item, index) => (

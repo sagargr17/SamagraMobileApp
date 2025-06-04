@@ -18,6 +18,7 @@ export const Rating: React.FC<RatingProps> = ({ratingNumber = 3.5}) => {
         flexDirection: 'row',
         alignItems: 'center',
         height: 24,
+        justifyContent: 'flex-start',
       }}>
       <IconButton
         icon="star"

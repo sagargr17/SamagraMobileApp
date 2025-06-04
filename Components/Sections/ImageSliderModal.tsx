@@ -23,7 +23,7 @@ export const ImageSliderModal: React.FC<ImageSliderModalProps> = ({images}) => {
         testID="imageSlider_testID"
         images={images.map(x => x.url)}
         imageHeight={AreaMapper({
-          value: 320.5,
+          value: 350,
           scaleBy: 'height',
         })}
         dotSize={10}
