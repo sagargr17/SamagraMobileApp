@@ -31,6 +31,7 @@
     "dotenv": "^16.4.7",
     "form-data": "^4.0.2",
     "graphql-tag": "^2.12.6",
+    "graphql-ws": "^6.0.5",
     "image-resize-compress": "^2.1.1",
     "jwt-decode": "^4.0.0",
     "moti": "^0.30.0",

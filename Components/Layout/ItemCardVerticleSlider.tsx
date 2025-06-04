@@ -2,8 +2,8 @@ import React from 'react';
 import {SectionHeader} from '../Sections/SectionHeader';
 import {ItemMiniCard} from '../Sections/Cards/ItemMiniCard';
 import {Spacer} from '../Elements/Spacer';
-import {FlatList, StyleSheet, TextStyle, View} from 'react-native';
-import {AreaMapper} from '../../Utilities/CustomMethods';
+import {TextStyle, View} from 'react-native';
+import {SamagraScaller} from '../../Utilities/CustomMethods';
 import {HomeStackNavigationProp} from '../../Navigators/Stack/HomeStackNavigator';
 
 interface ItemCardVerticleSliderProps {
@@ -59,7 +59,13 @@ export const ItemCardVerticleSlider: React.FC<ItemCardVerticleSliderProps> = ({
   ];
 
   return (
-    <View style={styles.wrapper}>
+    <View
+      style={{
+        marginHorizontal: SamagraScaller({
+          value: 14,
+          scaleBy: 'average',
+        }),
+      }}>
       <Spacer height={10}></Spacer>
       <SectionHeader
         onPress={() => console.log('PRessing')}
@@ -69,10 +75,16 @@ export const ItemCardVerticleSlider: React.FC<ItemCardVerticleSliderProps> = ({
         titleHeight={22}
         style={titleHeaderStyle}></SectionHeader>
       <Spacer height={10}></Spacer>
-      <View style={styles.miniCardContainer}>
-        <FlatList
-          data={item}
-          renderItem={({item, index}) => (
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          alignItems: 'center',
+        }}>
+        {item.map((item, index) => {
+          console.log('INdexx value');
+          return (
             <View
               key={index}
               id={`${index}`}
@@ -90,24 +102,9 @@ export const ItemCardVerticleSlider: React.FC<ItemCardVerticleSliderProps> = ({
                 rating={item.rating}
               />
             </View>
-          )}></FlatList>
+          );
+        })}
       </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  wrapper: {
-    marginHorizontal: AreaMapper({
-      value: 14,
-      scaleBy: 'average',
-    }),
-  },
-
-  miniCardContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-  },
-});

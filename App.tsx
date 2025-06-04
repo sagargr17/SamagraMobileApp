@@ -4,14 +4,15 @@ import {
   concat,
   createHttpLink,
   InMemoryCache,
-  useQuery,
+  split,
 } from '@apollo/client';
 import {setContext} from '@apollo/client/link/context';
 import {fetch as netInfoFetch} from '@react-native-community/netinfo';
 import {NavigationContainer} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {AppState, Button, StatusBar, useColorScheme} from 'react-native';
+import {AppState, StatusBar, useColorScheme} from 'react-native';
 import BootSplash from 'react-native-bootsplash';
+import FlashMessage from 'react-native-flash-message';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {PaperProvider} from 'react-native-paper';
 import {Camera} from 'react-native-vision-camera';
@@ -20,16 +21,20 @@ import {Logos} from './Assets/SVG/Exports/Exports';
 import {accessTokenGenerator} from './client/Token/AccessTokenGenerator';
 import {getTokens} from './client/Token/TokenAccess';
 import {isTokenExpired} from './client/Token/TokeValidator';
-import {SamagraLoader} from './Components/Sections/Loading/SamagraLoader';
 import {SingnlePageError} from './Components/Layout/SinglePageError';
-import {GRAPHQL_ENDPOINT} from './Constants/SamagraConstants/SamagraEndpoints';
+import {
+  GRAPHQL_ENDPOINT,
+  SUBS_ENDPOINT,
+} from './Constants/SamagraConstants/SamagraEndpoints';
 import {useTokenRefreshTimer} from './CustomHooks/useTokenRefreshTimer';
 import {RootStack} from './Navigators/RootStackNavigator';
 import {MyDarkTheme, MyTheme} from './Prefrences/Prefrences';
 import {store} from './StateManagement/Store';
 import {login, logout} from './StateManagement/User/UserSlice';
 import {AreaMapper} from './Utilities/CustomMethods';
-import FlashMessage from 'react-native-flash-message';
+import {GraphQLWsLink} from '@apollo/client/link/subscriptions';
+import {createClient} from 'graphql-ws';
+import {getMainDefinition} from '@apollo/client/utilities';
 
 // MAin Fuction To Token Refresh Handle
 const isTokennExpireHandle = async () => {
@@ -47,9 +52,7 @@ const httpLink = createHttpLink({
 const authLink = setContext(async (_, {headers}) => {
   // Get the authentication token from local storage (or wherever you store it)
   const {userStatus, accessToken, refreshToken} = await getTokens();
-  console.log('Tokennn', accessToken);
 
-  // Return the headers to the context so httpLink can read them
   return {
     headers: {
       ...headers,
@@ -57,6 +60,32 @@ const authLink = setContext(async (_, {headers}) => {
     },
   };
 });
+
+const httpAuthLink = concat(authLink, httpLink);
+
+const wsLink = new GraphQLWsLink(
+  createClient({
+    url: SUBS_ENDPOINT,
+    connectionParams: async () => {
+      const {accessToken} = await getTokens();
+      return {
+        authToken: accessToken,
+      };
+    },
+  }),
+);
+
+const splitLink = split(
+  ({query}) => {
+    const definition = getMainDefinition(query);
+    return (
+      definition.kind === 'OperationDefinition' &&
+      definition.operation === 'subscription'
+    );
+  },
+  wsLink, // Use WebSocketLink for subscriptions
+  httpAuthLink, // Use the chained HttpLink (with auth) for queries and mutations
+);
 
 // Initialize Apollo Client
 const client = new ApolloClient({
@@ -113,7 +142,6 @@ function App(): React.JSX.Element {
       .then(x => BootSplash.hide({fade: true}))
       .catch(error => console.log('Error::', error));
   }, [refreshingTime, internetStatus, scheme]);
-  // const {data, loading, error}  = useQuery()
 
   // UserBased Login
   useEffect(() => {
@@ -172,6 +200,10 @@ function App(): React.JSX.Element {
     return () => {};
   }, []);
 
+
+
+
+  
   return (
     <GestureHandlerRootView
       style={{

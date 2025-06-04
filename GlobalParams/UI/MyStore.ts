@@ -10,4 +10,7 @@ export const manageStorepoppedCardParams = [
     comment: 'Create, Update,  Delete  & More on Products ',
     title: 'Products',
   },
+
+  
+
 ];

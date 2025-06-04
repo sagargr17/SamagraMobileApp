@@ -7,6 +7,7 @@ import {TextComponet} from '../../../Components/Elements/TextComponet';
 import {PairButtons} from '../../../Components/Sections/PairButtons';
 import {SingnlePageError} from '../../../Components/Layout/SinglePageError';
 import {Logos} from '../../../Assets/SVG/Exports/Exports';
+import {useSubscription} from '@apollo/client';
 
 interface OrderItemListScreenProps {}
 
@@ -19,7 +20,6 @@ export const InstantItemListScreen: React.FC<
   let r = [1, 2];
   const test = r[Math.floor(Math.random() * r.length)];
   const {NoItemFound} = Logos;
-  console.log('Counter', test);
 
   return (
     <>
@@ -85,8 +85,13 @@ export const InstantItemListScreen: React.FC<
               'Oops! We couldn’t find any laundry services nearby. Try changing your location or searching again later',
             onButtonPress: () => console.log('Try again'),
             buttonTitle: 'Go to home',
-          }}></SingnlePageError>
+          }}
+          
+          
+          
+          ></SingnlePageError>
       )}
+
       {isProfileTapped ? (
         <AppBottomSheet
           onClose={() => setIsProfileTapped(!isProfileTapped)}

@@ -18,7 +18,7 @@ import AppButton from '../Elements/Button';
 
 interface Item {
   id: number;
-  title: string;
+  title: string; 
   content: string;
   buttonText: string;
 }
