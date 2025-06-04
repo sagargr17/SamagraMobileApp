@@ -36,7 +36,6 @@ export const AppBottomSheet: React.FC<SamagraBottomSheetProps> = ({
   useEffect(() => {
     if (isOppen) {
       bottomSheetRef.current?.snapToIndex(0);
-      console.log('it is open');
     } else {
       bottomSheetRef.current?.close();
     }

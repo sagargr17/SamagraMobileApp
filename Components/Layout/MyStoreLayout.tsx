@@ -1,15 +1,16 @@
-import React from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import {useTheme} from '@react-navigation/native';
-import {AreaMapper} from '../../Utilities/CustomMethods';
-import {ScrollView} from 'react-native-gesture-handler';
-import {PoppedCard} from '../Sections/Cards/PoppedCard';
-import {AppBottomSheet} from '../Sections/AppBottomSheet';
-import {Badge, Icon, Surface} from 'react-native-paper';
 import FastImage from '@d11/react-native-fast-image';
-import {TextComponet} from '../Elements/TextComponet';
+import { useTheme } from '@react-navigation/native';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
+import { Surface } from 'react-native-paper';
+import { manageStorepoppedCardParams } from '../../GlobalParams/UI/MyStore';
+import { AreaMapper } from '../../Utilities/CustomMethods';
 import AppButton from '../Elements/Button';
-import {Rating} from '../Elements/Rating';
+import { Rating } from '../Elements/Rating';
+import { TextComponet } from '../Elements/TextComponet';
+import { AppBottomSheet } from '../Sections/AppBottomSheet';
+import { PoppedCard } from '../Sections/Cards/PoppedCard';
 
 interface MyShopDisplayLayoutProps {
   shop: {
@@ -22,101 +23,41 @@ interface MyShopDisplayLayoutProps {
     phoneNumber: string;
     profileImageUrl: string;
   };
-  navigationHandles?: {
-    onProductNavigationHandle?: () => void;
-    onServiceNavigationHadle?: () => void;
-    onPendingOrdersNavigationHandle?: () => void;
-    onManageStocksNavigationHandle?: () => void;
-    onHitoryNavigationHandle?: () => void;
-  };
+
   // onCreateNewShop: () => void;
 }
 
-export const MyShopDisplayLayout: React.FC<MyShopDisplayLayoutProps> = ({
-  shop,
-  navigationHandles,
-}) => {
+export const MyStoreLayout: React.FC<MyShopDisplayLayoutProps> = ({shop}) => {
   const {colors} = useTheme();
 
   return (
     <>
       <View key={shop.name} style={styles.wrapper}>
         <ScrollView
-          style={{
-            flex: 1,
-          }}
+          style={styles.scrollViewContainer}
           contentContainerStyle={{
             height: AreaMapper({
-              value: 80,
+              value: 73,
               scaleBy: 'height',
             }),
           }}>
-          {navigationHandles ? (
-            <>
-              <PoppedCard
-                onPress={navigationHandles.onProductNavigationHandle}
-                variant="large"
-                iconName="dolly"
-                comment="Create, Update,  Delete  & More on Products "
-                title="Products"></PoppedCard>
-              <PoppedCard
-                onPress={navigationHandles.onServiceNavigationHadle}
-                iconName="account-hard-hat"
-                comment="Create, Update,  Delete  & More on Services "
-                variant="large"
-                title="Services"></PoppedCard>
-              <PoppedCard
-                onPress={navigationHandles.onPendingOrdersNavigationHandle}
-                children={
-                  <Badge
-                    selectionColor={'pink'}
-                    style={{
-                      bottom: 30,
-                      left: 17,
-                    }}>
-                    120
-                  </Badge>
-                }
-                variant="large"
-                iconName="truck-delivery"
-                comment="Accept or Delete User Request"
-                title="Pending Orders"></PoppedCard>
-              <PoppedCard
-                onPress={navigationHandles.onManageStocksNavigationHandle}
-                variant="large"
-                iconName="tray-full"
-                comment="Update Your Stock Items"
-                title="Manage Stocks"></PoppedCard>
-              <PoppedCard
-                onPress={navigationHandles.onHitoryNavigationHandle}
-                variant="large"
-                iconName="clipboard-list"
-                comment="All Your Customer Deals"
-                title="History"></PoppedCard>
-            </>
-          ) : null}
+          {manageStorepoppedCardParams.map((item, index) => (
+            <PoppedCard
+              key={index}
+              onPress={item.onPressHandle}
+              variant={item.variant}
+              iconName={item.iconName}
+              comment={item.comment}
+              title={item.title}></PoppedCard>
+          ))}
         </ScrollView>
+
+        {/* This is the App buttom SHeet  */}
         <AppBottomSheet
           children={() => (
-            <View
-              style={{
-                paddingBottom: AreaMapper({
-                  value: 15,
-                  scaleBy: 'height',
-                }),
-              }}>
-              <View
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}>
-                <Surface
-                  style={{
-                    width: 80,
-                    marginRight: 10,
-                    height: 80,
-                  }}>
+            <View style={styles.appBottomSheetWrapper}>
+              <View style={styles.appBottomSheetChildOne}>
+                <Surface style={styles.surfaceContainer}>
                   <FastImage
                     style={{
                       height: 80,
@@ -133,7 +74,6 @@ export const MyShopDisplayLayout: React.FC<MyShopDisplayLayoutProps> = ({
                     style={{
                       display: 'flex',
                       flexDirection: 'column',
-                      // alignItems: 'center',
                     }}>
                     <Rating ratingNumber={4}></Rating>
                     <TextComponet
@@ -171,6 +111,7 @@ export const MyShopDisplayLayout: React.FC<MyShopDisplayLayoutProps> = ({
                     lineHeight={18}></TextComponet>
                 </View>
               </View>
+
               <View style={styles.appButtonWrapper}>
                 <AppButton
                   style={{
@@ -214,6 +155,9 @@ const styles = StyleSheet.create({
     paddingTop: 0,
     flex: 1,
   },
+  scrollViewContainer: {
+    flex: 1,
+  },
   ratingContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -228,5 +172,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
+  },
+
+  appBottomSheetWrapper: {
+    paddingBottom: AreaMapper({
+      value: 15,
+      scaleBy: 'height',
+    }),
+  },
+  appBottomSheetChildOne: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  appBottomSheetChildTwo: {},
+  surfaceContainer: {
+    width: 80,
+    marginRight: 10,
+    height: 80,
   },
 });

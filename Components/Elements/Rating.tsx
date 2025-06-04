@@ -30,7 +30,7 @@ export const Rating: React.FC<RatingProps> = ({ratingNumber = 3.5}) => {
       />
       <TextComponet
         fontSize={14}
-        title={titleCase(`${ratingNumber} (53 Reviews)`)}
+        title={titleCase(`${ratingNumber}`)}
         fontVariant="regular"></TextComponet>
     </View>
   );

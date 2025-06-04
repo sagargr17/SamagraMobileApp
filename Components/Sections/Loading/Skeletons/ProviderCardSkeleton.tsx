@@ -1,13 +1,11 @@
-import {useTheme} from '@react-navigation/native';
+import { useTheme } from '@react-navigation/native';
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import {
-  createGradientShimmer,
-  ShimmerLayout,
+  createGradientShimmer
 } from 'react-native-gradient-shimmer';
 import LinearGradient from 'react-native-linear-gradient';
-import {PaperProvider} from 'react-native-paper';
-import {AreaMapper} from '../../../../Utilities/CustomMethods';
+import { AreaMapper } from '../../../../Utilities/CustomMethods';
 
 interface ProviderCardSkeletonProps {}
 
@@ -115,23 +113,23 @@ export const ProviderCardSkeleton: React.FC<
           />
         </View>
       </View>
-      {/* <View style={[ProviderCardSkeletonStyle.actionContainer]}>
+      <View style={[ProviderCardSkeletonStyle.actionContainer]}>
         <CustomGradientShimmer
-          height={SamagraScaller({
+          height={AreaMapper({
             value: 40,
             scaleBy: 'average',
           })}
-          width={SamagraScaller({
+          width={AreaMapper({
             value: 170,
             scaleBy: 'average',
           })}
           style={[
             {
-              borderRadius: SamagraScaller({
+              borderRadius: AreaMapper({
                 value: 80,
                 scaleBy: 'average',
               }),
-              marginTop: SamagraScaller({
+              marginTop: AreaMapper({
                 value: 8,
                 scaleBy: 'average',
               }),
@@ -139,28 +137,31 @@ export const ProviderCardSkeleton: React.FC<
           ]}
         />
         <CustomGradientShimmer
-          height={SamagraScaller({
+          height={AreaMapper({
             value: 40,
             scaleBy: 'average',
           })}
-          width={SamagraScaller({
+          width={AreaMapper({
             value: 170,
             scaleBy: 'average',
           })}
           style={[
             {
-              borderRadius: SamagraScaller({
+              borderRadius: AreaMapper({
                 value: 80,
                 scaleBy: 'average',
               }),
-              marginTop: SamagraScaller({
+              marginTop: AreaMapper({
                 value: 8,
                 scaleBy: 'average',
               }),
             },
           ]}
         />
-      </View> */}
+      </View>
+    
+    
+    
     </View>
   );
 };

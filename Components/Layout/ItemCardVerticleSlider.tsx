@@ -2,8 +2,8 @@ import React from 'react';
 import {SectionHeader} from '../Sections/SectionHeader';
 import {ItemMiniCard} from '../Sections/Cards/ItemMiniCard';
 import {Spacer} from '../Elements/Spacer';
-import {TextStyle, View} from 'react-native';
-import {SamagraScaller} from '../../Utilities/CustomMethods';
+import {StyleSheet, TextStyle, View} from 'react-native';
+import {AreaMapper} from '../../Utilities/CustomMethods';
 import {HomeStackNavigationProp} from '../../Navigators/Stack/HomeStackNavigator';
 
 interface ItemCardVerticleSliderProps {
@@ -59,13 +59,7 @@ export const ItemCardVerticleSlider: React.FC<ItemCardVerticleSliderProps> = ({
   ];
 
   return (
-    <View
-      style={{
-        marginHorizontal: SamagraScaller({
-          value: 14,
-          scaleBy: 'average',
-        }),
-      }}>
+    <View style={styles.wrapper}>
       <Spacer height={10}></Spacer>
       <SectionHeader
         onPress={() => console.log('PRessing')}
@@ -75,15 +69,8 @@ export const ItemCardVerticleSlider: React.FC<ItemCardVerticleSliderProps> = ({
         titleHeight={22}
         style={titleHeaderStyle}></SectionHeader>
       <Spacer height={10}></Spacer>
-      <View
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          alignItems: 'center',
-        }}>
+      <View style={styles.miniCardContainer}>
         {item.map((item, index) => {
-          console.log('INdexx value');
           return (
             <View
               key={index}
@@ -108,3 +95,19 @@ export const ItemCardVerticleSlider: React.FC<ItemCardVerticleSliderProps> = ({
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  wrapper: {
+    marginHorizontal: AreaMapper({
+      value: 14,
+      scaleBy: 'average',
+    }),
+  },
+
+  miniCardContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+  },
+});

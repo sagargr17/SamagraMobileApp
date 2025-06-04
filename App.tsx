@@ -7,8 +7,11 @@ import {
   split,
 } from '@apollo/client';
 import {setContext} from '@apollo/client/link/context';
+import {GraphQLWsLink} from '@apollo/client/link/subscriptions';
+import {getMainDefinition} from '@apollo/client/utilities';
 import {fetch as netInfoFetch} from '@react-native-community/netinfo';
 import {NavigationContainer} from '@react-navigation/native';
+import {createClient} from 'graphql-ws';
 import React, {useEffect, useState} from 'react';
 import {AppState, StatusBar, useColorScheme} from 'react-native';
 import BootSplash from 'react-native-bootsplash';
@@ -22,19 +25,14 @@ import {accessTokenGenerator} from './client/Token/AccessTokenGenerator';
 import {getTokens} from './client/Token/TokenAccess';
 import {isTokenExpired} from './client/Token/TokeValidator';
 import {SingnlePageError} from './Components/Layout/SinglePageError';
-import {
-  GRAPHQL_ENDPOINT,
-  SUBS_ENDPOINT,
-} from './Constants/SamagraConstants/SamagraEndpoints';
+import {GRAPHQL_ENDPOINT} from './Constants/SamagraConstants/SamagraEndpoints';
 import {useTokenRefreshTimer} from './CustomHooks/useTokenRefreshTimer';
 import {RootStack} from './Navigators/RootStackNavigator';
 import {MyDarkTheme, MyTheme} from './Prefrences/Prefrences';
 import {store} from './StateManagement/Store';
 import {login, logout} from './StateManagement/User/UserSlice';
 import {AreaMapper} from './Utilities/CustomMethods';
-import {GraphQLWsLink} from '@apollo/client/link/subscriptions';
-import {createClient} from 'graphql-ws';
-import {getMainDefinition} from '@apollo/client/utilities';
+import {createFetchMultipartSubscription} from '@apollo/client/utilities/subscriptions/relay';
 
 // MAin Fuction To Token Refresh Handle
 const isTokennExpireHandle = async () => {
@@ -63,18 +61,35 @@ const authLink = setContext(async (_, {headers}) => {
 
 const httpAuthLink = concat(authLink, httpLink);
 
+class MyWebSocket extends WebSocket {
+  constructor(address: any, protocols: any) {
+    address = `${address}?token=eyJhbGciOiJSUzI1NiIsImtpZCI6Im15LWhhcmRjb2RlZC1rZXktaWQiLCJ0eXAiOiJhdCtqd3QifQ.eyJpc3MiOiJodHRwOi8vaWRlbnRpdHkuc2FtYWdyYW5lcGFsLmNvbSIsIm5iZiI6MTc0ODEwMzY2MCwiaWF0IjoxNzQ4MTAzNjYwLCJleHAiOjE3NTA2OTU2NjAsImF1ZCI6Im1hcmtldHBsYWNlIiwic2NvcGUiOlsibWFya2V0cGxhY2UuYWNjZXNzIiwib3BlbmlkIiwicHJvZmlsZSIsIm9mZmxpbmVfYWNjZXNzIl0sImFtciI6WyJjdXN0b20iXSwiY2xpZW50X2lkIjoiI3NnYXJhcCoiLCJzdWIiOiI0ZTFlNzcyOC1kZWZhLTQxOTEtOGZkOS03MGRkNmZkMmNhZmMiLCJhdXRoX3RpbWUiOjE3NDgxMDM2NjAsImlkcCI6ImxvY2FsIiwibmFtZSI6InNhZ2FyICIsInByZWZlcnJlZF91c2VybmFtZSI6InNhZ2FyIiwianRpIjoiMEI2OUVFQTQ3MjVCQTNBNDQ3OUFDQTM0NzMxNjEwQjcifQ.YU-PhEV-mBlZg-EcxCRAy93nwUOKGKwxedJBATw8Buu9XT_SxMCDtkRhbs4tlZnwqBNk9LcfQ7haj-YLNSgOsX267_jqCA0Hg04ipVGaAT_fJb3wVaOLqrct99sW0PsvP6dmvBsD3s_9wlzc-3mwq-M_aCiA_xa_TVfMumqfEu8`;
+    super(address, protocols);
+    console.log('yyyyyyyyyyyyyy', address);
+  }
+}
+
+// Craeting WS Link
 const wsLink = new GraphQLWsLink(
   createClient({
-    url: SUBS_ENDPOINT,
-    connectionParams: async () => {
-      const {accessToken} = await getTokens();
-      return {
-        authToken: accessToken,
-      };
-    },
+    url: 'ws://api.samagranepal.com/graphql',
+    webSocketImpl: MyWebSocket,
+    // connectionParams: {
+    //   authToken: `Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Im15LWhhcmRjb2RlZC1rZXktaWQiLCJ0eXAiOiJhdCtqd3QifQ.eyJpc3MiOiJodHRwOi8vaWRlbnRpdHkuc2FtYWdyYW5lcGFsLmNvbSIsIm5iZiI6MTc0ODEwMzY2MCwiaWF0IjoxNzQ4MTAzNjYwLCJleHAiOjE3NTA2OTU2NjAsImF1ZCI6Im1hcmtldHBsYWNlIiwic2NvcGUiOlsibWFya2V0cGxhY2UuYWNjZXNzIiwib3BlbmlkIiwicHJvZmlsZSIsIm9mZmxpbmVfYWNjZXNzIl0sImFtciI6WyJjdXN0b20iXSwiY2xpZW50X2lkIjoiI3NnYXJhcCoiLCJzdWIiOiI0ZTFlNzcyOC1kZWZhLTQxOTEtOGZkOS03MGRkNmZkMmNhZmMiLCJhdXRoX3RpbWUiOjE3NDgxMDM2NjAsImlkcCI6ImxvY2FsIiwibmFtZSI6InNhZ2FyICIsInByZWZlcnJlZF91c2VybmFtZSI6InNhZ2FyIiwianRpIjoiMEI2OUVFQTQ3MjVCQTNBNDQ3OUFDQTM0NzMxNjEwQjcifQ.YU-PhEV-mBlZg-EcxCRAy93nwUOKGKwxedJBATw8Buu9XT_SxMCDtkRhbs4tlZnwqBNk9LcfQ7haj-YLNSgOsX267_jqCA0Hg04ipVGaAT_fJb3wVaOLqrct99sW0PsvP6dmvBsD3s_9wlzc-3mwq-M_aCiA_xa_TVfMumqfEu8`,
+    // },
+
+    // connectionParams: async () => {
+    //   return {
+    //     headers: {
+    //       Authorization: `Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Im15LWhhcmRjb2RlZC1rZXktaWQiLCJ0eXAiOiJhdCtqd3QifQ.eyJpc3MiOiJodHRwOi8vaWRlbnRpdHkuc2FtYWdyYW5lcGFsLmNvbSIsIm5iZiI6MTc0ODEwMzY2MCwiaWF0IjoxNzQ4MTAzNjYwLCJleHAiOjE3NTA2OTU2NjAsImF1ZCI6Im1hcmtldHBsYWNlIiwic2NvcGUiOlsibWFya2V0cGxhY2UuYWNjZXNzIiwib3BlbmlkIiwicHJvZmlsZSIsIm9mZmxpbmVfYWNjZXNzIl0sImFtciI6WyJjdXN0b20iXSwiY2xpZW50X2lkIjoiI3NnYXJhcCoiLCJzdWIiOiI0ZTFlNzcyOC1kZWZhLTQxOTEtOGZkOS03MGRkNmZkMmNhZmMiLCJhdXRoX3RpbWUiOjE3NDgxMDM2NjAsImlkcCI6ImxvY2FsIiwibmFtZSI6InNhZ2FyICIsInByZWZlcnJlZF91c2VybmFtZSI6InNhZ2FyIiwianRpIjoiMEI2OUVFQTQ3MjVCQTNBNDQ3OUFDQTM0NzMxNjEwQjcifQ.YU-PhEV-mBlZg-EcxCRAy93nwUOKGKwxedJBATw8Buu9XT_SxMCDtkRhbs4tlZnwqBNk9LcfQ7haj-YLNSgOsX267_jqCA0Hg04ipVGaAT_fJb3wVaOLqrct99sW0PsvP6dmvBsD3s_9wlzc-3mwq-M_aCiA_xa_TVfMumqfEu8`,
+    //     },
+    //   };
+    // },
+    // connectionParams: () => ({
+    //   authorization: `Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Im15LWhhcmRjb2RlZC1rZXktaWQiLCJ0eXAiOiJhdCtqd3QifQ.eyJpc3MiOiJodHRwOi8vaWRlbnRpdHkuc2FtYWdyYW5lcGFsLmNvbSIsIm5iZiI6MTc0ODEwMzY2MCwiaWF0IjoxNzQ4MTAzNjYwLCJleHAiOjE3NTA2OTU2NjAsImF1ZCI6Im1hcmtldHBsYWNlIiwic2NvcGUiOlsibWFya2V0cGxhY2UuYWNjZXNzIiwib3BlbmlkIiwicHJvZmlsZSIsIm9mZmxpbmVfYWNjZXNzIl0sImFtciI6WyJjdXN0b20iXSwiY2xpZW50X2lkIjoiI3NnYXJhcCoiLCJzdWIiOiI0ZTFlNzcyOC1kZWZhLTQxOTEtOGZkOS03MGRkNmZkMmNhZmMiLCJhdXRoX3RpbWUiOjE3NDgxMDM2NjAsImlkcCI6ImxvY2FsIiwibmFtZSI6InNhZ2FyICIsInByZWZlcnJlZF91c2VybmFtZSI6InNhZ2FyIiwianRpIjoiMEI2OUVFQTQ3MjVCQTNBNDQ3OUFDQTM0NzMxNjEwQjcifQ.YU-PhEV-mBlZg-EcxCRAy93nwUOKGKwxedJBATw8Buu9XT_SxMCDtkRhbs4tlZnwqBNk9LcfQ7haj-YLNSgOsX267_jqCA0Hg04ipVGaAT_fJb3wVaOLqrct99sW0PsvP6dmvBsD3s_9wlzc-3mwq-M_aCiA_xa_TVfMumqfEu8`,
+    // }),
   }),
 );
-
 const splitLink = split(
   ({query}) => {
     const definition = getMainDefinition(query);
@@ -83,13 +98,13 @@ const splitLink = split(
       definition.operation === 'subscription'
     );
   },
-  wsLink, // Use WebSocketLink for subscriptions
-  httpAuthLink, // Use the chained HttpLink (with auth) for queries and mutations
+  wsLink, // this is for the sockets
+  httpAuthLink, // yo chahi query and mutation jun HTTP flow ma jancha
 );
 
 // Initialize Apollo Client
 const client = new ApolloClient({
-  link: concat(authLink, httpLink),
+  link: splitLink,
   cache: new InMemoryCache(),
 });
 
@@ -200,10 +215,6 @@ function App(): React.JSX.Element {
     return () => {};
   }, []);
 
-
-
-
-  
   return (
     <GestureHandlerRootView
       style={{

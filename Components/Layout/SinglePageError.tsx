@@ -63,6 +63,7 @@ const style = StyleSheet.create({
   parentContainer: {
     flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
   },
 
   buttonStyle: {

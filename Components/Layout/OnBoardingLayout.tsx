@@ -11,7 +11,7 @@ import {Text} from 'react-native-paper';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
 
 export const OnBoardingLayout = ({
-children,
+  children,
   header,
 }: {
   children: React.ReactNode;
@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
   },
   wrapper: {
     flex: 1,
-    // paddingTop: heightPercentageToDP(1.6),
     paddingLeft: heightPercentageToDP(2),
     paddingRight: heightPercentageToDP(2),
   },

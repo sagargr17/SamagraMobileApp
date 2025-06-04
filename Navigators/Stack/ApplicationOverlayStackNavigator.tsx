@@ -9,7 +9,7 @@ import {View} from 'react-native';
 import {Icon, TouchableRipple} from 'react-native-paper';
 import {SearchBar} from 'react-native-screens';
 import {TextComponet} from '../../Components/Elements/TextComponet';
-import {InstantItemListScreen as OrderListItemListScreen} from '../../Screens/Application/Domain/OrderItemListScreen';
+import {ReceivedOrderListScreen} from '../../Screens/Application/Domain/ReceivedOrdersListScreen';
 import {MyShopsScreen} from '../../Screens/Application/More/MyShopsScreen';
 import {AddItemScreen} from '../../Screens/Application/More/Shop/AddItemScreen';
 import {AddShopScreen} from '../../Screens/Application/More/Shop/AddShopScreen';
@@ -129,7 +129,7 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
         {screenBuilder([
           {
             screenName: 'OrderListScreen',
-            component: OrderListItemListScreen,
+            component: ReceivedOrderListScreen,
             option: {
               header: () => null,
             },

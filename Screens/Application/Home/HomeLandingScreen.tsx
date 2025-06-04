@@ -1,6 +1,7 @@
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { ScrollView } from 'moti';
 import React from 'react';
+import { StyleSheet } from 'react-native';
 import { Divider } from 'react-native-paper';
 import { Spacer } from '../../../Components/Elements/Spacer';
 import { AppHeader } from '../../../Components/Layout/AppHeader';
@@ -17,12 +18,7 @@ export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
   const {colors} = useTheme();
 
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      style={{
-        flex: 1,
-      }}>
-      
+    <ScrollView showsVerticalScrollIndicator={false} style={styles.wrapper}>
       <AppHeader currentPosition="relative"></AppHeader>
 
       <Spacer height={10}></Spacer>
@@ -47,3 +43,9 @@ export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
     </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+  },
+});

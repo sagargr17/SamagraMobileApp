@@ -16,31 +16,6 @@ import {UserProfileMiniCard} from '../../../Components/Sections/Cards/UserProfil
 
 interface MoreLandingScreenProps {}
 
-const flexDetailsItems = [
-  {
-    firstRow: [
-      {
-        title: 'History',
-        iconName: 'history',
-      },
-      {
-        title: ' Activity',
-        iconName: 'chart-bar-stacked',
-      },
-    ],
-    secondRow: [
-      {
-        title: 'Favourite',
-        iconName: 'heart-outline',
-      },
-      {
-        title: 'recent',
-        iconName: 'view-comfy',
-      },
-    ],
-  },
-];
-
 export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
   const {colors} = useTheme();
   const navigation = useNavigation<any>();
@@ -48,6 +23,45 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
   const [getLoginUserQuery, {data, loading, error}] =
     useLazyQuery(getLoginUser);
 
+  // Flex Container
+  const flexDetailsItems = [
+    {
+      firstRow: [
+        {
+          title: 'History',
+          iconName: 'history',
+          onPress: () => {
+            console.log('Presed');
+          },
+        },
+        {
+          title: ' Activity',
+          iconName: 'chart-bar-stacked',
+          onPress: () => {
+            console.log('Presed');
+          },
+        },
+      ],
+      secondRow: [
+        {
+          title: 'Favourite',
+          iconName: 'heart-outline',
+          onPress: () => {
+            console.log('Presed');
+          },
+        },
+
+        {
+          title: 'Live Orders',
+          iconName: 'view-comfy',
+          onPress: () =>
+            navigation.navigate('ApplicationOverlay', {
+              screen: 'OrderListScreen',
+            }),
+        },
+      ],
+    },
+  ];
   // Column Navigation
   const columnDetailsList = [
     {
@@ -136,9 +150,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
             variant="small"
             title={item.title}
             iconName={item.iconName}
-            onPress={() => {
-              // console.log
-            }}></PoppedCard>
+            onPress={item.onPress}></PoppedCard>
         ))}
       </View>
       <View
@@ -158,7 +170,8 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
             }}
             variant="small"
             title={item.title}
-            iconName={item.iconName}></PoppedCard>
+            iconName={item.iconName}
+            onPress={item.onPress}></PoppedCard>
         ))}
       </View>
 
@@ -176,7 +189,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
             title={item.title}
             iconName={item.iconName}
             onPress={item.onPress}
-            comment={item.comment}></PoppedCard>
+            comment={item.comment}  ></PoppedCard>
         ))}
 
         <AppButton onPress={userLogoutHandle} color="danger">

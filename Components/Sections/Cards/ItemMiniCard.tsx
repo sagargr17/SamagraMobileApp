@@ -8,6 +8,7 @@ import {HomeStackNavigationProp} from '../../../Navigators/Stack/HomeStackNaviga
 import {ApplicationOverlayStackNavigationProp} from '../../../Navigators/Stack/ApplicationOverlayStackNavigator';
 import {useAppDispatch} from '../../../StateManagement/hooks';
 import {showLoader} from '../../../StateManagement/Error&loadingHandle/LoaderState';
+import {Rating} from '../../Elements/Rating';
 
 interface ItemMiniCardProps {
   cardImage: string;
@@ -109,17 +110,7 @@ export const ItemMiniCard: React.FC<ItemMiniCardProps> = ({
                 }}
                 title={`₹ ${price}`}
               />
-              <View style={styles.ratingContainer}>
-                <TextComponet
-                  fontVariant="medium"
-                  fontSize={14}
-                  customStyle={{
-                    color: colors.notification,
-                  }}
-                  title={rating.toString()}
-                />
-                <IconButton icon="star" size={20} iconColor={'#FFA902'} />
-              </View>
+              <Rating ratingNumber={Math.floor(Math.random() * 5)}></Rating>
             </View>
           </View>
         </>
@@ -139,7 +130,6 @@ const styles = StyleSheet.create({
       scaleBy: 'width',
     }),
     elevation: 0.7,
-    // margin: 20,
   },
 
   imageContainer: {

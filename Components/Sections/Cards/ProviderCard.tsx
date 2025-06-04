@@ -9,6 +9,7 @@ import {AreaMapper} from '../../../Utilities/CustomMethods';
 import {TextComponet} from '../../Elements/TextComponet';
 import {ProviderCardSkeleton} from '../Loading/Skeletons/ProviderCardSkeleton';
 import {PairButtons} from '../PairButtons';
+import AppButton from '../../Elements/Button';
 
 interface ProviderCardProps {
   titleName: string;
@@ -18,6 +19,8 @@ interface ProviderCardProps {
   priceperhour: number;
   setPersonalDetaile: React.Dispatch<React.SetStateAction<React.ReactNode>>;
   setIsProfileTapped: any;
+  onAcceptButtonPress: () => void;
+  isProgressBarEnable: boolean;
 }
 
 export const ProviderCard: React.FC<ProviderCardProps> = ({
@@ -28,15 +31,18 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
   priceperhour,
   setIsProfileTapped,
   setPersonalDetaile,
+  isProgressBarEnable = true,
+  onAcceptButtonPress,
 }) => {
   const {colors} = useTheme();
   const {Star} = Logos;
   const [progressBarData, setProgressBarData] = useState(0.1);
 
   useMemo(() => {
-    setTimeout(() => {
-      setProgressBarData(progressBarData + 0.25);
-    }, 1000);
+    if (isProgressBarEnable === true)
+      setTimeout(() => {
+        setProgressBarData(progressBarData + 0.4);
+      }, 2000);
   }, [progressBarData]);
 
   type providerPrimarycontain = () => React.ReactNode;
@@ -67,7 +73,10 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
           title={titleName}
           fontVariant="medium"
           fontSize={17}
-          lineHeight={22}></TextComponet>
+          lineHeight={22}
+          customStyle={{
+            width: 260,
+          }}></TextComponet>
         <View
           style={{
             display: 'flex',
@@ -77,9 +86,11 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
               scaleBy: 'average',
             }),
           }}>
-          {Array.from({length: rating}).map((_, index) => (
-            <Star key={index} />
-          ))}
+          <TextComponet
+            title={'Rs.' + priceperhour + ' per hour'}
+            fontVariant="regular"
+            fontSize={16}
+            lineHeight={22}></TextComponet>
         </View>
         <View
           style={{
@@ -93,17 +104,14 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
               display: 'flex',
               flexDirection: 'row',
               alignItems: 'center',
-              justifyContent: 'space-between',
+              justifyContent: 'flex-start',
             }}>
-            <TextComponet
-              title={'Rs.' + priceperhour + ' per hour'}
-              fontVariant="regular"
-              fontSize={16}
-              lineHeight={22}></TextComponet>
-
+            {Array.from({length: rating}).map((_, index) => (
+              <Star key={index} />
+            ))}
             <TextComponet
               customStyle={{
-                marginLeft: 20,
+                marginLeft: 5,
               }}
               title={distance + ' km away'}
               fontVariant="regular"
@@ -125,51 +133,34 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
     </View>
   );
 
-  const bottomShitChildren = () => {
-    providerPrimarycontain(false);
-  };
+  console.log('pro');
 
   const Cardcontent = () => {
     return (
-      <View
-        style={[
-          ProviderCardStyle.cardContainer,
-          {
-            borderColor: colors.border,
-            backgroundColor: colors.card,
-          },
-        ]}>
-        <ProgressBar progress={progressBarData} color={colors.primary} />
-        {providerPrimarycontain()}
-        <PairButtons
-          onAcceptPress={() => {
-            console.log('Accept');
-          }}
-          onDeclinPress={() => {
-            console.log('Decline');
-          }}></PairButtons>
-      </View>
+      <>
+        {isProgressBarEnable ? (
+          0
+        ) : progressBarData > 1 ? null : (
+          <View
+            style={[
+              ProviderCardStyle.cardContainer,
+              {
+                borderColor: colors.border,
+                backgroundColor: colors.card,
+              },
+            ]}>
+            {isProgressBarEnable ?? (
+              <ProgressBar progress={progressBarData} color={colors.primary} />
+            )}
+            {providerPrimarycontain()}
+            <AppButton onPress={onAcceptButtonPress}>Accept</AppButton>
+          </View>
+        )}
+      </>
     );
   };
 
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(!isLoading);
-    }, 1000);
-  }, []);
-
-  return (
-    <>
-      {isLoading ? (
-        <ProviderCardSkeleton></ProviderCardSkeleton>
-      ) : (
-        // ) : progressBarData > 1 ? null : (
-        Cardcontent()
-      )}
-    </>
-  );
+  return <>{Cardcontent()}</>;
 };
 
 const ProviderCardStyle = StyleSheet.create({

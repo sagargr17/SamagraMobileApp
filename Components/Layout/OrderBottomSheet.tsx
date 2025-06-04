@@ -1,6 +1,6 @@
-import {useTheme} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 import React, {useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {ActivityIndicator, StyleSheet, View} from 'react-native';
 import {Icon, TextInput} from 'react-native-paper';
 import {RootStackNavigationProp} from '../../Navigators/RootStackNavigator';
 import {AreaMapper} from '../../Utilities/CustomMethods';
@@ -10,6 +10,10 @@ import {DropdownComponent} from '../Sections/DropDownSection';
 import {AppBottomSheet} from '../Sections/AppBottomSheet';
 import {ItemCategoryCardSlider} from './ItemCategorySlider';
 import {UnitSlider} from '../Elements/UnitSlider';
+import {useMutation, useSubscription} from '@apollo/client';
+import {getSubscribedData} from '../../GraphQL/Subscription/Subscription';
+import {CreateItemRequestMutation} from '../../GraphQL/Mutation/ItemRequestMutation';
+import {useQuery, gql} from '@apollo/client';
 
 interface OrderBottomSheetProps {
   navigation: RootStackNavigationProp<'ApplicationOverlay'> | any;
@@ -21,6 +25,11 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
   const {colors} = useTheme();
   type childrenContent = () => React.ReactNode;
   const [pressedElement, setPressedElement] = useState<string>('global');
+
+  const [createItemRequestFn, {data, loading, error}] = useMutation(
+    CreateItemRequestMutation,
+  );
+
   const childrenContent = () => {
     // Testing Datas are below
     const serviceData = [
@@ -93,12 +102,6 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
           : null}
         {pressedElement === 'global' || 'time' ? (
           <UnitSlider
-            // style={{
-            //   marginTop: SamagraScaller({
-            //     value: 15,
-            //     scaleBy: 'average',
-            //   }),
-            // }}
             label="Time in hour"
             sliderOption={{
               max: 4,
@@ -110,14 +113,22 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
 
         <AppButton
           onPress={() => {
-            navigation.navigate('ApplicationOverlay', {
-              screen: 'ServiceListScreen',
+            createItemRequestFn().then(x => {
+              if (x.data) {
+                console.log('Navigate.....', x.data);
+
+                navigation.navigate('ApplicationOverlay', {
+                  screen: 'OrderListScreen',
+                });
+              }
             });
           }}>
-          Search
+          {loading ? (
+            <ActivityIndicator color={'white'}></ActivityIndicator>
+          ) : (
+            'Search'
+          )}
         </AppButton>
-        {/* {pressedElement !== 'global' ? (
-        ) : null} */}
       </View>
     );
   };

@@ -1,11 +1,12 @@
-import { useNavigation, useTheme } from '@react-navigation/native';
-import React, { useState } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
-import { Logos } from '../../Assets/SVG/Exports/Exports';
-import { HomeStackNavigationProp } from '../../Navigators/Stack/HomeStackNavigator';
-import { AreaMapper } from '../../Utilities/CustomMethods';
-import { ItemCategoryCard } from '../Sections/Cards/ItemCategoryCard';
-import { SectionHeader } from '../Sections/SectionHeader';
+import {useNavigation, useTheme} from '@react-navigation/native';
+import React, {useState} from 'react';
+import {FlatList, StyleSheet, View} from 'react-native';
+import {Logos} from '../../Assets/SVG/Exports/Exports';
+import {HomeStackNavigationProp} from '../../Navigators/Stack/HomeStackNavigator';
+import {AreaMapper} from '../../Utilities/CustomMethods';
+import {ItemCategoryCard} from '../Sections/Cards/ItemCategoryCard';
+import {SectionHeader} from '../Sections/SectionHeader';
+import {styles} from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetScrollable/BottomSheetFlashList';
 
 interface ItemCategoryCardProps {
   size: 'regular' | 'large';
@@ -22,10 +23,7 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({
 
   const styles = StyleSheet.create({
     wrapper: {
-      paddingHorizontal: AreaMapper({
-        value: size === 'large' ? 10 : 0,
-        scaleBy: 'average',
-      }),
+      paddingHorizontal: size === 'large' ? 10 : 0,
     },
     icon: {
       height: AreaMapper({

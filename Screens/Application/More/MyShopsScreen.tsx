@@ -4,12 +4,13 @@ import {SliderSwitcher} from '../../../Components/Layout/SliderSwitcher';
 
 import {useLazyQuery, useMutation, useQuery} from '@apollo/client';
 import {ActivityIndicatorComponent, StyleSheet, View} from 'react-native';
-import {MyShopDisplayLayout} from '../../../Components/Layout/MyShopDisplayLayout';
+import {MyStoreLayout} from '../../../Components/Layout/MyStoreLayout';
 import {SamagraLoader} from '../../../Components/Sections/Loading/SamagraLoader';
 import {createNewShop} from '../../../GraphQL/Mutation/ShopMutations';
-import {myShops} from '../../../GraphQL/Queries/PrivateShop';
+
 import {useAppDispatch} from '../../../StateManagement/hooks';
 import {ActivityIndicator, Text} from 'react-native-paper';
+import {myShops} from '../../../GraphQL/Queries/PrivateShopQueries';
 
 interface MyShopsProps {}
 
@@ -40,8 +41,7 @@ export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
       {myShopsLoading ? (
         <SamagraLoader></SamagraLoader>
       ) : (
-        <MyShopDisplayLayout
-          // onCreateNewShop={() => setIsNewShopTabClicked(true)}
+        <MyStoreLayout
           key={`${index + 1} `}
           shop={{
             name:
@@ -74,14 +74,7 @@ export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
                 ? myShopsData.getShops.nodes[index].location
                 : 'not mentioned',
             profileImageUrl: '',
-          }}
-          navigationHandles={{
-            onHitoryNavigationHandle: () => console.log('going'),
-            onManageStocksNavigationHandle: () => console.log('going'),
-            onProductNavigationHandle: () => console.log('going'),
-            onServiceNavigationHadle: () => console.log('going'),
-            onPendingOrdersNavigationHandle: () => console.log('going'),
-          }}></MyShopDisplayLayout>
+          }}></MyStoreLayout>
       )}
 
       {/* {myShopsLoading ? (
