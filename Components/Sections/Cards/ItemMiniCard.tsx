@@ -7,10 +7,11 @@ import {AreaMapper, titleRange} from '../../../Utilities/CustomMethods';
 import {HomeStackNavigationProp} from '../../../Navigators/Stack/HomeStackNavigator';
 import {ApplicationOverlayStackNavigationProp} from '../../../Navigators/Stack/ApplicationOverlayStackNavigator';
 import {useAppDispatch} from '../../../StateManagement/hooks';
-import {showLoader} from '../../../StateManagement/Error&loadingHandle/LoaderState';
+import {showLoader} from '../../../StateManagement/Error&loadingHandle/LoaderStateSlice';
 import {Rating} from '../../Elements/Rating';
 
 interface ItemMiniCardProps {
+  id: string;
   cardImage: string;
   title: string;
   price: string;
@@ -20,6 +21,7 @@ interface ItemMiniCardProps {
 }
 
 export const ItemMiniCard: React.FC<ItemMiniCardProps> = ({
+  id,
   cardImage,
   title,
   price,
@@ -52,11 +54,11 @@ export const ItemMiniCard: React.FC<ItemMiniCardProps> = ({
         rippleColor={colors.primary}
         onPress={() => {
           dispatch(showLoader());
-
           navigation.navigate('ApplicationOverlay', {
             screen: 'ItemDetailScreen',
             params: {
               name: title,
+              id: id,
             },
           });
         }}
@@ -122,14 +124,13 @@ export const ItemMiniCard: React.FC<ItemMiniCardProps> = ({
 const styles = StyleSheet.create({
   card: {
     width: AreaMapper({
-      value: 172,
+      value: 180,
       scaleBy: 'width',
     }),
     borderRadius: AreaMapper({
       value: 30,
       scaleBy: 'width',
     }),
-    elevation: 0.7,
   },
 
   imageContainer: {
@@ -143,13 +144,15 @@ const styles = StyleSheet.create({
       scaleBy: 'height',
     }),
     width: AreaMapper({
-      value: 172,
+      value: 180,
       scaleBy: 'width',
     }),
     borderRadius: AreaMapper({
       value: 10,
       scaleBy: 'width',
     }),
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
   },
   wishlistButton: {
     position: 'absolute',
@@ -163,6 +166,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    paddingVertical: 5,
   },
   ratingContainer: {
     flexDirection: 'row',

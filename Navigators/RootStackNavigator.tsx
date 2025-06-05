@@ -5,7 +5,7 @@ import {
 } from '@react-navigation/native-stack';
 import React, {useCallback} from 'react';
 import {ProgressBar} from 'react-native-paper';
-import {hideLoader} from '../StateManagement/Error&loadingHandle/LoaderState';
+import {hideLoader} from '../StateManagement/Error&loadingHandle/LoaderStateSlice';
 import {useAppDispatch, useAppSelector} from '../StateManagement/hooks';
 import {BottomTabNavigator} from './BottomTab/BottomTabNavigator';
 import {ApplicationOverlayStackNavigator} from './Stack/ApplicationOverlayStackNavigator';

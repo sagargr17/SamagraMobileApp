@@ -21,7 +21,7 @@ import { OnBoardingLayout } from '../../Components/Layout/OnBoardingLayout';
 import { ContinueDivider } from '../../Components/Sections/ContinueDivider';
 import { SocialForm } from '../../Components/Sections/SocialForm';
 import { OnBoardingStackNavigationProp } from '../../Navigators/Stack/OnBoardingStackNavigator';
-import { showLoader } from '../../StateManagement/Error&loadingHandle/LoaderState';
+import { showLoader } from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
 import { useAppDispatch } from '../../StateManagement/hooks';
 import { AreaMapper } from '../../Utilities/CustomMethods';
 import { userRules } from '../../GlobalParams/Forms/Rules';

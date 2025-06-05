@@ -1,4 +1,4 @@
-import {useTheme} from '@react-navigation/native';
+import {useRoute, useTheme} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {Divider, IconButton} from 'react-native-paper';
@@ -15,10 +15,10 @@ import {useAppDispatch} from '../../StateManagement/hooks';
 import {
   hideLoader,
   showLoader,
-} from '../../StateManagement/Error&loadingHandle/LoaderState';
+} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
 import {hide} from 'react-native-bootsplash';
 import {Rating} from '../../Components/Elements/Rating';
-
+order: null;
 interface ItemDetailScreenProps {
   route: ItemDetailScreenRouteProp;
 }
@@ -28,6 +28,9 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
   const {name} = route.params;
   const [totalPrice, setTotalPrice] = useState<number>(320);
   const [isCheckoutVisible, setIsCheckoutVisible] = useState<boolean>(true);
+
+  // const route = useRoute();
+  console.log('Routeee ID', route.params.id);
 
   // test
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -151,7 +154,6 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
                     url: 'https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHdhdGNofGVufDB8fDB8fHww',
                   },
                 ]}></ImageSliderModal>
-
 
               {itemDetailContainer()}
               <CommentLayout

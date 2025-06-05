@@ -11,7 +11,7 @@ import {createNewProduct} from '../../../../GraphQL/Mutation/ItemMutation';
 import {AreaMapper} from '../../../../Utilities/CustomMethods';
 import {CreateProductRequestInput} from '../../../../src/__generated__/graphql';
 import {useAppDispatch} from '../../../../StateManagement/hooks';
-import {hideLoader} from '../../../../StateManagement/Error&loadingHandle/LoaderState';
+import {hideLoader} from '../../../../StateManagement/Error&loadingHandle/LoaderStateSlice';
 
 interface AddItemScreenProps {}
 

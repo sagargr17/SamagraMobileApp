@@ -7,7 +7,7 @@ import {login} from '../../StateManagement/User/UserSlice';
 import {
   hideLoader,
   showLoader,
-} from '../../StateManagement/Error&loadingHandle/LoaderState';
+} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
 import {showMessage} from 'react-native-flash-message';
 import {MyTheme} from '../../Prefrences/Prefrences';
 import {AreaMapper} from '../../Utilities/CustomMethods';

@@ -5,7 +5,7 @@ import {useAppDispatch} from '../../../../StateManagement/hooks';
 import {
   hideLoader,
   showLoader,
-} from '../../../../StateManagement/Error&loadingHandle/LoaderState';
+} from '../../../../StateManagement/Error&loadingHandle/LoaderStateSlice';
 import {ShopInputDto} from '../../../../src/__generated__/graphql';
 import {useMutation} from '@apollo/client';
 import {createNewShop} from '../../../../GraphQL/Mutation/ShopMutations';
