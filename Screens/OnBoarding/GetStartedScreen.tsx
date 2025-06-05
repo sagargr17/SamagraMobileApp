@@ -9,8 +9,6 @@ interface OnBoardingScreenProps {
 export const GetStartedScreen: React.FC<OnBoardingScreenProps> = ({
   navigation,
 }) => {
-  // window.addEventListener('beforeunload', onbeforeunload);
-
   const options = [
     {
       id: 1,

@@ -1,21 +1,34 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
-import {Searchbar} from 'react-native-paper';
+import {Icon, IconButton, Searchbar} from 'react-native-paper';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import {useTheme} from '@react-navigation/native';
 
 interface SerchBarProps {
-  onPress: () => void;
+  onPress: (searchedItem: string) => void;
 }
 
-export const AppSerchBar: React.FC<SerchBarProps> = ({}) => {
+export const AppSerchBar: React.FC<SerchBarProps> = ({onPress}) => {
   const {SearchIcon} = Logos;
   const {fonts} = useTheme();
   const [searchedItem, setSearchedItem] = useState<string>('');
-
+  const {colors} = useTheme();
   return (
     <Searchbar
+      right={() => (
+        <View
+          style={{
+            paddingHorizontal: 5,
+          }}>
+          <IconButton
+            onPress={() => onPress(searchedItem)}
+            icon={'feather'}
+            size={25}
+            iconColor={colors.primary}
+          />
+        </View>
+      )}
       style={{
         backgroundColor: '#EFF1F3',
         fontFamily: fonts.regular.fontFamily,

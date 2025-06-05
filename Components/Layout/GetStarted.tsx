@@ -88,7 +88,6 @@ const styles = StyleSheet.create({
   },
   container: {
     height: 'auto',
-    // backgroundColor: "orange",
     borderTopEndRadius: widthPercentageToDP(4),
     padding: heightPercentageToDP(2),
     paddingTop: heightPercentageToDP(2),

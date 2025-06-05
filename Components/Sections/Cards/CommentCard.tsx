@@ -28,7 +28,7 @@ export const CommentCard: React.FC<CommentCardProps> = ({
           backgroundColor: colors.card,
           borderColor: isReplyCommentVisible ? colors.primary : colors.border,
           marginVertical: AreaMapper({
-            value: 8,
+            value: 5,
             scaleBy: 'average',
           }),
           padding: AreaMapper({

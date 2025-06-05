@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {TextComponet} from '../Elements/TextComponet';
 
 import {useTheme} from '@react-navigation/native';
@@ -19,6 +19,7 @@ export const CommentLayout: React.FC<CommentLayoutProps> = ({
 
   const dummyData = [
     {
+      
       commentor: 'Ram Dhakal',
       commentDescription:
         'Qui ad non ullamco   ullamco nostr  ullamco nostr  ullamco nostr  ullamco nostr nostr',
@@ -84,14 +85,16 @@ export const CommentLayout: React.FC<CommentLayoutProps> = ({
           pannigGesture={true}
           flexHeight={0.5}
           title="Reviews"
-          children={() =>
-            dummyData.map((item, index) => (
-              <CommentCard
-                commentor={item.commentor}
-                commentDescription={item.commentDescription}
-                key={index}></CommentCard>
-            ))
-          }></AppBottomSheet>
+          children={() => (
+            <FlatList
+              data={dummyData}
+              renderItem={({item, index}) => (
+                <CommentCard
+                  commentor={item.commentor}
+                  commentDescription={item.commentDescription}
+                  key={index}></CommentCard>
+              )}></FlatList>
+          )}></AppBottomSheet>
       ) : null}
     </>
   );
