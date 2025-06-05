@@ -1,23 +1,19 @@
-import {useRoute, useTheme} from '@react-navigation/native';
+import {useTheme} from '@react-navigation/native';
 import React, {useState} from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import {FlatList, ScrollView, StyleSheet, View} from 'react-native';
 import {Divider, IconButton} from 'react-native-paper';
+import {Rating} from '../../Components/Elements/Rating';
 import {Spacer} from '../../Components/Elements/Spacer';
 import {TextComponet} from '../../Components/Elements/TextComponet';
-import {ImageSliderModal} from '../../Components/Sections/ImageSliderModal';
-import {ItemDetailScreenRouteProp} from '../../Navigators/Stack/ApplicationOverlayStackNavigator';
-import {AreaMapper, titleCase} from '../../Utilities/CustomMethods';
-import {Counter} from '../../Components/Sections/Counter';
-import {ItemCheckOut} from '../../Components/Sections/ItemCheckOut';
 import {CommentLayout} from '../../Components/Layout/CommentLayout';
+import {Counter} from '../../Components/Sections/Counter';
+import {ImageSliderModal} from '../../Components/Sections/ImageSliderModal';
+import {ItemCheckOut} from '../../Components/Sections/ItemCheckOut';
 import {SamagraLoader} from '../../Components/Sections/Loading/SamagraLoader';
+import {ItemDetailScreenRouteProp} from '../../Navigators/Stack/ApplicationOverlayStackNavigator';
+import {hideLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
 import {useAppDispatch} from '../../StateManagement/hooks';
-import {
-  hideLoader,
-  showLoader,
-} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
-import {hide} from 'react-native-bootsplash';
-import {Rating} from '../../Components/Elements/Rating';
+import {AreaMapper, titleCase} from '../../Utilities/CustomMethods';
 order: null;
 interface ItemDetailScreenProps {
   route: ItemDetailScreenRouteProp;
@@ -45,9 +41,6 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
     dispatch(hideLoader());
   }, 1000);
 
-
-
-  
   const itemDetailContainer = () => {
     return (
       <View
@@ -144,27 +137,31 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
             style={{
               flex: 1,
             }}>
-            <ScrollView showsVerticalScrollIndicator={false}>
-              <ImageSliderModal
-                images={[
-                  {
-                    url: 'https://images.pexels.com/photos/592815/pexels-photo-592815.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-                  },
-                  {
-                    url: 'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                  },
-                  {
-                    url: 'https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHdhdGNofGVufDB8fDB8fHww',
-                  },
-                ]}></ImageSliderModal>
+            <FlatList
+              showsVerticalScrollIndicator={false}
+              data={[1]}
+              renderItem={({item, index}) => (
+                <>
+                  <ImageSliderModal
+                    images={[
+                      {
+                        url: 'https://images.pexels.com/photos/592815/pexels-photo-592815.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+                      },
+                      {
+                        url: 'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                      },
+                      {
+                        url: 'https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHdhdGNofGVufDB8fDB8fHww',
+                      },
+                    ]}></ImageSliderModal>
 
-              {itemDetailContainer()}
-
-              <CommentLayout
-                onCloseHandle={status => {
-                  setIsCheckoutVisible(status);
-                }}></CommentLayout>
-            </ScrollView>
+                  {itemDetailContainer()}
+                  <CommentLayout
+                    onCloseHandle={status => {
+                      setIsCheckoutVisible(status);
+                    }}></CommentLayout>
+                </>
+              )}></FlatList>
             <ItemCheckOut totalPrice={totalPrice}></ItemCheckOut>
           </View>
         </>

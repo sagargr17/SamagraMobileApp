@@ -19,7 +19,6 @@ export const CommentLayout: React.FC<CommentLayoutProps> = ({
 
   const dummyData = [
     {
-      
       commentor: 'Ram Dhakal',
       commentDescription:
         'Qui ad non ullamco   ullamco nostr  ullamco nostr  ullamco nostr  ullamco nostr nostr',
@@ -83,7 +82,7 @@ export const CommentLayout: React.FC<CommentLayoutProps> = ({
           }}
           isOppen={isCommentOpen}
           pannigGesture={true}
-          flexHeight={0.5}
+          flexHeight={1}
           title="Reviews"
           children={() => (
             <FlatList

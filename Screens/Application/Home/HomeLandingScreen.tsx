@@ -22,7 +22,7 @@ export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
 
   const headerComponent = (
     <>
-      <AppHeader currentPosition="relative"></AppHeader>
+      <AppHeader currentPosition="static"></AppHeader>
       <Spacer height={10}></Spacer>
       <Divider></Divider>
       <Spacer height={15}></Spacer>
@@ -52,7 +52,6 @@ export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
         titleHeaderStyle={{
           marginHorizontal: 25,
         }}
-        
         ListHeaderComponent={headerComponent}></ItemCardVerticleSlider>
       <Spacer></Spacer>
     </View>

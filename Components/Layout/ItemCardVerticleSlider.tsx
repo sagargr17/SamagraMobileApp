@@ -74,11 +74,11 @@ export const ItemCardVerticleSlider: React.FC<ItemCardVerticleSliderProps> = ({
   return (
     <View style={styles.miniCardContainer}>
       <FlatList
+        showsVerticalScrollIndicator={false}
         ListHeaderComponent={() => (
           <>
             {ListHeaderComponent}
             <SectionHeader
-
               onPress={() => console.log('PRessing')}
               isIcon={true}
               title={titleHeader}
