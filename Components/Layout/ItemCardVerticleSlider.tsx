@@ -69,8 +69,7 @@ export const ItemCardVerticleSlider: React.FC<ItemCardVerticleSliderProps> = ({
     },
   ];
 
-  const {data, loading, error} = useQuery(getPublicItems);
-  console.log('Resultttt....', data, loading, error);
+  // const {data, loading, error} = useQuery(getPublicItems);
 
   return (
     <View style={styles.miniCardContainer}>
@@ -79,8 +78,9 @@ export const ItemCardVerticleSlider: React.FC<ItemCardVerticleSliderProps> = ({
           <>
             {ListHeaderComponent}
             <SectionHeader
+
               onPress={() => console.log('PRessing')}
-              isIcon={false}
+              isIcon={true}
               title={titleHeader}
               titleFontSize={18}
               titleHeight={22}

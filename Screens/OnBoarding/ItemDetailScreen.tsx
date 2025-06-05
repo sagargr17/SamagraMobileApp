@@ -45,6 +45,9 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
     dispatch(hideLoader());
   }, 1000);
 
+
+
+  
   const itemDetailContainer = () => {
     return (
       <View
@@ -156,6 +159,7 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
                 ]}></ImageSliderModal>
 
               {itemDetailContainer()}
+
               <CommentLayout
                 onCloseHandle={status => {
                   setIsCheckoutVisible(status);

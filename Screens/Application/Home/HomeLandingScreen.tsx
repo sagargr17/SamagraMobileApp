@@ -20,7 +20,7 @@ export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
   const {colors} = useTheme();
   const dispatch = useAppDispatch();
 
-  const renderHeader = (
+  const headerComponent = (
     <>
       <AppHeader currentPosition="relative"></AppHeader>
       <Spacer height={10}></Spacer>
@@ -52,7 +52,8 @@ export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
         titleHeaderStyle={{
           marginHorizontal: 25,
         }}
-        ListHeaderComponent={renderHeader}></ItemCardVerticleSlider>
+        
+        ListHeaderComponent={headerComponent}></ItemCardVerticleSlider>
       <Spacer></Spacer>
     </View>
   );
