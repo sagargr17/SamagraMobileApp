@@ -1,6 +1,6 @@
 import React from 'react';
 import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
-import GetStarted from '../../Components/Layout/GetStarted';
+import GetStarted from '../../Components/Molecules/GetStarted';
 
 interface OnBoardingScreenProps {
   navigation: OnBoardingStackNavigationProp<'GetStartedScreen'>;
@@ -27,7 +27,7 @@ export const GetStartedScreen: React.FC<OnBoardingScreenProps> = ({
   ];
 
   const onCompleted = () => {
-    navigation.navigate('SignUpScreen');
+    navigation.navigate('SignInScreen');
   };
 
   return <GetStarted options={options} onDone={onCompleted} />;

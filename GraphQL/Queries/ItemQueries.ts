@@ -5,6 +5,7 @@ export const getPublicItems = gql(`
 query GetPublicItems {
   getPublicItems {
     nodes {
+      id
       name
       imageUrls
       price
@@ -19,9 +20,30 @@ query GetPublicItemsById($id: String!) {
   getPublicItems(id: $id) {
     nodes {
       name
+      imageUrls
+      price
+      description
+      stockQuantity
+      description
+      starRating
+      shop {
+        id
+        aboutShop
+        stars {
+          stars
+        }
+      }
+      comments {
+        commentString
+        user {
+          username
+          profileImageUrl
+        }
+      }
     }
   }
 }
+
 `);
 
 // ProductCategories

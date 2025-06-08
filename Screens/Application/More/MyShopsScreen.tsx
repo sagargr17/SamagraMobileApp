@@ -1,11 +1,11 @@
 import {useTheme} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {SliderSwitcher} from '../../../Components/Layout/SliderSwitcher';
+import {SliderSwitcher} from '../../../Components/Organism/SliderSwitcher';
 
 import {useLazyQuery, useMutation, useQuery} from '@apollo/client';
 import {ActivityIndicatorComponent, StyleSheet, View} from 'react-native';
-import {MyStoreLayout} from '../../../Components/Layout/MyStoreLayout';
-import {SamagraLoader} from '../../../Components/Sections/Loading/SamagraLoader';
+import {MyStoreLayout} from '../../../Components/Molecules/MyStoreLayout';
+import {SamagraLoader} from '../../../Components/Molecules/Response/SamagraLoader';
 import {createNewShop} from '../../../GraphQL/Mutation/ShopMutations';
 
 import {useAppDispatch} from '../../../StateManagement/hooks';
@@ -34,6 +34,8 @@ export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
 
     return () => {};
   }, []);
+
+  console.log('SHOP  DAtA', data, loading, error);
 
   let index = 0;
   return (

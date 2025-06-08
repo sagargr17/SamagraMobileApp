@@ -8,7 +8,7 @@ import {
   KeyboardAvoidingView,
   ScrollView,
 } from 'react-native';
-import {OnBoardingLayout} from '../../Components/Layout/OnBoardingLayout';
+import {ScrollableLayout} from '../../Layout/ScreenLayout/ScrollableLayout';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
 import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
 import {Controller, useForm} from 'react-hook-form';
@@ -78,7 +78,7 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
   };
 
   return (
-    <OnBoardingLayout>
+    <ScrollableLayout>
       <KeyboardAvoidingView
         style={{
           flex: 1,
@@ -263,7 +263,7 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
-    </OnBoardingLayout>
+    </ScrollableLayout>
   );
 };
 

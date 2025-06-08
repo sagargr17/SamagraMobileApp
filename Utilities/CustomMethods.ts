@@ -56,13 +56,39 @@ export const titleCase = (str: any) => {
 };
 
 export const titleRange = (str: any) => {
-  return titleCase(
-    str.length > 15
-      ? str.split(' ')[0].length + ' '.length + str.split(' ')[1].length > 15
-        ? str.split(' ')[0].length > 5
-          ? str.match(/.{1,4}/g) ?? [][0]
-          : str.split(' ')[0] + ' ...'
-        : str.split(' ')[0] + (' ' + (str.split(' ')[1] + ' ...'))
-      : str,
-  );
+  if (typeof str !== 'string') {
+    return titleCase('');
+  }
+
+  let processedStr: string;
+
+  if (str.length > 15) {
+  const parts = str.split(' ');
+    const firstWord = parts[0];
+    const secondWord = parts[1];
+
+    // Check if first word + space + second word length > 15
+    if (
+      firstWord.length +
+        (secondWord ? secondWord.length : 0) +
+        (secondWord ? 1 : 0) >
+      15
+    ) {
+      // If first word length > 5, AND you want "first 4 chars + ..."
+      if (firstWord.length > 5) {
+        processedStr = firstWord.substring(0, 4) + '...'; // Take first 4 chars and add "..."
+      } else {
+        // If first word length <= 5, and overall is long, keep first word + "..."
+        processedStr = firstWord + ' ...';
+      }
+    } else {
+      // If overall string is long but first two words are not excessively long
+      processedStr =
+        firstWord + (secondWord ? ' ' + secondWord + ' ...' : '...');
+    }
+  } else {
+    processedStr = str;
+  }
+
+  return titleCase(processedStr);
 };

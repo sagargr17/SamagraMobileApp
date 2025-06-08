@@ -5,14 +5,14 @@ import FastImage from '@d11/react-native-fast-image';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import AppButton from '../../../Components/Elements/Button';
 import {TextComponet} from '../../../Components/Elements/TextComponet';
-import {PoppedCard} from '../../../Components/Sections/Cards/PoppedCard';
+import {PoppedCard} from '../../../Components/Molecules/Cards/PoppedCard';
 import {AreaMapper} from '../../../Utilities/CustomMethods';
 import {useAppSelector} from '../../../StateManagement/hooks';
 import {useLazyQuery, useQuery} from '@apollo/client';
 import {getLoginUser} from '../../../GraphQL/Queries/UserQueries';
 import {ActivityIndicator} from 'react-native-paper';
-import {ProviderCardSkeleton} from '../../../Components/Sections/Loading/Skeletons/ProviderCardSkeleton';
-import {UserProfileMiniCard} from '../../../Components/Sections/Cards/UserProfileMiniCard';
+import {ProviderCardSkeleton} from '../../../Components/Skeletons/ProviderCardSkeleton';
+import {UserProfileMiniCard} from '../../../Components/Molecules/Cards/UserProfileMiniCard';
 
 interface MoreLandingScreenProps {}
 

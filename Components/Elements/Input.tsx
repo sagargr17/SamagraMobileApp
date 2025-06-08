@@ -4,6 +4,7 @@ import {StyleSheet, View} from 'react-native';
 import {Icon, TextInput} from 'react-native-paper';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import {TextComponet} from './TextComponet';
+import {size} from '../../Prefrences/Prefrences';
 // import {EvilIcons} from 'react-native-vector-icons/';
 
 interface InputProps extends React.ComponentProps<typeof TextInput> {
@@ -28,12 +29,6 @@ export const Input: React.FC<InputProps> = ({
   const {colors, fonts} = useTheme();
   const inputRef: any = useRef(null);
 
-  // useEffect(() => {
-  //   if (inputRef.current) {
-  //     inputRef.current.focus();
-  //   }
-  // }, []);
-
   return (
     <View style={styles.inputContainer}>
       <View
@@ -42,25 +37,25 @@ export const Input: React.FC<InputProps> = ({
           {backgroundColor: colors.background, borderColor: colors.border},
           !!error && styles.inputError,
           {
-            marginVertical: AreaMapper({
-              value: 2,
-              scaleBy: 'average',
-            }),
+            marginVertical: size.spacing.xxs,
           },
         ]}>
         {label && (
           <TextComponet
+            customStyle={{
+              marginVertical: size.spacing.xxs,
+            }}
             title={label}
-            fontVariant="regular"
-            lineHeight={24}
-            fontSize={16}></TextComponet>
+            fontVariant="medium"
+            fontSizeVariant={'regular'}></TextComponet>
         )}
         <TextInput
           ref={inputRef}
           placeholder={placeholder}
           mode="outlined"
           outlineStyle={{
-            borderWidth: 1,
+            borderWidth: size.borderWidth.s,
+            borderRadius: size.borderRadius?.xs,
           }}
           activeOutlineColor={colors.primary}
           placeholderTextColor={'#808080'}
@@ -68,18 +63,11 @@ export const Input: React.FC<InputProps> = ({
           style={[
             styles.input,
             {
-              backgroundColor: colors.background,
-
+              backgroundColor: '#fafcff',
+              // backgroundColor: colors.background,
+              // borderColor: colors.border,
               fontFamily: fonts.regular.fontFamily,
-              height: AreaMapper({
-                value: height,
-                scaleBy: 'average',
-              }),
-              borderRadius: AreaMapper({
-                value: 8,
-                scaleBy: 'average',
-              }),
-
+              height: 50,
               borderColor: colors.border,
             },
           ]}
@@ -91,10 +79,8 @@ export const Input: React.FC<InputProps> = ({
           contentStyle={{
             minHeight: 0,
             fontFamily: fonts.regular.fontFamily,
-            fontSize: AreaMapper({
-              value: 14,
-              scaleBy: 'height',
-            }),
+            fontSize: size.textVariants.regular?.fontSize,
+            lineHeight: size.textVariants.regular?.lineHeight,
           }}
           right={<Icon size={20} source={'eye-outline'} color="red"></Icon>}
         />

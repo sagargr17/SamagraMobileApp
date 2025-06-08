@@ -2,6 +2,6 @@
   "extends": "@react-native/typescript-config/tsconfig.json",
   "compilerOptions": {
     // ... other options
-    "lib": ["dom", "es2015", "es2017", "esnext"] // Make sure dom is present.
+    "lib": ["dom", "es2015", "es2017", "esnext"] // Make sure dom is present.,
   }
 }

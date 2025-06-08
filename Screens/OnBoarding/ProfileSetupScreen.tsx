@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet, Pressable} from 'react-native';
-import {OnBoardingLayout} from '../../Components/Layout/OnBoardingLayout';
+import {ScrollableLayout} from '../../Layout/ScreenLayout/ScrollableLayout';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
@@ -23,7 +23,7 @@ export const ProfileSetupScreen: React.FC<ProfileSetupProps> = ({
   const {colors, fonts} = useTheme();
 
   return (
-    <OnBoardingLayout>
+    <ScrollableLayout>
       <View style={styles.body}>
         <View>
           <Text
@@ -64,13 +64,13 @@ export const ProfileSetupScreen: React.FC<ProfileSetupProps> = ({
             <TextComponet
               customStyle={styles.text}
               fontVariant="bold"
-              fontSize={16}
+              fontSizeVariant={16}
               lineHeight={22}
               title="Already Have an Account? Log In Now"></TextComponet>
           </Pressable>
         </View>
       </View>
-    </OnBoardingLayout>
+    </ScrollableLayout>
   );
 };
 

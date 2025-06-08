@@ -4,6 +4,7 @@ import {useTheme} from '@react-navigation/native';
 import {Icon, IconButton} from 'react-native-paper';
 import {TextComponet} from './TextComponet';
 import {titleCase} from '../../Utilities/CustomMethods';
+import {size} from '../../Prefrences/Prefrences';
 interface RatingProps {
   ratingNumber?: number;
 }
@@ -22,7 +23,7 @@ export const Rating: React.FC<RatingProps> = ({ratingNumber = 3.5}) => {
       }}>
       <IconButton
         icon="star"
-        size={20}
+        size={size.iconSize.medium}
         style={{
           marginRight: 0,
           paddingRight: 0,
@@ -30,7 +31,7 @@ export const Rating: React.FC<RatingProps> = ({ratingNumber = 3.5}) => {
         iconColor={'#FFA902'}
       />
       <TextComponet
-        fontSize={14}
+        fontSizeVariant={'regular'}
         title={titleCase(`${ratingNumber}`)}
         fontVariant="regular"></TextComponet>
     </View>

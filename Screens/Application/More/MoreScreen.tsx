@@ -1,6 +1,6 @@
 import React from 'react';
 import {ScrollView, Text, View} from 'react-native';
-import {ProviderCard} from '../../../Components/Sections/Cards/ProviderCard';
+import {ProviderCard} from '../../../Components/Molecules/Cards/ProviderCard';
 
 interface MoreScreenProps {}
 

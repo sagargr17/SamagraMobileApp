@@ -9,8 +9,8 @@ import {
 import {ShopInputDto} from '../../../../src/__generated__/graphql';
 import {useMutation} from '@apollo/client';
 import {createNewShop} from '../../../../GraphQL/Mutation/ShopMutations';
-import {ShopDisplayCard} from '../../../../Components/Sections/ShopDisplayCard';
-import {AppForm} from '../../../../Components/Layout/AppForm';
+import {ShopDisplayCard} from '../../../../Components/Molecules/ShopDisplayCard';
+import {AppForm} from '../../../../Components/Organism/AppForm';
 import {AreaMapper} from '../../../../Utilities/CustomMethods';
 import {showMessage} from 'react-native-flash-message';
 import {Surface} from 'react-native-paper';

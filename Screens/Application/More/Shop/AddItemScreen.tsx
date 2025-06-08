@@ -5,13 +5,14 @@ import {StyleSheet, View} from 'react-native';
 import {showMessage} from 'react-native-flash-message';
 import {Icon, ProgressBar, TouchableRipple} from 'react-native-paper';
 import {TextComponet} from '../../../../Components/Elements/TextComponet';
-import {AppForm} from '../../../../Components/Layout/AppForm';
-import {ImageUploader} from '../../../../Components/Layout/ImageUploader';
+import {AppForm} from '../../../../Components/Organism/AppForm';
+import {ImageUploader} from '../../../../Components/Organism/ImageUploader';
 import {createNewProduct} from '../../../../GraphQL/Mutation/ItemMutation';
 import {AreaMapper} from '../../../../Utilities/CustomMethods';
-import {CreateProductRequestInput} from '../../../../src/__generated__/graphql';
+import {CreateProductInputViewModelInput} from '../../../../src/__generated__/graphql';
 import {useAppDispatch} from '../../../../StateManagement/hooks';
 import {hideLoader} from '../../../../StateManagement/Error&loadingHandle/LoaderStateSlice';
+import {NoDataMessage} from '../../../../Constants/UI/Variables';
 
 interface AddItemScreenProps {}
 
@@ -66,8 +67,7 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
           <TextComponet
             title={`${indexNumber}`}
             fontVariant="medium"
-            lineHeight={40}
-            fontSize={25}
+            fontSizeVariant={'regular'}
             customStyle={{
               backgroundColor:
                 index.indexNumber === 1
@@ -83,17 +83,16 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
           <TextComponet
             title={title}
             fontVariant="medium"
-            lineHeight={20}
             customStyle={{
               color: 'white',
               marginLeft: 10,
             }}
-            fontSize={25}></TextComponet>
+            fontSizeVariant={'regular'}></TextComponet>
 
           <TextComponet
             title={descriptionn}
             fontVariant="medium"
-            fontSize={14}
+            fontSizeVariant={'regular'}
             customStyle={{
               marginHorizontal: AreaMapper({
                 value: 8,
@@ -114,49 +113,70 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
   ] = useMutation(createNewProduct);
   const dispatch = useAppDispatch();
 
-  const handleCreateItemSubmit = async (data: CreateProductRequestInput) => {
-    try {
-      let response = await createNewItemFn({
-        variables: {
-          name: data.name,
-          shopId: '4f227bb5-c411-452f-b745-0678eb9c9580',
-          price: Number(data.price),
-          description: data.description,
-          unit: data.unit,
-          stockQuantity: Number(data.stockQuantity),
-          imageUrls: [
-            'https://m.media-amazon.com/images/I/8102HF0GGBL._AC_UF350,350_QL80_.jpg',
-          ],
-          location: data.location,
-          categoryId: '1',
-        },
-      });
+  const handleCreateItemSubmit = async (
+    data: CreateProductInputViewModelInput,
+  ) => {
+    if (data)
+      try {
+        let response = await createNewItemFn({
+          variables: {
+            name: data.name ? data.name : NoDataMessage,
+            shopId: '4f227bb5-c411-452f-b745-0678eb9c9580',
+            price: Number(data.price ? data.price : NoDataMessage),
+            description: data.description ? data.description : NoDataMessage,
+            unit: data.unit ? data.unit : NoDataMessage,
+            stockQuantity: Number(data.stockQuantity),
+            imageUrls: ,
+            location: data.location? data.location : NoDataMessage,
+            categoryId: '1',
+          },
+        });
 
-      console.log('Response Error', response);
+        console.log('Response Error', response);
 
-      if (response.data) {
-        dispatch(hideLoader());
+        if (response.data) {
+          dispatch(hideLoader());
 
-        showMessage({
-          message: 'Item Added Successfully',
-          description: 'New Shop Has been Created Please visit It.',
+          showMessage({
+            message: 'Item Added Successfully',
+            description: 'New Shop Has been Created Please visit It.',
 
-          type: 'success',
-          textStyle: {
-            fontFamily: fonts.regular.fontFamily,
-            fontWeight: 'regular',
-            fontSize: AreaMapper({
-              value: 14,
+            type: 'success',
+            textStyle: {
+              fontFamily: fonts.regular.fontFamily,
+              fontWeight: 'regular',
+              fontSize: AreaMapper({
+                value: 14,
+                scaleBy: 'average',
+              }),
+            },
+            statusBarHeight: AreaMapper({
+              value: 15,
               scaleBy: 'average',
             }),
-          },
-          statusBarHeight: AreaMapper({
-            value: 15,
-            scaleBy: 'average',
-          }),
-        });
-      }
-      if (response.errors) {
+          });
+        }
+        if (response.errors) {
+          dispatch(hideLoader());
+          showMessage({
+            message: 'Opps, Something Went Wrong!',
+            type: 'danger',
+            description: 'Please , try after sometimes',
+            textStyle: {
+              fontFamily: fonts.regular.fontFamily,
+              fontWeight: 'regular',
+              fontSize: AreaMapper({
+                value: 14,
+                scaleBy: 'average',
+              }),
+            },
+            statusBarHeight: AreaMapper({
+              value: 15,
+              scaleBy: 'average',
+            }),
+          });
+        }
+      } catch (e) {
         dispatch(hideLoader());
         showMessage({
           message: 'Opps, Something Went Wrong!',
@@ -176,26 +196,6 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
           }),
         });
       }
-    } catch (e) {
-      dispatch(hideLoader());
-      showMessage({
-        message: 'Opps, Something Went Wrong!',
-        type: 'danger',
-        description: 'Please , try after sometimes',
-        textStyle: {
-          fontFamily: fonts.regular.fontFamily,
-          fontWeight: 'regular',
-          fontSize: AreaMapper({
-            value: 14,
-            scaleBy: 'average',
-          }),
-        },
-        statusBarHeight: AreaMapper({
-          value: 15,
-          scaleBy: 'average',
-        }),
-      });
-    }
   };
 
   return (
@@ -215,7 +215,7 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
           </>
         }></ImageUploader>
 
-      <AppForm<CreateProductRequestInput>
+      <AppForm<CreateProductInputViewModelInput>
         formConfig={[
           {
             name: 'name', // Must match a key in LoginFormValues

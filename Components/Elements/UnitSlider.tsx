@@ -30,6 +30,7 @@ export const UnitSlider: React.FC<UnitSliderProps> = ({
   return (
     <View style={styles.wrapper}>
       <TextComponet
+        fontSizeVariant="regular"
         title={label}
         fontVariant="regular"
         customStyle={styles.wrapper}></TextComponet>

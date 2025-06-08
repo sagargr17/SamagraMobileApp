@@ -3,44 +3,32 @@ import React from 'react';
 import {Text} from 'react-native-paper';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import {TextStyle} from 'react-native';
+import {size} from '../../Prefrences/Prefrences';
 
 interface TextComponetProps {
   title: string;
   fontVariant: 'regular' | 'medium' | 'bold' | 'heavy';
-  lineHeight?: number;
-  fontSize?: number;
+  fontSizeVariant: 'regular' | 'title' | 'caption';
   customStyle?: TextStyle;
 }
 
 export const TextComponet: React.FC<TextComponetProps> = ({
   title,
   fontVariant,
-  lineHeight,
-  fontSize,
+  fontSizeVariant = 'regular',
   customStyle,
 }) => {
   const {colors, fonts} = useTheme();
-  const font = fonts[fontVariant];
 
   return (
     <Text
       style={[
         {
-          fontFamily: font.fontFamily,
-          fontSize: AreaMapper({
-            value: fontSize ? fontSize : 16,
-            scaleBy: 'height',
-          }),
+          fontFamily: fonts[fontVariant].fontFamily,
+          fontWeight: fonts[fontVariant].fontWeight,
+          fontSize: size.textVariants[fontSizeVariant]?.fontSize,
           color: colors.text,
-          lineHeight: lineHeight
-            ? AreaMapper({
-                value: lineHeight ? lineHeight : 16,
-                scaleBy: 'average',
-              })
-            : AreaMapper({
-                value: 19,
-                scaleBy: 'average',
-              }),
+          lineHeight: size.textVariants[fontSizeVariant]?.lineHeight,
         },
         customStyle,
       ]}>
@@ -48,4 +36,3 @@ export const TextComponet: React.FC<TextComponetProps> = ({
     </Text>
   );
 };
-

@@ -1,6 +1,6 @@
 import {CLIENT_ID, CLIENT_SECRET} from '@env';
 
-export const config = {
+export const refreshTokneConfig = {
   issuer: 'http://identity.samagranepal.com',
   clientId: CLIENT_ID,
   clientSecret: CLIENT_SECRET,

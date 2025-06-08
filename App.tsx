@@ -24,7 +24,7 @@ import {Logos} from './Assets/SVG/Exports/Exports';
 import {accessTokenGenerator} from './client/Token/AccessTokenGenerator';
 import {getTokens} from './client/Token/TokenAccess';
 import {isTokenExpired} from './client/Token/TokeValidator';
-import {SingnlePageError} from './Components/Layout/SinglePageError';
+import {SingnlePageError} from './Components/Molecules/SinglePageError';
 import {GRAPHQL_ENDPOINT} from './Constants/SamagraConstants/SamagraEndpoints';
 import {useTokenRefreshTimer} from './CustomHooks/useTokenRefreshTimer';
 import {RootStack} from './Navigators/RootStackNavigator';
@@ -32,12 +32,10 @@ import {MyDarkTheme, MyTheme} from './Prefrences/Prefrences';
 import {store} from './StateManagement/Store';
 import {login, logout} from './StateManagement/User/UserSlice';
 import {AreaMapper} from './Utilities/CustomMethods';
-import {createFetchMultipartSubscription} from '@apollo/client/utilities/subscriptions/relay';
 
 // MAin Fuction To Token Refresh Handle
 const isTokennExpireHandle = async () => {
   const isTokenExpiredStatus = await isTokenExpired();
-
   return isTokenExpiredStatus;
 };
 
@@ -74,20 +72,6 @@ const wsLink = new GraphQLWsLink(
   createClient({
     url: 'ws://api.samagranepal.com/graphql',
     webSocketImpl: MyWebSocket,
-    // connectionParams: {
-    //   authToken: `Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Im15LWhhcmRjb2RlZC1rZXktaWQiLCJ0eXAiOiJhdCtqd3QifQ.eyJpc3MiOiJodHRwOi8vaWRlbnRpdHkuc2FtYWdyYW5lcGFsLmNvbSIsIm5iZiI6MTc0ODEwMzY2MCwiaWF0IjoxNzQ4MTAzNjYwLCJleHAiOjE3NTA2OTU2NjAsImF1ZCI6Im1hcmtldHBsYWNlIiwic2NvcGUiOlsibWFya2V0cGxhY2UuYWNjZXNzIiwib3BlbmlkIiwicHJvZmlsZSIsIm9mZmxpbmVfYWNjZXNzIl0sImFtciI6WyJjdXN0b20iXSwiY2xpZW50X2lkIjoiI3NnYXJhcCoiLCJzdWIiOiI0ZTFlNzcyOC1kZWZhLTQxOTEtOGZkOS03MGRkNmZkMmNhZmMiLCJhdXRoX3RpbWUiOjE3NDgxMDM2NjAsImlkcCI6ImxvY2FsIiwibmFtZSI6InNhZ2FyICIsInByZWZlcnJlZF91c2VybmFtZSI6InNhZ2FyIiwianRpIjoiMEI2OUVFQTQ3MjVCQTNBNDQ3OUFDQTM0NzMxNjEwQjcifQ.YU-PhEV-mBlZg-EcxCRAy93nwUOKGKwxedJBATw8Buu9XT_SxMCDtkRhbs4tlZnwqBNk9LcfQ7haj-YLNSgOsX267_jqCA0Hg04ipVGaAT_fJb3wVaOLqrct99sW0PsvP6dmvBsD3s_9wlzc-3mwq-M_aCiA_xa_TVfMumqfEu8`,
-    // },
-
-    // connectionParams: async () => {
-    //   return {
-    //     headers: {
-    //       Authorization: `Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Im15LWhhcmRjb2RlZC1rZXktaWQiLCJ0eXAiOiJhdCtqd3QifQ.eyJpc3MiOiJodHRwOi8vaWRlbnRpdHkuc2FtYWdyYW5lcGFsLmNvbSIsIm5iZiI6MTc0ODEwMzY2MCwiaWF0IjoxNzQ4MTAzNjYwLCJleHAiOjE3NTA2OTU2NjAsImF1ZCI6Im1hcmtldHBsYWNlIiwic2NvcGUiOlsibWFya2V0cGxhY2UuYWNjZXNzIiwib3BlbmlkIiwicHJvZmlsZSIsIm9mZmxpbmVfYWNjZXNzIl0sImFtciI6WyJjdXN0b20iXSwiY2xpZW50X2lkIjoiI3NnYXJhcCoiLCJzdWIiOiI0ZTFlNzcyOC1kZWZhLTQxOTEtOGZkOS03MGRkNmZkMmNhZmMiLCJhdXRoX3RpbWUiOjE3NDgxMDM2NjAsImlkcCI6ImxvY2FsIiwibmFtZSI6InNhZ2FyICIsInByZWZlcnJlZF91c2VybmFtZSI6InNhZ2FyIiwianRpIjoiMEI2OUVFQTQ3MjVCQTNBNDQ3OUFDQTM0NzMxNjEwQjcifQ.YU-PhEV-mBlZg-EcxCRAy93nwUOKGKwxedJBATw8Buu9XT_SxMCDtkRhbs4tlZnwqBNk9LcfQ7haj-YLNSgOsX267_jqCA0Hg04ipVGaAT_fJb3wVaOLqrct99sW0PsvP6dmvBsD3s_9wlzc-3mwq-M_aCiA_xa_TVfMumqfEu8`,
-    //     },
-    //   };
-    // },
-    // connectionParams: () => ({
-    //   authorization: `Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Im15LWhhcmRjb2RlZC1rZXktaWQiLCJ0eXAiOiJhdCtqd3QifQ.eyJpc3MiOiJodHRwOi8vaWRlbnRpdHkuc2FtYWdyYW5lcGFsLmNvbSIsIm5iZiI6MTc0ODEwMzY2MCwiaWF0IjoxNzQ4MTAzNjYwLCJleHAiOjE3NTA2OTU2NjAsImF1ZCI6Im1hcmtldHBsYWNlIiwic2NvcGUiOlsibWFya2V0cGxhY2UuYWNjZXNzIiwib3BlbmlkIiwicHJvZmlsZSIsIm9mZmxpbmVfYWNjZXNzIl0sImFtciI6WyJjdXN0b20iXSwiY2xpZW50X2lkIjoiI3NnYXJhcCoiLCJzdWIiOiI0ZTFlNzcyOC1kZWZhLTQxOTEtOGZkOS03MGRkNmZkMmNhZmMiLCJhdXRoX3RpbWUiOjE3NDgxMDM2NjAsImlkcCI6ImxvY2FsIiwibmFtZSI6InNhZ2FyICIsInByZWZlcnJlZF91c2VybmFtZSI6InNhZ2FyIiwianRpIjoiMEI2OUVFQTQ3MjVCQTNBNDQ3OUFDQTM0NzMxNjEwQjcifQ.YU-PhEV-mBlZg-EcxCRAy93nwUOKGKwxedJBATw8Buu9XT_SxMCDtkRhbs4tlZnwqBNk9LcfQ7haj-YLNSgOsX267_jqCA0Hg04ipVGaAT_fJb3wVaOLqrct99sW0PsvP6dmvBsD3s_9wlzc-3mwq-M_aCiA_xa_TVfMumqfEu8`,
-    // }),
   }),
 );
 const splitLink = split(

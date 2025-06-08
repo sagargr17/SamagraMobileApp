@@ -1,24 +1,36 @@
-import {useNavigation, useTheme} from '@react-navigation/native';
-import {ScrollView} from 'moti';
-import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {Divider} from 'react-native-paper';
-import {Spacer} from '../../../Components/Elements/Spacer';
-import {AppHeader} from '../../../Components/Layout/AppHeader';
-import {ItemCardVerticleSlider} from '../../../Components/Layout/ItemCardVerticleSlider';
-import {ItemCategoryCardSlider} from '../../../Components/Layout/ItemCategorySlider';
-import AppBanner from '../../../Components/Sections/AppBanner';
-import {AppSerchBar} from '../../../Components/Sections/AppSerchBar';
-import {useAppDispatch} from '../../../StateManagement/hooks';
-import {showLoader} from '../../../StateManagement/Error&loadingHandle/LoaderStateSlice';
+import { useQuery } from '@apollo/client';
+import { useNavigation } from '@react-navigation/native';
+import React, { useCallback } from 'react';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { Divider } from 'react-native-paper';
+import { Spacer } from '../../../Components/Elements/Spacer';
+import { FlatListScreen } from '../../../Layout/ScreenLayout/FlatListScreenLayout';
+import AppBanner from '../../../Components/Molecules/Global/AppBanner';
+import { AppHeader } from '../../../Components/Organism/AppHeader';
+import { AppSerchBar } from '../../../Components/Molecules/Global/AppSerchBar';
+import { ItemMiniCard } from '../../../Components/Molecules/Cards/ItemMiniCard';
+import { ItemCategoryCardSlider } from '../../../Components/Organism/ItemCategorySlider';
+import { ImageNotFound } from '../../../Constants/UI/AssetsUrls';
+import { getPublicItems } from '../../../GraphQL/Queries/ItemQueries';
+import { size } from '../../../Prefrences/Prefrences';
 
 interface HomeLandingScreenProps {}
 
 export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
-  const {fonts} = useTheme();
   const navigation: any = useNavigation();
-  const {colors} = useTheme();
-  const dispatch = useAppDispatch();
+  const {data, loading, error} = useQuery(getPublicItems, {
+    fetchPolicy: 'cache-first',
+  });
+
+  const handleNavigation = useCallback((searchedItem: string) => {
+    navigation.navigate('ApplicationOverlay', {
+      screen: 'ItemDetailScreen',
+      params: {
+        name: `${searchedItem}`,
+        id: '1',
+      },
+    });
+  }, []);
 
   const headerComponent = (
     <>
@@ -27,34 +39,49 @@ export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
       <Divider></Divider>
       <Spacer height={15}></Spacer>
       <AppSerchBar
-        onPress={(searchedItem: string) => {
-          dispatch(showLoader());
-          navigation.navigate('ApplicationOverlay', {
-            screen: 'ItemDetailScreen',
-            params: {
-              name: `${searchedItem}`,
-              id: '1',
-            },
-          });
-        }}></AppSerchBar>
+        onPress={(searchedItem: string) =>
+          handleNavigation(searchedItem)
+        }></AppSerchBar>
       <AppBanner></AppBanner>
       <Spacer></Spacer>
-      <ItemCategoryCardSlider size="large"></ItemCategoryCardSlider>
-      <Spacer></Spacer>
+      <ItemCategoryCardSlider sizes="large"></ItemCategoryCardSlider>
       <Divider></Divider>
     </>
   );
 
+  console.log('Resulttt...', data, loading, error);
+
+  if (loading) return <ActivityIndicator></ActivityIndicator>;
+  if (error) return <Text>{error.message}</Text>;
+
   return (
-    <View>
-      <ItemCardVerticleSlider
-        titleHeader="Popular"
-        titleHeaderStyle={{
-          marginHorizontal: 25,
-        }}
-        ListHeaderComponent={headerComponent}></ItemCardVerticleSlider>
-      <Spacer></Spacer>
-    </View>
+    <FlatListScreen
+      scrollEnabled
+      numColumns={2}
+      headerComponent={headerComponent}
+      data={data?.getPublicItems?.nodes}
+      isSectioHeader
+      headerTitle="Popular"
+      contentContainerStyle={{
+        paddingHorizontal:size.spacing.xs
+      }}
+      renderItem={({item, index}) => (
+        <View
+          style={{
+            paddingTop: index % 2 === 0 ? 0 : size.spacing.xs,
+          }}>
+          <ItemMiniCard
+            id={item?.id ? item.id : 'Not Mentioned'}
+            key={index}
+            cardImage={
+              item?.imageUrls?.[0] ? item?.imageUrls[0] : ImageNotFound
+            }
+            title={item?.name ? item.name : 'Not Mentioned'}
+            price={item?.price ? item.price : 'Not Mentioned'}
+            rating={item?.starRating}
+          />
+        </View>
+      )}></FlatListScreen>
   );
 };
 

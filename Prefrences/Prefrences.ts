@@ -1,5 +1,3 @@
-import {Platform} from 'react-native';
-
 const GOOGLE_FONT_REGULAR = 'Poppins-Regular';
 const GOOGLE_FONT_MEDIUM = 'Poppins-Medium';
 const GOOGLE_FONT_BOLD = 'Poppins-Bold';
@@ -54,4 +52,90 @@ const MyDarkTheme = {
   fonts: MyTheme.fonts,
 };
 
-export {MyTheme, MyDarkTheme};
+const size = {
+  spacing: {
+    xxs: 4,
+    xs: 8,
+    s: 12,
+    m: 16,
+    l: 24,
+    xl: 32,
+    xxl: 48,
+  },
+
+  textVariants: {
+    regular: {
+      fontSize: 14,
+      lineHeight: 18,
+    },
+    title: {
+      fontSize: 16,
+      lineHeight: 24,
+    },
+
+    caption: {
+      fontSize: 12,
+      lineHeight: 14,
+    },
+  },
+  borderWidth: {
+    none: 0,
+    xss: 0.25,
+    xs: 0.5,
+    s: 1,
+    m: 2,
+    l: 3,
+    xl: 4,
+    xxl: 6,
+  },
+
+  borderRadius: {
+    none: 0,
+    xs: 4,
+    s: 8,
+    m: 12,
+    l: 16,
+    xl: 24,
+    full: 999,
+  },
+
+  elevation: {
+    xs: {
+      shadowColor: '#000',
+      shadowOffset: {width: 0, height: 1},
+      shadowOpacity: 0.12,
+      shadowRadius: 3,
+      elevation: 1,
+    },
+    s: {
+      shadowColor: '#000',
+      shadowOffset: {width: 0, height: 3},
+      shadowOpacity: 0.16,
+      shadowRadius: 6,
+      elevation: 2,
+    },
+    m: {
+      shadowColor: '#000',
+      shadowOffset: {width: 0, height: 10},
+      shadowOpacity: 0.19,
+      shadowRadius: 20,
+      elevation: 3,
+    },
+    l: {
+      shadowColor: '#000',
+      shadowOffset: {width: 0, height: 14},
+      shadowOpacity: 0.25,
+      shadowRadius: 28,
+      elevation: 4,
+    },
+  },
+
+  iconSize: {
+    small: 16,
+    medium: 24,
+    large: 32,
+    xlarge: 48,
+  },
+};
+
+export {MyTheme, MyDarkTheme, size};

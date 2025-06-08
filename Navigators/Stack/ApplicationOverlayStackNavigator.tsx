@@ -22,6 +22,7 @@ type ApplicationOverlayMoreStackParamList = {
   ReceivedOrderListScreen: undefined;
   ReceivedOfferListScreen: undefined;
   ItemDetailScreen: {
+    id: string;
     name: string;
   };
   MyShopItemsScreen: {
@@ -117,7 +118,7 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
                   color={colors.primary}></Icon>
                 <TextComponet
                   title="New Shop"
-                  fontSize={16}
+                  fontSizeVariant={'regular'}
                   fontVariant="regular"></TextComponet>
               </View>
             </TouchableRipple>

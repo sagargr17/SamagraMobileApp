@@ -5,7 +5,7 @@ export const getLoginUser = gql(`
   query GetLoginUser {
   getUser {
     username
-    pofileImageUrl
+    profileImageUrl
   }
 }
 `);

@@ -57,9 +57,6 @@ export const RootStack: React.FC = () => {
 
   return (
     <>
-      {loaderStatus ? (
-        <ProgressBar indeterminate color={colors.primary}></ProgressBar>
-      ) : null}
       <RootStackBuilder.Navigator
         screenOptions={{
           header: () => null,

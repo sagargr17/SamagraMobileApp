@@ -27,6 +27,16 @@ export type AdViewModel = {
   itemId?: Maybe<Scalars['String']['output']>;
 };
 
+/** Defines when a policy shall be executed. */
+export enum ApplyPolicy {
+  /** After the resolver was executed. */
+  AfterResolver = 'AFTER_RESOLVER',
+  /** Before the resolver was executed. */
+  BeforeResolver = 'BEFORE_RESOLVER',
+  /** The policy is applied in the validation step before the execution. */
+  Validation = 'VALIDATION'
+}
+
 export type BasketItem = {
   __typename?: 'BasketItem';
   id?: Maybe<Scalars['String']['output']>;
@@ -45,11 +55,6 @@ export type BasketItemFilterInput = {
   sub?: InputMaybe<StringOperationFilterInput>;
 };
 
-export type BidViewModel = {
-  __typename?: 'BidViewModel';
-  item?: Maybe<ItemViewModel>;
-};
-
 export type BooleanOperationFilterInput = {
   eq?: InputMaybe<Scalars['Boolean']['input']>;
   neq?: InputMaybe<Scalars['Boolean']['input']>;
@@ -62,7 +67,6 @@ export type Category = {
   id?: Maybe<Scalars['String']['output']>;
   imageUrl?: Maybe<Scalars['String']['output']>;
   isProduct: Scalars['Boolean']['output'];
-  itemNames?: Maybe<Array<Maybe<ItemName>>>;
   name?: Maybe<Scalars['String']['output']>;
 };
 
@@ -73,67 +77,45 @@ export type CategoryFilterInput = {
   id?: InputMaybe<StringOperationFilterInput>;
   imageUrl?: InputMaybe<StringOperationFilterInput>;
   isProduct?: InputMaybe<BooleanOperationFilterInput>;
-  itemNames?: InputMaybe<ListFilterInputTypeOfItemNameFilterInput>;
   name?: InputMaybe<StringOperationFilterInput>;
   or?: InputMaybe<Array<CategoryFilterInput>>;
 };
 
-export type CategorySortInput = {
-  description?: InputMaybe<SortEnumType>;
-  displayName?: InputMaybe<SortEnumType>;
-  id?: InputMaybe<SortEnumType>;
-  imageUrl?: InputMaybe<SortEnumType>;
-  isProduct?: InputMaybe<SortEnumType>;
-  name?: InputMaybe<SortEnumType>;
-};
-
-export type Comment = {
-  __typename?: 'Comment';
-  commentString?: Maybe<Scalars['String']['output']>;
-  entityId?: Maybe<Scalars['String']['output']>;
-  entityName?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['String']['output']>;
-  isPublic: Scalars['Boolean']['output'];
-  response?: Maybe<Scalars['String']['output']>;
-  sub?: Maybe<Scalars['String']['output']>;
-};
-
-export type CommentSortInput = {
-  commentString?: InputMaybe<SortEnumType>;
-  entityId?: InputMaybe<SortEnumType>;
-  entityName?: InputMaybe<SortEnumType>;
-  id?: InputMaybe<SortEnumType>;
-  isPublic?: InputMaybe<SortEnumType>;
-  response?: InputMaybe<SortEnumType>;
-  sub?: InputMaybe<SortEnumType>;
-};
-
-export type CreateProductRequestInput = {
-  categoryId: Scalars['String']['input'];
-  condition: Scalars['String']['input'];
-  currency: Scalars['String']['input'];
-  description: Scalars['String']['input'];
-  imageUrls: Array<Scalars['String']['input']>;
-  location: Scalars['String']['input'];
-  name: Scalars['String']['input'];
+export type CreateProductInputViewModelInput = {
+  categoryId?: InputMaybe<Scalars['String']['input']>;
+  condition?: InputMaybe<Scalars['String']['input']>;
+  currency?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  imageUrls?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  location?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
   price: Scalars['Decimal']['input'];
-  shopId: Scalars['String']['input'];
+  shopId?: InputMaybe<Scalars['String']['input']>;
   stockQuantity: Scalars['Int']['input'];
-  unit: Scalars['String']['input'];
+  unit?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type CreateServiceRequestInput = {
-  categoryId: Scalars['String']['input'];
-  condition: Scalars['String']['input'];
-  currency: Scalars['String']['input'];
-  description: Scalars['String']['input'];
-  imageUrls: Array<Scalars['String']['input']>;
-  location: Scalars['String']['input'];
-  name: Scalars['String']['input'];
+export type CreateServiceInputViewModelInput = {
+  categoryId?: InputMaybe<Scalars['String']['input']>;
+  condition?: InputMaybe<Scalars['String']['input']>;
+  currency?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  imageUrls?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  location?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
   price: Scalars['Decimal']['input'];
-  shopId: Scalars['String']['input'];
+  shopId?: InputMaybe<Scalars['String']['input']>;
   stockQuantity: Scalars['Int']['input'];
-  unit: Scalars['String']['input'];
+  unit?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CreateStoreInputViewModelInput = {
+  aboutShop?: InputMaybe<Scalars['String']['input']>;
+  latitude: Scalars['Decimal']['input'];
+  longitude: Scalars['Decimal']['input'];
+  name?: InputMaybe<Scalars['String']['input']>;
+  phoneNumber?: InputMaybe<Scalars['String']['input']>;
+  totalItemsCount: Scalars['Int']['input'];
 };
 
 export type DateTimeOperationFilterInput = {
@@ -257,66 +239,6 @@ export type GetDeliveryPaymentsEdge = {
 };
 
 /** A connection to a list of items. */
-export type GetItemNamesConnection = {
-  __typename?: 'GetItemNamesConnection';
-  /** A list of edges. */
-  edges?: Maybe<Array<GetItemNamesEdge>>;
-  /** A flattened list of the nodes. */
-  nodes?: Maybe<Array<Maybe<ItemName>>>;
-  /** Information to aid in pagination. */
-  pageInfo: PageInfo;
-};
-
-/** An edge in a connection. */
-export type GetItemNamesEdge = {
-  __typename?: 'GetItemNamesEdge';
-  /** A cursor for use in pagination. */
-  cursor: Scalars['String']['output'];
-  /** The item at the end of the edge. */
-  node?: Maybe<ItemName>;
-};
-
-/** A connection to a list of items. */
-export type GetItemRequestOffersConnection = {
-  __typename?: 'GetItemRequestOffersConnection';
-  /** A list of edges. */
-  edges?: Maybe<Array<GetItemRequestOffersEdge>>;
-  /** A flattened list of the nodes. */
-  nodes?: Maybe<Array<Maybe<ItemRequestOfferViewModel>>>;
-  /** Information to aid in pagination. */
-  pageInfo: PageInfo;
-};
-
-/** An edge in a connection. */
-export type GetItemRequestOffersEdge = {
-  __typename?: 'GetItemRequestOffersEdge';
-  /** A cursor for use in pagination. */
-  cursor: Scalars['String']['output'];
-  /** The item at the end of the edge. */
-  node?: Maybe<ItemRequestOfferViewModel>;
-};
-
-/** A connection to a list of items. */
-export type GetItemRequestsConnection = {
-  __typename?: 'GetItemRequestsConnection';
-  /** A list of edges. */
-  edges?: Maybe<Array<GetItemRequestsEdge>>;
-  /** A flattened list of the nodes. */
-  nodes?: Maybe<Array<Maybe<ItemRequestViewModel>>>;
-  /** Information to aid in pagination. */
-  pageInfo: PageInfo;
-};
-
-/** An edge in a connection. */
-export type GetItemRequestsEdge = {
-  __typename?: 'GetItemRequestsEdge';
-  /** A cursor for use in pagination. */
-  cursor: Scalars['String']['output'];
-  /** The item at the end of the edge. */
-  node?: Maybe<ItemRequestViewModel>;
-};
-
-/** A connection to a list of items. */
 export type GetItemsConnection = {
   __typename?: 'GetItemsConnection';
   /** A list of edges. */
@@ -417,83 +339,23 @@ export type GetPublicItemsEdge = {
 };
 
 /** A connection to a list of items. */
-export type GetPublicReelCommentsConnection = {
-  __typename?: 'GetPublicReelCommentsConnection';
+export type GetPublicStoresConnection = {
+  __typename?: 'GetPublicStoresConnection';
   /** A list of edges. */
-  edges?: Maybe<Array<GetPublicReelCommentsEdge>>;
+  edges?: Maybe<Array<GetPublicStoresEdge>>;
   /** A flattened list of the nodes. */
-  nodes?: Maybe<Array<Maybe<ReelCommentViewModel>>>;
+  nodes?: Maybe<Array<Maybe<StoreViewModel>>>;
   /** Information to aid in pagination. */
   pageInfo: PageInfo;
 };
 
 /** An edge in a connection. */
-export type GetPublicReelCommentsEdge = {
-  __typename?: 'GetPublicReelCommentsEdge';
+export type GetPublicStoresEdge = {
+  __typename?: 'GetPublicStoresEdge';
   /** A cursor for use in pagination. */
   cursor: Scalars['String']['output'];
   /** The item at the end of the edge. */
-  node?: Maybe<ReelCommentViewModel>;
-};
-
-/** A connection to a list of items. */
-export type GetPublicReelsConnection = {
-  __typename?: 'GetPublicReelsConnection';
-  /** A list of edges. */
-  edges?: Maybe<Array<GetPublicReelsEdge>>;
-  /** A flattened list of the nodes. */
-  nodes?: Maybe<Array<Maybe<ReelViewModel>>>;
-  /** Information to aid in pagination. */
-  pageInfo: PageInfo;
-};
-
-/** An edge in a connection. */
-export type GetPublicReelsEdge = {
-  __typename?: 'GetPublicReelsEdge';
-  /** A cursor for use in pagination. */
-  cursor: Scalars['String']['output'];
-  /** The item at the end of the edge. */
-  node?: Maybe<ReelViewModel>;
-};
-
-/** A connection to a list of items. */
-export type GetPublicShopsConnection = {
-  __typename?: 'GetPublicShopsConnection';
-  /** A list of edges. */
-  edges?: Maybe<Array<GetPublicShopsEdge>>;
-  /** A flattened list of the nodes. */
-  nodes?: Maybe<Array<Maybe<ShopViewModel>>>;
-  /** Information to aid in pagination. */
-  pageInfo: PageInfo;
-};
-
-/** An edge in a connection. */
-export type GetPublicShopsEdge = {
-  __typename?: 'GetPublicShopsEdge';
-  /** A cursor for use in pagination. */
-  cursor: Scalars['String']['output'];
-  /** The item at the end of the edge. */
-  node?: Maybe<ShopViewModel>;
-};
-
-/** A connection to a list of items. */
-export type GetReelsConnection = {
-  __typename?: 'GetReelsConnection';
-  /** A list of edges. */
-  edges?: Maybe<Array<GetReelsEdge>>;
-  /** A flattened list of the nodes. */
-  nodes?: Maybe<Array<Maybe<ReelViewModel>>>;
-  /** Information to aid in pagination. */
-  pageInfo: PageInfo;
-};
-
-/** An edge in a connection. */
-export type GetReelsEdge = {
-  __typename?: 'GetReelsEdge';
-  /** A cursor for use in pagination. */
-  cursor: Scalars['String']['output'];
-  /** The item at the end of the edge. */
-  node?: Maybe<ReelViewModel>;
+  node?: Maybe<StoreViewModel>;
 };
 
 /** A connection to a list of items. */
@@ -562,7 +424,7 @@ export type GetShopsConnection = {
   /** A list of edges. */
   edges?: Maybe<Array<GetShopsEdge>>;
   /** A flattened list of the nodes. */
-  nodes?: Maybe<Array<Maybe<ShopViewModel>>>;
+  nodes?: Maybe<Array<Maybe<StoreViewModel>>>;
   /** Information to aid in pagination. */
   pageInfo: PageInfo;
 };
@@ -573,7 +435,7 @@ export type GetShopsEdge = {
   /** A cursor for use in pagination. */
   cursor: Scalars['String']['output'];
   /** The item at the end of the edge. */
-  node?: Maybe<ShopViewModel>;
+  node?: Maybe<StoreViewModel>;
 };
 
 export type IntOperationFilterInput = {
@@ -591,65 +453,54 @@ export type IntOperationFilterInput = {
   nlte?: InputMaybe<Scalars['Int']['input']>;
 };
 
-export type Ipinfo = {
-  __typename?: 'Ipinfo';
-  country?: Maybe<Scalars['String']['output']>;
-  ip?: Maybe<Scalars['String']['output']>;
-  loc?: Maybe<Scalars['String']['output']>;
-};
-
 export type Item = {
   __typename?: 'Item';
-  category?: Maybe<Category>;
   categoryId?: Maybe<Scalars['String']['output']>;
   currency?: Maybe<Scalars['String']['output']>;
   dateTime: Scalars['DateTime']['output'];
   description?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['String']['output']>;
   isPublic: Scalars['Boolean']['output'];
-  location?: Maybe<Location>;
-  locationId?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   price: Scalars['Decimal']['output'];
-  shop?: Maybe<Shop>;
   shopId?: Maybe<Scalars['String']['output']>;
   stockQuantity: Scalars['Int']['output'];
   sub?: Maybe<Scalars['String']['output']>;
   unit?: Maybe<Scalars['String']['output']>;
+  updateStockQuantity?: Maybe<Item>;
+};
+
+
+export type ItemUpdateStockQuantityArgs = {
+  newQuantity: Scalars['Int']['input'];
+};
+
+export type ItemCommentSortInput = {
+  commentString?: InputMaybe<SortEnumType>;
+  id?: InputMaybe<SortEnumType>;
+  isPublic?: InputMaybe<SortEnumType>;
+  itemId?: InputMaybe<SortEnumType>;
+  response?: InputMaybe<SortEnumType>;
+  sub?: InputMaybe<SortEnumType>;
 };
 
 export type ItemCommentViewModel = {
   __typename?: 'ItemCommentViewModel';
   commentString?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['String']['output']>;
-  isPublic: Scalars['Boolean']['output'];
   itemId?: Maybe<Scalars['String']['output']>;
   response?: Maybe<Scalars['String']['output']>;
   sub?: Maybe<Scalars['String']['output']>;
   user?: Maybe<UserViewModel>;
 };
 
-export type ItemName = {
-  __typename?: 'ItemName';
-  category?: Maybe<Category>;
-  categoryId?: Maybe<Scalars['String']['output']>;
-  description?: Maybe<Scalars['String']['output']>;
-  displayName?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['String']['output']>;
-  imageUrl?: Maybe<Scalars['String']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
-};
-
-export type ItemNameFilterInput = {
-  and?: InputMaybe<Array<ItemNameFilterInput>>;
-  category?: InputMaybe<CategoryFilterInput>;
-  categoryId?: InputMaybe<StringOperationFilterInput>;
-  description?: InputMaybe<StringOperationFilterInput>;
-  displayName?: InputMaybe<StringOperationFilterInput>;
-  id?: InputMaybe<StringOperationFilterInput>;
-  imageUrl?: InputMaybe<StringOperationFilterInput>;
-  name?: InputMaybe<StringOperationFilterInput>;
-  or?: InputMaybe<Array<ItemNameFilterInput>>;
+export type ItemCommentViewModelSortInput = {
+  commentString?: InputMaybe<SortEnumType>;
+  id?: InputMaybe<SortEnumType>;
+  itemId?: InputMaybe<SortEnumType>;
+  response?: InputMaybe<SortEnumType>;
+  sub?: InputMaybe<SortEnumType>;
+  user?: InputMaybe<UserViewModelSortInput>;
 };
 
 export type ItemOrdersViewModel = {
@@ -658,63 +509,17 @@ export type ItemOrdersViewModel = {
   orders: Array<OrderViewModel>;
 };
 
-export type ItemRequest = {
-  __typename?: 'ItemRequest';
-  id?: Maybe<Scalars['String']['output']>;
-  isPublic: Scalars['Boolean']['output'];
-  sub?: Maybe<Scalars['String']['output']>;
-};
-
-export type ItemRequestDto = {
-  __typename?: 'ItemRequestDto';
-  id: Scalars['String']['output'];
-};
-
-export type ItemRequestOffer = {
-  __typename?: 'ItemRequestOffer';
-  id?: Maybe<Scalars['String']['output']>;
-  isAccepted: Scalars['Boolean']['output'];
-  isPublic: Scalars['Boolean']['output'];
-  itemRequest?: Maybe<ItemRequest>;
-  itemRequestId?: Maybe<Scalars['String']['output']>;
-  sub?: Maybe<Scalars['String']['output']>;
-};
-
-export type ItemRequestOfferDto = {
-  __typename?: 'ItemRequestOfferDto';
-  id: Scalars['String']['output'];
-  isAccepted: Scalars['Boolean']['output'];
-  itemRequestId: Scalars['String']['output'];
-};
-
 export type ItemRequestOfferViewModel = {
   __typename?: 'ItemRequestOfferViewModel';
   id?: Maybe<Scalars['String']['output']>;
-  isAccepted: Scalars['Boolean']['output'];
+  itemId?: Maybe<Scalars['String']['output']>;
+  itemRequestId?: Maybe<Scalars['String']['output']>;
+  sub?: Maybe<Scalars['String']['output']>;
 };
 
 export type ItemRequestViewModel = {
   __typename?: 'ItemRequestViewModel';
   id?: Maybe<Scalars['String']['output']>;
-};
-
-export type ItemSortInput = {
-  category?: InputMaybe<CategorySortInput>;
-  categoryId?: InputMaybe<SortEnumType>;
-  currency?: InputMaybe<SortEnumType>;
-  dateTime?: InputMaybe<SortEnumType>;
-  description?: InputMaybe<SortEnumType>;
-  id?: InputMaybe<SortEnumType>;
-  isPublic?: InputMaybe<SortEnumType>;
-  location?: InputMaybe<LocationSortInput>;
-  locationId?: InputMaybe<SortEnumType>;
-  name?: InputMaybe<SortEnumType>;
-  price?: InputMaybe<SortEnumType>;
-  shop?: InputMaybe<ShopSortInput>;
-  shopId?: InputMaybe<SortEnumType>;
-  stockQuantity?: InputMaybe<SortEnumType>;
-  sub?: InputMaybe<SortEnumType>;
-  unit?: InputMaybe<SortEnumType>;
 };
 
 export type ItemViewModel = {
@@ -727,16 +532,12 @@ export type ItemViewModel = {
   description?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['String']['output']>;
   imageUrls?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  isBiddable: Scalars['Boolean']['output'];
   isProduct: Scalars['Boolean']['output'];
-  isPublic: Scalars['Boolean']['output'];
-  isTradable: Scalars['Boolean']['output'];
   itemId?: Maybe<Scalars['String']['output']>;
-  location?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   preferredItems?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   price: Scalars['Decimal']['output'];
-  shop?: Maybe<ShopViewModel>;
+  shop?: Maybe<StoreViewModel>;
   shopId?: Maybe<Scalars['String']['output']>;
   starRating: Scalars['Decimal']['output'];
   stars?: Maybe<Array<Maybe<StarViewModel>>>;
@@ -748,60 +549,12 @@ export type ItemViewModel = {
 
 
 export type ItemViewModelCommentsArgs = {
-  order?: InputMaybe<Array<CommentSortInput>>;
-};
-
-export type ItemViewModelSortInput = {
-  category?: InputMaybe<CategorySortInput>;
-  categoryId?: InputMaybe<SortEnumType>;
-  currency?: InputMaybe<SortEnumType>;
-  dateTime?: InputMaybe<SortEnumType>;
-  description?: InputMaybe<SortEnumType>;
-  id?: InputMaybe<SortEnumType>;
-  isBiddable?: InputMaybe<SortEnumType>;
-  isProduct?: InputMaybe<SortEnumType>;
-  isPublic?: InputMaybe<SortEnumType>;
-  isTradable?: InputMaybe<SortEnumType>;
-  itemId?: InputMaybe<SortEnumType>;
-  location?: InputMaybe<SortEnumType>;
-  name?: InputMaybe<SortEnumType>;
-  price?: InputMaybe<SortEnumType>;
-  shop?: InputMaybe<ShopViewModelSortInput>;
-  shopId?: InputMaybe<SortEnumType>;
-  starRating?: InputMaybe<SortEnumType>;
-  stockQuantity?: InputMaybe<SortEnumType>;
-  sub?: InputMaybe<SortEnumType>;
-  unit?: InputMaybe<SortEnumType>;
-  user?: InputMaybe<UserViewModelSortInput>;
-};
-
-export type ListFilterInputTypeOfItemNameFilterInput = {
-  all?: InputMaybe<ItemNameFilterInput>;
-  any?: InputMaybe<Scalars['Boolean']['input']>;
-  none?: InputMaybe<ItemNameFilterInput>;
-  some?: InputMaybe<ItemNameFilterInput>;
+  order?: InputMaybe<Array<ItemCommentSortInput>>;
 };
 
 export type ListTypeOfItemTypeFilterInput = {
   and?: InputMaybe<Array<ListTypeOfItemTypeFilterInput>>;
   or?: InputMaybe<Array<ListTypeOfItemTypeFilterInput>>;
-};
-
-export type Location = {
-  __typename?: 'Location';
-  id?: Maybe<Scalars['String']['output']>;
-  isPublic: Scalars['Boolean']['output'];
-  latitude: Scalars['Decimal']['output'];
-  longitude: Scalars['Decimal']['output'];
-  sub?: Maybe<Scalars['String']['output']>;
-};
-
-export type LocationSortInput = {
-  id?: InputMaybe<SortEnumType>;
-  isPublic?: InputMaybe<SortEnumType>;
-  latitude?: InputMaybe<SortEnumType>;
-  longitude?: InputMaybe<SortEnumType>;
-  sub?: InputMaybe<SortEnumType>;
 };
 
 export type Order = {
@@ -846,8 +599,19 @@ export type OrderFilterInput = {
 
 export type OrderViewModel = {
   __typename?: 'OrderViewModel';
+  address: Scalars['String']['output'];
+  completionDateTime: Scalars['DateTime']['output'];
+  currency: Scalars['String']['output'];
+  dateTime: Scalars['DateTime']['output'];
   fullName: Scalars['String']['output'];
-  id: Scalars['String']['output'];
+  isCompleted: Scalars['Boolean']['output'];
+  itemId: Scalars['String']['output'];
+  itemName: Scalars['String']['output'];
+  message: Scalars['String']['output'];
+  phoneNumber: Scalars['String']['output'];
+  price: Scalars['Decimal']['output'];
+  quantity: Scalars['Int']['output'];
+  sub: Scalars['String']['output'];
 };
 
 /** Information about pagination in a connection. */
@@ -875,96 +639,62 @@ export type Payment = {
   transactionId: Scalars['String']['output'];
 };
 
-export type Product = {
-  __typename?: 'Product';
+export type ProductViewModel = {
+  __typename?: 'ProductViewModel';
+  category?: Maybe<Category>;
+  categoryId?: Maybe<Scalars['String']['output']>;
+  comments?: Maybe<Array<Maybe<ItemCommentViewModel>>>;
+  currency?: Maybe<Scalars['String']['output']>;
+  dateTime: Scalars['DateTime']['output'];
+  description?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['String']['output']>;
-  isPublic: Scalars['Boolean']['output'];
+  imageUrls?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  isNew: Scalars['Boolean']['output'];
+  isProduct: Scalars['Boolean']['output'];
   isUsed: Scalars['Boolean']['output'];
-  item?: Maybe<Item>;
   itemId?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  preferredItems?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  price: Scalars['Decimal']['output'];
+  shop?: Maybe<StoreViewModel>;
+  shopId?: Maybe<Scalars['String']['output']>;
+  starRating: Scalars['Decimal']['output'];
+  stars?: Maybe<Array<Maybe<StarViewModel>>>;
+  stockQuantity: Scalars['Int']['output'];
   sub?: Maybe<Scalars['String']['output']>;
-};
-
-export type ReelCommentViewModel = {
-  __typename?: 'ReelCommentViewModel';
-  commentString?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['String']['output']>;
-  isPublic: Scalars['Boolean']['output'];
-  reelId?: Maybe<Scalars['String']['output']>;
-  response?: Maybe<Scalars['String']['output']>;
-  sub?: Maybe<Scalars['String']['output']>;
+  unit?: Maybe<Scalars['String']['output']>;
   user?: Maybe<UserViewModel>;
 };
 
-export type ReelCommentViewModelSortInput = {
-  commentString?: InputMaybe<SortEnumType>;
-  id?: InputMaybe<SortEnumType>;
-  isPublic?: InputMaybe<SortEnumType>;
-  reelId?: InputMaybe<SortEnumType>;
-  response?: InputMaybe<SortEnumType>;
-  sub?: InputMaybe<SortEnumType>;
-  user?: InputMaybe<UserViewModelSortInput>;
-};
 
-export type ReelSortInput = {
-  id?: InputMaybe<SortEnumType>;
-  isPublic?: InputMaybe<SortEnumType>;
-  item?: InputMaybe<ItemSortInput>;
-  itemId?: InputMaybe<SortEnumType>;
-  sub?: InputMaybe<SortEnumType>;
-};
-
-export type ReelViewModel = {
-  __typename?: 'ReelViewModel';
-  comments?: Maybe<Array<Maybe<ReelCommentViewModel>>>;
-  id?: Maybe<Scalars['String']['output']>;
-  isLiked: Scalars['Boolean']['output'];
-  isPublic: Scalars['Boolean']['output'];
-  itemId?: Maybe<Scalars['String']['output']>;
-  itemViewModel?: Maybe<ItemViewModel>;
-  mediaUrl?: Maybe<Scalars['String']['output']>;
-  sub?: Maybe<Scalars['String']['output']>;
+export type ProductViewModelCommentsArgs = {
+  order?: InputMaybe<Array<ItemCommentSortInput>>;
 };
 
 export type RootMutation = {
   __typename?: 'RootMutation';
   addDelivery?: Maybe<Delivery>;
-  addItemToBasket?: Maybe<Scalars['String']['output']>;
   clearNotifications?: Maybe<Scalars['Int']['output']>;
-  commentItem?: Maybe<ItemCommentViewModel>;
-  commentReel?: Maybe<Scalars['String']['output']>;
+  commentItem?: Maybe<ItemViewModel>;
   completeOrder?: Maybe<Scalars['String']['output']>;
   createAdvertisement?: Maybe<Scalars['String']['output']>;
-  createItemRequest?: Maybe<ItemRequestDto>;
-  createItemRequestOffer?: Maybe<ItemRequestOfferDto>;
-  createOneSignalPlayerId?: Maybe<Scalars['String']['output']>;
-  createProduct?: Maybe<Product>;
-  createReel?: Maybe<ReelViewModel>;
-  createService?: Maybe<Service>;
-  createShop?: Maybe<Shop>;
-  likeReel?: Maybe<Scalars['String']['output']>;
+  createItemRequest?: Maybe<ItemRequestViewModel>;
+  createItemRequestOffer?: Maybe<ItemRequestOfferViewModel>;
+  createProduct?: Maybe<ProductViewModel>;
+  createService?: Maybe<ServiceViewModel>;
+  createStore?: Maybe<StoreViewModel>;
   orderItem?: Maybe<Scalars['String']['output']>;
-  removeBasketItem?: Maybe<BasketItem>;
-  removeItem?: Maybe<Item>;
-  removeReel?: Maybe<Scalars['String']['output']>;
-  removeShop?: Maybe<Shop>;
-  replyComment?: Maybe<Comment>;
-  replyReelComment?: Maybe<Scalars['String']['output']>;
-  selectStars?: Maybe<Star>;
+  removeItem?: Maybe<ItemViewModel>;
+  removeStore?: Maybe<Scalars['String']['output']>;
+  replyItemComment?: Maybe<ItemCommentViewModel>;
   setNotificationIsSeen?: Maybe<Scalars['String']['output']>;
-  setStockQuantity?: Maybe<Scalars['String']['output']>;
-  unlikeReel?: Maybe<Scalars['String']['output']>;
-  updateShop?: Maybe<ShopInputDto>;
+  updateStockQuantity?: Maybe<Scalars['String']['output']>;
+  updateStore?: Maybe<StoreViewModel>;
 };
 
 
 export type RootMutationAddDeliveryArgs = {
   orderId: Scalars['String']['input'];
-};
-
-
-export type RootMutationAddItemToBasketArgs = {
-  id?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -974,55 +704,34 @@ export type RootMutationCommentItemArgs = {
 };
 
 
-export type RootMutationCommentReelArgs = {
-  commentString: Scalars['String']['input'];
-  reelId: Scalars['String']['input'];
-};
-
-
 export type RootMutationCompleteOrderArgs = {
   orderId: Scalars['String']['input'];
 };
 
 
 export type RootMutationCreateAdvertisementArgs = {
-  itemId?: InputMaybe<Scalars['String']['input']>;
+  itemId: Scalars['String']['input'];
 };
 
 
 export type RootMutationCreateItemRequestOfferArgs = {
+  itemId: Scalars['String']['input'];
   itemRequestId: Scalars['String']['input'];
 };
 
 
-export type RootMutationCreateOneSignalPlayerIdArgs = {
-  playerId: Scalars['String']['input'];
-};
-
-
 export type RootMutationCreateProductArgs = {
-  product?: InputMaybe<CreateProductRequestInput>;
-};
-
-
-export type RootMutationCreateReelArgs = {
-  itemId: Scalars['String']['input'];
-  mediaUrl: Scalars['String']['input'];
+  product: CreateProductInputViewModelInput;
 };
 
 
 export type RootMutationCreateServiceArgs = {
-  service?: InputMaybe<CreateServiceRequestInput>;
+  service: CreateServiceInputViewModelInput;
 };
 
 
-export type RootMutationCreateShopArgs = {
-  shop?: InputMaybe<ShopInputDtoInput>;
-};
-
-
-export type RootMutationLikeReelArgs = {
-  reelId: Scalars['String']['input'];
+export type RootMutationCreateStoreArgs = {
+  store: CreateStoreInputViewModelInput;
 };
 
 
@@ -1036,41 +745,19 @@ export type RootMutationOrderItemArgs = {
 };
 
 
-export type RootMutationRemoveBasketItemArgs = {
-  itemId?: InputMaybe<Scalars['String']['input']>;
-};
-
-
 export type RootMutationRemoveItemArgs = {
   id: Scalars['String']['input'];
 };
 
 
-export type RootMutationRemoveReelArgs = {
-  reelId: Scalars['String']['input'];
-};
-
-
-export type RootMutationRemoveShopArgs = {
+export type RootMutationRemoveStoreArgs = {
   id: Scalars['String']['input'];
 };
 
 
-export type RootMutationReplyCommentArgs = {
+export type RootMutationReplyItemCommentArgs = {
   commentId: Scalars['String']['input'];
   commentString: Scalars['String']['input'];
-};
-
-
-export type RootMutationReplyReelCommentArgs = {
-  commentId: Scalars['String']['input'];
-  commentString: Scalars['String']['input'];
-};
-
-
-export type RootMutationSelectStarsArgs = {
-  itemId: Scalars['String']['input'];
-  stars: Scalars['Int']['input'];
 };
 
 
@@ -1079,19 +766,14 @@ export type RootMutationSetNotificationIsSeenArgs = {
 };
 
 
-export type RootMutationSetStockQuantityArgs = {
-  itemId?: InputMaybe<Scalars['String']['input']>;
-  quantity?: InputMaybe<Scalars['Int']['input']>;
+export type RootMutationUpdateStockQuantityArgs = {
+  itemId: Scalars['String']['input'];
+  quantity: Scalars['Int']['input'];
 };
 
 
-export type RootMutationUnlikeReelArgs = {
-  reelId: Scalars['String']['input'];
-};
-
-
-export type RootMutationUpdateShopArgs = {
-  shop: ShopInputDtoInput;
+export type RootMutationUpdateStoreArgs = {
+  store: UpdateStoreInputViewModelInput;
 };
 
 export type RootQuery = {
@@ -1100,29 +782,17 @@ export type RootQuery = {
   getBasketItems?: Maybe<GetBasketItemsConnection>;
   getBasketItemsCount?: Maybe<Scalars['Int']['output']>;
   getDeliveryPayments?: Maybe<GetDeliveryPaymentsConnection>;
-  getItemNames?: Maybe<GetItemNamesConnection>;
-  getItemRequestOffers?: Maybe<GetItemRequestOffersConnection>;
-  getItemRequests?: Maybe<GetItemRequestsConnection>;
   getItems?: Maybe<GetItemsConnection>;
   getOrders?: Maybe<GetOrdersConnection>;
   getProductCategories?: Maybe<GetProductCategoriesConnection>;
   getPublicItemComments?: Maybe<GetPublicItemCommentsConnection>;
   getPublicItems?: Maybe<GetPublicItemsConnection>;
-  getPublicReelComments?: Maybe<GetPublicReelCommentsConnection>;
-  getPublicReels?: Maybe<GetPublicReelsConnection>;
-  getPublicShops?: Maybe<GetPublicShopsConnection>;
-  getReels?: Maybe<GetReelsConnection>;
-  getSellerProfile?: Maybe<SellerProfile>;
+  getPublicStores?: Maybe<GetPublicStoresConnection>;
   getServiceCategories?: Maybe<GetServiceCategoriesConnection>;
   getShopItemOrders?: Maybe<GetShopItemOrdersConnection>;
   getShopOrders?: Maybe<GetShopOrdersConnection>;
   getShops?: Maybe<GetShopsConnection>;
   getUser?: Maybe<UserViewModel>;
-  getUserLocale?: Maybe<Ipinfo>;
-  isReelLiked?: Maybe<Scalars['Boolean']['output']>;
-  searchPublicItems?: Maybe<SearchPublicItemsConnection>;
-  searchPublicShops?: Maybe<SearchPublicShopsConnection>;
-  searchShops?: Maybe<SearchShopsConnection>;
 };
 
 
@@ -1153,37 +823,11 @@ export type RootQueryGetDeliveryPaymentsArgs = {
 };
 
 
-export type RootQueryGetItemNamesArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  categoryId?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type RootQueryGetItemRequestOffersArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type RootQueryGetItemRequestsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
 export type RootQueryGetItemsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   before?: InputMaybe<Scalars['String']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
-  isTradable?: InputMaybe<Scalars['Boolean']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   shopId?: InputMaybe<Scalars['String']['input']>;
@@ -1214,7 +858,7 @@ export type RootQueryGetPublicItemCommentsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   itemId?: InputMaybe<Scalars['String']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
-  order?: InputMaybe<Array<ReelCommentViewModelSortInput>>;
+  order?: InputMaybe<Array<ItemCommentViewModelSortInput>>;
 };
 
 
@@ -1223,48 +867,19 @@ export type RootQueryGetPublicItemsArgs = {
   before?: InputMaybe<Scalars['String']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
-  isTradable?: InputMaybe<Scalars['Boolean']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
-  order?: InputMaybe<Array<ItemViewModelSortInput>>;
+  searchString?: InputMaybe<Scalars['String']['input']>;
   shopId?: InputMaybe<Scalars['String']['input']>;
 };
 
 
-export type RootQueryGetPublicReelCommentsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  order?: InputMaybe<Array<ReelCommentViewModelSortInput>>;
-  reelId?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type RootQueryGetPublicReelsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  order?: InputMaybe<Array<ReelSortInput>>;
-};
-
-
-export type RootQueryGetPublicShopsArgs = {
+export type RootQueryGetPublicStoresArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   before?: InputMaybe<Scalars['String']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
-  username?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type RootQueryGetReelsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -1303,203 +918,39 @@ export type RootQueryGetShopsArgs = {
   last?: InputMaybe<Scalars['Int']['input']>;
 };
 
-
-export type RootQueryIsReelLikedArgs = {
-  reelId?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type RootQuerySearchPublicItemsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  id?: InputMaybe<Scalars['String']['input']>;
-  isBiddable?: InputMaybe<Scalars['Boolean']['input']>;
-  isTradable?: InputMaybe<Scalars['Boolean']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  searchString?: InputMaybe<Scalars['String']['input']>;
-  shopId?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type RootQuerySearchPublicShopsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  searchString?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type RootQuerySearchShopsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  searchString?: InputMaybe<Scalars['String']['input']>;
-};
-
 export type RootSubscription = {
   __typename?: 'RootSubscription';
   events?: Maybe<SubscriptionEventOfSubscriptionData>;
 };
 
-/** A connection to a list of items. */
-export type SearchPublicItemsConnection = {
-  __typename?: 'SearchPublicItemsConnection';
-  /** A list of edges. */
-  edges?: Maybe<Array<SearchPublicItemsEdge>>;
-  /** A flattened list of the nodes. */
-  nodes?: Maybe<Array<Maybe<ItemViewModel>>>;
-  /** Information to aid in pagination. */
-  pageInfo: PageInfo;
-};
-
-/** An edge in a connection. */
-export type SearchPublicItemsEdge = {
-  __typename?: 'SearchPublicItemsEdge';
-  /** A cursor for use in pagination. */
-  cursor: Scalars['String']['output'];
-  /** The item at the end of the edge. */
-  node?: Maybe<ItemViewModel>;
-};
-
-/** A connection to a list of items. */
-export type SearchPublicShopsConnection = {
-  __typename?: 'SearchPublicShopsConnection';
-  /** A list of edges. */
-  edges?: Maybe<Array<SearchPublicShopsEdge>>;
-  /** A flattened list of the nodes. */
-  nodes?: Maybe<Array<Maybe<ShopViewModel>>>;
-  /** Information to aid in pagination. */
-  pageInfo: PageInfo;
-};
-
-/** An edge in a connection. */
-export type SearchPublicShopsEdge = {
-  __typename?: 'SearchPublicShopsEdge';
-  /** A cursor for use in pagination. */
-  cursor: Scalars['String']['output'];
-  /** The item at the end of the edge. */
-  node?: Maybe<ShopViewModel>;
-};
-
-/** A connection to a list of items. */
-export type SearchShopsConnection = {
-  __typename?: 'SearchShopsConnection';
-  /** A list of edges. */
-  edges?: Maybe<Array<SearchShopsEdge>>;
-  /** A flattened list of the nodes. */
-  nodes?: Maybe<Array<Maybe<ShopViewModel>>>;
-  /** Information to aid in pagination. */
-  pageInfo: PageInfo;
-};
-
-/** An edge in a connection. */
-export type SearchShopsEdge = {
-  __typename?: 'SearchShopsEdge';
-  /** A cursor for use in pagination. */
-  cursor: Scalars['String']['output'];
-  /** The item at the end of the edge. */
-  node?: Maybe<ShopViewModel>;
-};
-
-export type SellerProfile = {
-  __typename?: 'SellerProfile';
+export type ServiceViewModel = {
+  __typename?: 'ServiceViewModel';
+  category?: Maybe<Category>;
+  categoryId?: Maybe<Scalars['String']['output']>;
+  comments?: Maybe<Array<Maybe<ItemCommentViewModel>>>;
+  currency?: Maybe<Scalars['String']['output']>;
+  dateTime: Scalars['DateTime']['output'];
+  description?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['String']['output']>;
-  isPublic: Scalars['Boolean']['output'];
-  name?: Maybe<Scalars['String']['output']>;
-  profileImageId?: Maybe<Scalars['String']['output']>;
-  sub?: Maybe<Scalars['String']['output']>;
-};
-
-export type Service = {
-  __typename?: 'Service';
-  id?: Maybe<Scalars['String']['output']>;
-  isPublic: Scalars['Boolean']['output'];
-  item?: Maybe<Item>;
+  imageUrls?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  isProduct: Scalars['Boolean']['output'];
   itemId?: Maybe<Scalars['String']['output']>;
-  sub?: Maybe<Scalars['String']['output']>;
-};
-
-export type Shop = {
-  __typename?: 'Shop';
-  aboutShop?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['String']['output']>;
-  isPublic: Scalars['Boolean']['output'];
-  items?: Maybe<Array<Maybe<Item>>>;
-  location?: Maybe<Location>;
   name?: Maybe<Scalars['String']['output']>;
-  phoneNumber?: Maybe<Scalars['String']['output']>;
+  preferredItems?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  price: Scalars['Decimal']['output'];
+  shop?: Maybe<StoreViewModel>;
+  shopId?: Maybe<Scalars['String']['output']>;
+  starRating: Scalars['Decimal']['output'];
+  stars?: Maybe<Array<Maybe<StarViewModel>>>;
+  stockQuantity: Scalars['Int']['output'];
   sub?: Maybe<Scalars['String']['output']>;
-  totalItemsCount: Scalars['Int']['output'];
-};
-
-export type ShopInputDto = {
-  __typename?: 'ShopInputDto';
-  aboutShop: Scalars['String']['output'];
-  coverImageUrl: Scalars['String']['output'];
-  id?: Maybe<Scalars['String']['output']>;
-  isPublic: Scalars['Boolean']['output'];
-  location: Scalars['String']['output'];
-  name: Scalars['String']['output'];
-  phoneNumber: Scalars['String']['output'];
-  profileImageUrl: Scalars['String']['output'];
-  sub?: Maybe<Scalars['String']['output']>;
-};
-
-export type ShopInputDtoInput = {
-  aboutShop: Scalars['String']['input'];
-  coverImageUrl: Scalars['String']['input'];
-  id?: InputMaybe<Scalars['String']['input']>;
-  location: Scalars['String']['input'];
-  name: Scalars['String']['input'];
-  phoneNumber: Scalars['String']['input'];
-  profileImageUrl: Scalars['String']['input'];
-};
-
-export type ShopSortInput = {
-  aboutShop?: InputMaybe<SortEnumType>;
-  id?: InputMaybe<SortEnumType>;
-  isPublic?: InputMaybe<SortEnumType>;
-  location?: InputMaybe<LocationSortInput>;
-  name?: InputMaybe<SortEnumType>;
-  phoneNumber?: InputMaybe<SortEnumType>;
-  sub?: InputMaybe<SortEnumType>;
-  totalItemsCount?: InputMaybe<SortEnumType>;
-};
-
-export type ShopViewModel = {
-  __typename?: 'ShopViewModel';
-  aboutShop?: Maybe<Scalars['String']['output']>;
-  coverImageId?: Maybe<Scalars['String']['output']>;
-  coverImageUrl?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['String']['output']>;
-  isPublic: Scalars['Boolean']['output'];
-  items?: Maybe<Array<Maybe<ItemViewModel>>>;
-  location?: Maybe<Scalars['String']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
-  phoneNumber?: Maybe<Scalars['String']['output']>;
-  profileImageId?: Maybe<Scalars['String']['output']>;
-  profileImageUrl?: Maybe<Scalars['String']['output']>;
-  stars?: Maybe<Array<Maybe<Star>>>;
-  sub?: Maybe<Scalars['String']['output']>;
+  unit?: Maybe<Scalars['String']['output']>;
   user?: Maybe<UserViewModel>;
 };
 
-export type ShopViewModelSortInput = {
-  aboutShop?: InputMaybe<SortEnumType>;
-  coverImageId?: InputMaybe<SortEnumType>;
-  coverImageUrl?: InputMaybe<SortEnumType>;
-  id?: InputMaybe<SortEnumType>;
-  isPublic?: InputMaybe<SortEnumType>;
-  location?: InputMaybe<SortEnumType>;
-  name?: InputMaybe<SortEnumType>;
-  phoneNumber?: InputMaybe<SortEnumType>;
-  profileImageId?: InputMaybe<SortEnumType>;
-  profileImageUrl?: InputMaybe<SortEnumType>;
-  sub?: InputMaybe<SortEnumType>;
-  user?: InputMaybe<UserViewModelSortInput>;
+
+export type ServiceViewModelCommentsArgs = {
+  order?: InputMaybe<Array<ItemCommentSortInput>>;
 };
 
 export enum SortEnumType {
@@ -1522,6 +973,23 @@ export type StarViewModel = {
   id?: Maybe<Scalars['String']['output']>;
 };
 
+export type StoreViewModel = {
+  __typename?: 'StoreViewModel';
+  aboutShop: Scalars['String']['output'];
+  coverImageId?: Maybe<Scalars['String']['output']>;
+  coverImageUrl?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  items?: Maybe<Array<Maybe<ItemViewModel>>>;
+  location: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  phoneNumber: Scalars['String']['output'];
+  profileImageId?: Maybe<Scalars['String']['output']>;
+  profileImageUrl?: Maybe<Scalars['String']['output']>;
+  stars?: Maybe<Array<Maybe<Star>>>;
+  sub?: Maybe<Scalars['String']['output']>;
+  user?: Maybe<UserViewModel>;
+};
+
 export type StringOperationFilterInput = {
   and?: InputMaybe<Array<StringOperationFilterInput>>;
   contains?: InputMaybe<Scalars['String']['input']>;
@@ -1539,9 +1007,9 @@ export type StringOperationFilterInput = {
 
 export type SubscriptionData = {
   __typename?: 'SubscriptionData';
-  bid?: Maybe<BidViewModel>;
-  itemRequestCreated?: Maybe<ItemRequestOffer>;
-  order?: Maybe<OrderViewModel>;
+  itemRequestOfferReceived?: Maybe<ItemRequestOfferViewModel>;
+  itemRequestReceived?: Maybe<ItemRequestViewModel>;
+  orderReceived?: Maybe<OrderViewModel>;
 };
 
 export type SubscriptionEventOfSubscriptionData = {
@@ -1551,16 +1019,26 @@ export type SubscriptionEventOfSubscriptionData = {
   eventName?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['String']['output']>;
   isSeen: Scalars['Boolean']['output'];
+  receiverSub?: Maybe<Scalars['String']['output']>;
   sender?: Maybe<UserViewModel>;
   senderSub?: Maybe<Scalars['String']['output']>;
-  sub?: Maybe<Scalars['String']['output']>;
+};
+
+export type UpdateStoreInputViewModelInput = {
+  aboutShop?: InputMaybe<Scalars['String']['input']>;
+  latitude: Scalars['Decimal']['input'];
+  longitude: Scalars['Decimal']['input'];
+  name?: InputMaybe<Scalars['String']['input']>;
+  phoneNumber?: InputMaybe<Scalars['String']['input']>;
+  storeId?: InputMaybe<Scalars['String']['input']>;
+  totalItemsCount: Scalars['Int']['input'];
 };
 
 export type UserViewModel = {
   __typename?: 'UserViewModel';
   id?: Maybe<Scalars['String']['output']>;
   items?: Maybe<Array<Maybe<ItemViewModel>>>;
-  pofileImageUrl?: Maybe<Scalars['String']['output']>;
+  profileImageUrl?: Maybe<Scalars['String']['output']>;
   sub?: Maybe<Scalars['String']['output']>;
   username?: Maybe<Scalars['String']['output']>;
 };
@@ -1572,7 +1050,7 @@ export type UserViewModelItemsArgs = {
 
 export type UserViewModelSortInput = {
   id?: InputMaybe<SortEnumType>;
-  pofileImageUrl?: InputMaybe<SortEnumType>;
+  profileImageUrl?: InputMaybe<SortEnumType>;
   sub?: InputMaybe<SortEnumType>;
   username?: InputMaybe<SortEnumType>;
 };
@@ -1590,43 +1068,44 @@ export type CreateNewProductMutationVariables = Exact<{
 }>;
 
 
-export type CreateNewProductMutation = { __typename?: 'RootMutation', createProduct?: { __typename?: 'Product', id?: string | null } | null };
+export type CreateNewProductMutation = { __typename?: 'RootMutation', createProduct?: { __typename?: 'ProductViewModel', id?: string | null } | null };
 
 export type CreateItemRequestMutationMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CreateItemRequestMutationMutation = { __typename?: 'RootMutation', createItemRequest?: { __typename?: 'ItemRequestDto', id: string } | null };
+export type CreateItemRequestMutationMutation = { __typename?: 'RootMutation', createItemRequest?: { __typename?: 'ItemRequestViewModel', id?: string | null } | null };
 
 export type CreateItemRequestOfferMutationMutationVariables = Exact<{
   requestId: Scalars['String']['input'];
+  itemId: Scalars['String']['input'];
 }>;
 
 
-export type CreateItemRequestOfferMutationMutation = { __typename?: 'RootMutation', createItemRequestOffer?: { __typename?: 'ItemRequestOfferDto', id: string } | null };
+export type CreateItemRequestOfferMutationMutation = { __typename?: 'RootMutation', createItemRequestOffer?: { __typename?: 'ItemRequestOfferViewModel', id?: string | null } | null };
 
 export type CreateNewShopMutationVariables = Exact<{
   shopName: Scalars['String']['input'];
   aboutShop: Scalars['String']['input'];
-  coverImageUrl: Scalars['String']['input'];
-  profileImageUrl: Scalars['String']['input'];
-  location: Scalars['String']['input'];
+  latitude: Scalars['Decimal']['input'];
+  longitude: Scalars['Decimal']['input'];
   phoneNumber: Scalars['String']['input'];
+  totalItemsCount: Scalars['Int']['input'];
 }>;
 
 
-export type CreateNewShopMutation = { __typename?: 'RootMutation', createShop?: { __typename?: 'Shop', id?: string | null } | null };
+export type CreateNewShopMutation = { __typename?: 'RootMutation', createStore?: { __typename?: 'StoreViewModel', id?: string | null } | null };
 
 export type GetPublicItemsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetPublicItemsQuery = { __typename?: 'RootQuery', getPublicItems?: { __typename?: 'GetPublicItemsConnection', nodes?: Array<{ __typename?: 'ItemViewModel', name?: string | null, imageUrls?: Array<string | null> | null, price: any, starRating: any } | null> | null } | null };
+export type GetPublicItemsQuery = { __typename?: 'RootQuery', getPublicItems?: { __typename?: 'GetPublicItemsConnection', nodes?: Array<{ __typename?: 'ItemViewModel', id?: string | null, name?: string | null, imageUrls?: Array<string | null> | null, price: any, starRating: any } | null> | null } | null };
 
 export type GetPublicItemsByIdQueryVariables = Exact<{
   id: Scalars['String']['input'];
 }>;
 
 
-export type GetPublicItemsByIdQuery = { __typename?: 'RootQuery', getPublicItems?: { __typename?: 'GetPublicItemsConnection', nodes?: Array<{ __typename?: 'ItemViewModel', name?: string | null } | null> | null } | null };
+export type GetPublicItemsByIdQuery = { __typename?: 'RootQuery', getPublicItems?: { __typename?: 'GetPublicItemsConnection', nodes?: Array<{ __typename?: 'ItemViewModel', name?: string | null, imageUrls?: Array<string | null> | null, price: any, description?: string | null, stockQuantity: number, starRating: any, shop?: { __typename?: 'StoreViewModel', id?: string | null, aboutShop: string, stars?: Array<{ __typename?: 'Star', stars: number } | null> | null } | null, comments?: Array<{ __typename?: 'ItemCommentViewModel', commentString?: string | null, user?: { __typename?: 'UserViewModel', username?: string | null, profileImageUrl?: string | null } | null } | null> | null } | null> | null } | null };
 
 export type ProductCategoryQueriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1636,7 +1115,7 @@ export type ProductCategoryQueriesQuery = { __typename?: 'RootQuery', getProduct
 export type GetPersonalItemsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetPersonalItemsQuery = { __typename?: 'RootQuery', getItems?: { __typename?: 'GetItemsConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean, startCursor?: string | null, endCursor?: string | null }, nodes?: Array<{ __typename?: 'ItemViewModel', name?: string | null, price: any, starRating: any, stockQuantity: number, shop?: { __typename?: 'ShopViewModel', name?: string | null } | null } | null> | null } | null };
+export type GetPersonalItemsQuery = { __typename?: 'RootQuery', getItems?: { __typename?: 'GetItemsConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean, startCursor?: string | null, endCursor?: string | null }, nodes?: Array<{ __typename?: 'ItemViewModel', name?: string | null, price: any, starRating: any, stockQuantity: number, shop?: { __typename?: 'StoreViewModel', name: string } | null } | null> | null } | null };
 
 export type GetPaginatedPersonalItemsQueryVariables = Exact<{
   after?: InputMaybe<Scalars['String']['input']>;
@@ -1648,28 +1127,28 @@ export type GetPaginatedPersonalItemsQuery = { __typename?: 'RootQuery', getItem
 export type GetMySHopsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetMySHopsQuery = { __typename?: 'RootQuery', getShops?: { __typename?: 'GetShopsConnection', nodes?: Array<{ __typename?: 'ShopViewModel', name?: string | null, aboutShop?: string | null, location?: string | null, phoneNumber?: string | null, profileImageUrl?: string | null, stars?: Array<{ __typename?: 'Star', stars: number } | null> | null } | null> | null } | null };
+export type GetMySHopsQuery = { __typename?: 'RootQuery', getShops?: { __typename?: 'GetShopsConnection', nodes?: Array<{ __typename?: 'StoreViewModel', name: string, aboutShop: string, location: string, phoneNumber: string, profileImageUrl?: string | null, stars?: Array<{ __typename?: 'Star', stars: number } | null> | null } | null> | null } | null };
 
 export type GetLoginUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetLoginUserQuery = { __typename?: 'RootQuery', getUser?: { __typename?: 'UserViewModel', username?: string | null, pofileImageUrl?: string | null } | null };
+export type GetLoginUserQuery = { __typename?: 'RootQuery', getUser?: { __typename?: 'UserViewModel', username?: string | null, profileImageUrl?: string | null } | null };
 
 export type GetDataSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetDataSubscription = { __typename?: 'RootSubscription', events?: { __typename?: 'SubscriptionEventOfSubscriptionData', id?: string | null, eventName?: string | null, data?: { __typename?: 'SubscriptionData', itemRequestCreated?: { __typename?: 'ItemRequestOffer', id?: string | null, itemRequest?: { __typename?: 'ItemRequest', id?: string | null } | null } | null, order?: { __typename?: 'OrderViewModel', id: string, fullName: string } | null } | null } | null };
+export type GetDataSubscription = { __typename?: 'RootSubscription', events?: { __typename?: 'SubscriptionEventOfSubscriptionData', id?: string | null, eventName?: string | null, data?: { __typename?: 'SubscriptionData', itemRequestReceived?: { __typename?: 'ItemRequestViewModel', id?: string | null } | null, itemRequestOfferReceived?: { __typename?: 'ItemRequestOfferViewModel', id?: string | null, itemId?: string | null, itemRequestId?: string | null } | null, orderReceived?: { __typename?: 'OrderViewModel', fullName: string, completionDateTime: any, isCompleted: boolean, address: string, message: string, phoneNumber: string, price: any, quantity: number, currency: string } | null } | null } | null };
 
 
 export const CreateNewProductDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createNewProduct"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"name"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"price"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Decimal"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"description"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"shopId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"categoryId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stockQuantity"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"imageUrls"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"unit"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"location"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createProduct"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"product"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"name"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"price"},"value":{"kind":"Variable","name":{"kind":"Name","value":"price"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"description"},"value":{"kind":"Variable","name":{"kind":"Name","value":"description"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"shopId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"shopId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"categoryId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"categoryId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"stockQuantity"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stockQuantity"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"imageUrls"},"value":{"kind":"Variable","name":{"kind":"Name","value":"imageUrls"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"currency"},"value":{"kind":"StringValue","value":"रु","block":false}},{"kind":"ObjectField","name":{"kind":"Name","value":"location"},"value":{"kind":"Variable","name":{"kind":"Name","value":"location"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"unit"},"value":{"kind":"Variable","name":{"kind":"Name","value":"unit"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"condition"},"value":{"kind":"StringValue","value":"new","block":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<CreateNewProductMutation, CreateNewProductMutationVariables>;
 export const CreateItemRequestMutationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateItemRequestMutation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createItemRequest"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<CreateItemRequestMutationMutation, CreateItemRequestMutationMutationVariables>;
-export const CreateItemRequestOfferMutationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createItemRequestOfferMutation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"requestId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createItemRequestOffer"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"itemRequestId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"requestId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<CreateItemRequestOfferMutationMutation, CreateItemRequestOfferMutationMutationVariables>;
-export const CreateNewShopDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createNewShop"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"shopName"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"aboutShop"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"coverImageUrl"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"profileImageUrl"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"location"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"phoneNumber"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createShop"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"shop"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"shopName"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"aboutShop"},"value":{"kind":"Variable","name":{"kind":"Name","value":"aboutShop"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"coverImageUrl"},"value":{"kind":"Variable","name":{"kind":"Name","value":"coverImageUrl"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"profileImageUrl"},"value":{"kind":"Variable","name":{"kind":"Name","value":"profileImageUrl"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"location"},"value":{"kind":"Variable","name":{"kind":"Name","value":"location"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"phoneNumber"},"value":{"kind":"Variable","name":{"kind":"Name","value":"phoneNumber"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<CreateNewShopMutation, CreateNewShopMutationVariables>;
-export const GetPublicItemsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPublicItems"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getPublicItems"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrls"}},{"kind":"Field","name":{"kind":"Name","value":"price"}},{"kind":"Field","name":{"kind":"Name","value":"starRating"}}]}}]}}]}}]} as unknown as DocumentNode<GetPublicItemsQuery, GetPublicItemsQueryVariables>;
-export const GetPublicItemsByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPublicItemsById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getPublicItems"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<GetPublicItemsByIdQuery, GetPublicItemsByIdQueryVariables>;
+export const CreateItemRequestOfferMutationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createItemRequestOfferMutation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"requestId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"itemId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createItemRequestOffer"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"itemRequestId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"requestId"}}},{"kind":"Argument","name":{"kind":"Name","value":"itemId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"itemId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<CreateItemRequestOfferMutationMutation, CreateItemRequestOfferMutationMutationVariables>;
+export const CreateNewShopDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createNewShop"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"shopName"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"aboutShop"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"latitude"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Decimal"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"longitude"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Decimal"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"phoneNumber"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"totalItemsCount"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createStore"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"store"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"shopName"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"aboutShop"},"value":{"kind":"Variable","name":{"kind":"Name","value":"aboutShop"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"longitude"},"value":{"kind":"Variable","name":{"kind":"Name","value":"longitude"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"latitude"},"value":{"kind":"Variable","name":{"kind":"Name","value":"latitude"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"phoneNumber"},"value":{"kind":"Variable","name":{"kind":"Name","value":"phoneNumber"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"totalItemsCount"},"value":{"kind":"Variable","name":{"kind":"Name","value":"totalItemsCount"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<CreateNewShopMutation, CreateNewShopMutationVariables>;
+export const GetPublicItemsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPublicItems"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getPublicItems"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrls"}},{"kind":"Field","name":{"kind":"Name","value":"price"}},{"kind":"Field","name":{"kind":"Name","value":"starRating"}}]}}]}}]}}]} as unknown as DocumentNode<GetPublicItemsQuery, GetPublicItemsQueryVariables>;
+export const GetPublicItemsByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPublicItemsById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getPublicItems"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrls"}},{"kind":"Field","name":{"kind":"Name","value":"price"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"stockQuantity"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"starRating"}},{"kind":"Field","name":{"kind":"Name","value":"shop"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"aboutShop"}},{"kind":"Field","name":{"kind":"Name","value":"stars"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stars"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"comments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"commentString"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"profileImageUrl"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetPublicItemsByIdQuery, GetPublicItemsByIdQueryVariables>;
 export const ProductCategoryQueriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"productCategoryQueries"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getProductCategories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isProduct"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}}]}}]}}]}}]} as unknown as DocumentNode<ProductCategoryQueriesQuery, ProductCategoryQueriesQueryVariables>;
 export const GetPersonalItemsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPersonalItems"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getItems"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"startCursor"}},{"kind":"Field","name":{"kind":"Name","value":"endCursor"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"price"}},{"kind":"Field","name":{"kind":"Name","value":"starRating"}},{"kind":"Field","name":{"kind":"Name","value":"stockQuantity"}},{"kind":"Field","name":{"kind":"Name","value":"shop"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetPersonalItemsQuery, GetPersonalItemsQueryVariables>;
 export const GetPaginatedPersonalItemsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPaginatedPersonalItems"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getItems"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"startCursor"}},{"kind":"Field","name":{"kind":"Name","value":"endCursor"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"price"}},{"kind":"Field","name":{"kind":"Name","value":"starRating"}}]}}]}}]}}]} as unknown as DocumentNode<GetPaginatedPersonalItemsQuery, GetPaginatedPersonalItemsQueryVariables>;
 export const GetMySHopsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetMySHops"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getShops"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"aboutShop"}},{"kind":"Field","name":{"kind":"Name","value":"stars"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stars"}}]}},{"kind":"Field","name":{"kind":"Name","value":"location"}},{"kind":"Field","name":{"kind":"Name","value":"phoneNumber"}},{"kind":"Field","name":{"kind":"Name","value":"profileImageUrl"}}]}}]}}]}}]} as unknown as DocumentNode<GetMySHopsQuery, GetMySHopsQueryVariables>;
-export const GetLoginUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetLoginUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"pofileImageUrl"}}]}}]}}]} as unknown as DocumentNode<GetLoginUserQuery, GetLoginUserQueryVariables>;
-export const GetDataDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"subscription","name":{"kind":"Name","value":"GetData"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"events"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"eventName"}},{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"itemRequestCreated"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"itemRequest"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"order"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetDataSubscription, GetDataSubscriptionVariables>;
+export const GetLoginUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetLoginUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"profileImageUrl"}}]}}]}}]} as unknown as DocumentNode<GetLoginUserQuery, GetLoginUserQueryVariables>;
+export const GetDataDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"subscription","name":{"kind":"Name","value":"GetData"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"events"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"eventName"}},{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"itemRequestReceived"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"itemRequestOfferReceived"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"itemId"}},{"kind":"Field","name":{"kind":"Name","value":"itemRequestId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"orderReceived"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"completionDateTime"}},{"kind":"Field","name":{"kind":"Name","value":"isCompleted"}},{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"message"}},{"kind":"Field","name":{"kind":"Name","value":"phoneNumber"}},{"kind":"Field","name":{"kind":"Name","value":"price"}},{"kind":"Field","name":{"kind":"Name","value":"quantity"}},{"kind":"Field","name":{"kind":"Name","value":"currency"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetDataSubscription, GetDataSubscriptionVariables>;

@@ -1,5 +1,5 @@
 import {useTheme} from '@react-navigation/native';
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 import {
   heightPercentageToDP,
@@ -7,6 +7,8 @@ import {
 } from 'react-native-responsive-screen';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
 import {AreaMapper} from '../../Utilities/CustomMethods';
+import {size} from '../../Prefrences/Prefrences';
+import {TextComponet} from './TextComponet';
 
 interface PhoneInputProps extends React.ComponentProps<typeof TextInput> {
   label?: string;
@@ -24,8 +26,10 @@ const PhoneInput = ({
     const newText = text.replace(/[^0-9]/g, '');
     onChangeText && onChangeText(newText);
   };
+
   const {NepalFlag} = Logos;
   const {colors, fonts} = useTheme();
+  const [borderColor, setBorderColor] = useState<string>(colors.border);
   const inputRef: any = useRef(null);
 
   useEffect(() => {
@@ -37,37 +41,34 @@ const PhoneInput = ({
   return (
     <View>
       {label && (
-        <Text
-          style={[
-            styles.label,
-            {color: colors.text, fontFamily: fonts.regular.fontFamily},
-          ]}>
-          {label}
-        </Text>
+        <TextComponet
+          fontVariant="medium"
+          fontSizeVariant="regular"
+          title={label}
+        />
       )}
       <View
         style={[
           styles.wrapper,
           error && styles.wrapperError,
-          {backgroundColor: colors.card, borderColor: colors.border},
+          {
+            // backgroundColor: colors.background,
+            backgroundColor: '#fafcff',
+            borderWidth: size.borderWidth.s,
+            borderColor: borderColor,
+            marginVertical:size.spacing.xxs
+          },
         ]}>
-        <NepalFlag height={heightPercentageToDP(5)} />
-        <Text
-          style={[
-            styles.number,
-            {
-              color: colors.text,
-              fontFamily: fonts.regular.fontFamily,
-              lineHeight: AreaMapper({
-                value: 22,
-                scaleBy: 'height',
-              }),
-            },
-          ]}>
-          +977
-        </Text>
+        <NepalFlag height={size.iconSize.large} />
+        <TextComponet
+          fontVariant="medium"
+          fontSizeVariant="regular"
+          title="+977"
+        />
         <View style={styles.textWrapper}>
           <TextInput
+            onFocus={() => setBorderColor(colors.primary)}
+            onBlur={() => setBorderColor(colors.border)}
             ref={inputRef}
             keyboardType="numeric"
             inputMode="numeric"
@@ -75,10 +76,7 @@ const PhoneInput = ({
               styles.input,
               {
                 fontFamily: fonts.regular.fontFamily,
-                lineHeight: AreaMapper({
-                  value: 22,
-                  scaleBy: 'height',
-                }),
+                lineHeight: 22,
               },
             ]}
             value={value}

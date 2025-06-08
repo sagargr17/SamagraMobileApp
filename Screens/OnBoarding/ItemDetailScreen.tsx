@@ -1,15 +1,17 @@
+import {useQuery} from '@apollo/client';
 import {useTheme} from '@react-navigation/native';
-import React, {useState} from 'react';
-import {FlatList, ScrollView, StyleSheet, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
 import {Divider, IconButton} from 'react-native-paper';
 import {Rating} from '../../Components/Elements/Rating';
 import {Spacer} from '../../Components/Elements/Spacer';
 import {TextComponet} from '../../Components/Elements/TextComponet';
-import {CommentLayout} from '../../Components/Layout/CommentLayout';
-import {Counter} from '../../Components/Sections/Counter';
-import {ImageSliderModal} from '../../Components/Sections/ImageSliderModal';
-import {ItemCheckOut} from '../../Components/Sections/ItemCheckOut';
-import {SamagraLoader} from '../../Components/Sections/Loading/SamagraLoader';
+import {CommentLayout} from '../../Components/Organism/CommentLayout';
+import {Counter} from '../../Components/Molecules/Global/Counter';
+import {ImageSliderModal} from '../../Components/Organism/ImageSliderModal';
+import {ItemCheckOut} from '../../Components/Molecules/Global/ItemCheckOut';
+import {SamagraLoader} from '../../Components/Molecules/Response/SamagraLoader';
+import {getPublicItemsById} from '../../GraphQL/Queries/ItemQueries';
 import {ItemDetailScreenRouteProp} from '../../Navigators/Stack/ApplicationOverlayStackNavigator';
 import {hideLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
 import {useAppDispatch} from '../../StateManagement/hooks';
@@ -21,25 +23,25 @@ interface ItemDetailScreenProps {
 
 export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
   const {colors} = useTheme();
-  const {name} = route.params;
+
   const [totalPrice, setTotalPrice] = useState<number>(320);
   const [isCheckoutVisible, setIsCheckoutVisible] = useState<boolean>(true);
-
-  // const route = useRoute();
-  console.log('Routeee ID', route.params.id);
-
-  // test
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const dispatch = useAppDispatch();
+  const {data, loading, error} = useQuery(getPublicItemsById, {
+    variables: {
+      id: route.params.id,
+    },
+  });
+
+  console.log('itemIDdd', route.params.id);
+
+  useEffect(() => {
+    dispatch(hideLoader());
+  }, []);
 
   const handleTotalPrice = (Quantity: number) => {
-    setTotalPrice(320 * Quantity);
+    setTotalPrice((data?.getPublicItems?.nodes?.[0]?.price ?? 0) * Quantity);
   };
-
-  setTimeout(() => {
-    setIsLoading(false);
-    dispatch(hideLoader());
-  }, 1000);
 
   const itemDetailContainer = () => {
     return (
@@ -63,9 +65,10 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
             justifyContent: 'space-between',
           }}>
           <TextComponet
-            fontSize={24}
-            lineHeight={20}
-            title={titleCase(name)}
+            fontSizeVariant={'title'}
+            title={titleCase(
+              data?.getPublicItems?.nodes?.[0]?.name ?? 'Not Mentioned',
+            )}
             fontVariant="regular"
             customStyle={{
               margin: 0,
@@ -96,7 +99,7 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
                 scaleBy: 'height',
               }),
             }}
-            fontSize={14}
+            fontSizeVariant={'regular'}
             title={titleCase('423 Sold')}
             fontVariant="regular"></TextComponet>
           <Rating></Rating>
@@ -104,15 +107,14 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
         <Spacer height={12}></Spacer>
         <View>
           <TextComponet
-            fontSize={16}
-            lineHeight={21}
+            fontSizeVariant={'regular'}
             title={titleCase('Description')}
             fontVariant="medium"></TextComponet>
           <Spacer height={8}></Spacer>
           <TextComponet
-            fontSize={14}
+            fontSizeVariant={'regular'}
             title={titleCase(
-              'Lorem ipsum dolor sit amet consectetur. Malesuada faucibus viverra eget ridiculus a nec amet in. In turpis etiam tristique sit enim proin pulvinar.',
+              data?.getPublicItems?.nodes?.[0]?.description ?? 'Not Mentioned',
             )}
             fontVariant="regular"></TextComponet>
         </View>
@@ -127,45 +129,42 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
     );
   };
 
+  if (error) return <Text>ErrorItemCheckOut {error.message}</Text>;
+  if (loading) return <SamagraLoader></SamagraLoader>;
+
+  console.log('Detail ITem', data, loading, error);
+
   return (
     <>
-      {isLoading ? (
-        <SamagraLoader></SamagraLoader>
-      ) : (
-        <>
-          <View
-            style={{
-              flex: 1,
-            }}>
-            <FlatList
-              showsVerticalScrollIndicator={false}
-              data={[1]}
-              renderItem={({item, index}) => (
-                <>
-                  <ImageSliderModal
-                    images={[
-                      {
-                        url: 'https://images.pexels.com/photos/592815/pexels-photo-592815.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-                      },
-                      {
-                        url: 'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                      },
-                      {
-                        url: 'https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHdhdGNofGVufDB8fDB8fHww',
-                      },
-                    ]}></ImageSliderModal>
+      <View
+        style={{
+          flex: 1,
+        }}>
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={[1]}
+          renderItem={({item, index}) => (
+            <>
+              <ImageSliderModal
+                images={
+                  data?.getPublicItems?.nodes?.[0]?.imageUrls
+                    ?.filter((url): url is string => url !== null)
+                    .map(url => ({url: url})) ?? [
+                    {
+                      url: 'https://img.freepik.com/free-vector/oops-404-error-with-broken-robot-concept-illustration_114360-5529.jpg?semt=ais_hybrid&w=740',
+                    },
+                  ]
+                }></ImageSliderModal>
 
-                  {itemDetailContainer()}
-                  <CommentLayout
-                    onCloseHandle={status => {
-                      setIsCheckoutVisible(status);
-                    }}></CommentLayout>
-                </>
-              )}></FlatList>
-            <ItemCheckOut totalPrice={totalPrice}></ItemCheckOut>
-          </View>
-        </>
-      )}
+              {itemDetailContainer()}
+              <CommentLayout
+                onCloseHandle={status => {
+                  setIsCheckoutVisible(status);
+                }}></CommentLayout>
+            </>
+          )}></FlatList>
+        <ItemCheckOut totalPrice={totalPrice}></ItemCheckOut>
+      </View>
     </>
   );
 };

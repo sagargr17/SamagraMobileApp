@@ -1,9 +1,9 @@
 import React from 'react';
 import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
-import {OnBoardingLayout} from '../../Components/Layout/OnBoardingLayout';
-import {SignUpForm} from '../../Components/Layout/SignUpForm';
-import {SocialForm} from '../../Components/Sections/SocialForm';
-import {ContinueDivider} from '../../Components/Sections/ContinueDivider';
+import {ScrollableLayout} from '../../Layout/ScreenLayout/ScrollableLayout';
+import {SignUpForm} from '../../Components/Organism/SignUpForm';
+import {SocialForm} from '../../Components/Organism/SocialForm';
+import {ContinueDivider} from '../../Components/Elements/ContinueDivider';
 import {Spacer} from '../../Components/Elements/Spacer';
 import AppButton from '../../Components/Elements/Button';
 
@@ -17,7 +17,7 @@ export const SignUpScreen: React.FC<OnBoardingScreenProps> = ({navigation}) => {
   };
 
   return (
-    <OnBoardingLayout>
+    <ScrollableLayout>
       <SignUpForm />
       <Spacer />
       <ContinueDivider />
@@ -29,6 +29,6 @@ export const SignUpScreen: React.FC<OnBoardingScreenProps> = ({navigation}) => {
       <SocialForm
         onAppleClick={() => navigation.navigate('ProfileSetupScreen')}
       />
-    </OnBoardingLayout>
+    </ScrollableLayout>
   );
 };

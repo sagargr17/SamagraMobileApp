@@ -2,34 +2,32 @@ import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
 import {AreaMapper} from '../../Utilities/CustomMethods';
+import {size} from '../../Prefrences/Prefrences';
+import {TouchableRipple, useTheme} from 'react-native-paper';
+import {View} from 'moti';
 
 interface NotifcaitonIconProps {}
 
 export const NotifcaitonIcon: React.FC<NotifcaitonIconProps> = ({}) => {
-  const {"BellRing": Icon, BellRingTail} = Logos;
-
+  const {BellRing: Icon, BellRingTail} = Logos;
+  const {colors} = useTheme();
   return (
-    <TouchableOpacity
+    <TouchableRipple
+      rippleColor={'green'}
       style={{
-        display: 'flex',
-        flexDirection: 'column',
+        borderWidth: size.borderWidth.xss,
+        borderRadius: size.borderRadius.full,
+        padding: size.spacing.xxs,
         alignItems: 'center',
-        justifyContent: 'center',
-        paddingHorizontal: AreaMapper({
-          value: 3,
-          scaleBy: 'average',
-        }),
       }}>
-      <Icon
-        width={AreaMapper({
-          value: 20,
-          scaleBy: 'average',
-        })}
-        height={AreaMapper({
-          value: 20,
-          scaleBy: 'average',
-        })}></Icon>
-      <BellRingTail></BellRingTail>
-    </TouchableOpacity>
+      <View
+        style={{
+          alignItems: 'center',
+          padding: size.spacing.xxs,
+        }}>
+        <Icon height={size.iconSize.small}></Icon>
+        <BellRingTail></BellRingTail>
+      </View>
+    </TouchableRipple>
   );
 };

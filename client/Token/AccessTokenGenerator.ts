@@ -1,12 +1,12 @@
 import {CLIENT_ID, CLIENT_SECRET} from '@env';
-import {config} from '../../Constants/SamagraConstants/Configs/RefreshTokenConfig';
+import {refreshTokneConfig} from '../../Constants/SamagraConstants/Configs/RefreshTokenConfig';
 import {saveTokens} from './Authenticator';
 
 type accessTokenGenerator = (refreshToken: string) => void | number;
 
 export const accessTokenGenerator = async (refreshToken: string) => {
   try {
-    const response = await fetch(`${config.issuer}/connect/token`, {
+    const response = await fetch(`${refreshTokneConfig.issuer}/connect/token`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',

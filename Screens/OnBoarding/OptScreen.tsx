@@ -6,7 +6,7 @@ import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
-import {OnBoardingLayout} from '../../Components/Layout/OnBoardingLayout';
+import {ScrollableLayout} from '../../Layout/ScreenLayout/ScrollableLayout';
 import { Spacer } from '../../Components/Elements/Spacer';
 
 
@@ -37,7 +37,7 @@ export const OtpScreen: React.FC<OptScreenProps> = ({navigation}) => {
   }, [timer]);
 
   return (
-    <OnBoardingLayout header="Verify 6-digit OTP">
+    <ScrollableLayout header="Verify 6-digit OTP">
       <Text style={styles.subHeader}>
         1 Code sent to +44********456 phone number unless you already have an
         account{' '}
@@ -69,7 +69,7 @@ export const OtpScreen: React.FC<OptScreenProps> = ({navigation}) => {
       <Pressable onPress={() => navigation.navigate('SignInScreen')}>
         <Text style={styles.extraLink}>Already have an account? Log in</Text>
       </Pressable>
-    </OnBoardingLayout>
+    </ScrollableLayout>
   );
 };
 

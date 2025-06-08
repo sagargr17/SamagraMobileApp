@@ -17,14 +17,14 @@ import { ErrorText } from '../../Components/Elements/ErrorText';
 import { Input } from '../../Components/Elements/Input';
 import { Spacer } from '../../Components/Elements/Spacer';
 import { TextComponet } from '../../Components/Elements/TextComponet';
-import { OnBoardingLayout } from '../../Components/Layout/OnBoardingLayout';
-import { ContinueDivider } from '../../Components/Sections/ContinueDivider';
-import { SocialForm } from '../../Components/Sections/SocialForm';
+import { ContinueDivider } from '../../Components/Elements/ContinueDivider';
+import { ScrollableLayout } from '../../Layout/ScreenLayout/ScrollableLayout';
+import { SocialForm } from '../../Components/Organism/SocialForm';
+import { userRules } from '../../Constants/UI/Rules';
 import { OnBoardingStackNavigationProp } from '../../Navigators/Stack/OnBoardingStackNavigator';
 import { showLoader } from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
 import { useAppDispatch } from '../../StateManagement/hooks';
 import { AreaMapper } from '../../Utilities/CustomMethods';
-import { userRules } from '../../GlobalParams/Forms/Rules';
 
 interface SignInScreenProps {
   navigation: OnBoardingStackNavigationProp<'SignUpScreen'>;
@@ -54,7 +54,7 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
 
   return (
     <>
-      <OnBoardingLayout>
+      <ScrollableLayout>
         <GestureHandlerRootView
           style={{
             flex: 1,
@@ -87,7 +87,6 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
               {errors.userName && (
                 <ErrorText>{errors.userName?.message}</ErrorText>
               )}
-              <Spacer height={20} />
               <Controller
                 control={control}
                 name="password"
@@ -108,6 +107,7 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
               <View style={styles.extra}>
                 <Pressable onPress={() => navigation.navigate('OtpScreen')}>
                   <TextComponet
+                    fontSizeVariant="regular"
                     customStyle={{
                       color: 'blue',
                     }}
@@ -116,6 +116,7 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
                 </Pressable>
                 <Pressable onPress={() => navigation.navigate('SignUpScreen')}>
                   <TextComponet
+                    fontSizeVariant="caption"
                     customStyle={{
                       color: 'blue',
                     }}
@@ -134,7 +135,7 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
             </ScrollView>
           </KeyboardAvoidingView>
         </GestureHandlerRootView>
-      </OnBoardingLayout>
+      </ScrollableLayout>
     </>
   );
 };

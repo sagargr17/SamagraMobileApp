@@ -1,19 +1,19 @@
-import React, {useState} from 'react';
-import {FlatList, ScrollView, Text, View} from 'react-native';
-import {ProviderCard} from '../../../Components/Sections/Cards/ProviderCard';
-import {AreaMapper} from '../../../Utilities/CustomMethods';
-import {AppBottomSheet} from '../../../Components/Sections/AppBottomSheet';
-import {TextComponet} from '../../../Components/Elements/TextComponet';
-import {PairButtons} from '../../../Components/Sections/PairButtons';
-import {SingnlePageError} from '../../../Components/Layout/SinglePageError';
-import {Logos} from '../../../Assets/SVG/Exports/Exports';
 import {useMutation, useSubscription} from '@apollo/client';
+import {useNavigation} from '@react-navigation/native';
+import React, {useState} from 'react';
+import {FlatList, View} from 'react-native';
+import {showMessage} from 'react-native-flash-message';
+import {Logos} from '../../../Assets/SVG/Exports/Exports';
+import {TextComponet} from '../../../Components/Elements/TextComponet';
+import {SingnlePageError} from '../../../Components/Molecules/SinglePageError';
+import {AppBottomSheet} from '../../../Components/Molecules/Global/AppBottomSheet';
+import {ProviderCard} from '../../../Components/Molecules/Cards/ProviderCard';
+import {ProviderCardSkeleton} from '../../../Components/Skeletons/ProviderCardSkeleton';
+import {PairButtons} from '../../../Components/Molecules/Global/PairButtons';
+import {createItemRequestOfferMutation} from '../../../GraphQL/Mutation/ItemRequestMutation';
 import {getSubscribedData} from '../../../GraphQL/Subscription/Subscription';
 import {GetDataSubscription} from '../../../src/__generated__/graphql';
-import {useNavigation} from '@react-navigation/native';
-import {ProviderCardSkeleton} from '../../../Components/Sections/Loading/Skeletons/ProviderCardSkeleton';
-import {createItemRequestOfferMutation} from '../../../GraphQL/Mutation/ItemRequestMutation';
-import {showMessage} from 'react-native-flash-message';
+import {AreaMapper} from '../../../Utilities/CustomMethods';
 
 interface ReceivedOrderListScreenProps {}
 
@@ -36,6 +36,8 @@ export const ReceivedOrderListScreen: React.FC<
       }
     },
   });
+
+  console.log('Resultttt,....', data, loading, error);
 
   const [
     createItemRequestOfferFn,
@@ -190,25 +192,21 @@ export const ReceivedOrderListScreen: React.FC<
                   <TextComponet
                     title={'E-mail:'}
                     fontVariant="regular"
-                    fontSize={18}
-                    lineHeight={24}></TextComponet>
+                    fontSizeVariant={'regular'}></TextComponet>
                   <TextComponet
                     title={'Ram@gmail.com'}
                     fontVariant="medium"
-                    fontSize={18}
-                    lineHeight={24}></TextComponet>
+                    fontSizeVariant={'regular'}></TextComponet>
                 </View>
                 <View>
                   <TextComponet
                     title={'Location:'}
                     fontVariant="regular"
-                    fontSize={18}
-                    lineHeight={24}></TextComponet>
+                    fontSizeVariant={'regular'}></TextComponet>
                   <TextComponet
                     title={'Baneswor, Bhimsengola'}
                     fontVariant="medium"
-                    fontSize={18}
-                    lineHeight={24}></TextComponet>
+                    fontSizeVariant={'regular'}></TextComponet>
                 </View>
                 <View
                   style={{
