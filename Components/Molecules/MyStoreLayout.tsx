@@ -4,7 +4,7 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Surface} from 'react-native-paper';
-import {manageStorepoppedCardParams} from '../../Constants/UI/MyStore';
+import {manageStorepoppedCardParams} from '../../Constants/UI/More';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import AppButton from '../Elements/Button';
 import {Rating} from '../Elements/Rating';

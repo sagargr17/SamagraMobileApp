@@ -29,15 +29,11 @@ export const SingnlePageError: React.FC<SingnlePageErrorProps> = ({detail}) => {
               alignContent: 'center',
               justifyContent: 'center',
               textAlign: 'center',
-              marginHorizontal: AreaMapper({
-                value: 43,
-                scaleBy: 'width',
-              }),
+              marginHorizontal: 43,
             }}
             title={detail.title}
             fontVariant="medium"
-            fontSizeVariant={"regular"}
-            ></TextComponet>
+            fontSizeVariant={'regular'}></TextComponet>
         </View>
         <View
           style={{

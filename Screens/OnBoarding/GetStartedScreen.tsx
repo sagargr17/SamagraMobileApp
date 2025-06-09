@@ -1,6 +1,6 @@
 import React from 'react';
 import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
-import GetStarted from '../../Components/Molecules/GetStarted';
+import GetStarted from '../../Components/Organism/GetStarted';
 
 interface OnBoardingScreenProps {
   navigation: OnBoardingStackNavigationProp<'GetStartedScreen'>;

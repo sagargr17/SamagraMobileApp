@@ -15,6 +15,7 @@ import {
 } from 'react-native-responsive-screen';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import AppButton from '../Elements/Button';
+import { GetStartedFirstImage, GetStartedSecondImage } from '../../Constants/UI/AssetsUrls';
 
 interface Item {
   id: number;
@@ -59,8 +60,8 @@ const GetStarted = ({options, onDone}: GetStartedProps) => {
         source={{
           uri:
             step === 1
-              ? 'https://images.unsplash.com/photo-1624372635310-01d078c05dd9?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-              : 'https://images.pexels.com/photos/4107286/pexels-photo-4107286.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+              ? GetStartedFirstImage
+              : GetStartedSecondImage,
         }}
         resizeMode={FastImage.resizeMode.cover}
       />

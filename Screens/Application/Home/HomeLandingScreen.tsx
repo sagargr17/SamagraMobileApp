@@ -1,18 +1,18 @@
-import { useQuery } from '@apollo/client';
-import { useNavigation } from '@react-navigation/native';
-import React, { useCallback } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
-import { Divider } from 'react-native-paper';
-import { Spacer } from '../../../Components/Elements/Spacer';
-import { FlatListScreen } from '../../../Layout/ScreenLayout/FlatListScreenLayout';
+import {useQuery} from '@apollo/client';
+import {useNavigation} from '@react-navigation/native';
+import React, {useCallback} from 'react';
+import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
+import {Divider} from 'react-native-paper';
+import {Spacer} from '../../../Components/Elements/Spacer';
+import {FlatListScreen} from '../../../Layout/ScreenLayout/FlatListScreenLayout';
 import AppBanner from '../../../Components/Molecules/Global/AppBanner';
-import { AppHeader } from '../../../Components/Organism/AppHeader';
-import { AppSerchBar } from '../../../Components/Molecules/Global/AppSerchBar';
-import { ItemMiniCard } from '../../../Components/Molecules/Cards/ItemMiniCard';
-import { ItemCategoryCardSlider } from '../../../Components/Organism/ItemCategorySlider';
-import { ImageNotFound } from '../../../Constants/UI/AssetsUrls';
-import { getPublicItems } from '../../../GraphQL/Queries/ItemQueries';
-import { size } from '../../../Prefrences/Prefrences';
+import {AppHeader} from '../../../Components/Organism/AppHeader';
+import {AppSerchBar} from '../../../Components/Molecules/Global/AppSerchBar';
+import {ItemMiniCard} from '../../../Components/Molecules/Cards/ItemMiniCard';
+import {ItemCategoryCardSlider} from '../../../Components/Organism/ItemCategorySlider';
+import {ImageNotFound} from '../../../Constants/UI/AssetsUrls';
+import {getPublicItems} from '../../../GraphQL/Queries/ItemQueries';
+import {size} from '../../../Prefrences/Prefrences';
 
 interface HomeLandingScreenProps {}
 
@@ -45,6 +45,7 @@ export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
       <AppBanner></AppBanner>
       <Spacer></Spacer>
       <ItemCategoryCardSlider sizes="large"></ItemCategoryCardSlider>
+      <Spacer height={15}></Spacer>
       <Divider></Divider>
     </>
   );
@@ -63,7 +64,7 @@ export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
       isSectioHeader
       headerTitle="Popular"
       contentContainerStyle={{
-        paddingHorizontal:size.spacing.xs
+        paddingHorizontal: size.spacing.xs,
       }}
       renderItem={({item, index}) => (
         <View

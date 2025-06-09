@@ -19,15 +19,22 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({
   const navigation =
     useNavigation<HomeStackNavigationProp<'CategoryListScreen'>>();
 
+
+
+
+    
   const styles = StyleSheet.create({
     wrapper: {
-      paddingHorizontal: sizes === 'large' ? 10 : 0,
+      paddingHorizontal: sizes === 'large' ? 2 : 0,
     },
     icon: {
-      height: sizes === 'large' ? size.iconSize.medium : size.iconSize.large,
+      height: sizes === 'large' ? size.iconSize.medium : size.iconSize.medium,
       width: 30,
     },
   });
+
+  const iconHeight = styles.icon.height;
+  const iconWidth = styles.icon.width;
 
   const data: Array<{
     titte: string;
@@ -35,23 +42,19 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({
   }> = [
     {
       titte: 'Laundry',
-      icon: <Laundry height={styles.icon.height} width={styles.icon.width} />,
+      icon: <Laundry height={iconHeight} width={iconWidth} />,
     },
     {
       titte: 'Cleaning',
-      icon: (
-        <HouseKeeping height={styles.icon.height} width={styles.icon.width} />
-      ),
+      icon: <HouseKeeping height={iconHeight} width={iconWidth} />,
     },
     {
       titte: 'Grocery',
-      icon: <Grocery height={styles.icon.height} width={styles.icon.width} />,
+      icon: <Grocery height={iconHeight} width={iconWidth} />,
     },
     {
       titte: 'Stationary',
-      icon: (
-        <Stationary height={styles.icon.height} width={styles.icon.width} />
-      ),
+      icon: <Stationary height={iconHeight} width={iconWidth} />,
     },
   ];
 
@@ -63,13 +66,14 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({
 
   return (
     <View style={styles.wrapper}>
+      <SectionHeader
+        style={{
+          marginVertical: size.spacing.s,
+        }}
+        onPress={() => onPress()}
+        isIcon={false}
+        title="Category"></SectionHeader>
       <FlatList
-        ListHeaderComponent={
-          <SectionHeader
-            onPress={() => onPress()}
-            isIcon={false}
-            title="Category"></SectionHeader>
-        }
         showsHorizontalScrollIndicator={false}
         horizontal={true}
         data={data}
@@ -77,7 +81,7 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({
           <ItemCategoryCard
             onPress={() => onPress(item.titte)}
             selectedCategory={sizes === 'large' ? item.titte : selectedCategory}
-            size={'regular'}
+            size={"large"}
             key={index}
             title={item.titte}
             icon={item.icon}

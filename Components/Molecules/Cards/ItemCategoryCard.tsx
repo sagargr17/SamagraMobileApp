@@ -3,6 +3,7 @@ import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {TextComponet} from '../../Elements/TextComponet';
 import {useTheme} from '@react-navigation/native';
 import {AreaMapper} from '../../../Utilities/CustomMethods';
+import { size } from '../../../Prefrences/Prefrences';
 
 interface ItemCategoryCardProps {
   title: string;
@@ -27,23 +28,9 @@ export const ItemCategoryCard: React.FC<ItemCategoryCardProps> = ({
       style={[
         {
           backgroundColor: selectedCategory === title ? colors.primary : 'gray',
-          height: AreaMapper({
-            value: variant === 'large' ? 100 : 70,
-            scaleBy: 'average',
-          }),
-
-          marginRight: AreaMapper({
-            value: 13,
-            scaleBy: 'average',
-          }),
-          paddingVertical: AreaMapper({
-            value: variant === 'large' ? 23 : 12,
-            scaleBy: 'average',
-          }),
-          borderRadius: AreaMapper({
-            value: 12,
-            scaleBy: 'average',
-          }),
+          height:70,
+          marginRight:size.spacing.xs,
+          borderRadius:size.borderRadius.m,
           alignItems: 'center',
           display: 'flex',
           flexDirection: 'column',
@@ -54,9 +41,14 @@ export const ItemCategoryCard: React.FC<ItemCategoryCardProps> = ({
           }),
         },
       ]}>
-      <View style={{
-        // marginVertical:
-      }}>{icon}</View>
+      <View
+        style={
+          {
+            // marginVertical:
+          }
+        }>
+        {icon}
+      </View>
       <TextComponet
         fontVariant="regular"
         fontSizeVariant="caption"

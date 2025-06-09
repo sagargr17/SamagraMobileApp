@@ -13,6 +13,7 @@ import {CreateProductInputViewModelInput} from '../../../../src/__generated__/gr
 import {useAppDispatch} from '../../../../StateManagement/hooks';
 import {hideLoader} from '../../../../StateManagement/Error&loadingHandle/LoaderStateSlice';
 import {NoDataMessage} from '../../../../Constants/UI/Variables';
+import {ImageNotFound} from '../../../../Constants/UI/AssetsUrls';
 
 interface AddItemScreenProps {}
 
@@ -126,8 +127,8 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
             description: data.description ? data.description : NoDataMessage,
             unit: data.unit ? data.unit : NoDataMessage,
             stockQuantity: Number(data.stockQuantity),
-            imageUrls: ,
-            location: data.location? data.location : NoDataMessage,
+            imageUrls: ImageNotFound,
+            location: data.location ? data.location : NoDataMessage,
             categoryId: '1',
           },
         });
