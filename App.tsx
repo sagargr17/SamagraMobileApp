@@ -94,7 +94,6 @@ const client = new ApolloClient({
 
 // Main Modules
 function App(): React.JSX.Element {
-  // const [refreshingTime, setRefreshingTime] = useState<number>(1800000); // This is the time of refreshing in the second set Default to 1000
   const [refreshingTime, setRefreshingTime] = useState<number>(1000); // This is the time of refreshing in the second set Default to 1000
   let timeBasedRefreshing = useTokenRefreshTimer(refreshingTime);
   const scheme = useColorScheme(); // Get the current color scheme

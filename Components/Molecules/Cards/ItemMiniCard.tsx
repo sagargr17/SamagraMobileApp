@@ -54,7 +54,7 @@ export const ItemMiniCard: React.FC<ItemMiniCardProps> = ({
         }}
         style={{
           backgroundColor: colors.card,
-          borderRadius:size.borderRadius.s
+          borderRadius: size.borderRadius.s,
         }}>
         <>
           <View>
@@ -74,13 +74,13 @@ export const ItemMiniCard: React.FC<ItemMiniCardProps> = ({
           <View
             style={{
               paddingHorizontal: size.spacing.s,
-              paddingTop: size.spacing.s,
+              paddingVertical: size.spacing.xxs,
               borderBottomLeftRadius: size.borderRadius.m,
               borderBottomRightRadius: size.borderRadius.m,
             }}>
             <TextComponet
               fontVariant="medium"
-              fontSizeVariant={'regular'}
+              fontSizeVariant={'title'}
               title={titleRange(title)}
             />
             <View style={styles.bottomContainer}>
@@ -131,7 +131,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 5,
   },
   ratingContainer: {
     flexDirection: 'row',

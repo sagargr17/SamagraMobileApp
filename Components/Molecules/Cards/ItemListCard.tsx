@@ -50,9 +50,8 @@ export const ItemListtCard: React.FC<ItemListCardProps> = ({item}) => {
           </View>
           <View style={styles.pricingContainer}>
             <TextComponet
-              fontSizeVariant={18}
+              fontSizeVariant={'regular'}
               fontVariant="medium"
-              lineHeight={24}
               title={titleCase(item.name)}></TextComponet>
             <View
               style={{
@@ -68,18 +67,16 @@ export const ItemListtCard: React.FC<ItemListCardProps> = ({item}) => {
                 customStyle={{
                   color: '#6cad8b',
                 }}
-                fontSizeVariant={18}
+                fontSizeVariant={'regular'}
                 fontVariant="regular"
-                lineHeight={24}
                 title={titleCase(item.shop.name)}></TextComponet>
               {!item.stocks ? (
                 <TextComponet
                   customStyle={{
                     color: item.stocks ? colors.text : colors.primary,
                   }}
-                  fontSizeVariant={item.stocks ? 16 : 25}
+                  fontSizeVariant={'regular'}
                   fontVariant={item.stocks ? 'medium' : 'bold'}
-                  lineHeight={28}
                   title={`रु.${item.price.toFixed(2)}`}></TextComponet>
               ) : null}
               {item.stocks ? (
@@ -87,9 +84,8 @@ export const ItemListtCard: React.FC<ItemListCardProps> = ({item}) => {
                   customStyle={{
                     color: colors.primary,
                   }}
-                  fontSizeVariant={25}
+                  fontSizeVariant={'regular'}
                   fontVariant="bold"
-                  lineHeight={24}
                   title={`QTY : ${item.stocks} `}></TextComponet>
               ) : null}
             </View>

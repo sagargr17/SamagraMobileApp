@@ -1,6 +1,6 @@
-import { useTheme } from '@react-navigation/native';
-import React, { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import {useTheme} from '@react-navigation/native';
+import React, {useState} from 'react';
+import {Controller, useForm} from 'react-hook-form';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -8,24 +8,24 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
-import { heightPercentageToDP } from 'react-native-responsive-screen';
-import { Logos } from '../../Assets/SVG/Exports/Exports';
+import {GestureHandlerRootView, ScrollView} from 'react-native-gesture-handler';
+import {heightPercentageToDP} from 'react-native-responsive-screen';
+import {Logos} from '../../Assets/SVG/Exports/Exports';
 import Authenticator from '../../client/Token/Authenticator';
 import AppButton from '../../Components/Elements/Button';
-import { ErrorText } from '../../Components/Elements/ErrorText';
-import { Input } from '../../Components/Elements/Input';
-import { Spacer } from '../../Components/Elements/Spacer';
-import { TextComponet } from '../../Components/Elements/TextComponet';
-import { ContinueDivider } from '../../Components/Elements/ContinueDivider';
-import { ScrollableLayout } from '../../Layout/ScreenLayout/ScrollableLayout';
-import { SocialForm } from '../../Components/Organism/SocialForm';
-import { userRules } from '../../Constants/UI/Rules';
-import { OnBoardingStackNavigationProp } from '../../Navigators/Stack/OnBoardingStackNavigator';
-import { showLoader } from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
-import { useAppDispatch } from '../../StateManagement/hooks';
-import { AreaMapper } from '../../Utilities/CustomMethods';
-import { Icon } from 'react-native-paper';
+import {ErrorText} from '../../Components/Elements/ErrorText';
+import {Input} from '../../Components/Elements/Input';
+import {Spacer} from '../../Components/Elements/Spacer';
+import {TextComponet} from '../../Components/Elements/TextComponet';
+import {ContinueDivider} from '../../Components/Elements/ContinueDivider';
+import {ScrollableLayout} from '../../Layout/ScreenLayout/ScrollableLayout';
+import {SocialForm} from '../../Components/Organism/SocialForm';
+import {userRules} from '../../Constants/UI/Rules';
+import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
+import {showLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
+import {useAppDispatch} from '../../StateManagement/hooks';
+import {AreaMapper} from '../../Utilities/CustomMethods';
+import {Icon, ProgressBar} from 'react-native-paper';
 
 interface SignInScreenProps {
   navigation: OnBoardingStackNavigationProp<'SignUpScreen'>;
@@ -98,7 +98,9 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
                     placeholder="*********"
                     value={value}
                     onChangeText={onChange}
-                    right={<Icon source={"camera"} color='orange' size={20}></Icon>}
+                    right={
+                      <Icon source={'camera'} color="orange" size={20}></Icon>
+                    }
                   />
                 )}
               />
@@ -111,7 +113,7 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
                   <TextComponet
                     fontSizeVariant="regular"
                     customStyle={{
-                      color: 'blue',
+                      color: '#4A739C',
                     }}
                     title="Forgot Password"
                     fontVariant="medium"></TextComponet>
@@ -120,7 +122,7 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
                   <TextComponet
                     fontSizeVariant="caption"
                     customStyle={{
-                      color: 'blue',
+                      color: '#4A739C',
                     }}
                     title="Don’t have an Account?"
                     fontVariant="medium"></TextComponet>

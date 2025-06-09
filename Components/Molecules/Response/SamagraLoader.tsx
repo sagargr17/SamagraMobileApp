@@ -26,7 +26,7 @@ export const SamagraLoader: React.FC<SamagraLoaderProps> = ({}) => {
         size={size.iconSize.xlarge}></Chase>
       <TextComponet
         customStyle={{
-          marginTop: size.spacing.xxl,
+          marginTop: size.spacing.xxs,
         }}
         title="Loading.."
         fontSizeVariant={'regular'}

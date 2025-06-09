@@ -1,12 +1,13 @@
 {
   /* 
     This is the Layout where the screen will be get Scrolled and also  if data is fetched then there will 
+    This will be update where data will be automatically render
   */
 }
 
 import {useQuery} from '@apollo/client';
 import {useTheme} from '@react-navigation/native';
-import React from 'react';
+import React, {useState} from 'react';
 import {FlatList, FlatListProps, Text} from 'react-native';
 import {TextComponet} from '../../Components/Elements/TextComponet';
 import {SectionHeader} from '../../Components/Molecules/Global/SectionHeader';

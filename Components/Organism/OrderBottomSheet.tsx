@@ -59,6 +59,7 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
     }) => {
       return (
         <Input
+
           onPress={() => setPressedElement('location')}
           label={info.label}
           placeholder={info.placeHolder}
@@ -89,7 +90,7 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
         {pressedElement === 'global' || 'description'
           ? inputElement({
               label: 'Description',
-              placeHolder: 'Dd, 1 bucket dishes and cleaning Kitchen',
+              placeHolder: 'Please Chito aaunu na hai',
               icon: (
                 <TextInput.Icon
                   color={colors.primary}

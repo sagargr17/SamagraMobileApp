@@ -49,7 +49,9 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
   }, []);
 
   return (
-    <RowFlexLayout>
+    <RowFlexLayout elevationStyle={{
+      backgroundColor:colors.background
+    }}>
       <NotifcaitonIcon></NotifcaitonIcon>
       <RowFlexLayout
         customStyle={{

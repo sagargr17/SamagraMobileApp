@@ -5,6 +5,10 @@ export const getSubscribedData = gql(`
   events {
     id
     eventName
+    sender {
+      username
+      profileImageUrl
+    }
     data {
       itemRequestReceived {
         id
@@ -28,5 +32,4 @@ export const getSubscribedData = gql(`
     }
   }
 }
-
 `);

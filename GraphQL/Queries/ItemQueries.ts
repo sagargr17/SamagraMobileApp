@@ -64,7 +64,8 @@ export const productCategoryQueries = gql(`query productCategoryQueries {
 }`);
 
 // Personal Items
-export const getPersonalItems = gql(`query GetPersonalItems {
+export const getPersonalItems = gql(`
+query GetPersonalItems {
   getItems {
     pageInfo {
       hasNextPage
@@ -73,6 +74,7 @@ export const getPersonalItems = gql(`query GetPersonalItems {
       endCursor
     }
     nodes {
+      id
       name
       price
       starRating

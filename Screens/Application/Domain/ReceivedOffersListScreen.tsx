@@ -10,17 +10,6 @@ export const ReceivedOffersListScreen: React.FC<
   ReceivedOffersListScreenProps
 > = ({}) => {
   const [offerList, setOfferList] = useState<Array<any>>([]);
-  const {data, loading, error} = useSubscription(getSubscribedData, {
-    onData: ({client, data}) => {
-      if (data.data && data.data.events) {
-        if (data.data?.events?.eventName === '') {
-          setOfferList([data.data, ...offerList]);
-        }
-      }
-    },
-  });
-
-  const {colors} = useTheme();
 
   return (
     <>

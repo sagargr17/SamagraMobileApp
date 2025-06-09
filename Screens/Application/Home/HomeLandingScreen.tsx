@@ -39,7 +39,9 @@ export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
       <Divider></Divider>
       <Spacer height={15}></Spacer>
       <AppSerchBar
-        onPress={(searchedItem: string) => handleNavigation(searchedItem)}></AppSerchBar>
+        onPress={(searchedItem: string) =>
+          handleNavigation(searchedItem)
+        }></AppSerchBar>
       <AppBanner></AppBanner>
       <Spacer></Spacer>
       <ItemCategoryCardSlider sizes="large"></ItemCategoryCardSlider>
@@ -47,8 +49,6 @@ export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
       <Divider></Divider>
     </>
   );
-
-  console.log('Resulttt...', data, loading, error);
 
   if (loading) return <ActivityIndicator></ActivityIndicator>;
   if (error) return <Text>{error.message}</Text>;

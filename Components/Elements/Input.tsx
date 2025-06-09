@@ -64,12 +64,12 @@ export const Input: React.FC<InputProps> = ({
             styles.input,
             {
               backgroundColor: '#E8EDF5',
-              // backgroundColor: colors.background,
-
               fontFamily: fonts.regular.fontFamily,
               height: 50,
-
               borderColor: colors.border,
+              // backgroundColor: colors.background,
+
+
             },
           ]}
           value={value}
