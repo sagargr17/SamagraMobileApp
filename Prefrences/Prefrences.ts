@@ -64,9 +64,13 @@ const size = {
   },
 
   textVariants: {
+    display: {
+      fontSize: 19,
+      lineHeight: 22,
+    },
     regular: {
       fontSize: 14,
-      lineHeight: 18,
+      lineHeight: 24,
     },
     title: {
       fontSize: 16,

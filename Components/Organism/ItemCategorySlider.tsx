@@ -19,22 +19,14 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({
   const navigation =
     useNavigation<HomeStackNavigationProp<'CategoryListScreen'>>();
 
-
-
-
-    
   const styles = StyleSheet.create({
     wrapper: {
-      paddingHorizontal: sizes === 'large' ? 2 : 0,
-    },
-    icon: {
-      height: sizes === 'large' ? size.iconSize.medium : size.iconSize.medium,
-      width: 30,
+      paddingHorizontal: sizes === 'large' ? 10 : 0,
     },
   });
 
-  const iconHeight = styles.icon.height;
-  const iconWidth = styles.icon.width;
+  const height = sizes === 'large' ? size.iconSize.large : size.iconSize.medium;
+  const width = sizes === 'large' ? size.iconSize.large : size.iconSize.medium;
 
   const data: Array<{
     titte: string;
@@ -42,19 +34,19 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({
   }> = [
     {
       titte: 'Laundry',
-      icon: <Laundry height={iconHeight} width={iconWidth} />,
+      icon: <Laundry height={height} width={width} />,
     },
     {
       titte: 'Cleaning',
-      icon: <HouseKeeping height={iconHeight} width={iconWidth} />,
+      icon: <HouseKeeping height={height} width={width} />,
     },
     {
       titte: 'Grocery',
-      icon: <Grocery height={iconHeight} width={iconWidth} />,
+      icon: <Grocery height={height} width={width} />,
     },
     {
       titte: 'Stationary',
-      icon: <Stationary height={iconHeight} width={iconWidth} />,
+      icon: <Stationary height={height} width={width} />,
     },
   ];
 
@@ -68,7 +60,7 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({
     <View style={styles.wrapper}>
       <SectionHeader
         style={{
-          marginVertical: size.spacing.s,
+          paddingVertical: size.spacing.xs,
         }}
         onPress={() => onPress()}
         isIcon={false}
@@ -81,7 +73,7 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({
           <ItemCategoryCard
             onPress={() => onPress(item.titte)}
             selectedCategory={sizes === 'large' ? item.titte : selectedCategory}
-            size={"large"}
+            size={sizes}
             key={index}
             title={item.titte}
             icon={item.icon}

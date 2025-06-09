@@ -1,9 +1,9 @@
+import {useTheme} from '@react-navigation/native';
 import React from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import {TextComponet} from '../../Elements/TextComponet';
-import {useTheme} from '@react-navigation/native';
 import {AreaMapper} from '../../../Utilities/CustomMethods';
-import { size } from '../../../Prefrences/Prefrences';
+import {TextComponet} from '../../Elements/TextComponet';
+import {size} from '../../../Prefrences/Prefrences';
 
 interface ItemCategoryCardProps {
   title: string;
@@ -21,6 +21,7 @@ export const ItemCategoryCard: React.FC<ItemCategoryCardProps> = ({
   onPress,
 }) => {
   const {colors} = useTheme();
+  const fontVariantSize = variant === 'large' ? 'regular' : 'caption';
 
   return (
     <TouchableOpacity
@@ -28,32 +29,29 @@ export const ItemCategoryCard: React.FC<ItemCategoryCardProps> = ({
       style={[
         {
           backgroundColor: selectedCategory === title ? colors.primary : 'gray',
-          height:70,
-          marginRight:size.spacing.xs,
-          borderRadius:size.borderRadius.m,
+          marginRight: 10,
+          paddingVertical: AreaMapper({
+            value: variant === 'large' ? size.spacing.m : size.spacing.m,
+            scaleBy: 'average',
+          }),
+          borderRadius: size.borderRadius.s,
           alignItems: 'center',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-around',
           width: AreaMapper({
-            value: variant === 'large' ? 100 : 70,
+            value: variant === 'large' ? 100 : 80,
             scaleBy: 'average',
           }),
         },
       ]}>
-      <View
-        style={
-          {
-            // marginVertical:
-          }
-        }>
-        {icon}
-      </View>
+      <View>{icon}</View>
       <TextComponet
         fontVariant="regular"
-        fontSizeVariant="caption"
+        fontSizeVariant={fontVariantSize}
         customStyle={{
           color: colors.background,
+          marginTop:size.spacing.xs
         }}
         title={title}></TextComponet>
     </TouchableOpacity>
