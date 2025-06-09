@@ -48,7 +48,6 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
     console.log('RRRR', rrr);
   }, []);
 
-  
   return (
     <RowFlexLayout>
       <NotifcaitonIcon></NotifcaitonIcon>
@@ -68,7 +67,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
 
       <View>
         <IconButton
-          rippleColor={colors.primary}
+          rippleColor={colors.card}
           iconColor={colors.text}
           onPress={() => console.log('TOuched')}
           icon={'cart-outline'}
@@ -82,56 +81,3 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
     </RowFlexLayout>
   );
 };
-
-const styles = StyleSheet.create({
-  headerConntainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    top: 1,
-    zIndex: 2,
-    alignItems: 'center',
-    backgroundColor: 'purple',
-  },
-
-  notificationContainer: {
-    padding: AreaMapper({
-      value: 10,
-      scaleBy: 'average',
-    }),
-
-    borderRadius: AreaMapper({
-      value: 200,
-      scaleBy: 'average',
-    }),
-    borderWidth: 0.3,
-  },
-
-  locationContainer: {
-    flex: 2,
-    display: 'flex',
-    flexDirection: 'row',
-
-    paddingVertical: AreaMapper({
-      value: 16,
-      scaleBy: 'height',
-    }),
-    paddingHorizontal: AreaMapper({
-      value: 12,
-      scaleBy: 'width',
-    }),
-    borderRadius: AreaMapper({
-      value: 52,
-      scaleBy: 'average',
-    }),
-    shadowOffset: {
-      height: 2,
-      width: 2,
-    },
-    borderWidth: 0.3,
-    marginHorizontal: AreaMapper({
-      value: 16,
-      scaleBy: 'width',
-    }),
-    alignItems: 'center',
-  },
-});

@@ -28,7 +28,15 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
 
   const [createItemRequestFn, {data, loading, error}] = useMutation(
     CreateItemRequestMutation,
+    {
+      variables: {
+        categoryID: '1',
+        itemName: 'Apple',
+      },
+    },
   );
+
+  console.log('Mutate Responded', data, loading, error);
 
   const childrenContent = () => {
     // Testing Datas are below
@@ -81,7 +89,7 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
         {pressedElement === 'global' || 'description'
           ? inputElement({
               label: 'Description',
-              placeHolder: 'Baneswor',
+              placeHolder: 'Dd, 1 bucket dishes and cleaning Kitchen',
               icon: (
                 <TextInput.Icon
                   color={colors.primary}

@@ -20,7 +20,7 @@ export const AppSerchBar: React.FC<SerchBarProps> = ({onPress}) => {
       right={() => (
         <View
           style={{
-            paddingHorizontal: 5,
+            // paddingHorizontal: 5,
           }}>
           <IconButton
             onPress={() => onPress(searchedItem)}
@@ -33,14 +33,9 @@ export const AppSerchBar: React.FC<SerchBarProps> = ({onPress}) => {
       style={{
         backgroundColor: '#EFF1F3',
         fontFamily: fonts.regular.fontFamily,
-        marginHorizontal: AreaMapper({
-          scaleBy: 'average',
-          value: 16,
-        }),
         fontSize: size.textVariants.regular.fontSize,
-
         flex: 0.2,
-        height: 54,
+        height: size.spacing.xxl,
       }}
       inputStyle={{
         minHeight: 0,

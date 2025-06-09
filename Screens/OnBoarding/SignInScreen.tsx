@@ -25,6 +25,7 @@ import { OnBoardingStackNavigationProp } from '../../Navigators/Stack/OnBoarding
 import { showLoader } from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
 import { useAppDispatch } from '../../StateManagement/hooks';
 import { AreaMapper } from '../../Utilities/CustomMethods';
+import { Icon } from 'react-native-paper';
 
 interface SignInScreenProps {
   navigation: OnBoardingStackNavigationProp<'SignUpScreen'>;
@@ -97,6 +98,7 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
                     placeholder="*********"
                     value={value}
                     onChangeText={onChange}
+                    right={<Icon source={"camera"} color='orange' size={20}></Icon>}
                   />
                 )}
               />

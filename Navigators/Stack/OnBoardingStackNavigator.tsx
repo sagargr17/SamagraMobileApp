@@ -71,7 +71,10 @@ export const OnBoardingStackNavigator: React.FC = () => {
           headerStyle: {
             backgroundColor: colors.background,
           },
-        }}>
+        }}
+        
+        
+        >
         {screenBuilder([
           {
             screenName: 'SplashScreen',

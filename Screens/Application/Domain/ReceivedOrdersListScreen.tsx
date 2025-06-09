@@ -27,8 +27,6 @@ export const ReceivedOrderListScreen: React.FC<
   const {NoItemFound} = Logos;
   const {data, loading, error} = useSubscription(getSubscribedData, {
     onData: ({client, data}) => {
-      console.log('Subscribed Data', data);
-
       if (data.data && data.data.events) {
         if (data.data?.events?.eventName === 'orderRecieved') {
           setOrderList([data.data, ...orderlist]);
@@ -37,7 +35,7 @@ export const ReceivedOrderListScreen: React.FC<
     },
   });
 
-  console.log('Resultttt,....', data, loading, error);
+  console.log('Socket Result,....', data, loading, error);
 
   const [
     createItemRequestOfferFn,
@@ -55,38 +53,38 @@ export const ReceivedOrderListScreen: React.FC<
     createItemRequestOfferFnError,
   );
 
-  const onAcceptHandle = async (reqeustId: string) => {
-    try {
-      console.log('Result.....', reqeustId);
-      let response = createItemRequestOfferFn({
-        variables: {
-          requestId: reqeustId,
-        },
-      });
+  // const onAcceptHandle = async (reqeustId: string) => {
+  //   try {
+  //     console.log('Result.....', reqeustId);
+  //     let response = createItemRequestOfferFn({
+  //       variables: {
+  //         requestId: reqeustId,
+  //       },
+  //     });
 
-      let data = (await response).data;
-      console.log('Responnd DATA', data);
+  //     let data = (await response).data;
+  //     console.log('Responnd DATA', data);
 
-      if (data) {
-        showMessage({
-          message: 'Request Sent SuccessFully',
-          description: 'We will notifiy you if request has been accepted ',
-          type: 'success',
-          style: {
-            height: 60,
-          },
-        });
-      }
-    } catch (e) {
-      console.log('Error Messaghe', e);
+  //     if (data) {
+  //       showMessage({
+  //         message: 'Request Sent SuccessFully',
+  //         description: 'We will notifiy you if request has been accepted ',
+  //         type: 'success',
+  //         style: {
+  //           height: 60,
+  //         },
+  //       });
+  //     }
+  //   } catch (e) {
+  //     console.log('Error Messaghe', e);
 
-      showMessage({
-        message: 'Action Failed',
-        description: 'Something Went Wrong',
-        type: 'danger',
-      });
-    }
-  };
+  //     showMessage({
+  //       message: 'Action Failed',
+  //       description: 'Something Went Wrong',
+  //       type: 'danger',
+  //     });
+  //   }
+  // };
 
   return (
     <>
@@ -106,30 +104,31 @@ export const ReceivedOrderListScreen: React.FC<
             <FlatList
               data={orderlist}
               renderItem={({item, index}) => (
-                <ProviderCard
-                  isProgressBarEnable={false}
-                  onAcceptButtonPress={() =>
-                    item.events &&
-                    item.events.data &&
-                    item.events.id &&
-                    item.events.data.itemRequestCreated?.id &&
-                    item.events.data.itemRequestCreated?.itemRequest?.id
-                      ? onAcceptHandle(
-                          item.events?.data.itemRequestCreated?.itemRequest?.id,
-                        )
-                      : null
-                  }
-                  setIsProfileTapped={setIsProfileTapped}
-                  setPersonalDetaile={setPersonalDetail}
-                  priceperhour={Math.floor(Math.random() * 5) + 1}
-                  distance={Math.floor(Math.random() * 5) + 1}
-                  rating={Math.floor(Math.random() * 5) + 1}
-                  titleName={
-                    !loading && item && item.events && !error && item.events.id
-                      ? item.events.id
-                      : 'loading..'
-                  }
-                  image="https://nepalcleaningsolution.com/wp-content/uploads/2023/01/about-us.jpg"></ProviderCard>
+                <></>
+                // <ProviderCard
+                //   isProgressBarEnable={false}
+                //   onAcceptButtonPress={() =>
+                //     item.events &&
+                //     item.events.data &&
+                //     item.events.id &&
+                //     item.events.data.itemRequestCreated?.id &&
+                //     item.events.data.itemRequestCreated?.itemRequest?.id
+                //       ? onAcceptHandle(
+                //           item.events?.data.itemRequestCreated?.itemRequest?.id,
+                //         )
+                //       : null
+                //   }
+                //   setIsProfileTapped={setIsProfileTapped}
+                //   setPersonalDetaile={setPersonalDetail}
+                //   priceperhour={Math.floor(Math.random() * 5) + 1}
+                //   distance={Math.floor(Math.random() * 5) + 1}
+                //   rating={Math.floor(Math.random() * 5) + 1}
+                //   titleName={
+                //     !loading && item && item.events && !error && item.events.id
+                //       ? item.events.id
+                //       : 'loading..'
+                //   }
+                //   image="https://nepalcleaningsolution.com/wp-content/uploads/2023/01/about-us.jpg"></ProviderCard>
               )}></FlatList>
           ) : (
             <>

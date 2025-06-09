@@ -40,7 +40,7 @@ export const ItemCategoryCard: React.FC<ItemCategoryCardProps> = ({
           flexDirection: 'column',
           justifyContent: 'space-around',
           width: AreaMapper({
-            value: variant === 'large' ? 100 : 80,
+            value: variant === 'large' ? 100 : 85,
             scaleBy: 'average',
           }),
         },

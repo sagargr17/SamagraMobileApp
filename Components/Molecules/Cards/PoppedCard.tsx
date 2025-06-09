@@ -12,6 +12,7 @@ import {
 import {AreaMapper} from '../../../Utilities/CustomMethods';
 import {TextComponet} from '../../Elements/TextComponet';
 import {Icon, TouchableRipple} from 'react-native-paper';
+import {size} from '../../../Prefrences/Prefrences';
 // import {Icon} from '../../Elements/Icon'; // Assuming you have an Icon component
 
 interface PoppedCardProps {
@@ -38,9 +39,7 @@ export const PoppedCard: React.FC<PoppedCardProps> = ({
   const {colors} = useTheme();
 
   const cardWidth =
-    variant === 'large'
-      ? '92%'
-      : AreaMapper({value: 150, scaleBy: 'average'}); // Example small width
+    variant === 'large' ? '92%' : AreaMapper({value: 150, scaleBy: 'average'}); // Example small width
 
   return (
     <TouchableRipple
@@ -51,12 +50,10 @@ export const PoppedCard: React.FC<PoppedCardProps> = ({
           backgroundColor: colors.card,
           borderColor: colors.border,
           shadowColor: colors.border,
-          padding:
-            variant === 'large'
-              ? AreaMapper({value: 10, scaleBy: 'average'})
-              : AreaMapper({value: 8, scaleBy: 'average'}),
+          padding: variant === 'large' ? size.spacing.s : size.spacing.xs,
         },
         customStyle,
+        // size.elevation.,
       ]}
       onPress={onPress}>
       <View style={styles.contentContainer}>
@@ -72,15 +69,13 @@ export const PoppedCard: React.FC<PoppedCardProps> = ({
         <View style={styles.textContainer}>
           <TextComponet
             fontVariant="medium"
-            fontSizeVariant={18}
+            fontSizeVariant={'regular'}
             title={title} // Title using the title prop
-            lineHeight={20}
           />
           {comment && (
             <TextComponet
               fontVariant="regular"
-              fontSizeVariant={14}
-              lineHeight={24}
+              fontSizeVariant={'caption'}
               title={comment} // Comment using the title prop
               customStyle={styles.comment}
             />

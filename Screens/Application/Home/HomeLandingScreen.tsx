@@ -39,9 +39,7 @@ export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
       <Divider></Divider>
       <Spacer height={15}></Spacer>
       <AppSerchBar
-        onPress={(searchedItem: string) =>
-          handleNavigation(searchedItem)
-        }></AppSerchBar>
+        onPress={(searchedItem: string) => handleNavigation(searchedItem)}></AppSerchBar>
       <AppBanner></AppBanner>
       <Spacer></Spacer>
       <ItemCategoryCardSlider sizes="large"></ItemCategoryCardSlider>

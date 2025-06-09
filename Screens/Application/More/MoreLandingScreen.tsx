@@ -13,6 +13,7 @@ import {getLoginUser} from '../../../GraphQL/Queries/UserQueries';
 import {ActivityIndicator} from 'react-native-paper';
 import {ProviderCardSkeleton} from '../../../Components/Skeletons/ProviderCardSkeleton';
 import {UserProfileMiniCard} from '../../../Components/Molecules/Cards/UserProfileMiniCard';
+import {ImageNotFound} from '../../../Constants/UI/AssetsUrls';
 
 interface MoreLandingScreenProps {}
 
@@ -22,6 +23,8 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
   let userLogoutHandle = () => clearTokens();
   const [getLoginUserQuery, {data, loading, error}] =
     useLazyQuery(getLoginUser);
+
+  console.log('User Login Image', data, loading, error);
 
   // Flex Container
   const flexDetailsItems = [
@@ -124,9 +127,9 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
         <UserProfileMiniCard
           user={{
             username: data.getUser?.username,
-            profileImageUrl: data.getUser.pofileImageUrl
-              ? data.getUser.pofileImageUrl
-              : 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            profileImageUrl: data.getUser.profileImageUrl
+              ? data.getUser.profileImageUrl
+              : ImageNotFound,
           }}></UserProfileMiniCard>
       ) : (
         <ProviderCardSkeleton></ProviderCardSkeleton>
@@ -189,7 +192,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
             title={item.title}
             iconName={item.iconName}
             onPress={item.onPress}
-            comment={item.comment}  ></PoppedCard>
+            comment={item.comment}></PoppedCard>
         ))}
 
         <AppButton onPress={userLogoutHandle} color="danger">

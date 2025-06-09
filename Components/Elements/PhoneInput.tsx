@@ -52,11 +52,10 @@ const PhoneInput = ({
           styles.wrapper,
           error && styles.wrapperError,
           {
-            // backgroundColor: colors.background,
             backgroundColor: '#fafcff',
-            borderWidth: size.borderWidth.s,
+            borderWidth: size.borderWidth.xss,
             borderColor: borderColor,
-            marginVertical:size.spacing.xxs
+            marginVertical: size.spacing.xxs,
           },
         ]}>
         <NepalFlag height={size.iconSize.large} />

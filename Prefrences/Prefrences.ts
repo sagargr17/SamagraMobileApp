@@ -14,7 +14,8 @@ const MyTheme = {
     // primary: '#126933', //Primary 8
     // primary: 'rgba(99, 202, 78, 1)',
     background: 'rgb(255, 255, 255)',
-    card: 'rgb(250, 250, 250)',
+    // card: 'rgb(250, 250, 250)',
+    card: '#EFF1F3',
     text: 'rgba(45, 45, 45, 1)',
     border: 'rgb(192, 192, 192)',
     notification: 'rgb(255, 69, 58)',

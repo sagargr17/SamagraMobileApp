@@ -19,12 +19,6 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({
   const navigation =
     useNavigation<HomeStackNavigationProp<'CategoryListScreen'>>();
 
-  const styles = StyleSheet.create({
-    wrapper: {
-      paddingHorizontal: sizes === 'large' ? 10 : 0,
-    },
-  });
-
   const height = sizes === 'large' ? size.iconSize.large : size.iconSize.medium;
   const width = sizes === 'large' ? size.iconSize.large : size.iconSize.medium;
 
@@ -57,7 +51,7 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({
   };
 
   return (
-    <View style={styles.wrapper}>
+    <View>
       <SectionHeader
         style={{
           paddingVertical: size.spacing.xs,

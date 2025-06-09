@@ -1,8 +1,8 @@
 import {gql} from '../../src/__generated__';
 
 export const CreateItemRequestMutation =
-  gql(`mutation CreateItemRequestMutation{
-  createItemRequest{
+  gql(`mutation CreateItemRequestMutation($itemName: String!, $categoryID: String!) {
+  createItemRequest(name: $itemName, categoryId: $categoryID) {
     id
   }
 }

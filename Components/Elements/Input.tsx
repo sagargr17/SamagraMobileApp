@@ -54,20 +54,21 @@ export const Input: React.FC<InputProps> = ({
           placeholder={placeholder}
           mode="outlined"
           outlineStyle={{
-            borderWidth: size.borderWidth.s,
+            borderWidth: size.borderWidth.xss,
             borderRadius: size.borderRadius?.xs,
           }}
           activeOutlineColor={colors.primary}
-          placeholderTextColor={'#808080'}
+          placeholderTextColor={'#4A739C'}
           tvParallaxMagnification={100}
           style={[
             styles.input,
             {
-              backgroundColor: '#fafcff',
+              backgroundColor: '#E8EDF5',
               // backgroundColor: colors.background,
-              // borderColor: colors.border,
+
               fontFamily: fonts.regular.fontFamily,
               height: 50,
+
               borderColor: colors.border,
             },
           ]}
