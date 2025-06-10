@@ -1,19 +1,22 @@
 import {useMutation, useSubscription} from '@apollo/client';
 import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
-import {FlatList, View} from 'react-native';
+import {FlatList, StyleSheet, View} from 'react-native';
 import {showMessage} from 'react-native-flash-message';
-import {Logos} from '../../../Assets/SVG/Exports/Exports';
-import {TextComponet} from '../../../Components/Elements/TextComponet';
-import {SingnlePageError} from '../../../Components/Molecules/SinglePageError';
-import {AppBottomSheet} from '../../../Components/Molecules/Global/AppBottomSheet';
-import {ProviderCard} from '../../../Components/Molecules/Cards/ProviderCard';
-import {ProviderCardSkeleton} from '../../../Components/Skeletons/ProviderCardSkeleton';
-import {PairButtons} from '../../../Components/Molecules/Global/PairButtons';
-import {createItemRequestOfferMutation} from '../../../GraphQL/Mutation/ItemRequestMutation';
-import {getSubscribedData} from '../../../GraphQL/Subscription/Subscription';
-import {GetDataSubscription} from '../../../src/__generated__/graphql';
-import {AreaMapper} from '../../../Utilities/CustomMethods';
+import {Logos} from '../../../../Assets/SVG/Exports/Exports';
+import {TextComponet} from '../../../../Components/Elements/TextComponet';
+import {SingnlePageError} from '../../../../Components/Molecules/SinglePageError';
+import {AppBottomSheet} from '../../../../Components/Molecules/Global/AppBottomSheet';
+import {ProviderCard} from '../../../../Components/Molecules/Cards/ProviderCard';
+import {ProviderCardSkeleton} from '../../../../Components/Skeletons/ProviderCardSkeleton';
+import {PairButtons} from '../../../../Components/Molecules/Global/PairButtons';
+import {createItemRequestOfferMutation} from '../../../../GraphQL/Mutation/ItemRequestMutation';
+import {getSubscribedData} from '../../../../GraphQL/Subscription/Subscription';
+import {GetDataSubscription} from '../../../../src/__generated__/graphql';
+import {AreaMapper} from '../../../../Utilities/CustomMethods';
+import {size} from '../../../../Prefrences/Prefrences';
+import {EmptyError as EmptyErrorMessage} from '../../../../Constants/UI/Messages';
+import {DummyServiceProviderURL} from '../../../../Constants/UI/AssetsUrls';
 
 interface ReceivedOrderListScreenProps {}
 
@@ -27,7 +30,6 @@ export const ReceivedOrderListScreen: React.FC<
   const {NoItemFound} = Logos;
   const {data, loading, error} = useSubscription(getSubscribedData, {
     onData: ({client, data}) => {
-      console.log('Result....', data);
       if (
         data.data &&
         data.data.events?.eventName &&
@@ -35,14 +37,8 @@ export const ReceivedOrderListScreen: React.FC<
       ) {
         setOrderList([data.data, ...orderlist]);
       }
-      // if (data.data && data.data.events) {
-      //   if (data.data   ?.events?.data?.orderReceived == 'orderRecieved') {
-      //     setOrderList([data.data, ...orderlist]);
-      //   }
-      // }
     },
   });
-
   const [
     createItemRequestOfferFn,
     {
@@ -94,17 +90,7 @@ export const ReceivedOrderListScreen: React.FC<
 
   return (
     <>
-      <View
-        style={{
-          paddingTop: AreaMapper({
-            value: 10,
-            scaleBy: 'height',
-          }),
-          paddingBottom: AreaMapper({
-            value: 10,
-            scaleBy: 'height',
-          }),
-        }}>
+      <View>
         {!loading && !error ? (
           orderlist.length > 0 ? (
             <FlatList
@@ -112,18 +98,7 @@ export const ReceivedOrderListScreen: React.FC<
               renderItem={({item, index}) => (
                 <ProviderCard
                   isProgressBarEnable={false}
-                  onAcceptButtonPress={
-                    () => console.log('Captured')
-                    // item.events &&
-                    // item.events.data &&
-                    // item.events.id &&
-                    // item.events.data.itemRequestCreated?.id &&
-                    // item.events.data.itemRequestCreated?.itemRequest?.id
-                    //   ? onAcceptHandle(
-                    //       item.events?.data.itemRequestCreated?.itemRequest?.id,
-                    //     )
-                    //   : null
-                  }
+                  onAcceptButtonPress={() => console.log('Captured')}
                   setIsProfileTapped={setIsProfileTapped}
                   setPersonalDetaile={setPersonalDetail}
                   priceperhour={Math.floor(Math.random() * 5) + 1}
@@ -134,19 +109,15 @@ export const ReceivedOrderListScreen: React.FC<
                       ? item.events.sender.username
                       : 'Loading...'
                   }
-                  image="https://nepalcleaningsolution.com/wp-content/uploads/2023/01/about-us.jpg"></ProviderCard>
+                  image={DummyServiceProviderURL}></ProviderCard>
               )}></FlatList>
           ) : (
             <>
-              <View
-                style={{
-                  justifyContent: 'center',
-                }}>
+              <View>
                 <SingnlePageError
                   detail={{
                     icon: <NoItemFound></NoItemFound>,
-                    title:
-                      'Oops! We couldn’t find any laundry services nearby. Try changing your location or searching again later',
+                    title: EmptyErrorMessage,
                     onButtonPress: () => {
                       navigation.navigate('ApplicationOverlay', {
                         screen: 'OrderListScreen',
@@ -234,3 +205,12 @@ export const ReceivedOrderListScreen: React.FC<
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  wrapper: {
+    paddingTop: size.spacing.xs,
+    paddingBottom: size.spacing.xs,
+  },
+
+
+});

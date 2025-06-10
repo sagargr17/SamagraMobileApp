@@ -69,7 +69,7 @@ export const PoppedCard: React.FC<PoppedCardProps> = ({
         <View style={styles.textContainer}>
           <TextComponet
             fontVariant="medium"
-            fontSizeVariant={'regular'}
+            fontSizeVariant={"regular"}
             title={title} // Title using the title prop
           />
           {comment && (

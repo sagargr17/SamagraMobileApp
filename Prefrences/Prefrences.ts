@@ -71,11 +71,11 @@ const size = {
     },
     regular: {
       fontSize: 14,
-      lineHeight: 24,
+      lineHeight: 20,
     },
     title: {
       fontSize: 16,
-      lineHeight: 24,
+      lineHeight: 22,
     },
 
     caption: {

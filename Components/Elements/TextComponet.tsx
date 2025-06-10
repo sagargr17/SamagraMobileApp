@@ -8,7 +8,7 @@ import {size} from '../../Prefrences/Prefrences';
 interface TextComponetProps {
   title: string;
   fontVariant: 'regular' | 'medium' | 'bold' | 'heavy';
-  fontSizeVariant: 'regular' | 'title' | 'caption';
+  fontSizeVariant: 'regular' | 'title' | 'caption'|"display";
   customStyle?: TextStyle;
 }
 
