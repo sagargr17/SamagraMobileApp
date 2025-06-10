@@ -34,7 +34,6 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
     };
 
     Geolocation.setRNConfiguration(config);
-
     let rrr = Geolocation.getCurrentPosition(async info => {
       let result = await fetch(
         'https://nominatim.openstreetmap.org/reverse?lat=27.6981641&lon=83.4677009&format=jsonv2',

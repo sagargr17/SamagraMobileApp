@@ -1,19 +1,16 @@
-import {useNavigation, useTheme} from '@react-navigation/native';
+import {useMutation} from '@apollo/client';
+import {useTheme} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {ActivityIndicator, StyleSheet, View} from 'react-native';
-import {Icon, TextInput} from 'react-native-paper';
+import {TextInput} from 'react-native-paper';
+import {CreateItemRequestMutation} from '../../GraphQL/Mutation/ItemRequestMutation';
 import {RootStackNavigationProp} from '../../Navigators/RootStackNavigator';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import AppButton from '../Elements/Button';
 import {Input} from '../Elements/Input';
-import {DropdownComponent} from '../Molecules/Global/DropDownSection';
+import {UnitSlider} from '../Elements/UnitSlider';
 import {AppBottomSheet} from '../Molecules/Global/AppBottomSheet';
 import {ItemCategoryCardSlider} from './ItemCategorySlider';
-import {UnitSlider} from '../Elements/UnitSlider';
-import {useMutation, useSubscription} from '@apollo/client';
-import {getSubscribedData} from '../../GraphQL/Subscription/Subscription';
-import {CreateItemRequestMutation} from '../../GraphQL/Mutation/ItemRequestMutation';
-import {useQuery, gql} from '@apollo/client';
 
 interface OrderBottomSheetProps {
   navigation: RootStackNavigationProp<'ApplicationOverlay'> | any;
@@ -59,7 +56,6 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
     }) => {
       return (
         <Input
-
           onPress={() => setPressedElement('location')}
           label={info.label}
           placeholder={info.placeHolder}
