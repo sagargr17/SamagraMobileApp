@@ -9,14 +9,17 @@ import {View} from 'react-native';
 import {Icon, TouchableRipple} from 'react-native-paper';
 import {SearchBar} from 'react-native-screens';
 import {TextComponet} from '../../Components/Elements/TextComponet';
-import {ReceivedOrderListScreen} from '../../Screens/Application/More/Shop/ReceivedOrdersListScreen';
+import {ReceivedOrderListScreen} from '../../Screens/Application/ReceivedOrdersListScreen';
 import {MyShopsScreen} from '../../Screens/Application/More/MyShopsScreen';
-import {AddItemScreen} from '../../Screens/Application/More/Shop/AddItemScreen';
-import {AddShopScreen} from '../../Screens/Application/More/Shop/AddShopScreen';
+import {AddItemScreen} from '../../Screens/Application/AddItemScreen';
+import {AddShopScreen} from '../../Screens/Application/AddShopScreen';
 import {MyShopItemsScreen} from '../../Screens/Application/More/MyShopItemsScreen';
 import {ItemDetailScreen} from '../../Screens/OnBoarding/ItemDetailScreen';
 import {AreaMapper, titleCase} from '../../Utilities/CustomMethods';
-import {ReceivedOffersListScreen} from '../../Screens/Application/Domain/ReceivedOffersListScreen';
+import {ReceivedOffersListScreen} from '../../Screens/Application/ReceivedOffersListScreen';
+import {CartScreen} from '../../Screens/Application/CartScreen';
+import {PlaceOrderScreen} from '../../Screens/Application/PlaceOrderScreen';
+import {OrderSuccessDetailScreen} from '../../Screens/Application/OrderSuccessDetailScreen';
 
 type ApplicationOverlayMoreStackParamList = {
   ReceivedOrderListScreen: undefined;
@@ -33,6 +36,10 @@ type ApplicationOverlayMoreStackParamList = {
   };
   MyShopsScreen: undefined;
   AddShopScreen: undefined;
+  OrderScreen: undefined;
+  CartScreen: undefined;
+  PlaceOrderScreen: undefined;
+  OrderSuccessDetailScreen: undefined;
 };
 
 // Its The builder with the
@@ -196,6 +203,30 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
           {
             screenName: 'AddShopScreen',
             component: AddShopScreen,
+
+            option: {
+              header: () => null,
+            },
+          },
+          {
+            screenName: 'CartScreen',
+            component: CartScreen,
+
+            option: {
+              header: () => null,
+            },
+          },
+          {
+            screenName: 'PlaceOrderScreen',
+            component: PlaceOrderScreen,
+
+            option: {
+              header: () => null,
+            },
+          },
+          {
+            screenName: 'OrderSuccessDetailScreen',
+            component: OrderSuccessDetailScreen,
 
             option: {
               header: () => null,

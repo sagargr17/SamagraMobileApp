@@ -36,7 +36,6 @@ const AppButton = ({
           lineHeight: size.textVariants.regular.lineHeight,
         },
       ]}
-      // style={[styles.button, disabled && styles.disabled]}
       buttonColor={
         mode === 'outlined'
           ? colors.card

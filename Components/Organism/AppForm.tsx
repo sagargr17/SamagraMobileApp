@@ -1,5 +1,5 @@
 import {useTheme} from '@react-navigation/native';
-import React from 'react';
+import React, {Children} from 'react';
 import {
   Control,
   Controller,
@@ -36,6 +36,7 @@ interface AppFormProps<TFormValues extends FieldValues> {
   onFormSubmit: (data: TFormValues) => void;
   submitButtonText: string;
   defaultValues?: TFormValues;
+  children?: React.ReactNode;
 }
 // --- END NEW/UPDATED INTERFACES ---
 
@@ -44,6 +45,7 @@ export const AppForm = <TFormValues extends FieldValues>({
   onFormSubmit,
   submitButtonText,
   defaultValues,
+  children,
 }: AppFormProps<TFormValues>) => {
   const {colors} = useTheme();
 
@@ -63,6 +65,8 @@ export const AppForm = <TFormValues extends FieldValues>({
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollViewContent}>
+        {/* {children} */}
+
         {formConfig.map((item: any) => (
           <View key={item.name.toString()} style={styles.inputGroup}>
             <Controller
@@ -101,7 +105,9 @@ export const AppForm = <TFormValues extends FieldValues>({
           </View>
         ))}
 
-        <AppButton onPress={handleSubmit(onFormSubmit)} color="primary">
+        <AppButton onPress={handleSubmit(onFormSubmit)} style={{
+          marginVertical:size.spacing.xs
+        }} color="primary">
           {submitButtonText}
         </AppButton>
       </ScrollView>

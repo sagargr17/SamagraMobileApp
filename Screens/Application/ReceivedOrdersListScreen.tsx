@@ -5,24 +5,24 @@ import React, {useState} from 'react';
 import {FlatList, StyleSheet, View} from 'react-native';
 import {showMessage} from 'react-native-flash-message';
 import {IconButton} from 'react-native-paper';
-import {Logos} from '../../../../Assets/SVG/Exports/Exports';
-import AppButton from '../../../../Components/Elements/Button';
-import {TextComponet} from '../../../../Components/Elements/TextComponet';
-import {ProviderCard} from '../../../../Components/Molecules/Cards/ProviderCard';
-import {AppBottomSheet} from '../../../../Components/Molecules/Global/AppBottomSheet';
-import {PairButtons} from '../../../../Components/Molecules/Global/PairButtons';
-import {SingnlePageError} from '../../../../Components/Molecules/SinglePageError';
-import {ProviderCardSkeleton} from '../../../../Components/Skeletons/ProviderCardSkeleton';
+import {Logos} from '../../Assets/SVG/Exports/Exports';
+import AppButton from '../../Components/Elements/Button';
+import {TextComponet} from '../../Components/Elements/TextComponet';
+import {ProviderCard} from '../../Components/Molecules/Cards/ProviderCard';
+import {AppBottomSheet} from '../../Components/Molecules/Global/AppBottomSheet';
+import {PairButtons} from '../../Components/Molecules/Global/PairButtons';
+import {SingnlePageError} from '../../Components/Molecules/SinglePageError';
+import {ProviderCardSkeleton} from '../../Components/Skeletons/ProviderCardSkeleton';
 import {
   DummyServiceProviderURL,
   ImageNotFound,
-} from '../../../../Constants/UI/AssetsUrls';
-import {EmptyErrorMessage} from '../../../../Constants/UI/Messages';
-import {createItemRequestOfferMutation} from '../../../../GraphQL/Mutation/ItemRequestMutation';
-import {getPublicItems} from '../../../../GraphQL/Queries/ItemQueries';
-import {getSubscribedData} from '../../../../GraphQL/Subscription/Subscription';
-import {size} from '../../../../Prefrences/Prefrences';
-import {GetDataSubscription} from '../../../../src/__generated__/graphql';
+} from '../../Constants/UI/AssetsUrls';
+import {EmptyErrorMessage} from '../../Constants/UI/Messages';
+import {createItemRequestOfferMutation} from '../../GraphQL/Mutation/ItemRequestMutation';
+import {getPublicItems} from '../../GraphQL/Queries/ItemQueries';
+import {getSubscribedData} from '../../GraphQL/Subscription/Subscription';
+import {size} from '../../Prefrences/Prefrences';
+import {GetDataSubscription} from '../../src/__generated__/graphql';
 import {StringValueNode} from 'graphql';
 
 interface ReceivedOrderListScreenProps {}

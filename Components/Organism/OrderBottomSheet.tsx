@@ -78,8 +78,6 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
 
     return (
       <View style={styles.childrenContainer}>
-        <ItemCategoryCardSlider sizes="regular"></ItemCategoryCardSlider>
-
         {/* {pressedElement === 'global' || 'location'
           ? inputElement({
               label: 'Location',
@@ -165,7 +163,8 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
             },
           ]}
           onFormSubmit={handleSubmit}
-          submitButtonText="Search"></AppForm>
+          submitButtonText="Search"
+          ></AppForm>
       </View>
     );
   };

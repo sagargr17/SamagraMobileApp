@@ -3,9 +3,8 @@ import {
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
 import React from 'react';
-import {TestScreen} from '../../Screens/Application/User/TestScreen';
-import {OrderLandingScreen} from '../../Screens/Application/Domain/OrderLandingScreen';
-import {ServiceDetailScreen} from '../../Screens/Application/Domain/ServiceDetailScreen';
+import { OrderLandingScreen } from '../../Screens/Application/Domain/OrderLandingScreen';
+import { ServiceDetailScreen } from '../../Screens/Application/Domain/ServiceDetailScreen';
 
 type ServiceStackParamList = {
   ServiceScreen: undefined;

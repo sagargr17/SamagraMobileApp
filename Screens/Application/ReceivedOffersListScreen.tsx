@@ -1,19 +1,17 @@
 import {useMutation, useSubscription} from '@apollo/client';
-import {useTheme} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {getSubscribedData} from '../../../GraphQL/Subscription/Subscription';
-import {FlatList, Text} from 'react-native';
-import {ReceivedOrderListScreen} from '../More/Shop/ReceivedOrdersListScreen';
-import {ProviderCardSkeleton} from '../../../Components/Skeletons/ProviderCardSkeleton';
-import {TextComponet} from '../../../Components/Elements/TextComponet';
-import {ProviderCard} from '../../../Components/Molecules/Cards/ProviderCard';
-import {SingnlePageError} from '../../../Components/Molecules/SinglePageError';
-import {EmptyErrorMessage} from '../../../Constants/UI/Messages';
-import {Logos} from '../../../Assets/SVG/Exports/Exports';
-import {DummyServiceProviderURL} from '../../../Constants/UI/AssetsUrls';
-import {CreateItemRequestMutation} from '../../../GraphQL/Mutation/ItemRequestMutation';
-import {useAppSelector} from '../../../StateManagement/hooks';
-import {store} from '../../../StateManagement/Store';
+import {FlatList} from 'react-native';
+import {Logos} from '../../Assets/SVG/Exports/Exports';
+import {ProviderCard} from '../../Components/Molecules/Cards/ProviderCard';
+import {SingnlePageError} from '../../Components/Molecules/SinglePageError';
+import {ProviderCardSkeleton} from '../../Components/Skeletons/ProviderCardSkeleton';
+import {DummyServiceProviderURL} from '../../Constants/UI/AssetsUrls';
+import {EmptyErrorMessage} from '../../Constants/UI/Messages';
+import {CreateItemRequestMutation} from '../../GraphQL/Mutation/ItemRequestMutation';
+import {getSubscribedData} from '../../GraphQL/Subscription/Subscription';
+import {useAppSelector} from '../../StateManagement/hooks';
+import {useNavigation} from '@react-navigation/native';
+
 interface ReceivedOffersListScreenProps {}
 
 export const ReceivedOffersListScreen: React.FC<
@@ -23,6 +21,7 @@ export const ReceivedOffersListScreen: React.FC<
   const {NoItemFound} = Logos;
   const [personalUserDetail, setPersonalDetail] = useState<React.ReactNode>();
   const [noItemFound, setNoItemFound] = useState<boolean>(false);
+  const navigation = useNavigation<any>();
   // RequestedItem Order
   const requestedItem = useAppSelector(
     state => state.sentOrderParams.itemParams,
@@ -65,9 +64,6 @@ export const ReceivedOffersListScreen: React.FC<
     },
   });
 
-
-
-  
   console.log('Subscription Update', data, loading, error);
 
   const SkeletonLoading = (
@@ -90,7 +86,9 @@ export const ReceivedOffersListScreen: React.FC<
               <ProviderCard
                 isProgressBarEnable={false}
                 onAcceptButtonPress={() => {
-                  console.log('');
+                  navigation.navigate('ApplicationOverlay', {
+                    screen: 'PlaceOrderScreen',
+                  });
                 }}
                 setIsProfileTapped={() => console.log('REEEE')}
                 setPersonalDetaile={setPersonalDetail}

@@ -1,7 +1,7 @@
 import {gql} from '../../src/__generated__';
 
 // Adding  Shop
-export const createNewShop = gql(`mutation createNewShop(
+export const createNewStore = gql(`mutation createNewStore(
   $shopName: String!
   $aboutShop: String!
   $latitude: Decimal!

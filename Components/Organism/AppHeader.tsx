@@ -1,4 +1,4 @@
-import {useTheme} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 import {View} from 'moti';
 import React, {useCallback, useEffect, useState} from 'react';
 import {StyleSheet} from 'react-native';
@@ -22,17 +22,16 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
   const {Location} = Logos;
   const {colors} = useTheme();
   const [location, setLocation] = useState<string>('Nepal');
+  const navigation = useNavigation<any>();
 
   useEffect(() => {
     // const apiKey = '2334a549-2942-4103-a5fb-6cc3d2ff1780';
     // const styleUrl = `https://tiles.stadiamaps.com/styles/alidade_smooth.json?api_key=${apiKey}`;
-
     // const config: any = {
     //   skipPermissionRequests: false, // Set to true if you handle permissions elsewhere
     //   authorizationLevel: 'whenInUse', // iOS only: 'whenInUse' or 'always'
     //   locationProvider: 'fused', // Android only: 'auto', 'gps', 'network', or 'fused'
     // };
-
     // Geolocation.setRNConfiguration(config);
     // let rrr = Geolocation.getCurrentPosition(async info => {
     //   let result = await fetch(
@@ -40,10 +39,8 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
     //   )
     //     .then(qqq => console.log('qqqq', qqq))
     //     .catch(lll => console.log('LLL', lll));
-
     //   console.log('USER Coord ', info.coords, result);
     // });
-
     // console.log('RRRR', rrr);
   }, []);
 
@@ -71,7 +68,11 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
         <IconButton
           rippleColor={colors.card}
           iconColor={colors.text}
-          onPress={() => console.log('TOuched')}
+          onPress={() =>
+            navigation.navigate('ApplicationOverlay', {
+              screen: 'CartScreen',
+            })
+          }
           icon={'cart-outline'}
           size={size.iconSize.medium}
           style={{

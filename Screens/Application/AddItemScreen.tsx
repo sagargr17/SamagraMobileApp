@@ -4,16 +4,16 @@ import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {showMessage} from 'react-native-flash-message';
 import {Icon, ProgressBar, TouchableRipple} from 'react-native-paper';
-import {TextComponet} from '../../../../Components/Elements/TextComponet';
-import {AppForm} from '../../../../Components/Organism/AppForm';
-import {ImageUploader} from '../../../../Components/Organism/ImageUploader';
-import {createNewProduct} from '../../../../GraphQL/Mutation/ItemMutation';
-import {AreaMapper} from '../../../../Utilities/CustomMethods';
-import {CreateProductInputViewModelInput} from '../../../../src/__generated__/graphql';
-import {useAppDispatch} from '../../../../StateManagement/hooks';
-import {hideLoader} from '../../../../StateManagement/Error&loadingHandle/LoaderStateSlice';
-import {NoDataMessage} from '../../../../Constants/UI/Messages';
-import {ImageNotFound} from '../../../../Constants/UI/AssetsUrls';
+import {TextComponet} from '../../Components/Elements/TextComponet';
+import {AppForm} from '../../Components/Organism/AppForm';
+import {ImageUploader} from '../../Components/Organism/ImageUploader';
+import {createNewProduct} from '../../GraphQL/Mutation/ItemMutation';
+import {AreaMapper} from '../../Utilities/CustomMethods';
+import {CreateProductInputViewModelInput} from '../../src/__generated__/graphql';
+import {useAppDispatch} from '../../StateManagement/hooks';
+import {hideLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
+import {NoDataMessage} from '../../Constants/UI/Messages';
+import {ImageNotFound} from '../../Constants/UI/AssetsUrls';
 
 interface AddItemScreenProps {}
 

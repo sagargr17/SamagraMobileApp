@@ -6,7 +6,7 @@ import {useLazyQuery, useMutation, useQuery} from '@apollo/client';
 import {ActivityIndicatorComponent, StyleSheet, View} from 'react-native';
 import {MyStoreLayout} from '../../../Components/Molecules/MyStoreLayout';
 import {SamagraLoader} from '../../../Components/Molecules/Response/SamagraLoader';
-import {createNewShop} from '../../../GraphQL/Mutation/ShopMutations';
+import {createNewStore} from '../../../GraphQL/Mutation/ShopMutations';
 
 import {useAppDispatch} from '../../../StateManagement/hooks';
 import {ActivityIndicator, Text} from 'react-native-paper';
@@ -20,7 +20,7 @@ export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
   const dispatch = useAppDispatch();
 
   // Status
-  const [createNewShopFn, {data, loading, error}] = useMutation(createNewShop);
+  const [createNewShopFn, {data, loading, error}] = useMutation(createNewStore);
   const [isShopCreated, setIsShopCreated] = useState<boolean>(false);
   const [
     myShopsQuery,

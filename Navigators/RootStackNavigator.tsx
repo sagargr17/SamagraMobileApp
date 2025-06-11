@@ -57,13 +57,11 @@ export const RootStack: React.FC = () => {
 
   return (
     <>
-          
-
       <RootStackBuilder.Navigator
         screenOptions={{
           header: () => null,
         }}>
-        {userSignInStatus === true //change this to true
+        {userSignInStatus === false //change this to true while deployment
           ? screenBuilder([
               {screenName: 'BottomTab', component: BottomTabNavigator},
               {

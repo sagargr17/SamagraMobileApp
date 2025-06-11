@@ -1,28 +1,30 @@
 import {useNavigation, useTheme} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {Alert, ScrollView, Text, View} from 'react-native';
-import {useAppDispatch} from '../../../../StateManagement/hooks';
+import {useAppDispatch} from '../../StateManagement/hooks';
 import {
   hideLoader,
   showLoader,
-} from '../../../../StateManagement/Error&loadingHandle/LoaderStateSlice';
-import {ShopInputDto} from '../../../../src/__generated__/graphql';
+} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
+
 import {useMutation} from '@apollo/client';
-import {createNewShop} from '../../../../GraphQL/Mutation/ShopMutations';
-import {ShopDisplayCard} from '../../../../Components/Molecules/ShopDisplayCard';
-import {AppForm} from '../../../../Components/Organism/AppForm';
-import {AreaMapper} from '../../../../Utilities/CustomMethods';
+import {createNewStore} from '../../GraphQL/Mutation/ShopMutations';
+import {ShopDisplayCard} from '../../Components/Molecules/ShopDisplayCard';
+import {AppForm} from '../../Components/Organism/AppForm';
+import {AreaMapper} from '../../Utilities/CustomMethods';
 import {showMessage} from 'react-native-flash-message';
 import {Surface} from 'react-native-paper';
-import {TextComponet} from '../../../../Components/Elements/TextComponet';
-import {Logos} from '../../../../Assets/SVG/Exports/Exports';
+import {TextComponet} from '../../Components/Elements/TextComponet';
+import {Logos} from '../../Assets/SVG/Exports/Exports';
+import {CreateStoreInputViewModelInput} from '../../src/__generated__/graphql';
+import {NoDataMessage} from '../../Constants/UI/Messages';
 
 interface AddShopScreenProps {}
 
 export const AddShopScreen: React.FC<AddShopScreenProps> = ({}) => {
   const {colors, fonts} = useTheme();
   const dispatch = useAppDispatch();
-  const [createNewShopFn, {data, loading, error}] = useMutation(createNewShop);
+  const [createNewShopFn, {data, loading, error}] = useMutation(createNewStore);
   const [isShopCreated, setIsShopCreated] = useState<boolean>(false);
   const navigation = useNavigation<any>();
 
@@ -33,20 +35,20 @@ export const AddShopScreen: React.FC<AddShopScreenProps> = ({}) => {
   };
 
   // Handles the Shops Items
-  const handlCreateShopSubmit = async (data: ShopInputDto) => {
+  const handlCreateShopSubmit = async (
+    data: CreateStoreInputViewModelInput,
+  ) => {
     dispatch(showLoader());
 
     try {
       const response = await createNewShopFn({
         variables: {
-          shopName: data.name,
-          phoneNumber: data.phoneNumber,
-          aboutShop: data.aboutShop,
-          profileImageUrl:
-            'https://t3.ftcdn.net/jpg/02/72/92/40/360_F_272924092_IhPcJtGqD3cHcomwtGqAsZ34GgNENkYW.jpg',
-          coverImageUrl:
-            'https://t3.ftcdn.net/jpg/02/72/92/40/360_F_272924092_IhPcJtGqD3cHcomwtGqAsZ34GgNENkYW.jpg',
-          location: data.location,
+          shopName: data.name ? data.name : NoDataMessage,
+          phoneNumber: data.phoneNumber ? data.phoneNumber : NoDataMessage,
+          aboutShop: data.aboutShop ? data.aboutShop : NoDataMessage,
+          latitude: data.latitude,
+          longitude: data.longitude,
+          totalItemsCount: 22,
         },
       });
       if (response.data) {
@@ -157,7 +159,7 @@ export const AddShopScreen: React.FC<AddShopScreenProps> = ({}) => {
               id: `${Math.random()}`,
               icon: (
                 <>
-                  <AppForm<ShopInputDto>
+                  <AppForm<CreateStoreInputViewModelInput>
                     formConfig={[
                       {
                         name: 'name', // Must match a key in LoginFormValues
@@ -177,9 +179,22 @@ export const AddShopScreen: React.FC<AddShopScreenProps> = ({}) => {
                         },
                       },
                       {
-                        name: 'location', // Must match a key in LoginFormValues
-                        label: 'Loation',
-                        placeholder: 'your shop address',
+                        name: 'latitude', // Must match a key in LoginFormValues
+                        label: 'latitude',
+                        placeholder: 'your shop latitude',
+                        type: 'text', // Custom prop for keyboard type
+                        rules: {
+                          maxLength: {
+                            value: 30,
+                            message: 'too long',
+                          },
+                          required: 'Required',
+                        },
+                      },
+                      {
+                        name: 'longitude', // Must match a key in LoginFormValues
+                        label: 'longitude',
+                        placeholder: 'your shop longitude',
                         type: 'text', // Custom prop for keyboard type
                         rules: {
                           maxLength: {
