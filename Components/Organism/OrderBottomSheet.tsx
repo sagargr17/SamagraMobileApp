@@ -11,6 +11,12 @@ import {Input} from '../Elements/Input';
 import {UnitSlider} from '../Elements/UnitSlider';
 import {AppBottomSheet} from '../Molecules/Global/AppBottomSheet';
 import {ItemCategoryCardSlider} from './ItemCategorySlider';
+import {AppForm} from './AppForm';
+import {useAppDispatch} from '../../StateManagement/hooks';
+import {
+  feedOrderparams,
+  SentordersParams,
+} from '../../StateManagement/Orders/SentOrderParameters';
 
 interface OrderBottomSheetProps {
   navigation: RootStackNavigationProp<'ApplicationOverlay'> | any;
@@ -22,18 +28,25 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
   const {colors} = useTheme();
   type childrenContent = () => React.ReactNode;
   const [pressedElement, setPressedElement] = useState<string>('global');
+  const dispatch = useAppDispatch();
+  const handleSubmit = (data: SentordersParams) => {
+    dispatch(
+      feedOrderparams({
+        itemParams: {
+          location: data.itemParams.location,
+          description: data.itemParams.description,
+          requiredTime: '2',
+          name: data.itemParams.name,
+          category: '1',
+        },
+      }),
+    );
 
-  const [createItemRequestFn, {data, loading, error}] = useMutation(
-    CreateItemRequestMutation,
-    {
-      variables: {
-        categoryID: '1',
-        itemName: 'Apple',
-      },
-    },
-  );
-
-  console.log('Mutate Responded', data, loading, error);
+    //  Navigation
+    navigation.navigate('ApplicationOverlay', {
+      screen: 'ReceivedOfferListScreen',
+    });
+  };
 
   const childrenContent = () => {
     // Testing Datas are below
@@ -67,7 +80,7 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
       <View style={styles.childrenContainer}>
         <ItemCategoryCardSlider sizes="regular"></ItemCategoryCardSlider>
 
-        {pressedElement === 'global' || 'location'
+        {/* {pressedElement === 'global' || 'location'
           ? inputElement({
               label: 'Location',
               placeHolder: 'Baneswor',
@@ -112,10 +125,8 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
         <AppButton
           disabled={loading}
           onPress={() => {
-            createItemRequestFn().then(x => {
-              navigation.navigate('ApplicationOverlay', {
-                screen: 'ReceivedOfferListScreen',
-              });
+            navigation.navigate('ApplicationOverlay', {
+              screen: 'ReceivedOfferListScreen',
             });
           }}>
           {loading ? (
@@ -123,7 +134,38 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
           ) : (
             'Search'
           )}
-        </AppButton>
+
+        </AppButton> */}
+
+        <AppForm<SentordersParams>
+          formConfig={[
+            {
+              name: 'itemParams.location',
+              type: 'text',
+              label: 'Location',
+              rules: {
+                required: 'Location is required',
+              },
+            },
+            {
+              name: 'itemParams.description',
+              type: 'text',
+              label: 'Name',
+              rules: {
+                required: 'Name is required',
+              },
+            },
+            {
+              name: 'itemParams.name',
+              type: 'text',
+              label: 'Description',
+              rules: {
+                required: 'Description is required',
+              },
+            },
+          ]}
+          onFormSubmit={handleSubmit}
+          submitButtonText="Search"></AppForm>
       </View>
     );
   };

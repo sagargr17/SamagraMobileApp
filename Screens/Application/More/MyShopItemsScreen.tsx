@@ -1,4 +1,4 @@
-import {useLazyQuery} from '@apollo/client';
+import {useLazyQuery, useQuery} from '@apollo/client';
 import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {View} from 'moti';
 import React, {useEffect, useState} from 'react';
@@ -9,6 +9,7 @@ import {SamagraLoader} from '../../../Components/Molecules/Response/SamagraLoade
 import {getPersonalItems} from '../../../GraphQL/Queries/ItemQueries';
 import {ApplicationOverlayStackNavigationProp} from '../../../Navigators/Stack/ApplicationOverlayStackNavigator';
 import {GetAuthenticateClient} from '../../../client/Graphql/AuthenticatedClient';
+import {ItemImageNotFound} from '../../../Constants/UI/AssetsUrls';
 
 interface MyShopItemsScreenProps {}
 
@@ -16,19 +17,16 @@ export const MyShopItemsScreen: React.FC<MyShopItemsScreenProps> = ({}) => {
   const isFocused = useIsFocused();
   const navigation =
     useNavigation<ApplicationOverlayStackNavigationProp<'AddItemScreen'>>();
-  let [getPersonalItemsQuery, {data, loading, error, variables}] = useLazyQuery(
-    getPersonalItems,
-    {
-      fetchPolicy: 'cache-and-network',
-    },
-  );
+  // let [getPersonalItemsQuery, {data, loading, error, variables}] =
+  //   useLazyQuery(getPersonalItems);
 
-  useEffect(() => {
-    if (isFocused) {
-      // Trigger the query only when the screen becomes focused
-      getPersonalItemsQuery();
-    }
-  }, [isFocused, getPersonalItemsQuery]); // Add getPersonalItemsQuery to dependencies
+  const {data, loading, error} = useQuery(getPersonalItems);
+
+  // useEffect(() => {
+  //   if (isFocused) {
+  //     getPersonalItemsQuery();
+  //   }
+  // }, [isFocused, getPersonalItemsQuery]); // Add getPersonalItemsQuery to dependencies
 
   // useEffect(() => {
   //   let r = () =>
@@ -183,8 +181,7 @@ export const MyShopItemsScreen: React.FC<MyShopItemsScreenProps> = ({}) => {
                       item={{
                         name: item?.name ? item.name : 'not found',
                         price: item?.price ? item?.price : 'not found',
-                        imageUrl:
-                          'https://img.freepik.com/free-vector/oops-404-error-with-broken-robot-concept-illustration_114360-5529.jpg?semt=ais_hybrid&w=740',
+                        imageUrl: ItemImageNotFound,
                         rating: item?.starRating ? item.starRating : 3,
                         stocks:
                           item && item.stockQuantity ? item?.stockQuantity : 10,

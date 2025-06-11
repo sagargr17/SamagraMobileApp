@@ -5,6 +5,7 @@ import {Slider} from 'react-native-awesome-slider';
 import {useSharedValue} from 'react-native-reanimated';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import {TextComponet} from './TextComponet';
+import {size} from '../../Prefrences/Prefrences';
 interface UnitSliderProps {
   sliderOption: {
     max: number;
@@ -57,17 +58,15 @@ export const UnitSlider: React.FC<UnitSliderProps> = ({
 
 const styles = StyleSheet.create({
   wrapper: {
-    marginBottom: AreaMapper({
-      value: 12,
-      scaleBy: 'height',
-    }),
+    marginBottom: 0,
+    marginVertical:size.spacing.xs
   },
 
   titleStyle: {
-    marginBottom: AreaMapper({
-      value: 8,
-      scaleBy: 'height',
-    }),
+    // marginBottom: AreaMapper({
+    //   value: 8,
+    //   scaleBy: 'height',
+    // }),
   },
 
   sliderStyle: {

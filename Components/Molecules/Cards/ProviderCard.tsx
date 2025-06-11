@@ -10,6 +10,7 @@ import {TextComponet} from '../../Elements/TextComponet';
 import {ProviderCardSkeleton} from '../../Skeletons/ProviderCardSkeleton';
 import {PairButtons} from '../Global/PairButtons';
 import AppButton from '../../Elements/Button';
+import {RowFlexLayout} from '../../../Layout/PartationLayout/RowFlexLayout';
 
 interface ProviderCardProps {
   titleName: string;
@@ -37,6 +38,7 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
   const {colors} = useTheme();
   const {Star} = Logos;
   const [progressBarData, setProgressBarData] = useState(0.1);
+  const [isDeclined, setISdeclined] = useState<boolean>(false);
 
   useMemo(() => {
     if (isProgressBarEnable === true)
@@ -132,24 +134,49 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
   const Cardcontent = () => {
     return (
       <>
-        {isProgressBarEnable ? (
-          0
-        ) : progressBarData > 1 ? null : (
-          <View
-            style={[
-              ProviderCardStyle.cardContainer,
-              {
-                borderColor: colors.border,
-                backgroundColor: colors.card,
-              },
-            ]}>
-            {isProgressBarEnable ?? (
-              <ProgressBar progress={progressBarData} color={colors.primary} />
+        {!isDeclined ? (
+          <>
+            {isProgressBarEnable ? (
+              0
+            ) : progressBarData > 1 ? null : (
+              <View
+                style={[
+                  ProviderCardStyle.cardContainer,
+                  {
+                    borderColor: colors.border,
+                    backgroundColor: colors.card,
+                  },
+                ]}>
+                {isProgressBarEnable ?? (
+                  <ProgressBar
+                    progress={progressBarData}
+                    color={colors.primary}
+                  />
+                )}
+
+                {providerPrimarycontain()}
+
+                <RowFlexLayout>
+                  <AppButton
+                    style={{
+                      flex: 0.4,
+                    }}
+                    onPress={onAcceptButtonPress}>
+                    Accept
+                  </AppButton>
+                  <AppButton
+                    buttonColor={colors.notification}
+                    style={{
+                      flex: 0.4,
+                    }}
+                    onPress={() => setISdeclined(!isDeclined)}>
+                    Decline
+                  </AppButton>
+                </RowFlexLayout>
+              </View>
             )}
-            {providerPrimarycontain()}
-            <AppButton onPress={onAcceptButtonPress}>Accept</AppButton>
-          </View>
-        )}
+          </>
+        ) : null}
       </>
     );
   };

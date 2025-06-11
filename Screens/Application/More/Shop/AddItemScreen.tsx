@@ -12,7 +12,7 @@ import {AreaMapper} from '../../../../Utilities/CustomMethods';
 import {CreateProductInputViewModelInput} from '../../../../src/__generated__/graphql';
 import {useAppDispatch} from '../../../../StateManagement/hooks';
 import {hideLoader} from '../../../../StateManagement/Error&loadingHandle/LoaderStateSlice';
-import {NoDataMessage} from '../../../../Constants/UI/Variables';
+import {NoDataMessage} from '../../../../Constants/UI/Messages';
 import {ImageNotFound} from '../../../../Constants/UI/AssetsUrls';
 
 interface AddItemScreenProps {}

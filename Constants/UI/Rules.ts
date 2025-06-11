@@ -14,6 +14,13 @@ export const userRules = {
   },
 };
 
-
-
-
+export const orderRequestparamsRules = {
+  orderRequestparams: {
+    name: 'itemParams.description',
+    type: 'text',
+    label: 'Descritpion',
+    rules: {
+      required: 'Location is Required',
+    },
+  },
+};

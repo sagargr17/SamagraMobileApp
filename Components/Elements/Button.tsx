@@ -5,6 +5,7 @@ import {Button} from 'react-native-paper';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
 import {useAppDispatch} from '../../StateManagement/hooks';
 import {AreaMapper} from '../../Utilities/CustomMethods';
+import {size} from '../../Prefrences/Prefrences';
 
 interface AppButtonProps extends React.ComponentProps<typeof Button> {
   color?: 'primary' | 'secondary' | 'light' | 'danger';
@@ -31,9 +32,10 @@ const AppButton = ({
         styles.label,
         {
           fontFamily: fonts.medium.fontFamily,
+          fontSize:14
         },
       ]}
-      style={[styles.button, disabled && styles.disabled]}
+      // style={[styles.button, disabled && styles.disabled]}
       buttonColor={
         mode === 'outlined'
           ? colors.card
@@ -58,7 +60,7 @@ const styles = StyleSheet.create({
     }),
   },
   label: {
-    fontSize: AreaMapper({value: 16, scaleBy: 'width'}),
+    fontSize: 16,
   },
   buttonContent: {
     paddingVertical: AreaMapper({

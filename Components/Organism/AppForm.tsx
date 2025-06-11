@@ -20,6 +20,7 @@ import AppButton from '../Elements/Button';
 import {ErrorText} from '../Elements/ErrorText';
 import {Input} from '../Elements/Input';
 import {Spacer} from '../Elements/Spacer';
+import {size} from '../../Prefrences/Prefrences';
 
 // --- NEW/UPDATED INTERFACES ---
 interface FormFieldConfig<TFormValues extends FieldValues>
@@ -96,7 +97,7 @@ export const AppForm = <TFormValues extends FieldValues>({
               </ErrorText>
             )}
             {/* --- FIX END --- */}
-            <Spacer height={5} />
+            {/* <Spacer height={5} /> */}
           </View>
         ))}
 
@@ -115,10 +116,10 @@ const styles = StyleSheet.create({
   },
   scrollViewContent: {
     flexGrow: 1,
-    padding: 14,
-    paddingBottom: 40,
+    // padding: 14,
+    // paddingBottom: 40,
   },
   inputGroup: {
-    marginBottom: 10,
+    // marginBottom: size.spacing,
   },
 });
