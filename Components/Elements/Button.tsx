@@ -32,7 +32,8 @@ const AppButton = ({
         styles.label,
         {
           fontFamily: fonts.medium.fontFamily,
-          fontSize:14
+          fontSize: size.textVariants.regular.fontSize,
+          lineHeight: size.textVariants.regular.lineHeight,
         },
       ]}
       // style={[styles.button, disabled && styles.disabled]}
@@ -63,10 +64,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   buttonContent: {
-    paddingVertical: AreaMapper({
-      value: 3,
-      scaleBy: 'average',
-    }),
+    paddingVertical: size.spacing.xxs,
   },
   disabled: {
     opacity: 0.5,

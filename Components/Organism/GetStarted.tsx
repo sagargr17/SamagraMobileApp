@@ -3,6 +3,7 @@ import {useIsFocused} from '@react-navigation/native';
 import React, {useMemo, useState} from 'react';
 import {
   ActivityIndicator,
+  Alert,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -15,7 +16,10 @@ import {
 } from 'react-native-responsive-screen';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import AppButton from '../Elements/Button';
-import { GetStartedFirstImage, GetStartedSecondImage } from '../../Constants/UI/AssetsUrls';
+import {
+  GetStartedFirstImage,
+  GetStartedSecondImage,
+} from '../../Constants/UI/AssetsUrls';
 
 interface Item {
   id: number;
@@ -58,10 +62,7 @@ const GetStarted = ({options, onDone}: GetStartedProps) => {
         onLoadStart={() => <ActivityIndicator></ActivityIndicator>}
         style={styles.headerimage}
         source={{
-          uri:
-            step === 1
-              ? GetStartedFirstImage
-              : GetStartedSecondImage,
+          uri: step === 1 ? GetStartedFirstImage : GetStartedSecondImage,
         }}
         resizeMode={FastImage.resizeMode.cover}
       />

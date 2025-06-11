@@ -17,15 +17,10 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    setTimeout(() => {
-      console.log(
-        'Splash screen fully rendered and interactions finished, navigating...',
-      );
+    const timer = setTimeout(() => {
       navigation.navigate('GetStartedScreen');
     }, 1400);
-    // InteractionManager.runAfterInteractions(() => {
-    //   // Simulate a delay or animation completion
-    // });
+    return () => clearTimeout(timer);
   }, [navigation, isFocused]);
 
   return (
@@ -46,10 +41,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
           damping: 15,
           stiffness: 100,
         }}>
-        <SamagraLogo
-          height={100}
-          width={100}
-        />
+        <SamagraLogo height={100} width={100} />
       </MotiView>
       <MotiView
         from={{
