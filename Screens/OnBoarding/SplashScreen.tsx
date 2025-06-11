@@ -5,6 +5,8 @@ import {Logos} from '../../Assets/SVG/Exports/Exports';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
 import {MotiView} from 'moti';
 import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
+import {useIsFocused} from '@react-navigation/native';
+import {size} from '../../Prefrences/Prefrences';
 
 interface SplashScreenProps {
   navigation: OnBoardingStackNavigationProp<'SplashScreen'>;
@@ -12,18 +14,19 @@ interface SplashScreenProps {
 
 export const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
   const {SamagraLogo} = Logos;
+  const isFocused = useIsFocused();
 
   useEffect(() => {
-    InteractionManager.runAfterInteractions(() => {
-      // Simulate a delay or animation completion
-      setTimeout(() => {
-        console.log(
-          'Splash screen fully rendered and interactions finished, navigating...',
-        );
-        navigation.navigate('GetStartedScreen');
-      }, 1400);
-    });
-  }, [navigation]);
+    setTimeout(() => {
+      console.log(
+        'Splash screen fully rendered and interactions finished, navigating...',
+      );
+      navigation.navigate('GetStartedScreen');
+    }, 1400);
+    // InteractionManager.runAfterInteractions(() => {
+    //   // Simulate a delay or animation completion
+    // });
+  }, [navigation, isFocused]);
 
   return (
     <View style={styles.wrapper}>
@@ -44,8 +47,8 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
           stiffness: 100,
         }}>
         <SamagraLogo
-          height={heightPercentageToDP(14)}
-          width={heightPercentageToDP(14)}
+          height={100}
+          width={100}
         />
       </MotiView>
       <MotiView
@@ -55,7 +58,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
         }}
         animate={{
           opacity: 1,
-          scale: 0.8 ,
+          scale: 0.8,
         }}
         transition={{
           type: 'timing',

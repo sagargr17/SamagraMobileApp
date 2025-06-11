@@ -4,14 +4,10 @@ import {
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
 import React from 'react';
-import {TestScreen} from '../../Screens/Application/User/TestScreen';
 
-import {heightPercentageToDP} from 'react-native-responsive-screen';
-import {HomeLandingScreen} from '../../Screens/Application/Home/HomeLandingScreen';
 import {RouteProp, useTheme} from '@react-navigation/native';
-import {titleCase} from '../../Utilities/CustomMethods';
 import {CategoryListScreen} from '../../Screens/Application/Home/CategoryListScreen';
-import {ProgressBar, Provider} from 'react-native-paper';
+import {HomeLandingScreen} from '../../Screens/Application/Home/HomeLandingScreen';
 
 type HomeStackParamList = {
   HomeLandingScreen: undefined;
