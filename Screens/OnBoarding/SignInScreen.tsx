@@ -25,7 +25,8 @@ import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingSt
 import {showLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
 import {useAppDispatch} from '../../StateManagement/hooks';
 import {AreaMapper} from '../../Utilities/CustomMethods';
-import {Icon, ProgressBar} from 'react-native-paper';
+import {Icon, ProgressBar, TextInput} from 'react-native-paper';
+import {size} from '../../Prefrences/Prefrences';
 
 interface SignInScreenProps {
   navigation: OnBoardingStackNavigationProp<'SignUpScreen'>;
@@ -37,16 +38,13 @@ interface SignInData {
 }
 
 export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
-  const {colors} = useTheme();
-  const [isButtonPressedLoading, setIsButtonPressedloading] =
-    useState<boolean>(false);
-  const {LoginAvatar} = Logos;
   const {
     control,
     handleSubmit,
     formState: {errors},
   } = useForm<SignInData>();
   const dispatch = useAppDispatch();
+  const [isTextVisible, setIsTextvisible] = useState<boolean>(false);
 
   const signIn = async (data: SignInData) => {
     dispatch(showLoader());
@@ -59,10 +57,6 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
         <GestureHandlerRootView
           style={{
             flex: 1,
-            marginTop: AreaMapper({
-              value: 20,
-              scaleBy: 'height',
-            }),
           }}>
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -94,12 +88,18 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
                 rules={userRules.password}
                 render={({field: {onChange, value}}) => (
                   <Input
+                    secureTextEntry={!isTextVisible}
                     label="Password"
                     placeholder="*********"
                     value={value}
                     onChangeText={onChange}
                     right={
-                      <Icon source={'camera'} color="orange" size={20}></Icon>
+                      <TextInput.Icon
+                      color={"#4A739C"}
+                      rippleColor={"#4A739C"}
+                        onPress={() => setIsTextvisible(!isTextVisible)}
+                        icon={isTextVisible ? 'eye-outline' : 'eye-off'}
+                        size={size.iconSize.small}></TextInput.Icon>
                     }
                   />
                 )}
@@ -132,6 +132,7 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
               <AppButton color="primary" onPress={handleSubmit(signIn)}>
                 Logins
               </AppButton>
+              {/* <Spacer /> */}
               <Spacer />
               <ContinueDivider />
               <Spacer />
@@ -159,16 +160,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
 
-  image: {
-    height: AreaMapper({
-      value: 190,
-      scaleBy: 'height',
-    }),
-    width: AreaMapper({
-      value: 180,
-      scaleBy: 'width',
-    }),
-  },
   imageContainer: {
     display: 'flex',
     flexDirection: 'row',

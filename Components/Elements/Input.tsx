@@ -13,6 +13,7 @@ interface InputProps extends React.ComponentProps<typeof TextInput> {
   height?: number;
   lef?: any;
   right?: any;
+  secureTextEntry?: boolean;
 }
 
 export const Input: React.FC<InputProps> = ({
@@ -23,6 +24,7 @@ export const Input: React.FC<InputProps> = ({
   onChangeText,
   height = 54,
   left = null,
+  secureTextEntry = false,
   right,
   ...props
 }) => {
@@ -54,7 +56,7 @@ export const Input: React.FC<InputProps> = ({
           placeholder={placeholder}
           mode="outlined"
           outlineStyle={{
-            borderWidth: size.borderWidth.xss,
+            borderWidth: size.borderWidth.xs,
             borderRadius: size.borderRadius?.xs,
           }}
           activeOutlineColor={colors.primary}
@@ -68,14 +70,12 @@ export const Input: React.FC<InputProps> = ({
               height: 50,
               borderColor: colors.border,
               // backgroundColor: colors.background,
-
-
             },
           ]}
           value={value}
           onChangeText={onChangeText}
           {...props}
-          secureTextEntry={label === 'Password' ? true : false}
+          secureTextEntry={secureTextEntry}
           left={left}
           contentStyle={{
             minHeight: 0,
@@ -83,7 +83,7 @@ export const Input: React.FC<InputProps> = ({
             fontSize: size.textVariants.regular?.fontSize,
             lineHeight: size.textVariants.regular?.lineHeight,
           }}
-          right={<Icon size={20} source={'eye-outline'} color="red"></Icon>}
+          right={right}
         />
       </View>
     </View>

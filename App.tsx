@@ -218,7 +218,7 @@ function App(): React.JSX.Element {
           }),
           fontWeight: 'regular',
         }}
-        floating={true}
+        // floating={true}
       />
       <Provider store={store}>
         <StatusBar

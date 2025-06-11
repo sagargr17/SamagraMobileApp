@@ -4,7 +4,9 @@ import React, {useMemo, useState} from 'react';
 import {
   ActivityIndicator,
   Alert,
+  ImageBackground,
   SafeAreaView,
+  StatusBar,
   StyleSheet,
   Text,
   View,
@@ -127,7 +129,7 @@ const styles = StyleSheet.create({
   },
 
   headerimage: {
-    flex: 2,
+    flex: 1.5,
   },
 });
 
