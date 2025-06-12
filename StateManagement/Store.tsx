@@ -1,13 +1,15 @@
 import {configureStore} from '@reduxjs/toolkit';
 import userReducer from './User/UserSlice';
 import loaderReducer from './Error&loadingHandle/LoaderStateSlice';
-import sentOrderParamsReducer from './Orders/SentOrderParameters';
+import sentOrderParamsReducer from './Orders/SentOrderParams';
+import placeOrderParamsReducer from './Orders/PlaceOrderDetailsParams';
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
     loader: loaderReducer,
     sentOrderParams: sentOrderParamsReducer,
+    placeOrderParams: placeOrderParamsReducer,
   },
 });
 

@@ -14,9 +14,9 @@ import {ItemCategoryCardSlider} from './ItemCategorySlider';
 import {AppForm} from './AppForm';
 import {useAppDispatch} from '../../StateManagement/hooks';
 import {
-  feedOrderparams,
+  postOrderparams,
   SentordersParams,
-} from '../../StateManagement/Orders/SentOrderParameters';
+} from '../../StateManagement/Orders/SentOrderParams';
 
 interface OrderBottomSheetProps {
   navigation: RootStackNavigationProp<'ApplicationOverlay'> | any;
@@ -31,7 +31,7 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
   const dispatch = useAppDispatch();
   const handleSubmit = (data: SentordersParams) => {
     dispatch(
-      feedOrderparams({
+      postOrderparams({
         itemParams: {
           location: data.itemParams.location,
           description: data.itemParams.description,

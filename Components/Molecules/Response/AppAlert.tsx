@@ -2,7 +2,7 @@ import {useTheme} from '@react-navigation/native';
 import * as React from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {Dialog, Portal, Text} from 'react-native-paper';
-import AppButton from '../Elements/Button';
+import AppButton from '../../Elements/Button';
 
 interface AlertProps {
   title: string;

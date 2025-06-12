@@ -14,8 +14,11 @@ import {SamagraLoader} from '../../Components/Molecules/Response/SamagraLoader';
 import {getPublicItemsById} from '../../GraphQL/Queries/ItemQueries';
 import {ItemDetailScreenRouteProp} from '../../Navigators/Stack/ApplicationOverlayStackNavigator';
 import {hideLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
-import {useAppDispatch} from '../../StateManagement/hooks';
+import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
 import {AreaMapper, titleCase} from '../../Utilities/CustomMethods';
+import {PlaceOrderScreen} from '../Application/PlaceOrderScreen';
+import {postPlaceOrderparams} from '../../StateManagement/Orders/PlaceOrderDetailsParams';
+import {NoDataMessage} from '../../Constants/UI/Messages';
 order: null;
 interface ItemDetailScreenProps {
   route: ItemDetailScreenRouteProp;
@@ -132,7 +135,18 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
   if (error) return <Text>ErrorItemCheckOut {error.message}</Text>;
   if (loading) return <SamagraLoader></SamagraLoader>;
 
-  console.log('Detail ITem', data, loading, error);
+  const user = useAppSelector(state => state.user.user);
+  const handleBuyNow = () => {
+    // dispatch(
+    //   postPlaceOrderparams({
+    //     itemParams: {
+    //       location: 'Butwal',
+    //       description:
+    //         data?.getPublicItems?.nodes?.[0]?.description ?? NoDataMessage,
+    //     },
+    //   }),
+    // );
+  };
 
   return (
     <>
@@ -163,7 +177,9 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
                 }}></CommentLayout>
             </>
           )}></FlatList>
-        <ItemCheckOut totalPrice={totalPrice}></ItemCheckOut>
+        <ItemCheckOut
+          onBuyNow={handleBuyNow}
+          totalPrice={totalPrice}></ItemCheckOut>
       </View>
     </>
   );

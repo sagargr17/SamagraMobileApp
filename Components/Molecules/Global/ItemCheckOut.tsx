@@ -9,9 +9,13 @@ import {useTheme} from '@react-navigation/native';
 
 interface ItemCheckOutProps {
   totalPrice: number;
+  onBuyNow: () => void;
 }
 
-export const ItemCheckOut: React.FC<ItemCheckOutProps> = ({totalPrice = 0}) => {
+export const ItemCheckOut: React.FC<ItemCheckOutProps> = ({
+  totalPrice = 0,
+  onBuyNow,
+}) => {
   const {colors} = useTheme();
   return (
     <>
@@ -62,7 +66,7 @@ export const ItemCheckOut: React.FC<ItemCheckOutProps> = ({totalPrice = 0}) => {
             }),
           }}>
           <AppButton
-            onPress={() => null}
+            onPress={onBuyNow}
             style={{
               alignItems: 'center',
               backgroundColor: 'orange',

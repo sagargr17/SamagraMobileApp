@@ -25,12 +25,12 @@ const sentOrderParams = createSlice({
   name: 'sentOrderParams',
   initialState,
   reducers: {
-    feedOrderparams: (state, action: PayloadAction<SentordersParams>) => {
+    postOrderparams: (state, action: PayloadAction<SentordersParams>) => {
       console.log('USer incoming DAta', action.payload);
       state.itemParams = action.payload.itemParams;
     },
   },
 });
 
-export const {feedOrderparams} = sentOrderParams.actions;
+export const {postOrderparams} = sentOrderParams.actions;
 export default sentOrderParams.reducer;

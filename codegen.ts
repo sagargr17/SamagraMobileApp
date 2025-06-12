@@ -13,6 +13,7 @@ const config: CodegenConfig = {
     '/home/arniko/Documents/Projects/Samagra/samagra-mobile-app/GraphQL/Mutation/ItemMutation.ts',
     '/home/arniko/Documents/Projects/Samagra/samagra-mobile-app/GraphQL/Mutation/UserMutation.ts',
     '/home/arniko/Documents/Projects/Samagra/samagra-mobile-app/GraphQL/Mutation/ItemRequestMutation.ts',
+    '/home/arniko/Documents/Projects/Samagra/samagra-mobile-app/GraphQL/Mutation/CheckOutMutation.ts',
     '/home/arniko/Documents/Projects/Samagra/samagra-mobile-app/GraphQL/Subscription/Subscription.ts',
   ],
   generates: {

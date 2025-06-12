@@ -14,6 +14,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
+    "\n mutation createOrderMutation(\n  $fullName: String!\n  $address: String!\n  $itemId: String!\n  $phoneNumber: String!\n  $quantity: Int!\n  $message: String!\n) {\n  orderItem(\n    fullName: $fullName\n    address: $address\n    itemId: $itemId\n    phoneNumber: $phoneNumber\n    quantity: $quantity\n    message: $message\n  )\n}\n  ": typeof types.CreateOrderMutationDocument,
     "\n mutation createNewProduct(\n  $name: String!\n  $price: Decimal!\n  $description: String!\n  $shopId: String!\n  $categoryId: String!\n  $stockQuantity: Int!\n  $imageUrls: [String!]!\n  $unit: String!\n  $location: String!\n) {\n  createProduct(\n    product: {\n      name: $name\n      price: $price\n      description: $description\n      shopId: $shopId\n      categoryId: $categoryId\n      stockQuantity: $stockQuantity\n      imageUrls: $imageUrls\n      currency: \"रु\"\n      location: $location\n      unit: $unit\n      condition: \"new\"\n    }\n  ) {\n    id\n  }\n}\n  ": typeof types.CreateNewProductDocument,
     "mutation CreateItemRequestMutation($itemName: String!, $categoryID: String!) {\n  createItemRequest(name: $itemName, categoryId: $categoryID) {\n    id\n  }\n}\n": typeof types.CreateItemRequestMutationDocument,
     "\nmutation createItemRequestOfferMutation($requestId: String!, $itemId:String!) {\n  createItemRequestOffer(itemRequestId: $requestId, itemId: $itemId) {\n    id\n  }\n}\n": typeof types.CreateItemRequestOfferMutationDocument,
@@ -28,6 +29,7 @@ type Documents = {
     "\n  subscription GetData {\n  events {\n    id\n    eventName\n   \n    data {\n      itemRequestReceived {\n        id\n        name\n        categoryId\n      }\n      itemRequestOfferReceived {\n        id\n        itemId\n        itemRequestId\n      }\n      orderReceived {\n        fullName\n        completionDateTime\n        isCompleted\n        address\n        message\n        phoneNumber\n        price\n        quantity\n        currency\n      }\n    }\n  }\n}\n\n": typeof types.GetDataDocument,
 };
 const documents: Documents = {
+    "\n mutation createOrderMutation(\n  $fullName: String!\n  $address: String!\n  $itemId: String!\n  $phoneNumber: String!\n  $quantity: Int!\n  $message: String!\n) {\n  orderItem(\n    fullName: $fullName\n    address: $address\n    itemId: $itemId\n    phoneNumber: $phoneNumber\n    quantity: $quantity\n    message: $message\n  )\n}\n  ": types.CreateOrderMutationDocument,
     "\n mutation createNewProduct(\n  $name: String!\n  $price: Decimal!\n  $description: String!\n  $shopId: String!\n  $categoryId: String!\n  $stockQuantity: Int!\n  $imageUrls: [String!]!\n  $unit: String!\n  $location: String!\n) {\n  createProduct(\n    product: {\n      name: $name\n      price: $price\n      description: $description\n      shopId: $shopId\n      categoryId: $categoryId\n      stockQuantity: $stockQuantity\n      imageUrls: $imageUrls\n      currency: \"रु\"\n      location: $location\n      unit: $unit\n      condition: \"new\"\n    }\n  ) {\n    id\n  }\n}\n  ": types.CreateNewProductDocument,
     "mutation CreateItemRequestMutation($itemName: String!, $categoryID: String!) {\n  createItemRequest(name: $itemName, categoryId: $categoryID) {\n    id\n  }\n}\n": types.CreateItemRequestMutationDocument,
     "\nmutation createItemRequestOfferMutation($requestId: String!, $itemId:String!) {\n  createItemRequestOffer(itemRequestId: $requestId, itemId: $itemId) {\n    id\n  }\n}\n": types.CreateItemRequestOfferMutationDocument,
@@ -56,6 +58,10 @@ const documents: Documents = {
  */
 export function gql(source: string): unknown;
 
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n mutation createOrderMutation(\n  $fullName: String!\n  $address: String!\n  $itemId: String!\n  $phoneNumber: String!\n  $quantity: Int!\n  $message: String!\n) {\n  orderItem(\n    fullName: $fullName\n    address: $address\n    itemId: $itemId\n    phoneNumber: $phoneNumber\n    quantity: $quantity\n    message: $message\n  )\n}\n  "): (typeof documents)["\n mutation createOrderMutation(\n  $fullName: String!\n  $address: String!\n  $itemId: String!\n  $phoneNumber: String!\n  $quantity: Int!\n  $message: String!\n) {\n  orderItem(\n    fullName: $fullName\n    address: $address\n    itemId: $itemId\n    phoneNumber: $phoneNumber\n    quantity: $quantity\n    message: $message\n  )\n}\n  "];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
