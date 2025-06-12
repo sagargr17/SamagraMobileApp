@@ -20,3 +20,11 @@ export const createOrderMutation = gql(`
   )
 }
   `);
+
+export const addItemToBasket = gql(`
+mutation addItemToBasketeMutation ($itemID: String!) {
+  addItemToBasket(id: $itemID) {
+    id
+  }
+}
+`);

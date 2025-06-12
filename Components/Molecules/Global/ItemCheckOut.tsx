@@ -6,17 +6,57 @@ import {Icon} from 'react-native-paper';
 import {AreaMapper} from '../../../Utilities/CustomMethods';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {useTheme} from '@react-navigation/native';
+import {useMutation} from '@apollo/client';
+import {addItemToBasket} from '../../../GraphQL/Mutation/CheckOutMutation';
+import {showMessage} from 'react-native-flash-message';
 
 interface ItemCheckOutProps {
   totalPrice: number;
   onBuyNow: () => void;
+  itemID: string;
 }
 
 export const ItemCheckOut: React.FC<ItemCheckOutProps> = ({
   totalPrice = 0,
   onBuyNow,
+  itemID,
 }) => {
   const {colors} = useTheme();
+
+  const [addToBasketFn, {data, loading, error}] = useMutation(addItemToBasket);
+
+  const addToBasketHandnle = async () => {
+    console.log('ITem ID:::', itemID);
+
+    try {
+      const response = await addToBasketFn({
+        variables: {
+          itemID: itemID,
+        },
+      });
+      if (response.data) {
+        showMessage({
+          type: 'success',
+          message: 'Added To Basket Complete ',
+        });
+      }
+      if (response.errors) {
+        console.log('Error1:::', response.errors);
+        showMessage({
+          type: 'danger',
+          message: 'Something Went Wrong!',
+        });
+      }
+    } catch (e) {
+      console.log('Error2:::', e);
+
+      showMessage({
+        type: 'danger',
+        message: 'Something Went Wrong!',
+      });
+    }
+  };
+
   return (
     <>
       <View
@@ -84,7 +124,7 @@ export const ItemCheckOut: React.FC<ItemCheckOutProps> = ({
           </AppButton>
 
           <AppButton
-            onPress={() => null}
+            onPress={addToBasketHandnle}
             style={{
               // flex: 0.8,
               marginLeft: AreaMapper({
@@ -93,7 +133,7 @@ export const ItemCheckOut: React.FC<ItemCheckOutProps> = ({
               }),
               alignItems: 'center',
             }}>
-            Check Out
+            Add to Cart
             <View>
               <Icon
                 color={colors.background}

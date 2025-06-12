@@ -1,27 +1,38 @@
-import React from 'react';
-import {
-  Button,
-  FlatList,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {useQuery} from '@apollo/client';
 import {useNavigation, useTheme} from '@react-navigation/native';
+import React from 'react';
+import {Button, FlatList, Text, View} from 'react-native';
+import {ActivityIndicator} from 'react-native-paper';
 import {TextComponet} from '../../Components/Elements/TextComponet';
+import {GetBasketItemsQuery} from '../../GraphQL/Queries/CheckoutQueries';
 import {size} from '../../Prefrences/Prefrences';
+import {Rating} from '../../Components/Elements/Rating';
+import {NoDataMessage} from '../../Constants/UI/Messages';
+import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
+import {postPlaceOrderparams} from '../../StateManagement/Orders/PlaceOrderDetailsParams';
+import {ItemImageNotFound} from '../../Constants/UI/AssetsUrls';
+
 interface CartScreenProps {}
 
 export const CartScreen: React.FC<CartScreenProps> = ({}) => {
   const {colors} = useTheme();
   const navigation = useNavigation<any>();
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(state => state.user.user);
+
+  const {data, loading, error} = useQuery(GetBasketItemsQuery);
+
+  if (loading) return <ActivityIndicator></ActivityIndicator>;
+  if (!loading && error) return <Text>{error.message}</Text>;
 
   return (
     <>
       <FlatList
+        ListEmptyComponent={<Text>No any Item in Cart Found</Text>}
         contentContainerStyle={{
           padding: size.spacing.s,
         }}
-        data={[1, 2, 3]}
+        data={data?.getBasketItems?.nodes}
         ListHeaderComponent={
           <TextComponet
             customStyle={{
@@ -43,18 +54,38 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
             <TextComponet
               fontSizeVariant="regular"
               fontVariant="bold"
-              title={`ITEM::${index}`}></TextComponet>
+              title={item?.item?.name ?? NoDataMessage}></TextComponet>
             <TextComponet
               fontSizeVariant="regular"
               fontVariant="bold"
-              title={`Price:200`}></TextComponet>
-            <TextComponet
-              fontSizeVariant="regular"
-              fontVariant="bold"
-              title={`Butwal Amarpath`}></TextComponet>
+              title={`Price: ${item?.item?.price}`}></TextComponet>
+            <Rating ratingNumber={item?.item?.starRating}></Rating>
             <Button
               title="Place Order"
               onPress={() => {
+                dispatch(
+                  postPlaceOrderparams({
+                    itemParams: {
+                      location: 'Butwal',
+                      description: 'Awesome',
+                      requiredTime: '4hr',
+                      name: item?.item?.name ?? NoDataMessage,
+                      category: '1',
+                      imageUrl: item?.item?.imageUrls?.[0] ?? ItemImageNotFound,
+                    },
+                    sellerDetails: {
+                      fullName: user?.username ?? NoDataMessage,
+                      address: user?.location ?? NoDataMessage,
+                      shopName: 'Butwal',
+                      phoneNumber: '9841150490',
+                    },
+                    orderDetail: {
+                      message: 'Please Fast GArdeenu',
+                      orderQuantity: '2',
+                      itemID: item?.item?.id ?? NoDataMessage,
+                    },
+                  }),
+                );
                 navigation.navigate('ApplicationOverlay', {
                   screen: 'PlaceOrderScreen',
                 });

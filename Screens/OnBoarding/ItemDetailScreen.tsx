@@ -203,6 +203,7 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
             </>
           )}></FlatList>
         <ItemCheckOut
+          itemID={data?.getPublicItems?.nodes?.[0]?.id ?? ''}
           onBuyNow={handleBuyNow}
           totalPrice={totalPrice}></ItemCheckOut>
       </View>
