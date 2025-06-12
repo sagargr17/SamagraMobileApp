@@ -19,7 +19,7 @@ export const SocialForm: React.FC<SocialProps> = ({onAppleClick}) => {
   const {colors} = useTheme();
   return (
     <View style={styles.socialContainer}>
-      <Pressable onPress={onAppleClick}>
+      <Pressable onPress={onAppleClick} style={styles.flexItem}>
         <View
           style={[
             styles.socialItem,
@@ -34,19 +34,20 @@ export const SocialForm: React.FC<SocialProps> = ({onAppleClick}) => {
             fontSizeVariant={'regular'}></TextComponet>
         </View>
       </Pressable>
-      <Pressable onPress={() => {}}>
+      <Pressable onPress={() => {}} style={styles.flexItem}>
         <View
           style={[
             styles.socialItem,
             {
               borderColor: colors.border,
+              flex: 1,
             },
           ]}>
-          <GoogleLogo width={size.iconSize.medium}  />
+          <GoogleLogo width={size.iconSize.medium} />
           <TextComponet
-          customStyle={{
-            marginLeft:size.spacing.xs
-          }}
+            customStyle={{
+              marginLeft: size.spacing.xs,
+            }}
             title="Google"
             fontVariant="bold"
             fontSizeVariant={'regular'}></TextComponet>
@@ -71,5 +72,8 @@ const styles = StyleSheet.create({
     borderRadius: size.borderRadius.full,
     display: 'flex',
     flexDirection: 'row',
+  },
+  flexItem: {
+    flex: 0.3,
   },
 });
