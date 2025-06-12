@@ -1,5 +1,5 @@
 import {useQuery} from '@apollo/client';
-import {useTheme} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 import {Divider, IconButton} from 'react-native-paper';
@@ -37,6 +37,7 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
   });
 
   console.log('itemIDdd', route.params.id);
+  const navigation = useNavigation<any>();
 
   useEffect(() => {
     dispatch(hideLoader());
@@ -131,21 +132,45 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
       </View>
     );
   };
+  const user = useAppSelector(state => state.user.user);
 
   if (error) return <Text>ErrorItemCheckOut {error.message}</Text>;
   if (loading) return <SamagraLoader></SamagraLoader>;
-
-  const user = useAppSelector(state => state.user.user);
+  // if(data && !error && !loading)
   const handleBuyNow = () => {
-    // dispatch(
-    //   postPlaceOrderparams({
-    //     itemParams: {
-    //       location: 'Butwal',
-    //       description:
-    //         data?.getPublicItems?.nodes?.[0]?.description ?? NoDataMessage,
-    //     },
-    //   }),
-    // );
+    dispatch(
+      postPlaceOrderparams({
+        itemParams: {
+          location: 'Butwal',
+          description:
+            data?.getPublicItems?.nodes?.[0]?.description ?? NoDataMessage,
+          requiredTime: '3hr',
+          name: data?.getPublicItems?.nodes?.[0]?.name ?? NoDataMessage,
+          category: 'Vegitable',
+          imageUrl: '',
+        },
+        sellerDetails: {
+          fullName:
+            data?.getPublicItems?.nodes?.[0]?.shop?.user?.username ??
+            NoDataMessage,
+          address: 'Butwal',
+          shopName:
+            data?.getPublicItems?.nodes?.[0]?.shop?.name ?? NoDataMessage,
+          phoneNumber:
+            data?.getPublicItems?.nodes?.[0]?.shop?.phoneNumber ??
+            NoDataMessage,
+        },
+        orderDetail: {
+          message: 'chito gardeenu hai',
+          orderQuantity: String(1),
+          itemID: data?.getPublicItems?.nodes?.[0]?.id ?? '1',
+        },
+      }),
+    );
+
+    navigation.navigate('ApplicationOverlay', {
+      screen: 'PlaceOrderScreen',
+    });
   };
 
   return (

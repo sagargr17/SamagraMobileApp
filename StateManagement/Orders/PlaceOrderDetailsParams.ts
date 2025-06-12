@@ -11,11 +11,10 @@ export interface PlaceordersParams {
     imageUrl: string;
   };
   sellerDetails: {
-    fullName: String;
-    address: String;
-    shopName: String;
-    phoneNumber: String;
-    location: string;
+    fullName: string;
+    address: string;
+    shopName: string;
+    phoneNumber: string;
   };
   orderDetail: {
     message: string;
@@ -38,7 +37,6 @@ const initialState: PlaceordersParams = {
     address: '',
     shopName: '',
     phoneNumber: '',
-    location: '',
   },
   orderDetail: {
     message: '',

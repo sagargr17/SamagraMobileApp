@@ -19,6 +19,7 @@ export const getPublicItemsById = gql(`
 query GetPublicItemsById($id: String!) {
   getPublicItems(id: $id) {
     nodes {
+      id
       name
       imageUrls
       price
@@ -32,6 +33,11 @@ query GetPublicItemsById($id: String!) {
         stars {
           stars
         }
+         name
+        user {
+          username
+        }
+        phoneNumber
       }
       comments {
         commentString

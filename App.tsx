@@ -13,7 +13,7 @@ import {fetch as netInfoFetch} from '@react-native-community/netinfo';
 import {NavigationContainer} from '@react-navigation/native';
 import {createClient} from 'graphql-ws';
 import React, {useEffect, useState} from 'react';
-import {AppState, StatusBar, useColorScheme} from 'react-native';
+import {AppState, StatusBar, Text, useColorScheme} from 'react-native';
 import BootSplash from 'react-native-bootsplash';
 import FlashMessage from 'react-native-flash-message';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
@@ -230,7 +230,9 @@ function App(): React.JSX.Element {
           }></StatusBar>
         <NavigationContainer theme={themes}>
           {internetStatus.loading === true ? (
-            <></>
+            <>
+              <Text>Loadinggg</Text>
+            </>
           ) : internetStatus.status === true ? (
             serverError ? ( // change this to serverError while in production
               <SingnlePageError

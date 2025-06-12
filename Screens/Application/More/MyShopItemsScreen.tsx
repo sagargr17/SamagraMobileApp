@@ -1,49 +1,24 @@
-import {useLazyQuery, useQuery} from '@apollo/client';
+import {useQuery} from '@apollo/client';
 import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {View} from 'moti';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {FlatList, Text} from 'react-native';
-import {SliderSwitcher} from '../../../Components/Organism/SliderSwitcher';
 import {ItemListtCard} from '../../../Components/Molecules/Cards/ItemListCard';
 import {SamagraLoader} from '../../../Components/Molecules/Response/SamagraLoader';
+import {SliderSwitcher} from '../../../Components/Organism/SliderSwitcher';
+import {ItemImageNotFound} from '../../../Constants/UI/AssetsUrls';
 import {getPersonalItems} from '../../../GraphQL/Queries/ItemQueries';
 import {ApplicationOverlayStackNavigationProp} from '../../../Navigators/Stack/ApplicationOverlayStackNavigator';
-import {GetAuthenticateClient} from '../../../client/Graphql/AuthenticatedClient';
-import {ItemImageNotFound} from '../../../Constants/UI/AssetsUrls';
 
 interface MyShopItemsScreenProps {}
 
 export const MyShopItemsScreen: React.FC<MyShopItemsScreenProps> = ({}) => {
   const isFocused = useIsFocused();
-  const navigation =
-    useNavigation<ApplicationOverlayStackNavigationProp<'AddItemScreen'>>();
-  // let [getPersonalItemsQuery, {data, loading, error, variables}] =
-  //   useLazyQuery(getPersonalItems);
+  const navigation =useNavigation<ApplicationOverlayStackNavigationProp<'AddItemScreen'>>();
 
   const {data, loading, error} = useQuery(getPersonalItems);
 
-  // useEffect(() => {
-  //   if (isFocused) {
-  //     getPersonalItemsQuery();
-  //   }
-  // }, [isFocused, getPersonalItemsQuery]); // Add getPersonalItemsQuery to dependencies
-
-  // useEffect(() => {
-  //   let r = () =>
-  //     authenticatedClient
-  //       .query({
-  //         query: getPersonalItems,
-  //         fetchPolicy: 'cache-first',
-  //       })
-  //       .then(result => {
-  //         if (result.data) {
-  //           console.log('Resulttt', result.data);
-  //           setData(result.data);
-  //         }
-  //       })
-  //       .catch(error => console.log('error'));
-  //   r();
-  // }, []);
+  console.log('SHop DATA', data, error, loading);
 
   if (loading) return <SamagraLoader></SamagraLoader>;
   if (!error && !data) return <Text>Error</Text>;

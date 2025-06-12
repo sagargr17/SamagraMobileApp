@@ -52,13 +52,14 @@ const PhoneInput = ({
           styles.wrapper,
           error && styles.wrapperError,
           {
-            backgroundColor: '#fafcff',
-            borderWidth: size.borderWidth.xss,
-            borderColor: borderColor,
+            backgroundColor: '#E8EDF5',
+            borderWidth: size.borderWidth.xs,
+            borderRadius: size.borderRadius?.xs,
             marginVertical: size.spacing.xxs,
+            borderColor: borderColor,
           },
         ]}>
-        <NepalFlag height={size.iconSize.large} />
+        <NepalFlag height={size.iconSize.large} width={size.iconSize.large} />
         <TextComponet
           fontVariant="medium"
           fontSizeVariant="regular"

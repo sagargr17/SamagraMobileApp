@@ -87,10 +87,10 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
           showsVerticalScrollIndicator={false}
           style={{
             flex: 1,
-            paddingVertical: AreaMapper({
-              value: 20,
-              scaleBy: 'height',
-            }),
+            // paddingVertical: AreaMapper({
+            //   value: 20,
+            //   scaleBy: 'height',
+            // }),
           }}>
           <View>
             {/* <Text style={styles.header}>Create Profile</Text> */}
@@ -132,7 +132,7 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
                 </>
               )}
             />
-            <Spacer height={12} />
+            {/* <Spacer height={12} /> */}
             <Controller
               name="lastName"
               control={control}

@@ -24,10 +24,10 @@ type OnBoardingStackParamList = {
   ProfileCreateScreen: undefined;
 };
 
-// Its The builder with the
-export const OnBoardingStackBuilder =
-  createNativeStackNavigator<OnBoardingStackParamList>();
+// It is the builder that create Nanvigation
+export const OnBoardingStackBuilder = createNativeStackNavigator<OnBoardingStackParamList>();
 
+// 
 export type OnBoardingStackNavigationProp<
   T extends keyof OnBoardingStackParamList,
 > = NativeStackNavigationProp<OnBoardingStackParamList, T>;
@@ -71,10 +71,7 @@ export const OnBoardingStackNavigator: React.FC = () => {
           headerStyle: {
             backgroundColor: colors.background,
           },
-        }}
-        
-        
-        >
+        }}>
         {screenBuilder([
           {
             screenName: 'SplashScreen',

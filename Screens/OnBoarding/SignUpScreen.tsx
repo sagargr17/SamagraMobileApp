@@ -22,7 +22,7 @@ export const SignUpScreen: React.FC<OnBoardingScreenProps> = ({navigation}) => {
       <Spacer />
       <ContinueDivider />
       <Spacer />
-      <AppButton mode="outlined" onPress={goLogin}>
+      <AppButton mode="outlined" onPress={goLogin} style={{}}>
         Continue with Username
       </AppButton>
       <Spacer />

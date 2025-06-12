@@ -66,7 +66,7 @@ const size = {
 
   textVariants: {
     display: {
-      fontSize: 19,
+      fontSize: 30,
       lineHeight: 22,
     },
     regular: {

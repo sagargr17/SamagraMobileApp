@@ -57,6 +57,7 @@ export const OtpScreen: React.FC<OptScreenProps> = ({navigation}) => {
           filledPinCodeContainerStyle: {
             backgroundColor: '#D5D5D5',
           },
+          
         }}
       />
       <Spacer />

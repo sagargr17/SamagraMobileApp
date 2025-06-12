@@ -6,6 +6,8 @@ import {Spacer} from '../Elements/Spacer';
 import {ErrorText} from '../Elements/ErrorText';
 import {Button} from 'react-native';
 import {userRules} from '../../Constants/UI/Rules';
+import {useNavigation} from '@react-navigation/native';
+import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
 
 interface SignUpData {
   phone: string;
@@ -17,9 +19,9 @@ export const SignUpForm = () => {
     handleSubmit,
     formState: {errors},
   } = useForm<SignUpData>();
-
+  const navigation = useNavigation<OnBoardingStackNavigationProp<'ProfileCreateScreen'>>();
   const onButtonPress = (data: SignUpData) => {
-    console.log(data);
+    navigation.navigate('ProfileCreateScreen');
   };
 
   return (
