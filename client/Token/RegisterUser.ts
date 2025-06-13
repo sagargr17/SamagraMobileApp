@@ -1,29 +1,44 @@
 import {showMessage} from 'react-native-flash-message';
 
-export const verifiedPassword = async (username: string, otp: string) => {};
+const registerUserEndpoint =
+  'http://identity.samagranepal.com/api/v1/account/Register';
+const verifiedPhoneNumber =
+  'http://identity.samagranepal.com/api/v1/account/VerifyPhoneNumber';
 
+// verifiedPassword
+export const verifiedPassword = async (username: string, otp: string) => {
+  const response = await fetch(registerUserEndpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: new URLSearchParams({
+      username: username,
+      verificationCode: otp,
+    }).toString(),
+  });
+};
+
+// RegisterUser
 export const registerUser = async (user: {
-  username: 'string';
-  password: 'string';
-  email: 'string';
-  phoneNumber: 'string';
+  username: string;
+  password: string;
+  email: string;
+  phoneNumber: string;
 }) => {
   try {
-    const response = await fetch(
-      `http://identity.samagranepal.com/api/v1/account/Register`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams({
-          username: user.username,
-          password: user.password,
-          email: user.email,
-          phoneNumber: user.phoneNumber,
-        }).toString(),
+    const response = await fetch(verifiedPhoneNumber, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
-    );
+      body: new URLSearchParams({
+        username: user.username,
+        password: user.password,
+        email: user.email,
+        phoneNumber: user.phoneNumber,
+      }).toString(),
+    });
 
     if (response.ok) {
       showMessage({

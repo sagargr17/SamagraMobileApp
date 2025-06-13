@@ -25,9 +25,10 @@ type OnBoardingStackParamList = {
 };
 
 // It is the builder that create Nanvigation
-export const OnBoardingStackBuilder = createNativeStackNavigator<OnBoardingStackParamList>();
+export const OnBoardingStackBuilder =
+  createNativeStackNavigator<OnBoardingStackParamList>();
 
-// 
+//
 export type OnBoardingStackNavigationProp<
   T extends keyof OnBoardingStackParamList,
 > = NativeStackNavigationProp<OnBoardingStackParamList, T>;
@@ -103,7 +104,13 @@ export const OnBoardingStackNavigator: React.FC = () => {
           },
           {screenName: 'OtpScreen', component: OtpScreen},
           {screenName: 'ProfileSetupScreen', component: ProfileSetupScreen},
-          {screenName: 'ProfileCreateScreen', component: ProfileCreateScreen},
+          {
+            screenName: 'ProfileCreateScreen',
+            component: ProfileCreateScreen,
+            option: {
+              headerTitle: 'Build Your Profile',
+            },
+          },
         ])}
       </OnBoardingStackBuilder.Navigator>
     </>

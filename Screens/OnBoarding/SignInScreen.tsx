@@ -118,7 +118,7 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
                     title="Forgot Password"
                     fontVariant="medium"></TextComponet>
                 </Pressable>
-                <Pressable onPress={() => navigation.navigate('SignUpScreen')}>
+                <Pressable onPress={() => navigation.navigate('ProfileSetupScreen')}>
                   <TextComponet
                     fontSizeVariant="caption"
                     customStyle={{

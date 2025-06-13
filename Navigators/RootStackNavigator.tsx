@@ -52,25 +52,25 @@ export const RootStack: React.FC = () => {
   const isFocused = useIsFocused();
   const dispatch = useAppDispatch();
   const font = fonts['regular'];
-  const {data, loading, error} = useSubscription(getSubscribedData, {
-    onData: ({client, data}) => {
-      if (
-        data.data &&
-        data.data.events?.eventName &&
-        data.data.events.data?.itemRequestReceived
-      ) {
-        onDisplayNotification(
-          `${data.data.events.data.itemRequestReceived.name} is requesting from Sagar`,
-        );
-        showMessage({
-          message: `${data.data.events.data.itemRequestReceived.name} is requesting from Sagar`,
-          type: 'success',
-        });
-      }
-    },
-  });
+  // const {data, loading, error} = useSubscription(getSubscribedData, {
+  //   onData: ({client, data}) => {
+  //     console.log('Root Sub Data', data);
 
-  console.log('DATA', data, loading, error);
+  //     if (
+  //    pR   data.data &&
+  //       data.data.events?.eventName &&
+  //       data.data.events.data?.itemRequestReceived
+  //     ) {
+  //       onDisplayNotification(
+  //         `${data.data.events.data.itemRequestReceived.name} is requesting from Sagar`,
+  //       );
+  //       showMessage({
+  //         message: `${data.data.events.data.itemRequestReceived.name} is requesting from Sagar`,
+  //         type: 'success',
+  //       });
+  //     }
+  //   },
+  // });
 
   useCallback(() => {
     dispatch(hideLoader());

@@ -34,9 +34,9 @@ export const ProfileSetupScreen: React.FC<ProfileSetupProps> = ({
                 fontFamily: fonts.regular.fontFamily,
               },
             ]}>
-            Since you are verified now, let’s get your profile setup now. You
-            have complete your profile information, upload documents, vehicle
-            information and bank details.
+            Welcome to Samagra, let’s get your profile setup now. we will keep
+            your profile information, uploaded documents, vehicle information
+            and bank detail safe and secure.
           </Text>
         </View>
         <View style={styles.logo}>

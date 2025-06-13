@@ -20,6 +20,7 @@ import {Logos} from '../../Assets/SVG/Exports/Exports';
 import {Input} from '../../Components/Elements/Input';
 import PhoneInput from '../../Components/Elements/PhoneInput';
 import {AreaMapper} from '../../Utilities/CustomMethods';
+import {registerUser} from '../../client/Token/RegisterUser';
 
 interface ProfileCreateProps {
   navigation: OnBoardingStackNavigationProp<'ProfileCreateScreen'>;
@@ -60,9 +61,19 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
 
   const [count, setCount] = useState(0);
 
-  const onSubmit = (data: CreateForm) => {
+  const onSubmit = async (data: CreateForm) => {
     setCount(prev => prev + 1);
-    console.log(data);
+    console.log('Submit', data);
+    if (data.password === data.confirmPassword) {
+      await registerUser({
+        username: data.firstName,
+        password: data.password,
+        email: data.email,
+        phoneNumber: data.phone,
+      });
+    } else {
+      console.log('>>><<< submitting Error');
+    }
   };
 
   const [imageUri, setImageUri] = useState<string | undefined>('');
@@ -121,7 +132,7 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
               render={({field: {value, onChange}}) => (
                 <>
                   <Input
-                    label="First name"
+                    label="Full Name"
                     placeholder="First Name"
                     value={value}
                     onChangeText={onChange}
@@ -132,7 +143,6 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
                 </>
               )}
             />
-            {/* <Spacer height={12} /> */}
             <Controller
               name="lastName"
               control={control}
@@ -152,7 +162,6 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
                 </>
               )}
             />
-            <Spacer height={20} />
             <Controller
               name="email"
               control={control}
@@ -173,7 +182,7 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
                 </>
               )}
             />
-            <Spacer height={20} />
+
             <Controller
               name="phone"
               control={control}
@@ -193,7 +202,7 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
                 </>
               )}
             />
-            <Spacer height={20} />
+
             <Controller
               name="password"
               control={control}
@@ -216,7 +225,6 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
                 </>
               )}
             />
-            <Spacer height={20} />
             <Controller
               name="confirmPassword"
               control={control}
@@ -249,14 +257,14 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
                   setAgree(!agree);
                 }}
               />
-              <Text style={styles.agreeText}>
+              <Text onPress={() => setAgree(!agree)} style={styles.agreeText}>
                 I accept the privacy policy and terms of services
               </Text>
             </View>
             <Spacer height={20} />
             <AppButton
               disabled={!agree}
-              color="secondary"
+              color="primary"
               onPress={handleSubmit(onSubmit)}>
               Continue
             </AppButton>
