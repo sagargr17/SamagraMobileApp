@@ -53,7 +53,7 @@ export const ProfileSetupScreen: React.FC<ProfileSetupProps> = ({
         </View>
         <View style={styles.content}>
           <AppButton
-            color="secondary"
+            color="primary"
             onPress={() => navigation.navigate('ProfileCreateScreen')}>
             Continue
           </AppButton>

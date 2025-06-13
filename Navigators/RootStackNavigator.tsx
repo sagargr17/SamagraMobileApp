@@ -10,6 +10,10 @@ import {useAppDispatch, useAppSelector} from '../StateManagement/hooks';
 import {BottomTabNavigator} from './BottomTab/BottomTabNavigator';
 import {ApplicationOverlayStackNavigator} from './Stack/ApplicationOverlayStackNavigator';
 import {OnBoardingStackNavigator} from './Stack/OnBoardingStackNavigator';
+import {useSubscription} from '@apollo/client';
+import {getSubscribedData} from '../GraphQL/Subscription/Subscription';
+import {onDisplayNotification} from '../Screens/Application/ReceivedOrdersListScreen';
+import {showMessage} from 'react-native-flash-message';
 
 type RootStackParamList = {
   ApplicationOverlay: undefined;
@@ -48,6 +52,25 @@ export const RootStack: React.FC = () => {
   const isFocused = useIsFocused();
   const dispatch = useAppDispatch();
   const font = fonts['regular'];
+  const {data, loading, error} = useSubscription(getSubscribedData, {
+    onData: ({client, data}) => {
+      if (
+        data.data &&
+        data.data.events?.eventName &&
+        data.data.events.data?.itemRequestReceived
+      ) {
+        onDisplayNotification(
+          `${data.data.events.data.itemRequestReceived.name} is requesting from Sagar`,
+        );
+        showMessage({
+          message: `${data.data.events.data.itemRequestReceived.name} is requesting from Sagar`,
+          type: 'success',
+        });
+      }
+    },
+  });
+
+  console.log('DATA', data, loading, error);
 
   useCallback(() => {
     dispatch(hideLoader());

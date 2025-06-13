@@ -24,8 +24,6 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
   const [getLoginUserQuery, {data, loading, error}] =
     useLazyQuery(getLoginUser);
 
-  console.log('User Login Image', data, loading, error);
-
   // Flex Container
   const flexDetailsItems = [
     {

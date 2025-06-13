@@ -19,7 +19,8 @@ export const SignUpForm = () => {
     handleSubmit,
     formState: {errors},
   } = useForm<SignUpData>();
-  const navigation = useNavigation<OnBoardingStackNavigationProp<'ProfileCreateScreen'>>();
+  const navigation =
+    useNavigation<OnBoardingStackNavigationProp<'ProfileCreateScreen'>>();
   const onButtonPress = (data: SignUpData) => {
     navigation.navigate('ProfileCreateScreen');
   };

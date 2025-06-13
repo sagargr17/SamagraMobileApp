@@ -5,6 +5,7 @@ import {
   createHttpLink,
   InMemoryCache,
   split,
+  useSubscription,
 } from '@apollo/client';
 import {setContext} from '@apollo/client/link/context';
 import {GraphQLWsLink} from '@apollo/client/link/subscriptions';
@@ -32,6 +33,8 @@ import {MyDarkTheme, MyTheme} from './Prefrences/Prefrences';
 import {store} from './StateManagement/Store';
 import {login, logout} from './StateManagement/User/UserSlice';
 import {AreaMapper} from './Utilities/CustomMethods';
+import {getSubscribedData} from './GraphQL/Subscription/Subscription';
+import {onDisplayNotification} from './Screens/Application/ReceivedOrdersListScreen';
 
 // MAin Fuction To Token Refresh Handle
 const isTokennExpireHandle = async () => {
@@ -197,6 +200,8 @@ function App(): React.JSX.Element {
     });
     return () => {};
   }, []);
+
+  // Create a channel (required for Android)
 
   return (
     <GestureHandlerRootView

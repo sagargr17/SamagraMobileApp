@@ -2,7 +2,7 @@ import {useMutation, useQuery, useSubscription} from '@apollo/client';
 import FastImage from '@d11/react-native-fast-image';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import React, {useState} from 'react';
-import {FlatList, StyleSheet, View} from 'react-native';
+import {Button, FlatList, StyleSheet, View} from 'react-native';
 import {showMessage} from 'react-native-flash-message';
 import {IconButton} from 'react-native-paper';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
@@ -10,7 +10,6 @@ import AppButton from '../../Components/Elements/Button';
 import {TextComponet} from '../../Components/Elements/TextComponet';
 import {ProviderCard} from '../../Components/Molecules/Cards/ProviderCard';
 import {AppBottomSheet} from '../../Components/Molecules/Global/AppBottomSheet';
-import {PairButtons} from '../../Components/Molecules/Global/PairButtons';
 import {SingnlePageError} from '../../Components/Molecules/SinglePageError';
 import {ProviderCardSkeleton} from '../../Components/Skeletons/ProviderCardSkeleton';
 import {
@@ -23,9 +22,39 @@ import {getPublicItems} from '../../GraphQL/Queries/ItemQueries';
 import {getSubscribedData} from '../../GraphQL/Subscription/Subscription';
 import {size} from '../../Prefrences/Prefrences';
 import {GetDataSubscription} from '../../src/__generated__/graphql';
-import {StringValueNode} from 'graphql';
+import notifee, {AndroidImportance} from '@notifee/react-native';
 
 interface ReceivedOrderListScreenProps {}
+
+export async function onDisplayNotification(body: string) {
+  // Request permissions (required for iOS)
+  await notifee.requestPermission();
+
+  try {
+    const channelId = await notifee.createChannel({
+      id: 'msg',
+      name: 'Firing alarms & timers',
+      lights: true,
+      vibration: true,
+      importance: AndroidImportance.DEFAULT,
+    });
+
+    // Display a notification
+    await notifee.displayNotification({
+      title: 'Samagra',
+      body: body,
+      android: {
+        channelId,
+        // pressAction is needed if you want the notification to open the app when pressed
+        pressAction: {
+          id: 'default',
+        },
+      },
+    });
+  } catch (e) {
+    console.log('>>>Error Notification::', e);
+  }
+}
 
 export const ReceivedOrderListScreen: React.FC<
   ReceivedOrderListScreenProps
@@ -38,13 +67,15 @@ export const ReceivedOrderListScreen: React.FC<
   const {data, loading, error} = useSubscription(getSubscribedData, {
     onData: ({client, data}) => {
       console.log('Subscribed DAta', data);
-
       if (
         data.data &&
         data.data.events?.eventName &&
         data.data.events.data?.itemRequestReceived
       ) {
         setOrderList([...orderlist, data.data]);
+        onDisplayNotification(
+          `${data.data.events.data.itemRequestReceived.name} is requesting from Sagar`,
+        );
       }
     },
   });
@@ -115,8 +146,6 @@ export const ReceivedOrderListScreen: React.FC<
     loading: myShopItemLoading,
     error: myShopError,
   } = useQuery(getPublicItems);
-
-  console.log('MyShopDATA', myShopItem);
 
   if (loading)
     return (
