@@ -3,9 +3,12 @@ import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {ProgressBar} from 'react-native-paper';
-import {hideLoader} from '../StateManagement/Error&loadingHandle/LoaderStateSlice';
+import {
+  hideLoader,
+  setLoader,
+} from '../StateManagement/Error&loadingHandle/LoaderStateSlice';
 import {useAppDispatch, useAppSelector} from '../StateManagement/hooks';
 import {BottomTabNavigator} from './BottomTab/BottomTabNavigator';
 import {ApplicationOverlayStackNavigator} from './Stack/ApplicationOverlayStackNavigator';
@@ -59,7 +62,7 @@ export const RootStack: React.FC = () => {
   //     console.log('Root Sub Data', data);
 
   //     if (
-  //    pR   data.data &&
+  //       data.data &&
   //       data.data.events?.eventName &&
   //       data.data.events.data?.itemRequestReceived
   //     ) {
@@ -74,11 +77,19 @@ export const RootStack: React.FC = () => {
   //   },
   // });
 
-  useCallback(() => {
-    dispatch(hideLoader());
-  }, [isFocused]);
+  // loader Off
+  // useCallback(() => {
+  //   dispatch(hideLoader());
+  // }, [loaderStatus]);
 
-  // UserBased Login
+  useEffect(() => {
+    console.log('Intervall is called');
+
+    const timer = setTimeout(() => {
+      dispatch(hideLoader());
+    }, 6000);
+    return () => clearTimeout(timer);
+  }, [loaderStatus]);
 
   return (
     <>

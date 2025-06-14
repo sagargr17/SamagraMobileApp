@@ -35,8 +35,6 @@ export const MyShopsScreen: React.FC<MyShopsProps> = ({}) => {
     return () => {};
   }, []);
 
-  console.log('SHOP  DAtA', data, loading, error);
-
   let index = 0;
   return (
     <>

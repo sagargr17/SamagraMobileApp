@@ -50,7 +50,7 @@ const placeOrderParams = createSlice({
   initialState,
   reducers: {
     postPlaceOrderparams: (state, action: PayloadAction<PlaceordersParams>) => {
-      console.log('USer incoming DAta', action.payload);
+      console.log('USer incoming ', action.payload);
       state.itemParams = action.payload.itemParams;
       state.orderDetail = action.payload.orderDetail;
       state.sellerDetails = action.payload.sellerDetails;

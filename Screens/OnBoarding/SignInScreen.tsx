@@ -131,7 +131,7 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
               </View>
               <Spacer height={size.spacing.l} />
               <AppButton color="primary" onPress={handleSubmit(signIn)}>
-                Logins
+                Login
               </AppButton>
               {/* <Spacer /> */}
               <Spacer height={size.spacing.m} />

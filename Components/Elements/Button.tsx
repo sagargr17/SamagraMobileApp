@@ -6,6 +6,7 @@ import {heightPercentageToDP} from 'react-native-responsive-screen';
 import {useAppDispatch} from '../../StateManagement/hooks';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import {size} from '../../Prefrences/Prefrences';
+import {showLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
 
 interface AppButtonProps extends React.ComponentProps<typeof Button> {
   color?: 'primary' | 'secondary' | 'light' | 'danger';
@@ -44,7 +45,10 @@ const AppButton = ({
           : colors.notification
       }
       contentStyle={[styles.buttonContent]}
-      onPress={onPress}
+      onPress={() => {
+        onPress;
+        dispatch(showLoader());
+      }}
       {...props}>
       {children}
     </Button>

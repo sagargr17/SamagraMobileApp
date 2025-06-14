@@ -30,7 +30,7 @@
 //   initialState,
 //   reducers: {
 //     login: (state, action: PayloadAction<UserState>) => {
-//       console.log('USer incoming DAta', action.payload);
+//       console.log('USer incoming ', action.payload);
 //       state.user = action.payload.user;
 //       state.isAuthenticated = true;
 //     },
