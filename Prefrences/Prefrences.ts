@@ -161,7 +161,6 @@ responseTheme = (message: string, description: string, type: any) => {
 
     textStyle: {
       fontFamily: MyTheme.fonts.regular.fontFamily,
-      // fontWeight: 'regular',
       fontSize: size.spacing.s,
     },
     titleStyle: {
@@ -169,7 +168,6 @@ responseTheme = (message: string, description: string, type: any) => {
     },
     icon: type,
     statusBarHeight: 0,
-    // backgroundColor: MyTheme.colors.notification,
   };
 };
 
