@@ -14,6 +14,7 @@ import {useSubscription} from '@apollo/client';
 import {getSubscribedData} from '../GraphQL/Subscription/Subscription';
 import {onDisplayNotification} from '../Screens/Application/ReceivedOrdersListScreen';
 import {showMessage} from 'react-native-flash-message';
+import {size} from '../Prefrences/Prefrences';
 
 type RootStackParamList = {
   ApplicationOverlay: undefined;
@@ -52,6 +53,7 @@ export const RootStack: React.FC = () => {
   const isFocused = useIsFocused();
   const dispatch = useAppDispatch();
   const font = fonts['regular'];
+
   // const {data, loading, error} = useSubscription(getSubscribedData, {
   //   onData: ({client, data}) => {
   //     console.log('Root Sub Data', data);
@@ -79,21 +81,31 @@ export const RootStack: React.FC = () => {
   // UserBased Login
 
   return (
-    <RootStackBuilder.Navigator
-      screenOptions={{
-        header: () => null,
-      }}>
-      {userSignInStatus === true //change this to true while deployment
-        ? screenBuilder([
-            {screenName: 'BottomTab', component: BottomTabNavigator},
-            {
-              screenName: 'ApplicationOverlay',
-              component: ApplicationOverlayStackNavigator,
-            },
-          ])
-        : screenBuilder([
-            {screenName: 'OnBoarding', component: OnBoardingStackNavigator},
-          ])}
-    </RootStackBuilder.Navigator>
+    <>
+      <ProgressBar
+        visible={loaderStatus}
+        color={colors.primary}
+        indeterminate={true}
+        style={{
+          height: size.spacing.xxs,
+        }}></ProgressBar>
+
+      <RootStackBuilder.Navigator
+        screenOptions={{
+          header: () => null,
+        }}>
+        {userSignInStatus === true //change this to true while deployment
+          ? screenBuilder([
+              {screenName: 'BottomTab', component: BottomTabNavigator},
+              {
+                screenName: 'ApplicationOverlay',
+                component: ApplicationOverlayStackNavigator,
+              },
+            ])
+          : screenBuilder([
+              {screenName: 'OnBoarding', component: OnBoardingStackNavigator},
+            ])}
+      </RootStackBuilder.Navigator>
+    </>
   );
 };

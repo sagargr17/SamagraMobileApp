@@ -217,14 +217,15 @@ function App(): React.JSX.Element {
             value: 16,
             scaleBy: 'height',
           }),
-          color: themes.colors.text,
+
           lineHeight: AreaMapper({
             value: 100,
             scaleBy: 'average',
           }),
           fontWeight: 'regular',
+          fontStyle: 'italic',
         }}
-        // floating={true}
+        floating={true}
       />
       <Provider store={store}>
         <StatusBar

@@ -21,6 +21,7 @@ import {Input} from '../../Components/Elements/Input';
 import PhoneInput from '../../Components/Elements/PhoneInput';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import {registerUser} from '../../client/Token/RegisterUser';
+import {TextComponet} from '../../Components/Elements/TextComponet';
 
 interface ProfileCreateProps {
   navigation: OnBoardingStackNavigationProp<'ProfileCreateScreen'>;
@@ -140,6 +141,7 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
             render={({field: {value, onChange}}) => (
               <>
                 <Input
+                  label="Last Name"
                   placeholder="Last Name"
                   value={value}
                   onChangeText={onChange}
@@ -239,9 +241,11 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
                 setAgree(!agree);
               }}
             />
-            <Text onPress={() => setAgree(!agree)} style={styles.agreeText}>
-              I accept the privacy policy and terms of services
-            </Text>
+
+            <TextComponet
+              title="I accept the privacy policy and terms of services"
+              fontSizeVariant="caption"
+              fontVariant="medium"></TextComponet>
           </View>
           <Spacer height={20} />
           <AppButton
@@ -270,7 +274,6 @@ const styles = StyleSheet.create({
   agreement: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
   },
   circle: {
     width: 92,

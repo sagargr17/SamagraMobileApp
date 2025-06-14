@@ -1,3 +1,7 @@
+import {MessageOptions} from 'react-native-flash-message';
+import {store} from '../StateManagement/Store';
+import {hideLoader} from '../StateManagement/Error&loadingHandle/LoaderStateSlice';
+
 const GOOGLE_FONT_REGULAR = 'Poppins-Regular';
 const GOOGLE_FONT_MEDIUM = 'Poppins-Medium';
 const GOOGLE_FONT_BOLD = 'Poppins-Bold';
@@ -67,7 +71,7 @@ const size = {
   textVariants: {
     display: {
       fontSize: 30,
-      lineHeight: 22,
+      lineHeight: 24,
     },
     regular: {
       fontSize: 14,
@@ -80,7 +84,7 @@ const size = {
 
     caption: {
       fontSize: 12,
-      lineHeight: 14,
+      lineHeight: 18,
     },
   },
   borderWidth: {
@@ -143,4 +147,30 @@ const size = {
   },
 };
 
-export {MyTheme, MyDarkTheme, size};
+let responseTheme: (
+  message: string,
+  description: string,
+  type: any,
+) => MessageOptions;
+responseTheme = (message: string, description: string, type: any) => {
+  store.dispatch(hideLoader());
+  return {
+    message: message,
+    description: description,
+    type: type,
+
+    textStyle: {
+      fontFamily: MyTheme.fonts.regular.fontFamily,
+      // fontWeight: 'regular',
+      fontSize: size.spacing.s,
+    },
+    titleStyle: {
+      fontSize: size.spacing.m,
+    },
+    icon: type,
+    statusBarHeight: 0,
+    // backgroundColor: MyTheme.colors.notification,
+  };
+};
+
+export {MyTheme, MyDarkTheme, size, responseTheme};

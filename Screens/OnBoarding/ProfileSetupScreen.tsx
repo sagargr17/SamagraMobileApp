@@ -63,8 +63,8 @@ export const ProfileSetupScreen: React.FC<ProfileSetupProps> = ({
             }}>
             <TextComponet
               customStyle={styles.text}
-              fontVariant="bold"
-              fontSizeVariant={'regular'}
+              fontVariant="regular"
+              fontSizeVariant={'caption'}
               title="Already Have an Account? Log In Now"></TextComponet>
           </Pressable>
         </View>

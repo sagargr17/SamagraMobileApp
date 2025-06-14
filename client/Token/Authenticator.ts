@@ -8,8 +8,8 @@ import {
   hideLoader,
   showLoader,
 } from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
-import {showMessage} from 'react-native-flash-message';
-import {MyTheme} from '../../Prefrences/Prefrences';
+import {Icon, showMessage} from 'react-native-flash-message';
+import {MyTheme, responseTheme, size} from '../../Prefrences/Prefrences';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 
 interface AuthResponse {
@@ -51,34 +51,16 @@ async function Authenticator(userName: string, password: string) {
       return 200;
     }
 
-    console.log('Response while calling', data);
-
     return handleAuthErrors(data);
   } catch (error) {
-    console.log('Catch Handle', error);
-    showMessage({
-      message: 'Invalid Credentials',
-      description: 'Your Id or Password may mismatched !',
-      type: 'danger',
+    showMessage(
+      responseTheme(
+        'Invalid Credential',
+        'Please validate your credentials and Try again later !!',
+        'danger',
+      ),
+    );
 
-      textStyle: {
-        fontFamily: MyTheme.fonts.regular.fontFamily,
-        fontWeight: 'regular',
-        fontSize: AreaMapper({
-          value: 14,
-          scaleBy: 'average',
-        }),
-      },
-      statusBarHeight: AreaMapper({
-        value: 15,
-        scaleBy: 'average',
-      }),
-      // hideStatusBar: true,
-    });
-    store.dispatch(hideLoader());
-
-    // console.error('Authentication Error:', error);
-    // showErrorAlert();
     return 400;
   }
 }
@@ -98,9 +80,6 @@ export async function saveTokens(data: AuthResponse): Promise<void> {
     });
     store.dispatch(
       login({
-        // id: 1,
-        // name: 'sagar',
-        // email: 'sagarsoocer@gmail.com',
         isAuthenticated: true,
       }),
     );
@@ -110,13 +89,32 @@ export async function saveTokens(data: AuthResponse): Promise<void> {
 }
 
 function handleAuthErrors(data: AuthResponse): number {
-  console.log('Authentication Failed:', data);
-
   const errorMap: Record<string, number> = {
     ERPNNC: 401,
     ERIUC: 402,
   };
   let result = errorMap[data.error_description || ''] || 400;
+
+  showMessage(
+    responseTheme(
+      `${
+        result === 402
+          ? 'Incorrect Password'
+          : result === 401
+          ? 'Invalid PhoneNumber'
+          : 'Something WentWrong'
+      }`,
+      `${
+        result === 402
+          ? 'Please Check Your Password and try again'
+          : result === 401
+          ? 'Validate Your PhoneNumber and Try Again!'
+          : 'We are trying to fix and reach you back!'
+      }`,
+      'danger',
+    ),
+  );
+
   return result;
 }
 
