@@ -40,7 +40,7 @@ export const SocialForm: React.FC<SocialProps> = ({onAppleClick}) => {
             styles.socialItem,
             {
               borderColor: colors.border,
-              flex: 1,
+              // flex: 1,
             },
           ]}>
           <GoogleLogo width={size.iconSize.medium} />
@@ -74,6 +74,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   flexItem: {
-    flex: 0.3,
+    flex: 0.45,
   },
 });

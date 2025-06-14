@@ -27,7 +27,7 @@ export const registerUser = async (user: {
   phoneNumber: string;
 }) => {
   try {
-    const response = await fetch(verifiedPhoneNumber, {
+    const response = await fetch(registerUserEndpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -40,17 +40,19 @@ export const registerUser = async (user: {
       }).toString(),
     });
 
+    console.log('Result', response);
+
     if (response.ok) {
       showMessage({
         message: 'User Create ',
         type: 'success',
       });
-      if (!response.ok) {
-        showMessage({
-          message: 'User cant  Create ',
-          type: 'danger',
-        });
-      }
+    }
+    if (!response.ok) {
+      showMessage({
+        message: 'User cant  Create ',
+        type: 'danger',
+      });
     }
   } catch (e) {
     if (e) {
