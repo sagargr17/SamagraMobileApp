@@ -25,6 +25,7 @@ export const SocialForm: React.FC<SocialProps> = ({onAppleClick}) => {
             styles.socialItem,
             {
               borderColor: colors.border,
+              borderWidth: size.borderWidth.xs
             },
           ]}>
           <AppleLogo height={size.iconSize.medium} />
@@ -40,6 +41,7 @@ export const SocialForm: React.FC<SocialProps> = ({onAppleClick}) => {
             styles.socialItem,
             {
               borderColor: colors.border,
+              borderWidth: size.borderWidth.xs,
               // flex: 1,
             },
           ]}>
@@ -74,6 +76,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   flexItem: {
-    flex: 0.45,
+    flex: 0.48,
   },
 });

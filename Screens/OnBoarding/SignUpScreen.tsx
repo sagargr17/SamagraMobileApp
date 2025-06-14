@@ -6,6 +6,7 @@ import {SocialForm} from '../../Components/Organism/SocialForm';
 import {ContinueDivider} from '../../Components/Elements/ContinueDivider';
 import {Spacer} from '../../Components/Elements/Spacer';
 import AppButton from '../../Components/Elements/Button';
+import {size} from '../../Prefrences/Prefrences';
 
 interface OnBoardingScreenProps {
   navigation: OnBoardingStackNavigationProp<'SignUpScreen'>;
@@ -19,13 +20,13 @@ export const SignUpScreen: React.FC<OnBoardingScreenProps> = ({navigation}) => {
   return (
     <ScrollableLayout>
       <SignUpForm />
-      <Spacer />
+      <Spacer height={size.spacing.s} />
       <ContinueDivider />
-      <Spacer />
+      <Spacer height={size.spacing.l} />
       <AppButton mode="outlined" onPress={goLogin} style={{}}>
         Continue with Username
       </AppButton>
-      <Spacer />
+      <Spacer height={size.spacing.l} />
       <SocialForm
         onAppleClick={() => navigation.navigate('ProfileSetupScreen')}
       />

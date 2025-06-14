@@ -95,8 +95,8 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
                     onChangeText={onChange}
                     right={
                       <TextInput.Icon
-                      color={"#4A739C"}
-                      rippleColor={"#4A739C"}
+                        color={'#4A739C'}
+                        rippleColor={'#4A739C'}
                         onPress={() => setIsTextvisible(!isTextVisible)}
                         icon={isTextVisible ? 'eye-outline' : 'eye-off'}
                         size={size.iconSize.small}></TextInput.Icon>
@@ -109,7 +109,7 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
               )}
               <Spacer height={10} />
               <View style={styles.extra}>
-                <Pressable onPress={() => navigation.navigate('OtpScreen')}>
+                <Pressable onPress={() => navigation.navigate('SignUpScreen')}>
                   <TextComponet
                     fontSizeVariant="regular"
                     customStyle={{
@@ -118,7 +118,8 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
                     title="Forgot Password"
                     fontVariant="medium"></TextComponet>
                 </Pressable>
-                <Pressable onPress={() => navigation.navigate('ProfileSetupScreen')}>
+                <Pressable
+                  onPress={() => navigation.navigate('ProfileSetupScreen')}>
                   <TextComponet
                     fontSizeVariant="caption"
                     customStyle={{
@@ -128,14 +129,14 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
                     fontVariant="medium"></TextComponet>
                 </Pressable>
               </View>
-              <Spacer />
+              <Spacer height={size.spacing.l} />
               <AppButton color="primary" onPress={handleSubmit(signIn)}>
                 Logins
               </AppButton>
               {/* <Spacer /> */}
-              <Spacer />
+              <Spacer height={size.spacing.m} />
               <ContinueDivider />
-              <Spacer />
+              <Spacer height={size.spacing.m} />
               <SocialForm />
             </ScrollView>
           </KeyboardAvoidingView>

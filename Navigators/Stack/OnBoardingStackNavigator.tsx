@@ -13,6 +13,7 @@ import {SignInScreen} from '../../Screens/OnBoarding/SignInScreen';
 import {SignUpScreen} from '../../Screens/OnBoarding/SignUpScreen';
 import {SplashScreen} from '../../Screens/OnBoarding/SplashScreen';
 import {ProgressBar} from 'react-native-paper';
+import {size} from '../../Prefrences/Prefrences';
 
 type OnBoardingStackParamList = {
   SplashScreen: undefined;
@@ -66,7 +67,7 @@ export const OnBoardingStackNavigator: React.FC = () => {
           headerTitleAlign: 'center',
           headerTitleStyle: {
             fontFamily: fonts.medium.fontFamily,
-            fontSize: 16,
+            fontSize: size.spacing.m,
           },
           headerShadowVisible: false,
           headerStyle: {
@@ -99,7 +100,7 @@ export const OnBoardingStackNavigator: React.FC = () => {
             screenName: 'SignUpScreen',
             component: SignUpScreen,
             option: {
-              headerTitle: "Let's get Started",
+              headerTitle: 'Recover Your Account',
             },
           },
           {screenName: 'OtpScreen', component: OtpScreen},

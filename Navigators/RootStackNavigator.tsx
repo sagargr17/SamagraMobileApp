@@ -79,23 +79,21 @@ export const RootStack: React.FC = () => {
   // UserBased Login
 
   return (
-    <>
-      <RootStackBuilder.Navigator
-        screenOptions={{
-          header: () => null,
-        }}>
-        {userSignInStatus === true //change this to true while deployment
-          ? screenBuilder([
-              {screenName: 'BottomTab', component: BottomTabNavigator},
-              {
-                screenName: 'ApplicationOverlay',
-                component: ApplicationOverlayStackNavigator,
-              },
-            ])
-          : screenBuilder([
-              {screenName: 'OnBoarding', component: OnBoardingStackNavigator},
-            ])}
-      </RootStackBuilder.Navigator>
-    </>
+    <RootStackBuilder.Navigator
+      screenOptions={{
+        header: () => null,
+      }}>
+      {userSignInStatus === true //change this to true while deployment
+        ? screenBuilder([
+            {screenName: 'BottomTab', component: BottomTabNavigator},
+            {
+              screenName: 'ApplicationOverlay',
+              component: ApplicationOverlayStackNavigator,
+            },
+          ])
+        : screenBuilder([
+            {screenName: 'OnBoarding', component: OnBoardingStackNavigator},
+          ])}
+    </RootStackBuilder.Navigator>
   );
 };

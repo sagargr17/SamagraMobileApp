@@ -54,10 +54,6 @@ const AppButton = ({
 const styles = StyleSheet.create({
   button: {
     borderRadius: heightPercentageToDP(6),
-    marginVertical: AreaMapper({
-      value: 10,
-      scaleBy: 'average',
-    }),
   },
   label: {
     fontSize: 16,

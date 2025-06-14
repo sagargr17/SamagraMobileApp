@@ -35,6 +35,7 @@ import {login, logout} from './StateManagement/User/UserSlice';
 import {AreaMapper} from './Utilities/CustomMethods';
 import {getSubscribedData} from './GraphQL/Subscription/Subscription';
 import {onDisplayNotification} from './Screens/Application/ReceivedOrdersListScreen';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 // MAin Fuction To Token Refresh Handle
 const isTokennExpireHandle = async () => {
@@ -258,7 +259,9 @@ function App(): React.JSX.Element {
             ) : (
               <ApolloProvider client={client}>
                 <PaperProvider>
-                  <RootStack />
+                  <SafeAreaProvider>
+                    <RootStack />
+                  </SafeAreaProvider>
                 </PaperProvider>
               </ApolloProvider>
             )
