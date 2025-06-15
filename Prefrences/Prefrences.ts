@@ -12,12 +12,6 @@ const MyTheme = {
   dark: false,
   colors: {
     primary: '#339944', //Test1
-    // primary: '#338844', //Test2
-    // primary: '#1AD05D', //Primary 5
-    // primary: '#0FAA48', //Primary 6
-    // primary: '#10702C', //Primary 7
-    // primary: '#126933', //Primary 8
-    // primary: 'rgba(99, 202, 78, 1)',
     background: 'rgb(255, 255, 255)',
     // card: 'rgb(250, 250, 250)',
     card: '#EFF1F3',
@@ -109,35 +103,6 @@ const size = {
     full: 999,
   },
 
-  // elevation: {
-  //   xs: {
-  //     shadowColor: '#000',
-  //     shadowOffset: {width: 0, height: 1},
-  //     shadowOpacity: 0.12,
-  //     shadowRadius: 3,
-  //     elevation: 1,
-  //   },
-  //   s: {
-  //     shadowColor: '#000',
-  //     shadowOffset: {width: 0, height: 3},
-  //     shadowOpacity: 0.16,
-  //     shadowRadius: 6,
-  //     elevation: 2,
-  //   },
-  //   m: {
-  //     shadowColor: '#0000',
-  //     shadowOffset: {width: 0, height: 2},
-  //     shadowOpacity: 0.0001,
-  //     elevation: 5,
-  //   },
-  //   l: {
-  //     shadowColor: '#000',
-  //     shadowOffset: {width: 0, height: 14},
-  //     shadowOpacity: 0.25,
-  //     shadowRadius: 28,
-  //     elevation: 4,
-  //   },
-  // },
   elevation: {
     xs: {
       shadowColor: '#3b3b3b', // Proper visible color
@@ -170,8 +135,6 @@ const size = {
       elevation: 3, // On Android, this will be applied. iOS will ignore it.
     },
     l: {
-      // iOS shadow properties
-      // shadowColor: '#767676',
       shadowColor: '#3b3b3b', // Proper visible color
       borderWidth: 0.1,
       shadowOffset: {width: 0, height: 14},
@@ -181,6 +144,8 @@ const size = {
       elevation: 4, // On Android, this will be applied. iOS will ignore it.
     },
   },
+
+  
   iconSize: {
     small: 16,
     medium: 24,

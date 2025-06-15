@@ -10,6 +10,7 @@ import {MoreLandingScreen} from '../../Screens/Application/More/MoreLandingScree
 
 type MoreStackParamList = {
   MoreLandingScreen: undefined;
+  
 };
 
 // Its The builder with the
@@ -64,6 +65,7 @@ export const MoreStackNavigator: React.FC = () => {
           headerStyle: {
             backgroundColor: colors.background,
           },
+          
         }}>
         {screenBuilder([
           {
