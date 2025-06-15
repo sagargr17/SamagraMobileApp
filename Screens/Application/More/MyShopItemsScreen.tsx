@@ -1,8 +1,8 @@
 import {useQuery} from '@apollo/client';
 import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {View} from 'moti';
-import React from 'react';
-import {FlatList, Text} from 'react-native';
+import React, {use, useEffect, useRef} from 'react';
+import {AppState, FlatList, Text} from 'react-native';
 import {ItemListtCard} from '../../../Components/Molecules/Cards/ItemListCard';
 import {SamagraLoader} from '../../../Components/Molecules/Response/SamagraLoader';
 import {SliderSwitcher} from '../../../Components/Organism/SliderSwitcher';
@@ -14,14 +14,41 @@ interface MyShopItemsScreenProps {}
 
 export const MyShopItemsScreen: React.FC<MyShopItemsScreenProps> = ({}) => {
   const isFocused = useIsFocused();
-  const navigation =useNavigation<ApplicationOverlayStackNavigationProp<'AddItemScreen'>>();
+  const navigation =
+    useNavigation<ApplicationOverlayStackNavigationProp<'AddItemScreen'>>();
 
-  const {data, loading, error} = useQuery(getPersonalItems);
+  const {data, loading, error, refetch} = useQuery(getPersonalItems, {
+    notifyOnNetworkStatusChange: true,
+  });
 
-  console.log('SHop DATA', data, error, loading);
+  console.log('MyShop Data', data, loading, error);
 
   if (loading) return <SamagraLoader></SamagraLoader>;
   if (!error && !data) return <Text>Error</Text>;
+
+  // refetch();
+  // const appState = useRef(AppState.currentState);
+  // useEffect(() => {
+  //   const subscription = AppState.addEventListener('change', nextAppState => {
+  //     // If the app was inactive/background and is now active (foreground)
+  //       // if (
+  //       //   appState.current.match(/inactive|background/) &&
+  //       //   nextAppState === 'active'
+  //       // ) {
+  //       //   console.log('App has come to the foreground!');
+  //       //   // Trigger the refetch here
+  //       // }
+
+  //       // appState.current = nextAppState;
+  //   });
+
+  //   // Cleanup the event listener when the component unmounts
+  //   return () => {
+  //     subscription.remove();
+  //   };
+  // }, [refetch]);
+
+  // refetch();
 
   return (
     <SliderSwitcher

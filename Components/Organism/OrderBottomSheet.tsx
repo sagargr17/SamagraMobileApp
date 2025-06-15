@@ -134,7 +134,7 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
           )}
 
         </AppButton> */}
-
+        <ItemCategoryCardSlider sizes="regular"></ItemCategoryCardSlider>
         <AppForm<SentordersParams>
           formConfig={[
             {
@@ -163,8 +163,7 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
             },
           ]}
           onFormSubmit={handleSubmit}
-          submitButtonText="Search"
-          ></AppForm>
+          submitButtonText="Search"></AppForm>
       </View>
     );
   };

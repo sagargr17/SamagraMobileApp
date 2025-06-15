@@ -93,13 +93,15 @@ export const RootStack: React.FC = () => {
 
   return (
     <>
-      <ProgressBar
-        visible={loaderStatus}
-        color={colors.primary}
-        indeterminate={true}
-        style={{
-          height: size.spacing.xxs,
-        }}></ProgressBar>
+      {loaderStatus ?? (
+        <ProgressBar
+          visible={loaderStatus}
+          color={colors.primary}
+          indeterminate={true}
+          style={{
+            height: size.spacing.xxs,
+          }}></ProgressBar>
+      )}
 
       <RootStackBuilder.Navigator
         screenOptions={{

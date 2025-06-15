@@ -94,6 +94,14 @@ const splitLink = split(
 const client = new ApolloClient({
   link: splitLink,
   cache: new InMemoryCache(),
+  defaultOptions: {
+    query: {
+      fetchPolicy: 'network-only',
+    },
+    watchQuery: {
+      fetchPolicy: 'network-only',
+    },
+  },
 });
 
 // Main Modules

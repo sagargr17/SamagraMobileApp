@@ -1,18 +1,16 @@
 import {useTheme} from '@react-navigation/native';
 import React from 'react';
 import {
+  Dimensions,
   StyleSheet,
   TouchableOpacity,
   View,
   ViewStyle,
-  Dimensions,
-  TouchableHighlight,
-  TouchableWithoutFeedbackBase,
 } from 'react-native';
-import {AreaMapper} from '../../../Utilities/CustomMethods';
-import {TextComponet} from '../../Elements/TextComponet';
 import {Icon, TouchableRipple} from 'react-native-paper';
 import {size} from '../../../Prefrences/Prefrences';
+import {AreaMapper} from '../../../Utilities/CustomMethods';
+import {TextComponet} from '../../Elements/TextComponet';
 // import {Icon} from '../../Elements/Icon'; // Assuming you have an Icon component
 
 interface PoppedCardProps {
@@ -42,34 +40,36 @@ export const PoppedCard: React.FC<PoppedCardProps> = ({
     variant === 'large' ? '92%' : AreaMapper({value: 150, scaleBy: 'average'}); // Example small width
 
   return (
-    <TouchableRipple
-      // underlayColor={'#e3e3e3'}
+    <TouchableOpacity
       style={[
         styles.viewContainer,
         {
           backgroundColor: colors.card,
-          borderColor: colors.border,
-          shadowColor: colors.border,
+          shadowColor: colors.card,
           padding: variant === 'large' ? size.spacing.s : size.spacing.xs,
+          borderBottomLeftRadius: size.borderRadius.m,
+          borderBottomRightRadius: size.borderRadius.m,
+          borderTopLeftRadius: size.borderRadius.s,
+          borderTopRightRadius: size.borderRadius.s,
         },
         customStyle,
-        // size.elevation.,
+        size.elevation.m,
       ]}
       onPress={onPress}>
-      <View style={styles.contentContainer}>
+      <View style={[styles.contentContainer]}>
         {iconName && (
           <View style={styles.iconContainer}>
             <Icon
               source={iconName}
-              size={AreaMapper({value: 30, scaleBy: 'average'})}
-              color={'gray'}
+              size={size.iconSize.large}
+              color={colors.text}
             />
           </View>
         )}
-        <View style={styles.textContainer}>
+        <View style={[styles.textContainer]}>
           <TextComponet
             fontVariant="medium"
-            fontSizeVariant={"regular"}
+            fontSizeVariant={'regular'}
             title={title} // Title using the title prop
           />
           {comment && (
@@ -83,26 +83,29 @@ export const PoppedCard: React.FC<PoppedCardProps> = ({
         </View>
         {children && <View style={styles.childrenContainer}>{children}</View>}
       </View>
-    </TouchableRipple>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   viewContainer: {
-    borderRadius: AreaMapper({value: 8, scaleBy: 'average'}),
-    shadowOffset: {width: 0, height: 10},
-    shadowOpacity: 1,
-    shadowRadius: 10,
-    marginVertical: AreaMapper({value: 5, scaleBy: 'average'}),
-    borderWidth: 0.1,
+    // borderRadius: AreaMapper({value: 8, scaleBy: 'average'}),
+    // shadowOffset: {width: 0, height: 10},
+    // shadowOpacity: 1,
+    // shadowRadius: 10,
+    backgroundColor: 'green',
+    marginBottom: size.spacing.s,
   },
   contentContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: AreaMapper({value: 12, scaleBy: 'average'}),
+    // padding: AreaMapper({value: 12, scaleBy: 'average'}),
+    borderRadius: size.borderRadius.s,
+    paddingTop: size.spacing.s,
+    paddingBottom: size.spacing.s,
   },
   iconContainer: {
-    marginRight: AreaMapper({value: 12, scaleBy: 'average'}),
+    marginRight: size.spacing.xxs,
   },
   textContainer: {
     flex: 1,

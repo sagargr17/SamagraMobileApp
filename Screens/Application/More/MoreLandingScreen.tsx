@@ -12,8 +12,10 @@ import {useLazyQuery, useQuery} from '@apollo/client';
 import {getLoginUser} from '../../../GraphQL/Queries/UserQueries';
 import {ActivityIndicator} from 'react-native-paper';
 import {ProviderCardSkeleton} from '../../../Components/Skeletons/ProviderCardSkeleton';
-import {UserProfileMiniCard} from '../../../Components/Molecules/Cards/UserProfileMiniCard';
+import {UserProfileCard} from '../../../Components/Molecules/Cards/UserProfileCard';
 import {ImageNotFound} from '../../../Constants/UI/AssetsUrls';
+import {size} from '../../../Prefrences/Prefrences';
+import {UserProfileCardSkeleton} from '../../../Components/Skeletons/UserProfileCardSkeleton';
 
 interface MoreLandingScreenProps {}
 
@@ -114,32 +116,28 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
   return (
     <ScrollView
       style={{
-        padding: AreaMapper({
-          value: 10,
-          scaleBy: 'average',
-        }),
+        paddingBottom: size.spacing.xxl,
+        paddingHorizontal: size.spacing.m,
       }}>
       {loading ?? <ActivityIndicator color="orange"></ActivityIndicator>}
       {error ? <ActivityIndicator color="red"></ActivityIndicator> : null}
       {data && data.getUser && data.getUser.username ? (
-        <UserProfileMiniCard
+        <UserProfileCard
           user={{
             username: data.getUser?.username,
             profileImageUrl: data.getUser.profileImageUrl
               ? data.getUser.profileImageUrl
               : ImageNotFound,
-          }}></UserProfileMiniCard>
+          }}></UserProfileCard>
       ) : (
-        <ProviderCardSkeleton></ProviderCardSkeleton>
+        <UserProfileCardSkeleton></UserProfileCardSkeleton>
       )}
 
       <View
         style={{
           display: 'flex',
           flexDirection: 'row',
-
           justifyContent: 'space-between',
-          marginTop: 8,
           alignItems: 'center',
         }}>
         {flexDetailsItems[0].firstRow.map((item, index) => (
@@ -158,9 +156,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
         style={{
           display: 'flex',
           flexDirection: 'row',
-
           justifyContent: 'space-between',
-          marginTop: 8,
           alignItems: 'center',
         }}>
         {flexDetailsItems[0].secondRow.map((item, index) => (
@@ -176,13 +172,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
         ))}
       </View>
 
-      <View
-        style={{
-          marginVertical: AreaMapper({
-            value: 4,
-            scaleBy: 'average',
-          }),
-        }}>
+      <View>
         {columnDetailsList.map((item, index) => (
           <PoppedCard
             key={index}
@@ -192,11 +182,17 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
             onPress={item.onPress}
             comment={item.comment}></PoppedCard>
         ))}
-
-        <AppButton onPress={userLogoutHandle} color="danger">
-          Logout
-        </AppButton>
       </View>
+      <AppButton
+        textColor={colors.text}
+        onPress={userLogoutHandle}
+        style={{
+          marginTop: size.spacing.xxl,
+          marginBottom: size.spacing.s,
+          backgroundColor: '#C0C0C0',
+        }}>
+        Logout
+      </AppButton>
     </ScrollView>
   );
 };

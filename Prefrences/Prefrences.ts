@@ -1,6 +1,7 @@
 import {MessageOptions} from 'react-native-flash-message';
 import {store} from '../StateManagement/Store';
 import {hideLoader} from '../StateManagement/Error&loadingHandle/LoaderStateSlice';
+import {Card} from 'react-native-paper';
 
 const GOOGLE_FONT_REGULAR = 'Poppins-Regular';
 const GOOGLE_FONT_MEDIUM = 'Poppins-Medium';
@@ -108,6 +109,35 @@ const size = {
     full: 999,
   },
 
+  // elevation: {
+  //   xs: {
+  //     shadowColor: '#000',
+  //     shadowOffset: {width: 0, height: 1},
+  //     shadowOpacity: 0.12,
+  //     shadowRadius: 3,
+  //     elevation: 1,
+  //   },
+  //   s: {
+  //     shadowColor: '#000',
+  //     shadowOffset: {width: 0, height: 3},
+  //     shadowOpacity: 0.16,
+  //     shadowRadius: 6,
+  //     elevation: 2,
+  //   },
+  //   m: {
+  //     shadowColor: '#0000',
+  //     shadowOffset: {width: 0, height: 2},
+  //     shadowOpacity: 0.0001,
+  //     elevation: 5,
+  //   },
+  //   l: {
+  //     shadowColor: '#000',
+  //     shadowOffset: {width: 0, height: 14},
+  //     shadowOpacity: 0.25,
+  //     shadowRadius: 28,
+  //     elevation: 4,
+  //   },
+  // },
   elevation: {
     xs: {
       shadowColor: '#000',
@@ -117,32 +147,38 @@ const size = {
       elevation: 1,
     },
     s: {
+      // iOS shadow properties
       shadowColor: '#000',
       shadowOffset: {width: 0, height: 3},
       shadowOpacity: 0.16,
       shadowRadius: 6,
-      elevation: 2,
+      // Android elevation property
+      elevation: 2, // On Android, this will be applied. iOS will ignore it.
     },
     m: {
-      shadowColor: '#000',
-      shadowOffset: {width: 0, height: 10},
-      shadowOpacity: 0.19,
-      shadowRadius: 20,
-      elevation: 3,
+      // THIS IS THE UPDATED 'm' ELEVATION
+      // iOS shadow properties
+      shadowColor: '#000', // Proper visible color
+      shadowOffset: {width: 0, height: 2},
+      shadowOpacity: 0.25, // Good visible opacity for a soft shadow
+      shadowRadius: 3.84, // Crucial for softness on iOS
+      // Android elevation property
+      elevation: 3, // On Android, this will be applied. iOS will ignore it.
     },
     l: {
+      // iOS shadow properties
       shadowColor: '#000',
       shadowOffset: {width: 0, height: 14},
       shadowOpacity: 0.25,
-      shadowRadius: 28,
-      elevation: 4,
+      shadowRadius: 100000000,
+      // Android elevation property
+      elevation: 4, // On Android, this will be applied. iOS will ignore it.
     },
   },
-
   iconSize: {
     small: 16,
     medium: 24,
-    large: 32,
+    large: 26,
     xlarge: 48,
   },
 };
