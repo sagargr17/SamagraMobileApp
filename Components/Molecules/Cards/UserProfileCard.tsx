@@ -11,9 +11,13 @@ interface UserProfileCardProps {
     username: string;
     profileImageUrl: string;
   };
+  onPress?: () => void;
 }
 
-export const UserProfileCard: React.FC<UserProfileCardProps> = ({user}) => {
+export const UserProfileCard: React.FC<UserProfileCardProps> = ({
+  user,
+  onPress,
+}) => {
   const {colors} = useTheme();
 
   return (
@@ -71,12 +75,14 @@ export const UserProfileCard: React.FC<UserProfileCardProps> = ({user}) => {
             fontSizeVariant={'regular'}></TextComponet>
         </View>
       </View>
-      <IconButton
-      rippleColor={"#f7fffa"}
-        icon={'arrow-expand-right'}
-        size={size.iconSize.small}
-        onPress={() => console.log('<<>>MMM')}
-      />
+      {onPress ? (
+        <IconButton
+          rippleColor={'#f7fffa'}
+          icon={'arrow-expand-right'}
+          size={size.iconSize.small}
+          onPress={onPress}
+        />
+      ) : null}
     </View>
   );
 };

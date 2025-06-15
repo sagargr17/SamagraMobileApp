@@ -20,6 +20,7 @@ import {ReceivedOffersListScreen} from '../../Screens/Application/ReceivedOffers
 import {CartScreen} from '../../Screens/Application/CartScreen';
 import {PlaceOrderScreen} from '../../Screens/Application/PlaceOrderScreen';
 import {OrderSuccessDetailScreen} from '../../Screens/Application/OrderSuccessDetailScreen';
+import {ProfileSelectScreen} from '../../Screens/Application/More/ProfileSelectScreen';
 
 type ApplicationOverlayMoreStackParamList = {
   ReceivedOrderListScreen: undefined;
@@ -40,6 +41,7 @@ type ApplicationOverlayMoreStackParamList = {
   CartScreen: undefined;
   PlaceOrderScreen: undefined;
   OrderSuccessDetailScreen: undefined;
+  SelectProfile: undefined;
 };
 
 // Its The builder with the
@@ -231,6 +233,10 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
             option: {
               header: () => null,
             },
+          },
+          {
+            screenName: 'SelectProfile',
+            component: ProfileSelectScreen,
           },
         ])}
       </ApplicationOverlayStackBuilder.Navigator>

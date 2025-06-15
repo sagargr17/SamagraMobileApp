@@ -113,8 +113,18 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
     return () => {};
   }, []);
 
+  // Handle Navigation
+  const handleNavigation = () => {
+    console.log('cliked');
+
+    navigation.navigate('ApplicationOverlay', {
+      screen: 'SelectProfile',
+    });
+  };
+
   return (
     <ScrollView
+      showsVerticalScrollIndicator={false}
       style={{
         paddingBottom: size.spacing.xxl,
         paddingHorizontal: size.spacing.m,
@@ -123,11 +133,11 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
       {error ? <ActivityIndicator color="red"></ActivityIndicator> : null}
       {data && data.getUser && data.getUser.username ? (
         <UserProfileCard
+          onPress={handleNavigation}
           user={{
             username: data.getUser?.username,
-            profileImageUrl: data.getUser.profileImageUrl
-              ? data.getUser.profileImageUrl
-              : ImageNotFound,
+            profileImageUrl:
+              data?.getUser?.profileImageUrl?.[0] ?? ImageNotFound,
           }}></UserProfileCard>
       ) : (
         <UserProfileCardSkeleton></UserProfileCardSkeleton>

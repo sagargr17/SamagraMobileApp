@@ -106,7 +106,7 @@ export const BottomTabNavigator: React.FC = () => {
         },
         tabBarLabelStyle: {
           fontSize: AreaMapper({
-            value: 14,
+            value: 4,
             scaleBy: 'height',
           }),
           lineHeight: AreaMapper({
