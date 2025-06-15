@@ -140,7 +140,8 @@ const size = {
   // },
   elevation: {
     xs: {
-      shadowColor: '#000',
+      shadowColor: '#3b3b3b', // Proper visible color
+      borderWidth: 0.1,
       shadowOffset: {width: 1000, height: 1},
       shadowOpacity: 0.12,
       shadowRadius: 3,
@@ -148,17 +149,20 @@ const size = {
     },
     s: {
       // iOS shadow properties
-      shadowColor: '#000',
+      shadowColor: '#3b3b3b', // Proper visible color
+      borderWidth: 0.1,
       shadowOffset: {width: 0, height: 3},
       shadowOpacity: 0.16,
       shadowRadius: 6,
       // Android elevation property
-      elevation: 2, // On Android, this will be applied. iOS will ignore it.
+      elevation: 4, // On Android, this will be applied. iOS will ignore it.
     },
     m: {
       // THIS IS THE UPDATED 'm' ELEVATION
       // iOS shadow properties
-      shadowColor: '#000', // Proper visible color
+      // shadowColor: '#767676', // Proper visible color
+      shadowColor: '#3b3b3b', // Proper visible color
+      borderWidth: 0.1,
       shadowOffset: {width: 0, height: 2},
       shadowOpacity: 0.25, // Good visible opacity for a soft shadow
       shadowRadius: 3.84, // Crucial for softness on iOS
@@ -167,7 +171,9 @@ const size = {
     },
     l: {
       // iOS shadow properties
-      shadowColor: '#000',
+      // shadowColor: '#767676',
+      shadowColor: '#3b3b3b', // Proper visible color
+      borderWidth: 0.1,
       shadowOffset: {width: 0, height: 14},
       shadowOpacity: 0.25,
       shadowRadius: 100000000,

@@ -10,7 +10,7 @@ import AppButton from '../Elements/Button';
 import {Rating} from '../Elements/Rating';
 import {TextComponet} from '../Elements/TextComponet';
 import {AppBottomSheet} from './Global/AppBottomSheet';
-import {PoppedCard} from './Cards/PoppedCard';
+import {BubbleCard} from './Cards/BubbleCard';
 
 interface MyShopDisplayLayoutProps {
   shop: {
@@ -42,13 +42,13 @@ export const MyStoreLayout: React.FC<MyShopDisplayLayoutProps> = ({shop}) => {
             }),
           }}>
           {manageStorepoppedCardParams.map((item, index) => (
-            <PoppedCard
+            <BubbleCard
               key={index}
               onPress={item.onPressHandle}
               variant={item.variant}
               iconName={item.iconName}
               comment={item.comment}
-              title={item.title}></PoppedCard>
+              title={item.title}></BubbleCard>
           ))}
         </ScrollView>
 

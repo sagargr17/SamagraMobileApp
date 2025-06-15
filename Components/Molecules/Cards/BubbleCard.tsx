@@ -13,7 +13,7 @@ import {AreaMapper} from '../../../Utilities/CustomMethods';
 import {TextComponet} from '../../Elements/TextComponet';
 // import {Icon} from '../../Elements/Icon'; // Assuming you have an Icon component
 
-interface PoppedCardProps {
+interface BubbleCardProps {
   variant: 'large' | 'small';
   title: string;
   comment?: string;
@@ -25,7 +25,7 @@ interface PoppedCardProps {
 
 const {width: screenWidth} = Dimensions.get('window');
 
-export const PoppedCard: React.FC<PoppedCardProps> = ({
+export const BubbleCard: React.FC<BubbleCardProps> = ({
   variant = 'large',
   title,
   comment,
@@ -47,13 +47,12 @@ export const PoppedCard: React.FC<PoppedCardProps> = ({
           backgroundColor: colors.card,
           shadowColor: colors.card,
           padding: variant === 'large' ? size.spacing.s : size.spacing.xs,
-          borderBottomLeftRadius: size.borderRadius.m,
-          borderBottomRightRadius: size.borderRadius.m,
-          borderTopLeftRadius: size.borderRadius.s,
-          borderTopRightRadius: size.borderRadius.s,
+          borderRadius: size.borderRadius.m,
+          
         },
         customStyle,
-        size.elevation.s,
+        size.elevation.m,
+
       ]}
       onPress={onPress}>
       <View style={[styles.contentContainer]}>

@@ -23,6 +23,10 @@ import InternetUnAvailable from '../SVGImages/InternetUnAvailable';
 import NoItemFound from '../SVGImages/NoItemFound';
 import ServerDown from '../SVGImages/ServerDown';
 import Construction from '../SVGImages/construction';
+import DustbinIcon from '../SVGImages/DustbinIcon';
+import PenIcon from '../SVGImages/PenIcon';
+import PlusIcon from '../SVGImages/PlusIcon';
+import StockIcon from '../SVGImages/StockIcon';
 
 export const Logos = {
   AppleLogo,
@@ -50,4 +54,8 @@ export const Logos = {
   NoItemFound,
   ServerDown,
   Construction,
+  DustbinIcon,
+  PenIcon,
+  PlusIcon,
+  StockIcon,
 };

@@ -1,23 +1,15 @@
-import {useIsFocused, useTheme} from '@react-navigation/native';
+import { useIsFocused, useTheme } from '@react-navigation/native';
 import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
-import React, {useCallback, useEffect} from 'react';
-import {ProgressBar} from 'react-native-paper';
-import {
-  hideLoader,
-  setLoader,
-} from '../StateManagement/Error&loadingHandle/LoaderStateSlice';
-import {useAppDispatch, useAppSelector} from '../StateManagement/hooks';
-import {BottomTabNavigator} from './BottomTab/BottomTabNavigator';
-import {ApplicationOverlayStackNavigator} from './Stack/ApplicationOverlayStackNavigator';
-import {OnBoardingStackNavigator} from './Stack/OnBoardingStackNavigator';
-import {useSubscription} from '@apollo/client';
-import {getSubscribedData} from '../GraphQL/Subscription/Subscription';
-import {onDisplayNotification} from '../Screens/Application/ReceivedOrdersListScreen';
-import {showMessage} from 'react-native-flash-message';
-import {size} from '../Prefrences/Prefrences';
+import React from 'react';
+import { ProgressBar } from 'react-native-paper';
+import { size } from '../Prefrences/Prefrences';
+import { useAppDispatch, useAppSelector } from '../StateManagement/hooks';
+import { BottomTabNavigator } from './BottomTab/BottomTabNavigator';
+import { ApplicationOverlayStackNavigator } from './Stack/ApplicationOverlayStackNavigator';
+import { OnBoardingStackNavigator } from './Stack/OnBoardingStackNavigator';
 
 type RootStackParamList = {
   ApplicationOverlay: undefined;

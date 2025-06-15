@@ -90,11 +90,11 @@ export const BottomTabNavigator: React.FC = () => {
           {
             paddingBottom: size.spacing.xl,
             borderRadius: size.borderRadius.full,
-            margin: size.spacing.xs,
-            height: 55,
+            margin: size.spacing.s,
+            height: 58,
             backgroundColor: colors.background,
           },
-          size.elevation.l,
+          size.elevation.m,
         ],
         tabBarLabelStyle: {
           fontSize: size.textVariants.caption.fontSize,

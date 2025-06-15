@@ -1,0 +1,144 @@
+import React from 'react';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {useNavigation, useTheme} from '@react-navigation/native';
+import {BubbleCard} from '../Molecules/Cards/BubbleCard';
+interface UserProfileMoreScreenProps {}
+
+export const UserProfileLandingContainer: React.FC<
+  UserProfileMoreScreenProps
+> = ({}) => {
+  const navigation = useNavigation<any>();
+
+  // Flex Container
+  const flexDetailsItems = [
+    {
+      firstRow: [
+        {
+          title: 'History',
+          iconName: 'history',
+          onPress: () => {
+            console.log('Presed');
+          },
+        },
+        {
+          title: ' Activity',
+          iconName: 'chart-bar-stacked',
+          onPress: () => {
+            console.log('Presed');
+          },
+        },
+      ],
+      secondRow: [
+        {
+          title: 'Favourite',
+          iconName: 'heart-outline',
+          onPress: () => {
+            console.log('Presed');
+          },
+        },
+
+        {
+          title: 'Live Orders',
+          iconName: 'view-comfy',
+          onPress: () =>
+            navigation.navigate('ApplicationOverlay', {
+              screen: 'OrderListScreen',
+            }),
+        },
+      ],
+    },
+  ];
+  // Column Navigation
+  const columnDetailsList = [
+    {
+      title: 'Quick Access',
+      iconName: 'basket-unfill',
+      onPress: () => {
+        navigation.navigate('ApplicationOverlay', {
+          screen: 'MyShopItemsScreen',
+          params: {
+            name: 'Hamro Shop',
+          },
+        });
+      },
+      comment: 'Stocks,Orders & Other  Management',
+    },
+    {
+      onPress: () => {
+        navigation.navigate('ApplicationOverlay', {
+          screen: 'MyShopsScreen',
+        });
+      },
+      title: 'Manage Store',
+      variant: 'large',
+      comment: 'Shops, Details and management ',
+      iconName: 'store',
+    },
+    {
+      onPress: () => console.log('Error'),
+      title: 'Personal Account',
+      variant: 'large',
+      comment: 'Profile, Update User',
+      iconName: 'account',
+    },
+    {
+      onPress: () => console.log('Error'),
+      title: 'App Setting',
+      variant: 'large',
+      comment: 'Personal & Shop Setting',
+      iconName: 'wrench',
+    },
+  ];
+  const {colors} = useTheme();
+  return (
+    <>
+      <View style={styles.flexcontainer}>
+        {flexDetailsItems[0].firstRow.map((item, index) => (
+          <BubbleCard
+            key={index}
+            customStyle={{
+              flex: 0.48,
+            }}
+            variant="small"
+            title={item.title}
+            iconName={item.iconName}
+            onPress={item.onPress}></BubbleCard>
+        ))}
+      </View>
+      <View style={styles.flexcontainer}>
+        {flexDetailsItems[0].secondRow.map((item, index) => (
+          <BubbleCard
+            key={index}
+            customStyle={{
+              flex: 0.48,
+            }}
+            variant="small"
+            title={item.title}
+            iconName={item.iconName}
+            onPress={item.onPress}></BubbleCard>
+        ))}
+      </View>
+
+      <View>
+        {columnDetailsList.map((item, index) => (
+          <BubbleCard
+            key={index}
+            variant="large"
+            title={item.title}
+            iconName={item.iconName}
+            onPress={item.onPress}
+            comment={item.comment}></BubbleCard>
+        ))}
+      </View>
+    </>
+  );
+};
+
+const styles = StyleSheet.create({
+  flexcontainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+});

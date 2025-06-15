@@ -7,14 +7,14 @@ import {size} from '../../Prefrences/Prefrences';
 
 interface TextComponetProps {
   title: string;
-  fontVariant: 'regular' | 'medium' | 'bold' | 'heavy';
-  fontSizeVariant: 'regular' | 'title' | 'caption'|"display";
+  fontVariant?: 'regular' | 'medium' | 'bold' | 'heavy';
+  fontSizeVariant?: 'regular' | 'title' | 'caption' | 'display';
   customStyle?: TextStyle;
 }
 
 export const TextComponet: React.FC<TextComponetProps> = ({
   title,
-  fontVariant,
+  fontVariant = 'regular',
   fontSizeVariant = 'regular',
   customStyle,
 }) => {

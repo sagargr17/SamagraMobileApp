@@ -83,8 +83,8 @@ export const UserProfileCard: React.FC<UserProfileCardProps> = ({
       {onIconPress ? (
         <IconButton
           rippleColor={'#f7fffa'}
-          icon={'arrow-expand-right'}
-          size={size.iconSize.small}
+          icon={'menu-down'}
+          size={size.iconSize.large}
           onPress={onIconPress}
         />
       ) : null}
@@ -110,6 +110,6 @@ const style = StyleSheet.create({
   },
   detailContainer: {
     marginLeft: size.spacing.s,
-    flex: 1,
+    flex: 1.5,
   },
 });
