@@ -24,14 +24,9 @@ export const UserProfileCardSkeleton: React.FC<
         {
           borderColor: colors.text,
           backgroundColor: colors.card,
-          borderBottomRightRadius: size.borderRadius.m,
-          borderBottomLeftRadius: size.borderRadius.m,
-          borderTopLeftRadius: size.borderRadius.s,
-          borderTopRightRadius: size.borderRadius.s,
-          marginBottom: size.spacing.l,
+          borderRadius: size.borderRadius.m,
+          marginBottom: size.spacing.xs,
           padding: size.spacing.xxs,
-          borderWidth: size.borderWidth.xss,
-          marginTop: size.spacing.m,
         },
         size.elevation.l,
       ]}>

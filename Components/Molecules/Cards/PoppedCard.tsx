@@ -53,7 +53,7 @@ export const PoppedCard: React.FC<PoppedCardProps> = ({
           borderTopRightRadius: size.borderRadius.s,
         },
         customStyle,
-        size.elevation.m,
+        size.elevation.s,
       ]}
       onPress={onPress}>
       <View style={[styles.contentContainer]}>

@@ -16,6 +16,7 @@ import {UserProfileCard} from '../../../Components/Molecules/Cards/UserProfileCa
 import {ImageNotFound} from '../../../Constants/UI/AssetsUrls';
 import {size} from '../../../Prefrences/Prefrences';
 import {UserProfileCardSkeleton} from '../../../Components/Skeletons/UserProfileCardSkeleton';
+import {Spacer} from '../../../Components/Elements/Spacer';
 
 interface MoreLandingScreenProps {}
 
@@ -127,13 +128,13 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
       showsVerticalScrollIndicator={false}
       style={{
         paddingBottom: size.spacing.xxl,
-        paddingHorizontal: size.spacing.m,
+        paddingHorizontal: size.spacing.xs,
       }}>
       {loading ?? <ActivityIndicator color="orange"></ActivityIndicator>}
       {error ? <ActivityIndicator color="red"></ActivityIndicator> : null}
       {data && data.getUser && data.getUser.username ? (
         <UserProfileCard
-          onPress={handleNavigation}
+          onIconPress={handleNavigation}
           user={{
             username: data.getUser?.username,
             profileImageUrl:
@@ -142,7 +143,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
       ) : (
         <UserProfileCardSkeleton></UserProfileCardSkeleton>
       )}
-
+      <Spacer height={25}></Spacer>
       <View
         style={{
           display: 'flex',
@@ -193,6 +194,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
             comment={item.comment}></PoppedCard>
         ))}
       </View>
+
       <AppButton
         textColor={colors.text}
         onPress={userLogoutHandle}

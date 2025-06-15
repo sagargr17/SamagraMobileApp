@@ -10,6 +10,8 @@ import {AreaMapper} from '../../Utilities/CustomMethods';
 import {HomeStackNavigator} from '../Stack/HomeStackNavigator';
 import {MoreStackNavigator} from '../Stack/MoreStackNavigator';
 import {ServiceStackNavigator} from '../Stack/ServiceStackNavigator';
+import {size} from '../../Prefrences/Prefrences';
+import {View} from 'moti';
 
 type BottomTabParamList = {
   Home: undefined;
@@ -42,12 +44,11 @@ const screenBuilder = (
 };
 
 export const BottomTabNavigator: React.FC = () => {
-  const {colors} = useTheme();
+  const {colors, fonts} = useTheme();
   return (
     <BottomTabBuilder.Navigator
       screenOptions={({route}) => ({
         header: () => null,
-
         tabBarIcon: ({focused, color, size}) => {
           const {Home, Service, More} = Logos;
 
@@ -85,36 +86,25 @@ export const BottomTabNavigator: React.FC = () => {
           }
           return null;
         },
-        tabBarStyle: {
-          borderColor: colors.background,
-
-          // backgroundColor: colors.background,
-          shadowOpacity: 0, // Use shadowOpacity for iOS
-          elevation: 0, // Use elevation for Android
-          height: AreaMapper({
-            value: 80,
-            scaleBy: 'height',
-          }),
-          paddingHorizontal: AreaMapper({
-            value: 15,
-            scaleBy: 'height',
-          }),
-          paddingVertical: AreaMapper({
-            value: 30,
-            scaleBy: 'height',
-          }),
-        },
+        tabBarStyle: [
+          {
+            paddingBottom: size.spacing.xl,
+            borderRadius: size.borderRadius.full,
+            margin: size.spacing.xs,
+            height: 55,
+            backgroundColor: colors.background,
+          },
+          size.elevation.l,
+        ],
         tabBarLabelStyle: {
-          fontSize: AreaMapper({
-            value: 4,
-            scaleBy: 'height',
-          }),
-          lineHeight: AreaMapper({
-            value: 19,
-            scaleBy: 'height',
-          }),
+          fontSize: size.textVariants.caption.fontSize,
+          lineHeight: size.textVariants.caption.lineHeight,
           fontFamily: 'Poppins-Regular',
+          fontWeight: 'condensed',
         },
+        tabBarHideOnKeyboard: true,
+        tabBarAllowFontScaling: true,
+        tabBarPosition: 'bottom',
       })}
       initialRouteName="Order">
       {screenBuilder([

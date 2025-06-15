@@ -96,7 +96,6 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
           flex: 1,
         }}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          {/* <Text style={styles.header}>Create Profile</Text> */}
           <View>
             <View style={styles.photoWrapper}>
               <TouchableOpacity onPress={handleImagePick} style={styles.circle}>

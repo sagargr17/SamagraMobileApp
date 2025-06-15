@@ -64,15 +64,17 @@ export const OnBoardingStackNavigator: React.FC = () => {
     <>
       <OnBoardingStackBuilder.Navigator
         screenOptions={{
-          headerTitleAlign: 'center',
-          headerTitleStyle: {
-            fontFamily: fonts.medium.fontFamily,
-            fontSize: size.spacing.m,
-          },
-          headerShadowVisible: false,
+          headerBackButtonDisplayMode: 'minimal',
           headerStyle: {
             backgroundColor: colors.background,
           },
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            fontSize: size.textVariants.title.fontSize,
+            fontFamily: fonts.regular.fontFamily,
+            fontWeight: fonts.regular.fontWeight,
+          },
+          headerShadowVisible: false,
         }}>
         {screenBuilder([
           {

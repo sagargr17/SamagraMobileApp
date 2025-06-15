@@ -1,43 +1,48 @@
 import FastImage from '@d11/react-native-fast-image';
 import {useTheme} from '@react-navigation/native';
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View, ViewStyle} from 'react-native';
 import {AreaMapper} from '../../../Utilities/CustomMethods';
 import {TextComponet} from '../../Elements/TextComponet';
 import {size} from '../../../Prefrences/Prefrences';
-import {Icon, IconButton} from 'react-native-paper';
+import {Icon, IconButton, TouchableRipple} from 'react-native-paper';
 interface UserProfileCardProps {
   user: {
     username: string;
     profileImageUrl: string;
   };
-  onPress?: () => void;
+  onIconPress?: () => void;
+  customStyle?: ViewStyle;
+  onCardPressed?: () => void;
 }
 
 export const UserProfileCard: React.FC<UserProfileCardProps> = ({
   user,
-  onPress,
+  onIconPress,
+  customStyle,
+  onCardPressed,
 }) => {
   const {colors} = useTheme();
 
   return (
-    <View
+    <TouchableOpacity
+      onPress={onCardPressed}
       style={[
         style.wrapper,
         size.elevation.l,
         {
           backgroundColor: colors.card,
           borderRadius: size.borderRadius.m,
-          borderWidth: size.borderWidth.xss,
-          borderColor: colors.border,
-          marginBottom: size.spacing.xl,
+          borderWidth: size.borderWidth.l,
+          borderColor: colors.card,
         },
+        customStyle,
       ]}>
       <FastImage
         style={[
           style.image,
           {
-            borderColor: colors.border,
+            borderColor: colors.background,
           },
         ]}
         source={{
@@ -75,15 +80,15 @@ export const UserProfileCard: React.FC<UserProfileCardProps> = ({
             fontSizeVariant={'regular'}></TextComponet>
         </View>
       </View>
-      {onPress ? (
+      {onIconPress ? (
         <IconButton
           rippleColor={'#f7fffa'}
           icon={'arrow-expand-right'}
           size={size.iconSize.small}
-          onPress={onPress}
+          onPress={onIconPress}
         />
       ) : null}
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -95,7 +100,7 @@ const style = StyleSheet.create({
     justifyContent: 'flex-start',
     paddingVertical: size.spacing.m,
     paddingHorizontal: size.spacing.s,
-    marginTop: size.spacing.m,
+    marginBottom: size.spacing.xs,
   },
   image: {
     height: 60,

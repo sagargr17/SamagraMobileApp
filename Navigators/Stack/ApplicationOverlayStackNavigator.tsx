@@ -21,6 +21,7 @@ import {CartScreen} from '../../Screens/Application/CartScreen';
 import {PlaceOrderScreen} from '../../Screens/Application/PlaceOrderScreen';
 import {OrderSuccessDetailScreen} from '../../Screens/Application/OrderSuccessDetailScreen';
 import {ProfileSelectScreen} from '../../Screens/Application/More/ProfileSelectScreen';
+import {size} from '../../Prefrences/Prefrences';
 
 type ApplicationOverlayMoreStackParamList = {
   ReceivedOrderListScreen: undefined;
@@ -100,43 +101,49 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
     <>
       <ApplicationOverlayStackBuilder.Navigator
         screenOptions={{
-          headerRight: () => (
-            <TouchableRipple
-              onPress={() => {
-                console.log('Nanvigation');
-                navigation.navigate('ApplicationOverlay', {
-                  screen: 'AddShopScreen',
-                });
-              }}>
-              <View
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  borderWidth: 0.8,
-                  borderRadius: 8,
-                  padding: AreaMapper({
-                    value: 8,
-                    scaleBy: 'average',
-                  }),
-                  borderColor: colors.border,
-                }}>
-                <Icon
-                  source={'home-edit'}
-                  size={20}
-                  color={colors.primary}></Icon>
-                <TextComponet
-                  title="New Shop"
-                  fontSizeVariant={'regular'}
-                  fontVariant="regular"></TextComponet>
-              </View>
-            </TouchableRipple>
-          ),
+          // headerRight: () => (
+          //   <TouchableRipple
+          //     onPress={() => {
+          //       console.log('Nanvigation');
+          //       navigation.navigate('ApplicationOverlay', {
+          //         screen: 'AddShopScreen',
+          //       });
+          //     }}>
+          //     <View
+          //       style={{
+          //         display: 'flex',
+          //         flexDirection: 'row',
+          //         alignItems: 'center',
+          //         borderWidth: 0.8,
+          //         borderRadius: 8,
+          //         padding: AreaMapper({
+          //           value: 8,
+          //           scaleBy: 'average',
+          //         }),
+          //         borderColor: colors.border,
+          //       }}>
+          //       <Icon
+          //         source={'home-edit'}
+          //         size={20}
+          //         color={colors.primary}></Icon>
+          //       <TextComponet
+          //         title="New Shop"
+          //         fontSizeVariant={'regular'}
+          //         fontVariant="regular"></TextComponet>
+          //     </View>
+          //   </TouchableRipple>
+          // ),
           headerBackButtonDisplayMode: 'minimal',
-          headerTitleStyle: {
-            fontWeight: 'normal',
-            color: 'orange',
+          headerStyle: {
+            backgroundColor: colors.background,
           },
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            fontSize: size.textVariants.title.fontSize,
+            fontFamily: fonts.regular.fontFamily,
+            fontWeight: fonts.regular.fontWeight,
+          },
+          headerShadowVisible: false,
         }}>
         {screenBuilder([
           {
@@ -237,6 +244,9 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
           {
             screenName: 'SelectProfile',
             component: ProfileSelectScreen,
+            option: {
+              headerTitle: "Profile's",
+            },
           },
         ])}
       </ApplicationOverlayStackBuilder.Navigator>

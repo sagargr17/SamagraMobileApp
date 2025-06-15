@@ -141,7 +141,7 @@ const size = {
   elevation: {
     xs: {
       shadowColor: '#000',
-      shadowOffset: {width: 0, height: 1},
+      shadowOffset: {width: 1000, height: 1},
       shadowOpacity: 0.12,
       shadowRadius: 3,
       elevation: 1,
