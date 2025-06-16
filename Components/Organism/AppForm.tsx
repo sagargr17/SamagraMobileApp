@@ -1,10 +1,9 @@
 import {useTheme} from '@react-navigation/native';
-import React, {Children} from 'react';
+import React from 'react';
 import {
   Control,
   Controller,
   ControllerProps,
-  ControllerRenderProps,
   FieldValues,
   Path,
   useForm,
@@ -16,19 +15,17 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+import {size} from '../../Prefrences/Prefrences';
 import AppButton from '../Elements/Button';
 import {ErrorText} from '../Elements/ErrorText';
 import {Input} from '../Elements/Input';
-import {Spacer} from '../Elements/Spacer';
-import {size} from '../../Prefrences/Prefrences';
 
-// --- NEW/UPDATED INTERFACES ---
 interface FormFieldConfig<TFormValues extends FieldValues>
   extends Omit<ControllerProps<TFormValues>, 'render' | 'control'> {
   name: Path<TFormValues>;
   label: string;
   placeholder?: string;
-  type?: 'text' | 'password' | 'email' | 'number' | 'phone';
+  type?: 'text' | 'password' | 'email' | 'number' | 'phone' | 'description';
 }
 
 interface AppFormProps<TFormValues extends FieldValues> {
@@ -89,6 +86,8 @@ export const AppForm = <TFormValues extends FieldValues>({
                       : 'default'
                   }
                   secureTextEntry={item.type === 'password'}
+                  height={item.type === 'description' ? 80 : 50}
+                  multiline={item.type === 'description' ? true : false}
                 />
               )}
             />
@@ -100,14 +99,15 @@ export const AppForm = <TFormValues extends FieldValues>({
                 {(errors[item.name as string] as any)?.message}
               </ErrorText>
             )}
-            {/* --- FIX END --- */}
-            {/* <Spacer height={5} /> */}
           </View>
         ))}
 
-        <AppButton onPress={handleSubmit(onFormSubmit)} style={{
-          marginVertical:size.spacing.xs
-        }} color="primary">
+        <AppButton
+          onPress={handleSubmit(onFormSubmit)}
+          style={{
+            marginVertical: size.spacing.s,
+          }}
+          color="primary">
           {submitButtonText}
         </AppButton>
       </ScrollView>

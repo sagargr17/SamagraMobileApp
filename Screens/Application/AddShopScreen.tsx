@@ -18,6 +18,7 @@ import {TextComponet} from '../../Components/Elements/TextComponet';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
 import {CreateStoreInputViewModelInput} from '../../src/__generated__/graphql';
 import {NoDataMessage} from '../../Constants/UI/Messages';
+import {size} from '../../Prefrences/Prefrences';
 
 interface AddShopScreenProps {}
 
@@ -120,140 +121,109 @@ export const AddShopScreen: React.FC<AddShopScreenProps> = ({}) => {
   const {Construction} = Logos;
 
   return (
-    <>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          flexDirection: 'column',
-        }}>
-        <View
-          style={{
-            alignItems: 'center',
-          }}>
-          <Construction
-            height={AreaMapper({
-              value: 275,
-              scaleBy: 'average',
-            })}
-            width={AreaMapper({
-              value: 275,
-              scaleBy: 'average',
-            })}></Construction>
-        </View>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{
+        flexDirection: 'column',
+        paddingHorizontal: size.spacing.s,
+      }}>
+      <ShopDisplayCard
+        shop={{
+          id: `${Math.random()}`,
+          icon: (
+            <>
+              <AppForm<CreateStoreInputViewModelInput>
+                formConfig={[
+                  {
+                    name: 'name', // Must match a key in LoginFormValues
+                    label: 'Name',
+                    placeholder: 'Your Dispaly Shop Name',
+                    type: 'text', // Custom prop for keyboard type
+                    rules: {
+                      minLength: {
+                        value: 3,
+                        message: 'Too Short',
+                      },
+                      maxLength: {
+                        value: 25,
+                        message: 'too long',
+                      },
+                      required: 'Required',
+                    },
+                  },
+                  {
+                    name: 'latitude', // Must match a key in LoginFormValues
+                    label: 'Latitude',
+                    placeholder: 'your shop latitude',
+                    type: 'text', // Custom prop for keyboard type
+                    rules: {
+                      maxLength: {
+                        value: 30,
+                        message: 'too long',
+                      },
+                      required: 'Required',
+                    },
+                  },
+                  {
+                    name: 'longitude', // Must match a key in LoginFormValues
+                    label: 'Longitude',
+                    placeholder: 'your shop longitude',
+                    type: 'text', // Custom prop for keyboard type
+                    rules: {
+                      maxLength: {
+                        value: 30,
+                        message: 'too long',
+                      },
+                      required: 'Required',
+                    },
+                  },
+                  {
+                    name: 'phoneNumber', // Must match a key in LoginFormValues
+                    label: 'Phone Number*',
+                    placeholder: '984****',
+                    type: 'text', // Custom prop for keyboard type
+                    rules: {
+                      maxLength: {
+                        value: 10,
+                        message: 'too long',
+                      },
+                      required: 'Required',
+                    },
+                  },
 
-        <Surface
-          style={{
-            backgroundColor: colors.background,
-            padding: AreaMapper({
-              value: 10,
-              scaleBy: 'average',
-            }),
-            borderTopRightRadius: 18,
-            borderTopLeftRadius: 18,
-            bottom: 0,
-            borderWidth: 0.1,
-            flex: 1,
-          }}>
-          <ShopDisplayCard
-            shop={{
-              id: `${Math.random()}`,
-              icon: (
-                <>
-                  <AppForm<CreateStoreInputViewModelInput>
-                    formConfig={[
-                      {
-                        name: 'name', // Must match a key in LoginFormValues
-                        label: 'Name',
-                        placeholder: 'Your Dispaly Shop Name',
-                        type: 'text', // Custom prop for keyboard type
-                        rules: {
-                          minLength: {
-                            value: 3,
-                            message: 'Too Short',
-                          },
-                          maxLength: {
-                            value: 25,
-                            message: 'too long',
-                          },
-                          required: 'Required',
-                        },
+                  {
+                    name: 'aboutShop', // Must match a key in LoginFormValues
+                    label: 'Shop Description',
+                    placeholder: '" Hami kaha sabai harware ko saman pauncha "',
+                    type: 'description', // Custom prop for keyboard type
+                    rules: {
+                      maxLength: {
+                        value: 50,
+                        message: 'too long',
                       },
-                      {
-                        name: 'latitude', // Must match a key in LoginFormValues
-                        label: 'latitude',
-                        placeholder: 'your shop latitude',
-                        type: 'text', // Custom prop for keyboard type
-                        rules: {
-                          maxLength: {
-                            value: 30,
-                            message: 'too long',
-                          },
-                          required: 'Required',
-                        },
-                      },
-                      {
-                        name: 'longitude', // Must match a key in LoginFormValues
-                        label: 'longitude',
-                        placeholder: 'your shop longitude',
-                        type: 'text', // Custom prop for keyboard type
-                        rules: {
-                          maxLength: {
-                            value: 30,
-                            message: 'too long',
-                          },
-                          required: 'Required',
-                        },
-                      },
-                      {
-                        name: 'phoneNumber', // Must match a key in LoginFormValues
-                        label: 'Phone Number*',
-                        placeholder: '984****',
-                        type: 'text', // Custom prop for keyboard type
-                        rules: {
-                          maxLength: {
-                            value: 10,
-                            message: 'too long',
-                          },
-                          required: 'Required',
-                        },
-                      },
+                      required: 'Required',
+                    },
+                  },
+                ]}
+                submitButtonText="Submit"
+                onFormSubmit={handlCreateShopSubmit}></AppForm>
+            </>
+          ),
+          shopName: 'Hamro Bijuli Pasal',
+          shopDescription: 'All the Electronic Appliances available Here',
+          rating: 4,
+          item: {
+            totalProduct: 167,
+            totalServices: 2,
+          },
 
-                      {
-                        name: 'aboutShop', // Must match a key in LoginFormValues
-                        label: 'Shop Description',
-                        placeholder:
-                          '" Hami kaha sabai harware ko saman pauncha "',
-                        type: 'text', // Custom prop for keyboard type
-                        rules: {
-                          maxLength: {
-                            value: 50,
-                            message: 'too long',
-                          },
-                          required: 'Required',
-                        },
-                      },
-                    ]}
-                    submitButtonText="Submit"
-                    onFormSubmit={handlCreateShopSubmit}></AppForm>
-                </>
-              ),
-              shopName: 'Hamro Bijuli Pasal',
-              shopDescription: 'All the Electronic Appliances available Here',
-              rating: 4,
-              item: {
-                totalProduct: 167,
-                totalServices: 2,
-              },
-
-              owner: {
-                owner: {
-                  ownerName: 'Sagar Gahatraj',
-                  phoneNumber: '+9779841150390',
-                },
-              },
-            }}></ShopDisplayCard>
-        </Surface>
-      </ScrollView>
-    </>
+          owner: {
+            owner: {
+              ownerName: 'Sagar Gahatraj',
+              phoneNumber: '+9779841150390',
+            },
+          },
+        }}></ShopDisplayCard>
+    </ScrollView>
   );
 };

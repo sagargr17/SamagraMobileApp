@@ -21,10 +21,13 @@ export const UserProfileLandingContainer: React.FC<
           },
         },
         {
-          title: ' Activity',
-          iconName: 'chart-bar-stacked',
+          title: 'Add Shop',
+          iconName: 'store-plus',
           onPress: () => {
-            console.log('Presed');
+            console.log('pressed');
+            navigation.navigate('ApplicationOverlay', {
+              screen: 'AddShopScreen',
+            });
           },
         },
       ],
@@ -72,7 +75,7 @@ export const UserProfileLandingContainer: React.FC<
       title: 'Manage Store',
       variant: 'large',
       comment: 'Shops, Details and management ',
-      iconName: 'store',
+      iconName: 'store-edit',
     },
     {
       onPress: () => console.log('Error'),

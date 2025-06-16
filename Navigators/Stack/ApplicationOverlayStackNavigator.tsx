@@ -101,38 +101,6 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
     <>
       <ApplicationOverlayStackBuilder.Navigator
         screenOptions={{
-          // headerRight: () => (
-          //   <TouchableRipple
-          //     onPress={() => {
-          //       console.log('Nanvigation');
-          //       navigation.navigate('ApplicationOverlay', {
-          //         screen: 'AddShopScreen',
-          //       });
-          //     }}>
-          //     <View
-          //       style={{
-          //         display: 'flex',
-          //         flexDirection: 'row',
-          //         alignItems: 'center',
-          //         borderWidth: 0.8,
-          //         borderRadius: 8,
-          //         padding: AreaMapper({
-          //           value: 8,
-          //           scaleBy: 'average',
-          //         }),
-          //         borderColor: colors.border,
-          //       }}>
-          //       <Icon
-          //         source={'home-edit'}
-          //         size={20}
-          //         color={colors.primary}></Icon>
-          //       <TextComponet
-          //         title="New Shop"
-          //         fontSizeVariant={'regular'}
-          //         fontVariant="regular"></TextComponet>
-          //     </View>
-          //   </TouchableRipple>
-          // ),
           headerBackButtonDisplayMode: 'minimal',
           headerStyle: {
             backgroundColor: colors.background,
@@ -212,10 +180,6 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
           {
             screenName: 'AddShopScreen',
             component: AddShopScreen,
-
-            option: {
-              header: () => null,
-            },
           },
           {
             screenName: 'CartScreen',

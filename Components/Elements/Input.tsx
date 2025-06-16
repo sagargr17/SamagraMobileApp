@@ -22,7 +22,7 @@ export const Input: React.FC<InputProps> = ({
   value,
   placeholder,
   onChangeText,
-  height = 54,
+  height  =  50,
   left = null,
   secureTextEntry = false,
   right,
@@ -56,7 +56,7 @@ export const Input: React.FC<InputProps> = ({
           placeholder={placeholder}
           mode="outlined"
           outlineStyle={{
-            borderWidth: size.borderWidth.xs,
+            borderWidth: 0,
             borderRadius: size.borderRadius?.xs,
           }}
           activeOutlineColor={colors.primary}
@@ -67,7 +67,7 @@ export const Input: React.FC<InputProps> = ({
             {
               backgroundColor: '#E8EDF5',
               fontFamily: fonts.regular.fontFamily,
-              height: 50,
+              height: height,
               borderColor: colors.border,
               // backgroundColor: colors.background,
             },
