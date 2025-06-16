@@ -57,9 +57,14 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
         fontSizeVariant="display"></TextComponet>
     );
 
-  const profileHandleSelect = (username: string, location: string) => {
+  const profileHandleSelect = (
+    shopId: string,
+    username: string,
+    location: string,
+  ) => {
     dispatch(
       setUserShopDetail({
+        shopId: shopId,
         name: username,
         location: location,
       }),
@@ -83,7 +88,6 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
 
   return (
     <FlatList
-    
       ListHeaderComponent={
         <>
           <UserProfileCard
@@ -115,6 +119,7 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
         <UserProfileCard
           onCardPressed={() =>
             profileHandleSelect(
+              item?.id ?? NoDataMessage,
               item?.name ?? NoDataMessage,
               item?.location ?? NoDataMessage,
             )

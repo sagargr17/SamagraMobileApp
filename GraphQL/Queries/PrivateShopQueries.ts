@@ -6,6 +6,7 @@ export const myShops = gql(`
 query GetMySHops {
   getShops {
     nodes {
+      id
       name
       aboutShop
       stars {

@@ -9,13 +9,14 @@ interface User {
 }
 
 interface ShopDetail {
+  shopId: string;
   name: string;
   location: string;
 }
 
 export interface UserState {
   user?: User | null;
-  isAuthenticated: boolean | string;
+  isAuthenticated?: boolean | string;
   isShopActive?: boolean;
   shopData?: ShopDetail;
 }
@@ -30,6 +31,7 @@ const initialState: UserState = {
   isAuthenticated: 'loading',
   isShopActive: false,
   shopData: {
+    shopId: '',
     name: 'Samagra Shop',
     location: 'Butwal',
   },
