@@ -21,7 +21,7 @@ import {UserProfileLandingContainer} from '../../../Components/Organism/UserProf
 import {ShopProfileUserContainer} from '../../../Components/Organism/ShopProfileUserContainer';
 import useGraphQLQuery from '../../../CustomHooks/useQueryEffect';
 import {login} from '../../../StateManagement/User/UserSlice';
-import {NoDataMessage} from '../../../Constants/UI/Messages';
+import {NotMentioned} from '../../../Constants/UI/Messages';
 
 interface MoreLandingScreenProps {}
 
@@ -64,11 +64,11 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
       <>
         {!isShopActive && selectedUserData
           ? headerUserProfileCard(
-              selectedUserData?.username ?? NoDataMessage,
+              selectedUserData?.username ?? NotMentioned,
               ImageNotFound,
             )
           : headerUserProfileCard(
-              selectedShopData?.name ?? NoDataMessage,
+              selectedShopData?.name ?? NotMentioned,
               ImageNotFound,
             )}
       </>

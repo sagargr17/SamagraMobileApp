@@ -45,8 +45,8 @@ const AppButton = ({
           : colors.notification
       }
       contentStyle={[styles.buttonContent]}
-      onPress={() => {
-        onPress;
+      onPress={onPress}
+      onPressIn={() => {
         dispatch(showLoader());
       }}
       {...props}>

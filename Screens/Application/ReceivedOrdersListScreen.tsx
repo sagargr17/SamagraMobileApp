@@ -16,7 +16,7 @@ import {
   DummyServiceProviderURL,
   ImageNotFound,
 } from '../../Constants/UI/AssetsUrls';
-import {EmptyErrorMessage} from '../../Constants/UI/Messages';
+import {EmptyLaundnryErrorMessage} from '../../Constants/UI/Messages';
 import {createItemRequestOfferMutation} from '../../GraphQL/Mutation/ItemRequestMutation';
 import {getPublicItems} from '../../GraphQL/Queries/ItemQueries';
 import {getSubscribedData} from '../../GraphQL/Subscription/Subscription';
@@ -258,7 +258,7 @@ export const ReceivedOrderListScreen: React.FC<
         <SingnlePageError
           detail={{
             icon: <NoItemFound></NoItemFound>,
-            title: EmptyErrorMessage,
+            title: EmptyLaundnryErrorMessage,
             onButtonPress: () => {
               handleNavigation();
             },

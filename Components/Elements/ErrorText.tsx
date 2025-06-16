@@ -17,6 +17,7 @@ export const ErrorText = ({children}: ErrorTextProps) => {
         styles.text,
         {
           fontFamily: fonts.regular.fontFamily,
+          marginLeft:size.spacing.xxs
         },
       ]}>
       {children}

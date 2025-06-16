@@ -12,7 +12,7 @@ import {AreaMapper} from '../../Utilities/CustomMethods';
 import {CreateProductInputViewModelInput} from '../../src/__generated__/graphql';
 import {useAppDispatch} from '../../StateManagement/hooks';
 import {hideLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
-import {NoDataMessage} from '../../Constants/UI/Messages';
+import {NotMentioned} from '../../Constants/UI/Messages';
 import {ImageNotFound} from '../../Constants/UI/AssetsUrls';
 
 interface AddItemScreenProps {}
@@ -121,14 +121,14 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
       try {
         let response = await createNewItemFn({
           variables: {
-            name: data.name ? data.name : NoDataMessage,
+            name: data.name ? data.name : NotMentioned,
             shopId: '4f227bb5-c411-452f-b745-0678eb9c9580',
-            price: Number(data.price ? data.price : NoDataMessage),
-            description: data.description ? data.description : NoDataMessage,
-            unit: data.unit ? data.unit : NoDataMessage,
+            price: Number(data.price ? data.price : NotMentioned),
+            description: data.description ? data.description : NotMentioned,
+            unit: data.unit ? data.unit : NotMentioned,
             stockQuantity: Number(data.stockQuantity),
             imageUrls: ImageNotFound,
-            location: data.location ? data.location : NoDataMessage,
+            location: data.location ? data.location : NotMentioned,
             categoryId: '1',
           },
         });

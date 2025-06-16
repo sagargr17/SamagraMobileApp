@@ -86,7 +86,7 @@ export const AppForm = <TFormValues extends FieldValues>({
                       : 'default'
                   }
                   secureTextEntry={item.type === 'password'}
-                  height={item.type === 'description' ? 80 : 50}
+                  height={item.type === 'description' ? 80 : 53}
                   multiline={item.type === 'description' ? true : false}
                 />
               )}

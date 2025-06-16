@@ -6,7 +6,7 @@ import {ProviderCard} from '../../Components/Molecules/Cards/ProviderCard';
 import {SingnlePageError} from '../../Components/Molecules/SinglePageError';
 import {ProviderCardSkeleton} from '../../Components/Skeletons/ProviderCardSkeleton';
 import {DummyServiceProviderURL} from '../../Constants/UI/AssetsUrls';
-import {EmptyErrorMessage} from '../../Constants/UI/Messages';
+import {EmptyLaundnryErrorMessage} from '../../Constants/UI/Messages';
 import {CreateItemRequestMutation} from '../../GraphQL/Mutation/ItemRequestMutation';
 import {getSubscribedData} from '../../GraphQL/Subscription/Subscription';
 import {useAppSelector} from '../../StateManagement/hooks';
@@ -106,7 +106,7 @@ export const ReceivedOffersListScreen: React.FC<
           <SingnlePageError
             detail={{
               icon: <NoItemFound></NoItemFound>,
-              title: EmptyErrorMessage,
+              title: EmptyLaundnryErrorMessage,
               onButtonPress: () => {},
               buttonTitle: 'Go to home',
             }}></SingnlePageError>

@@ -7,7 +7,10 @@ import {TextComponet} from '../../../Components/Elements/TextComponet';
 import {UserProfileCard} from '../../../Components/Molecules/Cards/UserProfileCard';
 import {UserProfileCardSkeleton} from '../../../Components/Skeletons/UserProfileCardSkeleton';
 import {ImageNotFound} from '../../../Constants/UI/AssetsUrls';
-import {EmptyErrorMessage, NoDataMessage} from '../../../Constants/UI/Messages';
+import {
+  EmptyLaundnryErrorMessage,
+  NotMentioned,
+} from '../../../Constants/UI/Messages';
 import {myShops} from '../../../GraphQL/Queries/PrivateShopQueries';
 import {size} from '../../../Prefrences/Prefrences';
 import {useAppDispatch, useAppSelector} from '../../../StateManagement/hooks';
@@ -76,7 +79,7 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
     dispatch(
       login({
         user: {
-          username: userData?.username ?? NoDataMessage,
+          username: userData?.username ?? NotMentioned,
           pofileImageUrl: ImageNotFound,
           email: 'sagar@gmail.com',
           location: 'butwal',
@@ -99,7 +102,7 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
               borderRadius: 0,
             }}
             user={{
-              username: userData?.username ?? NoDataMessage,
+              username: userData?.username ?? NotMentioned,
               profileImageUrl: ImageNotFound,
             }}></UserProfileCard>
         </>
@@ -110,7 +113,7 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
       }}
       ListEmptyComponent={
         <TextComponet
-          title={EmptyErrorMessage}
+          title={EmptyLaundnryErrorMessage}
           fontVariant="medium"
           fontSizeVariant="display"></TextComponet>
       }
@@ -119,9 +122,9 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
         <UserProfileCard
           onCardPressed={() =>
             profileHandleSelect(
-              item?.id ?? NoDataMessage,
-              item?.name ?? NoDataMessage,
-              item?.location ?? NoDataMessage,
+              item?.id ?? NotMentioned,
+              item?.name ?? NotMentioned,
+              item?.location ?? NotMentioned,
             )
           }
           customStyle={{
@@ -131,7 +134,7 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
             borderRadius: 0,
           }}
           user={{
-            username: item?.name ?? NoDataMessage,
+            username: item?.name ?? NotMentioned,
             profileImageUrl: item?.profileImageUrl?.[0] ?? ImageNotFound,
           }}></UserProfileCard>
       )}

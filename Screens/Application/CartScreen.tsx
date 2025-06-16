@@ -7,7 +7,7 @@ import {TextComponet} from '../../Components/Elements/TextComponet';
 import {GetBasketItemsQuery} from '../../GraphQL/Queries/CheckoutQueries';
 import {size} from '../../Prefrences/Prefrences';
 import {Rating} from '../../Components/Elements/Rating';
-import {NoDataMessage} from '../../Constants/UI/Messages';
+import {NotMentioned} from '../../Constants/UI/Messages';
 import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
 import {postPlaceOrderparams} from '../../StateManagement/Orders/PlaceOrderDetailsParams';
 import {ItemImageNotFound} from '../../Constants/UI/AssetsUrls';
@@ -54,7 +54,7 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
             <TextComponet
               fontSizeVariant="regular"
               fontVariant="bold"
-              title={item?.item?.name ?? NoDataMessage}></TextComponet>
+              title={item?.item?.name ?? NotMentioned}></TextComponet>
             <TextComponet
               fontSizeVariant="regular"
               fontVariant="bold"
@@ -69,20 +69,20 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
                       location: 'Butwal',
                       description: 'Awesome',
                       requiredTime: '4hr',
-                      name: item?.item?.name ?? NoDataMessage,
+                      name: item?.item?.name ?? NotMentioned,
                       category: '1',
                       imageUrl: item?.item?.imageUrls?.[0] ?? ItemImageNotFound,
                     },
                     sellerDetails: {
-                      fullName: user?.username ?? NoDataMessage,
-                      address: user?.location ?? NoDataMessage,
+                      fullName: user?.username ?? NotMentioned,
+                      address: user?.location ?? NotMentioned,
                       shopName: 'Butwal',
                       phoneNumber: '9841150490',
                     },
                     orderDetail: {
                       message: 'Please Fast GArdeenu',
                       orderQuantity: '2',
-                      itemID: item?.item?.id ?? NoDataMessage,
+                      itemID: item?.item?.id ?? NotMentioned,
                     },
                   }),
                 );

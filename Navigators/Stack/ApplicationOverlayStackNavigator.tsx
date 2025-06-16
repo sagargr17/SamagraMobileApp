@@ -22,6 +22,7 @@ import {PlaceOrderScreen} from '../../Screens/Application/PlaceOrderScreen';
 import {OrderSuccessDetailScreen} from '../../Screens/Application/OrderSuccessDetailScreen';
 import {ProfileSelectScreen} from '../../Screens/Application/More/ProfileSelectScreen';
 import {size} from '../../Prefrences/Prefrences';
+import {ShopCreatedScreen} from '../../Screens/Application/ShopCreatedScreen';
 
 type ApplicationOverlayMoreStackParamList = {
   ReceivedOrderListScreen: undefined;
@@ -43,6 +44,7 @@ type ApplicationOverlayMoreStackParamList = {
   PlaceOrderScreen: undefined;
   OrderSuccessDetailScreen: undefined;
   SelectProfile: undefined;
+  ShopCreatedScreen: undefined;
 };
 
 // Its The builder with the
@@ -210,6 +212,13 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
             component: ProfileSelectScreen,
             option: {
               headerTitle: "Profile's",
+            },
+          },
+          {
+            screenName: 'ShopCreatedScreen',
+            component: ShopCreatedScreen,
+            option: {
+              headerTitle: "🥳 Congratulation's 🥳n",
             },
           },
         ])}

@@ -14,6 +14,7 @@ import {useLazyQuery} from '@apollo/client';
 import {getLoginUser} from '../GraphQL/Queries/UserQueries';
 import {login} from '../StateManagement/User/UserSlice';
 import {ImageNotFound} from '../Constants/UI/AssetsUrls';
+import {hideLoader} from '../StateManagement/Error&loadingHandle/LoaderStateSlice';
 
 type RootStackParamList = {
   ApplicationOverlay: undefined;
@@ -78,14 +79,14 @@ export const RootStack: React.FC = () => {
   //   dispatch(hideLoader());
   // }, [loaderStatus]);
 
-  // useEffect(() => {
-  //   console.log('Intervall is called');
+  useEffect(() => {
+    console.log('Intervall is called');
 
-  //   const timer = setTimeout(() => {
-  //     dispatch(hideLoader());
-  //   }, 6000);
-  //   return () => clearTimeout(timer);
-  // }, [loaderStatus]);
+    const timer = setTimeout(() => {
+      dispatch(hideLoader());
+    }, 6000);
+    return () => clearTimeout(timer);
+  }, [loaderStatus]);
 
   const [getLoginUserFn, {data, loading, error}] = useLazyQuery(getLoginUser);
   // THis is for the Login USer DAta Retrival
@@ -109,15 +110,15 @@ export const RootStack: React.FC = () => {
 
   return (
     <>
-      {loaderStatus ?? (
-        <ProgressBar
-          visible={loaderStatus}
-          color={colors.primary}
-          indeterminate={true}
-          style={{
-            height: size.spacing.xxs,
-          }}></ProgressBar>
-      )}
+      <ProgressBar
+        visible={loaderStatus}
+        color={colors.primary}
+        indeterminate={true}
+        style={{
+          height: size.spacing.xxs,
+        }}></ProgressBar>
+      {/* {loaderStatus ?? (
+      )} */}
 
       <RootStackBuilder.Navigator
         screenOptions={{

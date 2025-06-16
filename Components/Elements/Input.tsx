@@ -22,7 +22,7 @@ export const Input: React.FC<InputProps> = ({
   value,
   placeholder,
   onChangeText,
-  height  =  50,
+  height  =  53,
   left = null,
   secureTextEntry = false,
   right,

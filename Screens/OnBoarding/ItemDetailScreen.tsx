@@ -18,7 +18,7 @@ import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
 import {AreaMapper, titleCase} from '../../Utilities/CustomMethods';
 import {PlaceOrderScreen} from '../Application/PlaceOrderScreen';
 import {postPlaceOrderparams} from '../../StateManagement/Orders/PlaceOrderDetailsParams';
-import {NoDataMessage} from '../../Constants/UI/Messages';
+import {NotMentioned} from '../../Constants/UI/Messages';
 order: null;
 interface ItemDetailScreenProps {
   route: ItemDetailScreenRouteProp;
@@ -143,22 +143,22 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
         itemParams: {
           location: 'Butwal',
           description:
-            data?.getPublicItems?.nodes?.[0]?.description ?? NoDataMessage,
+            data?.getPublicItems?.nodes?.[0]?.description ?? NotMentioned,
           requiredTime: '3hr',
-          name: data?.getPublicItems?.nodes?.[0]?.name ?? NoDataMessage,
+          name: data?.getPublicItems?.nodes?.[0]?.name ?? NotMentioned,
           category: 'Vegitable',
           imageUrl: '',
         },
         sellerDetails: {
           fullName:
             data?.getPublicItems?.nodes?.[0]?.shop?.user?.username ??
-            NoDataMessage,
+            NotMentioned,
           address: 'Butwal',
           shopName:
-            data?.getPublicItems?.nodes?.[0]?.shop?.name ?? NoDataMessage,
+            data?.getPublicItems?.nodes?.[0]?.shop?.name ?? NotMentioned,
           phoneNumber:
             data?.getPublicItems?.nodes?.[0]?.shop?.phoneNumber ??
-            NoDataMessage,
+            NotMentioned,
         },
         orderDetail: {
           message: 'chito gardeenu hai',
