@@ -1,15 +1,19 @@
-import { useIsFocused, useTheme } from '@react-navigation/native';
+import {useIsFocused, useTheme} from '@react-navigation/native';
 import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
-import React from 'react';
-import { ProgressBar } from 'react-native-paper';
-import { size } from '../Prefrences/Prefrences';
-import { useAppDispatch, useAppSelector } from '../StateManagement/hooks';
-import { BottomTabNavigator } from './BottomTab/BottomTabNavigator';
-import { ApplicationOverlayStackNavigator } from './Stack/ApplicationOverlayStackNavigator';
-import { OnBoardingStackNavigator } from './Stack/OnBoardingStackNavigator';
+import React, {useEffect} from 'react';
+import {ProgressBar} from 'react-native-paper';
+import {size} from '../Prefrences/Prefrences';
+import {useAppDispatch, useAppSelector} from '../StateManagement/hooks';
+import {BottomTabNavigator} from './BottomTab/BottomTabNavigator';
+import {ApplicationOverlayStackNavigator} from './Stack/ApplicationOverlayStackNavigator';
+import {OnBoardingStackNavigator} from './Stack/OnBoardingStackNavigator';
+import {useLazyQuery} from '@apollo/client';
+import {getLoginUser} from '../GraphQL/Queries/UserQueries';
+import {login} from '../StateManagement/User/UserSlice';
+import {ImageNotFound} from '../Constants/UI/AssetsUrls';
 
 type RootStackParamList = {
   ApplicationOverlay: undefined;
@@ -82,6 +86,26 @@ export const RootStack: React.FC = () => {
   //   }, 6000);
   //   return () => clearTimeout(timer);
   // }, [loaderStatus]);
+
+  const [getLoginUserFn, {data, loading, error}] = useLazyQuery(getLoginUser);
+  // THis is for the Login USer DAta Retrival
+  useEffect(() => {
+    getLoginUserFn().then(data => {
+      console.log('Updated Data', data);
+      dispatch(
+        login({
+          user: {
+            username: data.data?.getUser?.username ?? 'Samagra',
+            pofileImageUrl:
+              data.data?.getUser?.profileImageUrl ?? ImageNotFound,
+            email: 'sagar@gmail.com',
+            location: 'Butwal',
+          },
+          isAuthenticated: true,
+        }),
+      );
+    });
+  }, []);
 
   return (
     <>

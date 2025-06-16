@@ -26,7 +26,7 @@ export const UserProfileCard: React.FC<UserProfileCardProps> = ({
 
   return (
     <TouchableOpacity
-      onPress={onCardPressed}
+      onPress={() => (onCardPressed ? onCardPressed() : null)}
       style={[
         style.wrapper,
         size.elevation.l,

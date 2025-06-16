@@ -1,4 +1,4 @@
-import {useQuery} from '@apollo/client';
+import {useLazyQuery, useQuery} from '@apollo/client';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import React from 'react';
 import {View} from 'react-native';
@@ -10,11 +10,12 @@ import {ImageNotFound} from '../../../Constants/UI/AssetsUrls';
 import {EmptyErrorMessage, NoDataMessage} from '../../../Constants/UI/Messages';
 import {myShops} from '../../../GraphQL/Queries/PrivateShopQueries';
 import {size} from '../../../Prefrences/Prefrences';
-import {useAppDispatch} from '../../../StateManagement/hooks';
+import {useAppDispatch, useAppSelector} from '../../../StateManagement/hooks';
 import {
   login,
   setUserShopDetail,
 } from '../../../StateManagement/User/UserSlice';
+import {getLoginUser} from '../../../GraphQL/Queries/UserQueries';
 interface ProfileSelectScreenProps {}
 
 export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
@@ -24,8 +25,15 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
   });
   const dispatch = useAppDispatch();
   const navigation = useNavigation<any>();
+  const userData = useAppSelector(state => state.user.user);
 
-  const profileRender = (
+  const navigationHandle = () => {
+    navigation.navigate('BottomTab', {
+      screen: 'More',
+    });
+  };
+
+  const profileSkeleton = (
     <View
       style={{
         paddingHorizontal: size.spacing.s,
@@ -40,7 +48,7 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
     </View>
   );
 
-  if (loading && !data) return profileRender;
+  if (loading && !data) return profileSkeleton;
   if (error && !data)
     return (
       <TextComponet
@@ -56,39 +64,30 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
         location: location,
       }),
     );
-    navigation.navigate('BottomTab', {
-      screen: 'More',
-    });
+    navigationHandle();
+  };
+
+  const handleUserSelect = () => {
+    dispatch(
+      login({
+        user: {
+          username: userData?.username ?? NoDataMessage,
+          pofileImageUrl: ImageNotFound,
+          email: 'sagar@gmail.com',
+          location: 'butwal',
+        },
+      }),
+    );
+    navigationHandle();
   };
 
   return (
-    <View>
-      <FlatList
-      ListHeaderComponent={<>
-      
-      
-      </>}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={
-          {
-            // paddingHorizontal: size.spacing.s,
-          }
-        }
-        ListEmptyComponent={
-          <TextComponet
-            title={EmptyErrorMessage}
-            fontVariant="medium"
-            fontSizeVariant="display"></TextComponet>
-        }
-        data={data?.getShops?.nodes}
-        renderItem={({item, index}) => (
+    <FlatList
+    
+      ListHeaderComponent={
+        <>
           <UserProfileCard
-            onCardPressed={() =>
-              profileHandleSelect(
-                item?.name ?? NoDataMessage,
-                item?.location ?? NoDataMessage,
-              )
-            }
+            onCardPressed={() => handleUserSelect()}
             customStyle={{
               elevation: 0,
               marginBottom: size.spacing.xxs,
@@ -96,11 +95,41 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
               borderRadius: 0,
             }}
             user={{
-              username: item?.name ?? NoDataMessage,
-              profileImageUrl: item?.profileImageUrl?.[0] ?? ImageNotFound,
+              username: userData?.username ?? NoDataMessage,
+              profileImageUrl: ImageNotFound,
             }}></UserProfileCard>
-        )}
-      />
-    </View>
+        </>
+      }
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{
+        paddingHorizontal: size.spacing.xxs,
+      }}
+      ListEmptyComponent={
+        <TextComponet
+          title={EmptyErrorMessage}
+          fontVariant="medium"
+          fontSizeVariant="display"></TextComponet>
+      }
+      data={data?.getShops?.nodes}
+      renderItem={({item, index}) => (
+        <UserProfileCard
+          onCardPressed={() =>
+            profileHandleSelect(
+              item?.name ?? NoDataMessage,
+              item?.location ?? NoDataMessage,
+            )
+          }
+          customStyle={{
+            elevation: 0,
+            marginBottom: size.spacing.xxs,
+            paddingHorizontal: size.spacing.s,
+            borderRadius: 0,
+          }}
+          user={{
+            username: item?.name ?? NoDataMessage,
+            profileImageUrl: item?.profileImageUrl?.[0] ?? ImageNotFound,
+          }}></UserProfileCard>
+      )}
+    />
   );
 };

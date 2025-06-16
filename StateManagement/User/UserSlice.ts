@@ -1,7 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {getTokens} from '../../client/Token/TokenAccess';
 import {ImageNotFound} from '../../Constants/UI/AssetsUrls';
-import {ActionSheetIOS, ActivityIndicatorComponent} from 'react-native';
 
 interface User {
   username: string;
@@ -42,7 +40,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action: PayloadAction<UserState>) => {
-      console.log('USer incoming DAta', action.payload);
+      state.isShopActive = false;
       state.user = action.payload.user;
       state.isAuthenticated = true;
     },

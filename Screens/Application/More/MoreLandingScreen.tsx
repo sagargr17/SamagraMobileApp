@@ -7,7 +7,7 @@ import AppButton from '../../../Components/Elements/Button';
 import {TextComponet} from '../../../Components/Elements/TextComponet';
 import {BubbleCard} from '../../../Components/Molecules/Cards/BubbleCard';
 import {AreaMapper} from '../../../Utilities/CustomMethods';
-import {useAppSelector} from '../../../StateManagement/hooks';
+import {useAppDispatch, useAppSelector} from '../../../StateManagement/hooks';
 import {useLazyQuery, useQuery} from '@apollo/client';
 import {getLoginUser} from '../../../GraphQL/Queries/UserQueries';
 import {ActivityIndicator} from 'react-native-paper';
@@ -20,6 +20,8 @@ import {Spacer} from '../../../Components/Elements/Spacer';
 import {UserProfileLandingContainer} from '../../../Components/Organism/UserProfileLandingContainer';
 import {ShopProfileUserContainer} from '../../../Components/Organism/ShopProfileUserContainer';
 import useGraphQLQuery from '../../../CustomHooks/useQueryEffect';
+import {login} from '../../../StateManagement/User/UserSlice';
+import {NoDataMessage} from '../../../Constants/UI/Messages';
 
 interface MoreLandingScreenProps {}
 
@@ -27,25 +29,29 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
   const {colors} = useTheme();
   const navigation = useNavigation<any>();
   let userLogoutHandle = () => clearTokens();
-  const [getLoginUserDataQuery, {data, loading, error}] =
-    useLazyQuery(getLoginUser);
+  const selectedShopData = useAppSelector(state => state.user.shopData);
+  const selectedUserData = useAppSelector(state => state.user.user);
+
+  // This Parameters check weather Shop is Active or Not
   const isShopActive = useAppSelector(state => state.user.isShopActive);
 
-  useEffect(() => {
-    getLoginUserDataQuery();
-
-    return () => {};
-  }, []);
-
-  console.log('User Profile>>>', data);
-
-  // Handle Navigation
   const handleNavigation = () => {
     console.log('cliked');
-
     navigation.navigate('ApplicationOverlay', {
       screen: 'SelectProfile',
     });
+  };
+
+  // This is the Header of the User Container Handler
+  const headerUserProfileCard = (userName: string, profileImageUrl: string) => {
+    return (
+      <UserProfileCard
+        onIconPress={handleNavigation}
+        user={{
+          username: userName,
+          profileImageUrl: profileImageUrl,
+        }}></UserProfileCard>
+    );
   };
 
   return (
@@ -55,17 +61,17 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
         paddingBottom: size.spacing.xxl,
         paddingHorizontal: size.spacing.xs,
       }}>
-      {data && data.getUser && data.getUser.username ? (
-        <UserProfileCard
-          onIconPress={handleNavigation}
-          user={{
-            username: data.getUser?.username,
-            profileImageUrl:
-              data?.getUser?.profileImageUrl?.[0] ?? ImageNotFound,
-          }}></UserProfileCard>
-      ) : (
-        <UserProfileCardSkeleton></UserProfileCardSkeleton>
-      )}
+      <>
+        {!isShopActive && selectedUserData
+          ? headerUserProfileCard(
+              selectedUserData?.username ?? NoDataMessage,
+              ImageNotFound,
+            )
+          : headerUserProfileCard(
+              selectedShopData?.name ?? NoDataMessage,
+              ImageNotFound,
+            )}
+      </>
       <Spacer height={25}></Spacer>
       {isShopActive ? (
         <ShopProfileUserContainer></ShopProfileUserContainer>

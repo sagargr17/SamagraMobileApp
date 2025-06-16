@@ -173,7 +173,7 @@ responseTheme = (message: string, description: string, type: any) => {
     titleStyle: {
       fontSize: size.spacing.m,
     },
-    icon: type,
+    icon: type, 
     statusBarHeight: 0,
   };
 };
