@@ -103,6 +103,7 @@ export const AppForm = <TFormValues extends FieldValues>({
         ))}
 
         <AppButton
+          showLoaderFn={true}
           onPress={handleSubmit(onFormSubmit)}
           style={{
             marginVertical: size.spacing.s,

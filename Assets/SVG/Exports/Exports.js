@@ -27,6 +27,7 @@ import DustbinIcon from '../SVGImages/DustbinIcon';
 import PenIcon from '../SVGImages/PenIcon';
 import PlusIcon from '../SVGImages/PlusIcon';
 import StockIcon from '../SVGImages/StockIcon';
+import Store from '../SVGImages/Store';
 
 export const Logos = {
   AppleLogo,
@@ -58,4 +59,5 @@ export const Logos = {
   PenIcon,
   PlusIcon,
   StockIcon,
+  Store,
 };

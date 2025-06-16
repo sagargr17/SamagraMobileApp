@@ -10,6 +10,7 @@ import {showLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateS
 
 interface AppButtonProps extends React.ComponentProps<typeof Button> {
   color?: 'primary' | 'secondary' | 'light' | 'danger';
+  showLoaderFn?: boolean;
   customStyle?: any;
 }
 
@@ -19,11 +20,13 @@ const AppButton = ({
   mode,
   disabled,
   onPress,
+  showLoaderFn = false,
   ...props
 }: AppButtonProps) => {
   const {colors, fonts} = useTheme();
   const {customStyle} = props;
   const dispatch = useAppDispatch();
+
   return (
     <Button
       rippleColor={'#ddfcd9'}
@@ -47,7 +50,7 @@ const AppButton = ({
       contentStyle={[styles.buttonContent]}
       onPress={onPress}
       onPressIn={() => {
-        dispatch(showLoader());
+        showLoaderFn ? dispatch(showLoader()) : null;
       }}
       {...props}>
       {children}

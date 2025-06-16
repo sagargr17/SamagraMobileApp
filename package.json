@@ -58,6 +58,7 @@
     "react-native-maps": "^1.20.1",
     "react-native-otp-entry": "^1.8.4",
     "react-native-paper": "^5.13.1",
+    "react-native-particles": "^0.0.8",
     "react-native-raw-bottom-sheet": "^3.0.0",
     "react-native-reanimated": "^3.17.1",
     "react-native-responsive-screen": "^1.4.2",

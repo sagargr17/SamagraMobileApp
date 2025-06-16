@@ -17,6 +17,8 @@ export const ShopProfileUserContainer: React.FC<
   const {colors} = useTheme();
   const navigation = useNavigation<any>();
   const {PenIcon, DustbinIcon, StockIcon, PlusIcon} = Logos;
+  const iconSize = size.iconSize.small
+
   const flexDetailsItems = [
     {
       firstRow: [
@@ -62,8 +64,8 @@ export const ShopProfileUserContainer: React.FC<
       title: 'Add Item',
       icon: (
         <PlusIcon
-          height={size.iconSize.medium}
-          width={size.iconSize.medium}></PlusIcon>
+          height={iconSize}
+          width={iconSize}></PlusIcon>
       ),
       onPress: () => {
         console.log('Presed');
@@ -73,8 +75,8 @@ export const ShopProfileUserContainer: React.FC<
       title: 'Edit',
       icon: (
         <PenIcon
-          height={size.iconSize.medium}
-          width={size.iconSize.medium}></PenIcon>
+          height={iconSize}
+          width={iconSize}></PenIcon>
       ),
       onPress: () => {
         console.log('Presed');
@@ -84,8 +86,8 @@ export const ShopProfileUserContainer: React.FC<
       title: 'Stock',
       icon: (
         <StockIcon
-          height={size.iconSize.medium}
-          width={size.iconSize.medium}></StockIcon>
+          height={iconSize}
+          width={iconSize}></StockIcon>
       ),
       onPress: () => {
         console.log('Presed');
@@ -95,8 +97,8 @@ export const ShopProfileUserContainer: React.FC<
       title: 'Delete Shop',
       icon: (
         <DustbinIcon
-          height={size.iconSize.medium}
-          width={size.iconSize.medium}></DustbinIcon>
+          height={iconSize}
+          width={iconSize}></DustbinIcon>
       ),
       onPress: () => {
         console.log('Presed');

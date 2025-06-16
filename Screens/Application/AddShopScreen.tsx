@@ -27,13 +27,15 @@ interface AddShopScreenProps {}
 export const AddShopScreen: React.FC<AddShopScreenProps> = ({}) => {
   const {colors, fonts} = useTheme();
   const dispatch = useAppDispatch();
-  const [createNewShopFn, {data, loading, error}] = useMutation(createNewStore);
-  const [isShopCreated, setIsShopCreated] = useState<boolean>(false);
+  const [createNewShopFn] = useMutation(createNewStore);
   const navigation = useNavigation<any>();
 
-  const handleNavigationToShopScreen = async () => {
+  const handleNavigationToShopScreen = async (shopID: string) => {
     await navigation.navigate('ApplicationOverlay', {
       screen: 'ShopCreatedScreen',
+      params: {
+        shopID: shopID,
+      },
     });
   };
 
@@ -41,28 +43,25 @@ export const AddShopScreen: React.FC<AddShopScreenProps> = ({}) => {
   const handlCreateShopSubmit = async (
     data: CreateStoreInputViewModelInput,
   ) => {
+    // dispatch(showLoader());
     console.log('Action>>>>');
-    dispatch(showLoader());
     try {
       const response = await createNewShopFn({
         variables: {
           shopName: data.name ? data.name : NotMentioned,
           phoneNumber: data.phoneNumber ? data.phoneNumber : NotMentioned,
           aboutShop: data.aboutShop ? data.aboutShop : NotMentioned,
-          latitude: data.latitude,
-          longitude: data.longitude,
+          latitude: Number(data.latitude),
+          longitude: Number(data.longitude),
           totalItemsCount: 22,
         },
       });
-      console.log('Error', error);
 
-      if (response.data) {
-        handleNavigationToShopScreen();
+      if (response.data?.createStore?.id) {
+        handleNavigationToShopScreen(response.data.createStore?.id);
       }
 
       if (response.errors) {
-        console.log('Error', error);
-
         dispatch(hideLoader());
         showMessage(
           responseTheme(
@@ -71,14 +70,12 @@ export const AddShopScreen: React.FC<AddShopScreenProps> = ({}) => {
             'danger',
           ),
         );
-        handleNavigationToShopScreen();
       }
     } catch (error) {
       console.log('Error', error);
 
       dispatch(hideLoader());
       showMessage(responseTheme(WentwrongMessage, TryAgainMessage, 'danger'));
-      handleNavigationToShopScreen();
     }
   };
 
@@ -113,7 +110,7 @@ export const AddShopScreen: React.FC<AddShopScreenProps> = ({}) => {
             name: 'latitude', // Must match a key in LoginFormValues
             label: 'Latitude',
             placeholder: 'your shop latitude',
-            type: 'text', // Custom prop for keyboard type
+            type: 'number', // Custom prop for keyboard type
             rules: {
               maxLength: {
                 value: 30,
@@ -126,7 +123,7 @@ export const AddShopScreen: React.FC<AddShopScreenProps> = ({}) => {
             name: 'longitude', // Must match a key in LoginFormValues
             label: 'Longitude',
             placeholder: 'your shop longitude',
-            type: 'text', // Custom prop for keyboard type
+            type: 'number', // Custom prop for keyboard type
             rules: {
               maxLength: {
                 value: 30,
@@ -139,7 +136,7 @@ export const AddShopScreen: React.FC<AddShopScreenProps> = ({}) => {
             name: 'phoneNumber', // Must match a key in LoginFormValues
             label: 'Phone Number*',
             placeholder: '984****',
-            type: 'text', // Custom prop for keyboard type
+            type: 'phone', // Custom prop for keyboard type
             rules: {
               maxLength: {
                 value: 10,

@@ -15,6 +15,8 @@ import {getLoginUser} from '../GraphQL/Queries/UserQueries';
 import {login} from '../StateManagement/User/UserSlice';
 import {ImageNotFound} from '../Constants/UI/AssetsUrls';
 import {hideLoader} from '../StateManagement/Error&loadingHandle/LoaderStateSlice';
+import FlashMessage from 'react-native-flash-message';
+import {AreaMapper} from '../Utilities/CustomMethods';
 
 type RootStackParamList = {
   ApplicationOverlay: undefined;
@@ -110,6 +112,24 @@ export const RootStack: React.FC = () => {
 
   return (
     <>
+      <FlashMessage
+        position="top"
+        textStyle={{
+          fontFamily: font.fontFamily,
+          fontSize: AreaMapper({
+            value: 16,
+            scaleBy: 'height',
+          }),
+
+          lineHeight: AreaMapper({
+            value: 100,
+            scaleBy: 'average',
+          }),
+          fontWeight: 'regular',
+          fontStyle: 'italic',
+        }}
+        floating={true}
+      />
       <ProgressBar
         visible={loaderStatus}
         color={colors.primary}

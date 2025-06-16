@@ -44,7 +44,9 @@ type ApplicationOverlayMoreStackParamList = {
   PlaceOrderScreen: undefined;
   OrderSuccessDetailScreen: undefined;
   SelectProfile: undefined;
-  ShopCreatedScreen: undefined;
+  ShopCreatedScreen: {
+    shopID: string;
+  };
 };
 
 // Its The builder with the
@@ -218,7 +220,7 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
             screenName: 'ShopCreatedScreen',
             component: ShopCreatedScreen,
             option: {
-              headerTitle: "🥳 Congratulation's 🥳n",
+              headerTitle: "🥳 Congratulation's 🥳",
             },
           },
         ])}

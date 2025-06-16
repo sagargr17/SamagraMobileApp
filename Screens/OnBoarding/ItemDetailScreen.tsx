@@ -1,5 +1,5 @@
 import {useQuery} from '@apollo/client';
-import {useNavigation, useTheme} from '@react-navigation/native';
+import {useNavigation, useRoute, useTheme} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 import {Divider, IconButton} from 'react-native-paper';
@@ -157,8 +157,7 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
           shopName:
             data?.getPublicItems?.nodes?.[0]?.shop?.name ?? NotMentioned,
           phoneNumber:
-            data?.getPublicItems?.nodes?.[0]?.shop?.phoneNumber ??
-            NotMentioned,
+            data?.getPublicItems?.nodes?.[0]?.shop?.phoneNumber ?? NotMentioned,
         },
         orderDetail: {
           message: 'chito gardeenu hai',
