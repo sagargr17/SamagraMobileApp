@@ -217,24 +217,6 @@ function App(): React.JSX.Element {
       style={{
         flex: 1,
       }}>
-      <FlashMessage
-        position="top"
-        textStyle={{
-          fontFamily: font.fontFamily,
-          fontSize: AreaMapper({
-            value: 16,
-            scaleBy: 'height',
-          }),
-
-          lineHeight: AreaMapper({
-            value: 100,
-            scaleBy: 'average',
-          }),
-          fontWeight: 'regular',
-          fontStyle: 'italic',
-        }}
-        floating={true}
-      />
       <Provider store={store}>
         <StatusBar
           backgroundColor={themes.colors.background}

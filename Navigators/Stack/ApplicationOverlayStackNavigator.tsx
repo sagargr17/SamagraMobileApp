@@ -35,7 +35,7 @@ type ApplicationOverlayMoreStackParamList = {
     shopName: string;
   };
   AddItemScreen: {
-    shopName: string;
+    shopId: string;
   };
   MyShopsScreen: undefined;
   AddShopScreen: undefined;
@@ -220,7 +220,7 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
             screenName: 'ShopCreatedScreen',
             component: ShopCreatedScreen,
             option: {
-              headerTitle: "🥳 Congratulation's 🥳",
+              header: () => null,
             },
           },
         ])}

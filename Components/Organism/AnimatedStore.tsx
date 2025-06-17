@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import {useTheme} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
 import {size} from '../../Prefrences/Prefrences';
 import {TextComponet} from '../Elements/TextComponet';
@@ -18,45 +18,62 @@ export const AimatedStore: React.FC<AnimatedStoreProps> = ({}) => {
   const {colors} = useTheme();
   const {Store} = Logos;
   const dispatch = useAppDispatch();
+  const navigation = useNavigation<any>();
 
   useEffect(() => {
     dispatch(hideLoader());
   }, []);
 
+  // handleVisitShopH
+  const handleVisitShopHandle = () => {
+    navigation.navigate('BottomTab', {
+      screen: 'More',
+    });
+  };
+
   return (
     <ColumnFlexScreenlayout>
-      <Store height={200} width={200}></Store>
-      <TextComponet
-        title={ShopCreatedSuccessfullMessage}
-        fontSizeVariant="title"
-        fontVariant="bold"
-        customStyle={{
-          marginTop: size.spacing.xl,
-          fontSize: 19,
-          // marginBottom: size.spacing.s,
-        }}
-      />
-      <TextComponet
-        title={ShopBestWishesMessage}
-        fontVariant="regular"
-        customStyle={{
+      <View
+        style={{
           alignItems: 'center',
-          textAlign: 'justify',
-          marginTop: size.spacing.s,
-          // marginHorizontal: size.spacing.m,
-        }}
-        fontSizeVariant="title"
-      />
-      <AppButton
-        style={[
-          {
-            marginTop: size.spacing.xxl,
-            width: 200,
-          },
-          size.elevation.m,
-        ]}>
-        Visit Shop
-      </AppButton>
+          justifyContent:"center",
+          alignContent:"center",
+          flex:0.7
+        }}>
+        <Store height={200} width={200}></Store>
+        <TextComponet
+          title={ShopCreatedSuccessfullMessage}
+          fontSizeVariant="title"
+          fontVariant="bold"
+          customStyle={{
+            marginTop: size.spacing.xl,
+            fontSize: 19,
+            // marginBottom: size.spacing.s,
+          }}
+        />
+        <TextComponet
+          title={ShopBestWishesMessage}
+          fontVariant="regular"
+          customStyle={{
+            alignItems: 'center',
+            textAlign: 'justify',
+            marginTop: size.spacing.s,
+            // marginHorizontal: size.spacing.m,
+          }}
+          fontSizeVariant="title"
+        />
+        <AppButton
+          onPress={handleVisitShopHandle}
+          style={[
+            {
+              marginTop: size.spacing.xxl,
+              width: 200,
+            },
+            size.elevation.m,
+          ]}>
+          Visit Shop
+        </AppButton>
+      </View>
     </ColumnFlexScreenlayout>
   );
 };

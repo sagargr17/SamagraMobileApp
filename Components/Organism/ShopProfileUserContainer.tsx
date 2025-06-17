@@ -8,16 +8,23 @@ import {BubbleCard} from '../Molecules/Cards/BubbleCard';
 import {TextComponet} from '../Elements/TextComponet';
 import {StyleSheet, View} from 'react-native';
 import {Spacer} from '../Elements/Spacer';
+import {TouchableRipple} from 'react-native-paper';
+import {
+  AddItemScreenRouteProp,
+  ApplicationOverlayStackNavigationProp,
+} from '../../Navigators/Stack/ApplicationOverlayStackNavigator';
 
-interface ShopProfileUserContainerProps {}
+interface ShopProfileUserContainerProps {
+  shopId: string;
+}
 
 export const ShopProfileUserContainer: React.FC<
   ShopProfileUserContainerProps
-> = ({}) => {
+> = ({shopId}) => {
   const {colors} = useTheme();
   const navigation = useNavigation<any>();
   const {PenIcon, DustbinIcon, StockIcon, PlusIcon} = Logos;
-  const iconSize = size.iconSize.small
+  const iconSize = size.iconSize.small;
 
   const flexDetailsItems = [
     {
@@ -49,11 +56,7 @@ export const ShopProfileUserContainer: React.FC<
         {
           title: 'Recent',
           iconName: 'view-comfy',
-          onPress: () => console.log('rect'),
-
-          // navigation.navigate('ApplicationOverlay', {
-          //   screen: 'OrderListScreen',
-          // }),
+          onPress: () => {},
         },
       ],
     },
@@ -62,44 +65,34 @@ export const ShopProfileUserContainer: React.FC<
   const columnlist = [
     {
       title: 'Add Item',
-      icon: (
-        <PlusIcon
-          height={iconSize}
-          width={iconSize}></PlusIcon>
-      ),
+      icon: <PlusIcon height={iconSize} width={iconSize}></PlusIcon>,
       onPress: () => {
-        console.log('Presed');
+        console.log(':::::');
+        navigation.navigate('ApplicationOverlay', {
+          screen: 'AddItemScreen',
+          params: {
+            shopId: '1',
+          },
+        });
       },
     },
     {
       title: 'Edit',
-      icon: (
-        <PenIcon
-          height={iconSize}
-          width={iconSize}></PenIcon>
-      ),
+      icon: <PenIcon height={iconSize} width={iconSize}></PenIcon>,
       onPress: () => {
         console.log('Presed');
       },
     },
     {
       title: 'Stock',
-      icon: (
-        <StockIcon
-          height={iconSize}
-          width={iconSize}></StockIcon>
-      ),
+      icon: <StockIcon height={iconSize} width={iconSize}></StockIcon>,
       onPress: () => {
         console.log('Presed');
       },
     },
     {
       title: 'Delete Shop',
-      icon: (
-        <DustbinIcon
-          height={iconSize}
-          width={iconSize}></DustbinIcon>
-      ),
+      icon: <DustbinIcon height={iconSize} width={iconSize}></DustbinIcon>,
       onPress: () => {
         console.log('Presed');
       },
@@ -139,6 +132,8 @@ export const ShopProfileUserContainer: React.FC<
       <Spacer height={size.spacing.s}></Spacer>
       {columnlist.map((item, index) => (
         <RowFlexLayout
+          onPressed={item.onPress}
+          isTouchEnable={true}
           key={index}
           customStyle={{
             justifyContent: 'flex-start',

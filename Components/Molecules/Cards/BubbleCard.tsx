@@ -60,7 +60,7 @@ export const BubbleCard: React.FC<BubbleCardProps> = ({
           <View style={styles.iconContainer}>
             <Icon
               source={iconName}
-              size={size.iconSize.large}
+              size={size.iconSize.medium}
               color={colors.text}
             />
           </View>

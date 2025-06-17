@@ -73,11 +73,13 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
             )}
       </>
       <Spacer height={25}></Spacer>
-      {isShopActive ? (
-        <ShopProfileUserContainer></ShopProfileUserContainer>
+      {isShopActive && selectedShopData?.shopId ? (
+        <ShopProfileUserContainer
+          shopId={selectedShopData?.shopId}></ShopProfileUserContainer>
       ) : (
         <UserProfileLandingContainer></UserProfileLandingContainer>
       )}
+      {/* App Button */}
       <AppButton
         textColor={colors.text}
         onPress={userLogoutHandle}

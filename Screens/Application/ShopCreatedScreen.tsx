@@ -21,7 +21,7 @@ export const ShopCreatedScreen: React.FC<ShopCreatedScreenProps> = ({}) => {
           count={150}
           origin={{x: screenWidth / 2, y: 0}}
           explosionSpeed={0}
-          fallSpeed={2500}
+          fallSpeed={2000}
           fadeOut={true}
           autoStart={true}
         />

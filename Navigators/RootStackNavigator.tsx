@@ -94,7 +94,6 @@ export const RootStack: React.FC = () => {
   // THis is for the Login USer DAta Retrival
   useEffect(() => {
     getLoginUserFn().then(data => {
-      console.log('Updated Data', data);
       dispatch(
         login({
           user: {

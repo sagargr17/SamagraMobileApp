@@ -21,6 +21,7 @@ import {responseTheme, size} from '../../Prefrences/Prefrences';
 import {CreateStoreInputViewModelInput} from '../../src/__generated__/graphql';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import {View} from 'moti';
+import {setUserShopDetail} from '../../StateManagement/User/UserSlice';
 
 interface AddShopScreenProps {}
 
@@ -43,7 +44,6 @@ export const AddShopScreen: React.FC<AddShopScreenProps> = ({}) => {
   const handlCreateShopSubmit = async (
     data: CreateStoreInputViewModelInput,
   ) => {
-    // dispatch(showLoader());
     console.log('Action>>>>');
     try {
       const response = await createNewShopFn({
@@ -58,6 +58,13 @@ export const AddShopScreen: React.FC<AddShopScreenProps> = ({}) => {
       });
 
       if (response.data?.createStore?.id) {
+        dispatch(
+          setUserShopDetail({
+            shopId: response.data.createStore.id,
+            name: data.name ?? NotMentioned,
+            location: 'butwal',
+          }),
+        );
         handleNavigationToShopScreen(response.data.createStore?.id);
       }
 
@@ -72,9 +79,9 @@ export const AddShopScreen: React.FC<AddShopScreenProps> = ({}) => {
         );
       }
     } catch (error) {
-      console.log('Error', error);
-
       dispatch(hideLoader());
+      console.log('Result', error);
+
       showMessage(responseTheme(WentwrongMessage, TryAgainMessage, 'danger'));
     }
   };
