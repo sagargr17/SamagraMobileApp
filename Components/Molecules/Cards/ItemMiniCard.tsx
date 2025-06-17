@@ -37,7 +37,7 @@ export const ItemMiniCard: React.FC<ItemMiniCardProps> = ({
         {
           backgroundColor: colors.card,
           marginTop: size.spacing.xxs,
-          marginRight: size.spacing.xs,
+          marginRight: size.spacing.s,
         },
         // size.elevation.l,
       ]}>
@@ -107,7 +107,10 @@ export const ItemMiniCard: React.FC<ItemMiniCardProps> = ({
 
 const styles = StyleSheet.create({
   card: {
-    width: 169,
+    width: AreaMapper({
+      value: 182,
+      scaleBy: 'width',
+    }),
     borderRadius: size.borderRadius.l,
     height: 203,
   },
@@ -119,7 +122,10 @@ const styles = StyleSheet.create({
   },
   image: {
     height: 135,
-    width: 169,
+    width: AreaMapper({
+      value: 182,
+      scaleBy: 'width',
+    }),
     borderRadius: size.borderRadius.m,
   },
   wishlistButton: {

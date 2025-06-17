@@ -38,8 +38,14 @@ export const ItemCategoryCard: React.FC<ItemCategoryCardProps> = ({
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-around',
-          width: 95,
-          height:96
+          width: AreaMapper({
+            value: 106,
+            scaleBy: 'width',
+          }),
+          height: AreaMapper({
+            value: 105,
+            scaleBy: 'height',
+          }),
         },
       ]}>
       <View>{icon}</View>
