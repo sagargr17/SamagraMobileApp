@@ -39,7 +39,7 @@ export const FlatListScreen = <ItemT,>({
               <SectionHeader
                 style={{
                   fontSize: size.spacing.m,
-                  paddingVertical: size.spacing.m,
+                  paddingVertical: size.spacing.xs,
                   paddingHorizontal: size.spacing.xxs,
                 }}
                 title={headerTitle}

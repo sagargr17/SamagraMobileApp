@@ -36,9 +36,10 @@ export const ItemMiniCard: React.FC<ItemMiniCardProps> = ({
         styles.card,
         {
           backgroundColor: colors.card,
-          margin: size.spacing.xxs,
+          marginTop: size.spacing.xxs,
+          marginRight: size.spacing.xs,
         },
-        size.elevation.xs,
+        // size.elevation.l,
       ]}>
       <TouchableRipple
         rippleColor={colors.primary}
@@ -82,9 +83,15 @@ export const ItemMiniCard: React.FC<ItemMiniCardProps> = ({
               fontVariant="medium"
               fontSizeVariant={'title'}
               title={titleRange(title)}
+              customStyle={{
+                marginTop: size.spacing.xs,
+              }}
             />
             <View style={styles.bottomContainer}>
               <AppText
+                customStyle={{
+                  color: colors.primary,
+                }}
                 fontVariant="bold"
                 fontSizeVariant={'title'}
                 title={`₹ ${price}`}
@@ -100,8 +107,9 @@ export const ItemMiniCard: React.FC<ItemMiniCardProps> = ({
 
 const styles = StyleSheet.create({
   card: {
-    width: 165,
+    width: 169,
     borderRadius: size.borderRadius.l,
+    height: 203,
   },
 
   imageContainer: {
@@ -110,14 +118,9 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   image: {
-    height: 130,
-    width: 165,
-    borderRadius: AreaMapper({
-      value: 10,
-      scaleBy: 'width',
-    }),
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: 0,
+    height: 135,
+    width: 169,
+    borderRadius: size.borderRadius.m,
   },
   wishlistButton: {
     position: 'absolute',
