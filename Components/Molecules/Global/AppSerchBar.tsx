@@ -11,25 +11,11 @@ interface SerchBarProps {
 }
 
 export const AppSerchBar: React.FC<SerchBarProps> = ({onPress}) => {
-  const {SearchIcon} = Logos;
   const {fonts} = useTheme();
   const [searchedItem, setSearchedItem] = useState<string>('');
   const {colors} = useTheme();
   return (
     <Searchbar
-      right={() => (
-        <View
-          style={{
-            // paddingHorizontal: 5,
-          }}>
-          <IconButton
-            onPress={() => onPress(searchedItem)}
-            icon={'feather'}
-            size={25}
-            iconColor={colors.primary}
-          />
-        </View>
-      )}
       style={{
         backgroundColor: '#EFF1F3',
         fontFamily: fonts.regular.fontFamily,

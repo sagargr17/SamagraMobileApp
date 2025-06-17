@@ -2,7 +2,7 @@ import { useTheme } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { FlatListProps, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { TextComponet } from '../../Components/Elements/TextComponet';
+import { AppText } from '../../Components/Elements/AppText';
 import { AppBottomSheet } from '../../Components/Molecules/Global/AppBottomSheet';
 interface CardWithBottomSheetLayoutProps<ItemT> extends FlatListProps<ItemT> {
   data: ArrayLike<any> | null | undefined;
@@ -33,13 +33,13 @@ export const CardWithBottomSheetLayout = <ItemT,>({
           onPress={() => {
             setIsListOpen(!isListOpen);
           }}>
-          <TextComponet
+          <AppText
             customStyle={{
               color: colors.text,
             }}
             title="Rating and Reviews"
             fontSizeVariant={'regular'}
-            fontVariant="medium"></TextComponet>
+            fontVariant="medium"></AppText>
         </TouchableOpacity>
         {headerComponnet}
       </View>

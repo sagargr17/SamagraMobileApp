@@ -9,7 +9,7 @@ import {Logos} from '../../Assets/SVG/Exports/Exports';
 import AppButton from '../../Components/Elements/Button';
 import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
 import {useTheme} from '@react-navigation/native';
-import {TextComponet} from '../../Components/Elements/TextComponet';
+import {AppText} from '../../Components/Elements/AppText';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 
 interface ProfileSetupProps {
@@ -61,11 +61,11 @@ export const ProfileSetupScreen: React.FC<ProfileSetupProps> = ({
             onPress={() => {
               navigation.navigate('SignInScreen');
             }}>
-            <TextComponet
+            <AppText
               customStyle={styles.text}
               fontVariant="regular"
               fontSizeVariant={'caption'}
-              title="Already Have an Account? Log In Now"></TextComponet>
+              title="Already Have an Account? Log In Now"></AppText>
           </Pressable>
         </View>
       </View>

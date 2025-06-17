@@ -3,7 +3,7 @@ import React, {useEffect, useRef} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Icon, TextInput} from 'react-native-paper';
 import {AreaMapper} from '../../Utilities/CustomMethods';
-import {TextComponet} from './TextComponet';
+import {AppText} from './AppText';
 import {size} from '../../Prefrences/Prefrences';
 // import {EvilIcons} from 'react-native-vector-icons/';
 
@@ -43,13 +43,13 @@ export const Input: React.FC<InputProps> = ({
           },
         ]}>
         {label && (
-          <TextComponet
+          <AppText
             customStyle={{
               marginVertical: size.spacing.xxs,
             }}
             title={label}
             fontVariant="medium"
-            fontSizeVariant={'regular'}></TextComponet>
+            fontSizeVariant={'regular'}></AppText>
         )}
         <TextInput
           ref={inputRef}

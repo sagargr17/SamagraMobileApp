@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import {TextComponet} from '../../Elements/TextComponet';
+import {AppText} from '../../Elements/AppText';
 import AppButton from '../../Elements/Button';
 import {Icon} from 'react-native-paper';
 import {AreaMapper} from '../../../Utilities/CustomMethods';
@@ -80,17 +80,17 @@ export const ItemCheckOut: React.FC<ItemCheckOutProps> = ({
           }),
         }}>
         <View>
-          <TextComponet
+          <AppText
             fontSizeVariant={'regular'}
             title={'TOTAL PRICE'}
-            fontVariant="bold"></TextComponet>
-          <TextComponet
+            fontVariant="bold"></AppText>
+          <AppText
             fontSizeVariant={'regular'}
             title={`₹ ${totalPrice}`}
             customStyle={{
               color: colors.primary,
             }}
-            fontVariant="bold"></TextComponet>
+            fontVariant="bold"></AppText>
         </View>
 
         <View

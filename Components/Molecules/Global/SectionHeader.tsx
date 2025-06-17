@@ -1,6 +1,6 @@
 import React from 'react';
 import {TextStyle, View} from 'react-native';
-import {TextComponet} from '../../Elements/TextComponet';
+import {AppText} from '../../Elements/AppText';
 import {AreaMapper} from '../../../Utilities/CustomMethods';
 import {Icon, IconButton} from 'react-native-paper';
 
@@ -26,11 +26,11 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
         alignItems: 'center',
         justifyContent: 'space-between',
       }}>
-      <TextComponet
+      <AppText
         customStyle={style}
         fontVariant="bold"
-        fontSizeVariant={'regular'}
-        title={title}></TextComponet>
+        fontSizeVariant={"title"}
+        title={title}></AppText>
 
       {isIcon ? (
         <Icon

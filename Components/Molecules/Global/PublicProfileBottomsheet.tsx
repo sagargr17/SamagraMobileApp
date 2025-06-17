@@ -3,7 +3,7 @@ import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {AppBottomSheet} from './AppBottomSheet';
 import {PairButtons} from './PairButtons';
-import {TextComponet} from '../../Elements/TextComponet';
+import {AppText} from '../../Elements/AppText';
 import {size} from '../../../Prefrences/Prefrences';
 import FastImage from '@d11/react-native-fast-image';
 import {DummyServiceProviderURL} from '../../../Constants/UI/AssetsUrls';
@@ -41,41 +41,41 @@ export const PublicProfileBottomCard: React.FC<
                 uri: DummyServiceProviderURL,
               }}></FastImage>
             <View>
-              <TextComponet
+              <AppText
                 title={'Phone Number:'}
                 fontVariant="regular"
-                fontSizeVariant={'regular'}></TextComponet>
-              <TextComponet
+                fontSizeVariant={'regular'}></AppText>
+              <AppText
                 title={'Phone Number:'}
                 fontVariant="regular"
-                fontSizeVariant={'regular'}></TextComponet>
-              <TextComponet
+                fontSizeVariant={'regular'}></AppText>
+              <AppText
                 title={'Phone Number:'}
                 fontVariant="regular"
-                fontSizeVariant={'regular'}></TextComponet>
+                fontSizeVariant={'regular'}></AppText>
             </View>
           </View>
 
           <View style={styles.userInformationContainer}>
             <View style={styles.emailContainer}>
-              <TextComponet
+              <AppText
                 title={'Phone Number:'}
                 fontVariant="regular"
-                fontSizeVariant={'regular'}></TextComponet>
-              <TextComponet
+                fontSizeVariant={'regular'}></AppText>
+              <AppText
                 title={`${sender.phoneNumber}`}
                 fontVariant="medium"
-                fontSizeVariant={'regular'}></TextComponet>
+                fontSizeVariant={'regular'}></AppText>
             </View>
             <View style={styles.locationcontainer}>
-              <TextComponet
+              <AppText
                 title={'Location:'}
                 fontVariant="regular"
-                fontSizeVariant={'regular'}></TextComponet>
-              <TextComponet
+                fontSizeVariant={'regular'}></AppText>
+              <AppText
                 title={`${sender.location}`}
                 fontVariant="medium"
-                fontSizeVariant={'regular'}></TextComponet>
+                fontSizeVariant={'regular'}></AppText>
             </View>
             <View style={styles.pairButtonsStyle}>
               <PairButtons

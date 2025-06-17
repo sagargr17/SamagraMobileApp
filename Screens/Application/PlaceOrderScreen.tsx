@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Button, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useNavigation, useTheme} from '@react-navigation/native';
-import {TextComponet} from '../../Components/Elements/TextComponet';
+import {AppText} from '../../Components/Elements/AppText';
 import {size} from '../../Prefrences/Prefrences';
 import {useAppSelector} from '../../StateManagement/hooks';
 import {useMutation} from '@apollo/client';
@@ -57,44 +57,44 @@ export const PlaceOrderScreen: React.FC<PlaceOrderScreenProps> = ({}) => {
 
   return (
     <>
-      <TextComponet
+      <AppText
         customStyle={{
           padding: size.spacing.m,
           color: 'orange',
         }}
         fontSizeVariant="display"
         fontVariant="bold"
-        title={`Place Order`}></TextComponet>
+        title={`Place Order`}></AppText>
 
       <View
         style={{
           padding: size.spacing.m,
         }}>
         <View>
-          <TextComponet
+          <AppText
             fontSizeVariant="title"
             fontVariant="bold"
             title={
               'Name:  ' + placeOrderDetails.itemParams.name
-            }></TextComponet>
-          <TextComponet
+            }></AppText>
+          <AppText
             fontSizeVariant="regular"
             fontVariant="bold"
             title={
               'Location: ' + placeOrderDetails.itemParams.location
-            }></TextComponet>
-          <TextComponet
+            }></AppText>
+          <AppText
             fontSizeVariant="regular"
             fontVariant="bold"
             title={
               'SHopName: ' + placeOrderDetails.sellerDetails.shopName
-            }></TextComponet>
-          <TextComponet
+            }></AppText>
+          <AppText
             fontSizeVariant="regular"
             fontVariant="bold"
             title={
               'Phone Number: ' + placeOrderDetails.sellerDetails.phoneNumber
-            }></TextComponet>
+            }></AppText>
 
           <Button
             title="Confirm Order"

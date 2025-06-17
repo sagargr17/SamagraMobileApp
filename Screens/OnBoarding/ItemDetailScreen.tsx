@@ -5,7 +5,7 @@ import {FlatList, StyleSheet, Text, View} from 'react-native';
 import {Divider, IconButton} from 'react-native-paper';
 import {Rating} from '../../Components/Elements/Rating';
 import {Spacer} from '../../Components/Elements/Spacer';
-import {TextComponet} from '../../Components/Elements/TextComponet';
+import {AppText} from '../../Components/Elements/AppText';
 import {CommentLayout} from '../../Components/Organism/CommentLayout';
 import {Counter} from '../../Components/Molecules/Global/Counter';
 import {ImageSliderModal} from '../../Components/Organism/ImageSliderModal';
@@ -68,7 +68,7 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
             // backgroundColor: 'orange',
             justifyContent: 'space-between',
           }}>
-          <TextComponet
+          <AppText
             fontSizeVariant={'title'}
             title={titleCase(
               data?.getPublicItems?.nodes?.[0]?.name ?? 'Not Mentioned',
@@ -77,7 +77,7 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
             customStyle={{
               margin: 0,
               padding: 0,
-            }}></TextComponet>
+            }}></AppText>
           <IconButton
             icon="heart-outline"
             size={24}
@@ -94,7 +94,7 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
             // backgroundColor: 'pink',
             justifyContent: 'flex-start',
           }}>
-          <TextComponet
+          <AppText
             customStyle={{
               backgroundColor: 'gray',
               color: colors.background,
@@ -105,22 +105,22 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
             }}
             fontSizeVariant={'regular'}
             title={titleCase('423 Sold')}
-            fontVariant="regular"></TextComponet>
+            fontVariant="regular"></AppText>
           <Rating></Rating>
         </View>
         <Spacer height={12}></Spacer>
         <View>
-          <TextComponet
+          <AppText
             fontSizeVariant={'regular'}
             title={titleCase('Description')}
-            fontVariant="medium"></TextComponet>
+            fontVariant="medium"></AppText>
           <Spacer height={8}></Spacer>
-          <TextComponet
+          <AppText
             fontSizeVariant={'regular'}
             title={titleCase(
               data?.getPublicItems?.nodes?.[0]?.description ?? 'Not Mentioned',
             )}
-            fontVariant="regular"></TextComponet>
+            fontVariant="regular"></AppText>
         </View>
 
         <Spacer height={25}></Spacer>

@@ -8,7 +8,7 @@ import {manageStorepoppedCardParams} from '../../Constants/UI/More';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import AppButton from '../Elements/Button';
 import {Rating} from '../Elements/Rating';
-import {TextComponet} from '../Elements/TextComponet';
+import {AppText} from '../Elements/AppText';
 import {AppBottomSheet} from './Global/AppBottomSheet';
 import {BubbleCard} from './Cards/BubbleCard';
 
@@ -76,35 +76,35 @@ export const MyStoreLayout: React.FC<MyShopDisplayLayoutProps> = ({shop}) => {
                       flexDirection: 'column',
                     }}>
                     <Rating ratingNumber={4}></Rating>
-                    <TextComponet
+                    <AppText
                       customStyle={{
                         color: 'orange',
                       }}
                       fontVariant="bold"
                       title={shop.name}
-                      fontSizeVariant={'regular'}></TextComponet>
+                      fontSizeVariant={'regular'}></AppText>
                   </View>
-                  <TextComponet
+                  <AppText
                     customStyle={{
                       color: 'green',
                     }}
                     fontVariant="medium"
                     title="Open from 10:00 am to 7:pm"
-                    fontSizeVariant={'regular'}></TextComponet>
-                  <TextComponet
+                    fontSizeVariant={'regular'}></AppText>
+                  <AppText
                     customStyle={{
                       opacity: 0.8,
                     }}
                     fontVariant="medium"
                     title={shop.location}
-                    fontSizeVariant={'regular'}></TextComponet>
-                  <TextComponet
+                    fontSizeVariant={'regular'}></AppText>
+                  <AppText
                     customStyle={{
                       opacity: 0.8,
                     }}
                     fontVariant="medium"
                     title={shop.phoneNumber}
-                    fontSizeVariant={'regular'}></TextComponet>
+                    fontSizeVariant={'regular'}></AppText>
                 </View>
               </View>
 

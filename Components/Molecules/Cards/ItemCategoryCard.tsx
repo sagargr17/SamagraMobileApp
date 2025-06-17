@@ -2,7 +2,7 @@ import {useTheme} from '@react-navigation/native';
 import React from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {AreaMapper} from '../../../Utilities/CustomMethods';
-import {TextComponet} from '../../Elements/TextComponet';
+import {AppText} from '../../Elements/AppText';
 import {size} from '../../../Prefrences/Prefrences';
 
 interface ItemCategoryCardProps {
@@ -29,31 +29,28 @@ export const ItemCategoryCard: React.FC<ItemCategoryCardProps> = ({
       style={[
         {
           backgroundColor: selectedCategory === title ? colors.primary : 'gray',
-          marginRight: 10,
-          paddingVertical: AreaMapper({
-            value: variant === 'large' ? size.spacing.m : size.spacing.m,
-            scaleBy: 'average',
-          }),
-          borderRadius: size.borderRadius.s,
+          marginRight: size.spacing.xs,
+          paddingHorizontal: size.spacing.m,
+          paddingBottom: size.spacing.xs,
+          paddingTop: size.spacing.m,
+          borderRadius: size.borderRadius.m,
           alignItems: 'center',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-around',
-          width: AreaMapper({
-            value: variant === 'large' ? 100 : 85,
-            scaleBy: 'average',
-          }),
+          width: 95,
+          height:96
         },
       ]}>
       <View>{icon}</View>
-      <TextComponet
+      <AppText
         fontVariant="regular"
         fontSizeVariant={fontVariantSize}
         customStyle={{
           color: colors.background,
-          marginTop:size.spacing.xs
+          // marginTop: size.spacing.s,
         }}
-        title={title}></TextComponet>
+        title={title}></AppText>
     </TouchableOpacity>
   );
 };

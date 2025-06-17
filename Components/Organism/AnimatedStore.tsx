@@ -3,7 +3,7 @@ import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
 import {size} from '../../Prefrences/Prefrences';
-import {TextComponet} from '../Elements/TextComponet';
+import {AppText} from '../Elements/AppText';
 import {
   ShopBestWishesMessage,
   ShopCreatedSuccessfullMessage,
@@ -41,7 +41,7 @@ export const AimatedStore: React.FC<AnimatedStoreProps> = ({}) => {
           flex:0.7
         }}>
         <Store height={200} width={200}></Store>
-        <TextComponet
+        <AppText
           title={ShopCreatedSuccessfullMessage}
           fontSizeVariant="title"
           fontVariant="bold"
@@ -51,7 +51,7 @@ export const AimatedStore: React.FC<AnimatedStoreProps> = ({}) => {
             // marginBottom: size.spacing.s,
           }}
         />
-        <TextComponet
+        <AppText
           title={ShopBestWishesMessage}
           fontVariant="regular"
           customStyle={{

@@ -10,7 +10,7 @@ import {
 import {Icon, TouchableRipple} from 'react-native-paper';
 import {size} from '../../../Prefrences/Prefrences';
 import {AreaMapper} from '../../../Utilities/CustomMethods';
-import {TextComponet} from '../../Elements/TextComponet';
+import {AppText} from '../../Elements/AppText';
 // import {Icon} from '../../Elements/Icon'; // Assuming you have an Icon component
 
 interface BubbleCardProps {
@@ -64,13 +64,13 @@ export const BubbleCard: React.FC<BubbleCardProps> = ({
           </View>
         )}
         <View style={[styles.textContainer]}>
-          <TextComponet
+          <AppText
             fontVariant="medium"
             fontSizeVariant={'regular'}
             title={title} // Title using the title prop
           />
           {comment && (
-            <TextComponet
+            <AppText
               fontVariant="regular"
               fontSizeVariant={'caption'}
               title={comment} // Comment using the title prop

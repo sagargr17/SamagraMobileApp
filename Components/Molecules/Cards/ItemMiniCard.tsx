@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Image, StyleSheet, TextInputComponent} from 'react-native';
 import {Card, IconButton, TouchableRipple} from 'react-native-paper';
-import {TextComponet} from '../../Elements/TextComponet';
+import {AppText} from '../../Elements/AppText';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import {AreaMapper, titleRange} from '../../../Utilities/CustomMethods';
 import {HomeStackNavigationProp} from '../../../Navigators/Stack/HomeStackNavigator';
@@ -78,13 +78,13 @@ export const ItemMiniCard: React.FC<ItemMiniCardProps> = ({
               borderBottomLeftRadius: size.borderRadius.m,
               borderBottomRightRadius: size.borderRadius.m,
             }}>
-            <TextComponet
+            <AppText
               fontVariant="medium"
               fontSizeVariant={'title'}
               title={titleRange(title)}
             />
             <View style={styles.bottomContainer}>
-              <TextComponet
+              <AppText
                 fontVariant="bold"
                 fontSizeVariant={'title'}
                 title={`₹ ${price}`}

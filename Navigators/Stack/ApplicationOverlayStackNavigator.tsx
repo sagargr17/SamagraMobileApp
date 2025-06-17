@@ -8,7 +8,7 @@ import React from 'react';
 import {View} from 'react-native';
 import {Icon, TouchableRipple} from 'react-native-paper';
 import {SearchBar} from 'react-native-screens';
-import {TextComponet} from '../../Components/Elements/TextComponet';
+import {AppText} from '../../Components/Elements/AppText';
 import {ReceivedOrderListScreen} from '../../Screens/Application/ReceivedOrdersListScreen';
 import {MyShopsScreen} from '../../Screens/Application/More/MyShopsScreen';
 import {AddItemScreen} from '../../Screens/Application/AddItemScreen';

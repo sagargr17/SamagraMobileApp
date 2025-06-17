@@ -2,7 +2,7 @@ import {useTheme} from '@react-navigation/native';
 import {StyleSheet} from 'react-native';
 import {Text} from 'react-native-paper';
 import {AreaMapper} from '../../Utilities/CustomMethods';
-import {TextComponet} from './TextComponet';
+import {AppText} from './AppText';
 import {size} from '../../Prefrences/Prefrences';
 
 interface ErrorTextProps {

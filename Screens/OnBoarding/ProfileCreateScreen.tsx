@@ -21,7 +21,7 @@ import {Input} from '../../Components/Elements/Input';
 import PhoneInput from '../../Components/Elements/PhoneInput';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import {registerUser} from '../../client/Token/RegisterUser';
-import {TextComponet} from '../../Components/Elements/TextComponet';
+import {AppText} from '../../Components/Elements/AppText';
 
 interface ProfileCreateProps {
   navigation: OnBoardingStackNavigationProp<'ProfileCreateScreen'>;
@@ -241,10 +241,10 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
               }}
             />
 
-            <TextComponet
+            <AppText
               title="I accept the privacy policy and terms of services"
               fontSizeVariant="caption"
-              fontVariant="medium"></TextComponet>
+              fontVariant="medium"></AppText>
           </View>
           <Spacer height={20} />
           <AppButton

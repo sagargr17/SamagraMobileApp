@@ -7,7 +7,7 @@ import React, {useCallback, useEffect, useRef} from 'react';
 import {StyleSheet, View, ViewStyle} from 'react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {AreaMapper} from '../../../Utilities/CustomMethods';
-import {TextComponet} from '../../Elements/TextComponet';
+import {AppText} from '../../Elements/AppText';
 import {size} from '../../../Prefrences/Prefrences';
 
 interface SamagraBottomSheetProps {

@@ -7,7 +7,7 @@ import {
 import {Logos} from '../../Assets/SVG/Exports/Exports';
 import {useTheme} from '@react-navigation/native';
 import {AreaMapper} from '../../Utilities/CustomMethods';
-import {TextComponet} from '../Elements/TextComponet';
+import {AppText} from '../Elements/AppText';
 import {size} from '../../Prefrences/Prefrences';
 
 interface SocialProps {
@@ -29,10 +29,10 @@ export const SocialForm: React.FC<SocialProps> = ({onAppleClick}) => {
             },
           ]}>
           <AppleLogo height={size.iconSize.medium} />
-          <TextComponet
+          <AppText
             title="Apple"
             fontVariant="bold"
-            fontSizeVariant={'regular'}></TextComponet>
+            fontSizeVariant={'regular'}></AppText>
         </View>
       </Pressable>
       <Pressable onPress={() => {}} style={styles.flexItem}>
@@ -46,13 +46,13 @@ export const SocialForm: React.FC<SocialProps> = ({onAppleClick}) => {
             },
           ]}>
           <GoogleLogo width={size.iconSize.medium} />
-          <TextComponet
+          <AppText
             customStyle={{
               marginLeft: size.spacing.xs,
             }}
             title="Google"
             fontVariant="bold"
-            fontSizeVariant={'regular'}></TextComponet>
+            fontSizeVariant={'regular'}></AppText>
         </View>
       </Pressable>
     </View>

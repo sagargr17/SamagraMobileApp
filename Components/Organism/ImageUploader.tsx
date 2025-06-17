@@ -9,7 +9,7 @@ import {Camera, useCameraDevice} from 'react-native-vision-camera';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import ImageHandler, {OutPutImageType} from '../../Utilities/ImageHandler';
 import AppButton from '../Elements/Button';
-import {TextComponet} from '../Elements/TextComponet';
+import {AppText} from '../Elements/AppText';
 interface ImageUploaderProps {
   children?: React.ReactNode;
   setFinalImage: React.Dispatch<React.SetStateAction<any>>;
@@ -93,10 +93,10 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
                     style={{
                       padding: 2,
                     }}>
-                    <TextComponet
+                    <AppText
                       title={'Total Images Selected : ' + images.length}
                       fontVariant="medium"
-                      fontSizeVariant="regular"></TextComponet>
+                      fontSizeVariant="regular"></AppText>
                   </View>
                   <ScrollView
                     showsHorizontalScrollIndicator={false}

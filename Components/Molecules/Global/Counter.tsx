@@ -1,7 +1,7 @@
 import React from 'react';
 import {Alert, View} from 'react-native';
 import {IconButton, TextInput} from 'react-native-paper';
-import {TextComponet} from '../../Elements/TextComponet';
+import {AppText} from '../../Elements/AppText';
 import {AreaMapper, titleCase} from '../../../Utilities/CustomMethods';
 import {useTheme} from '@react-navigation/native';
 
@@ -26,10 +26,10 @@ export const Counter: React.FC<CounterProps> = ({setTotal}) => {
           scaleBy: 'height',
         }),
       }}>
-      <TextComponet
+      <AppText
         fontSizeVariant={'regular'}
         title={titleCase('Quantity')}
-        fontVariant="medium"></TextComponet>
+        fontVariant="medium"></AppText>
       <View
         style={{
           display: 'flex',
@@ -52,13 +52,13 @@ export const Counter: React.FC<CounterProps> = ({setTotal}) => {
           style={{
             flex: 1,
           }}>
-          <TextComponet
+          <AppText
             customStyle={{
               marginLeft: 10,
             }}
             fontSizeVariant={'regular'}
             title={`${quantity}`}
-            fontVariant="medium"></TextComponet>
+            fontVariant="medium"></AppText>
         </View>
         <View
           style={{

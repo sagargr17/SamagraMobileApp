@@ -5,7 +5,7 @@ import React, {useState} from 'react';
 import {Icon, Surface, Text, TouchableRipple} from 'react-native-paper';
 import {StyleSheet} from 'react-native';
 import {AreaMapper, titleCase} from '../../../Utilities/CustomMethods';
-import {TextComponet} from '../../Elements/TextComponet';
+import {AppText} from '../../Elements/AppText';
 
 interface ItemListCardProps {
   item: {
@@ -49,10 +49,10 @@ export const ItemListtCard: React.FC<ItemListCardProps> = ({item}) => {
             />
           </View>
           <View style={styles.pricingContainer}>
-            <TextComponet
+            <AppText
               fontSizeVariant={'regular'}
               fontVariant="medium"
-              title={titleCase(item.name)}></TextComponet>
+              title={titleCase(item.name)}></AppText>
             <View
               style={{
                 display: 'flex',
@@ -63,30 +63,30 @@ export const ItemListtCard: React.FC<ItemListCardProps> = ({item}) => {
                   {item.rating.toFixed(1)}
                 </Text>
               </View>
-              <TextComponet
+              <AppText
                 customStyle={{
                   color: '#6cad8b',
                 }}
                 fontSizeVariant={'regular'}
                 fontVariant="regular"
-                title={titleCase(item.shop.name)}></TextComponet>
+                title={titleCase(item.shop.name)}></AppText>
               {!item.stocks ? (
-                <TextComponet
+                <AppText
                   customStyle={{
                     color: item.stocks ? colors.text : colors.primary,
                   }}
                   fontSizeVariant={'regular'}
                   fontVariant={item.stocks ? 'medium' : 'bold'}
-                  title={`रु.${item.price.toFixed(2)}`}></TextComponet>
+                  title={`रु.${item.price.toFixed(2)}`}></AppText>
               ) : null}
               {item.stocks ? (
-                <TextComponet
+                <AppText
                   customStyle={{
                     color: colors.primary,
                   }}
                   fontSizeVariant={'regular'}
                   fontVariant="bold"
-                  title={`QTY : ${item.stocks} `}></TextComponet>
+                  title={`QTY : ${item.stocks} `}></AppText>
               ) : null}
             </View>
           </View>

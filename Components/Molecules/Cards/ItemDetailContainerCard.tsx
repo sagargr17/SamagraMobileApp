@@ -5,7 +5,7 @@ import {Divider, IconButton} from 'react-native-paper';
 import {AreaMapper, titleCase} from '../../../Utilities/CustomMethods';
 import {Rating} from '../../Elements/Rating';
 import {Spacer} from '../../Elements/Spacer';
-import {TextComponet} from '../../Elements/TextComponet';
+import {AppText} from '../../Elements/AppText';
 import {Counter} from '../Global/Counter';
 interface ItemDetailContainerCardProps {}
 
@@ -39,7 +39,7 @@ export const ItemDetailContainerCard: React.FC<
           // backgroundColor: 'orange',
           justifyContent: 'space-between',
         }}>
-        <TextComponet
+        <AppText
           fontSizeVariant={24}
           lineHeight={20}
           title={titleCase(name)}
@@ -47,7 +47,7 @@ export const ItemDetailContainerCard: React.FC<
           customStyle={{
             margin: 0,
             padding: 0,
-          }}></TextComponet>
+          }}></AppText>
         <IconButton
           icon="heart-outline"
           size={24}
@@ -62,7 +62,7 @@ export const ItemDetailContainerCard: React.FC<
           alignItems: 'center',
           justifyContent: 'flex-start',
         }}>
-        <TextComponet
+        <AppText
           customStyle={{
             backgroundColor: 'gray',
             color: colors.background,
@@ -73,23 +73,23 @@ export const ItemDetailContainerCard: React.FC<
           }}
           fontSizeVariant={14}
           title={titleCase('423 Sold')}
-          fontVariant="regular"></TextComponet>
+          fontVariant="regular"></AppText>
         <Rating></Rating>
       </View>
       <Spacer height={12}></Spacer>
       <View>
-        <TextComponet
+        <AppText
           fontSizeVariant={16}
           lineHeight={21}
           title={titleCase('Description')}
-          fontVariant="medium"></TextComponet>
+          fontVariant="medium"></AppText>
         <Spacer height={8}></Spacer>
-        <TextComponet
+        <AppText
           fontSizeVariant={14}
           title={titleCase(
             'Lorem ipsum dolor sit amet consectetur. Malesuada faucibus viverra eget ridiculus a nec amet in. In turpis etiam tristique sit enim proin pulvinar.',
           )}
-          fontVariant="regular"></TextComponet>
+          fontVariant="regular"></AppText>
       </View>
 
       <Spacer height={25}></Spacer>

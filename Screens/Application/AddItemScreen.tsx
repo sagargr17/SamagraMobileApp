@@ -4,7 +4,7 @@ import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {showMessage} from 'react-native-flash-message';
 import {Icon, ProgressBar, TouchableRipple} from 'react-native-paper';
-import {TextComponet} from '../../Components/Elements/TextComponet';
+import {AppText} from '../../Components/Elements/AppText';
 import {AppForm} from '../../Components/Organism/AppForm';
 import {ImageUploader} from '../../Components/Organism/ImageUploader';
 import {createNewProduct} from '../../GraphQL/Mutation/ItemMutation';
@@ -65,7 +65,7 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
             }}>
             <Icon size={24} color="white" source={'arrow-left'}></Icon>
           </TouchableRipple>
-          <TextComponet
+          <AppText
             title={`${indexNumber}`}
             fontVariant="medium"
             fontSizeVariant={'regular'}
@@ -77,20 +77,20 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
               paddingHorizontal: 12,
               borderRadius: 45,
               color: 'white',
-            }}></TextComponet>
+            }}></AppText>
         </View>
 
         <View>
-          <TextComponet
+          <AppText
             title={title}
             fontVariant="medium"
             customStyle={{
               color: 'white',
               marginLeft: 10,
             }}
-            fontSizeVariant={'regular'}></TextComponet>
+            fontSizeVariant={'regular'}></AppText>
 
-          <TextComponet
+          <AppText
             title={descriptionn}
             fontVariant="medium"
             fontSizeVariant={'regular'}
@@ -101,7 +101,7 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
               }),
               marginLeft: 10,
               color: 'white',
-            }}></TextComponet>
+            }}></AppText>
         </View>
       </View>
     </>

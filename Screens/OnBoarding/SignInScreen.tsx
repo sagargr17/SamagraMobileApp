@@ -16,7 +16,7 @@ import AppButton from '../../Components/Elements/Button';
 import {ErrorText} from '../../Components/Elements/ErrorText';
 import {Input} from '../../Components/Elements/Input';
 import {Spacer} from '../../Components/Elements/Spacer';
-import {TextComponet} from '../../Components/Elements/TextComponet';
+import {AppText} from '../../Components/Elements/AppText';
 import {ContinueDivider} from '../../Components/Elements/ContinueDivider';
 import {ScrollableLayout} from '../../Layout/ScreenLayout/ScrollableLayout';
 import {SocialForm} from '../../Components/Organism/SocialForm';
@@ -110,23 +110,23 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
               <Spacer height={10} />
               <View style={styles.extra}>
                 <Pressable onPress={() => navigation.navigate('SignUpScreen')}>
-                  <TextComponet
+                  <AppText
                     fontSizeVariant="regular"
                     customStyle={{
                       color: '#4A739C',
                     }}
                     title="Forgot Password"
-                    fontVariant="medium"></TextComponet>
+                    fontVariant="medium"></AppText>
                 </Pressable>
                 <Pressable
                   onPress={() => navigation.navigate('ProfileSetupScreen')}>
-                  <TextComponet
+                  <AppText
                     fontSizeVariant="caption"
                     customStyle={{
                       color: '#4A739C',
                     }}
                     title="Don’t have an Account?"
-                    fontVariant="medium"></TextComponet>
+                    fontVariant="medium"></AppText>
                 </Pressable>
               </View>
               <Spacer height={size.spacing.l} />

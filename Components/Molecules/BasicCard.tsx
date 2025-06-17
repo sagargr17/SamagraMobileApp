@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, View, ViewStyle} from 'react-native';
 
 import {useTheme} from '@react-navigation/native';
-import {TextComponet} from '../Elements/TextComponet';
+import {AppText} from '../Elements/AppText';
 interface BasicCardProps {
   item: Array<{
     name: string;
@@ -17,10 +17,10 @@ export const BasicCard: React.FC<BasicCardProps> = ({item}) => {
   return (
     <View style={styles.wrapperStyle}>
       {item.map(item => (
-        <TextComponet
+        <AppText
           fontSizeVariant="title"
           title={item.name}
-          fontVariant={item.fontVariant}></TextComponet>
+          fontVariant={item.fontVariant}></AppText>
       ))}
     </View>
   );

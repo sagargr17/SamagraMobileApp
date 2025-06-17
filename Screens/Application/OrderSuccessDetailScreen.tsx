@@ -2,7 +2,7 @@ import React from 'react';
 import {Button, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import {Icon} from 'react-native-paper';
-import {TextComponet} from '../../Components/Elements/TextComponet';
+import {AppText} from '../../Components/Elements/AppText';
 interface OrderSuccessDetailScreenProps {}
 
 export const OrderSuccessDetailScreen: React.FC<
@@ -19,17 +19,17 @@ export const OrderSuccessDetailScreen: React.FC<
         flex: 1,
       }}>
       <Icon source={'thumb-up'} size={50} color={colors.primary}></Icon>
-      <TextComponet
+      <AppText
         customStyle={{
           color: colors.primary,
         }}
         fontSizeVariant="display"
         fontVariant="bold"
-        title={`Order Complted SuccessFully`}></TextComponet>
-      <TextComponet
+        title={`Order Complted SuccessFully`}></AppText>
+      <AppText
         fontSizeVariant="display"
         fontVariant="bold"
-        title={`Please Follow Up ervice Provider`}></TextComponet>
+        title={`Please Follow Up ervice Provider`}></AppText>
       <Button
         title="Back To SHoping"
         onPress={() => {

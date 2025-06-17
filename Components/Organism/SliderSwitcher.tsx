@@ -10,7 +10,7 @@ import {
 import {Surface} from 'react-native-paper';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import AppButton from '../Elements/Button';
-import {TextComponet} from '../Elements/TextComponet';
+import {AppText} from '../Elements/AppText';
 
 interface SliderSwitcherProps {
   children: React.ReactNode;
@@ -113,10 +113,10 @@ export const SliderSwitcher: React.FC<SliderSwitcherProps> = ({
                   marginTop: 5,
                 },
               ]}>
-              <TextComponet
+              <AppText
                 title={tab.title}
                 fontVariant={'medium'}
-                fontSizeVariant={'regular'}></TextComponet>
+                fontSizeVariant={'regular'}></AppText>
               {activeIndex === index && (
                 <View
                   style={[
@@ -176,10 +176,10 @@ export const SliderSwitcher: React.FC<SliderSwitcherProps> = ({
             contentStyle={{
               padding: AreaMapper({value: 8, scaleBy: 'average'}),
             }}>
-            <TextComponet
+            <AppText
               fontSizeVariant="regular"
               title={popupButtoName}
-              fontVariant="regular"></TextComponet>
+              fontVariant="regular"></AppText>
           </AppButton>
         ) : null}
       </View>

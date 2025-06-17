@@ -3,7 +3,7 @@ import {useNavigation, useTheme} from '@react-navigation/native';
 import React from 'react';
 import {View} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
-import {TextComponet} from '../../../Components/Elements/TextComponet';
+import {AppText} from '../../../Components/Elements/AppText';
 import {UserProfileCard} from '../../../Components/Molecules/Cards/UserProfileCard';
 import {UserProfileCardSkeleton} from '../../../Components/Skeletons/UserProfileCardSkeleton';
 import {ImageNotFound} from '../../../Constants/UI/AssetsUrls';
@@ -54,10 +54,10 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
   if (loading && !data) return profileSkeleton;
   if (error && !data)
     return (
-      <TextComponet
+      <AppText
         title="Profiles"
         fontVariant="medium"
-        fontSizeVariant="display"></TextComponet>
+        fontSizeVariant="display"></AppText>
     );
 
   const profileHandleSelect = (
@@ -112,10 +112,10 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
         paddingHorizontal: size.spacing.xxs,
       }}
       ListEmptyComponent={
-        <TextComponet
+        <AppText
           title={EmptyLaundnryErrorMessage}
           fontVariant="medium"
-          fontSizeVariant="display"></TextComponet>
+          fontSizeVariant="display"></AppText>
       }
       data={data?.getShops?.nodes}
       renderItem={({item, index}) => (

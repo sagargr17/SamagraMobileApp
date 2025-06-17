@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
 
-import {TextComponet} from '../../Elements/TextComponet';
+import {AppText} from '../../Elements/AppText';
 import {AreaMapper} from '../../../Utilities/CustomMethods';
 import {useTheme} from '@react-navigation/native';
 import {Input} from '../../Elements/Input';
@@ -43,15 +43,15 @@ export const CommentCard: React.FC<CommentCardProps> = ({
         }}>
         <View
           onTouchEnd={() => setIsReplyCommentVisible(!isReplyCommentVisible)}>
-          <TextComponet
+          <AppText
             title={commentor}
             fontVariant="medium"
-            fontSizeVariant={'regular'}></TextComponet>
+            fontSizeVariant={'regular'}></AppText>
 
-          <TextComponet
+          <AppText
             fontSizeVariant={'regular'}
             title={commentDescription}
-            fontVariant="regular"></TextComponet>
+            fontVariant="regular"></AppText>
         </View>
         {isReplyCommentVisible ? (
           <Input

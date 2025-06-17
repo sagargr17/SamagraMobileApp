@@ -8,7 +8,7 @@ import {
 import {Logos} from '../../Assets/SVG/Exports/Exports';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import {size} from '../../Prefrences/Prefrences';
-import {TextComponet} from './TextComponet';
+import {AppText} from './AppText';
 
 interface PhoneInputProps extends React.ComponentProps<typeof TextInput> {
   label?: string;
@@ -41,7 +41,7 @@ const PhoneInput = ({
   return (
     <View>
       {label && (
-        <TextComponet
+        <AppText
           fontVariant="medium"
           fontSizeVariant="regular"
           title={label}
@@ -60,7 +60,7 @@ const PhoneInput = ({
           },
         ]}>
         <NepalFlag height={size.iconSize.large} width={size.iconSize.large} />
-        <TextComponet
+        <AppText
           fontVariant="medium"
           fontSizeVariant="regular"
           title="+977"

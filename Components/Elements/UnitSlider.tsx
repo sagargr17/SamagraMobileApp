@@ -4,7 +4,7 @@ import {StyleSheet, View, ViewStyle} from 'react-native';
 import {Slider} from 'react-native-awesome-slider';
 import {useSharedValue} from 'react-native-reanimated';
 import {AreaMapper} from '../../Utilities/CustomMethods';
-import {TextComponet} from './TextComponet';
+import {AppText} from './AppText';
 import {size} from '../../Prefrences/Prefrences';
 interface UnitSliderProps {
   sliderOption: {
@@ -30,11 +30,11 @@ export const UnitSlider: React.FC<UnitSliderProps> = ({
 
   return (
     <View style={styles.wrapper}>
-      <TextComponet
+      <AppText
         fontSizeVariant="regular"
         title={label}
         fontVariant="regular"
-        customStyle={styles.wrapper}></TextComponet>
+        customStyle={styles.wrapper}></AppText>
       <Slider
         containerStyle={styles.sliderStyle}
         theme={{

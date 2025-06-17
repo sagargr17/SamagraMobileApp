@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useTheme} from '@react-navigation/native';
-import {TextComponet} from '../Elements/TextComponet';
+import {AppText} from '../Elements/AppText';
 import AppButton from '../Elements/Button';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 interface SingnlePageErrorProps {
@@ -24,7 +24,7 @@ export const SingnlePageError: React.FC<SingnlePageErrorProps> = ({detail}) => {
             alignItems: 'center',
           }}>
           {detail.icon}
-          <TextComponet
+          <AppText
             customStyle={{
               alignContent: 'center',
               justifyContent: 'center',
@@ -33,7 +33,7 @@ export const SingnlePageError: React.FC<SingnlePageErrorProps> = ({detail}) => {
             }}
             title={detail.title}
             fontVariant="medium"
-            fontSizeVariant={'regular'}></TextComponet>
+            fontSizeVariant={'regular'}></AppText>
         </View>
         <View
           style={{

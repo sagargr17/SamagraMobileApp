@@ -3,7 +3,7 @@ import {useNavigation, useTheme} from '@react-navigation/native';
 import React from 'react';
 import {Button, FlatList, Text, View} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
-import {TextComponet} from '../../Components/Elements/TextComponet';
+import {AppText} from '../../Components/Elements/AppText';
 import {GetBasketItemsQuery} from '../../GraphQL/Queries/CheckoutQueries';
 import {size} from '../../Prefrences/Prefrences';
 import {Rating} from '../../Components/Elements/Rating';
@@ -34,13 +34,13 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
         }}
         data={data?.getBasketItems?.nodes}
         ListHeaderComponent={
-          <TextComponet
+          <AppText
             customStyle={{
               margin: size.spacing.xs,
             }}
             fontSizeVariant="display"
             fontVariant="bold"
-            title={`CART`}></TextComponet>
+            title={`CART`}></AppText>
         }
         renderItem={({item, index}) => (
           <View
@@ -51,14 +51,14 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
               padding: size.spacing.xs,
               margin: size.spacing.xs,
             }}>
-            <TextComponet
+            <AppText
               fontSizeVariant="regular"
               fontVariant="bold"
-              title={item?.item?.name ?? NotMentioned}></TextComponet>
-            <TextComponet
+              title={item?.item?.name ?? NotMentioned}></AppText>
+            <AppText
               fontSizeVariant="regular"
               fontVariant="bold"
-              title={`Price: ${item?.item?.price}`}></TextComponet>
+              title={`Price: ${item?.item?.price}`}></AppText>
             <Rating ratingNumber={item?.item?.starRating}></Rating>
             <Button
               title="Place Order"

@@ -6,7 +6,7 @@ import {IconButton, TouchableRipple} from 'react-native-paper';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
 import {AreaMapper, titleCase, titleRange} from '../../Utilities/CustomMethods';
 import {NotifcaitonIcon} from '../Elements/NotifcaitonIcon';
-import {TextComponet} from '../Elements/TextComponet';
+import {AppText} from '../Elements/AppText';
 import {RowFlexLayout} from '../../Layout/PartationLayout/RowFlexLayout';
 import {size} from '../../Prefrences/Prefrences';
 import {Spacer} from '../Elements/Spacer';
@@ -57,10 +57,10 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
           paddingHorizontal: size.spacing.l,
         }}>
         <Location height={size.iconSize.small}></Location>
-        <TextComponet
+        <AppText
           title={titleRange('Baneswor Kathmandu kajsdlkjsad', 25)}
           fontVariant="medium"
-          fontSizeVariant="regular"></TextComponet>
+          fontSizeVariant="regular"></AppText>
       </RowFlexLayout>
 
       <IconButton

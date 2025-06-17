@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {Icon, IconButton} from 'react-native-paper';
-import {TextComponet} from './TextComponet';
+import {AppText} from './AppText';
 import {titleCase} from '../../Utilities/CustomMethods';
 import {size} from '../../Prefrences/Prefrences';
 interface RatingProps {
@@ -30,10 +30,10 @@ export const Rating: React.FC<RatingProps> = ({ratingNumber = 3.5}) => {
         }}
         iconColor={'#FFA902'}
       />
-      <TextComponet
+      <AppText
         fontSizeVariant={'regular'}
         title={titleCase(`${ratingNumber}`)}
-        fontVariant="regular"></TextComponet>
+        fontVariant="regular"></AppText>
     </View>
   );
 };

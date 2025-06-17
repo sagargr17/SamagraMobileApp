@@ -7,7 +7,7 @@ import {showMessage} from 'react-native-flash-message';
 import {IconButton} from 'react-native-paper';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
 import AppButton from '../../Components/Elements/Button';
-import {TextComponet} from '../../Components/Elements/TextComponet';
+import {AppText} from '../../Components/Elements/AppText';
 import {ProviderCard} from '../../Components/Molecules/Cards/ProviderCard';
 import {AppBottomSheet} from '../../Components/Molecules/Global/AppBottomSheet';
 import {SingnlePageError} from '../../Components/Molecules/SinglePageError';
@@ -160,10 +160,10 @@ export const ReceivedOrderListScreen: React.FC<
 
   if (!data && error)
     return (
-      <TextComponet
+      <AppText
         fontSizeVariant="regular"
         fontVariant="regular"
-        title={error.message}></TextComponet>
+        title={error.message}></AppText>
     );
 
   const sideBar = () => (
@@ -198,14 +198,14 @@ export const ReceivedOrderListScreen: React.FC<
                   ? item?.imageUrls?.[0]
                   : ImageNotFound,
               }}></FastImage>
-            <TextComponet
+            <AppText
               title={`${item?.name}`}
               fontSizeVariant="regular"
-              fontVariant="medium"></TextComponet>
-            <TextComponet
+              fontVariant="medium"></AppText>
+            <AppText
               title={`NPR.${item?.price}`}
               fontSizeVariant="regular"
-              fontVariant="medium"></TextComponet>
+              fontVariant="medium"></AppText>
 
             <AppButton
               style={{
@@ -288,24 +288,24 @@ export const ReceivedOrderListScreen: React.FC<
 
               <View style={styles.userInformationContainer}>
                 <View style={styles.emailContainer}>
-                  <TextComponet
+                  <AppText
                     title={'E-mail:'}
                     fontVariant="regular"
-                    fontSizeVariant={'regular'}></TextComponet>
-                  <TextComponet
+                    fontSizeVariant={'regular'}></AppText>
+                  <AppText
                     title={'Ram@gmail.com'}
                     fontVariant="medium"
-                    fontSizeVariant={'regular'}></TextComponet>
+                    fontSizeVariant={'regular'}></AppText>
                 </View>
                 <View style={styles.locationcontainer}>
-                  <TextComponet
+                  <AppText
                     title={'Location:'}
                     fontVariant="regular"
-                    fontSizeVariant={'regular'}></TextComponet>
-                  <TextComponet
+                    fontSizeVariant={'regular'}></AppText>
+                  <AppText
                     title={'Baneswor, Bhimsengola'}
                     fontVariant="medium"
-                    fontSizeVariant={'regular'}></TextComponet>
+                    fontSizeVariant={'regular'}></AppText>
                 </View>
               </View>
             </>

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {TextComponet} from '../Elements/TextComponet';
+import {AppText} from '../Elements/AppText';
 
 import {useTheme} from '@react-navigation/native';
 import {AreaMapper} from '../../Utilities/CustomMethods';
@@ -57,13 +57,13 @@ export const CommentLayout: React.FC<CommentLayoutProps> = ({
             setIsCommentopen(!isCommentOpen);
             onCloseHandle ? onCloseHandle(isCommentOpen) : null;
           }}>
-          <TextComponet
+          <AppText
             customStyle={{
               color: colors.text,
             }}
             title="Rating and Reviews"
             fontSizeVariant={'regular'}
-            fontVariant="bold"></TextComponet>
+            fontVariant="bold"></AppText>
 
           <CommentCard
             starter={isCommentOpen}

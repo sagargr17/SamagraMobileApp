@@ -5,7 +5,7 @@ import {Logos} from '../../Assets/SVG/Exports/Exports';
 import {RowFlexLayout} from '../../Layout/PartationLayout/RowFlexLayout';
 import {size} from '../../Prefrences/Prefrences';
 import {BubbleCard} from '../Molecules/Cards/BubbleCard';
-import {TextComponet} from '../Elements/TextComponet';
+import {AppText} from '../Elements/AppText';
 import {StyleSheet, View} from 'react-native';
 import {Spacer} from '../Elements/Spacer';
 import {TouchableRipple} from 'react-native-paper';
@@ -149,7 +149,7 @@ export const ShopProfileUserContainer: React.FC<
             }}>
             {item.icon}
           </View>
-          <TextComponet title={item.title} />
+          <AppText title={item.title} />
         </RowFlexLayout>
       ))}
     </>

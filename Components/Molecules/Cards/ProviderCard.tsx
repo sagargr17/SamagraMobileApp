@@ -6,7 +6,7 @@ import {StyleSheet, View} from 'react-native';
 import {ProgressBar} from 'react-native-paper';
 import {Logos} from '../../../Assets/SVG/Exports/Exports';
 import {AreaMapper} from '../../../Utilities/CustomMethods';
-import {TextComponet} from '../../Elements/TextComponet';
+import {AppText} from '../../Elements/AppText';
 import {ProviderCardSkeleton} from '../../Skeletons/ProviderCardSkeleton';
 import {PairButtons} from '../Global/PairButtons';
 import AppButton from '../../Elements/Button';
@@ -71,13 +71,13 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
       </TouchableOpacity>
 
       <View style={ProviderCardStyle.textContainer}>
-        <TextComponet
+        <AppText
           title={titleName}
           fontVariant="medium"
           fontSizeVariant={'regular'}
           customStyle={{
             width: 260,
-          }}></TextComponet>
+          }}></AppText>
         <View
           style={{
             display: 'flex',
@@ -87,10 +87,10 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
               scaleBy: 'average',
             }),
           }}>
-          <TextComponet
+          <AppText
             title={'Rs.' + priceperhour + ' per hour'}
             fontVariant="regular"
-            fontSizeVariant={'regular'}></TextComponet>
+            fontSizeVariant={'regular'}></AppText>
         </View>
         <View
           style={{
@@ -109,22 +109,22 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
             {Array.from({length: rating}).map((_, index) => (
               <Star key={index} />
             ))}
-            <TextComponet
+            <AppText
               customStyle={{
                 marginLeft: 5,
               }}
               title={distance + ' km away'}
               fontVariant="regular"
-              fontSizeVariant={'regular'}></TextComponet>
+              fontSizeVariant={'regular'}></AppText>
           </View>
           {allDetailDisplay ? (
-            <TextComponet
+            <AppText
               title={`Total: Rs.${priceperhour * 50}`}
               fontVariant="bold"
               fontSizeVariant={'regular'}
               customStyle={{
                 color: colors.primary,
-              }}></TextComponet>
+              }}></AppText>
           ) : null}
         </View>
       </View>

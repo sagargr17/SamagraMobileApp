@@ -6,6 +6,7 @@ import {HomeStackNavigationProp} from '../../Navigators/Stack/HomeStackNavigator
 import {size} from '../../Prefrences/Prefrences';
 import {ItemCategoryCard} from '../Molecules/Cards/ItemCategoryCard';
 import {SectionHeader} from '../Molecules/Global/SectionHeader';
+import {titleRange} from '../../Utilities/CustomMethods';
 
 interface ItemCategoryCardProps {
   sizes: 'regular' | 'large';
@@ -19,8 +20,8 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({
   const navigation =
     useNavigation<HomeStackNavigationProp<'CategoryListScreen'>>();
 
-  const height = sizes === 'large' ? size.iconSize.large : size.iconSize.medium;
-  const width = sizes === 'large' ? size.iconSize.large : size.iconSize.medium;
+  const height = sizes === 'large' ? size.iconSize.large+5 : size.iconSize.medium;
+  const width = sizes === 'large' ? size.iconSize.large+5 : size.iconSize.medium;
 
   const data: Array<{
     titte: string;
@@ -39,7 +40,7 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({
       icon: <Grocery height={height} width={width} />,
     },
     {
-      titte: 'Stationary',
+      titte: titleRange('Plumbin & wire',10),
       icon: <Stationary height={height} width={width} />,
     },
   ];
@@ -54,7 +55,7 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({
     <View>
       <SectionHeader
         style={{
-          paddingVertical: size.spacing.xs,
+          paddingBottom: size.spacing.xs,
         }}
         onPress={() => onPress()}
         isIcon={false}

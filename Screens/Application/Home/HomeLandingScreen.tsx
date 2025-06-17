@@ -35,17 +35,17 @@ export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
   const headerComponent = (
     <>
       <AppHeader currentPosition="static"></AppHeader>
-      <Spacer height={10}></Spacer>
+      <Spacer height={30}></Spacer>
       <Divider></Divider>
-      <Spacer height={15}></Spacer>
+      <Spacer height={17}></Spacer>
       <AppSerchBar
         onPress={(searchedItem: string) =>
           handleNavigation(searchedItem)
         }></AppSerchBar>
       <AppBanner></AppBanner>
-      <Spacer></Spacer>
-      <ItemCategoryCardSlider sizes="large"></ItemCategoryCardSlider>
-      <Spacer height={15}></Spacer>
+      <Spacer height={18}></Spacer>
+      <ItemCategoryCardSlider sizes="large" ></ItemCategoryCardSlider>
+      <Spacer height={25}></Spacer>
       <Divider></Divider>
     </>
   );

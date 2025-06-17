@@ -9,7 +9,7 @@ import {useQuery} from '@apollo/client';
 import {useTheme} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {FlatList, FlatListProps, Text} from 'react-native';
-import {TextComponet} from '../../Components/Elements/TextComponet';
+import {AppText} from '../../Components/Elements/AppText';
 import {SectionHeader} from '../../Components/Molecules/Global/SectionHeader';
 import {size} from '../../Prefrences/Prefrences';
 interface FlatListScreenProps<ItemT> extends FlatListProps<ItemT> {

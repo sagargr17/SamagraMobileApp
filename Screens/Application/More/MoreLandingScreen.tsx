@@ -4,7 +4,7 @@ import {clearTokens} from '../../../client/Token/TokenAccess';
 import FastImage from '@d11/react-native-fast-image';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import AppButton from '../../../Components/Elements/Button';
-import {TextComponet} from '../../../Components/Elements/TextComponet';
+import {AppText} from '../../../Components/Elements/AppText';
 import {BubbleCard} from '../../../Components/Molecules/Cards/BubbleCard';
 import {AreaMapper} from '../../../Utilities/CustomMethods';
 import {useAppDispatch, useAppSelector} from '../../../StateManagement/hooks';

@@ -4,7 +4,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import {TextInput} from 'react-native-paper';
 import {AreaMapper} from '../../../Utilities/CustomMethods';
-import {TextComponet} from '../../Elements/TextComponet';
+import {AppText} from '../../Elements/AppText';
 // import AntDesign from '@expo/vector-icons/AntDesign';
 
 interface DropdownComponentProps {
@@ -23,7 +23,7 @@ export const DropdownComponent: React.FC<DropdownComponentProps> = ({
   return (
     <View style={styles.container}>
       {label && (
-        <TextComponet
+        <AppText
           customStyle={{
             marginBottom: AreaMapper({
               value: 5,
@@ -32,7 +32,7 @@ export const DropdownComponent: React.FC<DropdownComponentProps> = ({
           }}
           title={label}
           fontVariant="regular"
-          fontSizeVariant={'regular'}></TextComponet>
+          fontSizeVariant={'regular'}></AppText>
       )}
       <Dropdown
         style={[styles.dropdown, isFocus && {borderColor: colors.border}]}

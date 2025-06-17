@@ -3,7 +3,7 @@ import {useTheme} from '@react-navigation/native';
 import React from 'react';
 import {StyleSheet, TouchableOpacity, View, ViewStyle} from 'react-native';
 import {AreaMapper} from '../../../Utilities/CustomMethods';
-import {TextComponet} from '../../Elements/TextComponet';
+import {AppText} from '../../Elements/AppText';
 import {size} from '../../../Prefrences/Prefrences';
 import {Icon, IconButton, TouchableRipple} from 'react-native-paper';
 interface UserProfileCardProps {
@@ -50,24 +50,24 @@ export const UserProfileCard: React.FC<UserProfileCardProps> = ({
         }}
         resizeMode="cover"></FastImage>
       <View style={style.detailContainer}>
-        <TextComponet
+        <AppText
           title={user.username}
           fontVariant="medium"
-          fontSizeVariant={'title'}></TextComponet>
+          fontSizeVariant={'title'}></AppText>
         <View
           style={{
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
           }}>
-          <TextComponet
+          <AppText
             title="12 Shops"
             customStyle={{
               textAlign: 'left',
             }}
             fontVariant="regular"
-            fontSizeVariant={'regular'}></TextComponet>
-          <TextComponet
+            fontSizeVariant={'regular'}></AppText>
+          <AppText
             title="1009 Items"
             customStyle={{
               textAlign: 'left',
@@ -77,7 +77,7 @@ export const UserProfileCard: React.FC<UserProfileCardProps> = ({
               }),
             }}
             fontVariant="regular"
-            fontSizeVariant={'regular'}></TextComponet>
+            fontSizeVariant={'regular'}></AppText>
         </View>
       </View>
       {onIconPress ? (

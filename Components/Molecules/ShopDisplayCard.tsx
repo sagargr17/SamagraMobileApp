@@ -4,7 +4,7 @@ import {Logos} from '../../Assets/SVG/Exports/Exports';
 import {View} from 'moti';
 import {BasicCard} from './BasicCard';
 import {Surface} from 'react-native-paper';
-import {TextComponet} from '../Elements/TextComponet';
+import {AppText} from '../Elements/AppText';
 
 interface ShopDisplayCardProps {
   shop: {
