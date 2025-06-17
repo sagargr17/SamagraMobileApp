@@ -21,7 +21,7 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({
     useNavigation<HomeStackNavigationProp<'CategoryListScreen'>>();
 
   const height = sizes === 'large' ? size.iconSize.large+5 : size.iconSize.medium;
-  const width = sizes === 'large' ? size.iconSize.large+5 : size.iconSize.medium;
+  const width = sizes === 'large' ? size.iconSize.large+5 : size.iconSize.medium+2;
 
   const data: Array<{
     titte: string;

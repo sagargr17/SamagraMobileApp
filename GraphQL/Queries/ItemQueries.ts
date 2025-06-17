@@ -92,7 +92,6 @@ query GetPersonalItems {
   }
 }
 `);
-
 export const getPaginatedPersonalItems = gql(`
   query GetPaginatedPersonalItems($after: String) {
   getItems (after: $after) {

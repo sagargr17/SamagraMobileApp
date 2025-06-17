@@ -79,6 +79,7 @@ export const Counter: React.FC<CounterProps> = ({setTotal}) => {
                 setTotal(quantity - 1);
               }
             }}></IconButton>
+
           <View
             style={{
               width: AreaMapper({

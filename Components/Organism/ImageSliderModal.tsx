@@ -62,6 +62,7 @@ export const ImageSliderModal: React.FC<ImageSliderModalProps> = ({images}) => {
             iconColor="white"
             onPress={() => setVisible(!visible)}></IconButton>
           <ImageViewer
+            // imageUrls={images}
             imageUrls={images}
             onSwipeDown={() => setVisible(!visible)}
             enableSwipeDown
@@ -75,7 +76,7 @@ export const ImageSliderModal: React.FC<ImageSliderModalProps> = ({images}) => {
                     scaleBy: 'width',
                   }),
                   height: AreaMapper({
-                    value: 260,
+                    value: 390,
                     scaleBy: 'width',
                   }),
 

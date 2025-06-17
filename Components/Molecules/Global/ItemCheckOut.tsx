@@ -9,6 +9,7 @@ import {useTheme} from '@react-navigation/native';
 import {useMutation} from '@apollo/client';
 import {addItemToBasket} from '../../../GraphQL/Mutation/CheckOutMutation';
 import {showMessage} from 'react-native-flash-message';
+import {size} from '../../../Prefrences/Prefrences';
 
 interface ItemCheckOutProps {
   totalPrice: number;
@@ -116,10 +117,7 @@ export const ItemCheckOut: React.FC<ItemCheckOutProps> = ({
               <Icon
                 color={colors.background}
                 source={'chevron-right'}
-                size={AreaMapper({
-                  value: 30,
-                  scaleBy: 'average',
-                })}></Icon>
+                size={size.spacing.l}></Icon>
             </View>
           </AppButton>
 
@@ -132,16 +130,14 @@ export const ItemCheckOut: React.FC<ItemCheckOutProps> = ({
                 scaleBy: 'average',
               }),
               alignItems: 'center',
+              boxShadow:""
             }}>
             Add to Cart
             <View>
               <Icon
                 color={colors.background}
                 source={'chevron-right'}
-                size={AreaMapper({
-                  value: 30,
-                  scaleBy: 'average',
-                })}></Icon>
+                size={size.spacing.l}></Icon>
             </View>
           </AppButton>
         </View>

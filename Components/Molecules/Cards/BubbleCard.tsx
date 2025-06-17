@@ -48,6 +48,8 @@ export const BubbleCard: React.FC<BubbleCardProps> = ({
           shadowColor: colors.card,
           padding: variant === 'large' ? size.spacing.s : size.spacing.xs,
           borderRadius: size.borderRadius.m,
+          borderWidth:0.05,
+          borderColor:colors.border
         },
         customStyle,
         size.elevation.m,

@@ -11,6 +11,7 @@ import {RowFlexLayout} from '../../Layout/PartationLayout/RowFlexLayout';
 import {size} from '../../Prefrences/Prefrences';
 import {Spacer} from '../Elements/Spacer';
 import Geolocation from '@react-native-community/geolocation';
+import {useAppSelector} from '../../StateManagement/hooks';
 
 interface AppHeaderProps {
   currentPosition: 'absolute' | 'relative' | 'static';
@@ -45,6 +46,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
   //   // console.log('RRRR', rrr);
   // }, []);
 
+  const userLocation = useAppSelector(state => state.user.user?.location);
   return (
     <RowFlexLayout>
       <NotifcaitonIcon></NotifcaitonIcon>
@@ -54,11 +56,10 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
           borderColor: colors.border,
           padding: size.spacing.m,
           borderRadius: size.borderRadius.full,
-          paddingHorizontal: size.spacing.l,
         }}>
         <Location height={size.iconSize.small}></Location>
         <AppText
-          title={titleRange('Baneswor Kathmandu kajsdlkjsad', 25)}
+          title={titleRange(`${userLocation}`, 25)}
           fontVariant="medium"
           fontSizeVariant="regular"></AppText>
       </RowFlexLayout>
@@ -76,6 +77,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
         style={[
           {
             borderWidth: size.borderWidth.s,
+            borderColor: colors.border,
           },
         ]}></IconButton>
     </RowFlexLayout>

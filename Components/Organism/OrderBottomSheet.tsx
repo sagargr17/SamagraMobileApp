@@ -12,11 +12,12 @@ import {UnitSlider} from '../Elements/UnitSlider';
 import {AppBottomSheet} from '../Molecules/Global/AppBottomSheet';
 import {ItemCategoryCardSlider} from './ItemCategorySlider';
 import {AppForm} from './AppForm';
-import {useAppDispatch} from '../../StateManagement/hooks';
+import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
 import {
   postOrderparams,
   SentordersParams,
 } from '../../StateManagement/Orders/SentOrderParams';
+import {size} from '../../Prefrences/Prefrences';
 
 interface OrderBottomSheetProps {
   navigation: RootStackNavigationProp<'ApplicationOverlay'> | any;
@@ -75,66 +76,19 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
           left={info.icon ?? info.icon}></Input>
       );
     };
+    const userLocation = useAppSelector(state => state.user.user?.location);
 
     return (
-      <View style={styles.childrenContainer}>
-        {/* {pressedElement === 'global' || 'location'
-          ? inputElement({
-              label: 'Location',
-              placeHolder: 'Baneswor',
-              icon: (
-                <TextInput.Icon
-                  color={colors.primary}
-                  size={AreaMapper({
-                    value: 22,
-                    scaleBy: 'average',
-                  })}
-                  icon={'map-marker-radius-outline'}></TextInput.Icon>
-              ),
-            })
-          : null}
-
-        {pressedElement === 'global' || 'description'
-          ? inputElement({
-              label: 'Description',
-              placeHolder: 'Please Chito aaunu na hai',
-              icon: (
-                <TextInput.Icon
-                  color={colors.primary}
-                  size={AreaMapper({
-                    value: 22,
-                    scaleBy: 'average',
-                  })}
-                  icon={'comment-edit-outline'}></TextInput.Icon>
-              ),
-            })
-          : null}
-        {pressedElement === 'global' || 'time' ? (
-          <UnitSlider
-            label="Time in hour"
-            sliderOption={{
-              max: 4,
-              min: 1,
-              maximumTrackTintColor: 'gray',
-              minimumTrackTintColor: colors.primary,
-            }}></UnitSlider>
-        ) : null}
-
-        <AppButton
-          disabled={loading}
-          onPress={() => {
-            navigation.navigate('ApplicationOverlay', {
-              screen: 'ReceivedOfferListScreen',
-            });
-          }}>
-          {loading ? (
-            <ActivityIndicator color={'white'}></ActivityIndicator>
-          ) : (
-            'Search'
-          )}
-
-        </AppButton> */}
+      <View style={styles.wrapper}>
         <ItemCategoryCardSlider sizes="regular"></ItemCategoryCardSlider>
+        {/* <UnitSlider
+          label="Time in hour"
+          sliderOption={{
+            max: 4,
+            min: 1,
+            maximumTrackTintColor: 'gray',
+            minimumTrackTintColor: colors.primary,
+          }}></UnitSlider> */}
         <AppForm<SentordersParams>
           formConfig={[
             {
@@ -144,6 +98,7 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
               rules: {
                 required: 'Location is required',
               },
+              defaultValue: userLocation,
             },
             {
               name: 'itemParams.description',
@@ -171,6 +126,7 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
   return (
     <>
       <AppBottomSheet
+      
         isOppen={true}
         flexHeight={0}
         pannigGesture={false}
@@ -181,10 +137,7 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
 };
 
 const styles = StyleSheet.create({
-  childrenContainer: {
-    paddingVertical: AreaMapper({
-      scaleBy: 'average',
-      value: 10,
-    }),
+  wrapper: {
+    // paddingBottom: size.spacing.xxs,
   },
 });

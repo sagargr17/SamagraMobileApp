@@ -19,6 +19,7 @@ import {AreaMapper, titleCase} from '../../Utilities/CustomMethods';
 import {PlaceOrderScreen} from '../Application/PlaceOrderScreen';
 import {postPlaceOrderparams} from '../../StateManagement/Orders/PlaceOrderDetailsParams';
 import {NotMentioned} from '../../Constants/UI/Messages';
+import {size} from '../../Prefrences/Prefrences';
 order: null;
 interface ItemDetailScreenProps {
   route: ItemDetailScreenRouteProp;
@@ -49,23 +50,12 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
 
   const itemDetailContainer = () => {
     return (
-      <View
-        style={{
-          paddingLeft: AreaMapper({
-            value: 16,
-            scaleBy: 'average',
-          }),
-          paddingRight: AreaMapper({
-            value: 16,
-            scaleBy: 'average',
-          }),
-        }}>
+      <View>
         <View
           style={{
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
-            // backgroundColor: 'orange',
             justifyContent: 'space-between',
           }}>
           <AppText
@@ -73,7 +63,7 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
             title={titleCase(
               data?.getPublicItems?.nodes?.[0]?.name ?? 'Not Mentioned',
             )}
-            fontVariant="regular"
+            fontVariant="medium"
             customStyle={{
               margin: 0,
               padding: 0,
@@ -98,37 +88,36 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
             customStyle={{
               backgroundColor: 'gray',
               color: colors.background,
-              paddingHorizontal: AreaMapper({
-                value: 8,
-                scaleBy: 'height',
-              }),
             }}
             fontSizeVariant={'regular'}
             title={titleCase('423 Sold')}
             fontVariant="regular"></AppText>
           <Rating></Rating>
         </View>
-        <Spacer height={12}></Spacer>
+        <Spacer height={8}></Spacer>
         <View>
           <AppText
-            fontSizeVariant={'regular'}
+            fontSizeVariant={'title'}
             title={titleCase('Description')}
             fontVariant="medium"></AppText>
-          <Spacer height={8}></Spacer>
+          <Spacer height={2}></Spacer>
           <AppText
             fontSizeVariant={'regular'}
-            title={titleCase(
-              data?.getPublicItems?.nodes?.[0]?.description ?? 'Not Mentioned',
-            )}
+            // title={titleCase(
+            //   data?.getPublicItems?.nodes?.[0]?.description ?? 'Not Mentioned',
+            // )}
+            title={
+              'Irure id ex irure et. Ad occaecat minim magna magna. Nostrud id labore dolor qui culpa eiusmod quis laboris occaecat laboris consequat laborum. Do veniam id exercitation nisi aliqua est dolor laborum exercitation dolore. Quis enim labore magna laborum sint incididunt incididunt nisi sint et dolor cupidatat minim minim.'
+            }
             fontVariant="regular"></AppText>
         </View>
 
-        <Spacer height={25}></Spacer>
+        <Spacer height={14}></Spacer>
         <Counter
           setTotal={(Quantity: number) => handleTotalPrice(Quantity)}></Counter>
-
-        <Spacer height={10}></Spacer>
+        <Spacer height={24}></Spacer>
         <Divider></Divider>
+        <Spacer height={8}></Spacer>
       </View>
     );
   };
@@ -173,40 +162,46 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
   };
 
   return (
-    <>
-      <View
-        style={{
-          flex: 1,
-        }}>
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          data={[1]}
-          renderItem={({item, index}) => (
-            <>
-              <ImageSliderModal
-                images={
-                  data?.getPublicItems?.nodes?.[0]?.imageUrls
-                    ?.filter((url): url is string => url !== null)
-                    .map(url => ({url: url})) ?? [
-                    {
-                      url: 'https://img.freepik.com/free-vector/oops-404-error-with-broken-robot-concept-illustration_114360-5529.jpg?semt=ais_hybrid&w=740',
-                    },
-                  ]
-                }></ImageSliderModal>
-
+    <View
+      style={{
+        flex: 1,
+        // paddingHorizontal: size.spacing.xs
+      }}>
+      <FlatList
+        showsVerticalScrollIndicator={false}
+        data={[1]}
+        renderItem={({item, index}) => (
+          <>
+            <ImageSliderModal
+              images={
+                data?.getPublicItems?.nodes?.[0]?.imageUrls
+                  ?.filter((url): url is string => url !== null)
+                  .map(url => ({url: url})) ?? [
+                  {
+                    url: 'https://img.freepik.com/free-vector/oops-404-error-with-broken-robot-concept-illustration_114360-5529.jpg?semt=ais_hybrid&w=740',
+                  },
+                ]
+              }></ImageSliderModal>
+            <Spacer height={16}></Spacer>
+            <Divider></Divider>
+            <View
+              style={{
+                paddingHorizontal: size.spacing.xs,
+              }}>
               {itemDetailContainer()}
               <CommentLayout
                 onCloseHandle={status => {
                   setIsCheckoutVisible(status);
                 }}></CommentLayout>
-            </>
-          )}></FlatList>
-        <ItemCheckOut
-          itemID={data?.getPublicItems?.nodes?.[0]?.id ?? ''}
-          onBuyNow={handleBuyNow}
-          totalPrice={totalPrice}></ItemCheckOut>
-      </View>
-    </>
+            </View>
+          </>
+        )}></FlatList>
+
+      <ItemCheckOut
+        itemID={data?.getPublicItems?.nodes?.[0]?.id ?? ''}
+        onBuyNow={handleBuyNow}
+        totalPrice={totalPrice}></ItemCheckOut>
+    </View>
   );
 };
 

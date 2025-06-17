@@ -3,14 +3,16 @@ import {TouchableOpacity} from 'react-native';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import {size} from '../../Prefrences/Prefrences';
-import {TouchableRipple, useTheme} from 'react-native-paper';
+import {TouchableRipple} from 'react-native-paper';
 import {View} from 'moti';
+import {useTheme} from '@react-navigation/native';
 
 interface NotifcaitonIconProps {}
 
 export const NotifcaitonIcon: React.FC<NotifcaitonIconProps> = ({}) => {
   const {BellRing: Icon, BellRingTail} = Logos;
   const {colors} = useTheme();
+
   return (
     <TouchableOpacity
       style={[
@@ -19,6 +21,7 @@ export const NotifcaitonIcon: React.FC<NotifcaitonIconProps> = ({}) => {
           borderRadius: size.borderRadius.full,
           padding: size.spacing.xxs,
           alignItems: 'center',
+          borderColor: colors.border,
         },
       ]}>
       <View

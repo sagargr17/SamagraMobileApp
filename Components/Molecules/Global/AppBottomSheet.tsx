@@ -68,6 +68,7 @@ export const AppBottomSheet: React.FC<SamagraBottomSheetProps> = ({
           flex: 0.01,
           borderWidth: 1,
           backgroundColor: colors.background,
+          
         },
       ]}>
       <BottomSheetScrollView
@@ -75,8 +76,9 @@ export const AppBottomSheet: React.FC<SamagraBottomSheetProps> = ({
         style={[
           {
             borderColor: colors.border,
-            paddingHorizontal: 20,
+            paddingHorizontal: size.spacing.xs,
             backgroundColor: colors.background,
+            paddingBottom:size.spacing.l
           },
         ]}>
         {children()}

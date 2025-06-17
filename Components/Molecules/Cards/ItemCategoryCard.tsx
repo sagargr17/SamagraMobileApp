@@ -22,7 +22,8 @@ export const ItemCategoryCard: React.FC<ItemCategoryCardProps> = ({
 }) => {
   const {colors} = useTheme();
   const fontVariantSize = variant === 'large' ? 'regular' : 'caption';
-
+  const height  = variant === 'large' ? 105 : 95
+  const width  = variant === 'large' ? 106 : 95
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -39,11 +40,11 @@ export const ItemCategoryCard: React.FC<ItemCategoryCardProps> = ({
           flexDirection: 'column',
           justifyContent: 'space-around',
           width: AreaMapper({
-            value: 106,
+            value: width,
             scaleBy: 'width',
           }),
           height: AreaMapper({
-            value: 105,
+            value: height,
             scaleBy: 'height',
           }),
         },

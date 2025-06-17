@@ -13,8 +13,8 @@ const MyTheme = {
   colors: {
     primary: '#339944', //Test1
     background: 'rgb(255, 255, 255)',
-    // card: 'rgb(250, 250, 250)',
-    card: '#EFF1F3',
+    card: 'rgb(250, 250, 250)',
+    // card: '#EFF1F3',
     text: 'rgba(45, 45, 45, 1)',
     border: 'rgb(192, 192, 192)',
     notification: 'rgb(255, 69, 58)',
@@ -105,17 +105,17 @@ const size = {
 
   elevation: {
     xs: {
-      shadowColor: '#3b3b3b', // Proper visible color
+      // shadowColor: '#3b3b3b', // Proper visible color
+      shadowColor: 'rgba(0, 0, 0, 0.6)', // Proper visible color
       borderWidth: 0.1,
       shadowOffset: {width: 1000, height: 1},
       shadowOpacity: 0.12,
       shadowRadius: 3,
-      elevation: 1,
+      elevation: 3,
     },
     s: {
       // iOS shadow properties
-      shadowColor: '#3b3b3b', // Proper visible color
-      borderWidth: 0.1,
+      shadowColor: 'rgba(0, 0, 0, 0.6)', // Proper visible color      borderWidth: 0.1,
       shadowOffset: {width: 0, height: 3},
       shadowOpacity: 0.16,
       shadowRadius: 6,
@@ -125,33 +125,29 @@ const size = {
     m: {
       // THIS IS THE UPDATED 'm' ELEVATION
       // iOS shadow properties
-      // shadowColor: '#767676', // Proper visible color
-      shadowColor: '#3b3b3b', // Proper visible color
-      borderWidth: 0.1,
+      shadowColor: 'rgba(0, 0, 0, 0.34)', // Proper visible color      borderWidth: 0.1,
       shadowOffset: {width: 0, height: 2},
-      shadowOpacity: 0.25, // Good visible opacity for a soft shadow
-      shadowRadius: 3.84, // Crucial for softness on iOS
+      // shadowOpacity: 0.25, // Good visible opacity for a soft shadow
+      shadowRadius: 3, // Crucial for softness on iOS
       // Android elevation property
-      elevation: 3, // On Android, this will be applied. iOS will ignore it.
+      elevation:3, // On Android, this will be applied. iOS will ignore it.
     },
     l: {
-      shadowColor: '#3b3b3b', // Proper visible color
-      borderWidth: 0.1,
+      shadowColor: 'rgba(0, 0, 0, 0.94)', // Proper visible color      borderWidth: 0.1,
       shadowOffset: {width: 0, height: 14},
       shadowOpacity: 0.25,
       shadowRadius: 100000000,
       // Android elevation property
-      elevation: 4, // On Android, this will be applied. iOS will ignore it.
+      elevation: 6, // On Android, this will be applied. iOS will ignore it.
     },
   },
 
-  
   iconSize: {
     small: 16,
     medium: 24,
     large: 26,
     xlarge: 48,
-    xxlarge:80
+    xxlarge: 80,
   },
 };
 
@@ -174,7 +170,7 @@ responseTheme = (message: string, description: string, type: any) => {
     titleStyle: {
       fontSize: size.spacing.m,
     },
-    icon: type, 
+    icon: type,
     statusBarHeight: 0,
   };
 };

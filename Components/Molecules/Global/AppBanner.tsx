@@ -111,6 +111,20 @@ const AppBanner: React.FC<AppBannerProps> = () => {
                     borderRadius: size.borderRadius.s,
                   }}></AppText>
               </View>
+              <View
+                style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  // backgroundColor: colors.card,
+                  right: 8,
+                }}>
+                <Rating
+                  ratingNumber={item.rating}
+                  textStyle={{
+                    color: 'white',
+                    fontWeight:"bold"
+                  }}></Rating>
+              </View>
             </View>
           )}
           keyExtractor={(_, index) => index.toString()}
@@ -142,7 +156,7 @@ const style = StyleSheet.create({
   imageContainer: {
     width: 304,
     position: 'relative',
-    marginRight:size.spacing.s,
+    marginRight: size.spacing.s,
     height: 145,
   },
 });

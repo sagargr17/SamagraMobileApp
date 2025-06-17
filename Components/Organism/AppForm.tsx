@@ -59,19 +59,18 @@ export const AppForm = <TFormValues extends FieldValues>({
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.keyboardAvoidingView}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollViewContent}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         {/* {children} */}
 
         {formConfig.map((item: any) => (
-          <View key={item.name.toString()} style={styles.inputGroup}>
+          <View key={item.name.toString()}>
             <Controller
               control={control as Control<FieldValues>}
               name={item.name}
               rules={item.rules} // Use item.rules directly
               render={({field: {onChange, value}}) => (
                 <Input
+                  defaultValue={item.defaultValue}
                   label={item.label}
                   placeholder={item.placeholder || `Enter ${item.label}`}
                   value={value as string}
@@ -106,7 +105,7 @@ export const AppForm = <TFormValues extends FieldValues>({
           showLoaderFn={true}
           onPress={handleSubmit(onFormSubmit)}
           style={{
-            marginVertical: size.spacing.s,
+            marginTop: size.spacing.s,
           }}
           color="primary">
           {submitButtonText}
@@ -120,13 +119,5 @@ export const AppForm = <TFormValues extends FieldValues>({
 const styles = StyleSheet.create({
   keyboardAvoidingView: {
     flex: 1,
-  },
-  scrollViewContent: {
-    flexGrow: 1,
-    // padding: 14,
-    // paddingBottom: 40,
-  },
-  inputGroup: {
-    // marginBottom: size.spacing,
   },
 });

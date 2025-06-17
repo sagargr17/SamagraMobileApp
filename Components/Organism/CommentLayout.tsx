@@ -47,7 +47,7 @@ export const CommentLayout: React.FC<CommentLayoutProps> = ({
 
   return (
     <>
-      <View style={[style.viewContainer]}>
+      <View>
         {/*This is the layout of the Item Screenn  */}
         <TouchableOpacity
           style={{
@@ -102,12 +102,12 @@ export const CommentLayout: React.FC<CommentLayoutProps> = ({
 };
 
 const style = StyleSheet.create({
-  viewContainer: {
-    marginHorizontal: AreaMapper({
-      value: 12,
-      scaleBy: 'average',
-    }),
-  },
+  // viewContainer: {
+  //   marginHorizontal: AreaMapper({
+  //     value: 12,
+  //     scaleBy: 'average',
+  //   }),
+  // },
 
   textStyle: {
     marginVertical: AreaMapper({

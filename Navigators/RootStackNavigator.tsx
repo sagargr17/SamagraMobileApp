@@ -101,7 +101,7 @@ export const RootStack: React.FC = () => {
             pofileImageUrl:
               data.data?.getUser?.profileImageUrl ?? ImageNotFound,
             email: 'sagar@gmail.com',
-            location: 'Butwal',
+            location: 'Baneswor Kathmandu Nepal',
           },
           isAuthenticated: true,
         }),
@@ -129,15 +129,15 @@ export const RootStack: React.FC = () => {
         }}
         floating={true}
       />
-      <ProgressBar
-        visible={loaderStatus}
-        color={colors.primary}
-        indeterminate={true}
-        style={{
-          height: size.spacing.xxs,
-        }}></ProgressBar>
-      {/* {loaderStatus ?? (
-      )} */}
+      {loaderStatus ? (
+        <ProgressBar
+          visible={loaderStatus}
+          color={colors.primary}
+          indeterminate={true}
+          style={{
+            height: size.spacing.xxs,
+          }}></ProgressBar>
+      ) : null}
 
       <RootStackBuilder.Navigator
         screenOptions={{

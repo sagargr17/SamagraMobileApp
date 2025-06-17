@@ -81,7 +81,7 @@ export const ItemMiniCard: React.FC<ItemMiniCardProps> = ({
             }}>
             <AppText
               fontVariant="medium"
-              fontSizeVariant={'title'}
+              fontSizeVariant={'regular'}
               title={titleRange(title)}
               customStyle={{
                 marginTop: size.spacing.xs,

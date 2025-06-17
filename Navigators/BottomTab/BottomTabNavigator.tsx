@@ -103,7 +103,7 @@ export const BottomTabNavigator: React.FC = () => {
           fontFamily: 'Poppins-Regular',
           fontWeight: 'condensed',
         },
-        tabBarHideOnKeyboard: true,
+        // tabBarHideOnKeyboard: true,
         tabBarAllowFontScaling: true,
         tabBarPosition: 'bottom',
       })}
