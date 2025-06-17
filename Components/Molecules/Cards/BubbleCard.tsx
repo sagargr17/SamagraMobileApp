@@ -48,11 +48,9 @@ export const BubbleCard: React.FC<BubbleCardProps> = ({
           shadowColor: colors.card,
           padding: variant === 'large' ? size.spacing.s : size.spacing.xs,
           borderRadius: size.borderRadius.m,
-          
         },
         customStyle,
         size.elevation.m,
-
       ]}
       onPress={onPress}>
       <View style={[styles.contentContainer]}>

@@ -47,6 +47,7 @@ export const BottomTabNavigator: React.FC = () => {
   const {colors, fonts} = useTheme();
   return (
     <BottomTabBuilder.Navigator
+      
       screenOptions={({route}) => ({
         header: () => null,
         tabBarIcon: ({focused, color, size}) => {

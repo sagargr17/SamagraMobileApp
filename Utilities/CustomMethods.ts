@@ -51,44 +51,47 @@ export const titleCase = (str: any) => {
     }
     return str.join(' ');
   } else {
+    console.log();
+
     return str;
   }
 };
 
-export const titleRange = (str: any) => {
+export const titleRange = (str: any, totalDisplayNumber: number = 15): string => {
   if (typeof str !== 'string') {
     return titleCase('');
   }
 
-  let processedStr: string;
+  const ELLIPSIS = '...';
+  const effectiveTotalDisplayNumber = Math.max(totalDisplayNumber, ELLIPSIS.length);
 
-  if (str.length > 15) {
-  const parts = str.split(' ');
-    const firstWord = parts[0];
-    const secondWord = parts[1];
-
-    // Check if first word + space + second word length > 15
-    if (
-      firstWord.length +
-        (secondWord ? secondWord.length : 0) +
-        (secondWord ? 1 : 0) >
-      15
-    ) {
-      // If first word length > 5, AND you want "first 4 chars + ..."
-      if (firstWord.length > 5) {
-        processedStr = firstWord.substring(0, 4) + '...'; // Take first 4 chars and add "..."
-      } else {
-        // If first word length <= 5, and overall is long, keep first word + "..."
-        processedStr = firstWord + ' ...';
-      }
-    } else {
-      // If overall string is long but first two words are not excessively long
-      processedStr =
-        firstWord + (secondWord ? ' ' + secondWord + ' ...' : '...');
-    }
-  } else {
-    processedStr = str;
+  if (str.length <= effectiveTotalDisplayNumber) {
+    return titleCase(str);
   }
 
-  return titleCase(processedStr);
+  const maxContentLength = effectiveTotalDisplayNumber - ELLIPSIS.length;
+
+  if (maxContentLength <= 0) {
+      return titleCase(ELLIPSIS.substring(0, effectiveTotalDisplayNumber));
+  }
+
+  const words = str.split(' ');
+  const firstWord = words[0];
+
+  if (firstWord.length >= maxContentLength) {
+    return titleCase(firstWord.substring(0, maxContentLength) + ELLIPSIS);
+  }
+
+  let processedContent = firstWord;
+
+  for (let i = 1; i < words.length; i++) {
+    const word = words[i];
+    if (processedContent.length + 1 + word.length <= maxContentLength) {
+      processedContent += ' ' + word;
+    } else {
+      break;
+    }
+  }
+
+  return titleCase(processedContent + ELLIPSIS);
 };

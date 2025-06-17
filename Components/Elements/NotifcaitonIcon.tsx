@@ -12,14 +12,15 @@ export const NotifcaitonIcon: React.FC<NotifcaitonIconProps> = ({}) => {
   const {BellRing: Icon, BellRingTail} = Logos;
   const {colors} = useTheme();
   return (
-    <TouchableRipple
-      rippleColor={'green'}
-      style={{
-        borderWidth: size.borderWidth.xss,
-        borderRadius: size.borderRadius.full,
-        padding: size.spacing.xxs,
-        alignItems: 'center',
-      }}>
+    <TouchableOpacity
+      style={[
+        {
+          borderWidth: size.borderWidth.xs,
+          borderRadius: size.borderRadius.full,
+          padding: size.spacing.xxs,
+          alignItems: 'center',
+        },
+      ]}>
       <View
         style={{
           alignItems: 'center',
@@ -28,6 +29,6 @@ export const NotifcaitonIcon: React.FC<NotifcaitonIconProps> = ({}) => {
         <Icon height={size.iconSize.small}></Icon>
         <BellRingTail></BellRingTail>
       </View>
-    </TouchableRipple>
+    </TouchableOpacity>
   );
 };

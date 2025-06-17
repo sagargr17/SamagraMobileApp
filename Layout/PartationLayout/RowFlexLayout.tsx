@@ -1,7 +1,13 @@
 import {useTheme} from '@react-navigation/native';
 import {View} from 'moti';
 import React from 'react';
-import {StyleSheet, TouchableOpacity, ViewProps, ViewStyle} from 'react-native';
+import {
+  StyleSheet,
+  TouchableOpacity,
+  ViewProps,
+  ViewStyle,
+  Text,
+} from 'react-native';
 interface RowFlexLayoutProps<ItemT> extends ViewProps {
   children: React.ReactNode;
   customStyle?: ViewStyle;
