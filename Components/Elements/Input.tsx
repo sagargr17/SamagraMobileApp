@@ -11,7 +11,7 @@ interface InputProps extends React.ComponentProps<typeof TextInput> {
   label?: string;
   error?: boolean;
   height?: number;
-  lef?: any;
+  left?: any;
   right?: any;
   secureTextEntry?: boolean;
 }
@@ -52,6 +52,7 @@ export const Input: React.FC<InputProps> = ({
             fontSizeVariant={'regular'}></AppText>
         )}
         <TextInput
+          
           ref={inputRef}
           placeholder={placeholder}
           mode="outlined"

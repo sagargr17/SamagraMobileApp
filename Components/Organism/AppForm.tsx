@@ -19,6 +19,7 @@ import {size} from '../../Prefrences/Prefrences';
 import AppButton from '../Elements/Button';
 import {ErrorText} from '../Elements/ErrorText';
 import {Input} from '../Elements/Input';
+import {Icon} from 'react-native-paper';
 
 interface FormFieldConfig<TFormValues extends FieldValues>
   extends Omit<ControllerProps<TFormValues>, 'render' | 'control'> {
@@ -26,6 +27,7 @@ interface FormFieldConfig<TFormValues extends FieldValues>
   label: string;
   placeholder?: string;
   type?: 'text' | 'password' | 'email' | 'number' | 'phone' | 'description';
+  icon?: any;
 }
 
 interface AppFormProps<TFormValues extends FieldValues> {
@@ -33,6 +35,7 @@ interface AppFormProps<TFormValues extends FieldValues> {
   onFormSubmit: (data: TFormValues) => void;
   submitButtonText: string;
   defaultValues?: TFormValues;
+
   children?: React.ReactNode;
 }
 // --- END NEW/UPDATED INTERFACES ---
@@ -70,6 +73,7 @@ export const AppForm = <TFormValues extends FieldValues>({
               rules={item.rules} // Use item.rules directly
               render={({field: {onChange, value}}) => (
                 <Input
+                  left={item.icon ?? item.icon}
                   defaultValue={item.defaultValue}
                   label={item.label}
                   placeholder={item.placeholder || `Enter ${item.label}`}
@@ -102,8 +106,9 @@ export const AppForm = <TFormValues extends FieldValues>({
         ))}
 
         <AppButton
-          showLoaderFn={true}
+          showLoaderFn={false}
           onPress={handleSubmit(onFormSubmit)}
+          // onPress={() => console.log('>>>')}
           style={{
             marginTop: size.spacing.s,
           }}

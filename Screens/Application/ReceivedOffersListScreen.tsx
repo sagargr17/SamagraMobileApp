@@ -23,9 +23,7 @@ export const ReceivedOffersListScreen: React.FC<
   const [noItemFound, setNoItemFound] = useState<boolean>(false);
   const navigation = useNavigation<any>();
   // RequestedItem Order
-  const requestedItem = useAppSelector(
-    state => state.sentOrderParams.itemParams,
-  );
+  const requestedItem = useAppSelector(state => state.sentOrderParams);
 
   const [
     createItemRequestFn,

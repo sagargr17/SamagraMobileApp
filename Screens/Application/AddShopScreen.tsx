@@ -45,45 +45,45 @@ export const AddShopScreen: React.FC<AddShopScreenProps> = ({}) => {
     data: CreateStoreInputViewModelInput,
   ) => {
     console.log('Action>>>>');
-    try {
-      const response = await createNewShopFn({
-        variables: {
-          shopName: data.name ? data.name : NotMentioned,
-          phoneNumber: data.phoneNumber ? data.phoneNumber : NotMentioned,
-          aboutShop: data.aboutShop ? data.aboutShop : NotMentioned,
-          latitude: Number(data.latitude),
-          longitude: Number(data.longitude),
-          totalItemsCount: 22,
-        },
-      });
+    // try {
+    //   const response = await createNewShopFn({
+    //     variables: {
+    //       shopName: data.name ? data.name : NotMentioned,
+    //       phoneNumber: data.phoneNumber ? data.phoneNumber : NotMentioned,
+    //       aboutShop: data.aboutShop ? data.aboutShop : NotMentioned,
+    //       latitude: Number(data.latitude),
+    //       longitude: Number(data.longitude),
+    //       totalItemsCount: 22,
+    //     },
+    //   });
 
-      if (response.data?.createStore?.id) {
-        dispatch(
-          setUserShopDetail({
-            shopId: response.data.createStore.id,
-            name: data.name ?? NotMentioned,
-            location: 'butwal',
-          }),
-        );
-        handleNavigationToShopScreen(response.data.createStore?.id);
-      }
+    //   if (response.data?.createStore?.id) {
+    //     dispatch(
+    //       setUserShopDetail({
+    //         shopId: response.data.createStore.id,
+    //         name: data.name ?? NotMentioned,
+    //         location: 'butwal',
+    //       }),
+    //     );
+    //     handleNavigationToShopScreen(response.data.createStore?.id);
+    //   }
 
-      if (response.errors) {
-        dispatch(hideLoader());
-        showMessage(
-          responseTheme(
-            `${response.errors[0].message}`,
-            TryAgainMessage,
-            'danger',
-          ),
-        );
-      }
-    } catch (error) {
-      dispatch(hideLoader());
-      console.log('Result', error);
+    //   if (response.errors) {
+    //     dispatch(hideLoader());
+    //     showMessage(
+    //       responseTheme(
+    //         `${response.errors[0].message}`,
+    //         TryAgainMessage,
+    //         'danger',
+    //       ),
+    //     );
+    //   }
+    // } catch (error) {
+    //   dispatch(hideLoader());
+    //   console.log('Result', error);
 
-      showMessage(responseTheme(WentwrongMessage, TryAgainMessage, 'danger'));
-    }
+    //   showMessage(responseTheme(WentwrongMessage, TryAgainMessage, 'danger'));
+    // }
   };
 
   return (

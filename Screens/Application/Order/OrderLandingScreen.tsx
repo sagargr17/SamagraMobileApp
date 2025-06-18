@@ -22,7 +22,7 @@ export const OrderLandingScreen: React.FC<OrderLandingScreenProps> = ({
   return (
     <>
       <AppHeader currentPosition="absolute"></AppHeader>
-      <Spacer height={5}></Spacer>
+      {/* <Spacer height={5}></Spacer> */}
 
       <MapView style={{flex: 0.7}} />
       <OrderBottomSheet navigation={navigation}></OrderBottomSheet>
