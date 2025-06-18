@@ -29,19 +29,16 @@ class ImageHandler {
   }
 
   // Compress The Image
-  public static async compressImage(image: {
-    isMirrored: boolean;
-    path: string;
-    isRawPhoto: false;
-    height: number;
-    orientation: string;
-    width: number;
-  }): Promise<OutPutImageType | null> {
-    console.log('Compressed', image);
+  public static async compressImage(
+    image: string,
+  ): Promise<OutPutImageType | null> {
     try {
-      const result: string = await Image.compress(image.path, {
+      const result: string = await Image.compress(image, {
         quality: 0.8,
       });
+
+      // Result Image
+
       if (result) {
         console.log('Sinngle Compressing Image Success::', result);
 
@@ -60,11 +57,13 @@ class ImageHandler {
   }
 
   public static async multipleImageCompressing(images: any) {
+    console.log('Compressing....', images);
+
     const compressionPromises = images.map(async (image: any) => {
       const compressedUri = await this.compressImage(image.path);
       if (compressedUri) {
         return {
-          uri: compressedUri,
+          uri: compressedUri.uri,
           type: image.mime,
           name:
             image.fileName ||
@@ -80,7 +79,6 @@ class ImageHandler {
 
     console.log('compressed final image', compressedImageCollection);
 
-    
     return compressedImageCollection;
   }
 
@@ -106,6 +104,7 @@ class ImageHandler {
 
       if (images) {
         let result = await this.multipleImageCompressing(images);
+
         console.log('Multiple iamged from compressing function..', result);
 
         if (result) {

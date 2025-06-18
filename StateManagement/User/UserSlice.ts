@@ -8,6 +8,10 @@ interface User {
   location: string;
 }
 
+interface UploadedImages {
+  imageUrls: Array<any>;
+}
+
 interface ShopDetail {
   shopId: string;
   name: string;
@@ -19,6 +23,7 @@ export interface UserState {
   isAuthenticated?: boolean | string;
   isShopActive?: boolean;
   shopData?: ShopDetail;
+  uploadedImages?: UploadedImages;
 }
 
 const initialState: UserState = {
@@ -55,8 +60,13 @@ const userSlice = createSlice({
       state.isShopActive = true;
       state.shopData = action.payload;
     },
+
+    setUserUploadedImage: (state, action: PayloadAction<UploadedImages>) => {
+      state.uploadedImages = action.payload;
+    },
   },
 });
 
-export const {login, logout, setUserShopDetail} = userSlice.actions;
+export const {login, logout, setUserShopDetail, setUserUploadedImage} =
+  userSlice.actions;
 export default userSlice.reducer;

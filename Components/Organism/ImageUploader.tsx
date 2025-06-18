@@ -3,8 +3,8 @@
 import FastImage from '@d11/react-native-fast-image';
 import {useTheme} from '@react-navigation/native';
 import React, {useRef, useState} from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
-import {Icon, TouchableRipple} from 'react-native-paper';
+import {FlatList, ScrollView, StyleSheet, View} from 'react-native';
+import {Icon, IconButton, TouchableRipple} from 'react-native-paper';
 import {Camera, useCameraDevice} from 'react-native-vision-camera';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import ImageHandler, {OutPutImageType} from '../../Utilities/ImageHandler';
@@ -12,6 +12,9 @@ import AppButton from '../Elements/Button';
 import {AppText} from '../Elements/AppText';
 import {size} from '../../Prefrences/Prefrences';
 import {AddItemMessage} from '../../Constants/UI/Messages';
+import {ImageSliderModal} from './ImageSliderModal';
+import ImageSlider from '@coder-shubh/react-native-image-slider';
+import {ImageNotFound} from '../../Constants/UI/AssetsUrls';
 interface ImageUploaderProps {
   children?: React.ReactNode;
   setFinalImage: React.Dispatch<React.SetStateAction<any>>;
@@ -25,6 +28,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
   const [cameraType, setCameraType] = useState<'front' | 'back'>('back');
   const devices = useCameraDevice(cameraType);
   const [images, setImages] = useState<Array<OutPutImageType | null>>([]);
+  const [selectionImageIndex, setselectionImageIndex] = useState<number>(0);
   const [isCameraActive, setIsCameraActive] = useState(true);
 
   const camera: any | null = useRef<Camera>(null);
@@ -50,8 +54,20 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
   };
 
   const handleImageRemove = (selectedImage: any) => {
+    console.log('Removing SelectImage', selectedImage);
+
     let crossedDAta = images.filter((e: any) => e.name !== selectedImage.name);
     setImages(crossedDAta);
+    setselectionImageIndex(selectionImageIndex - 1);
+  };
+
+  const incrementalImageIndex = (index: number, imageLength: number) => {
+    console.log('IMageLength', imageLength);
+
+    if (index < imageLength-1) setselectionImageIndex(index + 1);
+  };
+  const decrementImageIndex = (index: number) => {
+    if (index > 0) setselectionImageIndex(index - 1);
   };
 
   return (
@@ -65,7 +81,49 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
         paddingTop: size.spacing.xxl,
       }}>
       {images.length > 0 ? (
-        <></>
+        <>
+          <IconButton
+            onPress={() => decrementImageIndex(selectionImageIndex)}
+            rippleColor={colors.background}
+            style={{
+              position: 'absolute',
+              bottom: 100,
+              zIndex: 1,
+            }}
+            icon={'arrow-left-drop-circle'}></IconButton>
+          <>
+            <FastImage
+              style={{
+                height: 200,
+                borderRadius: size.borderRadius.s,
+              }}
+              source={{
+                uri: images[selectionImageIndex]?.uri,
+              }}></FastImage>
+            <IconButton
+              onPress={() => {
+                handleImageRemove(images[selectionImageIndex]);
+              }}
+              iconColor={'#FF6347'}
+              style={{
+                alignItems: 'center',
+                position: 'absolute',
+                right: 5,
+              }}
+              icon={'close-circle'}></IconButton>
+          </>
+          <IconButton
+            onPress={() =>
+              incrementalImageIndex(selectionImageIndex, images.length)
+            }
+            style={{
+              position: 'absolute',
+              bottom: 100,
+              zIndex: 1,
+              right: 0,
+            }}
+            icon={'arrow-right-drop-circle'}></IconButton>
+        </>
       ) : (
         <View
           style={{

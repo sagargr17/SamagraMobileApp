@@ -178,7 +178,7 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
                   ?.filter((url): url is string => url !== null)
                   .map(url => ({url: url})) ?? [
                   {
-                    url: 'https://img.freepik.com/free-vector/oops-404-error-with-broken-robot-concept-illustration_114360-5529.jpg?semt=ais_hybrid&w=740',
+                    uri: 'https://img.freepik.com/free-vector/oops-404-error-with-broken-robot-concept-illustration_114360-5529.jpg?semt=ais_hybrid&w=740',
                   },
                 ]
               }></ImageSliderModal>
