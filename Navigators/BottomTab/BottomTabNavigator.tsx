@@ -89,14 +89,10 @@ export const BottomTabNavigator: React.FC = () => {
         tabBarStyle: [
           {
             paddingBottom: size.spacing.xl,
-            borderRadius: size.borderRadius.full,
             marginHorizontal: size.spacing.xxs,
             height: 58,
             backgroundColor: colors.background,
             borderTopColor: colors.background,
-            // marginBottom: size.spacing.xxs,
-            // position: 'absolute',
-            
           },
           size.elevation.l,
         ],

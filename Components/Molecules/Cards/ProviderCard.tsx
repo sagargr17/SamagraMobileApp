@@ -11,6 +11,8 @@ import {ProviderCardSkeleton} from '../../Skeletons/ProviderCardSkeleton';
 import {PairButtons} from '../Global/PairButtons';
 import AppButton from '../../Elements/Button';
 import {RowFlexLayout} from '../../../Layout/PartationLayout/RowFlexLayout';
+import {size} from '../../../Prefrences/Prefrences';
+import {styles} from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetScrollable/BottomSheetFlashList';
 
 interface ProviderCardProps {
   titleName: string;
@@ -71,34 +73,18 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
       </TouchableOpacity>
 
       <View style={ProviderCardStyle.textContainer}>
-        <AppText
-          title={titleName}
-          fontVariant="medium"
-          fontSizeVariant={'regular'}
-          customStyle={{
-            width: 260,
-          }}></AppText>
+        <AppText title={titleName}></AppText>
         <View
           style={{
             display: 'flex',
             flexDirection: 'row',
-            marginTop: AreaMapper({
-              value: 6,
-              scaleBy: 'average',
-            }),
           }}>
           <AppText
             title={'Rs.' + priceperhour + ' per hour'}
             fontVariant="regular"
             fontSizeVariant={'regular'}></AppText>
         </View>
-        <View
-          style={{
-            marginTop: AreaMapper({
-              value: 6,
-              scaleBy: 'average',
-            }),
-          }}>
+        <View>
           <View
             style={{
               display: 'flex',
@@ -113,17 +99,16 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
               customStyle={{
                 marginLeft: 5,
               }}
-              title={distance + ' km away'}
-              fontVariant="regular"
-              fontSizeVariant={'regular'}></AppText>
+              title={distance + ' km away'}></AppText>
           </View>
           {allDetailDisplay ? (
             <AppText
               title={`Total: Rs.${priceperhour * 50}`}
               fontVariant="bold"
-              fontSizeVariant={'regular'}
+              fontSizeVariant={'title'}
               customStyle={{
                 color: colors.primary,
+                marginVertical: size.spacing.xxs,
               }}></AppText>
           ) : null}
         </View>
@@ -158,19 +143,16 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
 
                 <RowFlexLayout>
                   <AppButton
-                    style={{
-                      flex: 0.4,
-                    }}
-                    onPress={onAcceptButtonPress}>
-                    Accept
-                  </AppButton>
-                  <AppButton
-                    buttonColor={colors.notification}
-                    style={{
-                      flex: 0.4,
-                    }}
+                    textColor={colors.text}
+                    buttonColor={"#DCDCDC"}
+                    style={ProviderCardStyle.action}
                     onPress={() => setISdeclined(!isDeclined)}>
                     Decline
+                  </AppButton>
+                  <AppButton
+                    style={ProviderCardStyle.action}
+                    onPress={onAcceptButtonPress}>
+                    Accept
                   </AppButton>
                 </RowFlexLayout>
               </View>

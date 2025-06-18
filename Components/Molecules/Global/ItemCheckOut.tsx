@@ -130,7 +130,6 @@ export const ItemCheckOut: React.FC<ItemCheckOutProps> = ({
                 scaleBy: 'average',
               }),
               alignItems: 'center',
-              boxShadow:""
             }}>
             Add to Cart
             <View>

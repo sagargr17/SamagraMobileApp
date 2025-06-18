@@ -11,7 +11,7 @@ const GOOGLE_FONT_HEAVY = 'Poppins-Black';
 const MyTheme = {
   dark: false,
   colors: {
-    primary: '#339944', //Test1
+    primary: '#228866', //Test1
     background: 'rgb(255, 255, 255)',
     card: 'rgb(250, 250, 250)',
     // card: '#EFF1F3',

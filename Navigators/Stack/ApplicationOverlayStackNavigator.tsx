@@ -176,9 +176,9 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
           {
             screenName: 'AddItemScreen',
             component: AddItemScreen,
-            option: {
-              header: () => null,
-            },
+            option: ({route}: {route: any}) => ({
+              title: titleCase('Add Item'),
+            }),
           },
 
           {

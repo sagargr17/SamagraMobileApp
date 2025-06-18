@@ -1,9 +1,10 @@
 import React from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import {useTheme} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 import {AppText} from '../Elements/AppText';
 import AppButton from '../Elements/Button';
 import {AreaMapper} from '../../Utilities/CustomMethods';
+import {size} from '../../Prefrences/Prefrences';
 interface SingnlePageErrorProps {
   detail: {
     icon: any;
@@ -15,6 +16,7 @@ interface SingnlePageErrorProps {
 
 export const SingnlePageError: React.FC<SingnlePageErrorProps> = ({detail}) => {
   const {colors} = useTheme();
+  const navigation = useNavigation<any>();
 
   return (
     <>
@@ -30,6 +32,7 @@ export const SingnlePageError: React.FC<SingnlePageErrorProps> = ({detail}) => {
               justifyContent: 'center',
               textAlign: 'center',
               marginHorizontal: 43,
+              marginTop: size.spacing.xxs,
             }}
             title={detail.title}
             fontVariant="medium"
@@ -39,7 +42,7 @@ export const SingnlePageError: React.FC<SingnlePageErrorProps> = ({detail}) => {
           style={{
             alignItems: 'center',
             marginTop: AreaMapper({
-              value: 21,
+              value: 25,
               scaleBy: 'height',
             }),
           }}>

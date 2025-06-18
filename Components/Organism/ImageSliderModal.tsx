@@ -64,6 +64,7 @@ export const ImageSliderModal: React.FC<ImageSliderModalProps> = ({images}) => {
           <ImageViewer
             // imageUrls={images}
             imageUrls={images}
+            swipeDownThreshold={100}
             onSwipeDown={() => setVisible(!visible)}
             enableSwipeDown
             saveToLocalByLongPress={false}

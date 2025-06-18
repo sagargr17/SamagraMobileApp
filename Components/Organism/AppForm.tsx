@@ -36,7 +36,7 @@ interface AppFormProps<TFormValues extends FieldValues> {
   onFormSubmit: (data: TFormValues) => void;
   submitButtonText: string;
   defaultValues?: TFormValues;
-
+  header?: any;
   children?: React.ReactNode;
 }
 // --- END NEW/UPDATED INTERFACES ---
@@ -46,6 +46,7 @@ export const AppForm = <TFormValues extends FieldValues>({
   onFormSubmit,
   submitButtonText,
   defaultValues,
+  header,
   children,
 }: AppFormProps<TFormValues>) => {
   const {colors} = useTheme();
@@ -63,7 +64,9 @@ export const AppForm = <TFormValues extends FieldValues>({
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.keyboardAvoidingView}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        StickyHeaderComponent={header}>
         {/* {children} */}
 
         {formConfig.map((item: any) => (

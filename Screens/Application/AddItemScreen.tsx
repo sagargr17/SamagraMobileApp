@@ -1,7 +1,7 @@
 import {useMutation, useQuery} from '@apollo/client';
 import {useTheme} from '@react-navigation/native';
 import React, {useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {showMessage} from 'react-native-flash-message';
 import {Icon, ProgressBar, TouchableRipple} from 'react-native-paper';
 import {AppText} from '../../Components/Elements/AppText';
@@ -14,6 +14,9 @@ import {useAppDispatch} from '../../StateManagement/hooks';
 import {hideLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
 import {NotMentioned} from '../../Constants/UI/Messages';
 import {ImageNotFound} from '../../Constants/UI/AssetsUrls';
+import {size} from '../../Prefrences/Prefrences';
+import {AppBottomSheet} from '../../Components/Molecules/Global/AppBottomSheet';
+import {RowFlexLayout} from '../../Layout/PartationLayout/RowFlexLayout';
 
 interface AddItemScreenProps {}
 
@@ -200,7 +203,17 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
   };
 
   return (
-    <>
+    // <View style={{
+    //   // paddingHorizontal:size.spacing.xs
+    // }}>
+
+    // </View>
+    <View
+      style={{
+        flexDirection: 'column',
+        paddingHorizontal: size.spacing.s,
+        flex: 1,
+      }}>
       <ImageUploader
         setFinalImage={setFinalImage}
         children={
@@ -215,12 +228,30 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
             )}
           </>
         }></ImageUploader>
-
+      <RowFlexLayout
+        customStyle={{
+          justifyContent: 'space-between',
+        }}>
+        <AppText
+          title="Item"
+          fontSizeVariant="title"
+          fontVariant="bold"
+          customStyle={{
+            marginTop: size.spacing.s,
+          }}></AppText>
+        {/* <AppText
+          title=""
+          fontSizeVariant="regular"
+          fontVariant="regular"
+          customStyle={{
+            marginTop: size.spacing.s,
+          }}></AppText> */}
+      </RowFlexLayout>
       <AppForm<CreateProductInputViewModelInput>
         formConfig={[
           {
             name: 'name', // Must match a key in LoginFormValues
-            label: 'Name',
+            label: '',
             placeholder: 'Name',
             type: 'email', // Custom prop for keyboard type
             rules: {
@@ -306,7 +337,7 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
         ]}
         submitButtonText="Submit"
         onFormSubmit={handleCreateItemSubmit}></AppForm>
-    </>
+    </View>
   );
 };
 

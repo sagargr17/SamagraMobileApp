@@ -6,5 +6,5 @@ export const EmptyWillLoadMessage =
 export const TryAgainMessage = 'Please verify or try again!';
 export const WentwrongMessage = 'Opps, Something Went Wrong!';
 export const ShopCreatedSuccessfullMessage = 'Shop Created Successfully !!';
-export const ShopBestWishesMessage =
-  'Your  shop has been set up successfully. Start adding products or services and give your customers the best experience!';
+export const ShopBestWishesMessage ='Your  shop has been set up successfully. Start adding products or services and give your customers the best experience!';
+export const AddItemMessage = "Add a photo of your item to help you remember what it is."

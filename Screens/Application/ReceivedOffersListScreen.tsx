@@ -1,16 +1,16 @@
-import {useMutation, useSubscription} from '@apollo/client';
-import React, {useEffect, useState} from 'react';
-import {FlatList} from 'react-native';
-import {Logos} from '../../Assets/SVG/Exports/Exports';
-import {ProviderCard} from '../../Components/Molecules/Cards/ProviderCard';
-import {SingnlePageError} from '../../Components/Molecules/SinglePageError';
-import {ProviderCardSkeleton} from '../../Components/Skeletons/ProviderCardSkeleton';
-import {DummyServiceProviderURL} from '../../Constants/UI/AssetsUrls';
-import {EmptyMessage} from '../../Constants/UI/Messages';
-import {CreateItemRequestMutation} from '../../GraphQL/Mutation/ItemRequestMutation';
-import {getSubscribedData} from '../../GraphQL/Subscription/Subscription';
-import {useAppSelector} from '../../StateManagement/hooks';
-import {useNavigation} from '@react-navigation/native';
+import { useMutation, useSubscription } from '@apollo/client';
+import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { FlatList } from 'react-native';
+import { Logos } from '../../Assets/SVG/Exports/Exports';
+import { ProviderCard } from '../../Components/Molecules/Cards/ProviderCard';
+import { SingnlePageError } from '../../Components/Molecules/SinglePageError';
+import { ProviderCardSkeleton } from '../../Components/Skeletons/ProviderCardSkeleton';
+import { DummyServiceProviderURL } from '../../Constants/UI/AssetsUrls';
+import { EmptyMessage } from '../../Constants/UI/Messages';
+import { CreateItemRequestMutation } from '../../GraphQL/Mutation/ItemRequestMutation';
+import { getSubscribedData } from '../../GraphQL/Subscription/Subscription';
+import { useAppSelector } from '../../StateManagement/hooks';
 
 interface ReceivedOffersListScreenProps {}
 
@@ -24,6 +24,10 @@ export const ReceivedOffersListScreen: React.FC<
   const navigation = useNavigation<any>();
   // RequestedItem Order
   const requestedItem = useAppSelector(state => state.sentOrderParams);
+
+  const navigationnBackHandle = () => {
+    navigation.goBack();
+  };
 
   const [
     createItemRequestFn,
@@ -45,7 +49,7 @@ export const ReceivedOffersListScreen: React.FC<
 
   setTimeout(() => {
     setNoItemFound(true);
-  }, 5000);
+  }, 10000);
 
   const {data, loading, error} = useSubscription(getSubscribedData, {
     onData: ({client, data}) => {
@@ -61,8 +65,6 @@ export const ReceivedOffersListScreen: React.FC<
       }
     },
   });
-
-  console.log('Subscription Update', data, loading, error);
 
   const SkeletonLoading = (
     <>
@@ -105,7 +107,9 @@ export const ReceivedOffersListScreen: React.FC<
             detail={{
               icon: <NoItemFound></NoItemFound>,
               title: EmptyMessage,
-              onButtonPress: () => {},
+              onButtonPress: () => {
+                navigationnBackHandle();
+              },
               buttonTitle: 'Go to home',
             }}></SingnlePageError>
         ) : (

@@ -37,6 +37,7 @@ class ImageHandler {
     orientation: string;
     width: number;
   }): Promise<OutPutImageType | null> {
+    console.log('Compressed', image);
     try {
       const result: string = await Image.compress(image.path, {
         quality: 0.8,
@@ -78,6 +79,8 @@ class ImageHandler {
     ).filter(item => item !== null) as any[];
 
     console.log('compressed final image', compressedImageCollection);
+
+    
     return compressedImageCollection;
   }
 

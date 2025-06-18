@@ -10,6 +10,8 @@ import {AreaMapper} from '../../Utilities/CustomMethods';
 import ImageHandler, {OutPutImageType} from '../../Utilities/ImageHandler';
 import AppButton from '../Elements/Button';
 import {AppText} from '../Elements/AppText';
+import {size} from '../../Prefrences/Prefrences';
+import {AddItemMessage} from '../../Constants/UI/Messages';
 interface ImageUploaderProps {
   children?: React.ReactNode;
   setFinalImage: React.Dispatch<React.SetStateAction<any>>;
@@ -42,10 +44,9 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
   // Galley Image Pickers
   const imageFromGallery = async () => {
     let GalleryImages: any = await ImageHandler.selectFromGallery();
+    console.log('Gallery>>>', GalleryImages);
     setImages(GalleryImages);
-    setFinalImage(GalleryImages);
-
-    setIsCameraActive(false);
+    // setFinalImage(GalleryImages);
   };
 
   const handleImageRemove = (selectedImage: any) => {
@@ -54,137 +55,48 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
   };
 
   return (
-    <>
-      {devices ? (
-        <>
-          {!isCameraActive && children}
-          <View>
-            {isCameraActive && images.length < 1 ? (
-              <TouchableRipple
-                onPress={() =>
-                  cameraType === 'back'
-                    ? setCameraType('front')
-                    : setCameraType('back')
-                }
-                style={{
-                  borderColor: colors.primary,
-                  borderRadius: 12,
-                }}>
-                <Camera
-                  enableZoomGesture={true}
-                  photo={true}
-                  ref={camera}
-                  style={styles.camera}
-                  device={devices}
-                  isActive={isCameraActive} // Ensure isActive is bound to the state
-                />
-              </TouchableRipple>
-            ) : (
-              <>
-                <View
-                  style={[
-                    styles.imageListContainer,
-                    {
-                      backgroundColor: colors.card,
-                      borderColor: colors.border,
-                    },
-                  ]}>
-                  <View
-                    style={{
-                      padding: 2,
-                    }}>
-                    <AppText
-                      title={'Total Images Selected : ' + images.length}
-                      fontVariant="medium"
-                      fontSizeVariant="regular"></AppText>
-                  </View>
-                  <ScrollView
-                    showsHorizontalScrollIndicator={false}
-                    horizontal={true}
-                    contentContainerStyle={{
-                      padding: 5,
-                      marginVertical: AreaMapper({
-                        value: 8,
-                        scaleBy: 'height',
-                      }),
-                    }}>
-                    {images.length > 0 ? (
-                      images.map(image => (
-                        <View
-                          key={Math.random()}
-                          style={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                          }}>
-                          <FastImage
-                            source={{
-                              uri: image?.uri,
-                            }}
-                            style={styles.image}></FastImage>
-                          <TouchableRipple
-                            onPress={() => handleImageRemove(image)}
-                            style={styles.closeRipple}>
-                            <Icon
-                              size={20}
-                              source={'close-thick'}
-                              color={colors.notification}></Icon>
-                          </TouchableRipple>
-                        </View>
-                      ))
-                    ) : (
-                      <TouchableRipple
-                        onPress={() => setIsCameraActive(!isCameraActive)}
-                        style={styles.cameraIconTouchableRiple}>
-                        <Icon
-                          size={AreaMapper({
-                            value: 40,
-                            scaleBy: 'average',
-                          })}
-                          source={'camera-plus'}
-                          color={'gray'}></Icon>
-                      </TouchableRipple>
-                    )}
-                  </ScrollView>
-                </View>
-              </>
-            )}
-            <View
-              style={{
-                bottom: AreaMapper({
-                  value: 150,
-                  scaleBy: 'height',
-                }),
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              {isCameraActive && (
-                <>
-                  <View style={styles.buttonContainer}>
-                    <AppButton onPress={handleTakePhoto}>
-                      <Icon size={32} source={'camera'} color="white"></Icon>
-                    </AppButton>
-                  </View>
-                  <TouchableRipple
-                    onPress={() => imageFromGallery()}
-                    style={{
-                      left: 20,
-                      backgroundColor: 'gray',
-                      borderRadius: 45,
-                      padding: AreaMapper({
-                        value: 15,
-                        scaleBy: 'average',
-                      }),
-                    }}>
-                    <Icon size={30} source={'file-image'} color="white"></Icon>
-                  </TouchableRipple>
-                </>
-              )}
-            </View>
-          </View>
-        </>
-      ) : null}
-    </>
+    <View
+      style={{
+        borderWidth: size.borderWidth.m,
+        borderColor: '#D1DBE8',
+        padding: size.spacing.xl,
+        borderStyle: 'dashed',
+        borderRadius: size.borderRadius.s,
+        paddingTop: size.spacing.xxl,
+      }}>
+      {images.length > 0 ? (
+        <></>
+      ) : (
+        <View
+          style={{
+            alignItems: 'center',
+          }}>
+          <AppText
+            fontVariant="bold"
+            fontSizeVariant="title"
+            title="Add a photo"
+            customStyle={{
+              marginBottom: size.spacing.xs,
+            }}></AppText>
+          <AppText
+            customStyle={{
+              textAlign: 'center',
+            }}
+            title={AddItemMessage}></AppText>
+          <AppButton
+            onPress={imageFromGallery}
+            rippleColor={colors.card}
+            textColor="black"
+            buttonColor="#E8EDF2"
+            style={{
+              borderRadius: size.borderRadius.m,
+              marginTop: size.spacing.l,
+            }}>
+            Add Photo
+          </AppButton>
+        </View>
+      )}
+    </View>
   );
 };
 
