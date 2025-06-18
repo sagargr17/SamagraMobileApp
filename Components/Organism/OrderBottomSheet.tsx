@@ -31,22 +31,24 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
   const [pressedElement, setPressedElement] = useState<string>('global');
   const dispatch = useAppDispatch();
   const handleSubmit = (data: SentordersParams) => {
-    dispatch(
-      postOrderparams({
-        itemParams: {
-          location: data.itemParams.location,
-          description: data.itemParams.description,
-          requiredTime: '2',
-          name: data.itemParams.name,
-          category: '1',
-        },
-      }),
-    );
+    // dispatch(
+    //   postOrderparams({
+    //     itemParams: {
+    //       location: data.itemParams.location,
+    //       description: data.itemParams.description,
+    //       requiredTime: '2',
+    //       name: data.itemParams.name,
+    //       category: '1',
+    //     },
+    //   }),
+    // );
 
     //  Navigation
     navigation.navigate('ApplicationOverlay', {
       screen: 'ReceivedOfferListScreen',
     });
+
+    
   };
 
   const childrenContent = () => {

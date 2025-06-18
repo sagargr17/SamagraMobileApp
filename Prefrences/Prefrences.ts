@@ -111,7 +111,7 @@ const size = {
       shadowOffset: {width: 1000, height: 1},
       shadowOpacity: 0.12,
       shadowRadius: 3,
-      elevation: 3,
+      elevation: 1,
     },
     s: {
       // iOS shadow properties
@@ -120,12 +120,12 @@ const size = {
       shadowOpacity: 0.16,
       shadowRadius: 6,
       // Android elevation property
-      elevation: 4, // On Android, this will be applied. iOS will ignore it.
+      elevation: 2, // On Android, this will be applied. iOS will ignore it.
     },
     m: {
       // THIS IS THE UPDATED 'm' ELEVATION
       // iOS shadow properties
-      shadowColor: 'rgba(0, 0, 0, 0.34)', // Proper visible color      borderWidth: 0.1,
+      shadowColor: 'rgba(0, 0, 0, 0.8)', // Proper visible color      borderWidth: 0.1,
       shadowOffset: {width: 0, height: 2},
       // shadowOpacity: 0.25, // Good visible opacity for a soft shadow
       shadowRadius: 3, // Crucial for softness on iOS

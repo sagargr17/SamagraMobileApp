@@ -22,8 +22,8 @@ export const ItemCategoryCard: React.FC<ItemCategoryCardProps> = ({
 }) => {
   const {colors} = useTheme();
   const fontVariantSize = variant === 'large' ? 'regular' : 'caption';
-  const height  = variant === 'large' ? 105 : 95
-  const width  = variant === 'large' ? 106 : 95
+  const height = variant === 'large' ? 105 : 80;
+  const width = variant === 'large' ? 106 : 80;
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -31,7 +31,6 @@ export const ItemCategoryCard: React.FC<ItemCategoryCardProps> = ({
         {
           backgroundColor: selectedCategory === title ? colors.primary : 'gray',
           marginRight: size.spacing.xs,
-          paddingHorizontal: size.spacing.m,
           paddingBottom: size.spacing.xs,
           paddingTop: size.spacing.m,
           borderRadius: size.borderRadius.m,
