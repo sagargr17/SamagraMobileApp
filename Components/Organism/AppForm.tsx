@@ -20,6 +20,7 @@ import AppButton from '../Elements/Button';
 import {ErrorText} from '../Elements/ErrorText';
 import {Input} from '../Elements/Input';
 import {Icon} from 'react-native-paper';
+import {RowFlexLayout} from '../../Layout/PartationLayout/RowFlexLayout';
 
 interface FormFieldConfig<TFormValues extends FieldValues>
   extends Omit<ControllerProps<TFormValues>, 'render' | 'control'> {
@@ -76,27 +77,29 @@ export const AppForm = <TFormValues extends FieldValues>({
               name={item.name}
               rules={item.rules} // Use item.rules directly
               render={({field: {onChange, value}}) => (
-                <Input
-                  left={item.icon ?? item.icon}
-                  defaultValue={item.defaultValue}
-                  label={item.label}
-                  placeholder={item.placeholder || `Enter ${item.label}`}
-                  value={value as string}
-                  onChangeText={onChange}
-                  keyboardType={
-                    item.type === 'number'
-                      ? 'numeric'
-                      : item.type === 'email'
-                      ? 'email-address'
-                      : item.type === 'phone'
-                      ? 'phone-pad'
-                      : 'default'
-                  }
-                  secureTextEntry={item.type === 'password'}
-                  height={item.type === 'description' ? 80 : 53}
-                  multiline={item.type === 'description' ? true : false}
-                  onFocus={item.onFocus}
-                />
+                <View>
+                  <Input
+                    left={item.icon ?? item.icon}
+                    defaultValue={item.defaultValue}
+                    label={item.label}
+                    placeholder={item.placeholder || `Enter ${item.label}`}
+                    value={value as string}
+                    onChangeText={onChange}
+                    keyboardType={
+                      item.type === 'number'
+                        ? 'numeric'
+                        : item.type === 'email'
+                        ? 'email-address'
+                        : item.type === 'phone'
+                        ? 'phone-pad'
+                        : 'default'
+                    }
+                    secureTextEntry={item.type === 'password'}
+                    height={item.type === 'description' ? 80 : 53}
+                    multiline={item.type === 'description' ? true : false}
+                    onFocus={item.onFocus}
+                  />
+                </View>
               )}
             />
 

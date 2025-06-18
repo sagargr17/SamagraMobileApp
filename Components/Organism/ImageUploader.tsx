@@ -20,23 +20,17 @@ import {AddItemMessage} from '../../Constants/UI/Messages';
 import {ImageSliderModal} from './ImageSliderModal';
 import ImageSlider from '@coder-shubh/react-native-image-slider';
 import {ImageNotFound} from '../../Constants/UI/AssetsUrls';
-interface ImageUploaderProps {
-  children?: React.ReactNode;
-  setFinalImage: React.Dispatch<React.SetStateAction<any>>;
-}
+import {useAppSelector} from '../../StateManagement/hooks';
+interface ImageUploaderProps {}
 
-export const ImageUploader: React.FC<ImageUploaderProps> = ({
-  children,
-  setFinalImage,
-}) => {
+export const ImageUploader: React.FC<ImageUploaderProps> = ({}) => {
   const {colors} = useTheme();
   const [cameraType, setCameraType] = useState<'front' | 'back'>('back');
-  const devices = useCameraDevice(cameraType);
   const [images, setImages] = useState<Array<OutPutImageType | null>>([]);
   const [selectionImageIndex, setselectionImageIndex] = useState<number>(0);
   const [isCameraActive, setIsCameraActive] = useState(true);
   const [imageLoading, setImageLoading] = useState<boolean>(false);
-
+  const userShopName = useAppSelector(state => state.user.shopData?.name);
   const camera: any | null = useRef<Camera>(null);
 
   // THis is the Image captured By Cameras
@@ -46,7 +40,6 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
     if (photo) {
       const compressedImage = await ImageHandler.compressImage(photo);
       setImages([compressedImage]);
-      setFinalImage([{uri: compressedImage}]);
       setIsCameraActive(false);
     }
   };
@@ -56,7 +49,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
     let GalleryImages: any = await ImageHandler.selectFromGallery();
     console.log('Gallery>>>', GalleryImages);
     setImages(GalleryImages);
-
+    setImageLoading(!imageLoading);
     // setFinalImage(GalleryImages);
   };
 
@@ -66,15 +59,15 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
     let crossedDAta = images.filter((e: any) => e.name !== selectedImage.name);
     setImages(crossedDAta);
     setselectionImageIndex(selectionImageIndex - 1);
+    setImageLoading(false);
   };
 
   const incrementalImageIndex = (index: number, imageLength: number) => {
-    console.log('IMageLength', imageLength);
-
     if (index < imageLength - 1) setselectionImageIndex(index + 1);
   };
   const decrementImageIndex = (index: number) => {
     if (index > 0) setselectionImageIndex(index - 1);
+    setImageLoading(false);
   };
 
   return (
@@ -85,23 +78,23 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
         padding: size.spacing.xl,
         borderStyle: 'dashed',
         borderRadius: size.borderRadius.s,
-        paddingTop: size.spacing.xxl,
+        paddingTop: size.spacing.xl,
       }}>
       {images.length > 0 ? (
         <>
           <IconButton
             onPress={() => decrementImageIndex(selectionImageIndex)}
             rippleColor={colors.background}
-            style={{
-              position: 'absolute',
-              bottom: 100,
-              zIndex: 1,
-            }}
+            style={styles.leftIconsButton}
             icon={'arrow-left-drop-circle'}></IconButton>
           <>
             <FastImage
+              resizeMode="contain"
               style={{
-                height: 200,
+                height: AreaMapper({
+                  value: 170,
+                  scaleBy: 'height',
+                }),
                 borderRadius: size.borderRadius.s,
               }}
               source={{
@@ -112,23 +105,14 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
                 handleImageRemove(images[selectionImageIndex]);
               }}
               iconColor={'#FF6347'}
-              style={{
-                alignItems: 'center',
-                position: 'absolute',
-                right: 5,
-              }}
+              style={styles.closeIcon}
               icon={'close-circle'}></IconButton>
           </>
           <IconButton
             onPress={() =>
               incrementalImageIndex(selectionImageIndex, images.length)
             }
-            style={{
-              position: 'absolute',
-              bottom: 100,
-              zIndex: 1,
-              right: 0,
-            }}
+            style={styles.rightIconsButton}
             icon={'arrow-right-drop-circle'}></IconButton>
         </>
       ) : (
@@ -173,78 +157,20 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
 };
 
 const styles = StyleSheet.create({
-  buttonContainer: {
+  leftIconsButton: {
     position: 'absolute',
-    // bottom: ,
-    left: 0,
+    bottom: 70,
+    zIndex: 1,
+  },
+  rightIconsButton: {
+    position: 'absolute',
+    bottom: 70,
+    zIndex: 1,
     right: 0,
+  },
+  closeIcon: {
     alignItems: 'center',
-  },
-  previewContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 400,
-  },
-  camera: {
-    height: AreaMapper({
-      value: 870,
-      scaleBy: 'height',
-    }),
-  },
-
-  imageListContainer: {
-    marginHorizontal: AreaMapper({
-      value: 8,
-      scaleBy: 'width',
-    }),
-    marginVertical: AreaMapper({
-      value: 8,
-      scaleBy: 'width',
-    }),
-    borderRadius: AreaMapper({
-      value: 8,
-      scaleBy: 'average',
-    }),
-    padding: 5,
-    borderWidth: 0.1,
-  },
-
-  image: {
-    height: AreaMapper({
-      value: 65,
-      scaleBy: 'height',
-    }),
-    width: AreaMapper({
-      value: 65,
-      scaleBy: 'width',
-    }),
-    borderRadius: 12,
-  },
-
-  cameraIconTouchableRiple: {
-    opacity: 0.8,
-    borderRadius: 45,
-    height: AreaMapper({
-      value: 50,
-      scaleBy: 'height',
-    }),
-    zIndex: 5,
-
-    bottom: 2,
-  },
-  closeRipple: {
-    backgroundColor: 'gray',
-    opacity: 0.8,
-    borderRadius: 45,
-    padding: AreaMapper({
-      value: 1,
-      scaleBy: 'average',
-    }),
-    height: 20,
-
-    zIndex: 5,
-    right: 20,
-    bottom: 2,
+    position: 'absolute',
+    right: 5,
   },
 });

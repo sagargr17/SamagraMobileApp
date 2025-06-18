@@ -80,16 +80,23 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
         <UserProfileLandingContainer></UserProfileLandingContainer>
       )}
       {/* App Button */}
-      <AppButton
-        textColor={colors.text}
-        onPress={userLogoutHandle}
+      <View
         style={{
-          marginTop: size.spacing.xxl+20,
-          // marginBottom: size.spacing.s,
-          backgroundColor: '#C0C0C0',
+          // flex: 1,
+          // justifyContent: 'space-between',
+          // flexDirection: 'column',
         }}>
-        Logout
-      </AppButton>
+        <AppButton
+          textColor={colors.text}
+          onPress={userLogoutHandle}
+          style={{
+            backgroundColor: '#C0C0C0',
+            marginTop: size.spacing.xxl+80,
+            // marginBottom: size.spacing.s,
+          }}>
+          Logout
+        </AppButton>
+      </View>
     </ScrollView>
   );
 };

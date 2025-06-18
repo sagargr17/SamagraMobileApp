@@ -1,116 +1,25 @@
-import {useMutation, useQuery} from '@apollo/client';
+import {useMutation} from '@apollo/client';
 import {useTheme} from '@react-navigation/native';
 import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {showMessage} from 'react-native-flash-message';
-import {Icon, ProgressBar, TouchableRipple} from 'react-native-paper';
-import {AppText} from '../../Components/Elements/AppText';
 import {AppForm} from '../../Components/Organism/AppForm';
 import {ImageUploader} from '../../Components/Organism/ImageUploader';
-import {createNewProduct} from '../../GraphQL/Mutation/ItemMutation';
-import {AreaMapper} from '../../Utilities/CustomMethods';
-import {CreateProductInputViewModelInput} from '../../src/__generated__/graphql';
-import {useAppDispatch} from '../../StateManagement/hooks';
-import {hideLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
-import {NotMentioned} from '../../Constants/UI/Messages';
 import {ImageNotFound} from '../../Constants/UI/AssetsUrls';
+import {NotMentioned} from '../../Constants/UI/Messages';
+import {createNewProduct} from '../../GraphQL/Mutation/ItemMutation';
 import {size} from '../../Prefrences/Prefrences';
-import {AppBottomSheet} from '../../Components/Molecules/Global/AppBottomSheet';
-import {RowFlexLayout} from '../../Layout/PartationLayout/RowFlexLayout';
+import {CreateProductInputViewModelInput} from '../../src/__generated__/graphql';
+import {hideLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
+import {useAppDispatch} from '../../StateManagement/hooks';
+import {AreaMapper} from '../../Utilities/CustomMethods';
+import {FlatListScreen} from '../../Layout/ScreenLayout/FlatListScreenLayout';
 
 interface AddItemScreenProps {}
 
 export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
   const {colors, fonts} = useTheme();
-  const [image, setImages] = useState<Array<any>>([]);
-  const [index, setIndnex] = useState<{
-    indexNumber: number;
-    title: string;
-    description: string;
-  }>({
-    indexNumber: 1,
-    title: 'Primary Detail',
-    description: 'Product Name, Price & More',
-  });
 
-  const childrenCompoenet = (
-    indexNumber: number,
-    title: string,
-    descriptionn: string,
-  ) => (
-    <>
-      <View
-        style={{
-          paddingHorizontal: 15,
-          paddingVertical: 16,
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'flex-start',
-          backgroundColor:
-            index.indexNumber === 1 ? 'rgba(0, 0, 128, 0.87)' : colors.primary,
-        }}>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}>
-          <TouchableRipple
-            onPress={() => {
-              setIndnex({
-                indexNumber: 1,
-                title: 'Primary Detail',
-                description: 'Product Name, Price ,Location & More',
-              });
-            }}
-            style={{
-              marginRight: 8,
-            }}>
-            <Icon size={24} color="white" source={'arrow-left'}></Icon>
-          </TouchableRipple>
-          <AppText
-            title={`${indexNumber}`}
-            fontVariant="medium"
-            fontSizeVariant={'regular'}
-            customStyle={{
-              backgroundColor:
-                index.indexNumber === 1
-                  ? 'rgba(136, 129, 240, 0.87)'
-                  : 'rgba(139, 233, 155, 0.87)',
-              paddingHorizontal: 12,
-              borderRadius: 45,
-              color: 'white',
-            }}></AppText>
-        </View>
-
-        <View>
-          <AppText
-            title={title}
-            fontVariant="medium"
-            customStyle={{
-              color: 'white',
-              marginLeft: 10,
-            }}
-            fontSizeVariant={'regular'}></AppText>
-
-          <AppText
-            title={descriptionn}
-            fontVariant="medium"
-            fontSizeVariant={'regular'}
-            customStyle={{
-              marginHorizontal: AreaMapper({
-                value: 8,
-                scaleBy: 'width',
-              }),
-              marginLeft: 10,
-              color: 'white',
-            }}></AppText>
-        </View>
-      </View>
-    </>
-  );
-
-  const [finalImage, setFinalImage] = useState<any>();
   const [
     createNewItemFn,
     {data: mutateData, loading: mutateLoading, error: mutateError},
@@ -203,141 +112,105 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
   };
 
   return (
-    // <View style={{
-    //   // paddingHorizontal:size.spacing.xs
-    // }}>
+    <FlatListScreen
+      contentContainerStyle={{
+        paddingHorizontal: size.spacing.xs,
+        paddingBottom: size.spacing.s,
+      }}
+      ListHeaderComponent={<ImageUploader></ImageUploader>}
+      data={[1]}
+      stickyHeaderHiddenOnScroll
+      renderItem={() => (
+        <AppForm<CreateProductInputViewModelInput>
+          formConfig={[
+            {
+              name: 'name', // Must match a key in LoginFormValues
+              label: '',
+              placeholder: 'Item Name',
+              type: 'email', // Custom prop for keyboard type
+              rules: {
+                minLength: {
+                  value: 3,
+                  message: 'Too Short',
+                },
+                maxLength: {
+                  value: 12,
+                  message: 'too long',
+                },
+                required: 'Required',
+              },
+              defaultValue: {},
+            },
+            {
+              name: 'price', // Must match a key in LoginFormValues
+              label: '',
+              placeholder: 'Price in rupees',
+              type: 'number', // Custom prop for keyboard type
+              rules: {
+                maxLength: {
+                  value: 20,
+                  message: 'too long',
+                },
+                required: 'Required',
+              },
+            },
+            {
+              name: 'stockQuantity', // Must match a key in LoginFormValues
+              label: '',
+              placeholder: 'Quantity',
+              type: 'number', // Custom prop for keyboard type
+              rules: {
+                maxLength: {
+                  value: 9,
+                  message: 'too long',
+                },
+                required: 'Required',
+              },
+            },
 
-    // </View>
-    <View
-      style={{
-        flexDirection: 'column',
-        paddingHorizontal: size.spacing.s,
-        flex: 1,
-      }}>
-      <ImageUploader
-        setFinalImage={setFinalImage}
-        children={
-          <>
-            {mutateLoading === true ? (
-              <ProgressBar color={colors.primary} indeterminate></ProgressBar>
-            ) : null}
-            {childrenCompoenet(
-              index.indexNumber,
-              index.title,
-              index.description,
-            )}
-          </>
-        }></ImageUploader>
-      <RowFlexLayout
-        customStyle={{
-          justifyContent: 'space-between',
-        }}>
-        <AppText
-          title="Item"
-          fontSizeVariant="title"
-          fontVariant="bold"
-          customStyle={{
-            marginTop: size.spacing.s,
-          }}></AppText>
-        {/* <AppText
-          title=""
-          fontSizeVariant="regular"
-          fontVariant="regular"
-          customStyle={{
-            marginTop: size.spacing.s,
-          }}></AppText> */}
-      </RowFlexLayout>
-      <AppForm<CreateProductInputViewModelInput>
-        formConfig={[
-          {
-            name: 'name', // Must match a key in LoginFormValues
-            label: '',
-            placeholder: 'Name',
-            type: 'email', // Custom prop for keyboard type
-            rules: {
-              minLength: {
-                value: 3,
-                message: 'Too Short',
+            {
+              name: 'unit', // Must match a key in LoginFormValues
+              label: '',
+              placeholder: 'Unit | Eg: Kg, gram ',
+              type: 'text', // Custom prop for keyboard type
+              rules: {
+                maxLength: {
+                  value: 9,
+                  message: 'too long',
+                },
+                required: 'Required',
               },
-              maxLength: {
-                value: 12,
-                message: 'too long',
-              },
-              required: 'Required',
             },
-            defaultValue: {},
-          },
-          {
-            name: 'price', // Must match a key in LoginFormValues
-            label: 'Price',
-            placeholder: 'Price',
-            type: 'number', // Custom prop for keyboard type
-            rules: {
-              maxLength: {
-                value: 20,
-                message: 'too long',
+            {
+              name: 'location', // Must match a key in LoginFormValues
+              label: '',
+              placeholder: 'Baneswor, Kathmandu',
+              type: 'text', // Custom prop for keyboard type
+              rules: {
+                maxLength: {
+                  value: 9,
+                  message: 'too long',
+                },
+                required: 'Required',
               },
-              required: 'Required',
             },
-          },
-          {
-            name: 'description', // Must match a key in LoginFormValues
-            label: 'About Item',
-            placeholder: 'About Item',
-            type: 'text', // Custom prop for keyboard type
-            rules: {
-              maxLength: {
-                value: 20,
-                message: 'too long',
+            {
+              name: 'description', // Must match a key in LoginFormValues
+              label: '',
+              placeholder: 'About Item',
+              type: 'description', // Custom prop for keyboard type
+              rules: {
+                maxLength: {
+                  value: 20,
+                  message: 'too long',
+                },
+                required: 'Required',
               },
-              required: 'Required',
             },
-          },
-
-          {
-            name: 'stockQuantity', // Must match a key in LoginFormValues
-            label: 'Quantity',
-            placeholder: 'Eg: 230',
-            type: 'number', // Custom prop for keyboard type
-            rules: {
-              maxLength: {
-                value: 9,
-                message: 'too long',
-              },
-              required: 'Required',
-            },
-          },
-
-          {
-            name: 'unit', // Must match a key in LoginFormValues
-            label: 'Unit',
-            placeholder: 'Eg: Kg, Hour',
-            type: 'text', // Custom prop for keyboard type
-            rules: {
-              maxLength: {
-                value: 9,
-                message: 'too long',
-              },
-              required: 'Required',
-            },
-          },
-          {
-            name: 'location', // Must match a key in LoginFormValues
-            label: 'Location',
-            placeholder: 'Baneswor, Kathmandu',
-            type: 'text', // Custom prop for keyboard type
-            rules: {
-              maxLength: {
-                value: 9,
-                message: 'too long',
-              },
-              required: 'Required',
-            },
-          },
-        ]}
-        submitButtonText="Submit"
-        onFormSubmit={handleCreateItemSubmit}></AppForm>
-    </View>
+          ]}
+          submitButtonText="Submit"
+          onFormSubmit={handleCreateItemSubmit}></AppForm>
+      )}></FlatListScreen>
   );
 };
 
