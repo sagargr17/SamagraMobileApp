@@ -4,7 +4,12 @@ import FastImage from '@d11/react-native-fast-image';
 import {useTheme} from '@react-navigation/native';
 import React, {useRef, useState} from 'react';
 import {FlatList, ScrollView, StyleSheet, View} from 'react-native';
-import {Icon, IconButton, TouchableRipple} from 'react-native-paper';
+import {
+  ActivityIndicator,
+  Icon,
+  IconButton,
+  TouchableRipple,
+} from 'react-native-paper';
 import {Camera, useCameraDevice} from 'react-native-vision-camera';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import ImageHandler, {OutPutImageType} from '../../Utilities/ImageHandler';
@@ -30,6 +35,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
   const [images, setImages] = useState<Array<OutPutImageType | null>>([]);
   const [selectionImageIndex, setselectionImageIndex] = useState<number>(0);
   const [isCameraActive, setIsCameraActive] = useState(true);
+  const [imageLoading, setImageLoading] = useState<boolean>(false);
 
   const camera: any | null = useRef<Camera>(null);
 
@@ -50,6 +56,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
     let GalleryImages: any = await ImageHandler.selectFromGallery();
     console.log('Gallery>>>', GalleryImages);
     setImages(GalleryImages);
+
     // setFinalImage(GalleryImages);
   };
 
@@ -64,7 +71,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
   const incrementalImageIndex = (index: number, imageLength: number) => {
     console.log('IMageLength', imageLength);
 
-    if (index < imageLength-1) setselectionImageIndex(index + 1);
+    if (index < imageLength - 1) setselectionImageIndex(index + 1);
   };
   const decrementImageIndex = (index: number) => {
     if (index > 0) setselectionImageIndex(index - 1);
@@ -142,6 +149,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
             }}
             title={AddItemMessage}></AppText>
           <AppButton
+            onPressIn={() => setImageLoading(!imageLoading)}
             onPress={imageFromGallery}
             rippleColor={colors.card}
             textColor="black"
@@ -150,7 +158,13 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
               borderRadius: size.borderRadius.m,
               marginTop: size.spacing.l,
             }}>
-            Add Photo
+            {imageLoading ? (
+              <ActivityIndicator
+                size={'small'}
+                color={colors.primary}></ActivityIndicator>
+            ) : (
+              'Add Photo'
+            )}
           </AppButton>
         </View>
       )}
