@@ -29,7 +29,7 @@ export const AppBottomSheet: React.FC<SamagraBottomSheetProps> = ({
   const {colors} = useTheme();
   const bottomSheetRef = useRef<BottomSheet>(null);
 
-  const snapPoints = isOppen ? ['90%'] : ['10%'];
+  const snapPoints = isOppen ? ['100%'] : ['10%'];
 
   useEffect(() => {
     if (isOppen) {
@@ -55,12 +55,11 @@ export const AppBottomSheet: React.FC<SamagraBottomSheetProps> = ({
       index={pannigGesture ? (isOppen ? 0 : -1) : 0} // Initial index based on isOppen
       snapPoints={snapPoints}
       enableDynamicSizing={true}
-      animateOnMount={true}
+      animateOnMount={false}
       enablePanDownToClose={pannigGesture}
       backgroundStyle={{backgroundColor: colors.background}}
       enableContentPanningGesture={pannigGesture}
       onChange={handleSheetChanges}
-      containerStyle={{}}
       style={[
         {
           borderRadius: 10,
@@ -68,7 +67,6 @@ export const AppBottomSheet: React.FC<SamagraBottomSheetProps> = ({
           flex: 0.01,
           borderWidth: 1,
           backgroundColor: colors.background,
-          
         },
       ]}>
       <BottomSheetScrollView
@@ -78,7 +76,7 @@ export const AppBottomSheet: React.FC<SamagraBottomSheetProps> = ({
             borderColor: colors.border,
             paddingHorizontal: size.spacing.xs,
             backgroundColor: colors.background,
-            paddingBottom:size.spacing.l
+            paddingBottom: size.spacing.l,
           },
         ]}>
         {children()}

@@ -28,6 +28,7 @@ interface FormFieldConfig<TFormValues extends FieldValues>
   placeholder?: string;
   type?: 'text' | 'password' | 'email' | 'number' | 'phone' | 'description';
   icon?: any;
+  onFocus?: () => void;
 }
 
 interface AppFormProps<TFormValues extends FieldValues> {
@@ -91,6 +92,7 @@ export const AppForm = <TFormValues extends FieldValues>({
                   secureTextEntry={item.type === 'password'}
                   height={item.type === 'description' ? 80 : 53}
                   multiline={item.type === 'description' ? true : false}
+                  onFocus={item.onFocus}
                 />
               )}
             />

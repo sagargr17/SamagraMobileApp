@@ -15,6 +15,7 @@ import {UnitSlider} from '../Elements/UnitSlider';
 import {CreateStoreInputViewModelInput} from '../../src/__generated__/graphql';
 import {showLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
 import {Icon} from 'react-native-paper';
+import { size } from '../../Prefrences/Prefrences';
 
 interface OrderBottomSheetProps {
   navigation: RootStackNavigationProp<'ApplicationOverlay'> | any;
@@ -89,7 +90,7 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
     <>
       <AppBottomSheet
         isOppen={true}
-        flexHeight={0}
+        flexHeight={1}
         pannigGesture={false}
         title="Request for House Keeping Service"
         children={childrenContent}></AppBottomSheet>
@@ -99,6 +100,6 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
 
 const styles = StyleSheet.create({
   wrapper: {
-    // paddingBottom: size.spacing.xxs,
+    paddingBottom: size.spacing.xs,
   },
 });

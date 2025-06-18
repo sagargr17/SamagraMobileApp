@@ -90,10 +90,13 @@ export const BottomTabNavigator: React.FC = () => {
           {
             paddingBottom: size.spacing.xl,
             borderRadius: size.borderRadius.full,
-            margin: size.spacing.s,
+            marginHorizontal: size.spacing.xxs,
             height: 58,
             backgroundColor: colors.background,
-            borderTopColor:colors.background
+            borderTopColor: colors.background,
+            // marginBottom: size.spacing.xxs,
+            // position: 'absolute',
+            
           },
           size.elevation.l,
         ],
@@ -103,7 +106,7 @@ export const BottomTabNavigator: React.FC = () => {
           fontFamily: 'Poppins-Regular',
           fontWeight: 'condensed',
         },
-        // tabBarHideOnKeyboard: true,
+        tabBarHideOnKeyboard: true,
         tabBarAllowFontScaling: true,
         tabBarPosition: 'bottom',
       })}

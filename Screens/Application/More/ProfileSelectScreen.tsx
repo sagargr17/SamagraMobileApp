@@ -8,7 +8,7 @@ import {UserProfileCard} from '../../../Components/Molecules/Cards/UserProfileCa
 import {UserProfileCardSkeleton} from '../../../Components/Skeletons/UserProfileCardSkeleton';
 import {ImageNotFound} from '../../../Constants/UI/AssetsUrls';
 import {
-  EmptyLaundnryErrorMessage,
+  EmptyMessage,
   NotMentioned,
 } from '../../../Constants/UI/Messages';
 import {myShops} from '../../../GraphQL/Queries/PrivateShopQueries';
@@ -113,7 +113,7 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
       }}
       ListEmptyComponent={
         <AppText
-          title={EmptyLaundnryErrorMessage}
+          title={EmptyMessage}
           fontVariant="medium"
           fontSizeVariant="display"></AppText>
       }
