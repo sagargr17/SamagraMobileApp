@@ -1,5 +1,5 @@
 import {useMutation} from '@apollo/client';
-import {useTheme} from '@react-navigation/native';
+import {useRoute, useTheme} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {showMessage} from 'react-native-flash-message';
@@ -14,7 +14,10 @@ import {
 import {createNewProduct} from '../../GraphQL/Mutation/ItemMutation';
 import {responseTheme, size} from '../../Prefrences/Prefrences';
 import {CreateProductInputViewModelInput} from '../../src/__generated__/graphql';
-import {hideLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
+import {
+  hideLoader,
+  showLoader,
+} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
 import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import {FlatListScreen} from '../../Layout/ScreenLayout/FlatListScreenLayout';
@@ -44,6 +47,7 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
     data: CreateProductInputViewModelInput,
   ) => {
     console.log('Pressed', data, shopID);
+    dispatch(showLoader());
 
     if (data && shopID)
       try {

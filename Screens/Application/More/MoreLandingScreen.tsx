@@ -1,16 +1,16 @@
-import { useNavigation, useTheme } from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 import React from 'react';
-import { ScrollView, View } from 'react-native';
-import { clearTokens } from '../../../client/Token/TokenAccess';
+import {ScrollView, View} from 'react-native';
+import {clearTokens} from '../../../client/Token/TokenAccess';
 import AppButton from '../../../Components/Elements/Button';
-import { Spacer } from '../../../Components/Elements/Spacer';
-import { UserProfileCard } from '../../../Components/Molecules/Cards/UserProfileCard';
-import { ShopProfileUserContainer } from '../../../Components/Organism/ShopProfileUserContainer';
-import { UserProfileLandingContainer } from '../../../Components/Organism/UserProfileLandingContainer';
-import { ImageNotFound } from '../../../Constants/UI/AssetsUrls';
-import { NotMentioned } from '../../../Constants/UI/Messages';
-import { size } from '../../../Prefrences/Prefrences';
-import { useAppSelector } from '../../../StateManagement/hooks';
+import {Spacer} from '../../../Components/Elements/Spacer';
+import {UserProfileCard} from '../../../Components/Molecules/Cards/UserProfileCard';
+import {ShopProfileUserContainer} from '../../../Components/Organism/ShopProfileUserContainer';
+import {UserProfileLandingContainer} from '../../../Components/Organism/UserProfileLandingContainer';
+import {ImageNotFound} from '../../../Constants/UI/AssetsUrls';
+import {NotMentioned} from '../../../Constants/UI/Messages';
+import {size} from '../../../Prefrences/Prefrences';
+import {useAppSelector} from '../../../StateManagement/hooks';
 
 interface MoreLandingScreenProps {}
 
@@ -82,6 +82,9 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
             backgroundColor: '#C0C0C0',
             // marginTop: size.spacing.xxl,
             marginBottom: size.spacing.s,
+            borderRadius: 0,
+            // position: 'absolute',
+            // bottom: 0,
           }}>
           Logout
         </AppButton>

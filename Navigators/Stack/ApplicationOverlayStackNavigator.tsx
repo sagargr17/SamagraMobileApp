@@ -33,9 +33,11 @@ type ApplicationOverlayMoreStackParamList = {
   };
   MyShopItemsScreen: {
     shopName: string;
+    shopId: string;
   };
   AddItemScreen: {
     shopId: string;
+    shopName: string;
   };
   MyShopsScreen: undefined;
   AddShopScreen: undefined;
@@ -149,7 +151,7 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
             screenName: 'MyShopItemsScreen',
             component: MyShopItemsScreen,
             option: ({route}: {route: any}) => ({
-              title: titleCase(''),
+              title: titleCase(route.params.shopName),
               headerTitleAlign: 'center',
               headerTitleStyle: {
                 fontFamily: fonts.medium.fontFamily,
@@ -157,7 +159,6 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
               },
               headerShadowVisible: false,
               SearchBar,
-              header: () => null,
             }),
           },
           {
@@ -177,7 +178,7 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
             screenName: 'AddItemScreen',
             component: AddItemScreen,
             option: ({route}: {route: any}) => ({
-              title: titleCase('Add Item'),
+              title: titleCase(route.params.shopName),
             }),
           },
 

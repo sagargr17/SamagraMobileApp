@@ -44,12 +44,12 @@ export const BubbleCard: React.FC<BubbleCardProps> = ({
       style={[
         styles.viewContainer,
         {
-          backgroundColor: colors.card,
+          backgroundColor: colors.background,
           shadowColor: colors.card,
           padding: variant === 'large' ? size.spacing.s : size.spacing.xs,
           borderRadius: size.borderRadius.m,
-          borderWidth:0.05,
-          borderColor:colors.border
+          borderWidth: 1,
+          borderColor: colors.card,
         },
         customStyle,
         size.elevation.m,
@@ -58,9 +58,10 @@ export const BubbleCard: React.FC<BubbleCardProps> = ({
       <View style={[styles.contentContainer]}>
         {iconName && (
           <View style={styles.iconContainer}>
-            <Icon
+            <Icon 
+              
               source={iconName}
-              size={size.iconSize.small+5}
+              size={size.iconSize.small + 5}
               color={colors.text}
             />
           </View>

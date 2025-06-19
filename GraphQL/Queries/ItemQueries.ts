@@ -110,3 +110,27 @@ export const getPaginatedPersonalItems = gql(`
   }
 }
 `);
+
+export const GetItemsByShopId = gql(`
+  query GetPersonalItemsByShopId($shopId: String!) {
+  getItems(shopId: $shopId) {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+    nodes {
+      id
+      name
+      price
+      starRating
+      stockQuantity
+      shop {
+        id
+        name
+      }
+    }
+  }
+}
+  `);

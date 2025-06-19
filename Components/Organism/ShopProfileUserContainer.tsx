@@ -13,6 +13,8 @@ import {
   AddItemScreenRouteProp,
   ApplicationOverlayStackNavigationProp,
 } from '../../Navigators/Stack/ApplicationOverlayStackNavigator';
+import {State} from 'react-native-gesture-handler';
+import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
 
 interface ShopProfileUserContainerProps {
   shopId: string;
@@ -25,6 +27,7 @@ export const ShopProfileUserContainer: React.FC<
   const navigation = useNavigation<any>();
   const {PenIcon, DustbinIcon, StockIcon, PlusIcon} = Logos;
   const iconSize = size.iconSize.small;
+  const shopName = useAppSelector(state => state.user.shopData?.name);
 
   const flexDetailsItems = [
     {
@@ -40,21 +43,27 @@ export const ShopProfileUserContainer: React.FC<
           title: 'Items',
           iconName: 'chart-bar-stacked',
           onPress: () => {
-            console.log('Presed');
+            navigation.navigate('ApplicationOverlay', {
+              screen: 'MyShopItemsScreen',
+              params: {
+                shopName: shopName,
+                shopId: shopId,
+              },
+            });
           },
         },
       ],
       secondRow: [
         {
           title: 'Pending',
-          iconName: 'heart-outline',
+          iconName: 'calendar-clock-outline',
           onPress: () => {
             console.log('Presed');
           },
         },
 
         {
-          title: "Stocks",
+          title: 'Stocks',
           iconName: 'view-comfy',
           onPress: () => {},
         },
@@ -67,11 +76,11 @@ export const ShopProfileUserContainer: React.FC<
       title: 'Add Item',
       icon: <PlusIcon height={iconSize} width={iconSize}></PlusIcon>,
       onPress: () => {
-        console.log(':::::');
         navigation.navigate('ApplicationOverlay', {
           screen: 'AddItemScreen',
           params: {
-            shopId: '1',
+            shopName: shopName,
+            shopId: shopId,
           },
         });
       },

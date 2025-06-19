@@ -1,7 +1,7 @@
 import {useLazyQuery, useQuery} from '@apollo/client';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import React from 'react';
-import {View} from 'react-native';
+import {View, Text} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {AppText} from '../../../Components/Elements/AppText';
 import {UserProfileCard} from '../../../Components/Molecules/Cards/UserProfileCard';
@@ -16,10 +16,12 @@ import {
   setUserShopDetail,
 } from '../../../StateManagement/User/UserSlice';
 import {getLoginUser} from '../../../GraphQL/Queries/UserQueries';
+import {SingnlePageInfo} from '../../../Components/Organism/SinglePageInfo';
 interface ProfileSelectScreenProps {}
 
 export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
   const {colors} = useTheme();
+  const {} = useTheme();
   const {data, loading, error} = useQuery(myShops, {
     fetchPolicy: 'cache-first',
   });
@@ -36,13 +38,8 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
   if (loading && !data)
     return <ListCardSkeleton numberOfList={7}></ListCardSkeleton>;
 
-  if (error && !data)
-    return (
-      <AppText
-        title="Error"
-        fontVariant="medium"
-        fontSizeVariant="display"></AppText>
-    );
+  if (error && !data) return <Text>llasdjlaksjdlasd</Text>;
+  if (error && !data) console.log('Error::::', error);
 
   const profileHandleSelect = (
     shopId: string,
@@ -76,20 +73,18 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
   return (
     <FlatList
       ListHeaderComponent={
-        <>
-          <UserProfileCard
-            onCardPressed={() => handleUserSelect()}
-            customStyle={{
-              elevation: 0,
-              marginBottom: size.spacing.xxs,
-              paddingHorizontal: 0,
-              borderRadius: 0,
-            }}
-            user={{
-              username: userData?.username ?? NotMentioned,
-              profileImageUrl: ImageNotFound,
-            }}></UserProfileCard>
-        </>
+        <UserProfileCard
+          onCardPressed={() => handleUserSelect()}
+          customStyle={{
+            elevation: 0,
+            marginBottom: size.spacing.xxs,
+            paddingHorizontal: 0,
+            borderRadius: 0,
+          }}
+          user={{
+            username: userData?.username ?? NotMentioned,
+            profileImageUrl: ImageNotFound,
+          }}></UserProfileCard>
       }
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{

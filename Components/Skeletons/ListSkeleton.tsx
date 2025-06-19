@@ -42,11 +42,11 @@ export const ListCardSkeleton: React.FC<ListSkeletonProps> = ({
         {/* It is a Image  */}
         <CustomGradientShimmer
           height={AreaMapper({
-            value: 100,
+            value: 80,
             scaleBy: 'average',
           })}
           width={AreaMapper({
-            value: 105,
+            value: 90,
             scaleBy: 'average',
           })}
           style={[

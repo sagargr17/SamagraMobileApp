@@ -105,7 +105,6 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
       showsVerticalScrollIndicator={false}
       ListEmptyComponent={emptyElement}
       contentContainerStyle={{
-        flex: 1,
         paddingHorizontal: size.spacing.xxs,
       }}
       data={data?.getBasketItems?.nodes}

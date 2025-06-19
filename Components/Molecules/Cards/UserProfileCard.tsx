@@ -43,7 +43,9 @@ export const UserProfileCard: React.FC<UserProfileCardProps> = ({
           style.image,
           {
             borderColor: colors.background,
+            // borderRadius: size.spacing.xxs
           },
+          size.elevation.xs,
         ]}
         source={{
           uri: user.profileImageUrl,
@@ -103,9 +105,8 @@ const style = StyleSheet.create({
     marginBottom: size.spacing.xs,
   },
   image: {
-    height: 60,
-    width: 60,
-    borderRadius: 100,
+    height: 70,
+    width: 70,
     borderWidth: size.borderWidth.xl,
   },
   detailContainer: {
