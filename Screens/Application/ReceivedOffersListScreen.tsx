@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { FlatList } from 'react-native';
 import { Logos } from '../../Assets/SVG/Exports/Exports';
 import { ProviderCard } from '../../Components/Molecules/Cards/ProviderCard';
-import { SingnlePageError } from '../../Components/Molecules/SinglePageError';
+import { SingnlePageInfo } from '../../Components/Organism/SinglePageInfo';
 import { ProviderCardSkeleton } from '../../Components/Skeletons/ProviderCardSkeleton';
 import { DummyServiceProviderURL } from '../../Constants/UI/AssetsUrls';
 import { EmptyMessage } from '../../Constants/UI/Messages';
@@ -103,7 +103,7 @@ export const ReceivedOffersListScreen: React.FC<
                 image={DummyServiceProviderURL}></ProviderCard>
             )}></FlatList>
         ) : noItemFound ? (
-          <SingnlePageError
+          <SingnlePageInfo
             detail={{
               icon: <NoItemFound></NoItemFound>,
               title: EmptyMessage,
@@ -111,7 +111,7 @@ export const ReceivedOffersListScreen: React.FC<
                 navigationnBackHandle();
               },
               buttonTitle: 'Go to home',
-            }}></SingnlePageError>
+            }}></SingnlePageInfo>
         ) : (
           SkeletonLoading
         )}

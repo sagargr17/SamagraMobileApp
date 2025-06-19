@@ -10,7 +10,7 @@ import AppButton from '../../Components/Elements/Button';
 import {AppText} from '../../Components/Elements/AppText';
 import {ProviderCard} from '../../Components/Molecules/Cards/ProviderCard';
 import {AppBottomSheet} from '../../Components/Molecules/Global/AppBottomSheet';
-import {SingnlePageError} from '../../Components/Molecules/SinglePageError';
+import {SingnlePageInfo} from '../../Components/Organism/SinglePageInfo';
 import {ProviderCardSkeleton} from '../../Components/Skeletons/ProviderCardSkeleton';
 import {
   DummyServiceProviderURL,
@@ -255,7 +255,7 @@ export const ReceivedOrderListScreen: React.FC<
               image={DummyServiceProviderURL}></ProviderCard>
           )}></FlatList>
       ) : (
-        <SingnlePageError
+        <SingnlePageInfo
           detail={{
             icon: <NoItemFound></NoItemFound>,
             title: EmptyMessage,
@@ -263,7 +263,7 @@ export const ReceivedOrderListScreen: React.FC<
               handleNavigation();
             },
             buttonTitle: 'Go to home',
-          }}></SingnlePageError>
+          }}></SingnlePageInfo>
       )}
 
       {isProfileTapped ? (

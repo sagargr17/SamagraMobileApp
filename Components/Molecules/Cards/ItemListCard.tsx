@@ -3,10 +3,11 @@ import {useTheme} from '@react-navigation/native';
 import {View} from 'moti';
 import React, {useState} from 'react';
 import {Icon, Surface, Text, TouchableRipple} from 'react-native-paper';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, TouchableOpacity, ViewStyle} from 'react-native';
 import {AreaMapper, titleCase} from '../../../Utilities/CustomMethods';
 import {AppText} from '../../Elements/AppText';
 import {Rating} from '../../Elements/Rating';
+import {size} from '../../../Prefrences/Prefrences';
 
 interface ItemListCardProps {
   item: {
@@ -22,24 +23,38 @@ interface ItemListCardProps {
   buttonDetails?: {
     title: string;
   };
+  surfaceLevel?: 0 | 1 | 2 | 3 | 4 | 5 | any;
+  customStyle?: ViewStyle;
+  onImagePress?: any;
 }
 
-export const ItemListtCard: React.FC<ItemListCardProps> = ({item}) => {
+export const ItemListtCard: React.FC<ItemListCardProps> = ({
+  item,
+  surfaceLevel = 0,
+  customStyle,
+  onImagePress,
+}) => {
   const {colors} = useTheme();
 
   return (
     <Surface
-      elevation={0}
-      style={[styles.container, {backgroundColor: colors.card}]}>
-      <TouchableRipple
-        onPress={() => console.log('Result')}
-        style={styles.detailsContainer}>
+      elevation={surfaceLevel ? surfaceLevel : 0}
+      style={[styles.container, {backgroundColor: colors.card}, customStyle]}>
+      <View style={styles.detailsContainer}>
         <View
           style={{
             display: 'flex',
             flexDirection: 'row',
           }}>
-          <View style={styles.imageContainer}>
+          <TouchableOpacity
+            onPress={() => onImagePress()}
+            style={[
+              styles.imageContainer,
+              size.elevation.l,
+              {
+                borderRadius: size.borderRadius.full,
+              },
+            ]}>
             <FastImage
               style={styles.image}
               source={{
@@ -48,46 +63,35 @@ export const ItemListtCard: React.FC<ItemListCardProps> = ({item}) => {
               }}
               resizeMode={FastImage.resizeMode.cover}
             />
-          </View>
-          <View style={styles.pricingContainer}>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => onImagePress()}
+            style={styles.pricingContainer}>
             <AppText
               fontSizeVariant={'regular'}
               fontVariant="medium"
               title={titleCase(item.name)}></AppText>
-            <View
-              style={{
-                display: 'flex',
-              }}>
-              <Rating  ratingNumber={item.rating}></Rating>
-              {/* <AppText
+            <Rating ratingNumber={item.rating}></Rating>
+            <AppText
+              customStyle={{
+                color: item.stocks ? colors.text : colors.primary,
+              }}
+              fontSizeVariant={'regular'}
+              fontVariant={item.stocks ? 'medium' : 'bold'}
+              title={`रु.${item.price.toFixed(2)}`}></AppText>
+            {item.stocks ? (
+              <AppText
                 customStyle={{
-                  color: '#6cad8b',
+                  color: colors.primary,
                 }}
                 fontSizeVariant={'regular'}
-                fontVariant="regular"
-                title={titleCase(item.shop.name)}></AppText> */}
-              {!item.stocks ? (
-                <AppText
-                  customStyle={{
-                    color: item.stocks ? colors.text : colors.primary,
-                  }}
-                  fontSizeVariant={'regular'}
-                  fontVariant={item.stocks ? 'medium' : 'bold'}
-                  title={`रु.${item.price.toFixed(2)}`}></AppText>
-              ) : null}
-              {item.stocks ? (
-                <AppText
-                  customStyle={{
-                    color: colors.primary,
-                  }}
-                  fontSizeVariant={'regular'}
-                  fontVariant="bold"
-                  title={`QTY : ${item.stocks} `}></AppText>
-              ) : null}
-            </View>
-          </View>
+                fontVariant="bold"
+                title={`QTY : ${item.stocks} `}></AppText>
+            ) : null}
+          </TouchableOpacity>
         </View>
-      </TouchableRipple>
+      </View>
     </Surface>
   );
 };

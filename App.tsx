@@ -25,7 +25,7 @@ import {Logos} from './Assets/SVG/Exports/Exports';
 import {accessTokenGenerator} from './client/Token/AccessTokenGenerator';
 import {getTokens} from './client/Token/TokenAccess';
 import {isTokenExpired} from './client/Token/TokeValidator';
-import {SingnlePageError} from './Components/Molecules/SinglePageError';
+import {SingnlePageInfo} from './Components/Organism/SinglePageInfo';
 import {GRAPHQL_ENDPOINT} from './Constants/SamagraConstants/SamagraEndpoints';
 import {useTokenRefreshTimer} from './CustomHooks/useTokenRefreshTimer';
 import {RootStack} from './Navigators/RootStackNavigator';
@@ -232,21 +232,21 @@ function App(): React.JSX.Element {
             </>
           ) : internetStatus.status === true ? (
             serverError ? ( // change this to serverError while in production
-              <SingnlePageError
+              <SingnlePageInfo
+                icon={
+                  <ServerDown
+                    height={AreaMapper({
+                      value: 250,
+                      scaleBy: 'average',
+                    })}
+                    width="80%"></ServerDown>
+                }
                 detail={{
-                  icon: (
-                    <ServerDown
-                      height={AreaMapper({
-                        value: 250,
-                        scaleBy: 'average',
-                      })}
-                      width="80%"></ServerDown>
-                  ),
                   title:
                     "We're sorry, the server is down for maintenance. We'll be back online soon.",
                   onButtonPress: () => setServerError(!serverError),
                   buttonTitle: 'Try Again',
-                }}></SingnlePageError>
+                }}></SingnlePageInfo>
             ) : (
               <ApolloProvider client={client}>
                 <PaperProvider>
@@ -257,20 +257,20 @@ function App(): React.JSX.Element {
               </ApolloProvider>
             )
           ) : (
-            <SingnlePageError
+            <SingnlePageInfo
+              icon={
+                <InternetUnAvailable
+                  height={AreaMapper({
+                    value: 250,
+                    scaleBy: 'average',
+                  })}
+                  width="80%"></InternetUnAvailable>
+              }
               detail={{
-                icon: (
-                  <InternetUnAvailable
-                    height={AreaMapper({
-                      value: 250,
-                      scaleBy: 'average',
-                    })}
-                    width="80%"></InternetUnAvailable>
-                ),
                 title: 'Please Check Your Internet and Try again !',
                 onButtonPress: () => setServerError(!serverError),
                 buttonTitle: 'Try Again',
-              }}></SingnlePageError>
+              }}></SingnlePageInfo>
           )}
         </NavigationContainer>
       </Provider>

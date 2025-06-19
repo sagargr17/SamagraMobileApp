@@ -1,18 +1,22 @@
 import {useTheme} from '@react-navigation/native';
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {FlatList, StyleSheet, View} from 'react-native';
 import {createGradientShimmer} from 'react-native-gradient-shimmer';
 import LinearGradient from 'react-native-linear-gradient';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import {size} from '../../Prefrences/Prefrences';
 
-interface UserProviderCardSkeletonProps {
+interface ListSkeletonProps {
   isElevated?: boolean;
+  numberOfList: number;
+  numberOfText?: number;
 }
 
-export const UserProfileCardSkeleton: React.FC<
-  UserProviderCardSkeletonProps
-> = ({isElevated = false}) => {
+export const ListCardSkeleton: React.FC<ListSkeletonProps> = ({
+  isElevated = false,
+  numberOfList,
+  numberOfText = 2,
+}) => {
   const {colors} = useTheme();
   const CustomGradientShimmer = createGradientShimmer({
     backgroundColor: 'rgb(227, 225, 225)',
@@ -20,7 +24,9 @@ export const UserProfileCardSkeleton: React.FC<
     LinearGradientComponent: LinearGradient,
   });
 
-  return (
+  const width = [230, 180, 150, 100, 20];
+
+  const SkeletonCard = (
     <View
       style={[
         {
@@ -33,91 +39,63 @@ export const UserProfileCardSkeleton: React.FC<
         isElevated ? size.elevation.l : null,
       ]}>
       <View style={ProviderCardSkeletonStyle.dataContainer}>
+        {/* It is a Image  */}
         <CustomGradientShimmer
           height={AreaMapper({
-            value: 65,
+            value: 100,
             scaleBy: 'average',
           })}
           width={AreaMapper({
-            value: 65,
+            value: 105,
             scaleBy: 'average',
           })}
           style={[
             {
               borderRadius: AreaMapper({
-                value: 80,
+                value: size.borderRadius.m,
                 scaleBy: 'average',
               }),
             },
           ]}
         />
-
+        {/* It is a List Items */}
         <View style={ProviderCardSkeletonStyle.textContainer}>
-          <CustomGradientShimmer
-            height={AreaMapper({
-              value: 17,
-              scaleBy: 'average',
-            })}
-            width={AreaMapper({
-              value: 250,
-              scaleBy: 'average',
-            })}
-            style={[
-              {
-                borderRadius: AreaMapper({
-                  value: 80,
-                  scaleBy: 'average',
-                }),
-              },
-            ]}
-          />
-          <CustomGradientShimmer
-            height={AreaMapper({
-              value: 17,
-              scaleBy: 'average',
-            })}
-            width={AreaMapper({
-              value: 180,
-              scaleBy: 'average',
-            })}
-            style={[
-              {
-                borderRadius: AreaMapper({
-                  value: 80,
-                  scaleBy: 'average',
-                }),
-                marginTop: AreaMapper({
-                  value: 8,
-                  scaleBy: 'average',
-                }),
-              },
-            ]}
-          />
-          {/* <CustomGradientShimmer
-            height={AreaMapper({
-              value: 17,
-              scaleBy: 'average',
-            })}
-            width={AreaMapper({
-              value: 100,
-              scaleBy: 'average',
-            })}
-            style={[
-              {
-                borderRadius: AreaMapper({
-                  value: 80,
-                  scaleBy: 'average',
-                }),
-                marginTop: AreaMapper({
-                  value: 8,
-                  scaleBy: 'average',
-                }),
-              },
-            ]}
-          /> */}
+          <FlatList
+            data={Array(numberOfText).fill(Number)}
+            renderItem={({index}) => (
+              <View key={index}>
+                <CustomGradientShimmer
+                  height={AreaMapper({
+                    value: 17,
+                    scaleBy: 'average',
+                  })}
+                  width={AreaMapper({
+                    value: width[index],
+                    scaleBy: 'average',
+                  })}
+                  style={[
+                    {
+                      borderRadius: AreaMapper({
+                        value: 80,
+                        scaleBy: 'average',
+                      }),
+                      marginTop: size.spacing.xs,
+                    },
+                  ]}
+                />
+              </View>
+            )}></FlatList>
         </View>
       </View>
     </View>
+  );
+
+  return (
+    <FlatList
+      data={Array(numberOfList).fill(numberOfList)}
+      renderItem={({index}) => (
+        <View key={index}>{SkeletonCard}</View>
+      )}></FlatList>
   );
 };
 
@@ -144,10 +122,6 @@ const ProviderCardSkeletonStyle = StyleSheet.create({
   textContainer: {
     marginHorizontal: AreaMapper({
       value: 16,
-      scaleBy: 'average',
-    }),
-    lineHeight: AreaMapper({
-      value: 22,
       scaleBy: 'average',
     }),
   },

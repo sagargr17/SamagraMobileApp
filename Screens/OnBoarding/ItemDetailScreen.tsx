@@ -88,12 +88,12 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
             customStyle={{
               backgroundColor: 'gray',
               color: colors.background,
-              paddingHorizontal:size.spacing.xxs
+              paddingHorizontal: size.spacing.xxs,
             }}
             fontSizeVariant={'regular'}
             title={titleCase('423 Sold')}
             fontVariant="regular"></AppText>
-          <Rating ></Rating>
+          <Rating ratingNumber={3}></Rating>
         </View>
         <Spacer height={8}></Spacer>
         <View>

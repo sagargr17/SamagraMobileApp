@@ -5,7 +5,7 @@ import {View} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {AppText} from '../../../Components/Elements/AppText';
 import {UserProfileCard} from '../../../Components/Molecules/Cards/UserProfileCard';
-import {UserProfileCardSkeleton} from '../../../Components/Skeletons/UserProfileCardSkeleton';
+import {ListCardSkeleton} from '../../../Components/Skeletons/ListSkeleton';
 import {ImageNotFound} from '../../../Constants/UI/AssetsUrls';
 import {EmptyMessage, NotMentioned} from '../../../Constants/UI/Messages';
 import {myShops} from '../../../GraphQL/Queries/PrivateShopQueries';
@@ -33,25 +33,13 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
     });
   };
 
-  const profileSkeleton = (
-    <View
-      style={{
-        paddingHorizontal: size.spacing.s,
-      }}>
-      <UserProfileCardSkeleton></UserProfileCardSkeleton>
-      <UserProfileCardSkeleton></UserProfileCardSkeleton>
-      <UserProfileCardSkeleton></UserProfileCardSkeleton>
-      <UserProfileCardSkeleton></UserProfileCardSkeleton>
-      <UserProfileCardSkeleton></UserProfileCardSkeleton>
-      <UserProfileCardSkeleton></UserProfileCardSkeleton>
-    </View>
-  );
+  if (loading && !data)
+    return <ListCardSkeleton numberOfList={7}></ListCardSkeleton>;
 
-  if (loading && !data) return profileSkeleton;
   if (error && !data)
     return (
       <AppText
-        title="Profiles"
+        title="Error"
         fontVariant="medium"
         fontSizeVariant="display"></AppText>
     );

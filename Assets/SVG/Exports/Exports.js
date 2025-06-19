@@ -18,7 +18,6 @@ import SearchIcon from '../SVGImages/SearchIcon';
 import LoginAvatar from '../SVGImages/LoginAvatar';
 import Shop1 from '../SVGImages/Shop1';
 import Shop2 from '../SVGImages/Shop2';
-import WelcomeShop from '../SVGImages/WelcomeShop';
 import InternetUnAvailable from '../SVGImages/InternetUnAvailable';
 import NoItemFound from '../SVGImages/NoItemFound';
 import ServerDown from '../SVGImages/ServerDown';
@@ -50,7 +49,6 @@ export const Logos = {
   SearchIcon,
   Shop1,
   Shop2,
-  WelcomeShop,
   InternetUnAvailable,
   NoItemFound,
   ServerDown,

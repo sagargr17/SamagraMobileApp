@@ -11,7 +11,7 @@ import {getPersonalItems} from '../../../GraphQL/Queries/ItemQueries';
 import {ApplicationOverlayStackNavigationProp} from '../../../Navigators/Stack/ApplicationOverlayStackNavigator';
 import {GetAuthenticateClient} from '../../../client/Graphql/AuthenticatedClient';
 import {UserProfileCard} from '../../../Components/Molecules/Cards/UserProfileCard';
-import {UserProfileCardSkeleton} from '../../../Components/Skeletons/UserProfileCardSkeleton';
+import {ListCardSkeleton} from '../../../Components/Skeletons/ListSkeleton';
 import {FlatListScreen} from '../../../Layout/ScreenLayout/FlatListScreenLayout';
 
 interface MyShopItemsScreenProps {}
@@ -42,15 +42,7 @@ export const MyShopItemsScreen: React.FC<MyShopItemsScreenProps> = ({}) => {
 
   console.log('DATA', data, loading, error);
 
-  if (loading)
-    return (
-      <>
-        <UserProfileCardSkeleton />
-        <UserProfileCardSkeleton />
-        <UserProfileCardSkeleton />
-        <UserProfileCardSkeleton />
-      </>
-    );
+  if (loading) return <ListCardSkeleton numberOfList={7}></ListCardSkeleton>;
 
   if (!error && !data) return <Text>Error</Text>;
 
@@ -89,7 +81,8 @@ export const MyShopItemsScreen: React.FC<MyShopItemsScreenProps> = ({}) => {
             item={{
               name: item?.name ? item.name : 'not found',
               price: item?.price ? item?.price : 'not found',
-              imageUrl:'https://img.freepik.com/free-vector/oops-404-error-with-broken-robot-concept-illustration_114360-5529.jpg?semt=ais_hybrid&w=740',
+              imageUrl:
+                'https://img.freepik.com/free-vector/oops-404-error-with-broken-robot-concept-illustration_114360-5529.jpg?semt=ais_hybrid&w=740',
               rating: item?.starRating ? item.starRating : 3,
               stocks: item && item.stockQuantity ? item?.stockQuantity : 10,
               shop: {

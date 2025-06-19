@@ -2,13 +2,13 @@ import {Dimensions} from 'react-native';
 
 interface InputScale {
   value: number;
-  scaleBy: 'width' | 'height' | 'average';
+  scaleBy?: 'width' | 'height' | 'average';
 }
 
 export function AreaMapper(input: InputScale): number {
   const screenWidth = Dimensions.get('window').width;
   const screenHeight = Dimensions.get('window').height;
-
+  input.scaleBy = input.scaleBy ?? 'average';
   const baseWidth = 393;
   const baseHeight = 852; //This is the height and wid
 
@@ -57,13 +57,19 @@ export const titleCase = (str: any) => {
   }
 };
 
-export const titleRange = (str: any, totalDisplayNumber: number = 15): string => {
+export const titleRange = (
+  str: any,
+  totalDisplayNumber: number = 15,
+): string => {
   if (typeof str !== 'string') {
     return titleCase('');
   }
 
   const ELLIPSIS = '...';
-  const effectiveTotalDisplayNumber = Math.max(totalDisplayNumber, ELLIPSIS.length);
+  const effectiveTotalDisplayNumber = Math.max(
+    totalDisplayNumber,
+    ELLIPSIS.length,
+  );
 
   if (str.length <= effectiveTotalDisplayNumber) {
     return titleCase(str);
@@ -72,7 +78,7 @@ export const titleRange = (str: any, totalDisplayNumber: number = 15): string =>
   const maxContentLength = effectiveTotalDisplayNumber - ELLIPSIS.length;
 
   if (maxContentLength <= 0) {
-      return titleCase(ELLIPSIS.substring(0, effectiveTotalDisplayNumber));
+    return titleCase(ELLIPSIS.substring(0, effectiveTotalDisplayNumber));
   }
 
   const words = str.split(' ');

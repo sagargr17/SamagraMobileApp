@@ -15,7 +15,7 @@ import {ProviderCardSkeleton} from '../../../Components/Skeletons/ProviderCardSk
 import {UserProfileCard} from '../../../Components/Molecules/Cards/UserProfileCard';
 import {ImageNotFound} from '../../../Constants/UI/AssetsUrls';
 import {size} from '../../../Prefrences/Prefrences';
-import {UserProfileCardSkeleton} from '../../../Components/Skeletons/UserProfileCardSkeleton';
+import {ListCardSkeleton} from '../../../Components/Skeletons/ListSkeleton';
 import {Spacer} from '../../../Components/Elements/Spacer';
 import {UserProfileLandingContainer} from '../../../Components/Organism/UserProfileLandingContainer';
 import {ShopProfileUserContainer} from '../../../Components/Organism/ShopProfileUserContainer';
@@ -47,7 +47,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
     return (
       <View
         style={{
-          marginTop: size.spacing.xxs
+          marginTop: size.spacing.xs,
         }}>
         <UserProfileCard
           onIconPress={handleNavigation}
@@ -85,14 +85,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
         <UserProfileLandingContainer></UserProfileLandingContainer>
       )}
       {/* App Button */}
-      <View
-        style={
-          {
-            // flex: 1,
-            // justifyContent: 'space-between',
-            // flexDirection: 'column',
-          }
-        }>
+      <View>
         <AppButton
           textColor={colors.text}
           onPress={userLogoutHandle}

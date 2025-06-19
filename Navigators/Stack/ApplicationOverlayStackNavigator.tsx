@@ -188,6 +188,9 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
           {
             screenName: 'CartScreen',
             component: CartScreen,
+            option: ({route}: {route: any}) => ({
+              title: titleCase('Cart'),
+            }),
           },
           {
             screenName: 'PlaceOrderScreen',
