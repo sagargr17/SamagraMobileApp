@@ -3,11 +3,15 @@ import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {SkeletonBone} from '../SkeletonBone';
 import {size} from '../../../Prefrences/Prefrences';
-interface CardVerticleListSkeletonProps {}
+interface CardVerticleListSkeletonProps {
+  height?: number;
+  width?: number;
+  listNumber?: number;
+}
 
 export const CardVerticleListSkeleton: React.FC<
   CardVerticleListSkeletonProps
-> = ({}) => {
+> = ({height = 180, width = 180, listNumber = 5}) => {
   const {colors} = useTheme();
 
   return (
@@ -18,13 +22,13 @@ export const CardVerticleListSkeleton: React.FC<
         flexWrap: 'wrap',
         marginLeft: 2,
       }}>
-      {Array(10)
+      {Array(listNumber)
         .fill(5)
         .map((_, index) => (
           <SkeletonBone
             key={index}
-            height={180}
-            width={180}
+            height={height}
+            width={width}
             style={{
               borderRadius: 20,
               marginRight: 11,

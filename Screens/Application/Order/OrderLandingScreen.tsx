@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text} from 'react-native-paper';
 
 import {MapView} from '@maplibre/maplibre-react-native';
@@ -14,11 +14,25 @@ interface OrderLandingScreenProps {
 }
 import Geolocation from '@react-native-community/geolocation';
 import {Spacer} from '../../../Components/Elements/Spacer';
+import {OrderLandingSkeleton} from '../../../Components/Skeletons/Layout/OrderLandingSkeleton';
 
 // MapLibreGL.setAccessToken(null);
 export const OrderLandingScreen: React.FC<OrderLandingScreenProps> = ({
   navigation,
 }) => {
+  const [loading, setLoading] = useState<boolean>(true);
+  
+    useEffect(() => {
+      console.log('Intervall is called');
+  
+      const timer = setTimeout(() => {
+        setLoading(!loading);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }, []);
+
+  if (loading) return <OrderLandingSkeleton></OrderLandingSkeleton>;
+
   return (
     <>
       <AppHeader currentPosition="absolute"></AppHeader>
