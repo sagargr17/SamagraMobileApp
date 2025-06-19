@@ -6,13 +6,20 @@ import {AppState, FlatList, Text} from 'react-native';
 import {ItemListtCard} from '../../../Components/Molecules/Cards/ItemListCard';
 import {SamagraLoader} from '../../../Components/Molecules/Response/SamagraLoader';
 import {SliderSwitcher} from '../../../Components/Organism/SliderSwitcher';
-import {ItemImageNotFound} from '../../../Constants/UI/AssetsUrls';
+import {
+  ImageNotFound,
+  ItemImageNotFound,
+} from '../../../Constants/UI/AssetsUrls';
 import {getPersonalItems} from '../../../GraphQL/Queries/ItemQueries';
 import {ApplicationOverlayStackNavigationProp} from '../../../Navigators/Stack/ApplicationOverlayStackNavigator';
 import {GetAuthenticateClient} from '../../../client/Graphql/AuthenticatedClient';
 import {UserProfileCard} from '../../../Components/Molecules/Cards/UserProfileCard';
 import {ListCardSkeleton} from '../../../Components/Skeletons/ListSkeleton';
 import {FlatListScreen} from '../../../Layout/ScreenLayout/FlatListScreenLayout';
+import {SingnlePageInfo} from '../../../Components/Organism/SinglePageInfo';
+import {Logos} from '../../../Assets/SVG/Exports/Exports';
+import {NoCartItemTitle, NoItemInShop} from '../../../Constants/UI/Messages';
+import {AreaMapper} from '../../../Utilities/CustomMethods';
 
 interface MyShopItemsScreenProps {}
 
@@ -70,170 +77,42 @@ export const MyShopItemsScreen: React.FC<MyShopItemsScreenProps> = ({}) => {
 
   // refetch();
 
+  const handleItem = () => {
+    navigation.navigate('AddItemScreen', {
+      shopId: 'laskjdlksajd',
+    });
+  };
+
+  const {NoItemFound} = Logos;
   return (
-    <>
-      <FlatListScreen
-        ListEmptyComponent={<Text>Empty Data</Text>}
-        data={data?.getItems?.nodes}
-        renderItem={({item, index}) => (
-          <ItemListtCard
-            key={index}
-            item={{
-              name: item?.name ? item.name : 'not found',
-              price: item?.price ? item?.price : 'not found',
-              imageUrl:
-                'https://img.freepik.com/free-vector/oops-404-error-with-broken-robot-concept-illustration_114360-5529.jpg?semt=ais_hybrid&w=740',
-              rating: item?.starRating ? item.starRating : 3,
-              stocks: item && item.stockQuantity ? item?.stockQuantity : 10,
-              shop: {
-                name:
-                  item?.shop && item.shop.name ? item.shop.name : 'not found',
-              },
-            }}></ItemListtCard>
-        )}></FlatListScreen>
-    </>
-    // <SliderSwitcher
-    //   popupIcon="camera"
-    //   popupButtonName="Add Item"
-    //   popupButtonPressed={() =>
-    //     navigation.navigate('AddItemScreen', {
-    //       shopName: 'Hamro SHop',
-    //     })
-    //   }>
-    //   <View key="All">
-    //     <>
-    //       {data && data.getItems && data.getItems.nodes ? (
-    //         data.getItems.nodes?.length > 0 ? (
-    //           <>
-    //             <FlatList
-    //               showsVerticalScrollIndicator={false}
-    //               // onScrollEndDrag={() => {
-    //               //   data.getItems?.pageInfo.hasNextPage
-    //               //     ? fetchMore({
-    //               //         variables: {
-    //               //           after: data.getItems.pageInfo.endCursor,
-    //               //         },
-    //               //       })
-    //               //     : null;
-    //               // }}
-    //               data={data.getItems.nodes}
-    //               renderItem={({item, index}) => (
-    //
-    //               )}></FlatList>
-    //             {/* {y ?? <ActivityIndicator></ActivityIndicator>} */}
-    //           </>
-    //         ) : (
-    //           <>
-    //             <Text>No Any Item Founds</Text>
-    //           </>
-    //         )
-    //       ) : (
-    //         <View
-    //           style={{
-    //             flexDirection: 'column',
-    //             alignItems: 'center',
-    //             marginTop: 200,
-    //           }}>
-    //           <SamagraLoader />
-    //         </View>
-    //       )}
-    //     </>
-    //   </View>
-    //   <View key="Stocks">
-    //     <>
-    //       {data && data.getItems && data.getItems.nodes ? (
-    //         data.getItems.nodes?.length > 0 ? (
-    //           <>
-    //             <FlatList
-    //               showsVerticalScrollIndicator={false}
-    //               // onScrollEndDrag={() => {
-    //               //   data.getItems?.pageInfo.hasNextPage
-    //               //     ? fetchMore({
-    //               //         variables: {
-    //               //           after: data.getItems.pageInfo.endCursor,
-    //               //         },
-    //               //       })
-    //               //     : null;
-    //               // }}
-    //               data={data.getItems.nodes}
-    //               renderItem={({item, index}) => (
-    //                 <ItemListtCard
-    //                   key={index}
-    //                   item={{
-    //                     name: item?.name ? item.name : 'not found',
-    //                     price: item?.price ? item?.price : 'not found',
-    //                     imageUrl:
-    //                       'https://img.freepik.com/free-vector/oops-404-error-with-broken-robot-concept-illustration_114360-5529.jpg?semt=ais_hybrid&w=740',
-    //                     rating: item?.starRating ? item.starRating : 3,
-    //                     stocks:
-    //                       item && item.stockQuantity ? item?.stockQuantity : 10,
-    //                     shop: {
-    //                       name:
-    //                         item?.shop && item.shop.name
-    //                           ? item.shop.name
-    //                           : 'not found',
-    //                     },
-    //                   }}></ItemListtCard>
-    //               )}></FlatList>
-    //             {/* {y ?? <ActivityIndicator />} */}
-    //           </>
-    //         ) : (
-    //           <>
-    //             <Text>No Any Item Founds</Text>
-    //           </>
-    //         )
-    //       ) : (
-    //         <SamagraLoader />
-    //       )}
-    //     </>
-    //   </View>
-    //   <View key="Orders">
-    //     <>
-    //       {data && data.getItems && data.getItems.nodes ? (
-    //         data.getItems.nodes?.length > 0 ? (
-    //           <>
-    //             <FlatList
-    //               showsVerticalScrollIndicator={false}
-    //               // onScrollEndDrag={() => {
-    //               //   data.getItems?.pageInfo.hasNextPage
-    //               //     ? fetchMore({
-    //               //         variables: {
-    //               //           after: data.getItems.pageInfo.endCursor,
-    //               //         },
-    //               //       })
-    //               //     : null;
-    //               // }}
-    //               data={data.getItems.nodes}
-    //               renderItem={({item, index}) => (
-    //                 <ItemListtCard
-    //                   key={index}
-    //                   item={{
-    //                     name: item?.name ? item.name : 'not found',
-    //                     price: item?.price ? item?.price : 'not found',
-    //                     imageUrl: ItemImageNotFound,
-    //                     rating: item?.starRating ? item.starRating : 3,
-    //                     stocks:
-    //                       item && item.stockQuantity ? item?.stockQuantity : 10,
-    //                     shop: {
-    //                       name:
-    //                         item?.shop && item.shop.name
-    //                           ? item.shop.name
-    //                           : 'not found',
-    //                     },
-    //                   }}></ItemListtCard>
-    //               )}></FlatList>
-    //             {/* {y ?? <ActivityIndicator />} */}
-    //           </>
-    //         ) : (
-    //           <>
-    //             <Text>No Any Item Founds</Text>
-    //           </>
-    //         )
-    //       ) : (
-    //         <SamagraLoader />
-    //       )}
-    //     </>
-    //   </View>
-    // </SliderSwitcher>
+    <FlatListScreen
+      contentContainerStyle={{
+        flex: 1,
+      }}
+      ListEmptyComponent={
+        <SingnlePageInfo
+          icon={<NoItemFound height={AreaMapper({value: 150})} width={'90%'} />}
+          detail={{
+            title: NoCartItemTitle,
+            message: NoItemInShop,
+            onButtonPress: () => console.log('>>>'),
+            buttonTitle: 'Add Item',
+          }}></SingnlePageInfo>
+      }
+      data={data?.getItems?.nodes}
+      renderItem={({item, index}) => (
+        <ItemListtCard
+          key={index}
+          item={{
+            name: item?.name ? item.name : 'not found',
+            price: item?.price ? item?.price : 'not found',
+            imageUrl: ImageNotFound,
+            rating: item?.starRating ? item.starRating : 3,
+            stocks: item && item.stockQuantity ? item?.stockQuantity : 10,
+            shop: {
+              name: item?.shop && item.shop.name ? item.shop.name : 'not found',
+            },
+          }}></ItemListtCard>
+      )}></FlatListScreen>
   );
 };

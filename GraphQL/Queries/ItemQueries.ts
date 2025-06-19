@@ -86,6 +86,7 @@ query GetPersonalItems {
       starRating
       stockQuantity
       shop {
+        id
         name
       }
     }

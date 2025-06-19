@@ -5,6 +5,7 @@ import {Swing, Chase} from 'react-native-animated-spinkit';
 import {AreaMapper} from '../../../Utilities/CustomMethods';
 import {AppText} from '../../Elements/AppText';
 import {size} from '../../../Prefrences/Prefrences';
+import {ColumnFlexScreenlayout} from '../../../Layout/ScreenLayout/ColumnFlexScreenLayout';
 
 interface SamagraLoaderProps {}
 
@@ -12,25 +13,8 @@ export const SamagraLoader: React.FC<SamagraLoaderProps> = ({}) => {
   const {colors} = useTheme();
 
   return (
-    <View
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'column',
-        backgroundColor: '#f7f7f7',
-        flex: 1,
-      }}>
-      <Chase
-        color={colors.primary}
-        size={size.iconSize.xlarge}></Chase>
-      <AppText
-        customStyle={{
-          marginTop: size.spacing.xxs,
-        }}
-        title="Loading.."
-        fontSizeVariant={'regular'}
-        fontVariant="regular"></AppText>
-    </View>
+    <ColumnFlexScreenlayout>
+      <Chase color={colors.primary} size={size.iconSize.xlarge}></Chase>
+    </ColumnFlexScreenlayout>
   );
 };

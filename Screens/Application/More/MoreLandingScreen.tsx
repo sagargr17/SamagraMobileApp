@@ -1,27 +1,16 @@
-import React, {useEffect} from 'react';
-import {ScrollView, TouchableOpacity, View} from 'react-native';
-import {clearTokens} from '../../../client/Token/TokenAccess';
-import FastImage from '@d11/react-native-fast-image';
-import {useNavigation, useTheme} from '@react-navigation/native';
+import { useNavigation, useTheme } from '@react-navigation/native';
+import React from 'react';
+import { ScrollView, View } from 'react-native';
+import { clearTokens } from '../../../client/Token/TokenAccess';
 import AppButton from '../../../Components/Elements/Button';
-import {AppText} from '../../../Components/Elements/AppText';
-import {BubbleCard} from '../../../Components/Molecules/Cards/BubbleCard';
-import {AreaMapper} from '../../../Utilities/CustomMethods';
-import {useAppDispatch, useAppSelector} from '../../../StateManagement/hooks';
-import {useLazyQuery, useQuery} from '@apollo/client';
-import {getLoginUser} from '../../../GraphQL/Queries/UserQueries';
-import {ActivityIndicator} from 'react-native-paper';
-import {ProviderCardSkeleton} from '../../../Components/Skeletons/ProviderCardSkeleton';
-import {UserProfileCard} from '../../../Components/Molecules/Cards/UserProfileCard';
-import {ImageNotFound} from '../../../Constants/UI/AssetsUrls';
-import {size} from '../../../Prefrences/Prefrences';
-import {ListCardSkeleton} from '../../../Components/Skeletons/ListSkeleton';
-import {Spacer} from '../../../Components/Elements/Spacer';
-import {UserProfileLandingContainer} from '../../../Components/Organism/UserProfileLandingContainer';
-import {ShopProfileUserContainer} from '../../../Components/Organism/ShopProfileUserContainer';
-import useGraphQLQuery from '../../../CustomHooks/useQueryEffect';
-import {login} from '../../../StateManagement/User/UserSlice';
-import {NotMentioned} from '../../../Constants/UI/Messages';
+import { Spacer } from '../../../Components/Elements/Spacer';
+import { UserProfileCard } from '../../../Components/Molecules/Cards/UserProfileCard';
+import { ShopProfileUserContainer } from '../../../Components/Organism/ShopProfileUserContainer';
+import { UserProfileLandingContainer } from '../../../Components/Organism/UserProfileLandingContainer';
+import { ImageNotFound } from '../../../Constants/UI/AssetsUrls';
+import { NotMentioned } from '../../../Constants/UI/Messages';
+import { size } from '../../../Prefrences/Prefrences';
+import { useAppSelector } from '../../../StateManagement/hooks';
 
 interface MoreLandingScreenProps {}
 

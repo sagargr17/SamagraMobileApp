@@ -36,6 +36,12 @@ import {AreaMapper} from './Utilities/CustomMethods';
 import {getSubscribedData} from './GraphQL/Subscription/Subscription';
 import {onDisplayNotification} from './Screens/Application/ReceivedOrdersListScreen';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {
+  NoInternetFound,
+  NoInternetFoundMessage,
+  ServerErrorMessage,
+  ServerErrorTitle,
+} from './Constants/UI/Messages';
 
 // MAin Fuction To Token Refresh Handle
 const isTokennExpireHandle = async () => {
@@ -211,7 +217,6 @@ function App(): React.JSX.Element {
   }, []);
 
   // Create a channel (required for Android)
-
   return (
     <GestureHandlerRootView
       style={{
@@ -237,13 +242,12 @@ function App(): React.JSX.Element {
                   <ServerDown
                     height={AreaMapper({
                       value: 250,
-                      scaleBy: 'average',
                     })}
                     width="80%"></ServerDown>
                 }
                 detail={{
-                  title:
-                    "We're sorry, the server is down for maintenance. We'll be back online soon.",
+                  title: ServerErrorTitle,
+                  message: ServerErrorMessage,
                   onButtonPress: () => setServerError(!serverError),
                   buttonTitle: 'Try Again',
                 }}></SingnlePageInfo>
@@ -267,7 +271,8 @@ function App(): React.JSX.Element {
                   width="80%"></InternetUnAvailable>
               }
               detail={{
-                title: 'Please Check Your Internet and Try again !',
+                title: NoInternetFound,
+                message: NoInternetFoundMessage,
                 onButtonPress: () => setServerError(!serverError),
                 buttonTitle: 'Try Again',
               }}></SingnlePageInfo>

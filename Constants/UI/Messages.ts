@@ -13,9 +13,16 @@ export const AddItemPhotoMessage =
 export const SuccessAddItemMessage = 'Item Added Successfully';
 export const SuccessAddItemMessageDescription = 'Item Added Successfully';
 
+// System Error
+export const ServerErrorTitle = 'Server Error';
+export const ServerErrorMessage =
+  "We're sorry, the server is down for maintenance. We'll be back online soon.";
+export const NoInternetFound = 'No Internet';
+export const NoInternetFoundMessage =
+  'Please Check Your Internet and try again';
 
+// Empty
 
-export const NoCartItemTitle =
-  'No Any Items Found !';
-export const NoCartItemMessage =
-  'No Any Items Found in your cart, search Items !! ';
+export const NoCartItemTitle = 'No Any Items Found !';
+export const NoCartItemMessage ='No Any Items Found in your cart, search Items !! ';
+export const NoItemInShop = 'No Any Item found in the Shop!!';
