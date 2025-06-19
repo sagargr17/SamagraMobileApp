@@ -95,7 +95,7 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
       detail={{
         title: NoCartItemTitle,
         message: NoCartItemMessage,
-        onButtonPress: () => console.log('>>>'),
+        onButtonPress: () => navigation.goBack(),
         buttonTitle: 'Shop Again !!',
       }}></SingnlePageInfo>
   );

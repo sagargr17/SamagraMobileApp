@@ -54,7 +54,7 @@ export const UserProfileLandingContainer: React.FC<
   // Column Navigation
   const columnDetailsList = [
     {
-      title: 'Quick Access',
+      title: 'Services',
       iconName: 'basket-unfill',
       onPress: () => {
         navigation.navigate('ApplicationOverlay', {
