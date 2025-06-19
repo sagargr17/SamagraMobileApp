@@ -6,17 +6,22 @@ import {showMessage} from 'react-native-flash-message';
 import {AppForm} from '../../Components/Organism/AppForm';
 import {ImageUploader} from '../../Components/Organism/ImageUploader';
 import {ImageNotFound} from '../../Constants/UI/AssetsUrls';
-import {NotMentioned} from '../../Constants/UI/Messages';
+import {
+  NotMentioned,
+  SuccessAddItemMessage,
+  SuccessAddItemMessageDescription,
+} from '../../Constants/UI/Messages';
 import {createNewProduct} from '../../GraphQL/Mutation/ItemMutation';
-import {size} from '../../Prefrences/Prefrences';
+import {responseTheme, size} from '../../Prefrences/Prefrences';
 import {CreateProductInputViewModelInput} from '../../src/__generated__/graphql';
 import {hideLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
-import {useAppDispatch} from '../../StateManagement/hooks';
+import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import {FlatListScreen} from '../../Layout/ScreenLayout/FlatListScreenLayout';
 import {AppText} from '../../Components/Elements/AppText';
 import {Divider} from 'react-native-paper';
 import {Spacer} from '../../Components/Elements/Spacer';
+import {resetGenericPassword} from 'react-native-keychain';
 
 interface AddItemScreenProps {}
 
@@ -28,54 +33,47 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
     {data: mutateData, loading: mutateLoading, error: mutateError},
   ] = useMutation(createNewProduct);
   const dispatch = useAppDispatch();
+  const shopID = useAppSelector(state => state.user.shopData?.shopId);
+
+  console.log('DATA,', mutateData, mutateLoading, mutateError);
+
+  // SHopIDDD
+  console.log('SHopID', shopID);
 
   const handleCreateItemSubmit = async (
     data: CreateProductInputViewModelInput,
   ) => {
-    if (data)
+    console.log('Pressed', data, shopID);
+
+    if (data && shopID)
       try {
         let response = await createNewItemFn({
           variables: {
             name: data.name ? data.name : NotMentioned,
-            shopId: '4f227bb5-c411-452f-b745-0678eb9c9580',
+            shopId: shopID,
             price: Number(data.price ? data.price : NotMentioned),
             description: data.description ? data.description : NotMentioned,
             unit: data.unit ? data.unit : NotMentioned,
             stockQuantity: Number(data.stockQuantity),
-            imageUrls: ImageNotFound,
+            imageUrls: [ImageNotFound],
             location: data.location ? data.location : NotMentioned,
             categoryId: '1',
           },
         });
 
-        console.log('Response Error', response);
-
         if (response.data) {
-          dispatch(hideLoader());
-
-          showMessage({
-            message: 'Item Added Successfully',
-            description: 'New Shop Has been Created Please visit It.',
-
-            type: 'success',
-            textStyle: {
-              fontFamily: fonts.regular.fontFamily,
-              fontWeight: 'regular',
-              fontSize: AreaMapper({
-                value: 14,
-                scaleBy: 'average',
-              }),
-            },
-            statusBarHeight: AreaMapper({
-              value: 15,
-              scaleBy: 'average',
-            }),
-          });
+          showMessage(
+            responseTheme(
+              SuccessAddItemMessage,
+              SuccessAddItemMessageDescription,
+              'success',
+            ),
+          );
         }
         if (response.errors) {
           dispatch(hideLoader());
           showMessage({
-            message: 'Opps, Something Went Wrong!',
+            message: `${response.errors[0].message}`,
             type: 'danger',
             description: 'Please , try after sometimes',
             textStyle: {
@@ -113,11 +111,6 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
         });
       }
   };
-
-  const Form = ()=>{
-    
-  }
-
 
   return (
     <FlatListScreen
@@ -236,9 +229,11 @@ const styles = StyleSheet.create({
     borderWidth: size.borderWidth.s,
     borderStyle: 'dashed',
     borderColor: '#D1DBE8',
-    marginVertical:size.spacing.s,
-    padding:size.spacing.xxs,
-    borderRadius:size.borderRadius.m,
-    paddingBottom:size.spacing.m
+    marginVertical: size.spacing.s,
+    padding: size.spacing.xxs,
+    borderRadius: size.borderRadius.m,
+    paddingBottom: size.spacing.m,
+    flex: 1,
+    flexDirection: 'column',
   },
 });

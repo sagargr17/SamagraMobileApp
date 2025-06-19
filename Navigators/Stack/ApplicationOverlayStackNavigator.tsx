@@ -188,10 +188,6 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
           {
             screenName: 'CartScreen',
             component: CartScreen,
-
-            option: {
-              header: () => null,
-            },
           },
           {
             screenName: 'PlaceOrderScreen',

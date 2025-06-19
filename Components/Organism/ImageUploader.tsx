@@ -6,7 +6,7 @@ import React, {useRef, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {ActivityIndicator, IconButton} from 'react-native-paper';
 import {Camera} from 'react-native-vision-camera';
-import {AddItemMessage} from '../../Constants/UI/Messages';
+import {AddItemPhotoMessage} from '../../Constants/UI/Messages';
 import {size} from '../../Prefrences/Prefrences';
 import {useAppSelector} from '../../StateManagement/hooks';
 import {AreaMapper} from '../../Utilities/CustomMethods';
@@ -121,7 +121,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({}) => {
             customStyle={{
               textAlign: 'center',
             }}
-            title={AddItemMessage}></AppText>
+            title={AddItemPhotoMessage}></AppText>
           <AppButton
             onPressIn={() => setImageLoading(!imageLoading)}
             onPress={imageFromGallery}

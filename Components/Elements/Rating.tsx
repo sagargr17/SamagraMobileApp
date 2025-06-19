@@ -24,17 +24,13 @@ export const Rating: React.FC<RatingProps> = ({
         alignItems: 'center',
         height: 24,
         justifyContent: 'flex-start',
+        paddingHorizontal: size.spacing.xxs,
+
       }}>
-      <IconButton
-        icon="star"
-        size={size.iconSize.small+4}
-        style={{
-          marginRight: 0,
-          paddingRight: 0,
-          left: 5,
-        }}
-        iconColor={'#FFA902'}
-      />
+      <Icon
+        source={'star'}
+        size={size.iconSize.medium-2}
+        color={'#FFB401'}></Icon>
       <AppText
         fontSizeVariant={'regular'}
         customStyle={textStyle}

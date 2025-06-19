@@ -1,5 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {ImageNotFound} from '../../Constants/UI/AssetsUrls';
+import { titleRange } from '../../Utilities/CustomMethods';
 
 interface User {
   username: string;
@@ -31,7 +32,7 @@ const initialState: UserState = {
     username: 'SamagraUser',
     pofileImageUrl: ImageNotFound,
     email: 'sagar@gmail.com',
-    location: 'Butwal',
+    location: titleRange('Kathmanndu,Bagmati Nepal'),
   },
   isAuthenticated: 'loading',
   isShopActive: false,

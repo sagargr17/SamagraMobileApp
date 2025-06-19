@@ -88,11 +88,12 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
             customStyle={{
               backgroundColor: 'gray',
               color: colors.background,
+              paddingHorizontal:size.spacing.xxs
             }}
             fontSizeVariant={'regular'}
             title={titleCase('423 Sold')}
             fontVariant="regular"></AppText>
-          <Rating></Rating>
+          <Rating ></Rating>
         </View>
         <Spacer height={8}></Spacer>
         <View>
@@ -178,7 +179,7 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
                   ?.filter((url): url is string => url !== null)
                   .map(url => ({url: url})) ?? [
                   {
-                    uri: 'https://img.freepik.com/free-vector/oops-404-error-with-broken-robot-concept-illustration_114360-5529.jpg?semt=ais_hybrid&w=740',
+                    url: 'https://img.freepik.com/free-vector/oops-404-error-with-broken-robot-concept-illustration_114360-5529.jpg?semt=ais_hybrid&w=740',
                   },
                 ]
               }></ImageSliderModal>

@@ -37,7 +37,7 @@ export const ShopProfileUserContainer: React.FC<
           },
         },
         {
-          title: ' Activity',
+          title: 'Items',
           iconName: 'chart-bar-stacked',
           onPress: () => {
             console.log('Presed');
@@ -46,7 +46,7 @@ export const ShopProfileUserContainer: React.FC<
       ],
       secondRow: [
         {
-          title: 'Favourite',
+          title: 'Pending',
           iconName: 'heart-outline',
           onPress: () => {
             console.log('Presed');
@@ -54,7 +54,7 @@ export const ShopProfileUserContainer: React.FC<
         },
 
         {
-          title: 'Recent',
+          title: "Stocks",
           iconName: 'view-comfy',
           onPress: () => {},
         },
@@ -77,14 +77,14 @@ export const ShopProfileUserContainer: React.FC<
       },
     },
     {
-      title: 'Edit',
+      title: 'Edit Shop',
       icon: <PenIcon height={iconSize} width={iconSize}></PenIcon>,
       onPress: () => {
         console.log('Presed');
       },
     },
     {
-      title: 'Stock',
+      title: 'Stocks',
       icon: <StockIcon height={iconSize} width={iconSize}></StockIcon>,
       onPress: () => {
         console.log('Presed');

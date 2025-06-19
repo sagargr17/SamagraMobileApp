@@ -6,6 +6,7 @@ import {Icon, Surface, Text, TouchableRipple} from 'react-native-paper';
 import {StyleSheet} from 'react-native';
 import {AreaMapper, titleCase} from '../../../Utilities/CustomMethods';
 import {AppText} from '../../Elements/AppText';
+import {Rating} from '../../Elements/Rating';
 
 interface ItemListCardProps {
   item: {
@@ -57,19 +58,14 @@ export const ItemListtCard: React.FC<ItemListCardProps> = ({item}) => {
               style={{
                 display: 'flex',
               }}>
-              <View style={styles.ratingContainer}>
-                <Icon source="star" size={16} color={colors.notification} />
-                <Text style={[styles.ratingText, {color: colors.text}]}>
-                  {item.rating.toFixed(1)}
-                </Text>
-              </View>
-              <AppText
+              <Rating  ratingNumber={item.rating}></Rating>
+              {/* <AppText
                 customStyle={{
                   color: '#6cad8b',
                 }}
                 fontSizeVariant={'regular'}
                 fontVariant="regular"
-                title={titleCase(item.shop.name)}></AppText>
+                title={titleCase(item.shop.name)}></AppText> */}
               {!item.stocks ? (
                 <AppText
                   customStyle={{
@@ -100,7 +96,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     borderRadius: 8,
-    marginVertical: 8,
+    marginVertical: 2,
     marginHorizontal: 8,
     overflow: 'hidden',
   },

@@ -98,7 +98,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
           onPress={userLogoutHandle}
           style={{
             backgroundColor: '#C0C0C0',
-            marginTop: size.spacing.m,
+            // marginTop: size.spacing.xxl,
             marginBottom: size.spacing.s,
           }}>
           Logout

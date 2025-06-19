@@ -10,6 +10,9 @@ import {ItemImageNotFound} from '../../../Constants/UI/AssetsUrls';
 import {getPersonalItems} from '../../../GraphQL/Queries/ItemQueries';
 import {ApplicationOverlayStackNavigationProp} from '../../../Navigators/Stack/ApplicationOverlayStackNavigator';
 import {GetAuthenticateClient} from '../../../client/Graphql/AuthenticatedClient';
+import {UserProfileCard} from '../../../Components/Molecules/Cards/UserProfileCard';
+import {UserProfileCardSkeleton} from '../../../Components/Skeletons/UserProfileCardSkeleton';
+import {FlatListScreen} from '../../../Layout/ScreenLayout/FlatListScreenLayout';
 
 interface MyShopItemsScreenProps {}
 
@@ -21,26 +24,35 @@ export const MyShopItemsScreen: React.FC<MyShopItemsScreenProps> = ({}) => {
   const {data, loading, error, refetch} = useQuery(getPersonalItems);
 
   // const [data, setData] = useState<any>();
-  const authenticateClient = GetAuthenticateClient;
+  // const authenticateClient = GetAuthenticateClient;
 
-  useEffect(() => {
-    // refetch();
-    let query = async () => {
+  // useEffect(() => {
+  //   // refetch();
+  //   let query = async () => {
 
-      authenticateClient
-        .query({
-          query: getPersonalItems,
-        })
-        .then(x => console.log('Thenn', x));
-    };
+  //     authenticateClient
+  //       .query({
+  //         query: getPersonalItems,
+  //       })
+  //       .then(x => console.log('Thenn', x));
+  //   };
 
-    query();
-  }, []);
+  //   query();
+  // }, []);
 
-  console.log('MyShop Data', data, loading, error);
+  console.log('DATA', data, loading, error);
 
-  // if (loading) return <SamagraLoader></SamagraLoader>;
-  // if (!error && !data) return <Text>Error</Text>;
+  if (loading)
+    return (
+      <>
+        <UserProfileCardSkeleton />
+        <UserProfileCardSkeleton />
+        <UserProfileCardSkeleton />
+        <UserProfileCardSkeleton />
+      </>
+    );
+
+  if (!error && !data) return <Text>Error</Text>;
 
   // refetch();
   // const appState = useRef(AppState.currentState);
@@ -67,7 +79,26 @@ export const MyShopItemsScreen: React.FC<MyShopItemsScreenProps> = ({}) => {
   // refetch();
 
   return (
-    <></>
+    <>
+      <FlatListScreen
+        ListEmptyComponent={<Text>Empty Data</Text>}
+        data={data?.getItems?.nodes}
+        renderItem={({item, index}) => (
+          <ItemListtCard
+            key={index}
+            item={{
+              name: item?.name ? item.name : 'not found',
+              price: item?.price ? item?.price : 'not found',
+              imageUrl:'https://img.freepik.com/free-vector/oops-404-error-with-broken-robot-concept-illustration_114360-5529.jpg?semt=ais_hybrid&w=740',
+              rating: item?.starRating ? item.starRating : 3,
+              stocks: item && item.stockQuantity ? item?.stockQuantity : 10,
+              shop: {
+                name:
+                  item?.shop && item.shop.name ? item.shop.name : 'not found',
+              },
+            }}></ItemListtCard>
+        )}></FlatListScreen>
+    </>
     // <SliderSwitcher
     //   popupIcon="camera"
     //   popupButtonName="Add Item"
@@ -94,21 +125,7 @@ export const MyShopItemsScreen: React.FC<MyShopItemsScreenProps> = ({}) => {
     //               // }}
     //               data={data.getItems.nodes}
     //               renderItem={({item, index}) => (
-    //                 <ItemListtCard
-    //                   key={index}
-    //                   item={{
-    //                     name: item?.name ? item.name : 'not found',
-    //                     price: item?.price ? item?.price : 'not found',
-    //                     imageUrl:
-    //                       'https://img.freepik.com/free-vector/oops-404-error-with-broken-robot-concept-illustration_114360-5529.jpg?semt=ais_hybrid&w=740',
-    //                     rating: item?.starRating ? item.starRating : 3,
-    //                     shop: {
-    //                       name:
-    //                         item?.shop && item.shop.name
-    //                           ? item.shop.name
-    //                           : 'not found',
-    //                     },
-    //                   }}></ItemListtCard>
+    //
     //               )}></FlatList>
     //             {/* {y ?? <ActivityIndicator></ActivityIndicator>} */}
     //           </>

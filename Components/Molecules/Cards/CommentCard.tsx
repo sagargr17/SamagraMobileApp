@@ -56,10 +56,7 @@ export const CommentCard: React.FC<CommentCardProps> = ({
         {isReplyCommentVisible ? (
           <Input
             onBlur={() => setIsReplyCommentVisible(!isReplyCommentVisible)}
-            placeholderTextColor={'gray'}
-            outlineStyle={{
-              borderWidth: 0.4,
-            }}
+            // placeholderTextColor={'gray'}
             height={40}
             placeholder="Reply....."
             right={
