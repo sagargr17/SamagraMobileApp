@@ -7,10 +7,7 @@ import {AppText} from '../../../Components/Elements/AppText';
 import {UserProfileCard} from '../../../Components/Molecules/Cards/UserProfileCard';
 import {UserProfileCardSkeleton} from '../../../Components/Skeletons/UserProfileCardSkeleton';
 import {ImageNotFound} from '../../../Constants/UI/AssetsUrls';
-import {
-  EmptyMessage,
-  NotMentioned,
-} from '../../../Constants/UI/Messages';
+import {EmptyMessage, NotMentioned} from '../../../Constants/UI/Messages';
 import {myShops} from '../../../GraphQL/Queries/PrivateShopQueries';
 import {size} from '../../../Prefrences/Prefrences';
 import {useAppDispatch, useAppSelector} from '../../../StateManagement/hooks';
@@ -41,7 +38,6 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
       style={{
         paddingHorizontal: size.spacing.s,
       }}>
-      <UserProfileCardSkeleton></UserProfileCardSkeleton>
       <UserProfileCardSkeleton></UserProfileCardSkeleton>
       <UserProfileCardSkeleton></UserProfileCardSkeleton>
       <UserProfileCardSkeleton></UserProfileCardSkeleton>

@@ -45,12 +45,17 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
   // This is the Header of the User Container Handler
   const headerUserProfileCard = (userName: string, profileImageUrl: string) => {
     return (
-      <UserProfileCard
-        onIconPress={handleNavigation}
-        user={{
-          username: userName,
-          profileImageUrl: profileImageUrl,
-        }}></UserProfileCard>
+      <View
+        style={{
+          marginTop: size.spacing.xxs
+        }}>
+        <UserProfileCard
+          onIconPress={handleNavigation}
+          user={{
+            username: userName,
+            profileImageUrl: profileImageUrl,
+          }}></UserProfileCard>
+      </View>
     );
   };
 
@@ -81,18 +86,20 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
       )}
       {/* App Button */}
       <View
-        style={{
-          // flex: 1,
-          // justifyContent: 'space-between',
-          // flexDirection: 'column',
-        }}>
+        style={
+          {
+            // flex: 1,
+            // justifyContent: 'space-between',
+            // flexDirection: 'column',
+          }
+        }>
         <AppButton
           textColor={colors.text}
           onPress={userLogoutHandle}
           style={{
             backgroundColor: '#C0C0C0',
-            marginTop: size.spacing.xxl+80,
-            // marginBottom: size.spacing.s,
+            marginTop: size.spacing.m,
+            marginBottom: size.spacing.s,
           }}>
           Logout
         </AppButton>

@@ -6,11 +6,13 @@ import LinearGradient from 'react-native-linear-gradient';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import {size} from '../../Prefrences/Prefrences';
 
-interface UserProviderCardSkeletonProps {}
+interface UserProviderCardSkeletonProps {
+  isElevated?: boolean;
+}
 
 export const UserProfileCardSkeleton: React.FC<
   UserProviderCardSkeletonProps
-> = ({}) => {
+> = ({isElevated = false}) => {
   const {colors} = useTheme();
   const CustomGradientShimmer = createGradientShimmer({
     backgroundColor: 'rgb(227, 225, 225)',
@@ -28,7 +30,7 @@ export const UserProfileCardSkeleton: React.FC<
           marginBottom: size.spacing.xs,
           padding: size.spacing.xxs,
         },
-        size.elevation.l,
+        isElevated ? size.elevation.l : null,
       ]}>
       <View style={ProviderCardSkeletonStyle.dataContainer}>
         <CustomGradientShimmer
