@@ -75,19 +75,17 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
       )}
       {/* App Button */}
       <View>
-        <AppButton
+
+        {/* <AppButton
           textColor={colors.text}
           onPress={userLogoutHandle}
           style={{
             backgroundColor: '#C0C0C0',
-            // marginTop: size.spacing.xxl,
             marginBottom: size.spacing.s,
-            borderRadius: 0,
-            // position: 'absolute',
-            // bottom: 0,
+            borderRadius:size.spacing.s
           }}>
           Logout
-        </AppButton>
+        </AppButton> */}
       </View>
     </ScrollView>
   );

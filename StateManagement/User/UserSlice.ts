@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {ImageNotFound} from '../../Constants/UI/AssetsUrls';
-import { titleRange } from '../../Utilities/CustomMethods';
+import {titleRange} from '../../Utilities/CustomMethods';
 
 interface User {
   username: string;
@@ -39,7 +39,7 @@ const initialState: UserState = {
   shopData: {
     shopId: '',
     name: 'Samagra Shop',
-    location: 'Butwal',
+    location: 'kathmanndu,Bagmati  Nepal',
   },
 };
 

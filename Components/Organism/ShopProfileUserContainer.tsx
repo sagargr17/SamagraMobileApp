@@ -8,13 +8,15 @@ import {BubbleCard} from '../Molecules/Cards/BubbleCard';
 import {AppText} from '../Elements/AppText';
 import {StyleSheet, View} from 'react-native';
 import {Spacer} from '../Elements/Spacer';
-import {TouchableRipple} from 'react-native-paper';
+import {Icon, TouchableRipple} from 'react-native-paper';
 import {
   AddItemScreenRouteProp,
   ApplicationOverlayStackNavigationProp,
 } from '../../Navigators/Stack/ApplicationOverlayStackNavigator';
 import {State} from 'react-native-gesture-handler';
 import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
+import {clearTokens} from '../../client/Token/TokenAccess';
+import AppButton from '../Elements/Button';
 
 interface ShopProfileUserContainerProps {
   shopId: string;
@@ -101,7 +103,12 @@ export const ShopProfileUserContainer: React.FC<
     },
     {
       title: 'Delete Shop',
-      icon: <DustbinIcon height={iconSize} width={iconSize}></DustbinIcon>,
+      icon: (
+        <DustbinIcon
+          height={iconSize}
+          width={iconSize}
+          color="red"></DustbinIcon>
+      ),
       onPress: () => {
         console.log('Presed');
       },

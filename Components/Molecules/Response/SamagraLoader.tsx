@@ -14,7 +14,7 @@ export const SamagraLoader: React.FC<SamagraLoaderProps> = ({}) => {
 
   return (
     <ColumnFlexScreenlayout>
-      <Chase color={colors.primary} size={size.iconSize.xlarge}></Chase>
+      <Chase color={colors.primary} size={size.iconSize.large}></Chase>
     </ColumnFlexScreenlayout>
   );
 };

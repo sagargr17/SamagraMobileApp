@@ -2,12 +2,16 @@ import React from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import {BubbleCard} from '../Molecules/Cards/BubbleCard';
+import AppButton from '../Elements/Button';
+import {size} from '../../Prefrences/Prefrences';
+import {clearTokens} from '../../client/Token/TokenAccess';
 interface UserProfileMoreScreenProps {}
 
 export const UserProfileLandingContainer: React.FC<
   UserProfileMoreScreenProps
 > = ({}) => {
   const navigation = useNavigation<any>();
+  const userLogoutHandle = () => clearTokens();
 
   // Flex Container
   const flexDetailsItems = [
@@ -55,7 +59,7 @@ export const UserProfileLandingContainer: React.FC<
   const columnDetailsList = [
     {
       title: 'Services',
-      iconName: 'basket-unfill',
+      iconName: 'account-hard-hat',
       onPress: () => {
         navigation.navigate('ApplicationOverlay', {
           screen: 'MyShopItemsScreen',
@@ -133,6 +137,17 @@ export const UserProfileLandingContainer: React.FC<
             comment={item.comment}></BubbleCard>
         ))}
       </View>
+      <AppButton
+        textColor={colors.text}
+        onPress={userLogoutHandle}
+        style={{
+          backgroundColor: '#C0C0C0',
+          marginTop: size.spacing.m,
+          marginBottom: size.spacing.xxs,
+          borderRadius: size.spacing.s,
+        }}>
+        Logout
+      </AppButton>
     </>
   );
 };
