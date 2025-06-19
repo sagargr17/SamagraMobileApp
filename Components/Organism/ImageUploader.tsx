@@ -3,24 +3,16 @@
 import FastImage from '@d11/react-native-fast-image';
 import {useTheme} from '@react-navigation/native';
 import React, {useRef, useState} from 'react';
-import {FlatList, ScrollView, StyleSheet, View} from 'react-native';
-import {
-  ActivityIndicator,
-  Icon,
-  IconButton,
-  TouchableRipple,
-} from 'react-native-paper';
-import {Camera, useCameraDevice} from 'react-native-vision-camera';
+import {StyleSheet, View} from 'react-native';
+import {ActivityIndicator, IconButton} from 'react-native-paper';
+import {Camera} from 'react-native-vision-camera';
+import {AddItemMessage} from '../../Constants/UI/Messages';
+import {size} from '../../Prefrences/Prefrences';
+import {useAppSelector} from '../../StateManagement/hooks';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import ImageHandler, {OutPutImageType} from '../../Utilities/ImageHandler';
-import AppButton from '../Elements/Button';
 import {AppText} from '../Elements/AppText';
-import {size} from '../../Prefrences/Prefrences';
-import {AddItemMessage} from '../../Constants/UI/Messages';
-import {ImageSliderModal} from './ImageSliderModal';
-import ImageSlider from '@coder-shubh/react-native-image-slider';
-import {ImageNotFound} from '../../Constants/UI/AssetsUrls';
-import {useAppSelector} from '../../StateManagement/hooks';
+import AppButton from '../Elements/Button';
 interface ImageUploaderProps {}
 
 export const ImageUploader: React.FC<ImageUploaderProps> = ({}) => {
@@ -47,10 +39,8 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({}) => {
   // Galley Image Pickers
   const imageFromGallery = async () => {
     let GalleryImages: any = await ImageHandler.selectFromGallery();
-    console.log('Gallery>>>', GalleryImages);
     setImages(GalleryImages);
     setImageLoading(!imageLoading);
-    // setFinalImage(GalleryImages);
   };
 
   const handleImageRemove = (selectedImage: any) => {

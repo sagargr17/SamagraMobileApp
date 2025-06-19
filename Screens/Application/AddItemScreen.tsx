@@ -14,6 +14,9 @@ import {hideLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateS
 import {useAppDispatch} from '../../StateManagement/hooks';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import {FlatListScreen} from '../../Layout/ScreenLayout/FlatListScreenLayout';
+import {AppText} from '../../Components/Elements/AppText';
+import {Divider} from 'react-native-paper';
+import {Spacer} from '../../Components/Elements/Spacer';
 
 interface AddItemScreenProps {}
 
@@ -111,6 +114,11 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
       }
   };
 
+  const Form = ()=>{
+    
+  }
+
+
   return (
     <FlatListScreen
       contentContainerStyle={{
@@ -121,114 +129,116 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
       data={[1]}
       stickyHeaderHiddenOnScroll
       renderItem={() => (
-        <AppForm<CreateProductInputViewModelInput>
-          formConfig={[
-            {
-              name: 'name', // Must match a key in LoginFormValues
-              label: '',
-              placeholder: 'Item Name',
-              type: 'email', // Custom prop for keyboard type
-              rules: {
-                minLength: {
-                  value: 3,
-                  message: 'Too Short',
-                },
-                maxLength: {
-                  value: 12,
-                  message: 'too long',
-                },
-                required: 'Required',
-              },
-              defaultValue: {},
-            },
-            {
-              name: 'price', // Must match a key in LoginFormValues
-              label: '',
-              placeholder: 'Price in rupees',
-              type: 'number', // Custom prop for keyboard type
-              rules: {
-                maxLength: {
-                  value: 20,
-                  message: 'too long',
-                },
-                required: 'Required',
-              },
-            },
-            {
-              name: 'stockQuantity', // Must match a key in LoginFormValues
-              label: '',
-              placeholder: 'Quantity',
-              type: 'number', // Custom prop for keyboard type
-              rules: {
-                maxLength: {
-                  value: 9,
-                  message: 'too long',
-                },
-                required: 'Required',
-              },
-            },
+        <View style={styles.wrapperStyle}>
+          <Spacer height={14}></Spacer>
+          <AppText
+            title="Item Detail:"
+            fontSizeVariant="title"
+            fontVariant="medium"></AppText>
 
-            {
-              name: 'unit', // Must match a key in LoginFormValues
-              label: '',
-              placeholder: 'Unit | Eg: Kg, gram ',
-              type: 'text', // Custom prop for keyboard type
-              rules: {
-                maxLength: {
-                  value: 9,
-                  message: 'too long',
+          <Spacer height={14}></Spacer>
+          <AppForm<CreateProductInputViewModelInput>
+            formConfig={[
+              {
+                name: 'name', // Must match a key in LoginFormValues
+                label: '',
+                placeholder: 'Item Name',
+                type: 'email', // Custom prop for keyboard type
+                rules: {
+                  minLength: {
+                    value: 3,
+                    message: 'Too Short',
+                  },
+                  maxLength: {
+                    value: 12,
+                    message: 'too long',
+                  },
+                  required: 'Required',
                 },
-                required: 'Required',
+                defaultValue: {},
               },
-            },
-            {
-              name: 'location', // Must match a key in LoginFormValues
-              label: '',
-              placeholder: 'Baneswor, Kathmandu',
-              type: 'text', // Custom prop for keyboard type
-              rules: {
-                maxLength: {
-                  value: 9,
-                  message: 'too long',
+              {
+                name: 'price', // Must match a key in LoginFormValues
+                label: '',
+                placeholder: 'Price in rupees',
+                type: 'number', // Custom prop for keyboard type
+                rules: {
+                  maxLength: {
+                    value: 20,
+                    message: 'too long',
+                  },
+                  required: 'Required',
                 },
-                required: 'Required',
               },
-            },
-            {
-              name: 'description', // Must match a key in LoginFormValues
-              label: '',
-              placeholder: 'About Item',
-              type: 'description', // Custom prop for keyboard type
-              rules: {
-                maxLength: {
-                  value: 20,
-                  message: 'too long',
+              {
+                name: 'stockQuantity', // Must match a key in LoginFormValues
+                label: '',
+                placeholder: 'Quantity',
+                type: 'number', // Custom prop for keyboard type
+                rules: {
+                  maxLength: {
+                    value: 9,
+                    message: 'too long',
+                  },
+                  required: 'Required',
                 },
-                required: 'Required',
               },
-            },
-          ]}
-          submitButtonText="Submit"
-          onFormSubmit={handleCreateItemSubmit}></AppForm>
+
+              {
+                name: 'unit', // Must match a key in LoginFormValues
+                label: '',
+                placeholder: 'Unit | Eg: Kg, gram ',
+                type: 'text', // Custom prop for keyboard type
+                rules: {
+                  maxLength: {
+                    value: 9,
+                    message: 'too long',
+                  },
+                  required: 'Required',
+                },
+              },
+              {
+                name: 'location', // Must match a key in LoginFormValues
+                label: '',
+                placeholder: 'Baneswor, Kathmandu',
+                type: 'text', // Custom prop for keyboard type
+                rules: {
+                  maxLength: {
+                    value: 9,
+                    message: 'too long',
+                  },
+                  required: 'Required',
+                },
+              },
+              {
+                name: 'description', // Must match a key in LoginFormValues
+                label: '',
+                placeholder: 'About Item',
+                type: 'description', // Custom prop for keyboard type
+                rules: {
+                  maxLength: {
+                    value: 20,
+                    message: 'too long',
+                  },
+                  required: 'Required',
+                },
+              },
+            ]}
+            submitButtonText="Submit"
+            onFormSubmit={handleCreateItemSubmit}></AppForm>
+        </View>
       )}></FlatListScreen>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  buttonContainer: {
-    position: 'absolute',
-    // bottom: ,
-    left: 0,
-    right: 0,
-    alignItems: 'center',
-  },
-  previewContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 400,
+  wrapperStyle: {
+    borderWidth: size.borderWidth.s,
+    borderStyle: 'dashed',
+    borderColor: '#D1DBE8',
+    marginVertical:size.spacing.s,
+    padding:size.spacing.xxs,
+    borderRadius:size.borderRadius.m,
+    paddingBottom:size.spacing.m
   },
 });
