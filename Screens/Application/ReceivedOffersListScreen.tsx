@@ -5,7 +5,7 @@ import { FlatList } from 'react-native';
 import { Logos } from '../../Assets/SVG/Exports/Exports';
 import { ProviderCard } from '../../Components/Molecules/Cards/ProviderCard';
 import { SingnlePageInfo } from '../../Components/Organism/SinglePageInfo';
-import { ProviderCardSkeleton } from '../../Components/Skeletons/ProviderCardSkeleton';
+import { ProviderCardSkeleton } from '../../Components/Skeletons/Components/ProviderCardSkeleton';
 import { DummyServiceProviderURL } from '../../Constants/UI/AssetsUrls';
 import { EmptyMessage } from '../../Constants/UI/Messages';
 import { CreateItemRequestMutation } from '../../GraphQL/Mutation/ItemRequestMutation';

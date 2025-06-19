@@ -11,7 +11,7 @@ import {AppText} from '../../Components/Elements/AppText';
 import {ProviderCard} from '../../Components/Molecules/Cards/ProviderCard';
 import {AppBottomSheet} from '../../Components/Molecules/Global/AppBottomSheet';
 import {SingnlePageInfo} from '../../Components/Organism/SinglePageInfo';
-import {ProviderCardSkeleton} from '../../Components/Skeletons/ProviderCardSkeleton';
+import {ProviderCardSkeleton} from '../../Components/Skeletons/Components/ProviderCardSkeleton';
 import {
   DummyServiceProviderURL,
   ImageNotFound,

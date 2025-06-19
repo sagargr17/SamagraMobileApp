@@ -1,17 +1,21 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View, ViewStyle} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {size} from '../../Prefrences/Prefrences';
 interface FlatProps {
   // icon: any;
   // title: string;
   children: React.ReactNode;
+  style?: ViewStyle;
 }
 
-export const ColumnFlexScreenlayout: React.FC<FlatProps> = ({children}) => {
+export const ColumnFlexScreenlayout: React.FC<FlatProps> = ({
+  children,
+  style,
+}) => {
   const {colors} = useTheme();
 
-  return <View style={styles.wrapper}>{children}</View>;
+  return <View style={[styles.wrapper, style]}>{children}</View>;
 };
 
 const styles = StyleSheet.create({
@@ -21,6 +25,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     paddingHorizontal: size.spacing.m,
     alignItems: 'center',
-    justifyContent:"flex-start"
+    justifyContent: 'flex-start',
   },
 });

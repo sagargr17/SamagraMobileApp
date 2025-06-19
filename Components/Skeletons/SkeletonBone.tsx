@@ -2,10 +2,19 @@ import React from 'react';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import {createGradientShimmer} from 'react-native-gradient-shimmer';
 import LinearGradient from 'react-native-linear-gradient';
+import {ViewStyle} from 'react-native';
 
-interface SerchBarSkeletonnProps {}
+interface SkeletonBoneProp {
+  height: number;
+  width: number;
+  style: ViewStyle;
+}
 
-export const SerchBarSkeletonn: React.FC<SerchBarSkeletonnProps> = ({}) => {
+export const SkeletonBone: React.FC<SkeletonBoneProp> = ({
+  height,
+  width,
+  style,
+}) => {
   const CustomGradientShimmer = createGradientShimmer({
     backgroundColor: 'rgb(227, 225, 225)',
     highlightColor: 'rgb(255, 255, 255)',
@@ -14,21 +23,14 @@ export const SerchBarSkeletonn: React.FC<SerchBarSkeletonnProps> = ({}) => {
   return (
     <CustomGradientShimmer
       height={AreaMapper({
-        value: 65,
+        value: height,
         scaleBy: 'average',
       })}
       width={AreaMapper({
-        value: 65,
+        value: width,
         scaleBy: 'average',
       })}
-      style={[
-        {
-          borderRadius: AreaMapper({
-            value: 80,
-            scaleBy: 'average',
-          }),
-        },
-      ]}
+      style={style}
     />
   );
 };

@@ -3,8 +3,8 @@ import React from 'react';
 import {FlatList, StyleSheet, View} from 'react-native';
 import {createGradientShimmer} from 'react-native-gradient-shimmer';
 import LinearGradient from 'react-native-linear-gradient';
-import {AreaMapper} from '../../Utilities/CustomMethods';
-import {size} from '../../Prefrences/Prefrences';
+import {AreaMapper} from '../../../Utilities/CustomMethods';
+import {size} from '../../../Prefrences/Prefrences';
 
 interface ListSkeletonProps {
   isElevated?: boolean;

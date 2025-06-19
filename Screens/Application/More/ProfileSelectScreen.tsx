@@ -5,7 +5,7 @@ import {View, Text} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {AppText} from '../../../Components/Elements/AppText';
 import {UserProfileCard} from '../../../Components/Molecules/Cards/UserProfileCard';
-import {ListCardSkeleton} from '../../../Components/Skeletons/ListSkeleton';
+import {ListCardSkeleton} from '../../../Components/Skeletons/Layout/ListSkeleton';
 import {ImageNotFound} from '../../../Constants/UI/AssetsUrls';
 import {EmptyMessage, NotMentioned} from '../../../Constants/UI/Messages';
 import {myShops} from '../../../GraphQL/Queries/PrivateShopQueries';

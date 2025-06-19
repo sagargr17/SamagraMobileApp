@@ -4,15 +4,16 @@ import React, {useCallback} from 'react';
 import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
 import {Divider} from 'react-native-paper';
 import {Spacer} from '../../../Components/Elements/Spacer';
-import {FlatListScreen} from '../../../Layout/ScreenLayout/FlatListScreenLayout';
-import AppBanner from '../../../Components/Molecules/Global/AppBanner';
-import {AppHeader} from '../../../Components/Organism/AppHeader';
-import {AppSerchBar} from '../../../Components/Molecules/Global/AppSerchBar';
 import {ItemMiniCard} from '../../../Components/Molecules/Cards/ItemMiniCard';
+import AppBanner from '../../../Components/Molecules/Global/AppBanner';
+import {AppSerchBar} from '../../../Components/Molecules/Global/AppSerchBar';
+import {AppHeader} from '../../../Components/Organism/AppHeader';
 import {ItemCategoryCardSlider} from '../../../Components/Organism/ItemCategorySlider';
 import {ImageNotFound} from '../../../Constants/UI/AssetsUrls';
 import {getPublicItems} from '../../../GraphQL/Queries/ItemQueries';
+import {FlatListScreen} from '../../../Layout/ScreenLayout/FlatListScreenLayout';
 import {size} from '../../../Prefrences/Prefrences';
+import {HomeLandingSkeleton} from '../../../Components/Skeletons/Layout/HomeLandingSkeleton';
 
 interface HomeLandingScreenProps {}
 
@@ -44,13 +45,13 @@ export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
         }></AppSerchBar>
       <AppBanner></AppBanner>
       <Spacer height={18}></Spacer>
-      <ItemCategoryCardSlider sizes="large" ></ItemCategoryCardSlider>
+      <ItemCategoryCardSlider sizes="large"></ItemCategoryCardSlider>
       <Spacer height={25}></Spacer>
       <Divider></Divider>
     </>
   );
 
-  if (loading) return <ActivityIndicator></ActivityIndicator>;
+  if (loading) return <HomeLandingSkeleton></HomeLandingSkeleton>;
   if (error) return <Text>{error.message}</Text>;
 
   return (

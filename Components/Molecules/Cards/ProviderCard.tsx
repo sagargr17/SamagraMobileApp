@@ -7,7 +7,7 @@ import {ProgressBar} from 'react-native-paper';
 import {Logos} from '../../../Assets/SVG/Exports/Exports';
 import {AreaMapper} from '../../../Utilities/CustomMethods';
 import {AppText} from '../../Elements/AppText';
-import {ProviderCardSkeleton} from '../../Skeletons/ProviderCardSkeleton';
+import {ProviderCardSkeleton} from '../../Skeletons/Components/ProviderCardSkeleton';
 import {PairButtons} from '../Global/PairButtons';
 import AppButton from '../../Elements/Button';
 import {RowFlexLayout} from '../../../Layout/PartationLayout/RowFlexLayout';
