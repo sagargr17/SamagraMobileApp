@@ -89,13 +89,13 @@ export const BottomTabNavigator: React.FC = () => {
         tabBarStyle: [
           {
             paddingBottom: size.spacing.xl,
-            marginHorizontal: size.spacing.xxs,
+            // marginHorizontal: size.spacing.xxs,
             height: 58,
             backgroundColor: colors.background,
             borderTopColor: colors.background,
           },
-          size.elevation.l,
         ],
+
         tabBarLabelStyle: {
           fontSize: size.textVariants.caption.fontSize,
           lineHeight: size.textVariants.caption.lineHeight,

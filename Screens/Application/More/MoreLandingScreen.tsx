@@ -1,5 +1,5 @@
 import {useNavigation, useTheme} from '@react-navigation/native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ScrollView, View} from 'react-native';
 import {clearTokens} from '../../../client/Token/TokenAccess';
 import AppButton from '../../../Components/Elements/Button';
@@ -25,6 +25,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
   // This Parameters check weather Shop is Active or Not
   const isShopActive = useAppSelector(state => state.user.isShopActive);
 
+  // Handle Navigation
   const handleNavigation = () => {
     console.log('cliked');
     navigation.navigate('ApplicationOverlay', {
@@ -49,7 +50,16 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
     );
   };
 
-  if (skeletonLoading) <MoreLandingSkeleton></MoreLandingSkeleton>;
+  useEffect(() => {
+    console.log('Intervall is called');
+
+    const timer = setTimeout(() => {
+      setSkeletonLoading(!setSkeletonLoading);
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (skeletonLoading) return <MoreLandingSkeleton></MoreLandingSkeleton>;
 
   return (
     <ScrollView

@@ -1,6 +1,6 @@
 import {useTheme} from '@react-navigation/native';
 import React from 'react';
-import {FlatList, StyleSheet, View} from 'react-native';
+import {FlatList, StyleSheet, View, ViewStyle} from 'react-native';
 import {createGradientShimmer} from 'react-native-gradient-shimmer';
 import LinearGradient from 'react-native-linear-gradient';
 import {AreaMapper} from '../../../Utilities/CustomMethods';
@@ -10,12 +10,14 @@ interface ListCardSkeletonProps {
   isElevated?: boolean;
   numberOfList: number;
   numberOfText?: number;
+  style?: ViewStyle;
 }
 
 export const ListCardSkeleton: React.FC<ListCardSkeletonProps> = ({
   isElevated = false,
   numberOfList,
   numberOfText = 2,
+  style: customCardstyle,
 }) => {
   const {colors} = useTheme();
   const CustomGradientShimmer = createGradientShimmer({
@@ -61,9 +63,13 @@ export const ListCardSkeleton: React.FC<ListCardSkeletonProps> = ({
         {/* It is a List Items */}
         <View style={ProviderCardSkeletonStyle.textContainer}>
           <FlatList
+            contentContainerStyle={{
+              display: 'flex',
+              flexDirection: 'row',
+            }}
             data={Array(numberOfText).fill(Number)}
             renderItem={({index}) => (
-              <View key={index}>
+              <View key={index} style={customCardstyle}>
                 <CustomGradientShimmer
                   height={AreaMapper({
                     value: 17,
@@ -92,6 +98,7 @@ export const ListCardSkeleton: React.FC<ListCardSkeletonProps> = ({
 
   return (
     <FlatList
+      contentContainerStyle={customCardstyle}
       data={Array(numberOfList).fill(numberOfList)}
       renderItem={({index}) => (
         <View key={index}>{SkeletonCard}</View>
