@@ -8,6 +8,7 @@ import {CardHorizontalSkeletonList} from './CardHorizontalSkeletonList';
 import {size} from '../../../Prefrences/Prefrences';
 import {Spacer} from '../../Elements/Spacer';
 import {SkeletonBone} from '../SkeletonBone';
+import {TextSkeleton} from '../Components/TextSkeleton';
 interface OrderLandingSkeletonProps {}
 
 export const OrderLandingSkeleton: React.FC<
@@ -29,13 +30,16 @@ export const OrderLandingSkeleton: React.FC<
             borderRadius: size.borderRadius.full,
             paddingHorizontal: size.spacing.xs,
             paddingTop: size.spacing.xxl,
-            borderTopWidth: 0.5,
             borderColor: colors.border,
+            backgroundColor: colors.card,
+            borderTopWidth: 0.15,
           },
         ]}>
+        <TextSkeleton height={15} width={100}></TextSkeleton>
+        <Spacer height={20}></Spacer>
         <CardHorizontalSkeletonList
           listNumber={4}
-          height={90}
+          height={85}
           width={80}></CardHorizontalSkeletonList>
         <Spacer height={20}></Spacer>
         <FormSkeleton></FormSkeleton>

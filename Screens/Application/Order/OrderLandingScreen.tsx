@@ -21,15 +21,15 @@ export const OrderLandingScreen: React.FC<OrderLandingScreenProps> = ({
   navigation,
 }) => {
   const [loading, setLoading] = useState<boolean>(true);
-  
-    useEffect(() => {
-      console.log('Intervall is called');
-  
-      const timer = setTimeout(() => {
-        setLoading(!loading);
-      }, 3000);
-      return () => clearTimeout(timer);
-    }, []);
+
+  useEffect(() => {
+    console.log('Intervall is called');
+
+    const timer = setTimeout(() => {
+      setLoading(!loading);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
 
   if (loading) return <OrderLandingSkeleton></OrderLandingSkeleton>;
 

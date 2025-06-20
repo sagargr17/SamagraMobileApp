@@ -4,14 +4,18 @@ import {useTheme} from '@react-navigation/native';
 import {SkeletonBone} from '../SkeletonBone';
 interface TextSkeletonProps {
   width?: number;
+  height?: number;
 }
 
-export const TextSkeleton: React.FC<TextSkeletonProps> = ({width = 100}) => {
+export const TextSkeleton: React.FC<TextSkeletonProps> = ({
+  width = 100,
+  height = 10,
+}) => {
   const {colors} = useTheme();
 
   return (
     <SkeletonBone
-      height={10}
+      height={height}
       width={width}
       style={{
         borderRadius: 8,

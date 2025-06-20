@@ -80,6 +80,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
             borderColor: colors.border,
           },
         ]}></IconButton>
+        
     </RowFlexLayout>
   );
 };

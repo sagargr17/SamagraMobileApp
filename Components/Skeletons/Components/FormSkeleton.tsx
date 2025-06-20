@@ -18,14 +18,14 @@ export const FormSkeleton: React.FC<FormSkeletonProps> = ({
     <View>
       {Array(FormListNumber)
         .fill(null)
-        .map(({_, index}) => (
+        .map((_, index) => (
           <View
             key={index}
             style={{
               marginBottom: size.spacing.xs,
             }}>
-            <TextSkeleton width={20}></TextSkeleton>
-            <Spacer></Spacer>
+            <TextSkeleton width={80}></TextSkeleton>
+            <Spacer height={5}></Spacer>
             <SkeletonBone
               height={50}
               width={380}
