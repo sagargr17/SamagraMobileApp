@@ -112,6 +112,7 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: '100%',
+    borderRadius:size.borderRadius.s
   },
   detailsContainer: {
     flex: 1,
@@ -125,6 +126,7 @@ const styles = StyleSheet.create({
   pricingContainer: {
     flexDirection: 'column',
     alignItems: 'flex-start',
+    marginTop:size.spacing.xxs
   },
 
   ratingContainer: {

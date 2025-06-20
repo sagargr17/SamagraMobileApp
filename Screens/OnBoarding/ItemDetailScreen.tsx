@@ -1,25 +1,25 @@
 import {useQuery} from '@apollo/client';
-import {useNavigation, useRoute, useTheme} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 import {Divider, IconButton} from 'react-native-paper';
+import {AppText} from '../../Components/Elements/AppText';
 import {Rating} from '../../Components/Elements/Rating';
 import {Spacer} from '../../Components/Elements/Spacer';
-import {AppText} from '../../Components/Elements/AppText';
-import {CommentLayout} from '../../Components/Organism/CommentLayout';
 import {Counter} from '../../Components/Molecules/Global/Counter';
-import {ImageSliderModal} from '../../Components/Organism/ImageSliderModal';
 import {ItemCheckOut} from '../../Components/Molecules/Global/ItemCheckOut';
 import {SamagraLoader} from '../../Components/Molecules/Response/SamagraLoader';
+import {CommentLayout} from '../../Components/Organism/CommentLayout';
+import {ImageSliderModal} from '../../Components/Organism/ImageSliderModal';
+import {NotMentioned} from '../../Constants/UI/Messages';
 import {getPublicItemsById} from '../../GraphQL/Queries/ItemQueries';
 import {ItemDetailScreenRouteProp} from '../../Navigators/Stack/ApplicationOverlayStackNavigator';
+import {size} from '../../Prefrences/Prefrences';
 import {hideLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
 import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
-import {AreaMapper, titleCase} from '../../Utilities/CustomMethods';
-import {PlaceOrderScreen} from '../Application/PlaceOrderScreen';
 import {postPlaceOrderparams} from '../../StateManagement/Orders/PlaceOrderDetailsParams';
-import {NotMentioned} from '../../Constants/UI/Messages';
-import {size} from '../../Prefrences/Prefrences';
+import {titleCase} from '../../Utilities/CustomMethods';
+import {ImageNotFound} from '../../Constants/UI/AssetsUrls';
 order: null;
 interface ItemDetailScreenProps {
   route: ItemDetailScreenRouteProp;
@@ -27,8 +27,6 @@ interface ItemDetailScreenProps {
 
 export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
   const {colors} = useTheme();
-
-  const [totalPrice, setTotalPrice] = useState<number>(320);
   const [isCheckoutVisible, setIsCheckoutVisible] = useState<boolean>(true);
   const dispatch = useAppDispatch();
   const {data, loading, error} = useQuery(getPublicItemsById, {
@@ -37,13 +35,11 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
     },
   });
 
-  console.log('itemIDdd', route.params.id);
   const navigation = useNavigation<any>();
 
-  useEffect(() => {
-    dispatch(hideLoader());
-  }, []);
+  const [totalPrice, setTotalPrice] = useState<number>(0);
 
+  // HandleTotalPrice
   const handleTotalPrice = (Quantity: number) => {
     setTotalPrice((data?.getPublicItems?.nodes?.[0]?.price ?? 0) * Quantity);
   };
@@ -115,7 +111,9 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
 
         <Spacer height={14}></Spacer>
         <Counter
-          setTotal={(Quantity: number) => handleTotalPrice(Quantity)}></Counter>
+          setTotal={(Quantity: number) => {
+            handleTotalPrice(Quantity);
+          }}></Counter>
         <Spacer height={24}></Spacer>
         <Divider></Divider>
         <Spacer height={8}></Spacer>
@@ -126,18 +124,23 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
 
   if (error) return <Text>ErrorItemCheckOut {error.message}</Text>;
   if (loading) return <SamagraLoader></SamagraLoader>;
+
   // if(data && !error && !loading)
   const handleBuyNow = () => {
+    console.log('Qunatity');
+
     dispatch(
       postPlaceOrderparams({
-        itemParams: {
+        itemDetails: {
+          price: data?.getPublicItems?.nodes?.[0]?.price,
           location: 'Butwal',
           description:
             data?.getPublicItems?.nodes?.[0]?.description ?? NotMentioned,
           requiredTime: '3hr',
           name: data?.getPublicItems?.nodes?.[0]?.name ?? NotMentioned,
           category: 'Vegitable',
-          imageUrl: '',
+          imageUrl:
+            data?.getPublicItems?.nodes?.[0]?.imageUrls?.[0] ?? ImageNotFound,
         },
         sellerDetails: {
           fullName:
@@ -151,7 +154,11 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
         },
         orderDetail: {
           message: 'chito gardeenu hai',
-          orderQuantity: String(1),
+          orderQuantity: `${
+            totalPrice === 0
+              ? 1
+              : totalPrice / data?.getPublicItems?.nodes?.[0]?.price
+          }`,
           itemID: data?.getPublicItems?.nodes?.[0]?.id ?? '1',
         },
       }),
@@ -201,7 +208,11 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
       <ItemCheckOut
         itemID={data?.getPublicItems?.nodes?.[0]?.id ?? ''}
         onBuyNow={handleBuyNow}
-        totalPrice={totalPrice}></ItemCheckOut>
+        totalPrice={
+          totalPrice === 0
+            ? data?.getPublicItems?.nodes?.[0]?.price
+            : totalPrice
+        }></ItemCheckOut>
     </View>
   );
 };

@@ -102,6 +102,7 @@ export const RootStack: React.FC = () => {
               data.data?.getUser?.profileImageUrl ?? ImageNotFound,
             email: 'sagar@gmail.com',
             location: 'Baneswor Kathmandu Nepal',
+            phoneNumber: '9841150390',
           },
           isAuthenticated: true,
         }),

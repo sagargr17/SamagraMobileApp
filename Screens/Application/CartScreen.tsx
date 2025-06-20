@@ -49,7 +49,7 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
     if (userLocation)
       dispatch(
         postPlaceOrderparams({
-          itemParams: {
+          itemDetails: {
             location: userLocation,
             description: 'Awesome',
             requiredTime: '4hr',

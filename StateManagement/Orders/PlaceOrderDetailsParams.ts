@@ -2,7 +2,8 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {getTokens} from '../../client/Token/TokenAccess';
 
 export interface PlaceordersParams {
-  itemParams: {
+  itemDetails: {
+    price: number;
     location: string;
     description: string;
     requiredTime: string;
@@ -24,7 +25,8 @@ export interface PlaceordersParams {
 }
 
 const initialState: PlaceordersParams = {
-  itemParams: {
+  itemDetails: {
+    price: 0,
     location: '',
     description: '',
     requiredTime: '',
@@ -51,7 +53,7 @@ const placeOrderParams = createSlice({
   reducers: {
     postPlaceOrderparams: (state, action: PayloadAction<PlaceordersParams>) => {
       console.log('USer incoming ', action.payload);
-      state.itemParams = action.payload.itemParams;
+      state.itemDetails = action.payload.itemDetails;
       state.orderDetail = action.payload.orderDetail;
       state.sellerDetails = action.payload.sellerDetails;
     },

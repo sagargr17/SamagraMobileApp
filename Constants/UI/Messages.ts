@@ -26,3 +26,8 @@ export const NoInternetFoundMessage =
 export const NoCartItemTitle = 'No Any Items Found !';
 export const NoCartItemMessage ='No Any Items Found in your cart, search Items !! ';
 export const NoItemInShop = 'No Any Item found in the Shop!!';
+
+
+
+// Unnexpted Data 
+export const NoItemFound = 'Something Went Wrong';
