@@ -27,7 +27,7 @@ export const OrderLandingScreen: React.FC<OrderLandingScreenProps> = ({
 
     const timer = setTimeout(() => {
       setLoading(!loading);
-    }, 3000);
+    }, 2000);
     return () => clearTimeout(timer);
   }, []);
 

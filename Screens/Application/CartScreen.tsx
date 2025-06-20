@@ -17,7 +17,7 @@ import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
 import {postPlaceOrderparams} from '../../StateManagement/Orders/PlaceOrderDetailsParams';
 import {ImageNotFound, ItemImageNotFound} from '../../Constants/UI/AssetsUrls';
 import {ItemListtCard} from '../../Components/Molecules/Cards/ItemListCard';
-import {ListCardSkeleton} from '../../Components/Skeletons/Layout/ListSkeleton';
+import {ListCardSkeleton} from '../../Components/Skeletons/Layout/ListCardSkeleton';
 import {State} from 'react-native-gesture-handler';
 import {UserLocationRenderMode} from '@maplibre/maplibre-react-native';
 import {ApplicationOverlayStackProps} from '../../Navigators/Stack/ApplicationOverlayStackNavigator';

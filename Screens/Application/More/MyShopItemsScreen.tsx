@@ -5,7 +5,7 @@ import {Text} from 'react-native';
 import {Logos} from '../../../Assets/SVG/Exports/Exports';
 import {ItemListtCard} from '../../../Components/Molecules/Cards/ItemListCard';
 import {SingnlePageInfo} from '../../../Components/Organism/SinglePageInfo';
-import {ListCardSkeleton} from '../../../Components/Skeletons/Layout/ListSkeleton';
+import {ListCardSkeleton} from '../../../Components/Skeletons/Layout/ListCardSkeleton';
 import {ImageNotFound} from '../../../Constants/UI/AssetsUrls';
 import {NoCartItemTitle, NoItemInShop} from '../../../Constants/UI/Messages';
 import {GetItemsByShopId} from '../../../GraphQL/Queries/ItemQueries';

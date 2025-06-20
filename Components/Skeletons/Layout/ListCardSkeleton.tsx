@@ -6,13 +6,13 @@ import LinearGradient from 'react-native-linear-gradient';
 import {AreaMapper} from '../../../Utilities/CustomMethods';
 import {size} from '../../../Prefrences/Prefrences';
 
-interface ListSkeletonProps {
+interface ListCardSkeletonProps {
   isElevated?: boolean;
   numberOfList: number;
   numberOfText?: number;
 }
 
-export const ListCardSkeleton: React.FC<ListSkeletonProps> = ({
+export const ListCardSkeleton: React.FC<ListCardSkeletonProps> = ({
   isElevated = false,
   numberOfList,
   numberOfText = 2,

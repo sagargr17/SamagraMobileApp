@@ -31,8 +31,6 @@ export const OrderLandingSkeleton: React.FC<
             paddingHorizontal: size.spacing.xs,
             paddingTop: size.spacing.xxl,
             borderColor: colors.border,
-            backgroundColor: colors.card,
-            borderTopWidth: 0.15,
           },
         ]}>
         <TextSkeleton height={15} width={100}></TextSkeleton>

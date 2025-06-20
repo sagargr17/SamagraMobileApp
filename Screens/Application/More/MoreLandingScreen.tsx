@@ -1,5 +1,5 @@
 import {useNavigation, useTheme} from '@react-navigation/native';
-import React from 'react';
+import React, {useState} from 'react';
 import {ScrollView, View} from 'react-native';
 import {clearTokens} from '../../../client/Token/TokenAccess';
 import AppButton from '../../../Components/Elements/Button';
@@ -11,6 +11,7 @@ import {ImageNotFound} from '../../../Constants/UI/AssetsUrls';
 import {NotMentioned} from '../../../Constants/UI/Messages';
 import {size} from '../../../Prefrences/Prefrences';
 import {useAppSelector} from '../../../StateManagement/hooks';
+import {MoreLandingSkeleton} from '../../../Components/Skeletons/Layout/MoreLandingSkeleton';
 
 interface MoreLandingScreenProps {}
 
@@ -20,7 +21,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
   let userLogoutHandle = () => clearTokens();
   const selectedShopData = useAppSelector(state => state.user.shopData);
   const selectedUserData = useAppSelector(state => state.user.user);
-
+  const [skeletonLoading, setSkeletonLoading] = useState<boolean>(true);
   // This Parameters check weather Shop is Active or Not
   const isShopActive = useAppSelector(state => state.user.isShopActive);
 
@@ -47,6 +48,8 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
       </View>
     );
   };
+
+  if (skeletonLoading) <MoreLandingSkeleton></MoreLandingSkeleton>;
 
   return (
     <ScrollView
