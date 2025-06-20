@@ -10,7 +10,7 @@ import {showLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateS
 
 interface AppButtonProps extends React.ComponentProps<typeof Button> {
   color?: 'primary' | 'secondary' | 'light' | 'danger';
-  showLoaderFn?: boolean;
+  showLoader?: boolean;
   customStyle?: any;
 }
 
@@ -20,7 +20,7 @@ const AppButton = ({
   mode,
   disabled,
   onPress,
-  showLoaderFn = false,
+  showLoader: showLoaderFn = false,
   ...props
 }: AppButtonProps) => {
   const {colors, fonts} = useTheme();

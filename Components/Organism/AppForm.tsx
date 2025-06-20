@@ -114,7 +114,7 @@ export const AppForm = <TFormValues extends FieldValues>({
         ))}
 
         <AppButton
-          showLoaderFn={false}
+          showLoader={false}
           onPress={handleSubmit(onFormSubmit)}
           // onPress={() => console.log('>>>')}
           style={{

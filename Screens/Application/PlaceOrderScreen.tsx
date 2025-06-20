@@ -285,6 +285,7 @@ export const PlaceOrderScreen: React.FC<PlaceOrderScreenProps> = ({}) => {
       {totalPriceDetail}
       <Spacer height={20}></Spacer>
       <AppButton
+        showLoader={true}
         onPress={() => {
           try {
             if (

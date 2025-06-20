@@ -16,7 +16,7 @@ interface ItemListCardProps {
     imageUrl: string;
     rating: number;
     stocks?: number;
-    shop: {
+    shop?: {
       name: string;
     };
   };
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderRadius: 8,
     marginVertical: 2,
-    marginHorizontal: 8,
+    // marginHorizontal: 8,
     overflow: 'hidden',
   },
   imageContainer: {

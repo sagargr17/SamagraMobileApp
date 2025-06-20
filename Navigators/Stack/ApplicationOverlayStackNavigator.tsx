@@ -205,9 +205,9 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
             screenName: 'OrderSuccessDetailScreen',
             component: OrderSuccessDetailScreen,
 
-            option: {
-              header: () => null,
-            },
+            option: ({route}: {route: any}) => ({
+              title: titleCase('Receipt'),
+            }),
           },
           {
             screenName: 'SelectProfile',
