@@ -19,7 +19,7 @@ interface ProviderCardProps {
   image: string;
   distance: number;
   rating: number;
-  priceperhour: number;
+  priceperhour?: number;
   setPersonalDetaile: React.Dispatch<React.SetStateAction<React.ReactNode>>;
   setIsProfileTapped: any;
   onAcceptButtonPress: () => void;
@@ -101,7 +101,7 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
               }}
               title={distance + ' km away'}></AppText>
           </View>
-          {allDetailDisplay ? (
+          {allDetailDisplay && priceperhour ? (
             <AppText
               title={`Total: Rs.${priceperhour * 50}`}
               fontVariant="bold"
@@ -144,7 +144,7 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
                 <RowFlexLayout>
                   <AppButton
                     textColor={colors.text}
-                    buttonColor={"#DCDCDC"}
+                    buttonColor={'#DCDCDC'}
                     style={ProviderCardStyle.action}
                     onPress={() => setISdeclined(!isDeclined)}>
                     Decline
@@ -152,7 +152,7 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
                   <AppButton
                     style={ProviderCardStyle.action}
                     onPress={onAcceptButtonPress}>
-                    Accept
+                    Procced
                   </AppButton>
                 </RowFlexLayout>
               </View>

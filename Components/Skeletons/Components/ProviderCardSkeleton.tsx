@@ -4,12 +4,15 @@ import {StyleSheet, View} from 'react-native';
 import {createGradientShimmer} from 'react-native-gradient-shimmer';
 import LinearGradient from 'react-native-linear-gradient';
 import {AreaMapper} from '../../../Utilities/CustomMethods';
+import {FlatList} from 'react-native-gesture-handler';
 
-interface ProviderCardSkeletonProps {}
+interface ProviderCardSkeletonProps {
+  numberOfCard?: number;
+}
 
-export const ProviderCardSkeleton: React.FC<
-  ProviderCardSkeletonProps
-> = ({}) => {
+export const ProviderCardSkeleton: React.FC<ProviderCardSkeletonProps> = ({
+  numberOfCard = 7,
+}) => {
   const {colors} = useTheme();
   const CustomGradientShimmer = createGradientShimmer({
     backgroundColor: 'rgb(227, 225, 225)',
@@ -17,7 +20,7 @@ export const ProviderCardSkeleton: React.FC<
     LinearGradientComponent: LinearGradient,
   });
 
-  return (
+  const card = (
     <View
       style={[
         ProviderCardSkeletonStyle.cardContainer,
@@ -158,6 +161,12 @@ export const ProviderCardSkeleton: React.FC<
         />
       </View>
     </View>
+  );
+
+  return (
+    <FlatList
+      data={Array(numberOfCard).fill(numberOfCard)}
+      renderItem={() => card}></FlatList>
   );
 };
 

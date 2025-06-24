@@ -1,4 +1,4 @@
-import {useLazyQuery, useQuery} from '@apollo/client';
+import {gql, useLazyQuery, useQuery} from '@apollo/client';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import React from 'react';
 import {View, Text} from 'react-native';
@@ -17,14 +17,20 @@ import {
 } from '../../../StateManagement/User/UserSlice';
 import {getLoginUser} from '../../../GraphQL/Queries/UserQueries';
 import {SingnlePageInfo} from '../../../Components/Organism/SinglePageInfo';
+import {GetAuthenticateClient} from '../../../client/Graphql/AuthenticatedClient';
+import useGraphQLQuery from '../../../CustomHooks/useQueryEffect';
 interface ProfileSelectScreenProps {}
 
 export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
   const {colors} = useTheme();
   const {} = useTheme();
+
   const {data, loading, error} = useQuery(myShops, {
-    fetchPolicy: 'cache-first',
+    fetchPolicy: 'network-only',
   });
+
+  const authenticateClient = GetAuthenticateClient;
+
   const dispatch = useAppDispatch();
   const navigation = useNavigation<any>();
   const userData = useAppSelector(state => state.user.user);
@@ -35,10 +41,12 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
     });
   };
 
+  console.log('Response>> Data, Loading, Error', data, loading, error);
+
   if (loading && !data)
     return <ListCardSkeleton numberOfList={7}></ListCardSkeleton>;
 
-  if (error && !data) return <Text>llasdjlaksjdlasd</Text>;
+  if (error && !data) return <Text>{error.message}</Text>;
   if (error && !data) console.log('Error::::', error);
 
   const profileHandleSelect = (
@@ -57,16 +65,16 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
   };
 
   const handleUserSelect = () => {
-    dispatch(
-      login({
-        user: {
-          username: userData?.username ?? NotMentioned,
-          pofileImageUrl: ImageNotFound,
-          email: 'sagar@gmail.com',
-          location: 'butwal',
-        },
-      }),
-    );
+    // dispatch(
+    //   login({
+    //     user: {
+    //       username: userData?.username ?? NotMentioned,
+    //       pofileImageUrl: ImageNotFound,
+    //       email: 'sagar@gmail.com',
+    //       location: 'butwal',
+    //     },
+    //   }),
+    // );
     navigationHandle();
   };
 

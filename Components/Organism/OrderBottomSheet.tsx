@@ -15,7 +15,10 @@ import {UnitSlider} from '../Elements/UnitSlider';
 import {CreateStoreInputViewModelInput} from '../../src/__generated__/graphql';
 import {showLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
 import {Icon} from 'react-native-paper';
-import { size } from '../../Prefrences/Prefrences';
+import {responseTheme, size} from '../../Prefrences/Prefrences';
+import {useMutation} from '@apollo/client';
+import {CreateItemRequestMutation} from '../../GraphQL/Mutation/ItemRequestMutation';
+import {showMessage} from 'react-native-flash-message';
 
 interface OrderBottomSheetProps {
   navigation: RootStackNavigationProp<'ApplicationOverlay'> | any;
@@ -26,23 +29,45 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
 }) => {
   type childrenContent = () => React.ReactNode;
   const dispatch = useAppDispatch();
+  const [createItemRequestFn] = useMutation(CreateItemRequestMutation);
+
   const handleSubmit = (data: SentordersParams) => {
     dispatch(showLoader());
+    console.log('Calling the function');
+    createItemRequestFn({
+      variables: {
+        categoryID: '1',
+        itemName: `${data.name}`,
+      },
+    })
+      .then(res => {
+        // Console log
+        console.log('Created', res);
 
-    dispatch(
-      postOrderparams({
-        location: data.location,
-        description: data.description,
-        requiredTime: '2',
-        name: data.name,
-        category: '1',
-      }),
-    );
+        // Dispatch
+        dispatch(
+          postOrderparams({
+            location: data.location,
+            description: data.description,
+            requiredTime: '2',
+            name: data.name,
+            category: '1',
+            id: res.data?.createItemRequest?.id ?? '',
+          }),
+        );
 
-    //  Navigation
-    navigation.navigate('ApplicationOverlay', {
-      screen: 'ReceivedOfferListScreen',
-    });
+        // Navigation
+        navigation.navigate('ApplicationOverlay', {
+          screen: 'ReceivedOfferListScreen',
+        });
+      })
+      .catch(err => {
+        showMessage(
+          responseTheme('Something Went Wrong', 'PLease Try again', 'danger'),
+        );
+      });
+
+    // Dispatching the Result
   };
 
   const childrenContent = () => {
@@ -63,15 +88,15 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
               defaultValue: userLocation,
             },
             {
-              name: 'description',
+              name: 'name',
               type: 'text',
-              label: 'Name',
+              label: 'Your Need',
               rules: {
                 required: 'Name is required',
               },
             },
             {
-              name: 'name',
+              name: 'description',
               type: 'text',
               label: 'Note',
               rules: {
@@ -80,7 +105,6 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
             },
           ]}
           onFormSubmit={handleSubmit}
-          // onFormSubmit={() => console.log('sadlksajdlkjasd')}
           submitButtonText="Search"></AppForm>
       </View>
     );

@@ -82,8 +82,6 @@ export const RootStack: React.FC = () => {
   // }, [loaderStatus]);
 
   useEffect(() => {
-    console.log('Intervall is called');
-
     const timer = setTimeout(() => {
       dispatch(hideLoader());
     }, 6000);

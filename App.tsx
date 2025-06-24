@@ -34,7 +34,6 @@ import {store} from './StateManagement/Store';
 import {login, logout} from './StateManagement/User/UserSlice';
 import {AreaMapper} from './Utilities/CustomMethods';
 import {getSubscribedData} from './GraphQL/Subscription/Subscription';
-import {onDisplayNotification} from './Screens/Application/ReceivedOrdersListScreen';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {
   NoInternetFound,
@@ -59,6 +58,7 @@ const authLink = setContext(async (_, {headers}) => {
   // Get the authentication token from local storage (or wherever you store it)
   const {userStatus, accessToken, refreshToken} = await getTokens();
 
+  console.log('Tokennnn...', accessToken);
   return {
     headers: {
       ...headers,
@@ -71,9 +71,8 @@ const httpAuthLink = concat(authLink, httpLink);
 
 class MyWebSocket extends WebSocket {
   constructor(address: any, protocols: any) {
-    address = `${address}?token=eyJhbGciOiJSUzI1NiIsImtpZCI6Im15LWhhcmRjb2RlZC1rZXktaWQiLCJ0eXAiOiJhdCtqd3QifQ.eyJpc3MiOiJodHRwOi8vaWRlbnRpdHkuc2FtYWdyYW5lcGFsLmNvbSIsIm5iZiI6MTc0ODEwMzY2MCwiaWF0IjoxNzQ4MTAzNjYwLCJleHAiOjE3NTA2OTU2NjAsImF1ZCI6Im1hcmtldHBsYWNlIiwic2NvcGUiOlsibWFya2V0cGxhY2UuYWNjZXNzIiwib3BlbmlkIiwicHJvZmlsZSIsIm9mZmxpbmVfYWNjZXNzIl0sImFtciI6WyJjdXN0b20iXSwiY2xpZW50X2lkIjoiI3NnYXJhcCoiLCJzdWIiOiI0ZTFlNzcyOC1kZWZhLTQxOTEtOGZkOS03MGRkNmZkMmNhZmMiLCJhdXRoX3RpbWUiOjE3NDgxMDM2NjAsImlkcCI6ImxvY2FsIiwibmFtZSI6InNhZ2FyICIsInByZWZlcnJlZF91c2VybmFtZSI6InNhZ2FyIiwianRpIjoiMEI2OUVFQTQ3MjVCQTNBNDQ3OUFDQTM0NzMxNjEwQjcifQ.YU-PhEV-mBlZg-EcxCRAy93nwUOKGKwxedJBATw8Buu9XT_SxMCDtkRhbs4tlZnwqBNk9LcfQ7haj-YLNSgOsX267_jqCA0Hg04ipVGaAT_fJb3wVaOLqrct99sW0PsvP6dmvBsD3s_9wlzc-3mwq-M_aCiA_xa_TVfMumqfEu8`;
+    address = `${address}?token=eyJhbGciOiJSUzI1NiIsImtpZCI6Im15LWhhcmRjb2RlZC1rZXktaWQiLCJ0eXAiOiJhdCtqd3QifQ.eyJpc3MiOiJodHRwOi8vaWRlbnRpdHkuc2FtYWdyYW5lcGFsLmNvbSIsIm5iZiI6MTc1MDY1MzQ4OCwiaWF0IjoxNzUwNjUzNDg4LCJleHAiOjE3NTMyNDU0ODgsImF1ZCI6Im1hcmtldHBsYWNlIiwic2NvcGUiOlsibWFya2V0cGxhY2UuYWNjZXNzIiwib3BlbmlkIiwicHJvZmlsZSIsIm9mZmxpbmVfYWNjZXNzIl0sImFtciI6WyJjdXN0b20iXSwiY2xpZW50X2lkIjoiI3NnYXJhcCoiLCJzdWIiOiI0ZTFlNzcyOC1kZWZhLTQxOTEtOGZkOS03MGRkNmZkMmNhZmMiLCJhdXRoX3RpbWUiOjE3NTA2NTM0ODgsImlkcCI6ImxvY2FsIiwibmFtZSI6InNhZ2FyICIsInByZWZlcnJlZF91c2VybmFtZSI6InNhZ2FyIiwianRpIjoiNTAxMjI4OTczM0ExQkQ3OEVBNUJFQzc2RTdFM0VGMUYifQ.QDyczlC4GOdlXnzpYaHHaGuXGFFgS7nIpnrdsWvyBBMn9b2ZiqwBCUsETVqcR04TtTEgGCv083SLaCOzZNxcTkZxx7fDUdP-1DbX_9oEAQPqaDzyEhxtowNthAoTH3riPe3qZLF31CaaZ4zZ_Wwq32vi8xEAVRIx67g3-LQ08Sw`;
     super(address, protocols);
-    console.log('yyyyyyyyyyyyyy', address);
   }
 }
 
@@ -99,6 +98,7 @@ const splitLink = split(
 // Initialize Apollo Client
 const client = new ApolloClient({
   link: splitLink,
+  ssrMode: true,
   cache: new InMemoryCache(),
   defaultOptions: {
     query: {

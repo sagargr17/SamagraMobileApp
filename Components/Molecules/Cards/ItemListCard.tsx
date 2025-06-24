@@ -11,6 +11,7 @@ import {size} from '../../../Prefrences/Prefrences';
 
 interface ItemListCardProps {
   item: {
+    id: string;
     name: string;
     price: number;
     imageUrl: string;
@@ -26,6 +27,8 @@ interface ItemListCardProps {
   surfaceLevel?: 0 | 1 | 2 | 3 | 4 | 5 | any;
   customStyle?: ViewStyle;
   onImagePress?: any;
+  isContainerPressed?: boolean;
+  containerPressedHandle?: (id: string) => void;
 }
 
 export const ItemListtCard: React.FC<ItemListCardProps> = ({
@@ -33,15 +36,36 @@ export const ItemListtCard: React.FC<ItemListCardProps> = ({
   surfaceLevel = 0,
   customStyle,
   onImagePress,
+  isContainerPressed: isContainerPressedEnable,
+  containerPressedHandle,
 }) => {
   const {colors} = useTheme();
+  const [isItemSelected, setItemSelected] = useState<boolean>(false);
+
+  // Handle
+  const handleSelectedId = (id: string) => {
+    console.log('Working');
+
+    setItemSelected(!isItemSelected);
+    containerPressedHandle ? containerPressedHandle(id) : null;
+  };
 
   return (
     <Surface
+      
       elevation={surfaceLevel ? surfaceLevel : 0}
-      style={[styles.container, {backgroundColor: colors.card}, customStyle]}>
+      style={[
+        styles.container,
+        {
+          backgroundColor: colors.card,
+        },
+        customStyle,
+      ]}>
       <View style={styles.detailsContainer}>
         <View
+          onTouchEnd={() =>
+            isContainerPressedEnable ? handleSelectedId(item.id) : null
+          }
           style={{
             display: 'flex',
             flexDirection: 'row',
@@ -112,7 +136,7 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: '100%',
-    borderRadius:size.borderRadius.s
+    borderRadius: size.borderRadius.s,
   },
   detailsContainer: {
     flex: 1,
@@ -126,7 +150,7 @@ const styles = StyleSheet.create({
   pricingContainer: {
     flexDirection: 'column',
     alignItems: 'flex-start',
-    marginTop:size.spacing.xxs
+    marginTop: size.spacing.xxs,
   },
 
   ratingContainer: {

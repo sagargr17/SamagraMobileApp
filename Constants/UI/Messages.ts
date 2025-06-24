@@ -24,10 +24,17 @@ export const NoInternetFoundMessage =
 // Empty
 
 export const NoCartItemTitle = 'No Any Items Found !';
-export const NoCartItemMessage ='No Any Items Found in your cart, search Items !! ';
+export const NoCartItemMessage =
+  'No Any Items Found in your cart, search Items !! ';
 export const NoItemInShop = 'No Any Item found in the Shop!!';
 
-
-
-// Unnexpted Data 
+// Unnexpted Data
 export const NoItemFound = 'Something Went Wrong';
+
+// Subscription
+export const NoAnyorderItemsFoud =
+  'No Any Order Request Currently, Search later !';
+
+// Offer Requests Messages
+export const SuccessfullSentTitle = 'Request Offer Sent SuccessFully';
+export const SuccessfullSentMessage ='We will notifiy you if request has been accepted';

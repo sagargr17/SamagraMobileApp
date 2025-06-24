@@ -65,7 +65,7 @@ export const OrderSuccessDetailScreen: React.FC<
             fontVariant="bold"
             customStyle={{
               color: status === 'Completed' ? colors.primary : 'yellow',
-              marginLeft:5
+              marginLeft: 5,
             }}></AppText>
         </RowFlexLayout>
         <Spacer height={40}></Spacer>
@@ -200,6 +200,7 @@ export const OrderSuccessDetailScreen: React.FC<
           price: orderedItem.price,
           imageUrl: orderedItem.imageUrl,
           rating: 3,
+          id: orderedDetail.itemID,
         }}></ItemListtCard>
     </>
   );
@@ -279,13 +280,7 @@ export const OrderSuccessDetailScreen: React.FC<
     <ScrollView
       style={{
         paddingHorizontal: size.spacing.xs,
-      }}
-      // style={{
-      //   alignItems: 'center',
-      //   justifyContent: 'center',
-      //   flex: 1,
-      // }}
-    >
+      }}>
       {header}
       {itemCard}
       {orderSummary}

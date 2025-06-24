@@ -7,6 +7,7 @@ export interface SentordersParams {
   requiredTime: string;
   name: string;
   category: string;
+  id?: string;
 }
 
 const initialState: SentordersParams = {
@@ -15,6 +16,7 @@ const initialState: SentordersParams = {
   requiredTime: '',
   name: '',
   category: '',
+  id: '',
 };
 
 const sentOrderParams = createSlice({
