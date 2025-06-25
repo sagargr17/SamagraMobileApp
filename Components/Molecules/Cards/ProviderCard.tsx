@@ -1,64 +1,59 @@
 import FastImage from '@d11/react-native-fast-image';
 import {TouchableOpacity} from '@gorhom/bottom-sheet';
 import {useTheme} from '@react-navigation/native';
-import React, {useEffect, useMemo, useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import React, {useMemo, useState} from 'react';
+import {StyleSheet, TextStyle, View} from 'react-native';
 import {ProgressBar} from 'react-native-paper';
 import {Logos} from '../../../Assets/SVG/Exports/Exports';
-import {AreaMapper} from '../../../Utilities/CustomMethods';
-import {AppText} from '../../Elements/AppText';
-import {ProviderCardSkeleton} from '../../Skeletons/Components/ProviderCardSkeleton';
-import {PairButtons} from '../Global/PairButtons';
-import AppButton from '../../Elements/Button';
 import {RowFlexLayout} from '../../../Layout/PartationLayout/RowFlexLayout';
 import {size} from '../../../Prefrences/Prefrences';
-import {styles} from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetScrollable/BottomSheetFlashList';
+import {AreaMapper, titleRange} from '../../../Utilities/CustomMethods';
+import {AppText} from '../../Elements/AppText';
+import AppButton from '../../Elements/Button';
+import {AppBottomSheet} from '../Global/AppBottomSheet';
 
 interface ProviderCardProps {
-  titleName: string;
-  image: string;
-  distance: number;
-  rating: number;
-  priceperhour?: number;
-  setPersonalDetaile: React.Dispatch<React.SetStateAction<React.ReactNode>>;
-  setIsProfileTapped: any;
+  list: Array<{
+    value: string;
+    type: 'regular' | 'title' | 'caption' | 'display';
+    style?: TextStyle;
+    fontVariant?: 'regular' | 'medium' | 'bold' | 'heavy';
+  }>;
+  imageUrl: string;
+  setProfileTapped?: () => void;
   onAcceptButtonPress: () => void;
   isProgressBarEnable: boolean;
 }
 
 export const ProviderCard: React.FC<ProviderCardProps> = ({
-  titleName,
-  image,
-  distance,
-  rating,
-  priceperhour,
-  setIsProfileTapped,
-  setPersonalDetaile,
+  imageUrl,
+  list,
   isProgressBarEnable = true,
   onAcceptButtonPress,
+  setProfileTapped,
 }) => {
   const {colors} = useTheme();
-  const {Star} = Logos;
   const [progressBarData, setProgressBarData] = useState(0.1);
   const [isDeclined, setISdeclined] = useState<boolean>(false);
 
+  // ProgressBar Loading
   useMemo(() => {
     if (isProgressBarEnable === true)
       setTimeout(() => {
         setProgressBarData(progressBarData + 0.4);
       }, 2000);
+    return () => clearTimeout(0);
   }, [progressBarData]);
 
-  type providerPrimarycontain = () => React.ReactNode;
-  const providerPrimarycontain = (allDetailDisplay: boolean = true) => (
+  type CardHeader = React.ReactNode;
+  const CardHeader = (
     <View style={ProviderCardStyle.dataContainer}>
       <TouchableOpacity
         style={{
           backgroundColor: colors.card,
         }}
         onPress={() => {
-          setIsProfileTapped(true);
-          setPersonalDetaile(providerPrimarycontain(false));
+          setProfileTapped ? setProfileTapped() : null;
         }}>
         <FastImage
           style={[
@@ -68,55 +63,24 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
             },
           ]}
           source={{
-            uri: image,
+            uri: imageUrl,
           }}></FastImage>
       </TouchableOpacity>
 
       <View style={ProviderCardStyle.textContainer}>
-        <AppText title={titleName}></AppText>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-          }}>
+        {list.map((item, index) => (
           <AppText
-            title={'Rs.' + priceperhour + ' per hour'}
-            fontVariant="regular"
-            fontSizeVariant={'regular'}></AppText>
-        </View>
-        <View>
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'flex-start',
-            }}>
-            {Array.from({length: rating}).map((_, index) => (
-              <Star key={index} />
-            ))}
-            <AppText
-              customStyle={{
-                marginLeft: 5,
-              }}
-              title={distance + ' km away'}></AppText>
-          </View>
-          {allDetailDisplay && priceperhour ? (
-            <AppText
-              title={`Total: Rs.${priceperhour * 50}`}
-              fontVariant="bold"
-              fontSizeVariant={'title'}
-              customStyle={{
-                color: colors.primary,
-                marginVertical: size.spacing.xxs,
-              }}></AppText>
-          ) : null}
-        </View>
+            customStyle={item.style}
+            key={index}
+            title={item.value}
+            fontVariant={item.fontVariant}
+            fontSizeVariant={item.type}></AppText>
+        ))}
       </View>
     </View>
   );
 
-  const Cardcontent = () => {
+  const CardBody = () => {
     return (
       <>
         {!isDeclined ? (
@@ -138,9 +102,7 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
                     color={colors.primary}
                   />
                 )}
-
-                {providerPrimarycontain()}
-
+                {CardHeader}
                 <RowFlexLayout>
                   <AppButton
                     textColor={colors.text}
@@ -163,7 +125,7 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
     );
   };
 
-  return <>{Cardcontent()}</>;
+  return <>{CardBody()}</>;
 };
 
 const ProviderCardStyle = StyleSheet.create({

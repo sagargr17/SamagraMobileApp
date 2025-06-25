@@ -89,6 +89,7 @@ query GetPersonalItems {
         id
         name
       }
+      imageUrls
     }
   }
 }

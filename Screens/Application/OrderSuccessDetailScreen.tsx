@@ -12,7 +12,7 @@ import {AppText} from '../../Components/Elements/AppText';
 import {Spacer} from '../../Components/Elements/Spacer';
 import {size} from '../../Prefrences/Prefrences';
 import {useAppSelector} from '../../StateManagement/hooks';
-import {ItemListtCard} from '../../Components/Molecules/Cards/ItemListCard';
+import {ListCard} from '../../Components/Molecules/Cards/ListCard';
 import {RowFlexLayout} from '../../Layout/PartationLayout/RowFlexLayout';
 import {titleRange} from '../../Utilities/CustomMethods';
 import {NotMentioned} from '../../Constants/UI/Messages';
@@ -194,14 +194,14 @@ export const OrderSuccessDetailScreen: React.FC<
         title="Product"
         fontVariant="bold"
         fontSizeVariant="title"></AppText>
-      <ItemListtCard
+      <ListCard
         item={{
           name: orderedItem.name,
           price: orderedItem.price,
           imageUrl: orderedItem.imageUrl,
           rating: 3,
           id: orderedDetail.itemID,
-        }}></ItemListtCard>
+        }}></ListCard>
     </>
   );
 

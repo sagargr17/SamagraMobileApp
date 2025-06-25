@@ -13,7 +13,7 @@ import {useAppSelector} from '../../StateManagement/hooks';
 import {useMutation} from '@apollo/client';
 import {createOrderMutation} from '../../GraphQL/Mutation/CheckOutMutation';
 import {StringValueNode} from 'graphql';
-import {ItemListtCard} from '../../Components/Molecules/Cards/ItemListCard';
+import {ListCard} from '../../Components/Molecules/Cards/ListCard';
 import {RowFlexLayout} from '../../Layout/PartationLayout/RowFlexLayout';
 import {Spacer} from '../../Components/Elements/Spacer';
 import {Divider, RadioButton, Surface} from 'react-native-paper';
@@ -264,7 +264,7 @@ export const PlaceOrderScreen: React.FC<PlaceOrderScreenProps> = ({}) => {
       style={{
         paddingHorizontal: size.spacing.xxs,
       }}>
-      <ItemListtCard
+      <ListCard
         surfaceLevel={2}
         item={{
           name: placeOrderDetails.itemDetails.name,
@@ -274,7 +274,7 @@ export const PlaceOrderScreen: React.FC<PlaceOrderScreenProps> = ({}) => {
           shop: {
             name: placeOrderDetails.sellerDetails.shopName,
           },
-        }}></ItemListtCard>
+        }}></ListCard>
       <Spacer height={20}></Spacer>
       {sellerDetailsContainer}
       <Spacer height={20}></Spacer>

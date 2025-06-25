@@ -3,24 +3,26 @@ import {useTheme} from '@react-navigation/native';
 import {View} from 'moti';
 import React, {useState} from 'react';
 import {Icon, Surface, Text, TouchableRipple} from 'react-native-paper';
-import {StyleSheet, TouchableOpacity, ViewStyle} from 'react-native';
+import {
+  ImageStyle,
+  StyleSheet,
+  TextStyle,
+  TouchableOpacity,
+  ViewStyle,
+} from 'react-native';
 import {AreaMapper, titleCase} from '../../../Utilities/CustomMethods';
 import {AppText} from '../../Elements/AppText';
 import {Rating} from '../../Elements/Rating';
 import {size} from '../../../Prefrences/Prefrences';
 
-interface ItemListCardProps {
-  item: {
-    id: string;
-    name: string;
-    price: number;
-    imageUrl: string;
-    rating: number;
-    stocks?: number;
-    shop?: {
-      name: string;
-    };
-  };
+interface ListCardProps {
+  list: Array<{
+    value: string;
+    type: 'regular' | 'title' | 'caption' | 'display';
+    fontVariant?: 'regular' | 'medium' | 'bold' | 'heavy';
+    style?: TextStyle;
+  }>;
+  imageUrl?: string;
   buttonDetails?: {
     title: string;
   };
@@ -29,15 +31,20 @@ interface ItemListCardProps {
   onImagePress?: any;
   isContainerPressed?: boolean;
   containerPressedHandle?: (id: string) => void;
+  customImageStyle?: ImageStyle;
+  id: string;
 }
 
-export const ItemListtCard: React.FC<ItemListCardProps> = ({
-  item,
+export const ListCard: React.FC<ListCardProps> = ({
+  list,
   surfaceLevel = 0,
   customStyle,
   onImagePress,
   isContainerPressed: isContainerPressedEnable,
   containerPressedHandle,
+  customImageStyle,
+  imageUrl,
+  id,
 }) => {
   const {colors} = useTheme();
   const [isItemSelected, setItemSelected] = useState<boolean>(false);
@@ -52,7 +59,6 @@ export const ItemListtCard: React.FC<ItemListCardProps> = ({
 
   return (
     <Surface
-      
       elevation={surfaceLevel ? surfaceLevel : 0}
       style={[
         styles.container,
@@ -64,7 +70,7 @@ export const ItemListtCard: React.FC<ItemListCardProps> = ({
       <View style={styles.detailsContainer}>
         <View
           onTouchEnd={() =>
-            isContainerPressedEnable ? handleSelectedId(item.id) : null
+            isContainerPressedEnable ? handleSelectedId(id) : null
           }
           style={{
             display: 'flex',
@@ -80,39 +86,37 @@ export const ItemListtCard: React.FC<ItemListCardProps> = ({
               },
             ]}>
             <FastImage
-              style={styles.image}
+              style={[
+                styles.image,
+                {
+                  height: customImageStyle
+                    ? customImageStyle.height
+                    : styles.image.height,
+                  width: customImageStyle
+                    ? customImageStyle.width
+                    : styles.image.width,
+                },
+              ]}
               source={{
-                uri: item.imageUrl,
+                uri: imageUrl ?? imageUrl,
                 priority: FastImage.priority.high,
               }}
               resizeMode={FastImage.resizeMode.cover}
             />
           </TouchableOpacity>
-
           <TouchableOpacity
             onPress={() => onImagePress()}
             style={styles.pricingContainer}>
-            <AppText
-              fontSizeVariant={'regular'}
-              fontVariant="medium"
-              title={titleCase(item.name)}></AppText>
-            <Rating ratingNumber={item.rating}></Rating>
-            <AppText
-              customStyle={{
-                color: item.stocks ? colors.text : colors.primary,
-              }}
-              fontSizeVariant={'regular'}
-              fontVariant={item.stocks ? 'medium' : 'bold'}
-              title={`रु.${item.price.toFixed(2)}`}></AppText>
-            {item.stocks ? (
+            {list.map((item, index) => (
               <AppText
-                customStyle={{
-                  color: colors.primary,
-                }}
-                fontSizeVariant={'regular'}
-                fontVariant="bold"
-                title={`QTY : ${item.stocks} `}></AppText>
-            ) : null}
+                customStyle={item.style}
+                key={index}
+                title={item.value}
+                fontSizeVariant={item.type}
+                fontVariant={
+                  item.fontVariant ? item.fontVariant : 'regular'
+                }></AppText>
+            ))}
           </TouchableOpacity>
         </View>
       </View>

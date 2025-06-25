@@ -20,7 +20,9 @@ type OnBoardingStackParamList = {
   GetStartedScreen: undefined;
   SignUpScreen: undefined;
   SignInScreen: undefined;
-  OtpScreen: undefined;
+  OtpScreen: {
+    username: string;
+  };
   ProfileSetupScreen: undefined;
   ProfileCreateScreen: undefined;
 };

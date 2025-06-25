@@ -3,11 +3,15 @@ import {useIsFocused, useNavigation, useRoute} from '@react-navigation/native';
 import React from 'react';
 import {Text} from 'react-native';
 import {Logos} from '../../../Assets/SVG/Exports/Exports';
-import {ItemListtCard} from '../../../Components/Molecules/Cards/ItemListCard';
+import {ListCard} from '../../../Components/Molecules/Cards/ListCard';
 import {SingnlePageInfo} from '../../../Components/Organism/SinglePageInfo';
 import {ListCardSkeleton} from '../../../Components/Skeletons/Layout/ListCardSkeleton';
 import {ImageNotFound} from '../../../Constants/UI/AssetsUrls';
-import {NoCartItemTitle, NoItemInShop} from '../../../Constants/UI/Messages';
+import {
+  NoCartItemTitle,
+  NoItemInShop,
+  NotMentioned,
+} from '../../../Constants/UI/Messages';
 import {GetItemsByShopId} from '../../../GraphQL/Queries/ItemQueries';
 import {FlatListScreen} from '../../../Layout/ScreenLayout/FlatListScreenLayout';
 import {ApplicationOverlayStackNavigationProp} from '../../../Navigators/Stack/ApplicationOverlayStackNavigator';
@@ -54,18 +58,24 @@ export const MyShopItemsScreen: React.FC<MyShopItemsScreenProps> = ({}) => {
       }
       data={data?.getItems?.nodes}
       renderItem={({item, index}) => (
-        <ItemListtCard
+        <ListCard
+          id={item?.id ?? NotMentioned}
           key={index}
-          item={{
-            name: item?.name ? item.name : 'not found',
-            price: item?.price ? item?.price : 'not found',
-            imageUrl: ImageNotFound,
-            rating: item?.starRating ? item.starRating : 3,
-            stocks: item && item.stockQuantity ? item?.stockQuantity : 10,
-            shop: {
-              name: item?.shop && item.shop.name ? item.shop.name : 'not found',
+          imageUrl={ImageNotFound}
+          list={[
+            {
+              value: item?.name ?? NotMentioned,
+              type: 'regular',
             },
-          }}></ItemListtCard>
+            {
+              value: item?.price ?? NotMentioned,
+              type: 'regular',
+            },
+            {
+              value: item?.stockQuantity ?? NotMentioned,
+              type: 'regular',
+            },
+          ]}></ListCard>
       )}></FlatListScreen>
   );
 };

@@ -7,16 +7,24 @@ const verifiedPhoneNumber =
 
 // verifiedPassword
 export const verifiedPassword = async (username: string, otp: string) => {
-  const response = await fetch(registerUserEndpoint, {
+  console.log('USerNAme', username, otp);
+
+  const response = await fetch(verifiedPhoneNumber, {
     method: 'POST',
+    // headers: {
+    //   'Content-Type': 'application/x-www-form-urlencoded',
+    // },
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Type': 'application/json',
     },
-    body: new URLSearchParams({
+    body: JSON.stringify({
       username: username,
-      verificationCode: otp,
-    }).toString(),
+      verificationCode: '000000',
+    }),
   });
+  console.log('Response????', response);
+
+  return response;
 };
 
 // RegisterUser
@@ -27,26 +35,27 @@ export const registerUser = async (user: {
   phoneNumber: string;
 }) => {
   try {
+    console.log('USEr', user);
+
     const response = await fetch(registerUserEndpoint, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/json',
       },
-      body: new URLSearchParams({
+      body: JSON.stringify({
         username: user.username,
         password: user.password,
         email: user.email,
         phoneNumber: user.phoneNumber,
-      }).toString(),
+      }),
     });
-
-    console.log('Result', response);
 
     if (response.ok) {
       showMessage({
         message: 'User Create ',
         type: 'success',
       });
+      return 200;
     }
     if (!response.ok) {
       showMessage({

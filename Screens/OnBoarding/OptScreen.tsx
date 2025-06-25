@@ -1,14 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
-import {Text, StyleSheet, Pressable} from 'react-native';
+import {Text, StyleSheet, Pressable, Button} from 'react-native';
 import {OtpInput} from 'react-native-otp-entry';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 import {ScrollableLayout} from '../../Layout/ScreenLayout/ScrollableLayout';
-import { Spacer } from '../../Components/Elements/Spacer';
-
+import {Spacer} from '../../Components/Elements/Spacer';
+import {useRoute} from '@react-navigation/native';
+import {verifiedPassword} from '../../client/Token/RegisterUser';
+import {showMessage} from 'react-native-flash-message';
+import {responseTheme} from '../../Prefrences/Prefrences';
 
 interface OptScreenProps {
   navigation: OnBoardingStackNavigationProp<'OtpScreen'>;
@@ -18,10 +21,31 @@ export const OtpScreen: React.FC<OptScreenProps> = ({navigation}) => {
   const [otp, setOtp] = useState('');
   const [disabled, setDisabled] = useState(false);
   const [timer, setTimer] = useState(30);
+  const route = useRoute<any>();
+  console.log('params', route);
 
   const formattedNumber = timer < 10 ? `0${timer}` : `${timer}`;
 
-  const onOtpSet = () => {};
+  const onOtpSet = async () => {
+    let response = await verifiedPassword(route.params.username, otp);
+    if (response.ok) {
+      showMessage(
+        responseTheme(
+          'Verified SuccessFull',
+          `Login With the username ${route.params.username} and its respextive password`,
+          'success',
+        ),
+      );
+    } else {
+      showMessage(
+        responseTheme(
+          'Something Went Wrong',
+          `Please Try Again later`,
+          'danger',
+        ),
+      );
+    }
+  };
 
   useEffect(() => {
     if (timer <= 0) {
@@ -57,10 +81,10 @@ export const OtpScreen: React.FC<OptScreenProps> = ({navigation}) => {
           filledPinCodeContainerStyle: {
             backgroundColor: '#D5D5D5',
           },
-          
         }}
       />
       <Spacer />
+      <Button title="send" onPress={onOtpSet}></Button>
       {!disabled ? (
         <Text style={styles.timer}>Resend code in 00:{formattedNumber}</Text>
       ) : (

@@ -5,7 +5,7 @@ import {
   useSubscription,
 } from '@apollo/client';
 import {useNavigation, useTheme} from '@react-navigation/native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FlatList, Modal, StyleSheet, View} from 'react-native';
 import {showMessage} from 'react-native-flash-message';
 import {IconButton} from 'react-native-paper';
@@ -13,7 +13,7 @@ import {Logos} from '../../Assets/SVG/Exports/Exports';
 import {AppText} from '../../Components/Elements/AppText';
 import AppButton from '../../Components/Elements/Button';
 import {Spacer} from '../../Components/Elements/Spacer';
-import {ItemListtCard} from '../../Components/Molecules/Cards/ItemListCard';
+import {ListCard} from '../../Components/Molecules/Cards/ListCard';
 import {ProviderCard} from '../../Components/Molecules/Cards/ProviderCard';
 import {SingnlePageInfo} from '../../Components/Organism/SinglePageInfo';
 import {ProviderCardSkeleton} from '../../Components/Skeletons/Components/ProviderCardSkeleton';
@@ -28,7 +28,10 @@ import {
   SuccessfullSentTitle,
 } from '../../Constants/UI/Messages';
 import {createItemRequestOfferMutation} from '../../GraphQL/Mutation/ItemRequestMutation';
-import {getPublicItems} from '../../GraphQL/Queries/ItemQueries';
+import {
+  getPersonalItems,
+  getPublicItems,
+} from '../../GraphQL/Queries/ItemQueries';
 import {getSubscribedData} from '../../GraphQL/Subscription/Subscription';
 import {RowFlexLayout} from '../../Layout/PartationLayout/RowFlexLayout';
 import {responseTheme, size} from '../../Prefrences/Prefrences';
@@ -37,6 +40,8 @@ import {AppSerchBar} from '../../Components/Molecules/Global/AppSerchBar';
 import {AppBottomSheet} from '../../Components/Molecules/Global/AppBottomSheet';
 import {useAppDispatch} from '../../StateManagement/hooks';
 import {showLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
+import {SamagraLoader} from '../../Components/Molecules/Response/SamagraLoader';
+import {titleCase, titleRange} from '../../Utilities/CustomMethods';
 
 interface ReceivedOrderListScreenProps {}
 // export async function onDisplayNotification(body: string) {
@@ -92,11 +97,11 @@ export const ReceivedOrderListScreen: React.FC<
     },
   });
   const [requestID, setRequestID] = useState<string>('');
-  const [
-    getPublicItemsFn,
-    {data: myShopItem, loading: myShopItemLoading, error: myShopError},
-  ] = useLazyQuery(getPublicItems);
-  const [isSideBarVisible, setIsSideBarVisible] = useState<boolean>(false);
+  const {
+    data: myShopItem,
+    loading: myShopItemLoading,
+    error: myShopError,
+  } = useQuery(getPersonalItems);
   const [itemSelectedId, setItemSelectedId] = useState<string>('');
   const [createItemRequestOfferFn] = useMutation(
     createItemRequestOfferMutation,
@@ -144,7 +149,7 @@ export const ReceivedOrderListScreen: React.FC<
     }
   };
 
-  // Handle Navigation
+  // Handle back  Navigation
   const handleNavigation = () => {
     navigation.navigate('ApplicationOverlay', {
       screen: 'OrderListScreen',
@@ -163,88 +168,110 @@ export const ReceivedOrderListScreen: React.FC<
 
   // React Elements
   // MyShopItems
-  const myItemsSection = (
+  const myItemsSection = () => (
     <>
-      <RowFlexLayout
-        customStyle={{
-          justifyContent: 'space-between',
-          marginTop: size.spacing.xl,
-          paddingHorizontal: size.spacing.s,
-          // elevation: 1,
-        }}>
-        <AppText
-          title="My Item's"
-          fontSizeVariant="title"
-          fontVariant="medium"></AppText>
-
-        <IconButton
-          onPress={() => setIsModalOpen(!isModalOpen)}
-          icon={'close'}
-          size={size.iconSize.medium}
-          iconColor={colors.notification}
+      {myShopItemLoading ? (
+        <View
           style={{
-            backgroundColor: colors.card,
-            borderWidth: size.borderWidth.l,
-            borderColor: colors.card,
-          }}
-        />
-      </RowFlexLayout>
-
-      <FlatList
-        ListHeaderComponent={
-          <View style={{
-            marginVertical:size.spacing.xxs
+            justifyContent: 'center',
+            alignItems: 'center',
+            flex: 1,
+            marginTop: size.spacing.xxl + 10,
           }}>
-            <AppSerchBar onPress={() => console.log('SEarched')}></AppSerchBar>
-          </View>
-        }
-        contentContainerStyle={{
-          marginTop: size.spacing.s,
-          marginBottom: size.spacing.xxl+10,
-        }}
-        showsVerticalScrollIndicator={false}
-        data={myShopItem?.getPublicItems?.nodes}
-        renderItem={({item, index}) => (
-          <ItemListtCard
+          <SamagraLoader></SamagraLoader>
+        </View>
+      ) : (
+        <>
+          <RowFlexLayout
             customStyle={{
-              borderWidth: size.borderWidth.s,
-              borderColor: itemSelectedId === item?.id ? 'orange' : colors.card,
-              paddingHorizontal: size.spacing.xs,
-              marginHorizontal: size.spacing.xs,
+              justifyContent: 'space-between',
+              marginTop: size.spacing.xl,
+              paddingHorizontal: size.spacing.s,
+              // elevation: 1,
+            }}>
+            <AppText
+              title="My Item's"
+              fontSizeVariant="title"
+              fontVariant="medium"></AppText>
+
+            <IconButton
+              onPress={() => setIsModalOpen(!isModalOpen)}
+              icon={'close'}
+              size={size.iconSize.medium}
+              iconColor={colors.notification}
+              style={{
+                backgroundColor: colors.card,
+                borderWidth: size.borderWidth.l,
+                borderColor: colors.card,
+              }}
+            />
+          </RowFlexLayout>
+          <FlatList
+            ListHeaderComponent={
+              <View
+                style={{
+                  marginVertical: size.spacing.xxs,
+                  marginHorizontal: size.spacing.xxs,
+                }}>
+                <AppSerchBar
+                  onPress={() => console.log('SEarched')}></AppSerchBar>
+              </View>
+            }
+            contentContainerStyle={{
+              marginTop: size.spacing.s,
+              marginBottom: size.spacing.xxl + 10,
             }}
-            containerPressedHandle={(id: string) => {
-              setItemSelectedId(id);
+            showsVerticalScrollIndicator={false}
+            data={myShopItem?.getItems?.nodes}
+            renderItem={({item, index}) => (
+              <ListCard
+                customStyle={{
+                  borderWidth: size.borderWidth.s,
+                  borderColor:
+                    itemSelectedId === item?.id ? 'orange' : colors.card,
+                  paddingHorizontal: size.spacing.xs,
+                  marginHorizontal: size.spacing.xs,
+                }}
+                containerPressedHandle={(id: string) => {
+                  setItemSelectedId(id);
+                }}
+                isContainerPressed
+                key={index}
+                id={item?.id ?? NotMentioned}
+                imageUrl={item?.imageUrls?.[0] ?? ImageNotFound}
+                list={[
+                  {
+                    value: titleCase(item?.name) ?? NotMentioned,
+                    type: 'title',
+                    fontVariant: 'bold',
+                  },
+                  {
+                    value: item?.price ? 'Rs. ' + item.price : NotMentioned,
+                    type: 'regular',
+                  },
+                ]}></ListCard>
+            )}></FlatList>
+          <AppButton
+            onPress={() => {
+              dispatch(showLoader());
+              onAcceptHandle(requestID, itemSelectedId);
             }}
-            isContainerPressed
-            key={index}
-            item={{
-              id: item?.id ?? NotMentioned,
-              name: item?.name ?? NotMentioned,
-              price: item?.price ?? NotMentioned,
-              imageUrl: item?.imageUrls?.[0] ?? ImageNotFound,
-              rating: 3,
-            }}></ItemListtCard>
-        )}></FlatList>
-      <AppButton
-        onPress={() => {
-          dispatch(showLoader());
-          onAcceptHandle(requestID, itemSelectedId);
-        }}
-        style={{
-          bottom: 0,
-          position: 'absolute',
-          right: 0,
-          margin: size.spacing.m,
-        }}>
-        Send Request
-      </AppButton>
+            style={{
+              bottom: 0,
+              position: 'absolute',
+              right: 0,
+              margin: size.spacing.m,
+            }}>
+            Send Request
+          </AppButton>
+        </>
+      )}
     </>
   );
 
   const profileDetailInfo = (
     <>
       <View>{personalUserDetail}</View>
-
       <View style={styles.userInformationContainer}>
         <View style={styles.emailContainer}>
           <AppText
@@ -268,7 +295,11 @@ export const ReceivedOrderListScreen: React.FC<
         </View>
       </View>
       <Spacer height={20}></Spacer>
-      <AppButton onPress={() => setIsSideBarVisible(!isSideBarVisible)}>
+      <AppButton
+        onPress={() => {
+          setIsProfileTapped(!isProfileTapped);
+          setIsModalOpen(!isModalOpen);
+        }}>
         Accept
       </AppButton>
       <Spacer height={20}></Spacer>
@@ -300,39 +331,43 @@ export const ReceivedOrderListScreen: React.FC<
         data={orderlist}
         renderItem={({item, index}) => (
           <ProviderCard
+            list={[
+              {
+                value:
+                  item.events?.data?.itemRequestReceived?.name ?? NotMentioned,
+                type: 'regular',
+                fontVariant: 'medium',
+              },
+              {
+                value: 'name',
+                type: 'caption',
+              },
+              {
+                value: titleRange(
+                  'Ipsum ipsum aute officia aute laborum magna qui ex nulla.',
+                  30,
+                ),
+                type: 'caption',
+              },
+            ]}
+            key={index}
             isProgressBarEnable={false}
             onAcceptButtonPress={() => {
-              getPublicItemsFn()
-                .then(res => setIsModalOpen(true))
-                .catch(error =>
-                  showMessage(
-                    responseTheme(
-                      'Something went Wrong',
-                      'Please Try agabin',
-                      'success',
-                    ),
-                  ),
-                );
+              dispatch(showLoader());
+              setIsModalOpen(true);
               setRequestID(item.events?.data?.itemRequestReceived?.id ?? '');
             }}
-            setIsProfileTapped={() => {
+            setProfileTapped={() => {
               setIsProfileTapped(!isProfileTapped);
             }}
-            setPersonalDetaile={setPersonalDetail}
-            // priceperhour={Math.floor(Math.random() * 5) + 1}
-            distance={Math.floor(Math.random() * 5) + 1}
-            rating={Math.floor(Math.random() * 5) + 1}
-            titleName={
-              item.events?.data?.itemRequestReceived?.name ?? 'Loading...'
-            }
-            image={DummyServiceProviderURL}></ProviderCard>
+            imageUrl={DummyServiceProviderURL}></ProviderCard>
         )}></FlatList>
 
       <Modal
         statusBarTranslucent={true}
         animationType="fade"
         visible={isModalOpen}>
-        {myItemsSection}
+        {myItemsSection()}
       </Modal>
 
       {/* App BottomSheet */}

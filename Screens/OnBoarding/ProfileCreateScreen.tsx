@@ -22,9 +22,11 @@ import PhoneInput from '../../Components/Elements/PhoneInput';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import {registerUser} from '../../client/Token/RegisterUser';
 import {AppText} from '../../Components/Elements/AppText';
+import {showMessage} from 'react-native-flash-message';
+import {responseTheme} from '../../Prefrences/Prefrences';
 
 interface ProfileCreateProps {
-  navigation: OnBoardingStackNavigationProp<'ProfileCreateScreen'>;
+  navigation: OnBoardingStackNavigationProp<'OtpScreen'>;
 }
 
 interface CreateForm {
@@ -65,15 +67,22 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
   const onSubmit = async (data: CreateForm) => {
     setCount(prev => prev + 1);
     console.log('Submit', data);
-    await registerUser({
-      username: data.firstName,
-      password: data.password,
-      email: data.email,
-      phoneNumber: data.phone,
-    });
+
     if (data.password === data.confirmPassword) {
+      let result = await registerUser({
+        username: data.firstName,
+        password: data.password,
+        email: data.email,
+        phoneNumber: data.phone,
+      });
+      if (result === 200) {
+        navigation.navigate('OtpScreen', {
+          username: data.firstName,
+        });
+      }
     } else {
       console.log('>>><<< submitting Error');
+      showMessage(responseTheme('Password Didnot Matched', 'asdsad', 'danger'));
     }
   };
 

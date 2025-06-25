@@ -16,7 +16,7 @@ import {
 import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
 import {postPlaceOrderparams} from '../../StateManagement/Orders/PlaceOrderDetailsParams';
 import {ImageNotFound, ItemImageNotFound} from '../../Constants/UI/AssetsUrls';
-import {ItemListtCard} from '../../Components/Molecules/Cards/ItemListCard';
+import {ListCard} from '../../Components/Molecules/Cards/ListCard';
 import {ListCardSkeleton} from '../../Components/Skeletons/Layout/ListCardSkeleton';
 import {State} from 'react-native-gesture-handler';
 import {UserLocationRenderMode} from '@maplibre/maplibre-react-native';
@@ -109,7 +109,7 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
       }}
       data={data?.getBasketItems?.nodes}
       renderItem={({item, index}) => (
-        <ItemListtCard
+        <ListCard
           key={index}
           onImagePress={() => {
             onHanleImagePress(
@@ -133,7 +133,7 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
               name: item?.item?.name ?? NotMentioned,
             },
           }}
-          surfaceLevel={1}></ItemListtCard>
+          surfaceLevel={1}></ListCard>
       )}></FlatList>
   );
 };
