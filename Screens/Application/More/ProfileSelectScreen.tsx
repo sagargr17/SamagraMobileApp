@@ -41,7 +41,6 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
     });
   };
 
-  console.log('Response>> Data, Loading, Error', data, loading, error);
 
   if (loading && !data)
     return <ListCardSkeleton numberOfList={7}></ListCardSkeleton>;

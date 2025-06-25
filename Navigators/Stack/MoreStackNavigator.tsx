@@ -5,12 +5,19 @@ import {
 } from '@react-navigation/native-stack';
 import React from 'react';
 
-import {RouteProp, useTheme} from '@react-navigation/native';
+import {RouteProp, useRoute, useTheme} from '@react-navigation/native';
 import {MoreLandingScreen} from '../../Screens/Application/More/MoreLandingScreen';
+import {StockScreen} from '../../Screens/Application/More/StockScreen';
+import {PendingOrderScreen} from '../../Screens/Application/More/PendingOrdersScreen';
 
 type MoreStackParamList = {
   MoreLandingScreen: undefined;
-  
+  StockScreen: {
+    shopId: string;
+  };
+  PendingOrderScreen: {
+    shopId: string;
+  };
 };
 
 // Its The builder with the
@@ -52,6 +59,7 @@ const screenBuilder = (
 
 export const MoreStackNavigator: React.FC = () => {
   const {colors, fonts} = useTheme();
+
   return (
     <>
       <MoreStackBuilder.Navigator
@@ -65,7 +73,6 @@ export const MoreStackNavigator: React.FC = () => {
           headerStyle: {
             backgroundColor: colors.background,
           },
-          
         }}>
         {screenBuilder([
           {
@@ -74,6 +81,14 @@ export const MoreStackNavigator: React.FC = () => {
             option: {
               header: () => null,
             },
+          },
+          {
+            screenName: 'StockScreen',
+            component: StockScreen,
+          },
+          {
+            screenName: 'PendingOrderScreen',
+            component: PendingOrderScreen,
           },
         ])}
       </MoreStackBuilder.Navigator>

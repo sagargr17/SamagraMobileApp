@@ -4,40 +4,40 @@ import {
   concat,
   createHttpLink,
   InMemoryCache,
-  split
+  split,
 } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
-import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
-import { getMainDefinition } from '@apollo/client/utilities';
-import { fetch as netInfoFetch } from '@react-native-community/netinfo';
-import { NavigationContainer } from '@react-navigation/native';
-import { createClient } from 'graphql-ws';
-import React, { useEffect, useState } from 'react';
-import { AppState, StatusBar, useColorScheme } from 'react-native';
+import {setContext} from '@apollo/client/link/context';
+import {GraphQLWsLink} from '@apollo/client/link/subscriptions';
+import {getMainDefinition} from '@apollo/client/utilities';
+import {fetch as netInfoFetch} from '@react-native-community/netinfo';
+import {NavigationContainer} from '@react-navigation/native';
+import {createClient} from 'graphql-ws';
+import React, {useEffect, useState} from 'react';
+import {AppState, StatusBar, useColorScheme} from 'react-native';
 import BootSplash from 'react-native-bootsplash';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { PaperProvider } from 'react-native-paper';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { Camera } from 'react-native-vision-camera';
-import { Provider } from 'react-redux';
-import { Logos } from './Assets/SVG/Exports/Exports';
-import { accessTokenGenerator } from './client/Token/AccessTokenGenerator';
-import { getTokens } from './client/Token/TokenAccess';
-import { isTokenExpired } from './client/Token/TokeValidator';
-import { SingnlePageInfo } from './Components/Organism/SinglePageInfo';
-import { GRAPHQL_ENDPOINT } from './Constants/SamagraConstants/SamagraEndpoints';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {PaperProvider} from 'react-native-paper';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {Camera} from 'react-native-vision-camera';
+import {Provider} from 'react-redux';
+import {Logos} from './Assets/SVG/Exports/Exports';
+import {accessTokenGenerator} from './client/Token/AccessTokenGenerator';
+import {getTokens} from './client/Token/TokenAccess';
+import {isTokenExpired} from './client/Token/TokeValidator';
+import {SingnlePageInfo} from './Components/Organism/SinglePageInfo';
+import {GRAPHQL_ENDPOINT} from './Constants/SamagraConstants/SamagraEndpoints';
 import {
   NoInternetFound,
   NoInternetFoundMessage,
   ServerErrorMessage,
   ServerErrorTitle,
 } from './Constants/UI/Messages';
-import { useTokenRefreshTimer } from './CustomHooks/useTokenRefreshTimer';
-import { RootStack } from './Navigators/RootStackNavigator';
-import { MyDarkTheme, MyTheme } from './Prefrences/Prefrences';
-import { store } from './StateManagement/Store';
-import { login, logout } from './StateManagement/User/UserSlice';
-import { AreaMapper } from './Utilities/CustomMethods';
+import {useTokenRefreshTimer} from './CustomHooks/useTokenRefreshTimer';
+import {RootStack} from './Navigators/RootStackNavigator';
+import {MyDarkTheme, MyTheme} from './Prefrences/Prefrences';
+import {store} from './StateManagement/Store';
+import {login, logout} from './StateManagement/User/UserSlice';
+import {AreaMapper} from './Utilities/CustomMethods';
 
 // MAin Fuction To Token Refresh Handle
 const isTokennExpireHandle = async () => {
@@ -163,6 +163,8 @@ function App(): React.JSX.Element {
     const getUserStatusHandle = async () => {
       try {
         const {userStatus} = await getTokens();
+        console.log('USEr Status', userStatus);
+
         userStatus === 'true'
           ? store.dispatch(
               login({

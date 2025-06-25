@@ -19,3 +19,24 @@ query GetMySHops {
   }
 }
 `);
+
+export const getMyOrders = gql(`
+query GetPendingOrders {
+  getOrders {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+    nodes {
+      id
+      itemName
+      isCompleted
+      price
+      address
+      quantity
+    }
+  }
+}
+`);

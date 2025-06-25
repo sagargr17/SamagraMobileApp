@@ -40,7 +40,7 @@ export const MyShopItemsScreen: React.FC<MyShopItemsScreenProps> = ({}) => {
       shopId: route.params.shopId,
       shopName: route.params.shopName,
     });
-  };
+};
 
   const {NoItemFound} = Logos;
   return (

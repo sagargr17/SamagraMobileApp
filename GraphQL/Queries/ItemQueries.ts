@@ -112,6 +112,7 @@ export const getPaginatedPersonalItems = gql(`
 }
 `);
 
+
 export const GetItemsByShopId = gql(`
   query GetPersonalItemsByShopId($shopId: String!) {
   getItems(shopId: $shopId) {

@@ -28,6 +28,7 @@ type Documents = {
     "\n  query GetPaginatedPersonalItems($after: String) {\n  getItems (after: $after) {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n      startCursor\n      endCursor\n    }\n    nodes {\n      name\n      price\n      starRating\n    }\n  }\n}\n": typeof types.GetPaginatedPersonalItemsDocument,
     "\n  query GetPersonalItemsByShopId($shopId: String!) {\n  getItems(shopId: $shopId) {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n      startCursor\n      endCursor\n    }\n    nodes {\n      id\n      name\n      price\n      starRating\n      stockQuantity\n      shop {\n        id\n        name\n      }\n    }\n  }\n}\n  ": typeof types.GetPersonalItemsByShopIdDocument,
     "\nquery GetMySHops {\n  getShops {\n    nodes {\n      id\n      name\n      aboutShop\n      stars {\n        stars\n      }\n      location\n      phoneNumber\n      profileImageUrl\n    }\n  }\n}\n": typeof types.GetMySHopsDocument,
+    "\nquery GetPendingOrders {\n  getOrders {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n      startCursor\n      endCursor\n    }\n    nodes {\n      id\n      itemName\n      isCompleted\n      price\n      address\n      quantity\n    }\n  }\n}\n": typeof types.GetPendingOrdersDocument,
     "\n  query GetLoginUser {\n  getUser {\n    username\n    profileImageUrl\n  }\n}\n": typeof types.GetLoginUserDocument,
     "\n  subscription GetData {\n  events {\n    id\n    eventName\n   \n    data {\n      itemRequestReceived {\n        id\n        name\n        categoryId\n      }\n      itemRequestOfferReceived {\n        id\n        itemId\n        itemRequestId\n      }\n      orderReceived {\n        fullName\n        completionDateTime\n        isCompleted\n        address\n        message\n        phoneNumber\n        price\n        quantity\n        currency\n      }\n    }\n  }\n}\n\n": typeof types.GetDataDocument,
 };
@@ -46,6 +47,7 @@ const documents: Documents = {
     "\n  query GetPaginatedPersonalItems($after: String) {\n  getItems (after: $after) {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n      startCursor\n      endCursor\n    }\n    nodes {\n      name\n      price\n      starRating\n    }\n  }\n}\n": types.GetPaginatedPersonalItemsDocument,
     "\n  query GetPersonalItemsByShopId($shopId: String!) {\n  getItems(shopId: $shopId) {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n      startCursor\n      endCursor\n    }\n    nodes {\n      id\n      name\n      price\n      starRating\n      stockQuantity\n      shop {\n        id\n        name\n      }\n    }\n  }\n}\n  ": types.GetPersonalItemsByShopIdDocument,
     "\nquery GetMySHops {\n  getShops {\n    nodes {\n      id\n      name\n      aboutShop\n      stars {\n        stars\n      }\n      location\n      phoneNumber\n      profileImageUrl\n    }\n  }\n}\n": types.GetMySHopsDocument,
+    "\nquery GetPendingOrders {\n  getOrders {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n      startCursor\n      endCursor\n    }\n    nodes {\n      id\n      itemName\n      isCompleted\n      price\n      address\n      quantity\n    }\n  }\n}\n": types.GetPendingOrdersDocument,
     "\n  query GetLoginUser {\n  getUser {\n    username\n    profileImageUrl\n  }\n}\n": types.GetLoginUserDocument,
     "\n  subscription GetData {\n  events {\n    id\n    eventName\n   \n    data {\n      itemRequestReceived {\n        id\n        name\n        categoryId\n      }\n      itemRequestOfferReceived {\n        id\n        itemId\n        itemRequestId\n      }\n      orderReceived {\n        fullName\n        completionDateTime\n        isCompleted\n        address\n        message\n        phoneNumber\n        price\n        quantity\n        currency\n      }\n    }\n  }\n}\n\n": types.GetDataDocument,
 };
@@ -120,6 +122,10 @@ export function gql(source: "\n  query GetPersonalItemsByShopId($shopId: String!
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\nquery GetMySHops {\n  getShops {\n    nodes {\n      id\n      name\n      aboutShop\n      stars {\n        stars\n      }\n      location\n      phoneNumber\n      profileImageUrl\n    }\n  }\n}\n"): (typeof documents)["\nquery GetMySHops {\n  getShops {\n    nodes {\n      id\n      name\n      aboutShop\n      stars {\n        stars\n      }\n      location\n      phoneNumber\n      profileImageUrl\n    }\n  }\n}\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\nquery GetPendingOrders {\n  getOrders {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n      startCursor\n      endCursor\n    }\n    nodes {\n      id\n      itemName\n      isCompleted\n      price\n      address\n      quantity\n    }\n  }\n}\n"): (typeof documents)["\nquery GetPendingOrders {\n  getOrders {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n      startCursor\n      endCursor\n    }\n    nodes {\n      id\n      itemName\n      isCompleted\n      price\n      address\n      quantity\n    }\n  }\n}\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

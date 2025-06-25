@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     borderRadius: 8,
-    marginVertical: 2,
+    marginBottom:size.spacing.xs ,
     // marginHorizontal: 8,
     overflow: 'hidden',
   },

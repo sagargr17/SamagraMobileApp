@@ -67,7 +67,7 @@ const style = StyleSheet.create({
     justifyContent: 'center', // Centers content vertically
     alignItems: 'center', // Centers content horizontally
     flexDirection: 'column',
-    marginTop: AreaMapper({value: 120}),
+    marginTop: AreaMapper({value: 180}),
   },
 
   buttonStyle: {

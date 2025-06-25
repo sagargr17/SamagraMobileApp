@@ -60,14 +60,20 @@ export const ShopProfileUserContainer: React.FC<
           title: 'Pending',
           iconName: 'calendar-clock-outline',
           onPress: () => {
-            console.log('Presed');
+            navigation.navigate('PendingOrderScreen', {
+              shopId: shopId,
+            });
           },
         },
 
         {
           title: 'Stocks',
           iconName: 'view-comfy',
-          onPress: () => {},
+          onPress: () => {
+            navigation.navigate('StockScreen', {
+              shopId: shopId,
+            });
+          },
         },
       ],
     },
@@ -98,7 +104,7 @@ export const ShopProfileUserContainer: React.FC<
       title: 'Stocks',
       icon: <StockIcon height={iconSize} width={iconSize}></StockIcon>,
       onPress: () => {
-        console.log('Presed');
+        // navigation.navigate('StockScreen');
       },
     },
     {
