@@ -195,13 +195,20 @@ export const OrderSuccessDetailScreen: React.FC<
         fontVariant="bold"
         fontSizeVariant="title"></AppText>
       <ListCard
-        item={{
-          name: orderedItem.name,
-          price: orderedItem.price,
-          imageUrl: orderedItem.imageUrl,
-          rating: 3,
-          id: orderedDetail.itemID,
-        }}></ListCard>
+        id={orderedDetail.itemID}
+        list={[
+          {
+            value: orderedItem.name,
+            type: 'regular',
+            fontVariant: 'medium',
+          },
+          {
+            value: `${orderedItem.price}`,
+            type: 'regular',
+            fontVariant: 'medium',
+          },
+        ]}
+        imageUrl={orderedItem.imageUrl}></ListCard>
     </>
   );
 

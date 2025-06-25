@@ -39,6 +39,7 @@ interface AppFormProps<TFormValues extends FieldValues> {
   defaultValues?: TFormValues;
   header?: any;
   children?: React.ReactNode;
+  disabled?: boolean;
 }
 // --- END NEW/UPDATED INTERFACES ---
 
@@ -49,6 +50,7 @@ export const AppForm = <TFormValues extends FieldValues>({
   defaultValues,
   header,
   children,
+  disabled,
 }: AppFormProps<TFormValues>) => {
   const {colors} = useTheme();
 
@@ -114,6 +116,7 @@ export const AppForm = <TFormValues extends FieldValues>({
         ))}
 
         <AppButton
+          disabled={disabled}
           showLoader={false}
           onPress={handleSubmit(onFormSubmit)}
           // onPress={() => console.log('>>>')}

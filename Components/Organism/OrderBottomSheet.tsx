@@ -14,6 +14,8 @@ import {
 import {AppBottomSheet} from '../Molecules/Global/AppBottomSheet';
 import {AppForm} from './AppForm';
 import {ItemCategoryCardSlider} from './ItemCategorySlider';
+import {SamagraLoader} from '../Molecules/Response/SamagraLoader';
+import {GetAuthenticateClient} from '../../client/Graphql/AuthenticatedClient';
 
 interface OrderBottomSheetProps {
   navigation: RootStackNavigationProp<'ApplicationOverlay'> | any;
@@ -24,21 +26,25 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
 }) => {
   type childrenContent = () => React.ReactNode;
   const dispatch = useAppDispatch();
-  const [createItemRequestFn] = useMutation(CreateItemRequestMutation);
+  const [createItemRequestFn, {loading}] = useMutation(
+    CreateItemRequestMutation,
+  );
 
+  const authenticateClient = GetAuthenticateClient;
   const handleSubmit = (data: SentordersParams) => {
     dispatch(showLoader());
     console.log('Calling the function');
-    createItemRequestFn({
-      variables: {
-        categoryID: '1',
-        itemName: `${data.name}`,
-      },
-    })
+    authenticateClient
+      .mutate({
+        mutation: CreateItemRequestMutation,
+        variables: {
+          itemName: data.name,
+          categoryID: '1',
+        },
+      })
       .then(res => {
-        // Console log
-        console.log('Order Created', res);
-
+        console.log('response Create Items', res);
+        console.log('Order Created', res.data?.createItemRequest?.id);
         // Dispatch
         dispatch(
           postOrderparams({
@@ -50,22 +56,22 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
             id: res.data?.createItemRequest?.id ?? '',
           }),
         );
-
         // Navigation
         navigation.navigate('ApplicationOverlay', {
           screen: 'ReceivedOfferListScreen',
         });
       })
       .catch(err => {
+        console.log('Message', err);
+
         showMessage(
           responseTheme('Something Went Wrong', 'PLease Try again', 'danger'),
         );
       });
-
-    // Dispatching the Result
   };
 
   const childrenContent = () => {
+    
     const userLocation = useAppSelector(state => state.user.user?.location);
 
     return (
@@ -100,7 +106,8 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
             },
           ]}
           onFormSubmit={handleSubmit}
-          submitButtonText="Search"></AppForm>
+          disabled={loading ? true : false}
+          submitButtonText={`${loading ? 'loading' : 'Search'}`}></AppForm>
       </View>
     );
   };

@@ -55,23 +55,25 @@ export const PlaceOrderScreen: React.FC<PlaceOrderScreenProps> = ({}) => {
       itemID,
     );
 
-    let response = await createOrderMutationFn({
-      variables: {
-        fullName: fullName,
-        address: address,
-        phoneNumber: phoneNumber,
-        quantity: quantity,
-        message: message,
-        itemId: itemID,
-      },
-    });
-
-    console.log('order Details', response);
-
-    if (response.data) {
-      navigation.navigate('ApplicationOverlay', {
-        screen: 'OrderSuccessDetailScreen',
+    try {
+      let response = await createOrderMutationFn({
+        variables: {
+          fullName: fullName,
+          address: address,
+          phoneNumber: phoneNumber,
+          quantity: quantity,
+          message: message,
+          itemId: itemID,
+        },
       });
+
+      if (response.data) {
+        navigation.navigate('ApplicationOverlay', {
+          screen: 'OrderSuccessDetailScreen',
+        });
+      }
+    } catch (err) {
+      console.log('Error:::...', err);
     }
   };
 
@@ -265,16 +267,26 @@ export const PlaceOrderScreen: React.FC<PlaceOrderScreenProps> = ({}) => {
         paddingHorizontal: size.spacing.xxs,
       }}>
       <ListCard
+        id={placeOrderDetails.itemDetails.imageUrl}
         surfaceLevel={2}
-        item={{
-          name: placeOrderDetails.itemDetails.name,
-          price: placeOrderDetails.itemDetails.price,
-          imageUrl: placeOrderDetails.itemDetails.imageUrl,
-          rating: 3,
-          shop: {
-            name: placeOrderDetails.sellerDetails.shopName,
+        imageUrl={placeOrderDetails.itemDetails.imageUrl}
+        list={[
+          {
+            type: 'regular',
+            value: placeOrderDetails.itemDetails.name,
+            fontVariant: 'medium',
           },
-        }}></ListCard>
+          {
+            type: 'regular',
+            value: `${placeOrderDetails.itemDetails.price}`,
+            fontVariant: 'medium',
+          },
+          {
+            type: 'regular',
+            value: placeOrderDetails.sellerDetails.shopName,
+            fontVariant: 'medium',
+          },
+        ]}></ListCard>
       <Spacer height={20}></Spacer>
       {sellerDetailsContainer}
       <Spacer height={20}></Spacer>
@@ -288,22 +300,25 @@ export const PlaceOrderScreen: React.FC<PlaceOrderScreenProps> = ({}) => {
         showLoader={true}
         onPress={() => {
           try {
-            if (
-              user &&
-              placeOrderDetails?.orderDetail?.orderQuantity &&
-              placeOrderDetails.orderDetail.itemID
-            )
+            console.log('ing,,,,');
+            {
+              console.log('Logging,,,,');
               handleConfirmPlaceItem(
-                user?.username,
-                user?.location,
-                user?.phoneNumber,
-                Number(placeOrderDetails.orderDetail.orderQuantity),
+                user?.username ?? 'sagar',
+                user?.location ?? 'butwal',
+                user?.phoneNumber ?? '9841150390',
+                Number(
+                  placeOrderDetails.orderDetail.orderQuantity === '0'
+                    ? 1
+                    : placeOrderDetails.orderDetail.orderQuantity,
+                ),
                 placeOrderDetails.orderDetail.message,
                 placeOrderDetails.orderDetail.itemID,
               );
+            }
           } catch (e) {
             showMessage(
-              responseTheme(NoItemFound, NoInternetFoundMessage, 'success'),
+              responseTheme(NoItemFound, NoInternetFoundMessage, 'danger'),
             );
           }
         }}>
