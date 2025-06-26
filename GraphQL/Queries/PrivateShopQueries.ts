@@ -38,25 +38,10 @@ query GetPendingOrders {
       quantity
       dateTime
       completionDateTime
+      phoneNumber
+      fullName
+      message
     }
   }
 }
 `);
-
-export const getMyOrdersByItem = gql(`
- query GetPendingOrderItems($itemId: String!) {
-  getOrders(where: { isCompleted: { eq: false }, itemId: { eq: $itemId } }) {
-    pageInfo {
-      hasNextPage
-      hasPreviousPage
-      startCursor
-      endCursor
-    }
-    nodes {
-      id
-      itemName
-    }
-  }
-}
-`)
-
