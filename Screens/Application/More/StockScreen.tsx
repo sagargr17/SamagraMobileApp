@@ -37,6 +37,8 @@ export const StockScreen: React.FC<StockScreenProps> = ({}) => {
     });
   };
 
+  console.log('Stocks:::', route.params.shopId, data);
+
   const emptyNode = (
     <SingnlePageInfo
       icon={<NoItemFound height={AreaMapper({value: 150})} width={'90%'} />}

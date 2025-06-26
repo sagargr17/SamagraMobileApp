@@ -249,6 +249,20 @@ export const ReceivedOrderListScreen: React.FC<
                     value: item?.price ? 'Rs. ' + item.price : NotMentioned,
                     type: 'regular',
                   },
+                  {
+                    value: item?.stockQuantity
+                      ? 'QTY: ' + item.stockQuantity
+                      : NotMentioned,
+                    type: 'regular',
+                    fontVariant: 'bold',
+                    style: {
+                      color: item?.stockQuantity
+                        ? item?.stockQuantity < 5
+                          ? colors.notification
+                          : colors.primary
+                        : colors.primary,
+                    },
+                  },
                 ]}></ListCard>
             )}></FlatList>
           <AppButton

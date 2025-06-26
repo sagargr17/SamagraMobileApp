@@ -8,9 +8,13 @@ import {size} from '../../../Prefrences/Prefrences';
 
 interface SerchBarProps {
   onPress: (searchedItem: string) => void;
+  placeHolder?: string;
 }
 
-export const AppSerchBar: React.FC<SerchBarProps> = ({onPress}) => {
+export const AppSerchBar: React.FC<SerchBarProps> = ({
+  onPress,
+  placeHolder,
+}) => {
   const {fonts} = useTheme();
   const [searchedItem, setSearchedItem] = useState<string>('');
   const {colors} = useTheme();
@@ -33,7 +37,7 @@ export const AppSerchBar: React.FC<SerchBarProps> = ({onPress}) => {
         lineHeight: 22,
       }}
       placeholderTextColor={'#C0C0C0'}
-      placeholder="Search Anything..."
+      placeholder={placeHolder ? placeHolder : 'Search Anything...'}
       onChangeText={strokes => {
         setSearchedItem(strokes);
       }}

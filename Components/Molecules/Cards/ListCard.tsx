@@ -33,6 +33,7 @@ interface ListCardProps {
   containerPressedHandle?: (id: string) => void;
   customImageStyle?: ImageStyle;
   id: string;
+  child?: React.ReactNode;
 }
 
 export const ListCard: React.FC<ListCardProps> = ({
@@ -45,6 +46,7 @@ export const ListCard: React.FC<ListCardProps> = ({
   customImageStyle,
   imageUrl,
   id,
+  child,
 }) => {
   const {colors} = useTheme();
   const [isItemSelected, setItemSelected] = useState<boolean>(false);
@@ -80,7 +82,6 @@ export const ListCard: React.FC<ListCardProps> = ({
             onPress={() => onImagePress()}
             style={[
               styles.imageContainer,
-              size.elevation.l,
               {
                 borderRadius: size.borderRadius.full,
               },
@@ -101,7 +102,7 @@ export const ListCard: React.FC<ListCardProps> = ({
                 uri: imageUrl ?? imageUrl,
                 priority: FastImage.priority.high,
               }}
-              resizeMode={FastImage.resizeMode.cover}
+              resizeMode={FastImage.resizeMode.contain}
             />
           </TouchableOpacity>
           <TouchableOpacity
@@ -118,6 +119,7 @@ export const ListCard: React.FC<ListCardProps> = ({
                 }></AppText>
             ))}
           </TouchableOpacity>
+          {child ?? child}
         </View>
       </View>
     </Surface>
@@ -128,7 +130,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     borderRadius: 8,
-    marginBottom:size.spacing.xs ,
+    marginBottom: size.spacing.xs,
     // marginHorizontal: 8,
     overflow: 'hidden',
   },
@@ -140,7 +142,6 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: '100%',
-    borderRadius: size.borderRadius.s,
   },
   detailsContainer: {
     flex: 1,

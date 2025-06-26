@@ -23,10 +23,12 @@ import {OrderSuccessDetailScreen} from '../../Screens/Application/OrderSuccessDe
 import {ProfileSelectScreen} from '../../Screens/Application/More/ProfileSelectScreen';
 import {size} from '../../Prefrences/Prefrences';
 import {ShopCreatedScreen} from '../../Screens/Application/ShopCreatedScreen';
+import {ReceivedSuccessOrderScreen} from '../../Screens/Application/ReceivedSuccessOrderScreen';
 
 type ApplicationOverlayMoreStackParamList = {
   ReceivedOrderListScreen: undefined;
   ReceivedOfferListScreen: undefined;
+  ReceivedSuccessOrderScreen: undefined;
   ItemDetailScreen: {
     id: string;
     name: string;
@@ -204,6 +206,14 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
           {
             screenName: 'OrderSuccessDetailScreen',
             component: OrderSuccessDetailScreen,
+
+            option: ({route}: {route: any}) => ({
+              title: titleCase('Receipt'),
+            }),
+          },
+          {
+            screenName: 'ReceivedSuccessOrderScreen',
+            component: ReceivedSuccessOrderScreen,
 
             option: ({route}: {route: any}) => ({
               title: titleCase('Receipt'),

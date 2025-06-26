@@ -89,6 +89,7 @@ export const RootStack: React.FC = () => {
   }, [loaderStatus]);
 
   const [getLoginUserFn, {data, loading, error}] = useLazyQuery(getLoginUser);
+
   // THis is for the Login USer DAta Retrival
   useEffect(() => {
     getLoginUserFn().then(data => {
@@ -126,7 +127,7 @@ export const RootStack: React.FC = () => {
           fontWeight: 'regular',
           fontStyle: 'italic',
         }}
-        floating={true}
+        floating={false}
       />
       {loaderStatus ? (
         <ProgressBar
@@ -142,7 +143,7 @@ export const RootStack: React.FC = () => {
         screenOptions={{
           header: () => null,
         }}>
-        {userSignInStatus === true //change this to true while deployment
+        {true === true //change this to true while deployment
           ? screenBuilder([
               {screenName: 'BottomTab', component: BottomTabNavigator},
               {

@@ -23,3 +23,9 @@ export const createNewStore = gql(`mutation createNewStore(
   }
 }
 `);
+
+export const deleteStore = gql(`mutation RemoveStore(
+  $id: String!) {
+  removeStore(id: $id)
+}
+`);

@@ -20,9 +20,9 @@ query GetMySHops {
 }
 `);
 
-export const getMyOrders = gql(`
+export const getMyOrdersItem = gql(`
 query GetPendingOrders {
-  getOrders {
+  getOrders(where: { isCompleted: { eq: false } }) {
     pageInfo {
       hasNextPage
       hasPreviousPage
@@ -36,7 +36,27 @@ query GetPendingOrders {
       price
       address
       quantity
+      dateTime
+      completionDateTime
     }
   }
 }
 `);
+
+export const getMyOrdersByItem = gql(`
+ query GetPendingOrderItems($itemId: String!) {
+  getOrders(where: { isCompleted: { eq: false }, itemId: { eq: $itemId } }) {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+    nodes {
+      id
+      itemName
+    }
+  }
+}
+`)
+

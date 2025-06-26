@@ -1,22 +1,19 @@
 import {useNavigation, useTheme} from '@react-navigation/native';
 import React from 'react';
 
-import {Logos} from '../../Assets/SVG/Exports/Exports';
-import {RowFlexLayout} from '../../Layout/PartationLayout/RowFlexLayout';
-import {size} from '../../Prefrences/Prefrences';
-import {BubbleCard} from '../Molecules/Cards/BubbleCard';
-import {AppText} from '../Elements/AppText';
+import {useMutation} from '@apollo/client';
 import {StyleSheet, View} from 'react-native';
-import {Spacer} from '../Elements/Spacer';
-import {Icon, TouchableRipple} from 'react-native-paper';
-import {
-  AddItemScreenRouteProp,
-  ApplicationOverlayStackNavigationProp,
-} from '../../Navigators/Stack/ApplicationOverlayStackNavigator';
-import {State} from 'react-native-gesture-handler';
+import {showMessage} from 'react-native-flash-message';
+import {Logos} from '../../Assets/SVG/Exports/Exports';
+import {WentwrongMessage} from '../../Constants/UI/Messages';
+import {deleteStore} from '../../GraphQL/Mutation/ShopMutations';
+import {RowFlexLayout} from '../../Layout/PartationLayout/RowFlexLayout';
+import {responseTheme, size} from '../../Prefrences/Prefrences';
 import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
-import {clearTokens} from '../../client/Token/TokenAccess';
-import AppButton from '../Elements/Button';
+import {AppText} from '../Elements/AppText';
+import {Spacer} from '../Elements/Spacer';
+import {BubbleCard} from '../Molecules/Cards/BubbleCard';
+import {showLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
 
 interface ShopProfileUserContainerProps {
   shopId: string;
@@ -30,6 +27,45 @@ export const ShopProfileUserContainer: React.FC<
   const {PenIcon, DustbinIcon, StockIcon, PlusIcon} = Logos;
   const iconSize = size.iconSize.small;
   const shopName = useAppSelector(state => state.user.shopData?.name);
+  const dispatch = useAppDispatch();
+  const [removeStoreFn] = useMutation(deleteStore);
+
+  const handleRemoveStore = async () => {
+    dispatch(showLoader());
+    try {
+      let response = await removeStoreFn({
+        variables: {
+          id: shopId,
+        },
+      });
+
+      if (response.data) {
+        showMessage(
+          responseTheme(
+            'SuccessFully Store Removed',
+            'Navigating to Store',
+            'success',
+          ),
+        );
+        navigation.navigate('ApplicationOverlay', {
+          screen: 'SelectProfile',
+        });
+      }
+      if (response.errors) {
+        showMessage(
+          responseTheme(
+            response.errors[0].message,
+            'Please try again later!',
+            'danger',
+          ),
+        );
+      }
+    } catch (e) {
+      showMessage(
+        responseTheme(WentwrongMessage, 'Please try again later!', 'danger'),
+      );
+    }
+  };
 
   const flexDetailsItems = [
     {
@@ -116,7 +152,7 @@ export const ShopProfileUserContainer: React.FC<
           color="red"></DustbinIcon>
       ),
       onPress: () => {
-        console.log('Presed');
+        handleRemoveStore();
       },
     },
   ];

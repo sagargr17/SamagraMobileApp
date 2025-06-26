@@ -2,9 +2,9 @@ import {
   BottomTabNavigationProp,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
-import React from 'react';
+import React, {useEffect} from 'react';
 
-import {useTheme} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import {HomeStackNavigator} from '../Stack/HomeStackNavigator';
@@ -13,6 +13,10 @@ import {ServiceStackNavigator} from '../Stack/ServiceStackNavigator';
 import {size} from '../../Prefrences/Prefrences';
 import {View} from 'moti';
 
+import {Button, Text} from 'react-native';
+import {useLazyQuery, useQuery} from '@apollo/client';
+import {getPublicItems} from '../../GraphQL/Queries/ItemQueries';
+import {Spacer} from '../../Components/Elements/Spacer';
 type BottomTabParamList = {
   Home: undefined;
   Order: undefined;
@@ -45,6 +49,12 @@ const screenBuilder = (
 
 export const BottomTabNavigator: React.FC = () => {
   const {colors, fonts} = useTheme();
+  const {data, error, loading} = useQuery(getPublicItems, {
+    fetchPolicy: 'network-only',
+  });
+
+  console.log('Result???', data, error, loading);
+  const navigation = useNavigation<any>();
   return (
     <BottomTabBuilder.Navigator
       screenOptions={({route}) => ({

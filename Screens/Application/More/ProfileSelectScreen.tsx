@@ -1,6 +1,6 @@
 import {gql, useLazyQuery, useQuery} from '@apollo/client';
 import {useNavigation, useTheme} from '@react-navigation/native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, Text} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {AppText} from '../../../Components/Elements/AppText';
@@ -25,7 +25,7 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
   const {colors} = useTheme();
   const {} = useTheme();
 
-  const {data, loading, error} = useQuery(myShops, {
+  const {data, loading, error, refetch} = useQuery(myShops, {
     fetchPolicy: 'network-only',
   });
 
@@ -35,12 +35,15 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
   const navigation = useNavigation<any>();
   const userData = useAppSelector(state => state.user.user);
 
+  useEffect(() => {
+    refetch();
+  }, []);
+
   const navigationHandle = () => {
     navigation.navigate('BottomTab', {
       screen: 'More',
     });
   };
-
 
   if (loading && !data)
     return <ListCardSkeleton numberOfList={7}></ListCardSkeleton>;

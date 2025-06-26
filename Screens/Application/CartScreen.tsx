@@ -1,6 +1,6 @@
 import {useQuery} from '@apollo/client';
 import {useNavigation, useTheme} from '@react-navigation/native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, FlatList, Text, View} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
 import {AppText} from '../../Components/Elements/AppText';
@@ -27,6 +27,7 @@ import {
   SingnlePageInfoProps,
 } from '../../Components/Organism/SinglePageInfo';
 import {AreaMapper} from '../../Utilities/CustomMethods';
+import {GetAuthenticateClient} from '../../client/Graphql/AuthenticatedClient';
 
 interface CartScreenProps {}
 
@@ -36,8 +37,9 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(state => state.user.user);
   const {NoItemFound} = Logos;
-  const {data, loading, error} = useQuery(GetBasketItemsQuery);
   const userLocation = useAppSelector(state => state.user.user?.location);
+  const {data, loading, error} = useQuery(GetBasketItemsQuery);
+  // console.log('Result>>>', data, loading, error);
 
   if (loading)
     return (
@@ -50,6 +52,7 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
       dispatch(
         postPlaceOrderparams({
           itemDetails: {
+            price: 2,
             location: userLocation,
             description: 'Awesome',
             requiredTime: '4hr',
@@ -100,6 +103,8 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
       }}></SingnlePageInfo>
   );
 
+  const isAuthenticated = GetAuthenticateClient;
+
   return (
     <FlatList
       showsVerticalScrollIndicator={false}
@@ -110,6 +115,7 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
       data={data?.getBasketItems?.nodes}
       renderItem={({item, index}) => (
         <ListCard
+          id={item?.id ?? 'Not Mentioned'}
           key={index}
           onImagePress={() => {
             onHanleImagePress(
@@ -120,19 +126,16 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
           customStyle={{
             marginBottom: size.spacing.xxs,
           }}
-          item={{
-            name: item?.item?.name ?? NotMentioned,
-            rating:
-              Math.floor(item?.item?.starRating) === 0
-                ? 3
-                : Math.floor(item?.item?.starRating) ?? 3,
-            stocks: 200,
-            imageUrl: item?.item?.imageUrls?.[0] ?? ImageNotFound,
-            price: item?.item?.price,
-            shop: {
-              name: item?.item?.name ?? NotMentioned,
+          list={[
+            {
+              value: item?.item?.name ?? NotMentioned,
+              type: 'title',
             },
-          }}
+            {
+              value: item?.item?.name ?? NotMentioned,
+              type: 'regular',
+            },
+          ]}
           surfaceLevel={1}></ListCard>
       )}></FlatList>
   );

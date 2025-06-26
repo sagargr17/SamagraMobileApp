@@ -89,6 +89,9 @@ export const MoreStackNavigator: React.FC = () => {
           {
             screenName: 'PendingOrderScreen',
             component: PendingOrderScreen,
+            option:{
+              headerTitle:"Pending Orders"
+            }
           },
         ])}
       </MoreStackBuilder.Navigator>
