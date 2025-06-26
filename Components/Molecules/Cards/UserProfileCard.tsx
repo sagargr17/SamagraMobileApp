@@ -1,11 +1,11 @@
 import FastImage from '@d11/react-native-fast-image';
-import {useTheme} from '@react-navigation/native';
+import { useTheme } from '@react-navigation/native';
 import React from 'react';
-import {StyleSheet, TouchableOpacity, View, ViewStyle} from 'react-native';
-import {AreaMapper} from '../../../Utilities/CustomMethods';
-import {AppText} from '../../Elements/AppText';
-import {size} from '../../../Prefrences/Prefrences';
-import {Icon, IconButton, TouchableRipple} from 'react-native-paper';
+import { StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
+import { IconButton } from 'react-native-paper';
+import { size } from '../../../Prefrences/Prefrences';
+import { AreaMapper } from '../../../Utilities/CustomMethods';
+import { AppText } from '../../Elements/AppText';
 interface UserProfileCardProps {
   user: {
     username: string;
@@ -33,8 +33,8 @@ export const UserProfileCard: React.FC<UserProfileCardProps> = ({
         {
           backgroundColor: colors.card,
           borderRadius: size.borderRadius.m,
-          borderWidth: size.borderWidth.l,
-          borderColor: colors.card,
+          // borderWidth: size.borderWidth.l,
+          
         },
         customStyle,
       ]}>

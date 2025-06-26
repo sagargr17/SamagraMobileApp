@@ -93,12 +93,20 @@ export const PendingOrderScreen: React.FC<OrderScreenProps> = ({}) => {
         id={personalDetail?.id ?? `${Math.random()}`}
         list={[
           {
-            value: personalDetail?.itemName ?? NotMentioned,
-            type: 'regular',
+            value: titleCase(personalDetail?.itemName ?? NotMentioned),
+            type: 'title',
           },
           {
             value: `Rs.${personalDetail?.price ?? NotMentioned}`,
             type: 'regular',
+          },
+          {
+            value: `${personalDetail?.dateTime.split('T')[0] ?? NotMentioned} ${
+              personalDetail?.dateTime.split('T')[1].split('.')[0] ??
+              NotMentioned
+            }`,
+            type: 'regular',
+            fontVariant: 'heavy',
           },
         ]}></ListCard>
       <Spacer></Spacer>
@@ -107,32 +115,35 @@ export const PendingOrderScreen: React.FC<OrderScreenProps> = ({}) => {
           title="Full Name:"
           fontSizeVariant="title"
           fontVariant="heavy"></AppText>
-        <AppText title={personalDetail?.fullName ?? NoItemFound}></AppText>
+        <AppText title={personalDetail?.fullName ?? NotMentioned}></AppText>
         <Spacer></Spacer>
         <AppText
           title="Phone:"
           fontSizeVariant="title"
           fontVariant="heavy"></AppText>
-        <AppText title={personalDetail?.phoneNumber ?? NoItemFound}></AppText>
+        <AppText title={personalDetail?.phoneNumber ?? NotMentioned}></AppText>
         <Spacer></Spacer>
         <AppText
           title="Address:"
           fontSizeVariant="title"
           fontVariant="heavy"></AppText>
-        <AppText title={personalDetail?.address ?? NoItemFound}></AppText>
-        <Spacer height={20}></Spacer>
+        <AppText title={personalDetail?.address ?? NotMentioned}></AppText>
+        {/* <Spacer height={20}></Spacer> */}
         <RowFlexLayout
           customStyle={{
             justifyContent: 'flex-start',
-            backgroundColor: colors.card,
-            paddingHorizontal: size.spacing.s,
+            // backgroundColor: colors.card,
+            // paddingHorizontal: size.spacing.s,
             paddingVertical: size.spacing.m,
-            borderWidth: size.borderWidth.xss,
-            borderRadius: size.borderRadius.full,
           }}>
-          <AppText title="Note:" fontVariant="heavy"></AppText>
           <AppText
-            title={`"${personalDetail?.message ?? NoItemFound}"`}
+            title="Note:"
+            fontVariant="heavy"
+            customStyle={{
+              color: colors.primary,
+            }}></AppText>
+          <AppText
+            title={`"${personalDetail?.message ?? NotMentioned}"`}
             customStyle={{
               marginLeft: size.spacing.xs,
             }}></AppText>
@@ -170,6 +181,9 @@ export const PendingOrderScreen: React.FC<OrderScreenProps> = ({}) => {
               height: AreaMapper({value: 100}),
             }}
             onImagePress={() => {
+              console.log('Pressed', isBottomSheetOpen);
+
+              setIsBottomSheetOpen(!isBottomSheetOpen);
               setPersonalDetail({
                 itemName: item?.itemName ?? NotMentioned,
                 address: item?.address ?? NotMentioned,
@@ -182,7 +196,6 @@ export const PendingOrderScreen: React.FC<OrderScreenProps> = ({}) => {
                 fullName: item?.fullName ?? NotMentioned,
                 message: item?.message ?? NotMentioned,
               });
-              setIsBottomSheetOpen(!isBottomSheetOpen);
             }}
             surfaceLevel={1}
             id={item?.id ?? NotMentioned}
@@ -223,15 +236,17 @@ export const PendingOrderScreen: React.FC<OrderScreenProps> = ({}) => {
             ]}></ListCard>
         )}></FlatListScreen>
 
-      <AppBottomSheet
-        onClose={() => setIsBottomSheetOpen(!isBottomSheetOpen)}
-        flexHeight={1}
-        pannigGesture={true}
-        title="Working"
-        isOppen={isBottomSheetOpen}
-        children={() => {
-          return child;
-        }}></AppBottomSheet>
+      {isBottomSheetOpen ? (
+        <AppBottomSheet
+          onClose={() => setIsBottomSheetOpen(!isBottomSheetOpen)}
+          flexHeight={1}
+          pannigGesture={true}
+          title="Working"
+          isOppen={isBottomSheetOpen}
+          children={() => {
+            return child;
+          }}></AppBottomSheet>
+      ) : null}
     </>
   );
 };

@@ -30,7 +30,7 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
   });
 
   const authenticateClient = GetAuthenticateClient;
-
+  const selectedTab = useAppSelector(state => state.user.shopData?.name);
   const dispatch = useAppDispatch();
   const navigation = useNavigation<any>();
   const userData = useAppSelector(state => state.user.user);
@@ -67,16 +67,17 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
   };
 
   const handleUserSelect = () => {
-    // dispatch(
-    //   login({
-    //     user: {
-    //       username: userData?.username ?? NotMentioned,
-    //       pofileImageUrl: ImageNotFound,
-    //       email: 'sagar@gmail.com',
-    //       location: 'butwal',
-    //     },
-    //   }),
-    // );
+    dispatch(
+      login({
+        user: {
+          username: userData?.username ?? NotMentioned,
+          pofileImageUrl: ImageNotFound,
+          email: 'sagar@gmail.com',
+          location: 'butwal',
+          phoneNumber: '9841150390',
+        },
+      }),
+    );
     navigationHandle();
   };
 
@@ -120,7 +121,10 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
             elevation: 0,
             marginBottom: size.spacing.xxs,
             paddingHorizontal: size.spacing.s,
-            borderRadius: 0,
+
+            borderColor:
+              item?.name === selectedTab ? colors.notification : colors.card,
+            borderWidth: size.borderWidth.xs,
           }}
           user={{
             username: item?.name ?? NotMentioned,

@@ -1,11 +1,6 @@
-import {
-  useLazyQuery,
-  useMutation,
-  useQuery,
-  useSubscription,
-} from '@apollo/client';
+import {useMutation, useQuery, useSubscription} from '@apollo/client';
 import {useNavigation, useTheme} from '@react-navigation/native';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {FlatList, Modal, StyleSheet, View} from 'react-native';
 import {showMessage} from 'react-native-flash-message';
 import {IconButton} from 'react-native-paper';
@@ -15,6 +10,9 @@ import AppButton from '../../Components/Elements/Button';
 import {Spacer} from '../../Components/Elements/Spacer';
 import {ListCard} from '../../Components/Molecules/Cards/ListCard';
 import {ProviderCard} from '../../Components/Molecules/Cards/ProviderCard';
+import {AppBottomSheet} from '../../Components/Molecules/Global/AppBottomSheet';
+import {AppSerchBar} from '../../Components/Molecules/Global/AppSerchBar';
+import {SamagraLoader} from '../../Components/Molecules/Response/SamagraLoader';
 import {SingnlePageInfo} from '../../Components/Organism/SinglePageInfo';
 import {ProviderCardSkeleton} from '../../Components/Skeletons/Components/ProviderCardSkeleton';
 import {
@@ -28,19 +26,13 @@ import {
   SuccessfullSentTitle,
 } from '../../Constants/UI/Messages';
 import {createItemRequestOfferMutation} from '../../GraphQL/Mutation/ItemRequestMutation';
-import {
-  getPersonalItems,
-  getPublicItems,
-} from '../../GraphQL/Queries/ItemQueries';
+import {getPersonalItems} from '../../GraphQL/Queries/ItemQueries';
 import {getSubscribedData} from '../../GraphQL/Subscription/Subscription';
 import {RowFlexLayout} from '../../Layout/PartationLayout/RowFlexLayout';
 import {responseTheme, size} from '../../Prefrences/Prefrences';
 import {GetDataSubscription} from '../../src/__generated__/graphql';
-import {AppSerchBar} from '../../Components/Molecules/Global/AppSerchBar';
-import {AppBottomSheet} from '../../Components/Molecules/Global/AppBottomSheet';
-import {useAppDispatch} from '../../StateManagement/hooks';
 import {showLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
-import {SamagraLoader} from '../../Components/Molecules/Response/SamagraLoader';
+import {useAppDispatch} from '../../StateManagement/hooks';
 import {titleCase, titleRange} from '../../Utilities/CustomMethods';
 
 interface ReceivedOrderListScreenProps {}
@@ -225,6 +217,7 @@ export const ReceivedOrderListScreen: React.FC<
             data={myShopItem?.getItems?.nodes}
             renderItem={({item, index}) => (
               <ListCard
+                onImagePress={() => console.log('Pressed')}
                 customStyle={{
                   borderWidth: size.borderWidth.s,
                   borderColor:

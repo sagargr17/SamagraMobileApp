@@ -28,7 +28,7 @@ interface ListCardProps {
   };
   surfaceLevel?: 0 | 1 | 2 | 3 | 4 | 5 | any;
   customStyle?: ViewStyle;
-  onImagePress?: any;
+  onImagePress?: () => void;
   isContainerPressed?: boolean;
   containerPressedHandle?: (id: string) => void;
   customImageStyle?: ImageStyle;
@@ -79,7 +79,7 @@ export const ListCard: React.FC<ListCardProps> = ({
             flexDirection: 'row',
           }}>
           <TouchableOpacity
-            onPress={() => onImagePress()}
+            onPress={onImagePress}
             style={[
               styles.imageContainer,
               {
@@ -106,7 +106,7 @@ export const ListCard: React.FC<ListCardProps> = ({
             />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => onImagePress()}
+            onPress={onImagePress}
             style={styles.pricingContainer}>
             {list.map((item, index) => (
               <AppText
