@@ -38,12 +38,37 @@ import {MyDarkTheme, MyTheme} from './Prefrences/Prefrences';
 import {store} from './StateManagement/Store';
 import {login, logout} from './StateManagement/User/UserSlice';
 import {AreaMapper} from './Utilities/CustomMethods';
+import {onError} from '@apollo/client/link/error';
 
 // MAin Fuction To Token Refresh Handle
 const isTokennExpireHandle = async () => {
   const isTokenExpiredStatus = await isTokenExpired();
   return isTokenExpiredStatus;
 };
+
+// ErrorResponse
+const errorLink = onError(({graphQLErrors, networkError, protocolErrors}) => {
+  console.log('ErrorLink>>>');
+
+  if (graphQLErrors)
+    graphQLErrors.forEach(({message, locations, path}) =>
+      console.log(
+        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
+      ),
+    );
+
+  if (protocolErrors) {
+    protocolErrors.forEach(({message, extensions}) => {
+      console.log(
+        `[Protocol error]: Message: ${message}, Extensions: ${JSON.stringify(
+          extensions,
+        )}`,
+      );
+    });
+  }
+
+  if (networkError) console.log(`[Network error]: ${networkError}`);
+});
 
 // creating HTTP Link
 const httpLink = createHttpLink({
@@ -64,7 +89,9 @@ const authLink = setContext(async (_, {headers}) => {
   };
 });
 
+// Links
 const httpAuthLink = concat(authLink, httpLink);
+const httpAuthLinkWithErrorHandling = httpAuthLink.concat(errorLink);
 
 class MyWebSocket extends WebSocket {
   constructor(address: any, protocols: any) {
@@ -89,7 +116,8 @@ const splitLink = split(
     );
   },
   wsLink, // this is for the sockets
-  httpAuthLink, // yo chahi query and mutation jun HTTP flow ma jancha
+  httpAuthLinkWithErrorHandling, // yo chahi query and mutation jun HTTP flow ma jancha
+  // httpAuthLink, // yo chahi query and mutation jun HTTP flow ma jancha
 );
 
 // Initialize Apollo Client
@@ -126,35 +154,37 @@ function App(): React.JSX.Element {
 
   // Refreshing Time checker
   // It Checks Weather the client SErver is Working Fine or not
-  useEffect(() => {
-    netInfoFetch()
-      .then(state => {
-        if (state.isConnected) {
-          setInternetStatus({
-            loading: false,
-            status: state.isConnected,
-          });
-          if (timeBasedRefreshing === 400 && !serverError) {
-            setServerError(true);
-          } else {
-            setServerError(false);
+  // useEffect(() => {
+  //   netInfoFetch()
+  //     .then(state => {
+  //       if (state.isConnected) {
+  //         setInternetStatus({
+  //           loading: false,
+  //           status: state.isConnected,
+  //         });
+  //         if (timeBasedRefreshing === 400 && !serverError) {
+  //           setServerError(true);
+  //         } else {
+  //           setServerError(false);
 
-            if (scheme === 'dark') {
-              setTheme(MyDarkTheme);
-            } else {
-              setTheme(MyTheme);
-            }
-          }
-        } else {
-          setInternetStatus({
-            loading: false,
-            status: false,
-          });
-        }
-      })
-      .then(x => BootSplash.hide({fade: true}))
-      .catch(error => console.log('Error::', error));
-  }, [refreshingTime, internetStatus, scheme]);
+  //           if (scheme === 'dark') {
+  //             setTheme(MyDarkTheme);
+  //           } else {
+  //             setTheme(MyTheme);
+  //           }
+  //         }
+  //       } else {
+  //         setInternetStatus({
+  //           loading: false,
+  //           status: false,
+  //         });
+  //       }
+  //     })
+  //     .then(x => BootSplash.hide({fade: true}))
+  //     .catch(error => console.log('Error::', error));
+  // }, [refreshingTime, internetStatus, scheme]);
+
+
 
   // UserBased Login
   useEffect(() => {
@@ -184,26 +214,26 @@ function App(): React.JSX.Element {
     };
   }, []);
 
-  //This is the code for the refresh token , when the app is coming from , background to foreground
-  AppState.addEventListener('focus', async () => {
-    const {userStatus, accessToken, refreshToken} = await getTokens();
+  // //This is the code for the refresh token , when the app is coming from , background to foreground
+  // AppState.addEventListener('focus', async () => {
+  //   const {userStatus, accessToken, refreshToken} = await getTokens();
 
-    if (userStatus && userStatus === 'true') {
-      const refreshTimeCollector = await isTokennExpireHandle();
-      typeof refreshTimeCollector === 'number' &&
-      refreshTimeCollector !== refreshingTime
-        ? setRefreshingTime(refreshTimeCollector * 1000)
-        : async () => {
-            const {refreshToken, userStatus} = await getTokens();
-            if (refreshToken && userStatus === 'true') {
-              let refreshingToken = await accessTokenGenerator(refreshToken);
-              console.log('refreshing Token', refreshingToken);
-            }
-          };
-    } else {
-      store.dispatch(logout());
-    }
-  });
+  //   if (userStatus && userStatus === 'true') {
+  //     const refreshTimeCollector = await isTokennExpireHandle();
+  //     typeof refreshTimeCollector === 'number' &&
+  //     refreshTimeCollector !== refreshingTime
+  //       ? setRefreshingTime(refreshTimeCollector * 1000)
+  //       : async () => {
+  //           const {refreshToken, userStatus} = await getTokens();
+  //           if (refreshToken && userStatus === 'true') {
+  //             let refreshingToken = await accessTokenGenerator(refreshToken);
+  //             console.log('refreshing Token', refreshingToken);
+  //           }
+  //         };
+  //   } else {
+  //     store.dispatch(logout());
+  //   }
+  // });
 
   // This is for the image upload to get the Permission from User
   useEffect(() => {
@@ -215,6 +245,8 @@ function App(): React.JSX.Element {
     return () => {};
   }, []);
 
+
+   BootSplash.hide({fade: true})
   // Create a channel (required for Android)
   return (
     <GestureHandlerRootView

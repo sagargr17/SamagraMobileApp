@@ -115,6 +115,7 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
       data={data?.getBasketItems?.nodes}
       renderItem={({item, index}) => (
         <ListCard
+          imageUrl={item?.item?.imageUrls?.[0] ?? ItemImageNotFound}
           id={item?.id ?? 'Not Mentioned'}
           key={index}
           onImagePress={() => {
