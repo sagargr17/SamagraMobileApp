@@ -45,6 +45,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
           marginTop: size.spacing.xs,
         }}>
         <UserProfileCard
+          onCardPressed={handleNavigation}
           onIconPress={handleNavigation}
           user={{
             username: userName,

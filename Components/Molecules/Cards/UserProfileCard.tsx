@@ -1,11 +1,11 @@
 import FastImage from '@d11/react-native-fast-image';
-import { useTheme } from '@react-navigation/native';
+import {useTheme} from '@react-navigation/native';
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
-import { IconButton } from 'react-native-paper';
-import { size } from '../../../Prefrences/Prefrences';
-import { AreaMapper } from '../../../Utilities/CustomMethods';
-import { AppText } from '../../Elements/AppText';
+import {StyleSheet, TouchableOpacity, View, ViewStyle} from 'react-native';
+import {Icon, IconButton, TouchableRipple} from 'react-native-paper';
+import {size} from '../../../Prefrences/Prefrences';
+import {AreaMapper} from '../../../Utilities/CustomMethods';
+import {AppText} from '../../Elements/AppText';
 interface UserProfileCardProps {
   user: {
     username: string;
@@ -34,7 +34,6 @@ export const UserProfileCard: React.FC<UserProfileCardProps> = ({
           backgroundColor: colors.card,
           borderRadius: size.borderRadius.m,
           // borderWidth: size.borderWidth.l,
-          
         },
         customStyle,
       ]}>
@@ -83,12 +82,13 @@ export const UserProfileCard: React.FC<UserProfileCardProps> = ({
         </View>
       </View>
       {onIconPress ? (
-        <IconButton
-          rippleColor={'#f7fffa'}
-          icon={'menu-down'}
-          size={size.iconSize.large}
+        <TouchableRipple
           onPress={onIconPress}
-        />
+          style={{
+            borderRadius: 50,
+          }}>
+          <Icon size={35} source={'menu-down'}></Icon>
+        </TouchableRipple>
       ) : null}
     </TouchableOpacity>
   );

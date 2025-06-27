@@ -19,6 +19,7 @@ import {getLoginUser} from '../../../GraphQL/Queries/UserQueries';
 import {SingnlePageInfo} from '../../../Components/Organism/SinglePageInfo';
 import {GetAuthenticateClient} from '../../../client/Graphql/AuthenticatedClient';
 import useGraphQLQuery from '../../../CustomHooks/useQueryEffect';
+import {titleCase} from '../../../Utilities/CustomMethods';
 interface ProfileSelectScreenProps {}
 
 export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
@@ -93,7 +94,7 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
             borderRadius: 0,
           }}
           user={{
-            username: userData?.username ?? NotMentioned,
+            username: titleCase(userData?.username ?? NotMentioned),
             profileImageUrl: ImageNotFound,
           }}></UserProfileCard>
       }
@@ -121,10 +122,10 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
             elevation: 0,
             marginBottom: size.spacing.xxs,
             paddingHorizontal: size.spacing.s,
-
             borderColor:
               item?.name === selectedTab ? colors.notification : colors.card,
             borderWidth: size.borderWidth.xs,
+            paddingVertical: size.spacing.m,
           }}
           user={{
             username: item?.name ?? NotMentioned,
