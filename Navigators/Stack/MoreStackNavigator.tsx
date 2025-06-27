@@ -9,6 +9,7 @@ import {RouteProp, useRoute, useTheme} from '@react-navigation/native';
 import {MoreLandingScreen} from '../../Screens/Application/More/MoreLandingScreen';
 import {StockScreen} from '../../Screens/Application/More/StockScreen';
 import {PendingOrderScreen} from '../../Screens/Application/More/PendingOrdersScreen';
+import {StockUpdateScreen} from '../../Screens/Application/More/StockUpdateScreen';
 
 type MoreStackParamList = {
   MoreLandingScreen: undefined;
@@ -18,6 +19,7 @@ type MoreStackParamList = {
   PendingOrderScreen: {
     shopId: string;
   };
+  StockUpdateScreen: undefined;
 };
 
 // Its The builder with the
@@ -87,11 +89,18 @@ export const MoreStackNavigator: React.FC = () => {
             component: StockScreen,
           },
           {
+            screenName: 'StockUpdateScreen',
+            component: StockUpdateScreen,
+            option: {
+              headerTitle: 'Update Stock',
+            },
+          },
+          {
             screenName: 'PendingOrderScreen',
             component: PendingOrderScreen,
-            option:{
-              headerTitle:"Pending Orders"
-            }
+            option: {
+              headerTitle: 'Pending Orders',
+            },
           },
         ])}
       </MoreStackBuilder.Navigator>

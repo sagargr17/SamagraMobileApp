@@ -1,45 +1,33 @@
-// import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-// import {getTokens} from '../../client/Token/TokenAccess';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {getTokens} from '../../client/Token/TokenAccess';
+import {ItemViewModel} from '../../src/__generated__/graphql';
+import {act} from 'react';
 
-// interface User {
-//   item: {
-//     primary: {
-//       itemName: string;
-//     };
-//   };
-// }
+interface SelectedItem {
+  item: ItemViewModel | null;
+}
 
-// export interface UserState {
-//   user?: User | null;
-//   isAuthenticated: boolean | string;
-// }
+const initialState: SelectedItem = {
+  item: null,
+};
 
-// const initialState: UserState = {
-//   user: {
-//     username: 'SamagraUser',
-//     pofileImageUrl:
-//       'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-//     email: 'sagar@gmail.com',
-//     location: 'Butwal',
-//   },
-//   isAuthenticated: 'loading',
-// };
+const SelectedItemSlice = createSlice({
+  name: 'user',
+  initialState,
+  reducers: {
+    updateSelectedItem: (state, action: PayloadAction<SelectedItem>) => {
+      console.log('USer incoming ', action.payload);
+      state.item = action.payload.item;
+    },
+    updateSelectedItemStockQuantity: (state, action: PayloadAction<number>) => {
+      if (state.item?.stockQuantity && action) {
+        state.item.stockQuantity = action.payload;
+      }
+      // state.item = action.payload.item;
+    },
+  },
+});
 
-// const userSlice = createSlice({
-//   name: 'user',
-//   initialState,
-//   reducers: {
-//     login: (state, action: PayloadAction<UserState>) => {
-//       console.log('USer incoming ', action.payload);
-//       state.user = action.payload.user;
-//       state.isAuthenticated = true;
-//     },
-//     logout: state => {
-//       state.user = null;
-//       state.isAuthenticated = false;
-//     },
-//   },
-// });
-
-// export const {login, logout} = userSlice.actions;
-// export default userSlice.reducer;
+export const {updateSelectedItem, updateSelectedItemStockQuantity} =
+  SelectedItemSlice.actions;
+export default SelectedItemSlice.reducer;

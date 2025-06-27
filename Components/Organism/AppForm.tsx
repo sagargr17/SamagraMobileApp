@@ -14,6 +14,7 @@ import {
   ScrollView,
   StyleSheet,
   View,
+  ViewStyle,
 } from 'react-native';
 import {size} from '../../Prefrences/Prefrences';
 import AppButton from '../Elements/Button';
@@ -40,6 +41,7 @@ interface AppFormProps<TFormValues extends FieldValues> {
   header?: any;
   children?: React.ReactNode;
   disabled?: boolean;
+  customBottonPositionStyle?: ViewStyle;
 }
 // --- END NEW/UPDATED INTERFACES ---
 
@@ -51,6 +53,7 @@ export const AppForm = <TFormValues extends FieldValues>({
   header,
   children,
   disabled,
+  customBottonPositionStyle,
 }: AppFormProps<TFormValues>) => {
   const {colors} = useTheme();
 
@@ -114,18 +117,21 @@ export const AppForm = <TFormValues extends FieldValues>({
             )}
           </View>
         ))}
-
-        <AppButton
-          disabled={disabled}
-          showLoader={false}
-          onPress={handleSubmit(onFormSubmit)}
-          // onPress={() => console.log('>>>')}
-          style={{
-            marginTop: size.spacing.s,
-          }}
-          color="primary">
-          {submitButtonText}
-        </AppButton>
+        <View style={customBottonPositionStyle}>
+          <AppButton
+            
+            disabled={disabled}
+            showLoader={true}
+            onPress={handleSubmit(onFormSubmit)}
+            style={[
+              {
+                marginTop: size.spacing.s,
+              },
+            ]}
+            color="primary">
+            {submitButtonText}
+          </AppButton>
+        </View>
       </ScrollView>
     </KeyboardAvoidingView>
   );

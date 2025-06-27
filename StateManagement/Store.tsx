@@ -3,6 +3,7 @@ import userReducer from './User/UserSlice';
 import loaderReducer from './Error&loadingHandle/LoaderStateSlice';
 import sentOrderParamsReducer from './Orders/SentOrderParams';
 import placeOrderParamsReducer from './Orders/PlaceOrderDetailsParams';
+import selectedItemReducer from './Item/SelectedItemSlice';
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     loader: loaderReducer,
     sentOrderParams: sentOrderParamsReducer,
     placeOrderParams: placeOrderParamsReducer,
+    selectedItems: selectedItemReducer,
   },
 });
 

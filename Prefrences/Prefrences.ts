@@ -65,8 +65,8 @@ const size = {
 
   textVariants: {
     display: {
-      fontSize: 30,
-      lineHeight: 24,
+      fontSize: 18,
+      lineHeight: 28,
     },
     regular: {
       fontSize: 14,
@@ -145,7 +145,7 @@ const size = {
   iconSize: {
     small: 16,
     medium: 24,
-    large: 26,
+    largFe: 26,
     xlarge: 48,
     xxlarge: 80,
   },

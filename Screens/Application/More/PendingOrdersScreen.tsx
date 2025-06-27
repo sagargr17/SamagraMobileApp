@@ -1,36 +1,33 @@
-import React, {useState} from 'react';
+import { useQuery } from '@apollo/client';
+import { useNavigation, useRoute, useTheme } from '@react-navigation/native';
+import React, { useState } from 'react';
 import {
-  StyleSheet,
-  TouchableOpacity,
-  View,
   Text,
-  SafeAreaView,
+  View
 } from 'react-native';
-import {useNavigation, useRoute, useTheme} from '@react-navigation/native';
-import {SingnlePageInfo} from '../../../Components/Organism/SinglePageInfo';
-import {Logos} from '../../../Assets/SVG/Exports/Exports';
-import DateTimeToAgoTime, {
-  AreaMapper,
-  titleCase,
-} from '../../../Utilities/CustomMethods';
+import { Logos } from '../../../Assets/SVG/Exports/Exports';
+import { AppText } from '../../../Components/Elements/AppText';
+import AppButton from '../../../Components/Elements/Button';
+import { Spacer } from '../../../Components/Elements/Spacer';
+import { ListCard } from '../../../Components/Molecules/Cards/ListCard';
+import { AppBottomSheet } from '../../../Components/Molecules/Global/AppBottomSheet';
+import { AppSerchBar } from '../../../Components/Molecules/Global/AppSerchBar';
+import { SingnlePageInfo } from '../../../Components/Organism/SinglePageInfo';
+import { ListCardSkeleton } from '../../../Components/Skeletons/Layout/ListCardSkeleton';
+import { ImageNotFound } from '../../../Constants/UI/AssetsUrls';
 import {
   NoCartItemTitle,
   NoItemInShop,
   NotMentioned,
 } from '../../../Constants/UI/Messages';
-import {FlatListScreen} from '../../../Layout/ScreenLayout/FlatListScreenLayout';
-import {ListCard} from '../../../Components/Molecules/Cards/ListCard';
-import {ImageNotFound} from '../../../Constants/UI/AssetsUrls';
-import {useQuery} from '@apollo/client';
-import {getMyOrdersItem} from '../../../GraphQL/Queries/PrivateShopQueries';
-import {ListCardSkeleton} from '../../../Components/Skeletons/Layout/ListCardSkeleton';
-import {size} from '../../../Prefrences/Prefrences';
-import {AppSerchBar} from '../../../Components/Molecules/Global/AppSerchBar';
-import {AppBottomSheet} from '../../../Components/Molecules/Global/AppBottomSheet';
-import {AppText} from '../../../Components/Elements/AppText';
-import {Spacer} from '../../../Components/Elements/Spacer';
-import AppButton from '../../../Components/Elements/Button';
-import {RowFlexLayout} from '../../../Layout/PartationLayout/RowFlexLayout';
+import { getMyOrdersItem } from '../../../GraphQL/Queries/PrivateShopQueries';
+import { RowFlexLayout } from '../../../Layout/PartationLayout/RowFlexLayout';
+import { FlatListScreen } from '../../../Layout/ScreenLayout/FlatListScreenLayout';
+import { size } from '../../../Prefrences/Prefrences';
+import DateTimeToAgoTime, {
+  AreaMapper,
+  titleCase,
+} from '../../../Utilities/CustomMethods';
 
 interface OrderScreenProps {}
 

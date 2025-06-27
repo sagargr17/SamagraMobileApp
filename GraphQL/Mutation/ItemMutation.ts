@@ -32,3 +32,9 @@ export const createNewProduct = gql(`
   }
 }
   `);
+
+export const updateStock = gql(`
+mutation UpdateStock($itemId: String!, $updatedQuantity: Int!) {
+  updateStockQuantity(itemId: $itemId, quantity: $updatedQuantity)
+}
+`);
