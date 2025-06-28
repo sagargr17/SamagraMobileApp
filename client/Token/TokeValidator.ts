@@ -27,16 +27,18 @@ export async function isTokenExpired() {
 
   try {
     const decodedToken = await parseJwt(accessToken);
+
     // console.log('DEconding Token', decodedToken);
     const currentTime = Math.floor(Date.now() / 1000); // curent ko time in seconds
-    // console.log('currentTime ExpireTime', currentTime, decodedToken.exp);
-    return decodedToken.exp
-      ? decodedToken.exp > currentTime
-        ? decodedToken.exp - currentTime
-        : true
-      : true;
+    const timeDifference = decodedToken.exp - currentTime;
+    console.log('Difference', timeDifference);
+
+    if (timeDifference > 0) {
+      return false;
+    } else {
+      return true;
+    }
   } catch (error) {
-    console.error('Error decoding token:', error);
     // IF something went Wrong while decoding it considered as expired Token and new token will be generated
     return true;
   }

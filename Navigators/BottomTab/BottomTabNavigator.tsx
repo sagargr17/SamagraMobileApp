@@ -13,7 +13,7 @@ import {ServiceStackNavigator} from '../Stack/ServiceStackNavigator';
 import {size} from '../../Prefrences/Prefrences';
 import {View} from 'moti';
 
-import {Button, Text} from 'react-native';
+import {Button, Text, TouchableHighlight} from 'react-native';
 import {useLazyQuery, useQuery} from '@apollo/client';
 import {getPublicItems} from '../../GraphQL/Queries/ItemQueries';
 import {Spacer} from '../../Components/Elements/Spacer';
@@ -49,20 +49,16 @@ const screenBuilder = (
 
 export const BottomTabNavigator: React.FC = () => {
   const {colors, fonts} = useTheme();
-  const {data, error, loading} = useQuery(getPublicItems, {
-    fetchPolicy: 'network-only',
-  });
 
-  console.log('Result???', data, error, loading);
   const navigation = useNavigation<any>();
   return (
     <BottomTabBuilder.Navigator
       screenOptions={({route}) => ({
         header: () => null,
-        tabBarIcon: ({focused, color, size}) => {
+        tabBarIcon: ({focused, color, size: sizes}) => {
           const {Home, Service, More} = Logos;
 
-          const iconSize = AreaMapper({value: 22, scaleBy: 'width'});
+          const iconSize = size.iconSize.small;
 
           if (route.name === 'Home') {
             return (
@@ -70,7 +66,7 @@ export const BottomTabNavigator: React.FC = () => {
                 height={iconSize}
                 focused={focused}
                 color={color}
-                size={size}
+                // size={sizes}
               />
             );
           }
@@ -80,7 +76,7 @@ export const BottomTabNavigator: React.FC = () => {
                 height={iconSize}
                 focused={focused}
                 color={color}
-                size={size}
+                size={sizes}
               />
             );
           }
@@ -90,7 +86,7 @@ export const BottomTabNavigator: React.FC = () => {
                 height={iconSize}
                 focused={focused}
                 color={color}
-                size={size}
+                size={sizes}
               />
             );
           }
@@ -99,10 +95,11 @@ export const BottomTabNavigator: React.FC = () => {
         tabBarStyle: [
           {
             paddingBottom: size.spacing.xl,
-            // marginHorizontal: size.spacing.xxs,
+            margin: size.spacing.xs,
             height: 58,
             backgroundColor: colors.background,
             borderTopColor: colors.background,
+            borderRadius: size.borderRadius.full,
           },
         ],
 

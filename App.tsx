@@ -7,48 +7,32 @@ import {
   split,
 } from '@apollo/client';
 import {setContext} from '@apollo/client/link/context';
+import {onError} from '@apollo/client/link/error';
 import {GraphQLWsLink} from '@apollo/client/link/subscriptions';
 import {getMainDefinition} from '@apollo/client/utilities';
-import {fetch as netInfoFetch} from '@react-native-community/netinfo';
 import {NavigationContainer} from '@react-navigation/native';
 import {createClient} from 'graphql-ws';
-import React, {useEffect, useState} from 'react';
-import {AppState, StatusBar, useColorScheme} from 'react-native';
+import React, {useState} from 'react';
+import {StatusBar} from 'react-native';
 import BootSplash from 'react-native-bootsplash';
+import FlashMessage from 'react-native-flash-message';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {PaperProvider} from 'react-native-paper';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {Camera} from 'react-native-vision-camera';
 import {Provider} from 'react-redux';
-import {Logos} from './Assets/SVG/Exports/Exports';
 import {accessTokenGenerator} from './client/Token/AccessTokenGenerator';
 import {getTokens} from './client/Token/TokenAccess';
 import {isTokenExpired} from './client/Token/TokeValidator';
-import {SingnlePageInfo} from './Components/Organism/SinglePageInfo';
 import {GRAPHQL_ENDPOINT} from './Constants/SamagraConstants/SamagraEndpoints';
-import {
-  NoInternetFound,
-  NoInternetFoundMessage,
-  ServerErrorMessage,
-  ServerErrorTitle,
-} from './Constants/UI/Messages';
-import {useTokenRefreshTimer} from './CustomHooks/useTokenRefreshTimer';
 import {RootStack} from './Navigators/RootStackNavigator';
-import {MyDarkTheme, MyTheme} from './Prefrences/Prefrences';
+import {MyTheme} from './Prefrences/Prefrences';
 import {store} from './StateManagement/Store';
 import {login, logout} from './StateManagement/User/UserSlice';
-import {AreaMapper} from './Utilities/CustomMethods';
-import {onError} from '@apollo/client/link/error';
-
-// MAin Fuction To Token Refresh Handle
-const isTokennExpireHandle = async () => {
-  const isTokenExpiredStatus = await isTokenExpired();
-  return isTokenExpiredStatus;
-};
+import {setError} from './StateManagement/Error&loadingHandle/ErrorHandlingSlice';
 
 // ErrorResponse
 const errorLink = onError(({graphQLErrors, networkError, protocolErrors}) => {
-  console.log('ErrorLink>>>');
+  console.log('calling function');
 
   if (graphQLErrors)
     graphQLErrors.forEach(({message, locations, path}) =>
@@ -67,7 +51,18 @@ const errorLink = onError(({graphQLErrors, networkError, protocolErrors}) => {
     });
   }
 
-  if (networkError) console.log(`[Network error]: ${networkError}`);
+  if (networkError) {
+    console.log(`[Network error]: ${networkError}`);
+    store.dispatch(
+      setError({
+        error: {
+          isErorr: true,
+          type: 'networkError',
+          message: `[Network error]: ${networkError}`,
+        },
+      }),
+    );
+  }
 });
 
 // creating HTTP Link
@@ -78,24 +73,51 @@ const httpLink = createHttpLink({
 // 2. Create an auth link
 const authLink = setContext(async (_, {headers}) => {
   // Get the authentication token from local storage (or wherever you store it)
-  const {userStatus, accessToken, refreshToken} = await getTokens();
+  const isTokenExpiredVar = await isTokenExpired();
+  const {userStatus, refreshToken} = await getTokens();
 
-  console.log('Tokennnn...', accessToken);
-  return {
-    headers: {
-      ...headers,
-      authorization: accessToken ? `Bearer ${accessToken}` : '',
-    },
-  };
+  // Token
+  if (isTokenExpiredVar === true) {
+    console.log('1');
+
+    if (userStatus === 'true' && refreshToken) {
+      const newAccessToken = await accessTokenGenerator(refreshToken);
+      if (newAccessToken === 400) {
+        store.dispatch(logout());
+        return null;
+      }
+    }
+    store.dispatch(logout());
+
+    return {
+      headers: {
+        ...headers,
+        authorization: '',
+      },
+    };
+  } else {
+    console.log('2');
+    const {accessToken} = await getTokens();
+    store.dispatch(
+      login({
+        isAuthenticated: true,
+      }),
+    );
+    return {
+      headers: {
+        ...headers,
+        authorization: `Bearer ${accessToken}`,
+      },
+    };
+  }
 });
 
 // Links
-const httpAuthLink = concat(authLink, httpLink);
-const httpAuthLinkWithErrorHandling = httpAuthLink.concat(errorLink);
+const httpAuthLink = errorLink.concat(authLink.concat(httpLink));
 
 class MyWebSocket extends WebSocket {
   constructor(address: any, protocols: any) {
-    address = `${address}?token=eyJhbGciOiJSUzI1NiIsImtpZCI6Im15LWhhcmRjb2RlZC1rZXktaWQiLCJ0eXAiOiJhdCtqd3QifQ.eyJpc3MiOiJodHRwOi8vaWRlbnRpdHkuc2FtYWdyYW5lcGFsLmNvbSIsIm5iZiI6MTc1MDY1MzQ4OCwiaWF0IjoxNzUwNjUzNDg4LCJleHAiOjE3NTMyNDU0ODgsImF1ZCI6Im1hcmtldHBsYWNlIiwic2NvcGUiOlsibWFya2V0cGxhY2UuYWNjZXNzIiwib3BlbmlkIiwicHJvZmlsZSIsIm9mZmxpbmVfYWNjZXNzIl0sImFtciI6WyJjdXN0b20iXSwiY2xpZW50X2lkIjoiI3NnYXJhcCoiLCJzdWIiOiI0ZTFlNzcyOC1kZWZhLTQxOTEtOGZkOS03MGRkNmZkMmNhZmMiLCJhdXRoX3RpbWUiOjE3NTA2NTM0ODgsImlkcCI6ImxvY2FsIiwibmFtZSI6InNhZ2FyICIsInByZWZlcnJlZF91c2VybmFtZSI6InNhZ2FyIiwianRpIjoiNTAxMjI4OTczM0ExQkQ3OEVBNUJFQzc2RTdFM0VGMUYifQ.QDyczlC4GOdlXnzpYaHHaGuXGFFgS7nIpnrdsWvyBBMn9b2ZiqwBCUsETVqcR04TtTEgGCv083SLaCOzZNxcTkZxx7fDUdP-1DbX_9oEAQPqaDzyEhxtowNthAoTH3riPe3qZLF31CaaZ4zZ_Wwq32vi8xEAVRIx67g3-LQ08Sw`;
+    address = `${address}?token=mytokenn`;
     super(address, protocols);
   }
 }
@@ -116,8 +138,7 @@ const splitLink = split(
     );
   },
   wsLink, // this is for the sockets
-  httpAuthLinkWithErrorHandling, // yo chahi query and mutation jun HTTP flow ma jancha
-  // httpAuthLink, // yo chahi query and mutation jun HTTP flow ma jancha
+  httpAuthLink,
 );
 
 // Initialize Apollo Client
@@ -137,176 +158,51 @@ const client = new ApolloClient({
 
 // Main Modules
 function App(): React.JSX.Element {
-  const [refreshingTime, setRefreshingTime] = useState<number>(1000); // This is the time of refreshing in the second set Default to 1000
-  let timeBasedRefreshing = useTokenRefreshTimer(refreshingTime);
-  const scheme = useColorScheme(); // Get the current color scheme
-  const [themes, setTheme] = useState(MyTheme); // Default to light theme
-  const [internetStatus, setInternetStatus] = useState<{
-    loading: boolean;
-    status: boolean;
-  }>({
-    loading: true,
-    status: true,
-  }); //Active == true | No Internet  ==
-  const [serverError, setServerError] = useState<boolean>(false); //Active == true | No Internet  ==
-  const {InternetUnAvailable, ServerDown} = Logos;
-  const font = themes.fonts['regular'];
+  BootSplash.hide({fade: true});
+  const [themes] = useState(MyTheme); // Default to light theme
+  const barStyle =
+    themes.colors.background === 'rgb(255, 255, 255)'
+      ? 'dark-content'
+      : 'light-content';
 
-  // Refreshing Time checker
-  // It Checks Weather the client SErver is Working Fine or not
-  // useEffect(() => {
-  //   netInfoFetch()
-  //     .then(state => {
-  //       if (state.isConnected) {
-  //         setInternetStatus({
-  //           loading: false,
-  //           status: state.isConnected,
-  //         });
-  //         if (timeBasedRefreshing === 400 && !serverError) {
-  //           setServerError(true);
-  //         } else {
-  //           setServerError(false);
-
-  //           if (scheme === 'dark') {
-  //             setTheme(MyDarkTheme);
-  //           } else {
-  //             setTheme(MyTheme);
-  //           }
-  //         }
-  //       } else {
-  //         setInternetStatus({
-  //           loading: false,
-  //           status: false,
-  //         });
-  //       }
-  //     })
-  //     .then(x => BootSplash.hide({fade: true}))
-  //     .catch(error => console.log('Error::', error));
-  // }, [refreshingTime, internetStatus, scheme]);
-
-
-
-  // UserBased Login
-  useEffect(() => {
-    const abortController = new AbortController();
-    const signal = abortController.signal;
-    const getUserStatusHandle = async () => {
-      try {
-        const {userStatus} = await getTokens();
-        console.log('USEr Status', userStatus);
-
-        userStatus === 'true'
-          ? store.dispatch(
-              login({
-                isAuthenticated: true,
-              }),
-            )
-          : store.dispatch(logout());
-      } catch (e) {
-        abortController.abort();
-      } finally {
-      }
-    };
-    getUserStatusHandle();
-
-    return () => {
-      abortController.abort();
-    };
-  }, []);
-
-  // //This is the code for the refresh token , when the app is coming from , background to foreground
-  // AppState.addEventListener('focus', async () => {
-  //   const {userStatus, accessToken, refreshToken} = await getTokens();
-
-  //   if (userStatus && userStatus === 'true') {
-  //     const refreshTimeCollector = await isTokennExpireHandle();
-  //     typeof refreshTimeCollector === 'number' &&
-  //     refreshTimeCollector !== refreshingTime
-  //       ? setRefreshingTime(refreshTimeCollector * 1000)
-  //       : async () => {
-  //           const {refreshToken, userStatus} = await getTokens();
-  //           if (refreshToken && userStatus === 'true') {
-  //             let refreshingToken = await accessTokenGenerator(refreshToken);
-  //             console.log('refreshing Token', refreshingToken);
-  //           }
-  //         };
-  //   } else {
-  //     store.dispatch(logout());
+  // useMemo(() => {
+  //   async function userStatusChecker() {
+  //     const isTokenExpiredVar = await isTokenExpired();
+  //     if (isTokenExpiredVar === true) {
+  //       store.dispatch(logout());
+  //     } else {
+  //       store.dispatch(
+  //         login({
+  //           isAuthenticated: true,
+  //         }),
+  //       );
+  //     }
   //   }
-  // });
+  // }, []);
 
-  // This is for the image upload to get the Permission from User
-  useEffect(() => {
-    Camera.requestCameraPermission().then(permission => {
-      if (permission !== 'granted') {
-        console.warn('Camera permission not granted!');
-      }
-    });
-    return () => {};
-  }, []);
-
-
-   BootSplash.hide({fade: true})
-  // Create a channel (required for Android)
   return (
-    <GestureHandlerRootView
-      style={{
-        flex: 1,
-      }}>
-      <Provider store={store}>
-        <StatusBar
-          backgroundColor={themes.colors.background}
-          barStyle={
-            themes.colors.background === 'rgb(255, 255, 255)'
-              ? 'dark-content'
-              : 'light-content'
-          }></StatusBar>
-        <NavigationContainer theme={themes}>
-          {internetStatus.status === true ? (
-            serverError ? ( // change this to serverError while in production
-              <SingnlePageInfo
-                icon={
-                  <ServerDown
-                    height={AreaMapper({
-                      value: 250,
-                    })}
-                    width="80%"></ServerDown>
-                }
-                detail={{
-                  title: ServerErrorTitle,
-                  message: ServerErrorMessage,
-                  onButtonPress: () => setServerError(!serverError),
-                  buttonTitle: 'Try Again',
-                }}></SingnlePageInfo>
-            ) : (
-              <ApolloProvider client={client}>
-                <PaperProvider>
-                  <SafeAreaProvider>
-                    <RootStack />
-                  </SafeAreaProvider>
-                </PaperProvider>
-              </ApolloProvider>
-            )
-          ) : (
-            <SingnlePageInfo
-              icon={
-                <InternetUnAvailable
-                  height={AreaMapper({
-                    value: 250,
-                    scaleBy: 'average',
-                  })}
-                  width="80%"></InternetUnAvailable>
-              }
-              detail={{
-                title: NoInternetFound,
-                message: NoInternetFoundMessage,
-                onButtonPress: () => setServerError(!serverError),
-                buttonTitle: 'Try Again',
-              }}></SingnlePageInfo>
-          )}
-        </NavigationContainer>
-      </Provider>
-    </GestureHandlerRootView>
+    <>
+      <FlashMessage position="top" floating={true} />
+      <GestureHandlerRootView
+        style={{
+          flex: 1,
+        }}>
+        <Provider store={store}>
+          <StatusBar
+            backgroundColor={themes.colors.background}
+            barStyle={barStyle}></StatusBar>
+          <NavigationContainer theme={themes}>
+            <ApolloProvider client={client}>
+              <PaperProvider>
+                <SafeAreaProvider>
+                  <RootStack />
+                </SafeAreaProvider>
+              </PaperProvider>
+            </ApolloProvider>
+          </NavigationContainer>
+        </Provider>
+      </GestureHandlerRootView>
+    </>
   );
 }
 

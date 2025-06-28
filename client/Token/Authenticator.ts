@@ -1,16 +1,14 @@
-import {CLIENT_ID, CLIENT_SECRET} from '@env';
-import {Alert} from 'react-native';
+import { CLIENT_ID, CLIENT_SECRET } from '@env';
+import { showMessage } from 'react-native-flash-message';
 import * as Keychain from 'react-native-keychain';
-import {API_URL} from '../../Constants/SamagraConstants/SamagraEndpoints';
-import {store} from '../../StateManagement/Store';
-import {login} from '../../StateManagement/User/UserSlice';
+import { API_URL } from '../../Constants/SamagraConstants/SamagraEndpoints';
+import { responseTheme } from '../../Prefrences/Prefrences';
 import {
   hideLoader,
   showLoader,
 } from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
-import {Icon, showMessage} from 'react-native-flash-message';
-import {MyTheme, responseTheme, size} from '../../Prefrences/Prefrences';
-import {AreaMapper} from '../../Utilities/CustomMethods';
+import { store } from '../../StateManagement/Store';
+import { login } from '../../StateManagement/User/UserSlice';
 
 interface AuthResponse {
   access_token: string;
@@ -66,8 +64,6 @@ async function Authenticator(userName: string, password: string) {
 }
 
 export async function saveTokens(data: AuthResponse): Promise<void> {
-  console.log('Refreshed Token Data', data);
-
   try {
     await Keychain.setGenericPassword('accessToken', data.access_token, {
       service: 'accessToken',

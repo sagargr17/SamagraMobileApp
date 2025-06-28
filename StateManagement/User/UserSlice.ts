@@ -58,7 +58,6 @@ const userSlice = createSlice({
       state.user = null;
       state.isAuthenticated = false;
     },
-
     setUserShopDetail: (state, action: PayloadAction<ShopDetail>) => {
       state.isShopActive = true;
       state.shopData = action.payload;

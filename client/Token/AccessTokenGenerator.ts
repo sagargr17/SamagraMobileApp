@@ -19,18 +19,14 @@ export const accessTokenGenerator = async (refreshToken: string) => {
       }).toString(),
     });
 
-    console.log('SuccessFull Refreshing:', response);
-
     if (!response.ok) {
       const errorData = await response.json();
-      console.error('Error while Refreshing:', errorData);
-      throw new Error(`Token refresh failed with status: ${response.status}`);
+      return 400;
     }
 
     const data = await response.json();
     await saveTokens(data);
   } catch (error) {
-    console.error('Error refreshing token:', error);
     return 400;
   }
 };

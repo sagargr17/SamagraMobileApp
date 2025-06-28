@@ -1,6 +1,7 @@
 import {configureStore} from '@reduxjs/toolkit';
 import userReducer from './User/UserSlice';
 import loaderReducer from './Error&loadingHandle/LoaderStateSlice';
+import errorReducer from './Error&loadingHandle/ErrorHandlingSlice';
 import sentOrderParamsReducer from './Orders/SentOrderParams';
 import placeOrderParamsReducer from './Orders/PlaceOrderDetailsParams';
 import selectedItemReducer from './Item/SelectedItemSlice';
@@ -12,6 +13,7 @@ export const store = configureStore({
     sentOrderParams: sentOrderParamsReducer,
     placeOrderParams: placeOrderParamsReducer,
     selectedItems: selectedItemReducer,
+    error: errorReducer,
   },
 });
 
