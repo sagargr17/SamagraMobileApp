@@ -1,24 +1,29 @@
 import {useLazyQuery} from '@apollo/client';
-import {useIsFocused, useNavigation, useTheme} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
 import React, {useEffect} from 'react';
-import FlashMessage from 'react-native-flash-message';
+import {Text} from 'react-native';
 import {ProgressBar} from 'react-native-paper';
 import {ImageNotFound} from '../Constants/UI/AssetsUrls';
 import {getLoginUser} from '../GraphQL/Queries/UserQueries';
 import {size} from '../Prefrences/Prefrences';
-import {hideLoader} from '../StateManagement/Error&loadingHandle/LoaderStateSlice';
+import {
+  hideLoader,
+  showLoader,
+} from '../StateManagement/Error&loadingHandle/LoaderStateSlice';
 import {useAppDispatch, useAppSelector} from '../StateManagement/hooks';
 import {login} from '../StateManagement/User/UserSlice';
-import {AreaMapper} from '../Utilities/CustomMethods';
 import {BottomTabNavigator} from './BottomTab/BottomTabNavigator';
 import {ApplicationOverlayStackNavigator} from './Stack/ApplicationOverlayStackNavigator';
 import {OnBoardingStackNavigator} from './Stack/OnBoardingStackNavigator';
-import {State} from 'react-native-gesture-handler';
-import {Button, Text} from 'react-native';
+import {Logos} from '../Assets/SVG/Exports/Exports';
+import {SingnlePageInfo} from '../Components/Organism/SinglePageInfo';
+import {AreaMapper} from '../Utilities/CustomMethods';
+import {client} from '../App';
+import {setError} from '../StateManagement/Error&loadingHandle/ErrorHandlingSlice';
 
 type RootStackParamList = {
   ApplicationOverlay: undefined;
@@ -77,40 +82,55 @@ const screenBuilder = (
 
 export const RootStack: React.FC = () => {
   const userSignInStatus = useAppSelector(state => state.user.isAuthenticated);
-  const {colors, fonts} = useTheme();
+  const {colors} = useTheme();
   const loaderStatus = useAppSelector(state => state.loader.isLoading);
   const dispatch = useAppDispatch();
-  const font = fonts['regular'];
   const errorResponse = useAppSelector(State => State.error.error);
-  const navigation = useNavigation();
+  const {InternetUnAvailable} = Logos;
+  const [getLoginUserFn] = useLazyQuery(getLoginUser);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       dispatch(hideLoader());
-    }, 2000);
+    }, 3000);
     return () => clearTimeout(timer);
   }, [loaderStatus]);
 
-  // const [getLoginUserFn, {data, loading, error}] = useLazyQuery(getLoginUser);
+  // THis is for the Login USer DAta Retrival
+  useEffect(() => {
+    getLoginUserFn().then(data => {
+      dispatch(
+        login({
+          user: {
+            username: data.data?.getUser?.username ?? 'Samagra',
+            pofileImageUrl:
+              data.data?.getUser?.profileImageUrl ?? ImageNotFound,
+            email: 'sagar@gmail.com',
+            location: 'Baneswor Kathmandu Nepal',
+            phoneNumber: '9841150390',
+          },
+          isAuthenticated: true,
+        }),
+      );
+    });
+  }, []);
 
-  // // THis is for the Login USer DAta Retrival
-  // useEffect(() => {
-  //   getLoginUserFn().then(data => {
-  //     dispatch(
-  //       login({
-  //         user: {
-  //           username: data.data?.getUser?.username ?? 'Samagra',
-  //           pofileImageUrl:
-  //             data.data?.getUser?.profileImageUrl ?? ImageNotFound,
-  //           email: 'sagar@gmail.com',
-  //           location: 'Baneswor Kathmandu Nepal',
-  //           phoneNumber: '9841150390',
-  //         },
-  //         isAuthenticated: true,
-  //       }),
-  //     );
-  //   });
-  // }, []);
+  
+  // It Checks and reset the internet if nentwork is restroed
+  const handleResetInternet = () => {
+    dispatch(showLoader());
+    client.resetStore().then((x: any) => {
+      if (x[0].data) {
+        dispatch(
+          setError({
+            error: {
+              isErorr: false,
+            },
+          }),
+        );
+      }
+    });
+  };
 
   return (
     <>
@@ -118,24 +138,28 @@ export const RootStack: React.FC = () => {
         <ProgressBar
           visible={loaderStatus}
           color={colors.primary}
-          indeterminate={true}
-          style={{
-            height: size.spacing.xxs,
-          }}></ProgressBar>
+          indeterminate={true}></ProgressBar>
       ) : null}
 
       {errorResponse.isErorr ? (
-        <>
-          <Text>{errorResponse.message}</Text>
-          {/* <Button title="Back" onPress={() => navigation.goBack()}></Button> */}
-        </>
+        <SingnlePageInfo
+          icon={
+            <InternetUnAvailable
+              height={AreaMapper({value: 180})}></InternetUnAvailable>
+          }
+          detail={{
+            title: `${errorResponse.message}`,
+            message: 'Please Check Your connectivity and try again',
+            buttonTitle: 'Try Again!',
+            onButtonPress: handleResetInternet,
+          }}
+        />
       ) : (
         <RootStackBuilder.Navigator
           screenOptions={{
             header: () => null,
           }}>
-          {/* {userSignInStatus === true //change this to true while deployment */}
-          {true === true //change this to true while deployment
+          {userSignInStatus === true //change this to true while deployment
             ? screenBuilder([
                 {screenName: 'BottomTab', component: BottomTabNavigator},
                 {

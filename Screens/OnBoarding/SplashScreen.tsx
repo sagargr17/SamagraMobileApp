@@ -7,6 +7,8 @@ import {MotiView} from 'moti';
 import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
 import {useIsFocused} from '@react-navigation/native';
 import {size} from '../../Prefrences/Prefrences';
+import {useSelector} from 'react-redux';
+import {useAppSelector} from '../../StateManagement/hooks';
 
 interface SplashScreenProps {
   navigation: OnBoardingStackNavigationProp<'SplashScreen'>;
@@ -15,14 +17,14 @@ interface SplashScreenProps {
 export const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
   const {SamagraLogo} = Logos;
   const isFocused = useIsFocused();
+  const userAuthetication = useAppSelector(state => state.user.isAuthenticated);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      navigation.navigate('GetStartedScreen');
-    }, 1400);
-    return () => clearTimeout(timer);
-  }, [navigation, isFocused]);
+  //
+  if (userAuthetication === true || false) {
+    console.log('Navigatinggg....');
 
+    navigation.navigate('GetStartedScreen');
+  }
   return (
     <View style={styles.wrapper}>
       <MotiView

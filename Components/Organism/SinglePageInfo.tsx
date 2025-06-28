@@ -42,7 +42,7 @@ export const SingnlePageInfo: React.FC<SingnlePageInfoProps> = ({
             customStyle={{
               textAlign: 'center',
               width: AreaMapper({
-                value: 300,
+                value: 400,
               }),
             }}
             title={detail.message}
@@ -67,7 +67,7 @@ const style = StyleSheet.create({
     justifyContent: 'center', // Centers content vertically
     alignItems: 'center', // Centers content horizontally
     flexDirection: 'column',
-    marginTop: AreaMapper({value: 180}),
+    
   },
 
   buttonStyle: {

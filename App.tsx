@@ -17,7 +17,7 @@ import {StatusBar} from 'react-native';
 import BootSplash from 'react-native-bootsplash';
 import FlashMessage from 'react-native-flash-message';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {PaperProvider} from 'react-native-paper';
+import {PaperProvider, ProgressBar} from 'react-native-paper';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {Provider} from 'react-redux';
 import {accessTokenGenerator} from './client/Token/AccessTokenGenerator';
@@ -58,7 +58,7 @@ const errorLink = onError(({graphQLErrors, networkError, protocolErrors}) => {
         error: {
           isErorr: true,
           type: 'networkError',
-          message: `[Network error]: ${networkError}`,
+          message: `${networkError.message}`,
         },
       }),
     );
@@ -142,9 +142,8 @@ const splitLink = split(
 );
 
 // Initialize Apollo Client
-const client = new ApolloClient({
+export const client = new ApolloClient({
   link: splitLink,
-  ssrMode: true,
   cache: new InMemoryCache(),
   defaultOptions: {
     query: {
@@ -165,24 +164,18 @@ function App(): React.JSX.Element {
       ? 'dark-content'
       : 'light-content';
 
-  // useMemo(() => {
-  //   async function userStatusChecker() {
-  //     const isTokenExpiredVar = await isTokenExpired();
-  //     if (isTokenExpiredVar === true) {
-  //       store.dispatch(logout());
-  //     } else {
-  //       store.dispatch(
-  //         login({
-  //           isAuthenticated: true,
-  //         }),
-  //       );
-  //     }
-  //   }
-  // }, []);
-
   return (
     <>
       <FlashMessage position="top" floating={true} />
+      {/* {loaderStatus ? (
+        <ProgressBar
+          visible={loaderStatus}
+          color={colors.primary}
+          indeterminate={true}
+          style={{
+            height: size.spacing.xxs,
+          }}></ProgressBar>
+      ) : null} */}
       <GestureHandlerRootView
         style={{
           flex: 1,
