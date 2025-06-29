@@ -28,6 +28,7 @@ import {
 } from '../../Components/Organism/SinglePageInfo';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import {GetAuthenticateClient} from '../../client/Graphql/AuthenticatedClient';
+import {Counter} from '../../Components/Molecules/Global/Counter';
 
 interface CartScreenProps {}
 
@@ -130,10 +131,11 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
           list={[
             {
               value: item?.item?.name ?? NotMentioned,
-              type: 'title',
+              type: 'regular',
+              fontVariant: 'bold',
             },
-            {
-              value: item?.item?.name ?? NotMentioned,
+            { 
+              value: `Rs.${item?.item?.price ?? NotMentioned}`,
               type: 'regular',
             },
           ]}

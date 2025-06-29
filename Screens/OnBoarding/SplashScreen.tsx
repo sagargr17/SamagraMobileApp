@@ -1,14 +1,16 @@
-import React, {useEffect} from 'react';
-import {InteractionManager, StyleSheet, View} from 'react-native';
-import {Text} from 'react-native-paper';
-import {Logos} from '../../Assets/SVG/Exports/Exports';
-import {heightPercentageToDP} from 'react-native-responsive-screen';
-import {MotiView} from 'moti';
-import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
+import {useLazyQuery} from '@apollo/client';
 import {useIsFocused} from '@react-navigation/native';
-import {size} from '../../Prefrences/Prefrences';
-import {useSelector} from 'react-redux';
-import {useAppSelector} from '../../StateManagement/hooks';
+import {MotiView} from 'moti';
+import React, {useEffect} from 'react';
+import {StyleSheet, View} from 'react-native';
+import {Text} from 'react-native-paper';
+import {heightPercentageToDP} from 'react-native-responsive-screen';
+import {Logos} from '../../Assets/SVG/Exports/Exports';
+import {ImageNotFound} from '../../Constants/UI/AssetsUrls';
+import {getLoginUser} from '../../GraphQL/Queries/UserQueries';
+import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
+import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
+import {login} from '../../StateManagement/User/UserSlice';
 
 interface SplashScreenProps {
   navigation: OnBoardingStackNavigationProp<'SplashScreen'>;
@@ -17,14 +19,49 @@ interface SplashScreenProps {
 export const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
   const {SamagraLogo} = Logos;
   const isFocused = useIsFocused();
-  const userAuthetication = useAppSelector(state => state.user.isAuthenticated);
+  const dispatch = useAppDispatch();
 
-  //
-  if (userAuthetication === true || false) {
-    console.log('Navigatinggg....');
+  const userSignInStatus = useAppSelector(state => state.user.isAuthenticated);
+  const [getLoginUserFn] = useLazyQuery(getLoginUser);
 
+  const handleForwardNavigation = () => {
+    console.log('User sTatus ', userSignInStatus);
     navigation.navigate('GetStartedScreen');
-  }
+  };
+
+  useEffect(() => {
+    console.log('nfunction ');
+
+    getLoginUserFn()
+      .then(data => {
+        if (data.data) {
+          dispatch(
+            login({
+              user: {
+                username: data.data?.getUser?.username ?? 'Samagra',
+                pofileImageUrl:
+                  data.data?.getUser?.profileImageUrl ?? ImageNotFound,
+                email: 'sagar@gmail.com',
+                location: 'Baneswor Kathmandu Nepal',
+                phoneNumber: '9841150390',
+              },
+              isAuthenticated: true,
+            }),
+          );
+          handleForwardNavigation();
+        }
+        if (data.error) {
+          handleForwardNavigation();
+        }
+      })
+      .catch(error => {
+        handleForwardNavigation();
+      })
+      .finally(() => {
+        handleForwardNavigation();
+      });
+  }, []);
+
   return (
     <View style={styles.wrapper}>
       <MotiView

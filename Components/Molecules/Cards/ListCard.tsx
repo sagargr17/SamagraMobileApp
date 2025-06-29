@@ -70,56 +70,58 @@ export const ListCard: React.FC<ListCardProps> = ({
         customStyle,
       ]}>
       <View style={styles.detailsContainer}>
-        <View
-          onTouchEnd={() =>
-            isContainerPressedEnable ? handleSelectedId(id) : null
-          }
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-          }}>
-          <TouchableOpacity
-            onPress={onImagePress}
-            style={[
-              styles.imageContainer,
-              {
-                borderRadius: size.borderRadius.full,
-              },
-            ]}>
-            <FastImage
+        <View>
+          <View
+            onTouchEnd={() =>
+              isContainerPressedEnable ? handleSelectedId(id) : null
+            }
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+            }}>
+            <TouchableOpacity
+              onPress={onImagePress}
               style={[
-                styles.image,
+                styles.imageContainer,
                 {
-                  height: customImageStyle
-                    ? customImageStyle.height
-                    : styles.image.height,
-                  width: customImageStyle
-                    ? customImageStyle.width
-                    : styles.image.width,
+                  borderRadius: size.borderRadius.full,
                 },
-              ]}
-              source={{
-                uri: imageUrl ?? imageUrl,
-                priority: FastImage.priority.high,
-              }}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={onImagePress}
-            style={styles.pricingContainer}>
-            {list.map((item, index) => (
-              <AppText
-                customStyle={item.style}
-                key={index}
-                title={item.value}
-                fontSizeVariant={item.type}
-                fontVariant={
-                  item.fontVariant ? item.fontVariant : 'regular'
-                }></AppText>
-            ))}
-          </TouchableOpacity>
+              ]}>
+              <FastImage
+                style={[
+                  styles.image,
+                  {
+                    height: customImageStyle
+                      ? customImageStyle.height
+                      : styles.image.height,
+                    width: customImageStyle
+                      ? customImageStyle.width
+                      : styles.image.width,
+                  },
+                ]}
+                source={{
+                  uri: imageUrl ?? imageUrl,
+                  priority: FastImage.priority.high,
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={onImagePress}
+              style={styles.pricingContainer}>
+              {list.map((item, index) => (
+                <AppText
+                  customStyle={item.style}
+                  key={index}
+                  title={item.value}
+                  fontSizeVariant={item.type}
+                  fontVariant={
+                    item.fontVariant ? item.fontVariant : 'regular'
+                  }></AppText>
+              ))}
           {child ?? child}
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </Surface>

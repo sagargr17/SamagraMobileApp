@@ -9,7 +9,10 @@ import {
 import {setContext} from '@apollo/client/link/context';
 import {onError} from '@apollo/client/link/error';
 import {GraphQLWsLink} from '@apollo/client/link/subscriptions';
-import {getMainDefinition} from '@apollo/client/utilities';
+import {
+  getMainDefinition,
+  relayStylePagination,
+} from '@apollo/client/utilities';
 import {NavigationContainer} from '@react-navigation/native';
 import {createClient} from 'graphql-ws';
 import React, {useState} from 'react';
@@ -87,6 +90,7 @@ const authLink = setContext(async (_, {headers}) => {
         return null;
       }
     }
+
     store.dispatch(logout());
 
     return {
@@ -144,7 +148,46 @@ const splitLink = split(
 // Initialize Apollo Client
 export const client = new ApolloClient({
   link: splitLink,
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: {
+          getPublicItems: {
+            merge(existing = {nodes: [], pageInfo: {}}, incoming, {args}) {
+              console.log('Incoming', incoming);
+
+              // 'existing' is the data already in the cache for getPublicItems
+              // 'incoming' is the new data received from the fetchMore call
+              // 'args' are the arguments used in the current query (e.g., { after: "someCursor" })
+
+              // Ensure incoming data is valid
+              if (!incoming || !incoming.nodes) {
+                return existing; // Don't try to merge invalid incoming data
+              }
+
+              let mergedNodes = existing.nodes || [];
+
+              // If 'after' argument is present, it means we are fetching subsequent pages
+              // We should append the new nodes to the existing ones
+              if (args && args.after) {
+                mergedNodes = [...mergedNodes, ...incoming.nodes];
+              } else {
+                // If 'after' is NOT present, it's likely the initial fetch
+                // or a refetch from the beginning. In this case, we replace.
+                mergedNodes = incoming.nodes;
+              }
+
+              return {
+                ...incoming, // Take all other properties from the incoming data (like __typename)
+                nodes: mergedNodes, // Use our merged nodes array
+                pageInfo: incoming.pageInfo, // Always take the latest pageInfo
+              };
+            },
+          },
+        },
+      },
+    },
+  }),
   defaultOptions: {
     query: {
       fetchPolicy: 'network-only',
@@ -167,15 +210,7 @@ function App(): React.JSX.Element {
   return (
     <>
       <FlashMessage position="top" floating={true} />
-      {/* {loaderStatus ? (
-        <ProgressBar
-          visible={loaderStatus}
-          color={colors.primary}
-          indeterminate={true}
-          style={{
-            height: size.spacing.xxs,
-          }}></ProgressBar>
-      ) : null} */}
+
       <GestureHandlerRootView
         style={{
           flex: 1,

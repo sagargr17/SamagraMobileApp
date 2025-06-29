@@ -84,10 +84,11 @@ export const RootStack: React.FC = () => {
   const userSignInStatus = useAppSelector(state => state.user.isAuthenticated);
   const {colors} = useTheme();
   const loaderStatus = useAppSelector(state => state.loader.isLoading);
-  const dispatch = useAppDispatch();
   const errorResponse = useAppSelector(State => State.error.error);
   const {InternetUnAvailable} = Logos;
-  const [getLoginUserFn] = useLazyQuery(getLoginUser);
+  const dispatch = useAppDispatch();
+
+  console.log('UserN STatus', userSignInStatus);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -97,25 +98,7 @@ export const RootStack: React.FC = () => {
   }, [loaderStatus]);
 
   // THis is for the Login USer DAta Retrival
-  useEffect(() => {
-    getLoginUserFn().then(data => {
-      dispatch(
-        login({
-          user: {
-            username: data.data?.getUser?.username ?? 'Samagra',
-            pofileImageUrl:
-              data.data?.getUser?.profileImageUrl ?? ImageNotFound,
-            email: 'sagar@gmail.com',
-            location: 'Baneswor Kathmandu Nepal',
-            phoneNumber: '9841150390',
-          },
-          isAuthenticated: true,
-        }),
-      );
-    });
-  }, []);
 
-  
   // It Checks and reset the internet if nentwork is restroed
   const handleResetInternet = () => {
     dispatch(showLoader());
@@ -141,37 +124,39 @@ export const RootStack: React.FC = () => {
           indeterminate={true}></ProgressBar>
       ) : null}
 
-      {errorResponse.isErorr ? (
-        <SingnlePageInfo
-          icon={
-            <InternetUnAvailable
-              height={AreaMapper({value: 180})}></InternetUnAvailable>
-          }
-          detail={{
-            title: `${errorResponse.message}`,
-            message: 'Please Check Your connectivity and try again',
-            buttonTitle: 'Try Again!',
-            onButtonPress: handleResetInternet,
-          }}
-        />
-      ) : (
-        <RootStackBuilder.Navigator
-          screenOptions={{
-            header: () => null,
-          }}>
-          {userSignInStatus === true //change this to true while deployment
-            ? screenBuilder([
-                {screenName: 'BottomTab', component: BottomTabNavigator},
-                {
-                  screenName: 'ApplicationOverlay',
-                  component: ApplicationOverlayStackNavigator,
-                },
-              ])
-            : screenBuilder([
-                {screenName: 'OnBoarding', component: OnBoardingStackNavigator},
-              ])}
-        </RootStackBuilder.Navigator>
-      )}
+      <RootStackBuilder.Navigator
+        screenOptions={{
+          header: () => null,
+        }}>
+        {userSignInStatus === true ? ( //change this to true while deployment
+          errorResponse.isErorr ? (
+            <SingnlePageInfo
+              icon={
+                <InternetUnAvailable
+                  height={AreaMapper({value: 180})}></InternetUnAvailable>
+              }
+              detail={{
+                title: `${errorResponse.message}`,
+                message: 'Please Check Your connectivity and try again',
+                buttonTitle: 'Try Again!',
+                onButtonPress: handleResetInternet,
+              }}
+            />
+          ) : (
+            screenBuilder([
+              {screenName: 'BottomTab', component: BottomTabNavigator},
+              {
+                screenName: 'ApplicationOverlay',
+                component: ApplicationOverlayStackNavigator,
+              },
+            ])
+          )
+        ) : (
+          screenBuilder([
+            {screenName: 'OnBoarding', component: OnBoardingStackNavigator},
+          ])
+        )}
+      </RootStackBuilder.Navigator>
     </>
   );
 };

@@ -2,8 +2,12 @@ import {gql} from '../../src/__generated__/gql';
 
 // Public Items
 export const getPublicItems = gql(`
-query GetPublicItems {
-  getPublicItems {
+query GetPublicItems($endCursor: String) {
+  getPublicItems(after: $endCursor) {
+    pageInfo {
+      startCursor
+      endCursor
+    }
     nodes {
       id
       name
@@ -111,7 +115,6 @@ export const getPaginatedPersonalItems = gql(`
   }
 }
 `);
-
 
 export const GetItemsByShopId = gql(`
   query GetPersonalItemsByShopId($shopId: String!) {

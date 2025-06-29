@@ -5,6 +5,8 @@ import {saveTokens} from './Authenticator';
 type accessTokenGenerator = (refreshToken: string) => void | number;
 
 export const accessTokenGenerator = async (refreshToken: string) => {
+  console.log("Refreshing the token");
+  
   try {
     const response = await fetch(`${refreshTokneConfig.issuer}/connect/token`, {
       method: 'POST',

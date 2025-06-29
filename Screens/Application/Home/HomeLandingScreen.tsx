@@ -1,4 +1,4 @@
-import {useQuery} from '@apollo/client';
+import {NetworkStatus, useQuery} from '@apollo/client';
 import {useNavigation} from '@react-navigation/native';
 import React, {useCallback} from 'react';
 import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
@@ -14,15 +14,20 @@ import {getPublicItems} from '../../../GraphQL/Queries/ItemQueries';
 import {FlatListScreen} from '../../../Layout/ScreenLayout/FlatListScreenLayout';
 import {size} from '../../../Prefrences/Prefrences';
 import {HomeLandingSkeleton} from '../../../Components/Skeletons/Layout/HomeLandingSkeleton';
+import {AppText} from '../../../Components/Elements/AppText';
+import AppButton from '../../../Components/Elements/Button';
 
 interface HomeLandingScreenProps {}
 
 export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
   const navigation: any = useNavigation();
-  const {data, loading, error} = useQuery(getPublicItems, {
-    fetchPolicy: 'cache-first',
+  const {data, loading, error, fetchMore} = useQuery(getPublicItems, {
+    notifyOnNetworkStatusChange: true,
   });
 
+  console.log('Result LOGGgg', loading);
+
+  // Result Log
   const handleNavigation = useCallback((searchedItem: string) => {
     navigation.navigate('ApplicationOverlay', {
       screen: 'ItemDetailScreen',
@@ -56,6 +61,16 @@ export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
 
   return (
     <FlatListScreen
+      ListFooterComponent={ <AppButton
+          onPress={() =>
+            fetchMore({
+              variables: {endCursor: data?.getPublicItems?.pageInfo.endCursor},
+            })
+          }>
+          More
+        </AppButton>
+      }
+      onEndReachedThreshold={0}
       scrollEnabled
       numColumns={2}
       headerComponent={headerComponent}

@@ -30,6 +30,7 @@ export const Counter: React.FC<CounterProps> = ({setTotal}) => {
         fontSizeVariant={'regular'}
         title={titleCase('Quantity')}
         fontVariant="medium"></AppText>
+
       <View
         style={{
           display: 'flex',

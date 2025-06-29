@@ -7,7 +7,7 @@ interface User {
   pofileImageUrl?: string;
   email: 'sagar@gmail.com';
   location: string;
-  phoneNumber:string
+  phoneNumber: string;
 }
 
 interface UploadedImages {
@@ -34,7 +34,7 @@ const initialState: UserState = {
     pofileImageUrl: ImageNotFound,
     email: 'sagar@gmail.com',
     location: titleRange('Kathmanndu,Bagmati Nepal'),
-    phoneNumber:"9841150390"
+    phoneNumber: '9841150390',
   },
   isAuthenticated: 'loading',
   isShopActive: false,
