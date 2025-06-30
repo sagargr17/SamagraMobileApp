@@ -59,7 +59,7 @@ const PhoneInput = ({
             borderColor: borderColor,
           },
         ]}>
-        <NepalFlag height={size.iconSize.largFe} width={size.iconSize.largFe} />
+        <NepalFlag height={size.iconSize.large} width={size.iconSize.large} />
         <AppText
           fontVariant="medium"
           fontSizeVariant="regular"

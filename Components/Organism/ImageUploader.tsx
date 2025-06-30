@@ -2,7 +2,7 @@
 
 import FastImage from '@d11/react-native-fast-image';
 import {useTheme} from '@react-navigation/native';
-import React, {useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {ActivityIndicator, IconButton} from 'react-native-paper';
 import {Camera} from 'react-native-vision-camera';
@@ -13,39 +13,33 @@ import {AreaMapper} from '../../Utilities/CustomMethods';
 import ImageHandler, {OutPutImageType} from '../../Utilities/ImageHandler';
 import {AppText} from '../Elements/AppText';
 import AppButton from '../Elements/Button';
-interface ImageUploaderProps {}
+import {offlineManager} from '@maplibre/maplibre-react-native';
+interface ImageUploaderProps {
+  pushToServerIndicator: boolean;
+}
 
-export const ImageUploader: React.FC<ImageUploaderProps> = ({}) => {
+export const ImageUploader: React.FC<ImageUploaderProps> = ({
+  pushToServerIndicator: pushSubmitIndicator,
+}) => {
   const {colors} = useTheme();
   const [cameraType, setCameraType] = useState<'front' | 'back'>('back');
-  const [images, setImages] = useState<Array<OutPutImageType | null>>([]);
+  const [images, setImages] = useState<Array<OutPutImageType>>([]);
   const [selectionImageIndex, setselectionImageIndex] = useState<number>(0);
   const [isCameraActive, setIsCameraActive] = useState(true);
   const [imageLoading, setImageLoading] = useState<boolean>(false);
   const userShopName = useAppSelector(state => state.user.shopData?.name);
   const camera: any | null = useRef<Camera>(null);
 
-  // THis is the Image captured By Cameras
-  const handleTakePhoto = async () => {
-    const photo: any = await camera.current.takePhoto();
-
-    if (photo) {
-      const compressedImage = await ImageHandler.compressImage(photo);
-      setImages([compressedImage]);
-      setIsCameraActive(false);
-    }
-  };
-
   // Galley Image Pickers
   const imageFromGallery = async () => {
     let GalleryImages: any = await ImageHandler.selectFromGallery();
+    console.log('Images????>>.', GalleryImages);
+
     setImages(GalleryImages);
     setImageLoading(!imageLoading);
   };
 
   const handleImageRemove = (selectedImage: any) => {
-    console.log('Removing SelectImage', selectedImage);
-
     let crossedDAta = images.filter((e: any) => e.name !== selectedImage.name);
     setImages(crossedDAta);
     setselectionImageIndex(selectionImageIndex - 1);
@@ -59,6 +53,17 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({}) => {
     if (index > 0) setselectionImageIndex(index - 1);
     setImageLoading(false);
   };
+
+  useEffect(() => {
+    console.log('>>>><<<', pushSubmitIndicator, images);
+    if (pushSubmitIndicator === true) {
+      if (images && images.length > 0) {
+        const response = ImageHandler.uploadImage(images)
+          .then(result => console.log('result image', result))
+          .catch(err => console.log('Image Uploading Error', err));
+      }
+    }
+  }, [pushSubmitIndicator]);
 
   return (
     <View

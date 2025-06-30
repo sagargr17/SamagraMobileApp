@@ -145,7 +145,7 @@ const size = {
   iconSize: {
     small: 16,
     medium: 24,
-    largFe: 26,
+    large: 26,
     xlarge: 48,
     xxlarge: 80,
   },

@@ -105,8 +105,6 @@ class ImageHandler {
       if (images) {
         let result = await this.multipleImageCompressing(images);
 
-        console.log('Multiple iamged from compressing function..', result);
-
         if (result) {
           return result;
         }
@@ -128,7 +126,9 @@ class ImageHandler {
       name: string;
     }[],
   ): Promise<string | null> {
-    const serverUrl = 'http://static.samagranepalcom/'; // Change this to your server endpoint
+    const serverUrl = 'http://static.samagranepal.com/';
+
+    console.log('Incoming Images', images);
 
     const formData: any = new FormData();
     images.map(image => {
@@ -150,6 +150,8 @@ class ImageHandler {
       });
 
       const json = await response.json();
+      console.log('SErver Update Image', json);
+
       if (response.ok && json.url) {
         return json.url;
       } else {

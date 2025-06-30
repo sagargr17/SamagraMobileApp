@@ -38,86 +38,84 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
   ] = useMutation(createNewProduct);
   const dispatch = useAppDispatch();
   const shopID = useAppSelector(state => state.user.shopData?.shopId);
-
-  console.log('DATA,', mutateData, mutateLoading, mutateError);
-
-  // SHopIDDD
-  console.log('SHopID', shopID);
+  const [pushToServerIndicator, setPushToServerIndicator] =
+    useState<boolean>(false);
 
   const handleCreateItemSubmit = async (
     data: CreateProductInputViewModelInput,
   ) => {
     console.log('Pressed', data, shopID);
+    setPushToServerIndicator(true);
+
     dispatch(showLoader());
 
-    if (data && shopID)
-      try {
-        console.log('Calling');
+    // if (data && shopID)
+    //   try {
+    //     let response = await createNewItemFn({
+    //       variables: {
+    //         name: data.name ? data.name : NotMentioned,
+    //         shopId: shopID,
+    //         price: Number(data.price ? data.price : NotMentioned),
+    //         description: data.description ? data.description : NotMentioned,
+    //         unit: data.unit ? data.unit : NotMentioned,
+    //         stockQuantity: Number(data.stockQuantity),
+    //         imageUrls: [ImageNotFound],
+    //         location: data.location ? data.location : NotMentioned,
+    //         categoryId: '1',
+    //       },
+    //     });
 
-        let response = await createNewItemFn({
-          variables: {
-            name: data.name ? data.name : NotMentioned,
-            shopId: shopID,
-            price: Number(data.price ? data.price : NotMentioned),
-            description: data.description ? data.description : NotMentioned,
-            unit: data.unit ? data.unit : NotMentioned,
-            stockQuantity: Number(data.stockQuantity),
-            imageUrls: [ImageNotFound],
-            location: data.location ? data.location : NotMentioned,
-            categoryId: '1',
-          },
-        });
-        console.log('Response', response);
+    //     if (response.data) {
+    //       showMessage(
+    //         responseTheme(
+    //           SuccessAddItemMessage,
+    //           SuccessAddItemMessageDescription,
+    //           'success',
+    //         ),
+    //       );
+    //     }
+    //     if (response.errors) {
+    //       dispatch(hideLoader());
+    //       showMessage({
+    //         message: `${response.errors[0].message}`,
+    //         type: 'danger',
+    //         description: 'Please , try after sometimes',
+    //         textStyle: {
+    //           fontFamily: fonts.regular.fontFamily,
+    //           fontWeight: 'regular',
+    //           fontSize: AreaMapper({
+    //             value: 14,
+    //             scaleBy: 'average',
+    //           }),
+    //         },
+    //         statusBarHeight: AreaMapper({
+    //           value: 15,
+    //           scaleBy: 'average',
+    //         }),
+    //       });
+    //     }
+    //   } catch (e) {
+    //     dispatch(hideLoader());
+    //     showMessage({
+    //       message: 'Opps, Something Went Wrong!',
+    //       type: 'danger',
+    //       description: 'Please , try after sometimes',
+    //       textStyle: {
+    //         fontFamily: fonts.regular.fontFamily,
+    //         fontWeight: 'regular',
+    //         fontSize: AreaMapper({
+    //           value: 14,
+    //           scaleBy: 'average',
+    //         }),
+    //       },
+    //       statusBarHeight: AreaMapper({
+    //         value: 15,
+    //         scaleBy: 'average',
+    //       }),
+    //     });
+    //   }
 
-        if (response.data) {
-          showMessage(
-            responseTheme(
-              SuccessAddItemMessage,
-              SuccessAddItemMessageDescription,
-              'success',
-            ),
-          );
-        }
-        if (response.errors) {
-          dispatch(hideLoader());
-          showMessage({
-            message: `${response.errors[0].message}`,
-            type: 'danger',
-            description: 'Please , try after sometimes',
-            textStyle: {
-              fontFamily: fonts.regular.fontFamily,
-              fontWeight: 'regular',
-              fontSize: AreaMapper({
-                value: 14,
-                scaleBy: 'average',
-              }),
-            },
-            statusBarHeight: AreaMapper({
-              value: 15,
-              scaleBy: 'average',
-            }),
-          });
-        }
-      } catch (e) {
-        dispatch(hideLoader());
-        showMessage({
-          message: 'Opps, Something Went Wrong!',
-          type: 'danger',
-          description: 'Please , try after sometimes',
-          textStyle: {
-            fontFamily: fonts.regular.fontFamily,
-            fontWeight: 'regular',
-            fontSize: AreaMapper({
-              value: 14,
-              scaleBy: 'average',
-            }),
-          },
-          statusBarHeight: AreaMapper({
-            value: 15,
-            scaleBy: 'average',
-          }),
-        });
-      }
+    // setPushToServerIndicator(false);
   };
 
   return (
@@ -126,7 +124,10 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
         paddingHorizontal: size.spacing.xs,
         paddingBottom: size.spacing.s,
       }}
-      ListHeaderComponent={<ImageUploader></ImageUploader>}
+      ListHeaderComponent={
+        <ImageUploader
+          pushToServerIndicator={pushToServerIndicator}></ImageUploader>
+      }
       data={[1]}
       stickyHeaderHiddenOnScroll
       renderItem={() => (

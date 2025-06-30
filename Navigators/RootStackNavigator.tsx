@@ -100,6 +100,7 @@ export const RootStack: React.FC = () => {
   // THis is for the Login USer DAta Retrival
 
   // It Checks and reset the internet if nentwork is restroed
+
   const handleResetInternet = () => {
     dispatch(showLoader());
     client.resetStore().then((x: any) => {

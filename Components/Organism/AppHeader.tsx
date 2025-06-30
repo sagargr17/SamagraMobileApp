@@ -36,9 +36,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
           `https://us1.api-bdc.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`,
         );
         const finalResult = await result.json();
-        console.log('Location', finalResult);
 
-        // console.log('Final Result', `${finalResult.city},${finalResult.administrative[2].name}`);
         if (finalResult)
           dispatch(
             setUserLocation({
