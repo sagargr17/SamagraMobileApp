@@ -74,7 +74,7 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
           username: userData?.username ?? NotMentioned,
           pofileImageUrl: ImageNotFound,
           email: 'sagar@gmail.com',
-          location: 'butwal',
+          Userlocation: 'butwal',
           phoneNumber: '9841150390',
         },
       }),

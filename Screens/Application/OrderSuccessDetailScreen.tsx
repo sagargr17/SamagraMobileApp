@@ -126,7 +126,7 @@ export const OrderSuccessDetailScreen: React.FC<
             fontSizeVariant="regular"></AppText>
           <Spacer height={30}></Spacer>
           <AppText
-            title={titleRange(user?.location ?? NotMentioned, 22)}></AppText>
+            title={titleRange(user?.Userlocation ?? NotMentioned, 22)}></AppText>
         </RowFlexLayout>
         <RowFlexLayout
           customStyle={{

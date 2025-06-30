@@ -71,7 +71,7 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
   };
 
   const childrenContent = () => {
-    const userLocation = useAppSelector(state => state.user.user?.location);
+    const userLocation = useAppSelector(state => state.user.user?.Userlocation);
 
     return (
       <View style={styles.wrapper}>

@@ -1,17 +1,16 @@
-import {useNavigation, useTheme} from '@react-navigation/native';
-import {View} from 'moti';
-import React, {useCallback, useEffect, useState} from 'react';
-import {StyleSheet} from 'react-native';
-import {IconButton, TouchableRipple} from 'react-native-paper';
-import {Logos} from '../../Assets/SVG/Exports/Exports';
-import {AreaMapper, titleCase, titleRange} from '../../Utilities/CustomMethods';
-import {NotifcaitonIcon} from '../Elements/NotifcaitonIcon';
-import {AppText} from '../Elements/AppText';
-import {RowFlexLayout} from '../../Layout/PartationLayout/RowFlexLayout';
-import {size} from '../../Prefrences/Prefrences';
-import {Spacer} from '../Elements/Spacer';
 import Geolocation from '@react-native-community/geolocation';
-import {useAppSelector} from '../../StateManagement/hooks';
+import {useNavigation, useTheme} from '@react-navigation/native';
+import React, {useCallback, useEffect, useState} from 'react';
+import {IconButton} from 'react-native-paper';
+import {Logos} from '../../Assets/SVG/Exports/Exports';
+import {RowFlexLayout} from '../../Layout/PartationLayout/RowFlexLayout';
+import {responseTheme, size} from '../../Prefrences/Prefrences';
+import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
+import {titleRange} from '../../Utilities/CustomMethods';
+import {AppText} from '../Elements/AppText';
+import {NotifcaitonIcon} from '../Elements/NotifcaitonIcon';
+import {setUserLocation} from '../../StateManagement/User/UserSlice';
+import {showMessage} from 'react-native-flash-message';
 
 interface AppHeaderProps {
   currentPosition: 'absolute' | 'relative' | 'static';
@@ -22,33 +21,66 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
 }) => {
   const {Location} = Logos;
   const {colors} = useTheme();
-  const [location, setLocation] = useState<string>('Nepal');
   const navigation = useNavigation<any>();
+  const dispatch = useAppDispatch();
+  const location = useAppSelector(state => state.user.userLocation.address);
 
-  // useEffect(() => {
-  //   // const test = async () => {
-  //   //   let result = await fetch(
-  //   //     'https://nominatim.openstreetmap.org/reverse?lat=27.6981641&lon=83.4677009&format=jsonv2',
-  //   //   );
-  //   //   const f = await JSON.stringify(result);
-  //   //   console.log('Location Result', f);
-  //   // };
-  //   // test();
-  //   // const apiKey = '2334a549-2942-4103-a5fb-6cc3d2ff1780';
-  //   // const config: any = {
-  //   //   skipPermissionRequests: false, // Set to true if you handle permissions elsewhere
-  //   //   authorizationLevel: 'whenInUse', // iOS only: 'whenInUse' or 'always'
-  //   //   locationProvider: 'fused', // Android only: 'auto', 'gps', 'network', or 'fused'
-  //   // };
-  //   // Geolocation.setRNConfiguration(config);
-  //   // let rrr = Geolocation.getCurrentPosition(async info => {
-  //   // });
-  //   // console.log('RRRR', rrr);
-  // }, []);
+  useEffect(() => {
+    const reverseGeoCordinationHandle = async (
+      latitude: number,
+      longitude: number,
+    ) => {
+      console.log('API Calling', latitude, longitude);
+      try {
+        let result = await fetch(
+          `https://us1.api-bdc.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`,
+        );
+        const finalResult = await result.json();
+        console.log('Location', finalResult);
 
-  const userLocation = useAppSelector(state => state.user.user?.location);
+        // console.log('Final Result', `${finalResult.city},${finalResult.administrative[2].name}`);
+        if (finalResult)
+          dispatch(
+            setUserLocation({
+              lat: latitude,
+              long: longitude,
+              address: titleRange(
+                `${finalResult.city} ${finalResult.principalSubdivision}`,
+              ),
+            }),
+          );
+      } catch (e) {
+        showMessage(
+          responseTheme(
+            'Location Couldnot Found',
+            'We Will Reach You Later',
+            'danger',
+          ),
+        );
+      }
+    };
+
+    // Configurations
+    const config: any = {
+      skipPermissionRequests: false, // Set to true if you handle permissions elsewhere
+      authorizationLevel: 'whenInUse', // iOS only: 'whenInUse' or 'always'
+      locationProvider: 'fused', // Android only: 'auto', 'gps', 'network', or 'fused'
+    };
+    Geolocation.setRNConfiguration(config);
+    Geolocation.getCurrentPosition(result => {
+      reverseGeoCordinationHandle(
+        result.coords.latitude,
+        result.coords.longitude,
+      );
+    });
+  }, []);
+
   return (
-    <RowFlexLayout>
+    <RowFlexLayout
+      customStyle={{
+        paddingLeft: size.spacing.xs,
+        paddingRight: size.spacing.xxs,
+      }}>
       <NotifcaitonIcon></NotifcaitonIcon>
       <RowFlexLayout
         customStyle={{
@@ -59,7 +91,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
         }}>
         <Location height={size.iconSize.small}></Location>
         <AppText
-          title={titleRange(`${userLocation}`, 25)}
+          title={`${location}`}
           fontVariant="medium"
           fontSizeVariant="regular"></AppText>
       </RowFlexLayout>
@@ -80,7 +112,6 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
             borderColor: colors.border,
           },
         ]}></IconButton>
-        
     </RowFlexLayout>
   );
 };

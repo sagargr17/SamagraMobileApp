@@ -38,7 +38,7 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(state => state.user.user);
   const {NoItemFound} = Logos;
-  const userLocation = useAppSelector(state => state.user.user?.location);
+  const userLocation = useAppSelector(state => state.user.user?.Userlocation);
   const {data, loading, error} = useQuery(GetBasketItemsQuery);
   // console.log('Result>>>', data, loading, error);
 
@@ -63,7 +63,7 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
           },
           sellerDetails: {
             fullName: user?.username ?? NotMentioned,
-            address: user?.location ?? NotMentioned,
+            address: user?.Userlocation ?? NotMentioned,
             shopName: 'Butwal',
             phoneNumber: '9841150490',
           },

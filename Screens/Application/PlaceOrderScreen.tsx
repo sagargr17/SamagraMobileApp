@@ -223,7 +223,7 @@ export const PlaceOrderScreen: React.FC<PlaceOrderScreenProps> = ({}) => {
             fontSizeVariant="regular"></AppText>
           <Spacer height={30}></Spacer>
           <AppText
-            title={titleRange(user?.location ?? NotMentioned, 22)}></AppText>
+            title={titleRange(user?.Userlocation ?? NotMentioned, 22)}></AppText>
         </RowFlexLayout>
         <RowFlexLayout
           customStyle={{
@@ -305,7 +305,7 @@ export const PlaceOrderScreen: React.FC<PlaceOrderScreenProps> = ({}) => {
               console.log('Logging,,,,');
               handleConfirmPlaceItem(
                 user?.username ?? 'sagar',
-                user?.location ?? 'butwal',
+                user?.Userlocation ?? 'butwal',
                 user?.phoneNumber ?? '9841150390',
                 Number(
                   placeOrderDetails.orderDetail.orderQuantity === '0'
