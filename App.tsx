@@ -152,38 +152,7 @@ export const client = new ApolloClient({
     typePolicies: {
       Query: {
         fields: {
-          getPublicItems: {
-            merge(existing = {nodes: [], pageInfo: {}}, incoming, {args}) {
-              console.log('Incoming', incoming);
-
-              // 'existing' is the data already in the cache for getPublicItems
-              // 'incoming' is the new data received from the fetchMore call
-              // 'args' are the arguments used in the current query (e.g., { after: "someCursor" })
-
-              // Ensure incoming data is valid
-              if (!incoming || !incoming.nodes) {
-                return existing; // Don't try to merge invalid incoming data
-              }
-
-              let mergedNodes = existing.nodes || [];
-
-              // If 'after' argument is present, it means we are fetching subsequent pages
-              // We should append the new nodes to the existing ones
-              if (args && args.after) {
-                mergedNodes = [...mergedNodes, ...incoming.nodes];
-              } else {
-                // If 'after' is NOT present, it's likely the initial fetch
-                // or a refetch from the beginning. In this case, we replace.
-                mergedNodes = incoming.nodes;
-              }
-
-              return {
-                ...incoming, // Take all other properties from the incoming data (like __typename)
-                nodes: mergedNodes, // Use our merged nodes array
-                pageInfo: incoming.pageInfo, // Always take the latest pageInfo
-              };
-            },
-          },
+          getPublicItems: relayStylePagination(),
         },
       },
     },

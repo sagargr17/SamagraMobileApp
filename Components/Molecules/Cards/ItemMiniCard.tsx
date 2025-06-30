@@ -3,13 +3,19 @@ import {View, Image, StyleSheet, TextInputComponent} from 'react-native';
 import {Card, IconButton, TouchableRipple} from 'react-native-paper';
 import {AppText} from '../../Elements/AppText';
 import {useNavigation, useTheme} from '@react-navigation/native';
-import {AreaMapper, titleRange} from '../../../Utilities/CustomMethods';
+import {
+  AreaMapper,
+  isValidUrl,
+  titleRange,
+} from '../../../Utilities/CustomMethods';
 import {HomeStackNavigationProp} from '../../../Navigators/Stack/HomeStackNavigator';
 import {ApplicationOverlayStackNavigationProp} from '../../../Navigators/Stack/ApplicationOverlayStackNavigator';
 import {useAppDispatch} from '../../../StateManagement/hooks';
 import {showLoader} from '../../../StateManagement/Error&loadingHandle/LoaderStateSlice';
 import {Rating} from '../../Elements/Rating';
 import {size} from '../../../Prefrences/Prefrences';
+import FastImage from '@d11/react-native-fast-image';
+import {ItemImageNotFound} from '../../../Constants/UI/AssetsUrls';
 
 interface ItemMiniCardProps {
   id: string;
@@ -59,11 +65,11 @@ export const ItemMiniCard: React.FC<ItemMiniCardProps> = ({
         }}>
         <>
           <View>
-            <Image
-              source={{uri: cardImage}}
-              style={styles.image}
-              resizeMode="cover"
-            />
+            <FastImage
+              source={{
+                uri: isValidUrl(cardImage) ? cardImage : ItemImageNotFound,
+              }}
+              style={styles.image}></FastImage>
             <IconButton
               icon="heart-outline"
               size={size.iconSize.small}

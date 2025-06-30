@@ -1,42 +1,60 @@
-import {NetworkStatus, useQuery} from '@apollo/client';
-import {useNavigation} from '@react-navigation/native';
-import React, {useCallback} from 'react';
-import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
-import {Divider} from 'react-native-paper';
-import {Spacer} from '../../../Components/Elements/Spacer';
-import {ItemMiniCard} from '../../../Components/Molecules/Cards/ItemMiniCard';
+import { NetworkStatus, useQuery } from '@apollo/client';
+import { useNavigation, useTheme } from '@react-navigation/native';
+import React, { useCallback, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Divider } from 'react-native-paper';
+import { Spacer } from '../../../Components/Elements/Spacer';
+import { ItemMiniCard } from '../../../Components/Molecules/Cards/ItemMiniCard';
 import AppBanner from '../../../Components/Molecules/Global/AppBanner';
-import {AppSerchBar} from '../../../Components/Molecules/Global/AppSerchBar';
-import {AppHeader} from '../../../Components/Organism/AppHeader';
-import {ItemCategoryCardSlider} from '../../../Components/Organism/ItemCategorySlider';
-import {ImageNotFound} from '../../../Constants/UI/AssetsUrls';
-import {getPublicItems} from '../../../GraphQL/Queries/ItemQueries';
-import {FlatListScreen} from '../../../Layout/ScreenLayout/FlatListScreenLayout';
-import {size} from '../../../Prefrences/Prefrences';
-import {HomeLandingSkeleton} from '../../../Components/Skeletons/Layout/HomeLandingSkeleton';
-import {AppText} from '../../../Components/Elements/AppText';
-import AppButton from '../../../Components/Elements/Button';
+import { AppSerchBar } from '../../../Components/Molecules/Global/AppSerchBar';
+import { AppHeader } from '../../../Components/Organism/AppHeader';
+import { ItemCategoryCardSlider } from '../../../Components/Organism/ItemCategorySlider';
+import { HomeLandingSkeleton } from '../../../Components/Skeletons/Layout/HomeLandingSkeleton';
+import { ItemImageNotFound } from '../../../Constants/UI/AssetsUrls';
+import { getPublicItems } from '../../../GraphQL/Queries/ItemQueries';
+import { FlatListScreen } from '../../../Layout/ScreenLayout/FlatListScreenLayout';
+import { size } from '../../../Prefrences/Prefrences';
 
 interface HomeLandingScreenProps {}
 
 export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
   const navigation: any = useNavigation();
-  const {data, loading, error, fetchMore} = useQuery(getPublicItems, {
-    notifyOnNetworkStatusChange: true,
-  });
+  const {colors} = useTheme();
 
-  console.log('Result LOGGgg', loading);
+  const [paginationLoading, setPaginationLoading] = useState<boolean>(false);
 
-  // Result Log
-  const handleNavigation = useCallback((searchedItem: string) => {
-    navigation.navigate('ApplicationOverlay', {
-      screen: 'ItemDetailScreen',
-      params: {
-        name: `${searchedItem}`,
-        id: '1',
+  const {data, loading, error, fetchMore, networkStatus} = useQuery(
+    getPublicItems,
+    {
+      notifyOnNetworkStatusChange: true,
+      variables: {endCursor: null},
+      onCompleted: () => {
+        setPaginationLoading(false);
       },
-    });
-  }, []);
+      onError: () => {
+        setPaginationLoading(false);
+      },
+    },
+  );
+
+  const isLoadingInitialData =
+    loading && !data && networkStatus === NetworkStatus.loading;
+
+  const isFetchingMore =
+    networkStatus === NetworkStatus.fetchMore || paginationLoading;
+
+  const handleNavigation = useCallback(
+    (searchedItem: string) => {
+      navigation.navigate('ApplicationOverlay', {
+        screen: 'ItemDetailScreen',
+        params: {
+          name: `${searchedItem}`,
+          id: '1',
+        },
+      });
+    },
+    [navigation],
+  );
 
   const headerComponent = (
     <>
@@ -56,52 +74,82 @@ export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
     </>
   );
 
-  if (loading) return <HomeLandingSkeleton></HomeLandingSkeleton>;
-  if (error) return <Text>{error.message}</Text>;
+  if (isLoadingInitialData) {
+    return <HomeLandingSkeleton></HomeLandingSkeleton>;
+  }
+
+  if (error) {
+    return (
+      <Text style={{color: 'red', textAlign: 'center', marginTop: 20}}>
+        Error: {error.message}
+      </Text>
+    );
+  }
 
   return (
     <FlatListScreen
-      ListFooterComponent={ <AppButton
-          onPress={() =>
-            fetchMore({
-              variables: {endCursor: data?.getPublicItems?.pageInfo.endCursor},
-            })
-          }>
-          More
-        </AppButton>
-      }
-      onEndReachedThreshold={0}
-      scrollEnabled
+      onEndReached={() => {
+        if (data?.getPublicItems?.pageInfo.hasNextPage && !isFetchingMore) {
+          setPaginationLoading(true);
+          fetchMore({
+            variables: {endCursor: data?.getPublicItems?.pageInfo.endCursor},
+          })
+            .then(res => {})
+            .catch(err => {
+              console.error('FetchMore error:', err);
+              setPaginationLoading(false);
+            });
+        }
+      }}
+      onEndReachedThreshold={0.6}
       numColumns={2}
       headerComponent={headerComponent}
-      data={data?.getPublicItems?.nodes}
+      data={data?.getPublicItems?.edges || []}
       isSectioHeader
       headerTitle="Popular"
       contentContainerStyle={{
         paddingHorizontal: size.spacing.xs,
       }}
-      renderItem={({item, index}) => (
-        <View
-          style={{
-            paddingTop: index % 2 === 0 ? 0 : size.spacing.xs,
-          }}>
-          <ItemMiniCard
-            id={item?.id ? item.id : 'Not Mentioned'}
-            key={index}
-            cardImage={
-              item?.imageUrls?.[0] ? item?.imageUrls[0] : ImageNotFound
-            }
-            title={item?.name ? item.name : 'Not Mentioned'}
-            price={item?.price ? item.price : 'Not Mentioned'}
-            rating={item?.starRating}
+      renderItem={({item, index}) => {
+        if (!item?.node) return null;
+
+        return (
+          <>
+            {item.node?.imageUrls && item.node?.imageUrls.length > 0 ? (
+              <View
+                style={{
+                  paddingTop: index % 2 === 0 ? 0 : size.spacing.xs,
+                  flex: 1,
+                  marginHorizontal: size.spacing.xxs / 2,
+                }}>
+                <ItemMiniCard
+                  id={item.node.id || 'Not Mentioned'}
+                  cardImage={item.node.imageUrls[0] || ItemImageNotFound}
+                  title={item.node.name || 'Not Mentioned'}
+                  price={item.node.price || 'Not Mentioned'}
+                  rating={item.node.starRating}
+                />
+              </View>
+            ) : null}
+          </>
+        );
+      }}
+      ListFooterComponent={
+        isFetchingMore ? (
+          <ActivityIndicator
+            color={colors.primary}
+            style={styles.footerLoader}
           />
-        </View>
-      )}></FlatListScreen>
+        ) : null
+      }></FlatListScreen>
   );
 };
 
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
+  },
+  footerLoader: {
+    paddingVertical: size.spacing.xs,
   },
 });

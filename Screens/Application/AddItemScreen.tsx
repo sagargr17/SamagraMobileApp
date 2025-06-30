@@ -53,9 +53,8 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
     if (data && shopID)
       try {
         console.log('Calling');
-        const authenticateClient = GetAuthenticateClient;
-        const response = authenticateClient.mutate({
-          mutation: createNewProduct,
+
+        let response = await createNewItemFn({
           variables: {
             name: data.name ? data.name : NotMentioned,
             shopId: shopID,
@@ -68,52 +67,37 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
             categoryId: '1',
           },
         });
+        console.log('Response', response);
 
-        if (response)
-          // let response = await createNewItemFn({
-          //   variables: {
-          //     name: data.name ? data.name : NotMentioned,
-          //     shopId: shopID,
-          //     price: Number(data.price ? data.price : NotMentioned),
-          //     description: data.description ? data.description : NotMentioned,
-          //     unit: data.unit ? data.unit : NotMentioned,
-          //     stockQuantity: Number(data.stockQuantity),
-          //     imageUrls: [ImageNotFound],
-          //     location: data.location ? data.location : NotMentioned,
-          //     categoryId: '1',
-          //   },
-          // });
-          console.log('Response', response);
-
-        // if ((await response).data) {
-        //   showMessage(
-        //     responseTheme(
-        //       SuccessAddItemMessage,
-        //       SuccessAddItemMessageDescription,
-        //       'success',
-        //     ),
-        //   );
-        // }
-        // if (response.errors) {
-        //   dispatch(hideLoader());
-        //   showMessage({
-        //     message: `${response.errors[0].message}`,
-        //     type: 'danger',
-        //     description: 'Please , try after sometimes',
-        //     textStyle: {
-        //       fontFamily: fonts.regular.fontFamily,
-        //       fontWeight: 'regular',
-        //       fontSize: AreaMapper({
-        //         value: 14,
-        //         scaleBy: 'average',
-        //       }),
-        //     },
-        //     statusBarHeight: AreaMapper({
-        //       value: 15,
-        //       scaleBy: 'average',
-        //     }),
-        //   });
-        // }
+        if (response.data) {
+          showMessage(
+            responseTheme(
+              SuccessAddItemMessage,
+              SuccessAddItemMessageDescription,
+              'success',
+            ),
+          );
+        }
+        if (response.errors) {
+          dispatch(hideLoader());
+          showMessage({
+            message: `${response.errors[0].message}`,
+            type: 'danger',
+            description: 'Please , try after sometimes',
+            textStyle: {
+              fontFamily: fonts.regular.fontFamily,
+              fontWeight: 'regular',
+              fontSize: AreaMapper({
+                value: 14,
+                scaleBy: 'average',
+              }),
+            },
+            statusBarHeight: AreaMapper({
+              value: 15,
+              scaleBy: 'average',
+            }),
+          });
+        }
       } catch (e) {
         dispatch(hideLoader());
         showMessage({

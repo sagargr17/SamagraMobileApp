@@ -7,13 +7,16 @@ query GetPublicItems($endCursor: String) {
     pageInfo {
       startCursor
       endCursor
+      hasNextPage
     }
-    nodes {
-      id
-      name
-      imageUrls
-      price
-      starRating
+    edges {
+      node {
+        id
+        name
+        imageUrls
+        price
+        starRating
+      }
     }
   }
 }
