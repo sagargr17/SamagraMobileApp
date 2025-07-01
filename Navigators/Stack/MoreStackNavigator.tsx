@@ -87,6 +87,9 @@ export const MoreStackNavigator: React.FC = () => {
           {
             screenName: 'StockScreen',
             component: StockScreen,
+             option: {
+              headerTitle: "Stock's",
+            },
           },
           {
             screenName: 'StockUpdateScreen',

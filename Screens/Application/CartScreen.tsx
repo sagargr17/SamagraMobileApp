@@ -1,8 +1,8 @@
-import {useQuery} from '@apollo/client';
+import {NetworkStatus, useQuery} from '@apollo/client';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {Button, FlatList, Text, View} from 'react-native';
-import {ActivityIndicator} from 'react-native-paper';
+import {Button, FlatList, Text, TouchableHighlight, View} from 'react-native';
+import {ActivityIndicator, Icon, IconButton} from 'react-native-paper';
 import {AppText} from '../../Components/Elements/AppText';
 import {GetBasketItemsQuery} from '../../GraphQL/Queries/CheckoutQueries';
 import {size} from '../../Prefrences/Prefrences';
@@ -26,9 +26,13 @@ import {
   SingnlePageInfo,
   SingnlePageInfoProps,
 } from '../../Components/Organism/SinglePageInfo';
-import {AreaMapper} from '../../Utilities/CustomMethods';
+import {AreaMapper, titleCase, titleRange} from '../../Utilities/CustomMethods';
 import {GetAuthenticateClient} from '../../client/Graphql/AuthenticatedClient';
 import {Counter} from '../../Components/Molecules/Global/Counter';
+import {BasketItemViewModel} from '../../src/__generated__/graphql';
+import {RowFlexLayout} from '../../Layout/PartationLayout/RowFlexLayout';
+import {SamagraLoader} from '../../Components/Molecules/Response/SamagraLoader';
+import {getDefaultFetchPolicy} from '@apollo/client/react/hooks/useQuery';
 
 interface CartScreenProps {}
 
@@ -38,23 +42,43 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(state => state.user.user);
   const {NoItemFound} = Logos;
-  const userLocation = useAppSelector(state => state.user.user?.Userlocation);
-  const {data, loading, error} = useQuery(GetBasketItemsQuery);
-  // console.log('Result>>>', data, loading, error);
+  const userLocation = useAppSelector(state => state.user.userLocation);
+  const [paginationLoading, setPaginationLoading] = useState<boolean>(false);
+  const [counter, setCounter] = useState<number>(1);
 
-  if (loading)
+  const {data, loading, error, networkStatus, fetchMore} = useQuery(
+    GetBasketItemsQuery,
+    {
+      notifyOnNetworkStatusChange: true,
+      variables: {after: null},
+      onCompleted: () => {
+        setPaginationLoading(false);
+      },
+      onError: () => {
+        setPaginationLoading(false);
+      },
+    },
+  );
+
+  const isLoadingInitialData =
+    loading && !data && networkStatus === NetworkStatus.loading;
+
+  const isFetchingMore =
+    networkStatus === NetworkStatus.fetchMore || paginationLoading;
+
+  if (isLoadingInitialData)
     return (
       <ListCardSkeleton numberOfList={8} numberOfText={3}></ListCardSkeleton>
     );
   if (!loading && error) return <Text>{error.message}</Text>;
 
-  const handleOnCheckoutPressPress = (item: any) => {
+  const handleOnCheckoutPressPress = (item: BasketItemViewModel | null) => {
     if (userLocation)
       dispatch(
         postPlaceOrderparams({
           itemDetails: {
             price: 2,
-            location: userLocation,
+            location: userLocation.address ?? NotMentioned,
             description: 'Awesome',
             requiredTime: '4hr',
             name: item?.item?.name ?? NotMentioned,
@@ -63,7 +87,7 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
           },
           sellerDetails: {
             fullName: user?.username ?? NotMentioned,
-            address: user?.Userlocation ?? NotMentioned,
+            address: NotMentioned,
             shopName: 'Butwal',
             phoneNumber: '9841150490',
           },
@@ -104,25 +128,31 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
       }}></SingnlePageInfo>
   );
 
-  const isAuthenticated = GetAuthenticateClient;
-
   return (
     <FlatList
+      onEndReached={() => {
+        if (data?.getBasketItems?.pageInfo.hasNextPage && !isFetchingMore) {
+          fetchMore({
+            variables: {after: data?.getBasketItems?.pageInfo.endCursor},
+          });
+        }
+      }}
+      onEndReachedThreshold={0.6}
       showsVerticalScrollIndicator={false}
       ListEmptyComponent={emptyElement}
       contentContainerStyle={{
         paddingHorizontal: size.spacing.xxs,
       }}
-      data={data?.getBasketItems?.nodes}
+      data={data?.getBasketItems?.edges}
       renderItem={({item, index}) => (
         <ListCard
-          imageUrl={item?.item?.imageUrls?.[0] ?? ItemImageNotFound}
-          id={item?.id ?? 'Not Mentioned'}
+          imageUrl={item?.node?.item?.imageUrls?.[0] ?? ItemImageNotFound}
+          id={item?.node?.id ?? 'Not Mentioned'}
           key={index}
           onImagePress={() => {
             onHanleImagePress(
-              item?.item?.id ?? NotMentioned,
-              item?.item?.name ?? NotMentioned,
+              item.node?.id ?? NotMentioned,
+              item?.node?.item?.name ?? NotMentioned,
             );
           }}
           customStyle={{
@@ -130,16 +160,28 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
           }}
           list={[
             {
-              value: item?.item?.name ?? NotMentioned,
+              value: titleRange(item?.node?.item?.name ?? NotMentioned),
               type: 'regular',
               fontVariant: 'bold',
             },
-            { 
-              value: `Rs.${item?.item?.price ?? NotMentioned}`,
+            {
+              value: `Npr.${item.node?.item?.price ?? NotMentioned}`,
               type: 'regular',
+            },
+            {
+              value: `${titleRange(
+                item.node?.item?.shop?.name ?? NotMentioned,
+              )}`,
+              type: 'regular',
+              style: {
+                color: colors.primary,
+              },
             },
           ]}
           surfaceLevel={1}></ListCard>
-      )}></FlatList>
+      )}
+      ListFooterComponent={
+        isFetchingMore ? <SamagraLoader></SamagraLoader> : null
+      }></FlatList>
   );
 };

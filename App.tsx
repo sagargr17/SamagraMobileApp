@@ -154,6 +154,8 @@ export const client = new ApolloClient({
           getItems: relayStylePagination(),
           getShops: relayStylePagination(),
           getOrders: relayStylePagination(),
+          getBasketItems: relayStylePagination(),
+
         },
       },
     },

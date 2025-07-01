@@ -43,7 +43,7 @@ export const ShopProfileUserContainer: React.FC<
         showMessage(
           responseTheme(
             'SuccessFully Store Removed',
-            'Navigating to Store',
+            'Navigating to Profile',
             'success',
           ),
         );

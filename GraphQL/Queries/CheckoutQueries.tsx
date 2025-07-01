@@ -1,22 +1,35 @@
 import {gql} from '../../src/__generated__';
 
-export const GetBasketItemsQuery = gql(`query GetBasketItemsQuery {
-  getBasketItems {
+export const GetBasketItemsQuery =
+  gql(`query GetBasketItemsQuery($after: String) {
+  getBasketItems(after: $after) {
     pageInfo {
       hasNextPage
       hasPreviousPage
       startCursor
       endCursor
     }
-    nodes {
-      id
-      item {
+    edges {
+      node {
         id
-        name
-        imageUrls
-        price
-        starRating
+        item {
+          id
+          name
+          imageUrls
+          price
+          starRating
+          shop {
+            name
+            user {
+              username
+            }
+            phoneNumber
+            location
+          }
+        }
       }
     }
   }
-}`);
+}
+
+`);

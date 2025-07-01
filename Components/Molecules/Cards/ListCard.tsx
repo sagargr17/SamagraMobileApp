@@ -81,12 +81,7 @@ export const ListCard: React.FC<ListCardProps> = ({
             }}>
             <TouchableOpacity
               onPress={onImagePress}
-              style={[
-                styles.imageContainer,
-                {
-                  borderRadius: size.borderRadius.full,
-                },
-              ]}>
+              style={[styles.imageContainer]}>
               <FastImage
                 style={[
                   styles.image,
@@ -137,9 +132,9 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   imageContainer: {
-    width: AreaMapper({value: 100, scaleBy: 'width'}),
+    width: AreaMapper({value: 110, scaleBy: 'width'}),
     height: AreaMapper({value: 100, scaleBy: 'height'}),
-    marginRight: AreaMapper({value: 10, scaleBy: 'height'}),
+    marginRight: AreaMapper({value: 5, scaleBy: 'height'}),
   },
   image: {
     width: '100%',

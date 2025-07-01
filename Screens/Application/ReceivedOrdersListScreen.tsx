@@ -86,6 +86,9 @@ export const ReceivedOrderListScreen: React.FC<
       ) {
         setOrderList([...orderlist, data.data]);
       }
+      if (data.data?.events?.data?.orderReceived) {
+        showMessage(responseTheme('You received order',"" , 'success'));
+      }
     },
   });
   const [requestID, setRequestID] = useState<string>('');
@@ -238,7 +241,9 @@ export const ReceivedOrderListScreen: React.FC<
                     fontVariant: 'bold',
                   },
                   {
-                    value: item?.node?.price ? 'Rs. ' + item.node?.price : NotMentioned,
+                    value: item?.node?.price
+                      ? 'Rs. ' + item.node?.price
+                      : NotMentioned,
                     type: 'regular',
                   },
                   {
