@@ -1,7 +1,7 @@
-import {gql, useLazyQuery, useQuery} from '@apollo/client';
+import {NetworkStatus, useQuery} from '@apollo/client';
 import {useNavigation, useTheme} from '@react-navigation/native';
-import React, {useEffect} from 'react';
-import {View, Text} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {ActivityIndicator, Text} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {AppText} from '../../../Components/Elements/AppText';
 import {UserProfileCard} from '../../../Components/Molecules/Cards/UserProfileCard';
@@ -13,33 +13,38 @@ import {size} from '../../../Prefrences/Prefrences';
 import {useAppDispatch, useAppSelector} from '../../../StateManagement/hooks';
 import {
   login,
+  setShopState,
   setUserShopDetail,
 } from '../../../StateManagement/User/UserSlice';
-import {getLoginUser} from '../../../GraphQL/Queries/UserQueries';
-import {SingnlePageInfo} from '../../../Components/Organism/SinglePageInfo';
-import {GetAuthenticateClient} from '../../../client/Graphql/AuthenticatedClient';
-import useGraphQLQuery from '../../../CustomHooks/useQueryEffect';
 import {titleCase} from '../../../Utilities/CustomMethods';
 interface ProfileSelectScreenProps {}
 
 export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
   const {colors} = useTheme();
-  const {} = useTheme();
-
-  const {data, loading, error, refetch} = useQuery(myShops, {
-    fetchPolicy: 'network-only',
+  const {data, loading, error, networkStatus, fetchMore} = useQuery(myShops, {
+    notifyOnNetworkStatusChange: true,
+    variables: {after: null},
+    onCompleted: () => {
+      setPaginationLoading(false);
+    },
+    onError: () => {
+      setPaginationLoading(false);
+    },
   });
-
-  const authenticateClient = GetAuthenticateClient;
   const selectedTab = useAppSelector(state => state.user.shopData?.name);
+  const isShopActive = useAppSelector(state => state.user.isShopActive);
   const dispatch = useAppDispatch();
   const navigation = useNavigation<any>();
   const userData = useAppSelector(state => state.user.user);
+  const [paginationLoading, setPaginationLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    refetch();
-  }, []);
+  const isLoadingInitialData =
+    loading && !data && networkStatus === NetworkStatus.loading;
 
+  const isFetchingMore =
+    networkStatus === NetworkStatus.fetchMore || paginationLoading;
+
+  // Navigation Handle
   const navigationHandle = () => {
     navigation.navigate('BottomTab', {
       screen: 'More',
@@ -68,30 +73,29 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
   };
 
   const handleUserSelect = () => {
-    dispatch(
-      login({
-        user: {
-          username: userData?.username ?? NotMentioned,
-          pofileImageUrl: ImageNotFound,
-          email: 'sagar@gmail.com',
-          Userlocation: 'butwal',
-          phoneNumber: '9841150390',
-        },
-      }),
-    );
+    dispatch(setShopState(false));
     navigationHandle();
   };
 
   return (
     <FlatList
+      onEndReached={() => {
+        if (data?.getShops?.pageInfo.hasNextPage && !isFetchingMore) {
+          fetchMore({
+            variables: {after: data?.getShops?.pageInfo.endCursor},
+          });
+        }
+      }}
+      onEndReachedThreshold={0.6}
       ListHeaderComponent={
         <UserProfileCard
           onCardPressed={() => handleUserSelect()}
           customStyle={{
             elevation: 0,
             marginBottom: size.spacing.xxs,
-            paddingHorizontal: 0,
             borderRadius: 0,
+            borderColor: isShopActive === false ? colors.primary : colors.card,
+            borderWidth: size.borderWidth.xs,
           }}
           user={{
             username: titleCase(userData?.username ?? NotMentioned),
@@ -108,14 +112,14 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
           fontVariant="medium"
           fontSizeVariant="display"></AppText>
       }
-      data={data?.getShops?.nodes}
+      data={data?.getShops?.edges}
       renderItem={({item, index}) => (
         <UserProfileCard
           onCardPressed={() =>
             profileHandleSelect(
-              item?.id ?? NotMentioned,
-              item?.name ?? NotMentioned,
-              item?.location ?? NotMentioned,
+              item?.node?.id ?? NotMentioned,
+              item?.node?.name ?? NotMentioned,
+              item?.node?.location ?? NotMentioned,
             )
           }
           customStyle={{
@@ -123,15 +127,23 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
             marginBottom: size.spacing.xxs,
             paddingHorizontal: size.spacing.s,
             borderColor:
-              item?.name === selectedTab ? colors.notification : colors.card,
+              item?.node?.name === selectedTab && isShopActive
+                ? colors.primary
+                : colors.card,
             borderWidth: size.borderWidth.xs,
             paddingVertical: size.spacing.m,
+            borderRadius: 0,
           }}
           user={{
-            username: item?.name ?? NotMentioned,
-            profileImageUrl: item?.profileImageUrl?.[0] ?? ImageNotFound,
+            username: item?.node?.name ?? NotMentioned,
+            profileImageUrl: item?.node?.profileImageUrl?.[0] ?? ImageNotFound,
           }}></UserProfileCard>
       )}
+      ListFooterComponent={
+        isFetchingMore ? (
+          <ActivityIndicator size={'small'} color={colors.primary} />
+        ) : null
+      }
     />
   );
 };

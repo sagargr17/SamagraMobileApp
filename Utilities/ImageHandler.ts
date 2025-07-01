@@ -1,6 +1,7 @@
 import * as MultipleImagePicker from '@baronha/react-native-multiple-image-picker';
 import {Alert, Platform} from 'react-native';
 import {Image} from 'react-native-compressor';
+import {getTokens} from '../client/Token/TokenAccess';
 
 export interface OutPutImageType {
   uri: string;
@@ -128,8 +129,6 @@ class ImageHandler {
   ): Promise<string | null> {
     const serverUrl = 'http://static.samagranepal.com/';
 
-    console.log('Incoming Images', images);
-
     const formData: any = new FormData();
     images.map(image => {
       formData.append('file', {
@@ -141,11 +140,13 @@ class ImageHandler {
     });
 
     try {
+      console.log('Form DAta', formData);
       const response = await fetch(serverUrl, {
         method: 'POST',
         body: formData,
         headers: {
           'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Im15LWhhcmRjb2RlZC1rZXktaWQiLCJ0eXAiOiJhdCtqd3QifQ.eyJpc3MiOiJodHRwOi8vaWRlbnRpdHkuc2FtYWdyYW5lcGFsLmNvbSIsIm5iZiI6MTc1MTMwMjAzOCwiaWF0IjoxNzUxMzAyMDM4LCJleHAiOjE3NTM4OTQwMzgsImF1ZCI6Im1hcmtldHBsYWNlIiwic2NvcGUiOlsibWFya2V0cGxhY2UuYWNjZXNzIiwib3BlbmlkIiwicHJvZmlsZSIsIm9mZmxpbmVfYWNjZXNzIl0sImFtciI6WyJjdXN0b20iXSwiY2xpZW50X2lkIjoiI3NnYXJhcCoiLCJzdWIiOiI0ZTFlNzcyOC1kZWZhLTQxOTEtOGZkOS03MGRkNmZkMmNhZmMiLCJhdXRoX3RpbWUiOjE3NTEzMDIwMzgsImlkcCI6ImxvY2FsIiwibmFtZSI6InNhZ2FyICIsInByZWZlcnJlZF91c2VybmFtZSI6InNhZ2FyIiwianRpIjoiQkQ0NjJENjk5QTlEQ0UyM0QyNkQzNkU2RUQzMEMzQzAifQ.POJDLLDkqFBYztZVkXrfFQiIsNsuvSQzZzD7DP68BLDkmLk7nlw9Txc7P-mQsHxC_KR9btnzUtWm7U_NIfdXPNqAAUR3EqoDQ06KGcNJgrU40nmSjbAv1HUcwpaOGPlm2lgy5tPVay2dxPdb09LN3axieO4ZC3bu3krHyKzCLA4`,
         },
       });
 

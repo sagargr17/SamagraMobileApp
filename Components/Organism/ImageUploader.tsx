@@ -13,7 +13,7 @@ import {AreaMapper} from '../../Utilities/CustomMethods';
 import ImageHandler, {OutPutImageType} from '../../Utilities/ImageHandler';
 import {AppText} from '../Elements/AppText';
 import AppButton from '../Elements/Button';
-import {offlineManager} from '@maplibre/maplibre-react-native';
+
 interface ImageUploaderProps {
   pushToServerIndicator: boolean;
 }
@@ -34,7 +34,6 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
   const imageFromGallery = async () => {
     let GalleryImages: any = await ImageHandler.selectFromGallery();
     console.log('Images????>>.', GalleryImages);
-
     setImages(GalleryImages);
     setImageLoading(!imageLoading);
   };
@@ -54,8 +53,9 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
     setImageLoading(false);
   };
 
-  useEffect(() => {
-    console.log('>>>><<<', pushSubmitIndicator, images);
+  useEffect(() => {}, [pushSubmitIndicator]);
+
+  const handleImageUploader = async () => {
     if (pushSubmitIndicator === true) {
       if (images && images.length > 0) {
         const response = ImageHandler.uploadImage(images)
@@ -63,7 +63,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
           .catch(err => console.log('Image Uploading Error', err));
       }
     }
-  }, [pushSubmitIndicator]);
+  };
 
   return (
     <View
@@ -95,6 +95,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
               source={{
                 uri: images[selectionImageIndex]?.uri,
               }}></FastImage>
+            <AppButton onPress={handleImageUploader}>Upload</AppButton>
             <IconButton
               onPress={() => {
                 handleImageRemove(images[selectionImageIndex]);

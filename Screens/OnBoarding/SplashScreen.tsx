@@ -30,7 +30,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
   };
 
   useEffect(() => {
-    console.log('nfunction ');
+    console.log('user Function Calling ');
 
     getLoginUserFn()
       .then(data => {
@@ -38,11 +38,10 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
           dispatch(
             login({
               user: {
-                username: data.data?.getUser?.username ?? 'Samagra',
+                username: data.data?.getUser?.username ?? 'Not Mention',
                 pofileImageUrl:
                   data.data?.getUser?.profileImageUrl ?? ImageNotFound,
                 email: 'sagar@gmail.com',
-                Userlocation: 'Baneswor Kathmandu Nepal',
                 phoneNumber: '9841150390',
               },
               isAuthenticated: true,

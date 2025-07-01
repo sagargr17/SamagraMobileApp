@@ -4,7 +4,7 @@ import React from 'react';
 import {StyleSheet, TouchableOpacity, View, ViewStyle} from 'react-native';
 import {Icon, IconButton, TouchableRipple} from 'react-native-paper';
 import {size} from '../../../Prefrences/Prefrences';
-import {AreaMapper} from '../../../Utilities/CustomMethods';
+import {AreaMapper, titleCase} from '../../../Utilities/CustomMethods';
 import {AppText} from '../../Elements/AppText';
 interface UserProfileCardProps {
   user: {
@@ -52,9 +52,9 @@ export const UserProfileCard: React.FC<UserProfileCardProps> = ({
         resizeMode="cover"></FastImage>
       <View style={style.detailContainer}>
         <AppText
-          title={user.username}
-          fontVariant="medium"
-          fontSizeVariant={'title'}></AppText>
+          title={titleCase(user.username)}
+          fontVariant="heavy"
+          fontSizeVariant={'regular'}></AppText>
         <View
           style={{
             display: 'flex',
@@ -100,7 +100,7 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    paddingVertical: size.spacing.m,
+    paddingVertical: size.spacing.s,
     paddingHorizontal: size.spacing.s,
     marginBottom: size.spacing.xs,
   },

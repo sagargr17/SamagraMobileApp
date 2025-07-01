@@ -14,6 +14,7 @@ import {ItemImageNotFound} from '../../../Constants/UI/AssetsUrls';
 import {getPublicItems} from '../../../GraphQL/Queries/ItemQueries';
 import {FlatListScreen} from '../../../Layout/ScreenLayout/FlatListScreenLayout';
 import {size} from '../../../Prefrences/Prefrences';
+import {SamagraLoader} from '../../../Components/Molecules/Response/SamagraLoader';
 
 interface HomeLandingScreenProps {}
 
@@ -90,15 +91,9 @@ export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
     <FlatListScreen
       onEndReached={() => {
         if (data?.getPublicItems?.pageInfo.hasNextPage && !isFetchingMore) {
-          setPaginationLoading(true);
           fetchMore({
             variables: {endCursor: data?.getPublicItems?.pageInfo.endCursor},
-          })
-            .then(res => {})
-            .catch(err => {
-              console.error('FetchMore error:', err);
-              setPaginationLoading(false);
-            });
+          });
         }
       }}
       onEndReachedThreshold={0.6}
@@ -133,12 +128,7 @@ export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
         );
       }}
       ListFooterComponent={
-        isFetchingMore ? (
-          <ActivityIndicator
-            color={colors.primary}
-            style={styles.footerLoader}
-          />
-        ) : null
+        isFetchingMore ? <SamagraLoader></SamagraLoader> : null
       }></FlatListScreen>
   );
 };

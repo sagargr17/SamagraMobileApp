@@ -1,14 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, TouchableOpacity, View, Text} from 'react-native';
 import {useNavigation, useRoute, useTheme} from '@react-navigation/native';
 import {FlatListScreen} from '../../../Layout/ScreenLayout/FlatListScreenLayout';
-import {useQuery} from '@apollo/client';
+import {NetworkStatus, useQuery} from '@apollo/client';
 import {
   GetItemsByShopId,
-  getPersonalItems,
+  getAllPersonalItems,
 } from '../../../GraphQL/Queries/ItemQueries';
 import {ListCard} from '../../../Components/Molecules/Cards/ListCard';
-import {ImageNotFound, ItemImageNotFound} from '../../../Constants/UI/AssetsUrls';
+import {
+  ImageNotFound,
+  ItemImageNotFound,
+} from '../../../Constants/UI/AssetsUrls';
 import {
   NoCartItemTitle,
   NoItemInShop,
@@ -21,7 +24,7 @@ import {SamagraLoader} from '../../../Components/Molecules/Response/SamagraLoade
 import {ListCardSkeleton} from '../../../Components/Skeletons/Layout/ListCardSkeleton';
 import {useAppDispatch} from '../../../StateManagement/hooks';
 import {updateSelectedItem} from '../../../StateManagement/Item/SelectedItemSlice';
-import {ItemViewModel} from '../../../src/__generated__/graphql';
+
 interface StockScreenProps {}
 
 export const StockScreen: React.FC<StockScreenProps> = ({}) => {
@@ -29,13 +32,33 @@ export const StockScreen: React.FC<StockScreenProps> = ({}) => {
   const navigation = useNavigation<any>();
   const {NoItemFound} = Logos;
   const dispatch = useAppDispatch();
+  const [paginationLoading, setPaginationLoading] = useState<boolean>(false);
+
   // const {data, loading, error} = useQuery(GetItemsByShopId, {
   //   variables: {
   //     shopId: route.params.shopId,
   //   },
   // });
 
-  const {data, loading, error} = useQuery(getPersonalItems);
+  const {data, loading, error, fetchMore, networkStatus} = useQuery(
+    getAllPersonalItems,
+    {
+      notifyOnNetworkStatusChange: true,
+      variables: {after: null},
+      onCompleted: () => {
+        setPaginationLoading(false);
+      },
+      onError: () => {
+        setPaginationLoading(false);
+      },
+    },
+  );
+
+  const isLoadingInitialData =
+    loading && !data && networkStatus === NetworkStatus.loading;
+
+  const isFetchingMore =
+    networkStatus === NetworkStatus.fetchMore || paginationLoading;
 
   const handleNavigation = () => {
     // Navigation navigate
@@ -71,39 +94,50 @@ export const StockScreen: React.FC<StockScreenProps> = ({}) => {
       }}></SingnlePageInfo>
   );
 
-  if (loading) return <ListCardSkeleton numberOfList={5} />;
+  if (isLoadingInitialData) return <ListCardSkeleton numberOfList={5} />;
 
   if (error) return <Text>{error.message}</Text>;
 
   return (
     <FlatListScreen
+      onEndReached={() => {
+        if (data?.getItems?.pageInfo.hasNextPage && !isFetchingMore) {
+          fetchMore({
+            variables: {after: data?.getItems?.pageInfo.endCursor},
+          });
+        }
+      }}
+      onEndReachedThreshold={0.6}
       ListEmptyComponent={emptyNode}
-      data={data?.getItems?.nodes}
+      data={data?.getItems?.edges}
       renderItem={({item, index}) => (
         <ListCard
           onImagePress={() => {
             if (item) {
-              handleStockUpdateNavigation(item);
+              handleStockUpdateNavigation(item.node);
             }
           }}
-          id={item?.id ?? NotMentioned}
-          imageUrl={item?.imageUrls?.[0] ?? ItemImageNotFound}
+          id={item?.node?.id ?? NotMentioned}
+          imageUrl={item?.node?.imageUrls?.[0] ?? ItemImageNotFound}
           list={[
             {
               type: 'title',
-              value: titleCase(item?.name ?? NotMentioned),
+              value: titleCase(item?.node?.name ?? NotMentioned),
               fontVariant: 'heavy',
             },
             {
               type: 'regular',
-              value: `Qty: ${item?.stockQuantity ?? NotMentioned}`,
+              value: `Qty: ${item?.node?.stockQuantity ?? NotMentioned}`,
               fontVariant: 'medium',
             },
             {
               type: 'regular',
-              value: `रु.${item?.price ?? NotMentioned}`,
+              value: `Npr.${item?.node?.price ?? NotMentioned}`,
             },
           ]}></ListCard>
-      )}></FlatListScreen>
+      )}
+      ListFooterComponent={
+        isFetchingMore ? <SamagraLoader></SamagraLoader> : null
+      }></FlatListScreen>
   );
 };

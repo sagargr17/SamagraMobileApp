@@ -33,8 +33,9 @@ export const OrderSuccessDetailScreen: React.FC<
   const orderedDetail = useAppSelector(
     state => state.placeOrderParams.orderDetail,
   );
-  const user = useAppSelector(state => state.user.user);
+  const user = useAppSelector(state => state.user.userLocation);
   const status = 'Completed';
+
   const header = (
     <RowFlexLayout
       customStyle={{
@@ -51,23 +52,18 @@ export const OrderSuccessDetailScreen: React.FC<
       </View>
       <View>
         <Spacer></Spacer>
-        <RowFlexLayout
+        <AppText
+          fontSizeVariant="regular"
+          title={status}
+          fontVariant="medium"
           customStyle={{
-            justifyContent: 'space-between',
-          }}>
-          <Icon
-            source={'check'}
-            size={size.iconSize.small}
-            color={colors.primary}></Icon>
-          <AppText
-            fontSizeVariant="title"
-            title={status}
-            fontVariant="bold"
-            customStyle={{
-              color: status === 'Completed' ? colors.primary : 'yellow',
-              marginLeft: 5,
-            }}></AppText>
-        </RowFlexLayout>
+            color: 'white',
+            marginLeft: 5,
+            backgroundColor: status === 'Completed' ? colors.primary : 'gray',
+            padding: size.spacing.xxs,
+            borderRadius: size.borderRadius.xs,
+          }}></AppText>
+
         <Spacer height={40}></Spacer>
       </View>
     </RowFlexLayout>
@@ -126,7 +122,7 @@ export const OrderSuccessDetailScreen: React.FC<
             fontSizeVariant="regular"></AppText>
           <Spacer height={30}></Spacer>
           <AppText
-            title={titleRange(user?.Userlocation ?? NotMentioned, 22)}></AppText>
+            title={titleRange(user?.address ?? NotMentioned, 22)}></AppText>
         </RowFlexLayout>
         <RowFlexLayout
           customStyle={{
@@ -218,7 +214,7 @@ export const OrderSuccessDetailScreen: React.FC<
         {
           paddingHorizontal: size.spacing.xxs,
           backgroundColor: colors.card,
-          padding: size.spacing.m,
+          paddingVertical: size.spacing.m,
         },
       ]}>
       <AppText

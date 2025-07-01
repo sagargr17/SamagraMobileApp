@@ -32,7 +32,7 @@ export interface UserState {
   isShopActive?: boolean;
   shopData?: ShopDetail;
   uploadedImages?: UploadedImages;
-  userLocation: UserLocation;
+  userLocation?: UserLocation;
 }
 
 const initialState: UserState = {
@@ -46,7 +46,7 @@ const initialState: UserState = {
   isShopActive: false,
   shopData: {
     shopId: '',
-    name: 'Samagra Shop',
+    name: 'Loading...',
     location: 'kathmanndu,Bagmati  Nepal',
   },
   userLocation: {
@@ -66,7 +66,7 @@ const userSlice = createSlice({
       state.isAuthenticated = true;
     },
     logout: state => {
-      state.user = null;
+      // state.user = null;
       state.isAuthenticated = false;
     },
     setUserShopDetail: (state, action: PayloadAction<ShopDetail>) => {
@@ -81,6 +81,11 @@ const userSlice = createSlice({
     setUserLocation: (state, action: PayloadAction<UserLocation>) => {
       state.userLocation = action.payload;
     },
+    setShopState: (state, action: PayloadAction<boolean>) => {
+      console.log('UserState', action.payload);
+
+      state.isShopActive = action.payload;
+    },
   },
 });
 
@@ -90,5 +95,6 @@ export const {
   setUserShopDetail,
   setUserUploadedImage,
   setUserLocation,
+  setShopState,
 } = userSlice.actions;
 export default userSlice.reducer;

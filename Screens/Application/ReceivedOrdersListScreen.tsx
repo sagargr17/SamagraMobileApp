@@ -26,7 +26,7 @@ import {
   SuccessfullSentTitle,
 } from '../../Constants/UI/Messages';
 import {createItemRequestOfferMutation} from '../../GraphQL/Mutation/ItemRequestMutation';
-import {getPersonalItems} from '../../GraphQL/Queries/ItemQueries';
+import {getAllPersonalItems} from '../../GraphQL/Queries/ItemQueries';
 import {getSubscribedData} from '../../GraphQL/Subscription/Subscription';
 import {RowFlexLayout} from '../../Layout/PartationLayout/RowFlexLayout';
 import {responseTheme, size} from '../../Prefrences/Prefrences';
@@ -93,7 +93,7 @@ export const ReceivedOrderListScreen: React.FC<
     data: myShopItem,
     loading: myShopItemLoading,
     error: myShopError,
-  } = useQuery(getPersonalItems);
+  } = useQuery(getAllPersonalItems);
   const [itemSelectedId, setItemSelectedId] = useState<string>('');
   const [createItemRequestOfferFn] = useMutation(
     createItemRequestOfferMutation,

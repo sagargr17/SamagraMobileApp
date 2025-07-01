@@ -119,7 +119,7 @@ export const ListCard: React.FC<ListCardProps> = ({
                     item.fontVariant ? item.fontVariant : 'regular'
                   }></AppText>
               ))}
-          {child ?? child}
+              {child ? child : null}
             </TouchableOpacity>
           </View>
         </View>

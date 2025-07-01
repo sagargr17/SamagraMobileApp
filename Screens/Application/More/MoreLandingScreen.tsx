@@ -20,7 +20,6 @@ import {MoreLandingSkeleton} from '../../../Components/Skeletons/Layout/MoreLand
 interface MoreLandingScreenProps {}
 
 export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
-  const {colors} = useTheme();
   const navigation = useNavigation<any>();
   let userLogoutHandle = () => clearTokens();
   const selectedShopData = useAppSelector(state => state.user.shopData);
@@ -31,11 +30,12 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
 
   // Handle Navigation
   const handleNavigation = () => {
-    console.log('cliked');
     navigation.navigate('ApplicationOverlay', {
       screen: 'SelectProfile',
     });
   };
+
+  console.log('User INformation', selectedUserData);
 
   // This is the Header of the User Container Handler
   const headerUserProfileCard = (userName: string, profileImageUrl: string) => {
@@ -56,8 +56,6 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
   };
 
   useEffect(() => {
-    console.log('Intervall is called');
-
     const timer = setTimeout(() => {
       setSkeletonLoading(!setSkeletonLoading);
     }, 1500);

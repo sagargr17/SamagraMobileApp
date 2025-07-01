@@ -1,29 +1,26 @@
-import { useQuery } from '@apollo/client';
-import { useNavigation, useRoute, useTheme } from '@react-navigation/native';
-import React, { useState } from 'react';
-import {
-  Text,
-  View
-} from 'react-native';
-import { Logos } from '../../../Assets/SVG/Exports/Exports';
-import { AppText } from '../../../Components/Elements/AppText';
+import {NetworkStatus, useQuery} from '@apollo/client';
+import {useNavigation, useRoute, useTheme} from '@react-navigation/native';
+import React, {useState} from 'react';
+import {ActivityIndicator, Text, View} from 'react-native';
+import {Logos} from '../../../Assets/SVG/Exports/Exports';
+import {AppText} from '../../../Components/Elements/AppText';
 import AppButton from '../../../Components/Elements/Button';
-import { Spacer } from '../../../Components/Elements/Spacer';
-import { ListCard } from '../../../Components/Molecules/Cards/ListCard';
-import { AppBottomSheet } from '../../../Components/Molecules/Global/AppBottomSheet';
-import { AppSerchBar } from '../../../Components/Molecules/Global/AppSerchBar';
-import { SingnlePageInfo } from '../../../Components/Organism/SinglePageInfo';
-import { ListCardSkeleton } from '../../../Components/Skeletons/Layout/ListCardSkeleton';
-import { ImageNotFound } from '../../../Constants/UI/AssetsUrls';
+import {Spacer} from '../../../Components/Elements/Spacer';
+import {ListCard} from '../../../Components/Molecules/Cards/ListCard';
+import {AppBottomSheet} from '../../../Components/Molecules/Global/AppBottomSheet';
+import {AppSerchBar} from '../../../Components/Molecules/Global/AppSerchBar';
+import {SingnlePageInfo} from '../../../Components/Organism/SinglePageInfo';
+import {ListCardSkeleton} from '../../../Components/Skeletons/Layout/ListCardSkeleton';
+import {ImageNotFound} from '../../../Constants/UI/AssetsUrls';
 import {
   NoCartItemTitle,
   NoItemInShop,
   NotMentioned,
 } from '../../../Constants/UI/Messages';
-import { getMyOrdersItem } from '../../../GraphQL/Queries/PrivateShopQueries';
-import { RowFlexLayout } from '../../../Layout/PartationLayout/RowFlexLayout';
-import { FlatListScreen } from '../../../Layout/ScreenLayout/FlatListScreenLayout';
-import { size } from '../../../Prefrences/Prefrences';
+import {getMyOrdersItem} from '../../../GraphQL/Queries/PrivateShopQueries';
+import {RowFlexLayout} from '../../../Layout/PartationLayout/RowFlexLayout';
+import {FlatListScreen} from '../../../Layout/ScreenLayout/FlatListScreenLayout';
+import {size} from '../../../Prefrences/Prefrences';
 import DateTimeToAgoTime, {
   AreaMapper,
   titleCase,
@@ -36,7 +33,20 @@ export const PendingOrderScreen: React.FC<OrderScreenProps> = ({}) => {
   const route = useRoute<any>();
   const {NoItemFound} = Logos;
   const navigation = useNavigation<any>();
-  const {data, loading, error} = useQuery(getMyOrdersItem);
+  const [paginationLoading, setPaginationLoading] = useState<boolean>(false);
+  const {data, loading, error, fetchMore, networkStatus} = useQuery(
+    getMyOrdersItem,
+    {
+      notifyOnNetworkStatusChange: true,
+      variables: {after: null},
+      onCompleted: () => {
+        setPaginationLoading(false);
+      },
+      onError: () => {
+        setPaginationLoading(false);
+      },
+    },
+  );
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(false);
   const [personalDetail, setPersonalDetail] = useState<{
     id?: string | null;
@@ -51,7 +61,13 @@ export const PendingOrderScreen: React.FC<OrderScreenProps> = ({}) => {
     fullName: string;
     message: string;
   }>();
+  const isLoadingInitialData =
+    loading && !data && networkStatus === NetworkStatus.loading;
 
+  const isFetchingMore =
+    networkStatus === NetworkStatus.fetchMore || paginationLoading;
+
+  // Handle Navigation
   const handleNavigation = () => {
     // Navigation navigate
     navigation.navigate('ApplicationOverlay', {
@@ -63,7 +79,7 @@ export const PendingOrderScreen: React.FC<OrderScreenProps> = ({}) => {
     });
   };
 
-  if (loading) return <ListCardSkeleton numberOfList={6}></ListCardSkeleton>;
+  if (isLoadingInitialData) return <ListCardSkeleton numberOfList={6}></ListCardSkeleton>;
   if (error) return <Text>Error</Text>;
 
   const emptyNode = (
@@ -146,7 +162,7 @@ export const PendingOrderScreen: React.FC<OrderScreenProps> = ({}) => {
             }}></AppText>
         </RowFlexLayout>
 
-        <Spacer height={20}></Spacer>
+        <Spacer height={5}></Spacer>
         <AppButton onPress={() => console.log('Pressed')}>Completed</AppButton>
         <Spacer height={10}></Spacer>
       </View>
@@ -156,6 +172,14 @@ export const PendingOrderScreen: React.FC<OrderScreenProps> = ({}) => {
   return (
     <>
       <FlatListScreen
+        onEndReached={() => {
+          if (data?.getOrders?.pageInfo.hasNextPage && !isFetchingMore) {
+            fetchMore({
+              variables: {after: data?.getOrders?.pageInfo.endCursor},
+            });
+          }
+        }}
+        onEndReachedThreshold={0.6}
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={
           <View
@@ -171,7 +195,7 @@ export const PendingOrderScreen: React.FC<OrderScreenProps> = ({}) => {
           paddingHorizontal: size.spacing.xs,
         }}
         ListEmptyComponent={emptyNode}
-        data={data?.getOrders?.nodes}
+        data={data?.getOrders?.edges}
         renderItem={({item, index}) => (
           <ListCard
             customImageStyle={{
@@ -182,36 +206,36 @@ export const PendingOrderScreen: React.FC<OrderScreenProps> = ({}) => {
 
               setIsBottomSheetOpen(!isBottomSheetOpen);
               setPersonalDetail({
-                itemName: item?.itemName ?? NotMentioned,
-                address: item?.address ?? NotMentioned,
-                isCompleted: item?.isCompleted ?? false,
-                quantity: item?.quantity ?? 2,
-                dateTime: item?.dateTime,
-                completionDateTime: item?.completionDateTime,
-                price: item?.price,
-                phoneNumber: item?.phoneNumber ?? NotMentioned,
-                fullName: item?.fullName ?? NotMentioned,
-                message: item?.message ?? NotMentioned,
+                itemName: item?.node?.itemName ?? NotMentioned,
+                address: item?.node?.address ?? NotMentioned,
+                isCompleted: item?.node?.isCompleted ?? false,
+                quantity: item?.node?.quantity ?? 2,
+                dateTime: item?.node?.dateTime,
+                completionDateTime: item?.node?.completionDateTime,
+                price: item?.node?.price,
+                phoneNumber: item?.node?.phoneNumber ?? NotMentioned,
+                fullName: item?.node?.fullName ?? NotMentioned,
+                message: item?.node?.message ?? NotMentioned,
               });
             }}
             surfaceLevel={1}
-            id={item?.id ?? NotMentioned}
+            id={item?.node?.id ?? NotMentioned}
             imageUrl={ImageNotFound}
             list={[
               {
                 type: 'regular',
-                value: titleCase(item?.itemName ?? NotMentioned),
+                value: titleCase(item?.node?.itemName ?? NotMentioned),
                 fontVariant: 'bold',
               },
               {
                 type: 'regular',
-                value: titleCase(item?.address ?? NotMentioned),
+                value: titleCase(item?.node?.address ?? NotMentioned),
                 fontVariant: 'regular',
               },
 
               {
                 type: 'regular',
-                value: DateTimeToAgoTime(item?.dateTime),
+                value: DateTimeToAgoTime(item?.node?.dateTime),
                 style: {
                   color: colors.notification,
                 },
@@ -219,7 +243,7 @@ export const PendingOrderScreen: React.FC<OrderScreenProps> = ({}) => {
               },
               {
                 type: 'regular',
-                value: `Qty: ${item?.quantity ?? NotMentioned}`,
+                value: `Qty: ${item?.node?.quantity ?? NotMentioned}`,
                 fontVariant: 'regular',
                 style: {
                   color: colors.background,
@@ -231,7 +255,12 @@ export const PendingOrderScreen: React.FC<OrderScreenProps> = ({}) => {
                 },
               },
             ]}></ListCard>
-        )}></FlatListScreen>
+        )}
+        ListFooterComponent={
+          isFetchingMore ? (
+            <ActivityIndicator size={'small'} color={colors.primary} />
+          ) : null
+        }></FlatListScreen>
 
       {isBottomSheetOpen ? (
         <AppBottomSheet

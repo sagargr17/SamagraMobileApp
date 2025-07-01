@@ -7,14 +7,18 @@ import {AppText} from '../../Elements/AppText';
 import {size} from '../../../Prefrences/Prefrences';
 import {ColumnFlexScreenlayout} from '../../../Layout/ScreenLayout/ColumnFlexScreenLayout';
 
-interface SamagraLoaderProps {}
+interface SamagraLoaderProps {
+  iconSize?: number;
+}
 
-export const SamagraLoader: React.FC<SamagraLoaderProps> = ({}) => {
+export const SamagraLoader: React.FC<SamagraLoaderProps> = ({
+  iconSize = size.iconSize.medium,
+}) => {
   const {colors} = useTheme();
 
   return (
     <ColumnFlexScreenlayout>
-      <Chase color={colors.primary} size={size.iconSize.small}></Chase>
+      <Chase color={colors.primary} size={iconSize}></Chase>
     </ColumnFlexScreenlayout>
   );
 };

@@ -1,37 +1,64 @@
-import {useQuery} from '@apollo/client';
-import {useIsFocused, useNavigation, useRoute} from '@react-navigation/native';
-import React from 'react';
-import {Text} from 'react-native';
+import {NetworkStatus, useQuery} from '@apollo/client';
+import {useNavigation, useRoute, useTheme} from '@react-navigation/native';
+import React, {useRef, useState} from 'react';
+import {ActivityIndicator, Text} from 'react-native';
 import {Logos} from '../../../Assets/SVG/Exports/Exports';
 import {ListCard} from '../../../Components/Molecules/Cards/ListCard';
 import {SingnlePageInfo} from '../../../Components/Organism/SinglePageInfo';
 import {ListCardSkeleton} from '../../../Components/Skeletons/Layout/ListCardSkeleton';
-import {ImageNotFound} from '../../../Constants/UI/AssetsUrls';
+import {
+  ImageNotFound,
+  ItemImageNotFound,
+} from '../../../Constants/UI/AssetsUrls';
 import {
   NoCartItemTitle,
   NoItemInShop,
   NotMentioned,
 } from '../../../Constants/UI/Messages';
-import {GetItemsByShopId} from '../../../GraphQL/Queries/ItemQueries';
+import {getAllPersonalItems} from '../../../GraphQL/Queries/ItemQueries';
 import {FlatListScreen} from '../../../Layout/ScreenLayout/FlatListScreenLayout';
 import {ApplicationOverlayStackNavigationProp} from '../../../Navigators/Stack/ApplicationOverlayStackNavigator';
 import {AreaMapper} from '../../../Utilities/CustomMethods';
+import {Rating} from '../../../Components/Elements/Rating';
 
 interface MyShopItemsScreenProps {}
 
 export const MyShopItemsScreen: React.FC<MyShopItemsScreenProps> = ({}) => {
-  const isFocused = useIsFocused();
   const navigation =
     useNavigation<ApplicationOverlayStackNavigationProp<'AddItemScreen'>>();
   const route = useRoute<any>();
-  // const shopName = useAppSelector(state => state.user.shopData?);
-  const {data, loading, error, refetch} = useQuery(GetItemsByShopId, {
-    variables: {
-      shopId: route.params.shopId,
-    },
-  });
+  const [paginationLoading, setPaginationLoading] = useState<boolean>(false);
+  const {NoItemFound} = Logos;
 
-  if (loading) return <ListCardSkeleton numberOfList={7}></ListCardSkeleton>;
+  // const shopName = useAppSelector(state => state.user.shopData?);
+  // const {data, loading, error, refetch} = useQuery(GetItemsByShopId, {
+  //   variables: {
+  //     shopId: route.params.shopId,
+  //   },
+  // });
+
+  const {colors} = useTheme();
+  const {data, loading, error, fetchMore, networkStatus} = useQuery(
+    getAllPersonalItems,
+    {
+      notifyOnNetworkStatusChange: true,
+      variables: {after: null},
+      onCompleted: () => {
+        setPaginationLoading(false);
+      },
+      onError: () => {
+        setPaginationLoading(false);
+      },
+    },
+  );
+  // Intialising
+  const isLoadingInitialData =
+    loading && !data && networkStatus === NetworkStatus.loading;
+  const isFetchingMore =
+    networkStatus === NetworkStatus.fetchMore || paginationLoading;
+
+  if (isLoadingInitialData)
+    return <ListCardSkeleton numberOfList={7}></ListCardSkeleton>;
   if (!error && !data) return <Text>Error</Text>;
 
   // Handle Item
@@ -40,11 +67,18 @@ export const MyShopItemsScreen: React.FC<MyShopItemsScreenProps> = ({}) => {
       shopId: route.params.shopId,
       shopName: route.params.shopName,
     });
-};
+  };
 
-  const {NoItemFound} = Logos;
   return (
     <FlatListScreen
+      onEndReached={() => {
+        if (data?.getItems?.pageInfo.hasNextPage) {
+          fetchMore({
+            variables: {after: data?.getItems?.pageInfo.endCursor},
+          });
+        }
+      }}
+      onEndReachedThreshold={0.6}
       scrollEnabled
       ListEmptyComponent={
         <SingnlePageInfo
@@ -56,63 +90,28 @@ export const MyShopItemsScreen: React.FC<MyShopItemsScreenProps> = ({}) => {
             buttonTitle: 'Add Item',
           }}></SingnlePageInfo>
       }
-      data={data?.getItems?.nodes}
+      data={data?.getItems?.edges}
       renderItem={({item, index}) => (
         <ListCard
-          id={item?.id ?? NotMentioned}
+          id={item?.node?.id ?? NotMentioned}
           key={index}
-          imageUrl={ImageNotFound}
+          imageUrl={item.node?.imageUrls?.[0] ?? ItemImageNotFound}
           list={[
             {
-              value: item?.name ?? NotMentioned,
+              value: item?.node?.name ?? NotMentioned,
               type: 'regular',
+              fontVariant: 'heavy',
             },
             {
-              value: item?.price ?? NotMentioned,
-              type: 'regular',
-            },
-            {
-              value: item?.stockQuantity ?? NotMentioned,
+              value: item?.node?.price ?? NotMentioned,
               type: 'regular',
             },
           ]}></ListCard>
-      )}></FlatListScreen>
+      )}
+      ListFooterComponent={
+        isFetchingMore ? (
+          <ActivityIndicator color={colors.primary} size={'small'} />
+        ) : null
+      }></FlatListScreen>
   );
 };
-
-// const [data, setData] = useState<any>();
-// const authenticateClient = GetAuthenticateClient;
-// useEffect(() => {
-//   // refetch();
-//   let query = async () => {
-
-//     authenticateClient
-//       .query({
-//         query: getPersonalItems,
-//       })
-//       .then(x => console.log('Thenn', x));
-//   };
-
-//   query();
-// }, []);
-
-// const appState = useRef(AppState.currentState);
-// useEffect(() => {
-//   const subscription = AppState.addEventListener('change', nextAppState => {
-//     // If the app was inactive/background and is now active (foreground)
-//       // if (
-//       //   appState.current.match(/inactive|background/) &&
-//       //   nextAppState === 'active'
-//       // ) {
-//       //   console.log('App has come to the foreground!');
-//       //   // Trigger the refetch here
-//       // }
-
-//       // appState.current = nextAppState;
-//   });
-
-//   // Cleanup the event listener when the component unmounts
-//   return () => {
-//     subscription.remove();
-//   };
-// }, [refetch]);

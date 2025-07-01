@@ -22,6 +22,7 @@ query GetPublicItems($endCursor: String) {
 }
 `);
 
+// public Items on the basis of by ID
 export const getPublicItemsById = gql(`
 query GetPublicItemsById($id: String!) {
   getPublicItems(id: $id) {
@@ -76,49 +77,33 @@ export const productCategoryQueries = gql(`query productCategoryQueries {
   }
 }`);
 
-// Personal Items
-export const getPersonalItems = gql(`
-query GetPersonalItems {
-  getItems {
+// All Personal Items
+export const getAllPersonalItems = gql(`
+query GetAllPersonalItems($after: String) {
+  getItems(after: $after) {
     pageInfo {
       hasNextPage
       hasPreviousPage
       startCursor
       endCursor
     }
-    nodes {
-      id
-      name
-      price
-      starRating
-      stockQuantity
-      shop {
+
+    edges {
+      node {
         id
         name
+        price
+        starRating
+        imageUrls
+        stockQuantity
       }
-      imageUrls
     }
   }
 }
-`);
-export const getPaginatedPersonalItems = gql(`
-  query GetPaginatedPersonalItems($after: String) {
-  getItems (after: $after) {
-    pageInfo {
-      hasNextPage
-      hasPreviousPage
-      startCursor
-      endCursor
-    }
-    nodes {
-      name
-      price
-      starRating
-    }
-  }
-}
+
 `);
 
+// Items accordig to the shop
 export const GetItemsByShopId = gql(`
   query GetPersonalItemsByShopId($shopId: String!) {
   getItems(shopId: $shopId) {
@@ -142,3 +127,5 @@ export const GetItemsByShopId = gql(`
   }
 }
   `);
+
+

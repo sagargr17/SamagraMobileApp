@@ -88,8 +88,6 @@ export const RootStack: React.FC = () => {
   const {InternetUnAvailable} = Logos;
   const dispatch = useAppDispatch();
 
-  console.log('UserN STatus', userSignInStatus);
-
   useEffect(() => {
     const timer = setTimeout(() => {
       dispatch(hideLoader());
@@ -100,7 +98,6 @@ export const RootStack: React.FC = () => {
   // THis is for the Login USer DAta Retrival
 
   // It Checks and reset the internet if nentwork is restroed
-
   const handleResetInternet = () => {
     dispatch(showLoader());
     client.resetStore().then((x: any) => {
@@ -120,6 +117,9 @@ export const RootStack: React.FC = () => {
     <>
       {loaderStatus ? (
         <ProgressBar
+          style={{
+            height: 3,
+          }}
           visible={loaderStatus}
           color={colors.primary}
           indeterminate={true}></ProgressBar>

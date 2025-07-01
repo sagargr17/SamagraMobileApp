@@ -45,7 +45,7 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
     data: CreateProductInputViewModelInput,
   ) => {
     console.log('Pressed', data, shopID);
-    setPushToServerIndicator(true);
+    setPushToServerIndicator(!pushToServerIndicator);
 
     dispatch(showLoader());
 
