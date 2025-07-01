@@ -101,7 +101,6 @@ export const ReceivedOrderListScreen: React.FC<
 
   // Accepting the query
   const onAcceptHandle = async (reqeustId: string, itemId: string) => {
-    console.log('IDs', reqeustId, itemId);
     try {
       let response = createItemRequestOfferFn({
         variables: {
@@ -214,14 +213,14 @@ export const ReceivedOrderListScreen: React.FC<
               marginBottom: size.spacing.xxl + 10,
             }}
             showsVerticalScrollIndicator={false}
-            data={myShopItem?.getItems?.nodes}
+            data={myShopItem?.getItems?.edges}
             renderItem={({item, index}) => (
               <ListCard
                 onImagePress={() => console.log('Pressed')}
                 customStyle={{
                   borderWidth: size.borderWidth.s,
                   borderColor:
-                    itemSelectedId === item?.id ? 'orange' : colors.card,
+                    itemSelectedId === item?.node?.id ? 'orange' : colors.card,
                   paddingHorizontal: size.spacing.xs,
                   marginHorizontal: size.spacing.xs,
                 }}
@@ -230,27 +229,27 @@ export const ReceivedOrderListScreen: React.FC<
                 }}
                 isContainerPressed
                 key={index}
-                id={item?.id ?? NotMentioned}
-                imageUrl={item?.imageUrls?.[0] ?? ImageNotFound}
+                id={item?.node?.id ?? NotMentioned}
+                imageUrl={item?.node?.imageUrls?.[0] ?? ImageNotFound}
                 list={[
                   {
-                    value: titleCase(item?.name) ?? NotMentioned,
+                    value: titleCase(item?.node?.name) ?? NotMentioned,
                     type: 'title',
                     fontVariant: 'bold',
                   },
                   {
-                    value: item?.price ? 'Rs. ' + item.price : NotMentioned,
+                    value: item?.node?.price ? 'Rs. ' + item.node?.price : NotMentioned,
                     type: 'regular',
                   },
                   {
-                    value: item?.stockQuantity
-                      ? 'QTY: ' + item.stockQuantity
+                    value: item?.node?.stockQuantity
+                      ? 'QTY: ' + item.node?.stockQuantity
                       : NotMentioned,
                     type: 'regular',
                     fontVariant: 'bold',
                     style: {
-                      color: item?.stockQuantity
-                        ? item?.stockQuantity < 5
+                      color: item?.node?.stockQuantity
+                        ? item?.node?.stockQuantity < 5
                           ? colors.notification
                           : colors.primary
                         : colors.primary,

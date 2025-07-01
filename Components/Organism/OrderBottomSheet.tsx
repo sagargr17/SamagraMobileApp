@@ -30,18 +30,15 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
     CreateItemRequestMutation,
   );
 
-  const authenticateClient = GetAuthenticateClient;
   const handleSubmit = (data: SentordersParams) => {
     dispatch(showLoader());
     console.log('Calling the function');
-    authenticateClient
-      .mutate({
-        mutation: CreateItemRequestMutation,
-        variables: {
-          itemName: data.name,
-          categoryID: '1',
-        },
-      })
+    createItemRequestFn({
+      variables: {
+        itemName: data.name,
+        categoryID: '1',
+      },
+    })
       .then(res => {
         console.log('response Create Items', res);
         console.log('Order Created', res.data?.createItemRequest?.id);
