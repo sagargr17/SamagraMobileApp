@@ -24,6 +24,7 @@ import {SingnlePageInfo} from '../Components/Organism/SinglePageInfo';
 import {AreaMapper} from '../Utilities/CustomMethods';
 import {client} from '../App';
 import {setError} from '../StateManagement/Error&loadingHandle/ErrorHandlingSlice';
+import {View} from 'moti';
 
 type RootStackParamList = {
   ApplicationOverlay: undefined;
@@ -131,18 +132,20 @@ export const RootStack: React.FC = () => {
         }}>
         {userSignInStatus === true ? ( //change this to true while deployment
           errorResponse.isErorr ? (
-            <SingnlePageInfo
-              icon={
-                <InternetUnAvailable
-                  height={AreaMapper({value: 180})}></InternetUnAvailable>
-              }
-              detail={{
-                title: `${errorResponse.message}`,
-                message: 'Please Check Your connectivity and try again',
-                buttonTitle: 'Try Again!',
-                onButtonPress: handleResetInternet,
-              }}
-            />
+            <View>
+              <SingnlePageInfo
+                icon={
+                  <InternetUnAvailable
+                    height={AreaMapper({value: 180})}></InternetUnAvailable>
+                }
+                detail={{
+                  title: `${errorResponse.message}`,
+                  message: 'Please Check Your connectivity and try again',
+                  buttonTitle: 'Try Again!',
+                  onButtonPress: handleResetInternet,
+                }}
+              />
+            </View>
           ) : (
             screenBuilder([
               {screenName: 'BottomTab', component: BottomTabNavigator},

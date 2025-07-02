@@ -155,19 +155,10 @@ export const client = new ApolloClient({
           getShops: relayStylePagination(),
           getOrders: relayStylePagination(),
           getBasketItems: relayStylePagination(),
-
         },
       },
     },
   }),
-  defaultOptions: {
-    query: {
-      fetchPolicy: 'network-only',
-    },
-    watchQuery: {
-      fetchPolicy: 'network-only',
-    },
-  },
 });
 
 // Main Modules

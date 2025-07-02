@@ -1,15 +1,11 @@
 import {useNavigation, useTheme} from '@react-navigation/native';
-import React, {useState} from 'react';
-import {ScrollView} from 'react-native';
-import {
-  hideLoader,
-  showLoader,
-} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
-import {useAppDispatch} from '../../StateManagement/hooks';
+import React from 'react';
+import {hideLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
+import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
 
 import {useMutation} from '@apollo/client';
+import {View} from 'moti';
 import {showMessage} from 'react-native-flash-message';
-import {ShopDisplayCard} from '../../Components/Molecules/ShopDisplayCard';
 import {AppForm} from '../../Components/Organism/AppForm';
 import {
   NotMentioned,
@@ -19,17 +15,16 @@ import {
 import {createNewStore} from '../../GraphQL/Mutation/ShopMutations';
 import {responseTheme, size} from '../../Prefrences/Prefrences';
 import {CreateStoreInputViewModelInput} from '../../src/__generated__/graphql';
-import {AreaMapper} from '../../Utilities/CustomMethods';
-import {View} from 'moti';
 import {setUserShopDetail} from '../../StateManagement/User/UserSlice';
+import {useSelector} from 'react-redux';
 
 interface AddShopScreenProps {}
 
 export const AddShopScreen: React.FC<AddShopScreenProps> = ({}) => {
-  const {colors, fonts} = useTheme();
   const dispatch = useAppDispatch();
   const [createNewShopFn] = useMutation(createNewStore);
   const navigation = useNavigation<any>();
+  const userLocation = useAppSelector(state => state.user.userLocation);
 
   const handleNavigationToShopScreen = async (shopID: string) => {
     await navigation.navigate('ApplicationOverlay', {
@@ -44,46 +39,45 @@ export const AddShopScreen: React.FC<AddShopScreenProps> = ({}) => {
   const handlCreateShopSubmit = async (
     data: CreateStoreInputViewModelInput,
   ) => {
-    console.log('Action>>>>');
-    // try {
-    //   const response = await createNewShopFn({
-    //     variables: {
-    //       shopName: data.name ? data.name : NotMentioned,
-    //       phoneNumber: data.phoneNumber ? data.phoneNumber : NotMentioned,
-    //       aboutShop: data.aboutShop ? data.aboutShop : NotMentioned,
-    //       latitude: Number(data.latitude),
-    //       longitude: Number(data.longitude),
-    //       totalItemsCount: 22,
-    //     },
-    //   });
+    try {
+      const response = await createNewShopFn({
+        variables: {
+          shopName: data.name ? data.name : NotMentioned,
+          phoneNumber: data.phoneNumber ? data.phoneNumber : NotMentioned,
+          aboutShop: data.aboutShop ? data.aboutShop : NotMentioned,
+          latitude: Number(userLocation?.lat),
+          longitude: Number(userLocation?.long),
+          totalItemsCount: 22,
+        },
+      });
 
-    //   if (response.data?.createStore?.id) {
-    //     dispatch(
-    //       setUserShopDetail({
-    //         shopId: response.data.createStore.id,
-    //         name: data.name ?? NotMentioned,
-    //         location: 'butwal',
-    //       }),
-    //     );
-    //     handleNavigationToShopScreen(response.data.createStore?.id);
-    //   }
+      if (response.data?.createStore?.id) {
+        dispatch(
+          setUserShopDetail({
+            shopId: response.data.createStore.id,
+            name: data.name ?? NotMentioned,
+            location: 'butwal',
+          }),
+        );
+        handleNavigationToShopScreen(response.data.createStore?.id);
+      }
 
-    //   if (response.errors) {
-    //     dispatch(hideLoader());
-    //     showMessage(
-    //       responseTheme(
-    //         `${response.errors[0].message}`,
-    //         TryAgainMessage,
-    //         'danger',
-    //       ),
-    //     );
-    //   }
-    // } catch (error) {
-    //   dispatch(hideLoader());
-    //   console.log('Result', error);
+      if (response.errors) {
+        dispatch(hideLoader());
+        showMessage(
+          responseTheme(
+            `${response.errors[0].message}`,
+            TryAgainMessage,
+            'danger',
+          ),
+        );
+      }
+    } catch (error) {
+      dispatch(hideLoader());
+      console.log('Result', error);
 
-    //   showMessage(responseTheme(WentwrongMessage, TryAgainMessage, 'danger'));
-    // }
+      showMessage(responseTheme(WentwrongMessage, TryAgainMessage, 'danger'));
+    }
   };
 
   return (
@@ -108,32 +102,6 @@ export const AddShopScreen: React.FC<AddShopScreenProps> = ({}) => {
               },
               maxLength: {
                 value: 25,
-                message: 'too long',
-              },
-              required: 'Required',
-            },
-          },
-          {
-            name: 'latitude', // Must match a key in LoginFormValues
-            label: 'Latitude',
-            placeholder: 'your shop latitude',
-            type: 'number', // Custom prop for keyboard type
-            rules: {
-              maxLength: {
-                value: 30,
-                message: 'too long',
-              },
-              required: 'Required',
-            },
-          },
-          {
-            name: 'longitude', // Must match a key in LoginFormValues
-            label: 'Longitude',
-            placeholder: 'your shop longitude',
-            type: 'number', // Custom prop for keyboard type
-            rules: {
-              maxLength: {
-                value: 30,
                 message: 'too long',
               },
               required: 'Required',

@@ -31,6 +31,7 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
     onError: () => {
       setPaginationLoading(false);
     },
+    fetchPolicy: 'cache-first',
   });
   const selectedTab = useAppSelector(state => state.user.shopData?.name);
   const isShopActive = useAppSelector(state => state.user.isShopActive);

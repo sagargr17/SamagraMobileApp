@@ -1,38 +1,28 @@
 import {NetworkStatus, useQuery} from '@apollo/client';
 import {useNavigation, useTheme} from '@react-navigation/native';
-import React, {useEffect, useState} from 'react';
-import {Button, FlatList, Text, TouchableHighlight, View} from 'react-native';
-import {ActivityIndicator, Icon, IconButton} from 'react-native-paper';
-import {AppText} from '../../Components/Elements/AppText';
-import {GetBasketItemsQuery} from '../../GraphQL/Queries/CheckoutQueries';
-import {size} from '../../Prefrences/Prefrences';
-import {Rating} from '../../Components/Elements/Rating';
+import React, {useState} from 'react';
+import {FlatList, Text} from 'react-native';
+import {Logos} from '../../Assets/SVG/Exports/Exports';
+import AppButton from '../../Components/Elements/Button';
+import {Spacer} from '../../Components/Elements/Spacer';
+import {ListCard} from '../../Components/Molecules/Cards/ListCard';
+import {AppBottomSheet} from '../../Components/Molecules/Global/AppBottomSheet';
+import {Counter} from '../../Components/Molecules/Global/Counter';
+import {SamagraLoader} from '../../Components/Molecules/Response/SamagraLoader';
+import {SingnlePageInfo} from '../../Components/Organism/SinglePageInfo';
+import {ListCardSkeleton} from '../../Components/Skeletons/Layout/ListCardSkeleton';
+import {ItemImageNotFound} from '../../Constants/UI/AssetsUrls';
 import {
-  EmptyMessage,
   NoCartItemMessage,
   NoCartItemTitle,
   NotMentioned,
 } from '../../Constants/UI/Messages';
+import {GetBasketItemsQuery} from '../../GraphQL/Queries/CheckoutQueries';
+import {size} from '../../Prefrences/Prefrences';
+import {BasketItemViewModel} from '../../src/__generated__/graphql';
 import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
 import {postPlaceOrderparams} from '../../StateManagement/Orders/PlaceOrderDetailsParams';
-import {ImageNotFound, ItemImageNotFound} from '../../Constants/UI/AssetsUrls';
-import {ListCard} from '../../Components/Molecules/Cards/ListCard';
-import {ListCardSkeleton} from '../../Components/Skeletons/Layout/ListCardSkeleton';
-import {State} from 'react-native-gesture-handler';
-import {UserLocationRenderMode} from '@maplibre/maplibre-react-native';
-import {ApplicationOverlayStackProps} from '../../Navigators/Stack/ApplicationOverlayStackNavigator';
-import {Logos} from '../../Assets/SVG/Exports/Exports';
-import {
-  SingnlePageInfo,
-  SingnlePageInfoProps,
-} from '../../Components/Organism/SinglePageInfo';
-import {AreaMapper, titleCase, titleRange} from '../../Utilities/CustomMethods';
-import {GetAuthenticateClient} from '../../client/Graphql/AuthenticatedClient';
-import {Counter} from '../../Components/Molecules/Global/Counter';
-import {BasketItemViewModel} from '../../src/__generated__/graphql';
-import {RowFlexLayout} from '../../Layout/PartationLayout/RowFlexLayout';
-import {SamagraLoader} from '../../Components/Molecules/Response/SamagraLoader';
-import {getDefaultFetchPolicy} from '@apollo/client/react/hooks/useQuery';
+import {AreaMapper, titleRange} from '../../Utilities/CustomMethods';
 
 interface CartScreenProps {}
 
@@ -44,7 +34,9 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
   const {NoItemFound} = Logos;
   const userLocation = useAppSelector(state => state.user.userLocation);
   const [paginationLoading, setPaginationLoading] = useState<boolean>(false);
-  const [counter, setCounter] = useState<number>(1);
+  const [counterValue, setCounterValue] = useState<number>();
+  const [pressedItem, setPressedItem] = useState<BasketItemViewModel | any>();
+  const [isBottomSheetOpen, setBottomSheetOpen] = useState<boolean>(false);
 
   const {data, loading, error, networkStatus, fetchMore} = useQuery(
     GetBasketItemsQuery,
@@ -128,60 +120,113 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
       }}></SingnlePageInfo>
   );
 
+  const child = (
+    <>
+      <ListCard
+        imageUrl={pressedItem?.item?.imageUrls?.[0] ?? ItemImageNotFound}
+        id={pressedItem?.item?.id ?? NotMentioned}
+        list={[
+          {
+            value: titleRange(pressedItem?.item?.name),
+            type: 'regular',
+            fontVariant: 'bold',
+          },
+          {
+            value: `Npr.${pressedItem?.item?.price ?? NotMentioned}`,
+            type: 'regular',
+          },
+          {
+            value: `Total : NPR.${counterValue ?? pressedItem?.item?.price}`,
+            type: 'title',
+            fontVariant: 'heavy',
+            style: {
+              color: colors.primary,
+              marginTop: size.spacing.xxs,
+            },
+          },
+        ]}></ListCard>
+      <Spacer height={5}></Spacer>
+      <Counter
+        setTotal={quantity => {
+          setCounterValue(quantity * pressedItem?.item.price);
+        }}></Counter>
+      <Spacer height={25}></Spacer>
+      <AppButton>Checkout</AppButton>
+      <Spacer height={15}></Spacer>
+    </>
+  );
+
   return (
-    <FlatList
-      onEndReached={() => {
-        if (data?.getBasketItems?.pageInfo.hasNextPage && !isFetchingMore) {
-          fetchMore({
-            variables: {after: data?.getBasketItems?.pageInfo.endCursor},
-          });
-        }
-      }}
-      onEndReachedThreshold={0.6}
-      showsVerticalScrollIndicator={false}
-      ListEmptyComponent={emptyElement}
-      contentContainerStyle={{
-        paddingHorizontal: size.spacing.xxs,
-      }}
-      data={data?.getBasketItems?.edges}
-      renderItem={({item, index}) => (
-        <ListCard
-          imageUrl={item?.node?.item?.imageUrls?.[0] ?? ItemImageNotFound}
-          id={item?.node?.id ?? 'Not Mentioned'}
-          key={index}
-          onImagePress={() => {
-            onHanleImagePress(
-              item.node?.id ?? NotMentioned,
-              item?.node?.item?.name ?? NotMentioned,
-            );
-          }}
-          customStyle={{
-            marginBottom: size.spacing.xxs,
-          }}
-          list={[
-            {
-              value: titleRange(item?.node?.item?.name ?? NotMentioned),
-              type: 'regular',
-              fontVariant: 'bold',
-            },
-            {
-              value: `Npr.${item.node?.item?.price ?? NotMentioned}`,
-              type: 'regular',
-            },
-            {
-              value: `${titleRange(
-                item.node?.item?.shop?.name ?? NotMentioned,
-              )}`,
-              type: 'regular',
-              style: {
-                color: colors.primary,
+    <>
+      <FlatList
+        onEndReached={() => {
+          if (data?.getBasketItems?.pageInfo.hasNextPage && !isFetchingMore) {
+            fetchMore({
+              variables: {after: data?.getBasketItems?.pageInfo.endCursor},
+            });
+          }
+        }}
+        onEndReachedThreshold={0.6}
+        showsVerticalScrollIndicator={false}
+        ListEmptyComponent={emptyElement}
+        contentContainerStyle={{
+          paddingHorizontal: size.spacing.xxs,
+        }}
+        data={data?.getBasketItems?.edges}
+        renderItem={({item, index}) => (
+          <ListCard
+            isContainerPressed={true}
+            containerPressedHandle={() => {
+              setBottomSheetOpen(!isBottomSheetOpen);
+              if (item && item.node) {
+                setPressedItem(item.node);
+              }
+            }}
+            imageUrl={item?.node?.item?.imageUrls?.[0] ?? ItemImageNotFound}
+            id={item?.node?.id ?? 'Not Mentioned'}
+            key={index}
+            onImagePress={() => {
+              setBottomSheetOpen(false);
+              onHanleImagePress(
+                item.node?.id ?? NotMentioned,
+                item?.node?.item?.name ?? NotMentioned,
+              );
+            }}
+            customStyle={{
+              marginBottom: size.spacing.xxs,
+            }}
+            list={[
+              {
+                value: titleRange(item?.node?.item?.name ?? NotMentioned),
+                type: 'regular',
+                fontVariant: 'bold',
               },
-            },
-          ]}
-          surfaceLevel={1}></ListCard>
-      )}
-      ListFooterComponent={
-        isFetchingMore ? <SamagraLoader></SamagraLoader> : null
-      }></FlatList>
+              {
+                value: `Npr.${item.node?.item?.price ?? NotMentioned}`,
+                type: 'regular',
+              },
+              {
+                value: `${titleRange(
+                  item.node?.item?.shop?.name ?? NotMentioned,
+                )}`,
+                type: 'regular',
+                style: {
+                  color: colors.primary,
+                },
+              },
+            ]}
+            surfaceLevel={1}></ListCard>
+        )}
+        ListFooterComponent={
+          <>{isFetchingMore ? <SamagraLoader></SamagraLoader> : null}</>
+        }></FlatList>
+      <AppBottomSheet
+        onClose={() => setBottomSheetOpen(!isBottomSheetOpen)}
+        flexHeight={7}
+        isOppen={isBottomSheetOpen}
+        pannigGesture={true}
+        title="Counter"
+        children={() => child}></AppBottomSheet>
+    </>
   );
 };

@@ -38,7 +38,7 @@ export const AimatedStore: React.FC<AnimatedStoreProps> = ({}) => {
           alignItems: 'center',
           justifyContent:"center",
           alignContent:"center",
-          flex:0.7
+          flex:1
         }}>
         <Store height={200} width={200}></Store>
         <AppText

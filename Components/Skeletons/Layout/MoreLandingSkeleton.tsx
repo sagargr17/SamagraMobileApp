@@ -19,7 +19,7 @@ export const MoreLandingSkeleton: React.FC<MoreLandingSkeletonProps> = ({}) => {
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingHorizontal: 10,
-        marginBottom:30
+        marginBottom: 30,
       }}>
       <View
         style={{
@@ -77,7 +77,6 @@ export const MoreLandingSkeleton: React.FC<MoreLandingSkeletonProps> = ({}) => {
       <Spacer height={10}></Spacer>
       {smallCard}
       {smallCard}
-      <Spacer height={10}></Spacer>
       <Spacer height={10}></Spacer>
       <ListCardSkeleton numberOfList={3} numberOfText={2}></ListCardSkeleton>
       <Spacer height={20}></Spacer>

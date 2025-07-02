@@ -51,7 +51,7 @@ export const BubbleCard: React.FC<BubbleCardProps> = ({
       ]}
       onPress={onPress}>
       <Surface
-        elevation={2}
+        elevation={1}
         style={[
           styles.contentContainer,
           {
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     // padding: AreaMapper({value: 12, scaleBy: 'average'}),
-    borderRadius: size.borderRadius.s,
+    borderRadius: size.borderRadius.s-3,
     paddingTop: size.spacing.m + 2,
     paddingBottom: size.spacing.m + 2,
   },
