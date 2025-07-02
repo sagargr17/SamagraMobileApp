@@ -64,6 +64,8 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
     );
   if (!loading && error) return <Text>{error.message}</Text>;
 
+  console.log('USerLocation....', userLocation?.address);
+
   const handleOnCheckoutPressPress = (item: BasketItemViewModel | null) => {
     if (userLocation)
       dispatch(
@@ -90,9 +92,7 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
           },
         }),
       );
-    // navigation.navigate('ApplicationOverlay', {
-    //   screen: 'PlaceOrderScreen',
-    // });
+
     navigation.navigate('PlaceOrderScreen');
   };
 
@@ -123,6 +123,12 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
   const child = (
     <>
       <ListCard
+        onImagePress={() =>
+          onHanleImagePress(
+            pressedItem?.id ?? NotMentioned,
+            pressedItem?.item?.name ?? NotMentioned,
+          )
+        }
         imageUrl={pressedItem?.item?.imageUrls?.[0] ?? ItemImageNotFound}
         id={pressedItem?.item?.id ?? NotMentioned}
         list={[
@@ -146,13 +152,15 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
           },
         ]}></ListCard>
       <Spacer height={5}></Spacer>
+      <AppButton onPress={() => handleOnCheckoutPressPress(pressedItem)}>
+        Checkout
+      </AppButton>
       <Counter
         setTotal={quantity => {
           setCounterValue(quantity * pressedItem?.item.price);
         }}></Counter>
-      <Spacer height={25}></Spacer>
-      <AppButton>Checkout</AppButton>
-      <Spacer height={15}></Spacer>
+      {/* <Spacer height={25}></Spacer>
+      <Spacer height={15}></Spacer> */}
     </>
   );
 
@@ -185,13 +193,6 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
             imageUrl={item?.node?.item?.imageUrls?.[0] ?? ItemImageNotFound}
             id={item?.node?.id ?? 'Not Mentioned'}
             key={index}
-            onImagePress={() => {
-              setBottomSheetOpen(false);
-              onHanleImagePress(
-                item.node?.id ?? NotMentioned,
-                item?.node?.item?.name ?? NotMentioned,
-              );
-            }}
             customStyle={{
               marginBottom: size.spacing.xxs,
             }}
@@ -223,7 +224,7 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
       <AppBottomSheet
         onClose={() => setBottomSheetOpen(!isBottomSheetOpen)}
         flexHeight={7}
-        isOppen={isBottomSheetOpen}
+        isOppen={true}
         pannigGesture={true}
         title="Counter"
         children={() => child}></AppBottomSheet>

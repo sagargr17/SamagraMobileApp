@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {
   Button,
+  SafeAreaView,
   StyleSheet,
   TouchableOpacity,
   View,
@@ -33,6 +34,7 @@ export const PlaceOrderScreen: React.FC<PlaceOrderScreenProps> = ({}) => {
   const {colors} = useTheme();
   const navigation = useNavigation<any>();
   const placeOrderDetails = useAppSelector(state => state.placeOrderParams);
+  const location = useAppSelector(state => state.user.userLocation?.address);
   const user = useAppSelector(state => state.user.user);
   const [createOrderMutationFn, {data, loading, error}] =
     useMutation(createOrderMutation);
@@ -222,8 +224,7 @@ export const PlaceOrderScreen: React.FC<PlaceOrderScreenProps> = ({}) => {
             fontVariant="regular"
             fontSizeVariant="regular"></AppText>
           <Spacer height={30}></Spacer>
-          <AppText
-            title={titleRange(user?.Userlocation ?? NotMentioned, 22)}></AppText>
+          <AppText title={titleRange(location ?? NotMentioned, 22)}></AppText>
         </RowFlexLayout>
         <RowFlexLayout
           customStyle={{
@@ -262,68 +263,74 @@ export const PlaceOrderScreen: React.FC<PlaceOrderScreenProps> = ({}) => {
   );
 
   return (
-    <ScrollView
+    <SafeAreaView
       style={{
-        paddingHorizontal: size.spacing.xxs,
+        flex: 1,
       }}>
-      <ListCard
-        id={placeOrderDetails.itemDetails.imageUrl}
-        surfaceLevel={2}
-        imageUrl={placeOrderDetails.itemDetails.imageUrl}
-        list={[
-          {
-            type: 'regular',
-            value: placeOrderDetails.itemDetails.name,
-            fontVariant: 'medium',
-          },
-          {
-            type: 'regular',
-            value: `${placeOrderDetails.itemDetails.price}`,
-            fontVariant: 'medium',
-          },
-          {
-            type: 'regular',
-            value: placeOrderDetails.sellerDetails.shopName,
-            fontVariant: 'medium',
-          },
-        ]}></ListCard>
-      <Spacer height={20}></Spacer>
-      {sellerDetailsContainer}
-      <Spacer height={20}></Spacer>
-      {paymentMethoContainer}
-      <Spacer height={20}></Spacer>
-      {orderSummary}
-      <Spacer height={20}></Spacer>
-      {totalPriceDetail}
-      <Spacer height={20}></Spacer>
-      <AppButton
-        showLoader={true}
-        onPress={() => {
-          try {
-            console.log('ing,,,,');
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{
+          paddingHorizontal: size.spacing.xxs,
+        }}>
+        <ListCard
+          id={placeOrderDetails.itemDetails.imageUrl}
+          surfaceLevel={2}
+          imageUrl={placeOrderDetails.itemDetails.imageUrl}
+          list={[
             {
-              console.log('Logging,,,,');
-              handleConfirmPlaceItem(
-                user?.username ?? 'sagar',
-                user?.Userlocation ?? 'butwal',
-                user?.phoneNumber ?? '9841150390',
-                Number(
-                  placeOrderDetails.orderDetail.orderQuantity === '0'
-                    ? 1
-                    : placeOrderDetails.orderDetail.orderQuantity,
-                ),
-                placeOrderDetails.orderDetail.message,
-                placeOrderDetails.orderDetail.itemID,
+              type: 'regular',
+              value: placeOrderDetails.itemDetails.name,
+              fontVariant: 'medium',
+            },
+            {
+              type: 'regular',
+              value: `${placeOrderDetails.itemDetails.price}`,
+              fontVariant: 'medium',
+            },
+            {
+              type: 'regular',
+              value: placeOrderDetails.sellerDetails.shopName,
+              fontVariant: 'medium',
+            },
+          ]}></ListCard>
+        <Spacer height={20}></Spacer>
+        {sellerDetailsContainer}
+        <Spacer height={20}></Spacer>
+        {paymentMethoContainer}
+        <Spacer height={20}></Spacer>
+        {orderSummary}
+        <Spacer height={20}></Spacer>
+        {totalPriceDetail}
+        <Spacer height={15}></Spacer>
+        <AppButton
+          showLoader={true}
+          onPress={() => {
+            try {
+              console.log('ing,,,,');
+              {
+                console.log('Logging,,,,');
+                handleConfirmPlaceItem(
+                  user?.username ?? 'sagar',
+                  location ?? 'butwal',
+                  user?.phoneNumber ?? '9841150390',
+                  Number(
+                    placeOrderDetails.orderDetail.orderQuantity === '0'
+                      ? 1
+                      : placeOrderDetails.orderDetail.orderQuantity,
+                  ),
+                  placeOrderDetails.orderDetail.message,
+                  placeOrderDetails.orderDetail.itemID,
+                );
+              }
+            } catch (e) {
+              showMessage(
+                responseTheme(NoItemFound, NoInternetFoundMessage, 'danger'),
               );
             }
-          } catch (e) {
-            showMessage(
-              responseTheme(NoItemFound, NoInternetFoundMessage, 'danger'),
-            );
-          }
-        }}>
-        Place Order
-      </AppButton>
-    </ScrollView>
+          }}>
+          Place Order
+        </AppButton>
+      </ScrollView>
+    </SafeAreaView>
   );
 };

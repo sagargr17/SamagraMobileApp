@@ -23,7 +23,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
   const {colors} = useTheme();
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
-  const location = useAppSelector(state => state.user.userLocation.address);
+  const location = useAppSelector(state => state.user.userLocation?.address);
 
   useEffect(() => {
     const reverseGeoCordinationHandle = async (
