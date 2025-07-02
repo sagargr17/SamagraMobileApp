@@ -56,12 +56,10 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
   useEffect(() => {}, [pushSubmitIndicator]);
 
   const handleImageUploader = async () => {
-    if (pushSubmitIndicator === true) {
-      if (images && images.length > 0) {
-        const response = ImageHandler.uploadImage(images)
-          .then(result => console.log('result image', result))
-          .catch(err => console.log('Image Uploading Error', err));
-      }
+    if (images && images.length > 0) {
+      const response = ImageHandler.uploadImage(images)
+        .then(result => console.log('result image', result))
+        .catch(err => console.log('Image Uploading Error', err));
     }
   };
 

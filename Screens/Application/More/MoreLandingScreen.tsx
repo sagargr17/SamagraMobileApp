@@ -35,7 +35,6 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
     });
   };
 
-  console.log('User INformation', selectedUserData);
 
   // This is the Header of the User Container Handler
   const headerUserProfileCard = (userName: string, profileImageUrl: string) => {

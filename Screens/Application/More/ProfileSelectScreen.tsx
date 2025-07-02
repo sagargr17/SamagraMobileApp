@@ -17,6 +17,7 @@ import {
   setUserShopDetail,
 } from '../../../StateManagement/User/UserSlice';
 import {titleCase} from '../../../Utilities/CustomMethods';
+import {SamagraLoader} from '../../../Components/Molecules/Response/SamagraLoader';
 interface ProfileSelectScreenProps {}
 
 export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
@@ -139,11 +140,7 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
             profileImageUrl: item?.node?.profileImageUrl?.[0] ?? ImageNotFound,
           }}></UserProfileCard>
       )}
-      ListFooterComponent={
-        isFetchingMore ? (
-          <ActivityIndicator size={'small'} color={colors.primary} />
-        ) : null
-      }
+      ListFooterComponent={isFetchingMore ? <SamagraLoader /> : null}
     />
   );
 };

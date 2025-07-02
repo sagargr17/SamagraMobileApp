@@ -164,7 +164,7 @@ export const ShopProfileUserContainer: React.FC<
           <BubbleCard
             key={index}
             customStyle={{
-              flex: 0.46,
+              flex: 0.48,
               borderColor: colors.background,
             }}
             variant="small"
@@ -178,7 +178,7 @@ export const ShopProfileUserContainer: React.FC<
           <BubbleCard
             key={index}
             customStyle={{
-              flex: 0.46,
+              flex: 0.48,
               borderColor: colors.background,
             }}
             variant="small"

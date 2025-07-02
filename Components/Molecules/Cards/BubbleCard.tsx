@@ -7,7 +7,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import {Icon, TouchableRipple} from 'react-native-paper';
+import {Icon, Surface, TouchableRipple} from 'react-native-paper';
 import {size} from '../../../Prefrences/Prefrences';
 import {AreaMapper} from '../../../Utilities/CustomMethods';
 import {AppText} from '../../Elements/AppText';
@@ -43,25 +43,27 @@ export const BubbleCard: React.FC<BubbleCardProps> = ({
     <TouchableOpacity
       style={[
         styles.viewContainer,
-        {
-          backgroundColor: colors.background,
-          shadowColor: colors.card,
-          padding: variant === 'large' ? size.spacing.s : size.spacing.xs,
-          borderRadius: size.borderRadius.m,
-          // borderWidth: 0.2,
-          // borderColor: colors/.border,
-        },
         customStyle,
-        size.elevation.m,
+        {
+          // paddingVertical:
+          //   variant === 'large' ? size.spacing.m : size.spacing.m,
+        },
       ]}
       onPress={onPress}>
-      <View style={[styles.contentContainer]}>
+      <Surface
+        elevation={2}
+        style={[
+          styles.contentContainer,
+          {
+            backgroundColor: colors.card,
+            padding: variant === 'large' ? size.spacing.s : size.spacing.xs,
+          },
+        ]}>
         {iconName && (
           <View style={styles.iconContainer}>
-            <Icon 
-              
+            <Icon
               source={iconName}
-              size={size.iconSize.small + 5}
+              size={size.iconSize.small}
               color={colors.text}
             />
           </View>
@@ -82,27 +84,22 @@ export const BubbleCard: React.FC<BubbleCardProps> = ({
           )}
         </View>
         {children && <View style={styles.childrenContainer}>{children}</View>}
-      </View>
+      </Surface>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   viewContainer: {
-    // borderRadius: AreaMapper({value: 8, scaleBy: 'average'}),
-    // shadowOffset: {width: 0, height: 10},
-    // shadowOpacity: 1,
-    // shadowRadius: 10,
-    backgroundColor: 'green',
-    marginBottom: size.spacing.s,
+    marginBottom: size.spacing.m - 2,
   },
   contentContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     // padding: AreaMapper({value: 12, scaleBy: 'average'}),
     borderRadius: size.borderRadius.s,
-    paddingTop: size.spacing.s,
-    paddingBottom: size.spacing.s,
+    paddingTop: size.spacing.m + 2,
+    paddingBottom: size.spacing.m + 2,
   },
   iconContainer: {
     marginRight: size.spacing.xxs,
