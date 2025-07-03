@@ -78,11 +78,11 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
 
     return (
       <View style={styles.wrapper}>
-        <Spacer height={55}></Spacer>
-        <Spacer height={120}></Spacer>
-
+        <Spacer height={110}></Spacer>
         <ItemCategoryCardSlider sizes="regular"></ItemCategoryCardSlider>
-        {/* <Divider></Divider> */}
+        <Spacer height={10}></Spacer>
+        <Divider></Divider>
+        <Spacer height={10}></Spacer>
         <AppForm<SentordersParams>
           formConfig={[
             {

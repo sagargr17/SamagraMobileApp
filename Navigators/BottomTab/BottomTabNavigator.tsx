@@ -2,23 +2,18 @@ import {
   BottomTabNavigationProp,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 
 import {useNavigation, useTheme} from '@react-navigation/native';
+import {View} from 'moti';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
-import {AreaMapper} from '../../Utilities/CustomMethods';
+import {size} from '../../Prefrences/Prefrences';
 import {HomeStackNavigator} from '../Stack/HomeStackNavigator';
 import {MoreStackNavigator} from '../Stack/MoreStackNavigator';
 import {ServiceStackNavigator} from '../Stack/ServiceStackNavigator';
-import {size} from '../../Prefrences/Prefrences';
-import {View} from 'moti';
 
-import {Alert, Button, Text, TouchableHighlight} from 'react-native';
-import {useLazyQuery, useQuery} from '@apollo/client';
-import {getPublicItems} from '../../GraphQL/Queries/ItemQueries';
-import {Spacer} from '../../Components/Elements/Spacer';
-import {AppText} from '../../Components/Elements/AppText';
 import {TouchableRipple} from 'react-native-paper';
+import {AppText} from '../../Components/Elements/AppText';
 type BottomTabParamList = {
   Home: undefined;
   Order: undefined;
@@ -37,6 +32,7 @@ export interface BottomTabProps<T extends keyof BottomTabParamList> {
 export const BottomTabNavigator: React.FC = () => {
   const {colors, fonts} = useTheme();
   const [isToggleVisible, setToggleVisible] = useState<boolean>();
+  const [toggledName, setToggledName] = useState<string>('Buy');
 
   const navigation = useNavigation<any>();
 
@@ -55,8 +51,12 @@ export const BottomTabNavigator: React.FC = () => {
           tabPress: e => {
             if (route.name === 'Order') {
               setToggleVisible(!isToggleVisible);
+              setToggledName(toggledName === 'Buy' ? 'Sell' : 'Buy');
             }
           },
+        })}
+        options={({route}) => ({
+          tabBarLabel: route.name === 'Order' ? toggledName : route.name,
         })}
       />
     ));
@@ -105,7 +105,7 @@ export const BottomTabNavigator: React.FC = () => {
                       borderWidth: 1,
                     }}>
                     <AppText
-                      title="toggle"
+                      title={toggledName}
                       customStyle={{
                         position: 'absolute',
                         justifyContent: 'center',
@@ -127,18 +127,19 @@ export const BottomTabNavigator: React.FC = () => {
         },
         tabBarStyle: [
           {
-            paddingBottom: size.spacing.xl,
-            height: 58,
+            paddingBottom: size.spacing.xxs-2,
+            height: 70,
             backgroundColor: colors.background,
             borderTopColor: colors.background,
+            borderWidth: 0,
+            shadowColor: 'white',
           },
         ],
 
         tabBarLabelStyle: {
-          fontSize: size.textVariants.caption.fontSize,
+          fontSize: size.textVariants.display.fontSize - 4,
           lineHeight: size.textVariants.caption.lineHeight,
           fontFamily: 'Poppins-Regular',
-          fontWeight: 'condensed',
         },
         tabBarHideOnKeyboard: true,
         tabBarAllowFontScaling: true,
