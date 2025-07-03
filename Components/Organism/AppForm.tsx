@@ -119,7 +119,6 @@ export const AppForm = <TFormValues extends FieldValues>({
         ))}
         <View style={customBottonPositionStyle}>
           <AppButton
-            
             disabled={disabled}
             showLoader={true}
             onPress={handleSubmit(onFormSubmit)}

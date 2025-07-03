@@ -34,7 +34,7 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
   const {NoItemFound} = Logos;
   const userLocation = useAppSelector(state => state.user.userLocation);
   const [paginationLoading, setPaginationLoading] = useState<boolean>(false);
-  const [counterValue, setCounterValue] = useState<number>();
+  const [counterValue, setCounterValue] = useState<number | null>();
   const [pressedItem, setPressedItem] = useState<BasketItemViewModel | any>();
   const [isBottomSheetOpen, setBottomSheetOpen] = useState<boolean>(false);
 
@@ -71,9 +71,9 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
       dispatch(
         postPlaceOrderparams({
           itemDetails: {
-            price: 2,
+            price: item?.item?.price ?? NotMentioned,
             location: userLocation.address ?? NotMentioned,
-            description: 'Awesome',
+            description: item?.item?.description ?? NotMentioned,
             requiredTime: '4hr',
             name: item?.item?.name ?? NotMentioned,
             category: '1',
@@ -81,13 +81,17 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
           },
           sellerDetails: {
             fullName: user?.username ?? NotMentioned,
-            address: NotMentioned,
-            shopName: 'Butwal',
-            phoneNumber: '9841150490',
+            address: item?.item?.shop?.location ?? NotMentioned,
+            shopName: item?.item?.shop?.name ?? NotMentioned,
+            phoneNumber: item?.item?.shop?.phoneNumber ?? '9841232323',
           },
           orderDetail: {
-            message: 'Please Fast GArdeenu',
-            orderQuantity: '2',
+            message: 'Fast Gardeennu hai',
+            orderQuantity: `${
+              counterValue
+                ? counterValue
+                : item?.item?.price / (counterValue ? item?.item?.price : 1)
+            }`,
             itemID: item?.item?.id ?? NotMentioned,
           },
         }),
@@ -152,15 +156,15 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
           },
         ]}></ListCard>
       <Spacer height={5}></Spacer>
-      <AppButton onPress={() => handleOnCheckoutPressPress(pressedItem)}>
-        Checkout
-      </AppButton>
       <Counter
         setTotal={quantity => {
           setCounterValue(quantity * pressedItem?.item.price);
         }}></Counter>
-      {/* <Spacer height={25}></Spacer>
-      <Spacer height={15}></Spacer> */}
+      <Spacer height={25}></Spacer>
+      <AppButton onPress={() => handleOnCheckoutPressPress(pressedItem)}>
+        Checkout
+      </AppButton>
+      <Spacer height={15}></Spacer>
     </>
   );
 
@@ -185,8 +189,11 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
           <ListCard
             isContainerPressed={true}
             containerPressedHandle={() => {
-              setBottomSheetOpen(!isBottomSheetOpen);
+              isBottomSheetOpen === true
+                ? null
+                : setBottomSheetOpen(!isBottomSheetOpen);
               if (item && item.node) {
+                setCounterValue(null);
                 setPressedItem(item.node);
               }
             }}
@@ -219,12 +226,14 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
             surfaceLevel={1}></ListCard>
         )}
         ListFooterComponent={
-          <>{isFetchingMore ? <SamagraLoader></SamagraLoader> : null}</>
+          <>
+            <>{isFetchingMore ? <SamagraLoader></SamagraLoader> : null}</>
+          </>
         }></FlatList>
       <AppBottomSheet
         onClose={() => setBottomSheetOpen(!isBottomSheetOpen)}
-        flexHeight={7}
-        isOppen={true}
+        flexHeight={0.2}
+        isOppen={isBottomSheetOpen}
         pannigGesture={true}
         title="Counter"
         children={() => child}></AppBottomSheet>

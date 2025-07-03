@@ -4,6 +4,7 @@ import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {AreaMapper} from '../../../Utilities/CustomMethods';
 import {AppText} from '../../Elements/AppText';
 import {size} from '../../../Prefrences/Prefrences';
+import {Surface} from 'react-native-paper';
 
 interface ItemCategoryCardProps {
   title: string;
@@ -29,15 +30,14 @@ export const ItemCategoryCard: React.FC<ItemCategoryCardProps> = ({
       onPress={onPress}
       style={[
         {
-          backgroundColor: selectedCategory === title ? colors.primary : 'gray',
           marginRight: size.spacing.xs,
-          paddingBottom: size.spacing.xs,
+        },
+      ]}>
+      <View
+        style={[{
+          backgroundColor: selectedCategory === title ? colors.primary : 'gray',
+
           paddingTop: size.spacing.m,
-          borderRadius: size.borderRadius.m,
-          alignItems: 'center',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-around',
           width: AreaMapper({
             value: width,
             scaleBy: 'width',
@@ -46,17 +46,19 @@ export const ItemCategoryCard: React.FC<ItemCategoryCardProps> = ({
             value: height,
             scaleBy: 'height',
           }),
-        },
-      ]}>
-      <View>{icon}</View>
-      <AppText
-        fontVariant="regular"
-        fontSizeVariant={fontVariantSize}
-        customStyle={{
-          color: colors.background,
-          // marginTop: size.spacing.s,
-        }}
-        title={title}></AppText>
+          alignItems: 'center',
+          borderRadius: size.borderRadius.s,
+        }, size.elevation.m]}>
+        <View>{icon}</View>
+        <AppText
+          fontVariant="regular"
+          fontSizeVariant={fontVariantSize}
+          customStyle={{
+            color: colors.background,
+            // marginTop: size.spacing.s,
+          }}
+          title={title}></AppText>
+      </View>
     </TouchableOpacity>
   );
 };

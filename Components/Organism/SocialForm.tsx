@@ -9,10 +9,42 @@ import {useTheme} from '@react-navigation/native';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import {AppText} from '../Elements/AppText';
 import {size} from '../../Prefrences/Prefrences';
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+} from '@react-native-google-signin/google-signin';
 
 interface SocialProps {
   onAppleClick?: () => void;
 }
+
+const startSignInFlow = async () => {
+  try {
+    GoogleSignin.configure(); // move this to after your app starts
+    await GoogleSignin.hasPlayServices();
+    const signInResponse = await GoogleSignin.signIn();
+    // if (signInResponse.type === 'success') {
+    //   // use signInResponse.data
+    // } else if (signInResponse.type === "cancelled") {
+    //   // the user wasn't previously signed into this app
+    //   const createResponse = await GoogleOneTapSignIn.createAccount();
+    //   if (createResponse.type === 'success') {
+    //     // use createResponse.data
+    //   } else if (createResponse.type === 'noSavedCredentialFound') {
+    //     // no Google user account was present on the device yet (unlikely but possible)
+    //     const explicitResponse =
+    //       await GoogleOneTapSignIn.presentExplicitSignIn();
+
+    //     if (explicitResponse.type === 'success') {
+    //       // use explicitResponse.data
+    //     }
+    //   }
+    // }
+    // the else branches correspond to the user canceling the sign in
+  } catch (error) {
+    // handle error
+  }
+};
 
 export const SocialForm: React.FC<SocialProps> = ({onAppleClick}) => {
   const {AppleLogo, GoogleLogo} = Logos;
@@ -25,7 +57,7 @@ export const SocialForm: React.FC<SocialProps> = ({onAppleClick}) => {
             styles.socialItem,
             {
               borderColor: colors.border,
-              borderWidth: size.borderWidth.xs
+              borderWidth: size.borderWidth.xs,
             },
           ]}>
           <AppleLogo height={size.iconSize.medium} />
@@ -35,7 +67,9 @@ export const SocialForm: React.FC<SocialProps> = ({onAppleClick}) => {
             fontSizeVariant={'regular'}></AppText>
         </View>
       </Pressable>
-      <Pressable onPress={() => {}} style={styles.flexItem}>
+      <Pressable onPress={() => {
+        startSignInFlow()
+      }} style={styles.flexItem}>
         <View
           style={[
             styles.socialItem,

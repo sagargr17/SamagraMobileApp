@@ -1,8 +1,7 @@
 import FastImage from '@d11/react-native-fast-image';
-import {useTheme} from '@react-navigation/native';
-import {View} from 'moti';
-import React, {useState} from 'react';
-import {Icon, Surface, Text, TouchableRipple} from 'react-native-paper';
+import { useTheme } from '@react-navigation/native';
+import { View } from 'moti';
+import React, { useState } from 'react';
 import {
   ImageStyle,
   StyleSheet,
@@ -10,10 +9,10 @@ import {
   TouchableOpacity,
   ViewStyle,
 } from 'react-native';
-import {AreaMapper, titleCase} from '../../../Utilities/CustomMethods';
-import {AppText} from '../../Elements/AppText';
-import {Rating} from '../../Elements/Rating';
-import {size} from '../../../Prefrences/Prefrences';
+import { Surface } from 'react-native-paper';
+import { size } from '../../../Prefrences/Prefrences';
+import { AreaMapper } from '../../../Utilities/CustomMethods';
+import { AppText } from '../../Elements/AppText';
 
 interface ListCardProps {
   list: Array<{

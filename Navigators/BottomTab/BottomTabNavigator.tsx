@@ -2,7 +2,7 @@ import {
   BottomTabNavigationProp,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {useNavigation, useTheme} from '@react-navigation/native';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
@@ -13,10 +13,12 @@ import {ServiceStackNavigator} from '../Stack/ServiceStackNavigator';
 import {size} from '../../Prefrences/Prefrences';
 import {View} from 'moti';
 
-import {Button, Text, TouchableHighlight} from 'react-native';
+import {Alert, Button, Text, TouchableHighlight} from 'react-native';
 import {useLazyQuery, useQuery} from '@apollo/client';
 import {getPublicItems} from '../../GraphQL/Queries/ItemQueries';
 import {Spacer} from '../../Components/Elements/Spacer';
+import {AppText} from '../../Components/Elements/AppText';
+import {TouchableRipple} from 'react-native-paper';
 type BottomTabParamList = {
   Home: undefined;
   Order: undefined;
@@ -32,25 +34,33 @@ export interface BottomTabProps<T extends keyof BottomTabParamList> {
   navigation: BottomTabNavProp<T>;
 }
 
-const screenBuilder = (
-  data: Array<{
-    screenName: keyof BottomTabParamList;
-    component: any;
-  }>,
-) => {
-  return data.map(item => (
-    <BottomTabBuilder.Screen
-      key={item.screenName}
-      name={item.screenName}
-      component={item.component}
-    />
-  ));
-};
-
 export const BottomTabNavigator: React.FC = () => {
   const {colors, fonts} = useTheme();
+  const [isToggleVisible, setToggleVisible] = useState<boolean>();
 
   const navigation = useNavigation<any>();
+
+  const screenBuilder = (
+    data: Array<{
+      screenName: keyof BottomTabParamList;
+      component: any;
+    }>,
+  ) => {
+    return data.map(item => (
+      <BottomTabBuilder.Screen
+        key={item.screenName}
+        name={item.screenName}
+        component={item.component}
+        listeners={({navigation, route}) => ({
+          tabPress: e => {
+            if (route.name === 'Order') {
+              setToggleVisible(!isToggleVisible);
+            }
+          },
+        })}
+      />
+    ));
+  };
   return (
     <BottomTabBuilder.Navigator
       screenOptions={({route}) => ({
@@ -82,12 +92,35 @@ export const BottomTabNavigator: React.FC = () => {
           }
           if (route.name === 'Order') {
             return (
-              <Service
-                height={iconSize}
-                focused={focused}
-                color={color}
-                size={sizes}
-              />
+              <View>
+                {isToggleVisible ? (
+                  <TouchableRipple
+                    onPress={() => setToggleVisible(!isToggleVisible)}
+                    style={{
+                      padding: 20,
+                      height: 20,
+                      position: 'absolute',
+                      bottom: 30,
+                      backgroundColor: colors.card,
+                      borderWidth: 1,
+                    }}>
+                    <AppText
+                      title="toggle"
+                      customStyle={{
+                        position: 'absolute',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        color: 'orange',
+                      }}></AppText>
+                  </TouchableRipple>
+                ) : null}
+                <Service
+                  height={iconSize}
+                  focused={focused}
+                  color={color}
+                  size={sizes}
+                />
+              </View>
             );
           }
           return null;
@@ -95,11 +128,9 @@ export const BottomTabNavigator: React.FC = () => {
         tabBarStyle: [
           {
             paddingBottom: size.spacing.xl,
-            margin: size.spacing.xs,
             height: 58,
             backgroundColor: colors.background,
             borderTopColor: colors.background,
-            borderRadius: size.borderRadius.full,
           },
         ],
 

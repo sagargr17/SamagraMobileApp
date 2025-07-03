@@ -174,25 +174,26 @@ function App(): React.JSX.Element {
     <>
       <FlashMessage position="top" floating={true} />
 
-      <GestureHandlerRootView
-        style={{
-          flex: 1,
-        }}>
-        <Provider store={store}>
-          <StatusBar
-            backgroundColor={themes.colors.background}
-            barStyle={barStyle}></StatusBar>
-          <NavigationContainer theme={themes}>
-            <ApolloProvider client={client}>
-              <PaperProvider>
-                <SafeAreaProvider>
+      <Provider store={store}>
+        <StatusBar
+          backgroundColor={themes.colors.background}
+          barStyle={barStyle}></StatusBar>
+        <NavigationContainer theme={themes}>
+          <ApolloProvider client={client}>
+            <PaperProvider>
+              <SafeAreaProvider>
+                <GestureHandlerRootView
+                  // style={{
+                  //   flex: 1,
+                  // }}
+                  >
                   <RootStack />
-                </SafeAreaProvider>
-              </PaperProvider>
-            </ApolloProvider>
-          </NavigationContainer>
-        </Provider>
-      </GestureHandlerRootView>
+                </GestureHandlerRootView>
+              </SafeAreaProvider>
+            </PaperProvider>
+          </ApolloProvider>
+        </NavigationContainer>
+      </Provider>
     </>
   );
 }

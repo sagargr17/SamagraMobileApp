@@ -37,7 +37,6 @@ export const OrderLandingScreen: React.FC<OrderLandingScreenProps> = ({
     <>
       <AppHeader currentPosition="absolute"></AppHeader>
       <Spacer></Spacer>
-      {/* <MapView style={{flex: 0.7}} /> */}
       <OrderBottomSheet navigation={navigation}></OrderBottomSheet>
     </>
   );

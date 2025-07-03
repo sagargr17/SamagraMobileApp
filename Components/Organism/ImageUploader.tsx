@@ -5,7 +5,6 @@ import {useTheme} from '@react-navigation/native';
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {ActivityIndicator, IconButton} from 'react-native-paper';
-import {Camera} from 'react-native-vision-camera';
 import {AddItemPhotoMessage} from '../../Constants/UI/Messages';
 import {size} from '../../Prefrences/Prefrences';
 import {useAppSelector} from '../../StateManagement/hooks';
@@ -27,8 +26,6 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
   const [selectionImageIndex, setselectionImageIndex] = useState<number>(0);
   const [isCameraActive, setIsCameraActive] = useState(true);
   const [imageLoading, setImageLoading] = useState<boolean>(false);
-  const userShopName = useAppSelector(state => state.user.shopData?.name);
-  const camera: any | null = useRef<Camera>(null);
 
   // Galley Image Pickers
   const imageFromGallery = async () => {

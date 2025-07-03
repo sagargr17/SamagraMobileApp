@@ -39,12 +39,12 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({
       icon: <HouseKeeping height={height} width={width} />,
     },
     {
-      titte: 'Grocery',
-      icon: <Grocery height={height} width={width} />,
-    },
-    {
       titte: titleRange('Plumbin & wire', 10),
       icon: <Stationary height={height} width={width} />,
+    },
+    {
+      titte: 'More',
+      icon: <Grocery height={height} width={width} />,
     },
   ];
 
@@ -56,13 +56,15 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({
 
   return (
     <View>
-      <SectionHeader
-        style={{
-          paddingBottom: size.spacing.xs,
-        }}
-        onPress={() => onPress()}
-        isIcon={false}
-        title="Category"></SectionHeader>
+      {sizes === 'regular' ? null : (
+        <SectionHeader
+          style={{
+            paddingBottom: size.spacing.xs,
+          }}
+          onPress={() => onPress()}
+          isIcon={false}
+          title="Category"></SectionHeader>
+      )}
       <FlatList
         showsHorizontalScrollIndicator={false}
         horizontal={true}

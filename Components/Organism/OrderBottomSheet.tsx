@@ -16,6 +16,10 @@ import {AppForm} from './AppForm';
 import {ItemCategoryCardSlider} from './ItemCategorySlider';
 import {SamagraLoader} from '../Molecules/Response/SamagraLoader';
 import {GetAuthenticateClient} from '../../client/Graphql/AuthenticatedClient';
+import {ScrollView} from 'react-native-gesture-handler';
+import {Spacer} from '../Elements/Spacer';
+import {Divider} from 'react-native-paper';
+import {BubbleCard} from '../Molecules/Cards/BubbleCard';
 
 interface OrderBottomSheetProps {
   navigation: RootStackNavigationProp<'ApplicationOverlay'> | any;
@@ -74,13 +78,18 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
 
     return (
       <View style={styles.wrapper}>
+        <Spacer height={55}></Spacer>
+        <Spacer height={120}></Spacer>
+
         <ItemCategoryCardSlider sizes="regular"></ItemCategoryCardSlider>
+        {/* <Divider></Divider> */}
         <AppForm<SentordersParams>
           formConfig={[
             {
               name: 'location',
               type: 'text',
               label: 'Location',
+
               // rules: {
               //   required: 'Location is required',
               // },
@@ -111,19 +120,19 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
   };
 
   return (
-    <>
-      <AppBottomSheet
-        isOppen={true}
-        flexHeight={1}
-        pannigGesture={false}
-        title="Request for House Keeping Service"
-        children={childrenContent}></AppBottomSheet>
-    </>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{
+        paddingHorizontal: size.spacing.xs,
+      }}>
+      {childrenContent()}
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   wrapper: {
-    paddingBottom: size.spacing.xs,
+    paddingBottom: size.spacing.m,
+    marginTop: size.spacing.l,
   },
 });
