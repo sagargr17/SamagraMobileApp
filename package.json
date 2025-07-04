@@ -59,6 +59,7 @@
     "react-native-linear-gradient": "^2.8.3",
     "react-native-maps": "^1.20.1",
     "react-native-otp-entry": "^1.8.4",
+    "react-native-pager-view": "^6.8.1",
     "react-native-paper": "^5.13.1",
     "react-native-particles": "^0.0.8",
     "react-native-raw-bottom-sheet": "^3.0.0",
@@ -67,6 +68,7 @@
     "react-native-safe-area-context": "^5.3.0",
     "react-native-screens": "^4.10.0",
     "react-native-svg": "^15.11.2",
+    "react-native-tab-view": "^4.1.2",
     "react-native-vector-icons": "^10.2.0",
     "react-redux": "^9.2.0",
     "relay-runtime": "^19.0.0"

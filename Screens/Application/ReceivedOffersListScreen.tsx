@@ -1,16 +1,13 @@
 import {useLazyQuery, useSubscription} from '@apollo/client';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {
-  ActivityIndicator,
-  FlatList,
-  ImageBackground,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {FlatList, ImageBackground, StyleSheet, View} from 'react-native';
 
+import {Pulse} from 'react-native-animated-spinkit';
 import {showMessage} from 'react-native-flash-message';
+import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
+import {AppText} from '../../Components/Elements/AppText';
+import {Spacer} from '../../Components/Elements/Spacer';
 import {ProviderCard} from '../../Components/Molecules/Cards/ProviderCard';
 import {
   DummyServiceProviderURL,
@@ -25,15 +22,11 @@ import {
   hideLoader,
   showLoader,
 } from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
-import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
+import {useAppDispatch} from '../../StateManagement/hooks';
 import {postPlaceOrderparams} from '../../StateManagement/Orders/PlaceOrderDetailsParams';
-import {ProviderCardSkeleton} from '../../Components/Skeletons/Components/ProviderCardSkeleton';
-import {AppText} from '../../Components/Elements/AppText';
-import {Fold, Grid, Pulse} from 'react-native-animated-spinkit';
-import {Spacer} from '../../Components/Elements/Spacer';
 import {AreaMapper} from '../../Utilities/CustomMethods';
-import {ListCardSkeleton} from '../../Components/Skeletons/Layout/ListCardSkeleton';
-import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
+import {SingnlePageInfo} from '../../Components/Organism/SinglePageInfo';
+import {Logos} from '../../Assets/SVG/Exports/Exports';
 
 interface ReceivedOffersListScreenProps {}
 
@@ -44,7 +37,8 @@ export const ReceivedOffersListScreen: React.FC<
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
   const [getPublicItemFn] = useLazyQuery(getPublicItemsById);
-  const {colors} = useTheme();
+  const [isskeletonLoading, setSkeletonLoading] = useState<boolean>(true);
+  const {NoItemFound} = Logos;
 
   const {loading} = useSubscription(getSubscribedData, {
     onData: ({client, data}) => {
@@ -58,8 +52,7 @@ export const ReceivedOffersListScreen: React.FC<
     },
   });
 
-  const [isskeletonLoading, setSkeletonLoading] = useState<boolean>(true);
-
+  // Setting the element
   useEffect(() => {
     const timer = setTimeout(() => {
       dispatch(hideLoader());
@@ -69,8 +62,6 @@ export const ReceivedOffersListScreen: React.FC<
     return () => clearTimeout(timer);
   }, []);
 
-
-  
   // Place Order Items
   const placeOrderItemHandle = (itemId: string) => {
     dispatch(showLoader());
@@ -174,27 +165,43 @@ export const ReceivedOffersListScreen: React.FC<
     );
 
   return (
-    <FlatList
-      data={offerList}
-      renderItem={({item, index}) => (
-        <ProviderCard
-          list={[
-            {
-              value:
-                item.events?.data?.itemRequestOfferReceived?.itemId ?? 'Item',
-              type: 'regular',
+    <>
+      {offerList.length > 0 ? (
+        <FlatList
+          data={offerList}
+          renderItem={({item, index}) => (
+            <ProviderCard
+              list={[
+                {
+                  value:
+                    item.events?.data?.itemRequestOfferReceived?.itemId ??
+                    'Item',
+                  type: 'regular',
+                },
+              ]}
+              isProgressBarEnable={false}
+              onAcceptButtonPress={() => {
+                placeOrderItemHandle(
+                  item.events?.data?.itemRequestOfferReceived?.itemId ??
+                    NotMentioned,
+                );
+              }}
+              setProfileTapped={() => console.log('REEEE')}
+              imageUrl={DummyServiceProviderURL}></ProviderCard>
+          )}></FlatList>
+      ) : (
+        <SingnlePageInfo
+          icon={NoItemFound}
+          detail={{
+            title: 'Opps, Couldnot Find Any Prover.',
+            message: 'Please try again or wait for a while here !!',
+            buttonTitle: 'Back',
+            onButtonPress: () => {
+              navigation.goBack();
             },
-          ]}
-          isProgressBarEnable={false}
-          onAcceptButtonPress={() => {
-            placeOrderItemHandle(
-              item.events?.data?.itemRequestOfferReceived?.itemId ??
-                NotMentioned,
-            );
-          }}
-          setProfileTapped={() => console.log('REEEE')}
-          imageUrl={DummyServiceProviderURL}></ProviderCard>
-      )}></FlatList>
+          }}></SingnlePageInfo>
+      )}
+    </>
   );
 };
 

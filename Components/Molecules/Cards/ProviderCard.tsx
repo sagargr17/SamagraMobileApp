@@ -106,6 +106,7 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
                 <RowFlexLayout>
                   <AppButton
                     textColor={colors.text}
+
                     buttonColor={'#DCDCDC'}
                     style={ProviderCardStyle.action}
                     onPress={() => setISdeclined(!isDeclined)}>
@@ -211,6 +212,6 @@ const ProviderCardStyle = StyleSheet.create({
   },
 
   action: {
-    flex: 0.4,
+    flex: 0.48,
   },
 });

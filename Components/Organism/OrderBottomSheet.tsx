@@ -18,8 +18,11 @@ import {SamagraLoader} from '../Molecules/Response/SamagraLoader';
 import {GetAuthenticateClient} from '../../client/Graphql/AuthenticatedClient';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Spacer} from '../Elements/Spacer';
-import {Divider} from 'react-native-paper';
+import {Divider, Surface} from 'react-native-paper';
 import {BubbleCard} from '../Molecules/Cards/BubbleCard';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {useTheme} from '@react-navigation/native';
+import {AreaMapper} from '../../Utilities/CustomMethods';
 
 interface OrderBottomSheetProps {
   navigation: RootStackNavigationProp<'ApplicationOverlay'> | any;
@@ -33,6 +36,7 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
   const [createItemRequestFn, {loading}] = useMutation(
     CreateItemRequestMutation,
   );
+  const {colors} = useTheme();
 
   const handleSubmit = (data: SentordersParams) => {
     // dispatch(showLoader());
@@ -81,8 +85,17 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
     );
 
     return (
-      <View style={styles.wrapper}>
-        <Spacer height={100}></Spacer>
+      <View
+        style={{
+          backgroundColor: colors.background,
+        }}>
+        <Spacer></Spacer>
+        <BubbleCard
+          iconColor={colors.primary}
+          iconName="account-group"
+          title="1259 Active Provider"
+          variant="large"
+          comment="28 Near Your Location"></BubbleCard>
         <ItemCategoryCardSlider sizes="regular"></ItemCategoryCardSlider>
         <Spacer height={15}></Spacer>
         <AppForm<SentordersParams>
@@ -114,30 +127,37 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
               },
             },
           ]}
+          customBottonPositionStyle={{
+            marginBottom: size.spacing.s,
+          }}
           onFormSubmit={handleSubmit}
           disabled={loading ? true : false}
-          submitButtonText={`${loading ? 'loading' : 'Search'}`}
-          customBottonPositionStyle={{
-            marginTop: 10,
-          }}></AppForm>
+          submitButtonText={`${loading ? 'loading' : 'Search'}`}></AppForm>
       </View>
     );
   };
 
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={{
-        paddingHorizontal: size.spacing.xs,
-      }}>
-      {childrenContent()}
-    </ScrollView>
+    // <ScrollView
+    //   showsVerticalScrollIndicator={false}
+    //   contentContainerStyle={{
+    //     bottom: 5,
+    //     position: 'absolute',
+    //   }}>
+    //   {childrenContent()}
+    // </ScrollView>
+    <AppBottomSheet
+      isOppen={true}
+      pannigGesture={false}
+      children={childrenContent}
+      flexHeight={1}
+      title="Buy"></AppBottomSheet>
   );
 };
 
 const styles = StyleSheet.create({
   wrapper: {
-    paddingBottom: size.spacing.m,
-    marginTop: size.spacing.l,
+    // paddingBottom: size.spacing.m,
+    // marginTop: size.spacing.l,
   },
 });

@@ -21,6 +21,7 @@ interface BubbleCardProps {
   customStyle?: ViewStyle;
   onPress?: () => void;
   iconName?: string; // Optional prop for the icon name
+  iconColor?: string;
 }
 
 const {width: screenWidth} = Dimensions.get('window');
@@ -33,6 +34,7 @@ export const BubbleCard: React.FC<BubbleCardProps> = ({
   customStyle,
   onPress,
   iconName,
+  iconColor = 'black',
 }) => {
   const {colors} = useTheme();
 
@@ -64,7 +66,7 @@ export const BubbleCard: React.FC<BubbleCardProps> = ({
             <Icon
               source={iconName}
               size={size.iconSize.small}
-              color={colors.text}
+              color={iconColor ? iconColor : colors.text}
             />
           </View>
         )}
@@ -97,7 +99,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     // padding: AreaMapper({value: 12, scaleBy: 'average'}),
-    borderRadius: size.borderRadius.s-3,
+    borderRadius: size.borderRadius.s - 3,
     paddingTop: size.spacing.m + 2,
     paddingBottom: size.spacing.m + 2,
   },

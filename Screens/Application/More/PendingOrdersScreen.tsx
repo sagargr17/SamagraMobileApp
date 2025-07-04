@@ -181,16 +181,16 @@ export const PendingOrderScreen: React.FC<OrderScreenProps> = ({}) => {
         }}
         onEndReachedThreshold={0.6}
         showsVerticalScrollIndicator={false}
-        ListHeaderComponent={
-          <View
-            style={{
-              marginVertical: size.spacing.xxs,
-            }}>
-            <AppSerchBar
-              placeHolder="Search By Buyer Name"
-              onPress={() => console.log('>>')}></AppSerchBar>
-          </View>
-        }
+        // ListHeaderComponent={
+        //   <View
+        //     style={{
+        //       marginVertical: size.spacing.xxs,
+        //     }}>
+        //     <AppSerchBar
+        //       placeHolder="Search By Buyer Name"
+        //       onPress={() => console.log('>>')}></AppSerchBar>
+        //   </View>
+        // }
         contentContainerStyle={{
           paddingHorizontal: size.spacing.xs,
         }}

@@ -87,7 +87,7 @@ export const ReceivedOrderListScreen: React.FC<
         setOrderList([...orderlist, data.data]);
       }
       if (data.data?.events?.data?.orderReceived) {
-        showMessage(responseTheme('You received order',"" , 'success'));
+        // showMessage(responseTheme('You received order', '', 'success'));
       }
     },
   });

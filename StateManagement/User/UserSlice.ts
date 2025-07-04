@@ -8,6 +8,7 @@ interface User {
   pofileImageUrl?: string;
   email: 'sagar@gmail.com';
   phoneNumber: string;
+  isBuyMode: boolean;
 }
 
 interface UploadedImages {
@@ -27,7 +28,7 @@ interface UserLocation {
 }
 
 export interface UserState {
-  user: User | null;
+  user: User;
   isAuthenticated?: boolean | string;
   isShopActive?: boolean;
   shopData?: ShopDetail;
@@ -41,6 +42,7 @@ const initialState: UserState = {
     pofileImageUrl: ImageNotFound,
     email: 'sagar@gmail.com',
     phoneNumber: '9841150390',
+    isBuyMode: false,
   },
   isAuthenticated: 'loading',
   isShopActive: false,
@@ -86,6 +88,10 @@ const userSlice = createSlice({
 
       state.isShopActive = action.payload;
     },
+
+    setIsBuyMode: (state, action: PayloadAction<boolean>) => {
+      state.user.isBuyMode = action.payload;
+    },
   },
 });
 
@@ -96,5 +102,6 @@ export const {
   setUserUploadedImage,
   setUserLocation,
   setShopState,
+  setIsBuyMode,
 } = userSlice.actions;
 export default userSlice.reducer;

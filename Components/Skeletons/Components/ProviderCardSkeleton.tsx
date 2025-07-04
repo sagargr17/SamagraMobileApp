@@ -165,9 +165,10 @@ export const ProviderCardSkeleton: React.FC<ProviderCardSkeletonProps> = ({
   );
 
   return (
-    <FlatList
-      data={Array(numberOfCard).fill(numberOfCard)}
-      renderItem={() => card}></FlatList>
+    <></>
+    // <FlatList
+    //   data={Array(numberOfCard).fill(numberOfCard)}
+    //   renderItem={() => card}></FlatList>
   );
 };
 

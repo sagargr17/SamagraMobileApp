@@ -2,7 +2,7 @@ import {
   BottomTabNavigationProp,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
-import React, {useState} from 'react';
+import React from 'react';
 
 import {useNavigation, useTheme} from '@react-navigation/native';
 import {View} from 'moti';
@@ -12,9 +12,10 @@ import {HomeStackNavigator} from '../Stack/HomeStackNavigator';
 import {MoreStackNavigator} from '../Stack/MoreStackNavigator';
 import {ServiceStackNavigator} from '../Stack/ServiceStackNavigator';
 
-import {TouchableRipple} from 'react-native-paper';
+import {TouchableHighlight} from 'react-native';
 import {AppText} from '../../Components/Elements/AppText';
-import {Alert, TouchableHighlight} from 'react-native';
+import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
+import {setIsBuyMode} from '../../StateManagement/User/UserSlice';
 type BottomTabParamList = {
   Home: undefined;
   Order: undefined;
@@ -32,10 +33,10 @@ export interface BottomTabProps<T extends keyof BottomTabParamList> {
 
 export const BottomTabNavigator: React.FC = () => {
   const {colors, fonts} = useTheme();
-  const [isToggleVisible, setToggleVisible] = useState<boolean>();
-  const [toggledName, setToggledName] = useState<string>('Buy');
   const navigation = useNavigation<any>();
   const {CommentFrame} = Logos;
+  const isBuy = useAppSelector(state => state.user.user.isBuyMode);
+  const dispatch = useAppDispatch();
 
   const screenBuilder = (
     data: Array<{
@@ -51,13 +52,17 @@ export const BottomTabNavigator: React.FC = () => {
         listeners={({navigation, route}) => ({
           tabPress: e => {
             if (route.name === 'Order') {
-              setToggleVisible(!isToggleVisible);
-              setToggledName(toggledName === 'Buy' ? 'Sell' : 'Buy');
+              dispatch(setIsBuyMode(!isBuy));
             }
           },
         })}
         options={({route}) => ({
-          tabBarLabel: route.name === 'Order' ? toggledName : route.name,
+          tabBarLabel:
+            route.name === 'Order'
+              ? isBuy === true
+                ? 'Sell'
+                : 'Buy'
+              : route.name,
         })}
       />
     ));
@@ -94,7 +99,7 @@ export const BottomTabNavigator: React.FC = () => {
           if (route.name === 'Order') {
             return (
               <View>
-                {isToggleVisible ? (
+                {isBuy ? (
                   <TouchableHighlight
                     onPress={() => {}}
                     style={{
@@ -102,14 +107,14 @@ export const BottomTabNavigator: React.FC = () => {
                       borderWidth: 0.1,
                     }}>
                     <View>
-                      <CommentFrame height={120} width={120}></CommentFrame>
-                      <AppText
+                      {/* <CommentFrame height={120} width={120}></CommentFrame> */}
+                      {/* <AppText
                         customStyle={{
                           bottom: 5,
                           position: 'absolute',
                           zIndex: 2,
                         }}
-                        title={toggledName}></AppText>
+                        title={!isBuy ? 'Buy' : 'Selll'}></AppText> */}
                     </View>
                   </TouchableHighlight>
                 ) : null}
