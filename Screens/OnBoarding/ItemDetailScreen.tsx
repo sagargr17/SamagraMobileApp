@@ -18,7 +18,7 @@ import {size} from '../../Prefrences/Prefrences';
 import {hideLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
 import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
 import {postPlaceOrderparams} from '../../StateManagement/Orders/PlaceOrderDetailsParams';
-import {titleCase} from '../../Utilities/CustomMethods';
+import {titleCase, titleRange} from '../../Utilities/CustomMethods';
 import {ImageNotFound} from '../../Constants/UI/AssetsUrls';
 order: null;
 interface ItemDetailScreenProps {
@@ -103,9 +103,13 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
             // title={titleCase(
             //   data?.getPublicItems?.nodes?.[0]?.description ?? 'Not Mentioned',
             // )}
-            title={
-              'Irure id ex irure et. Ad occaecat minim magna magna. Nostrud id labore dolor qui culpa eiusmod quis laboris occaecat laboris consequat laborum. Do veniam id exercitation nisi aliqua est dolor laborum exercitation dolore. Quis enim labore magna laborum sint incididunt incididunt nisi sint et dolor cupidatat minim minim.'
-            }
+            title={titleRange(
+              'Irure id ex irure et. Ad occaecat minim magna magna. Nostrud id labore dolor qui culpa eiusmod quis laboris occaecat laboris consequat laborum. Do veniam id exercitation nisi aliqua est dolor laborum exercitation dolore. Quis enim labore magna laborum sint incididunt incididunt nisi sint et dolor cupidatat minim minim.',
+              130,
+            )}
+            customStyle={{
+              textAlign: 'justify',
+            }}
             fontVariant="regular"></AppText>
         </View>
 
@@ -190,7 +194,7 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
                   },
                 ]
               }></ImageSliderModal>
-            <Spacer height={16}></Spacer>
+            {/* <Spacer height={16}></Spacer> */}
             <Divider></Divider>
             <View
               style={{

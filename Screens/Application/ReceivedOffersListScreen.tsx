@@ -1,7 +1,14 @@
 import {useLazyQuery, useSubscription} from '@apollo/client';
-import {useNavigation} from '@react-navigation/native';
-import React, {useState} from 'react';
-import {FlatList} from 'react-native';
+import {useNavigation, useTheme} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
+import {
+  ActivityIndicator,
+  FlatList,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 
 import {showMessage} from 'react-native-flash-message';
 import {ProviderCard} from '../../Components/Molecules/Cards/ProviderCard';
@@ -12,12 +19,21 @@ import {
 import {NotMentioned} from '../../Constants/UI/Messages';
 import {getPublicItemsById} from '../../GraphQL/Queries/ItemQueries';
 import {getSubscribedData} from '../../GraphQL/Subscription/Subscription';
-import {responseTheme} from '../../Prefrences/Prefrences';
+import {responseTheme, size} from '../../Prefrences/Prefrences';
 import {GetDataSubscription} from '../../src/__generated__/graphql';
-import {showLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
+import {
+  hideLoader,
+  showLoader,
+} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
 import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
 import {postPlaceOrderparams} from '../../StateManagement/Orders/PlaceOrderDetailsParams';
 import {ProviderCardSkeleton} from '../../Components/Skeletons/Components/ProviderCardSkeleton';
+import {AppText} from '../../Components/Elements/AppText';
+import {Fold, Grid, Pulse} from 'react-native-animated-spinkit';
+import {Spacer} from '../../Components/Elements/Spacer';
+import {AreaMapper} from '../../Utilities/CustomMethods';
+import {ListCardSkeleton} from '../../Components/Skeletons/Layout/ListCardSkeleton';
+import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 
 interface ReceivedOffersListScreenProps {}
 
@@ -27,32 +43,38 @@ export const ReceivedOffersListScreen: React.FC<
   const [offerList, setOfferList] = useState<Array<GetDataSubscription>>([]);
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
-  const [
-    getMyItemFn,
-    {data: myItem, loading: myItemLoading, error: myItemError},
-  ] = useLazyQuery(getPublicItemsById);
+  const [getPublicItemFn] = useLazyQuery(getPublicItemsById);
+  const {colors} = useTheme();
 
-  // RequestedItem Order
-  const requestedItem = useAppSelector(state => state.sentOrderParams);
-
-  const {data, loading, error} = useSubscription(getSubscribedData, {
+  const {loading} = useSubscription(getSubscribedData, {
     onData: ({client, data}) => {
       if (
         data.data &&
         data.data.events?.eventName &&
-        data.data.events.data?.itemRequestOfferReceived &&
-        data.data.events.data?.itemRequestOfferReceived.itemRequestId ===
-          requestedItem.id
+        data.data.events.data?.itemRequestOfferReceived
       ) {
         setOfferList([data.data, ...offerList]);
       }
     },
   });
 
+  const [isskeletonLoading, setSkeletonLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch(hideLoader());
+      console.log('>>><<<');
+      setSkeletonLoading(false);
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, []);
+
+
+  
   // Place Order Items
   const placeOrderItemHandle = (itemId: string) => {
     dispatch(showLoader());
-    getMyItemFn({
+    getPublicItemFn({
       variables: {
         id: itemId,
       },
@@ -101,6 +123,56 @@ export const ReceivedOffersListScreen: React.FC<
       });
   };
 
+  if (isskeletonLoading)
+    return (
+      <SafeAreaProvider>
+        <SafeAreaView style={styles.container} edges={['left', 'right']}>
+          <ImageBackground
+            imageStyle={{
+              opacity: 0.3,
+            }}
+            source={require('../../Assets/PNG/citymap.jpg')}
+            resizeMode="cover"
+            style={styles.image}>
+            <Pulse
+              style={{
+                position: 'absolute',
+                // bottom: 1,
+                right: 210,
+                // top:100
+              }}
+              size={AreaMapper({value: 500})}
+              color={'#55DD33'}
+              animating></Pulse>
+            <Pulse
+              style={{
+                position: 'absolute',
+                top: 0,
+                right: 200,
+                // top:100
+              }}
+              size={AreaMapper({value: 400})}
+              color={'#55DD33'}></Pulse>
+            <View
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Pulse size={AreaMapper({value: 300})} color={'#55DD33'}></Pulse>
+              <Spacer></Spacer>
+              <AppText
+                customStyle={{
+                  lineHeight: size.textVariants.title.lineHeight,
+                }}
+                title="Searching Nearby Provider..."
+                fontSizeVariant="title"
+                fontVariant="bold"></AppText>
+            </View>
+          </ImageBackground>
+        </SafeAreaView>
+      </SafeAreaProvider>
+    );
+
   return (
     <FlatList
       data={offerList}
@@ -114,17 +186,24 @@ export const ReceivedOffersListScreen: React.FC<
             },
           ]}
           isProgressBarEnable={false}
-          onAcceptButtonPress={() =>
+          onAcceptButtonPress={() => {
             placeOrderItemHandle(
               item.events?.data?.itemRequestOfferReceived?.itemId ??
                 NotMentioned,
-            )
-          }
+            );
+          }}
           setProfileTapped={() => console.log('REEEE')}
           imageUrl={DummyServiceProviderURL}></ProviderCard>
-      )}
-      ListFooterComponent={
-        loading ? <ProviderCardSkeleton></ProviderCardSkeleton> : null
-      }></FlatList>
+      )}></FlatList>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  image: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+});

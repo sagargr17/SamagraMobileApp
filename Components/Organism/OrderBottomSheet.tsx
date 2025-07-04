@@ -1,6 +1,6 @@
 import {useMutation} from '@apollo/client';
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {KeyboardAvoidingView, StyleSheet, View} from 'react-native';
 import {showMessage} from 'react-native-flash-message';
 import {CreateItemRequestMutation} from '../../GraphQL/Mutation/ItemRequestMutation';
 import {RootStackNavigationProp} from '../../Navigators/RootStackNavigator';
@@ -35,40 +35,44 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
   );
 
   const handleSubmit = (data: SentordersParams) => {
-    dispatch(showLoader());
+    // dispatch(showLoader());
     console.log('Calling the function');
-    createItemRequestFn({
-      variables: {
-        itemName: data.name,
-        categoryID: '1',
-      },
-    })
-      .then(res => {
-        console.log('response Create Items', res);
-        console.log('Order Created', res.data?.createItemRequest?.id);
-        // Dispatch
-        dispatch(
-          postOrderparams({
-            location: data.location,
-            description: data.description,
-            requiredTime: '2',
-            name: data.name,
-            category: '1',
-            id: res.data?.createItemRequest?.id ?? '',
-          }),
-        );
-        // Navigation
-        navigation.navigate('ApplicationOverlay', {
-          screen: 'ReceivedOfferListScreen',
-        });
-      })
-      .catch(err => {
-        console.log('Message', err);
+    // createItemRequestFn({
+    //   variables: {
+    //     itemName: data.name,
+    //     categoryID: '1',
+    //   },
+    // })
+    //   .then(res => {
+    //     console.log('response Create Items', res);
+    //     console.log('Order Created', res.data?.createItemRequest?.id);
+    //     // Dispatch
+    //     dispatch(
+    //       postOrderparams({
+    //         location: data.location,
+    //         description: data.description,
+    //         requiredTime: '2',
+    //         name: data.name,
+    //         category: '1',
+    //         id: res.data?.createItemRequest?.id ?? '',
+    //       }),
+    //     );
+    //     // Navigation
+    //     navigation.navigate('ApplicationOverlay', {
+    //       screen: 'ReceivedOfferListScreen',
+    //     });
+    //   })
+    //   .catch(err => {
+    //     console.log('Message', err);
 
-        showMessage(
-          responseTheme('Something Went Wrong', 'PLease Try again', 'danger'),
-        );
-      });
+    //     showMessage(
+    //       responseTheme('Something Went Wrong', 'PLease Try again', 'danger'),
+    //     );
+    //   });
+
+    navigation.navigate('ApplicationOverlay', {
+      screen: 'ReceivedOfferListScreen',
+    });
   };
 
   const childrenContent = () => {
@@ -78,11 +82,9 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
 
     return (
       <View style={styles.wrapper}>
-        <Spacer height={110}></Spacer>
+        <Spacer height={100}></Spacer>
         <ItemCategoryCardSlider sizes="regular"></ItemCategoryCardSlider>
-        <Spacer height={10}></Spacer>
-        <Divider></Divider>
-        <Spacer height={10}></Spacer>
+        <Spacer height={15}></Spacer>
         <AppForm<SentordersParams>
           formConfig={[
             {
@@ -114,7 +116,10 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
           ]}
           onFormSubmit={handleSubmit}
           disabled={loading ? true : false}
-          submitButtonText={`${loading ? 'loading' : 'Search'}`}></AppForm>
+          submitButtonText={`${loading ? 'loading' : 'Search'}`}
+          customBottonPositionStyle={{
+            marginTop: 10,
+          }}></AppForm>
       </View>
     );
   };

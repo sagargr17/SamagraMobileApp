@@ -1,6 +1,6 @@
 import {useTheme} from '@react-navigation/native';
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {ActivityIndicator, StyleSheet, View} from 'react-native';
 import {createGradientShimmer} from 'react-native-gradient-shimmer';
 import LinearGradient from 'react-native-linear-gradient';
 import {AreaMapper} from '../../../Utilities/CustomMethods';
@@ -22,6 +22,7 @@ export const ProviderCardSkeleton: React.FC<ProviderCardSkeletonProps> = ({
 
   const card = (
     <View
+      // key={Math.random()}
       style={[
         ProviderCardSkeletonStyle.cardContainer,
         {

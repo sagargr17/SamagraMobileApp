@@ -14,6 +14,7 @@ import {ServiceStackNavigator} from '../Stack/ServiceStackNavigator';
 
 import {TouchableRipple} from 'react-native-paper';
 import {AppText} from '../../Components/Elements/AppText';
+import {Alert, TouchableHighlight} from 'react-native';
 type BottomTabParamList = {
   Home: undefined;
   Order: undefined;
@@ -33,8 +34,8 @@ export const BottomTabNavigator: React.FC = () => {
   const {colors, fonts} = useTheme();
   const [isToggleVisible, setToggleVisible] = useState<boolean>();
   const [toggledName, setToggledName] = useState<string>('Buy');
-
   const navigation = useNavigation<any>();
+  const {CommentFrame} = Logos;
 
   const screenBuilder = (
     data: Array<{
@@ -94,25 +95,23 @@ export const BottomTabNavigator: React.FC = () => {
             return (
               <View>
                 {isToggleVisible ? (
-                  <TouchableRipple
-                    onPress={() => setToggleVisible(!isToggleVisible)}
+                  <TouchableHighlight
+                    onPress={() => {}}
                     style={{
-                      padding: 20,
-                      height: 20,
-                      position: 'absolute',
-                      bottom: 30,
-                      backgroundColor: colors.card,
-                      borderWidth: 1,
+                      bottom: 25,
+                      borderWidth: 0.1,
                     }}>
-                    <AppText
-                      title={toggledName}
-                      customStyle={{
-                        position: 'absolute',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        color: 'orange',
-                      }}></AppText>
-                  </TouchableRipple>
+                    <View>
+                      <CommentFrame height={120} width={120}></CommentFrame>
+                      <AppText
+                        customStyle={{
+                          bottom: 5,
+                          position: 'absolute',
+                          zIndex: 2,
+                        }}
+                        title={toggledName}></AppText>
+                    </View>
+                  </TouchableHighlight>
                 ) : null}
                 <Service
                   height={iconSize}
@@ -127,7 +126,7 @@ export const BottomTabNavigator: React.FC = () => {
         },
         tabBarStyle: [
           {
-            paddingBottom: size.spacing.xxs-2,
+            paddingBottom: size.spacing.xxs - 2,
             height: 70,
             backgroundColor: colors.background,
             borderTopColor: colors.background,
