@@ -82,7 +82,7 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
         {isButtonVisible ? (
           <RowFlexLayout
             customStyle={{
-              justifyContent: 'space-between',
+              // justifyContent: 'space-between',
             }}>
             <AppButton
               textColor={colors.text}
@@ -222,7 +222,7 @@ const ProviderCardStyle = StyleSheet.create({
     // flex: 0.8,
     borderRadius: size.borderRadius.m,
     paddingVertical: size.spacing.xxs - 10,
-    marginRight: 5,
+    // marginRight: 5,
     marginTop: 5,
   },
 });
