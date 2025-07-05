@@ -2,23 +2,22 @@
 
 import FastImage from '@d11/react-native-fast-image';
 import {useTheme} from '@react-navigation/native';
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {ActivityIndicator, IconButton} from 'react-native-paper';
 import {AddItemPhotoMessage} from '../../Constants/UI/Messages';
 import {size} from '../../Prefrences/Prefrences';
-import {useAppSelector} from '../../StateManagement/hooks';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import ImageHandler, {OutPutImageType} from '../../Utilities/ImageHandler';
 import {AppText} from '../Elements/AppText';
 import AppButton from '../Elements/Button';
 
 interface ImageUploaderProps {
-  pushToServerIndicator: boolean;
+  addItemSuccessFn: (images: OutPutImageType) => void;
 }
 
 export const ImageUploader: React.FC<ImageUploaderProps> = ({
-  pushToServerIndicator: pushSubmitIndicator,
+  addItemSuccessFn,
 }) => {
   const {colors} = useTheme();
   const [cameraType, setCameraType] = useState<'front' | 'back'>('back');
@@ -30,8 +29,8 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
   // Galley Image Pickers
   const imageFromGallery = async () => {
     let GalleryImages: any = await ImageHandler.selectFromGallery();
-    console.log('Images????>>.', GalleryImages);
     setImages(GalleryImages);
+    addItemSuccessFn(GalleryImages);
     setImageLoading(!imageLoading);
   };
 
@@ -48,16 +47,6 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
   const decrementImageIndex = (index: number) => {
     if (index > 0) setselectionImageIndex(index - 1);
     setImageLoading(false);
-  };
-
-  useEffect(() => {}, [pushSubmitIndicator]);
-
-  const handleImageUploader = async () => {
-    if (images && images.length > 0) {
-      const response = ImageHandler.uploadImage(images)
-        .then(result => console.log('result image', result))
-        .catch(err => console.log('Image Uploading Error', err));
-    }
   };
 
   return (
@@ -90,7 +79,6 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
               source={{
                 uri: images[selectionImageIndex]?.uri,
               }}></FastImage>
-            <AppButton onPress={handleImageUploader}>Upload</AppButton>
             <IconButton
               onPress={() => {
                 handleImageRemove(images[selectionImageIndex]);

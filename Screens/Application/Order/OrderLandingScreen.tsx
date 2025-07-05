@@ -15,19 +15,9 @@ interface OrderLandingScreenProps {
 export const OrderLandingScreen: React.FC<OrderLandingScreenProps> = ({
   navigation,
 }) => {
-  const [loading, setLoading] = useState<boolean>(true);
   const isBuyMode = useAppSelector(state => state.user.user.isBuyMode);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(!loading);
-    }, 2000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (loading) return <OrderLandingSkeleton></OrderLandingSkeleton>;
-
   
+ 
 
   return (
     <>

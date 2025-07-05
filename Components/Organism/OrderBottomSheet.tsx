@@ -104,6 +104,7 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
               name: 'location',
               type: 'text',
               label: 'Location',
+
               defaultValue: userLocation,
             },
             {

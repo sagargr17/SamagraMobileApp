@@ -173,11 +173,11 @@ export const PendingOrderScreen: React.FC<OrderScreenProps> = ({}) => {
     <>
       <FlatListScreen
         onEndReached={() => {
-          // if (data?.getOrders?.pageInfo.hasNextPage && !isFetchingMore) {
-          //   fetchMore({
-          //     variables: {after: data?.getOrders?.pageInfo.endCursor},
-          //   });
-          // }
+          if (data?.getOrders?.pageInfo.hasNextPage && !isFetchingMore) {
+            fetchMore({
+              variables: {after: data?.getOrders?.pageInfo.endCursor},
+            });
+          }
         }}
         onEndReachedThreshold={0.6}
         showsVerticalScrollIndicator={false}

@@ -1,7 +1,6 @@
 import {
   ApolloClient,
   ApolloProvider,
-  concat,
   createHttpLink,
   InMemoryCache,
   split,
@@ -20,7 +19,7 @@ import {StatusBar} from 'react-native';
 import BootSplash from 'react-native-bootsplash';
 import FlashMessage from 'react-native-flash-message';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {PaperProvider, ProgressBar} from 'react-native-paper';
+import {PaperProvider} from 'react-native-paper';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {Provider} from 'react-redux';
 import {accessTokenGenerator} from './client/Token/AccessTokenGenerator';
@@ -29,9 +28,9 @@ import {isTokenExpired} from './client/Token/TokeValidator';
 import {GRAPHQL_ENDPOINT} from './Constants/SamagraConstants/SamagraEndpoints';
 import {RootStack} from './Navigators/RootStackNavigator';
 import {MyTheme} from './Prefrences/Prefrences';
-import {store} from './StateManagement/Store';
-import {login, logout} from './StateManagement/User/UserSlice';
 import {setError} from './StateManagement/Error&loadingHandle/ErrorHandlingSlice';
+import {store} from './StateManagement/Store';
+import {logout} from './StateManagement/User/UserSlice';
 
 // ErrorResponse
 const errorLink = onError(({graphQLErrors, networkError, protocolErrors}) => {
@@ -182,11 +181,7 @@ function App(): React.JSX.Element {
           <ApolloProvider client={client}>
             <PaperProvider>
               <SafeAreaProvider>
-                <GestureHandlerRootView
-                // style={{
-                //   flex: 1,
-                // }}
-                >
+                <GestureHandlerRootView>
                   <RootStack />
                 </GestureHandlerRootView>
               </SafeAreaProvider>

@@ -126,12 +126,12 @@ class ImageHandler {
       type: string;
       name: string;
     }[],
-  ): Promise<string | null> {
+  ): Promise<[string] | any> {
     const serverUrl = 'http://static.samagranepal.com/';
 
     const formData: any = new FormData();
     images.map(image => {
-      formData.append('file', {
+      formData.append('files', {
         uri:
           Platform.OS === 'ios' ? image.uri.replace('file://', '') : image.uri,
         type: image.type,
@@ -153,11 +153,8 @@ class ImageHandler {
       const json = await response.json();
       console.log('SErver Update Image', json);
 
-      if (response.ok && json.url) {
-        return json.url;
-      } else {
-        console.error('Upload failed:', json);
-        return null;
+      if (response.ok) {
+        return json;
       }
     } catch (error) {
       console.error('Upload error:', error);
