@@ -183,10 +183,10 @@ function App(): React.JSX.Element {
             <PaperProvider>
               <SafeAreaProvider>
                 <GestureHandlerRootView
-                  // style={{
-                  //   flex: 1,
-                  // }}
-                  >
+                // style={{
+                //   flex: 1,
+                // }}
+                >
                   <RootStack />
                 </GestureHandlerRootView>
               </SafeAreaProvider>

@@ -37,7 +37,6 @@ export const PendingOrderScreen: React.FC<OrderScreenProps> = ({}) => {
   const {data, loading, error, fetchMore, networkStatus} = useQuery(
     getMyOrdersItem,
     {
-      notifyOnNetworkStatusChange: true,
       variables: {after: null},
       onCompleted: () => {
         setPaginationLoading(false);
@@ -79,7 +78,8 @@ export const PendingOrderScreen: React.FC<OrderScreenProps> = ({}) => {
     });
   };
 
-  if (isLoadingInitialData) return <ListCardSkeleton numberOfList={6}></ListCardSkeleton>;
+  if (isLoadingInitialData)
+    return <ListCardSkeleton numberOfList={6}></ListCardSkeleton>;
   if (error) return <Text>Error</Text>;
 
   const emptyNode = (
@@ -173,24 +173,14 @@ export const PendingOrderScreen: React.FC<OrderScreenProps> = ({}) => {
     <>
       <FlatListScreen
         onEndReached={() => {
-          if (data?.getOrders?.pageInfo.hasNextPage && !isFetchingMore) {
-            fetchMore({
-              variables: {after: data?.getOrders?.pageInfo.endCursor},
-            });
-          }
+          // if (data?.getOrders?.pageInfo.hasNextPage && !isFetchingMore) {
+          //   fetchMore({
+          //     variables: {after: data?.getOrders?.pageInfo.endCursor},
+          //   });
+          // }
         }}
         onEndReachedThreshold={0.6}
         showsVerticalScrollIndicator={false}
-        // ListHeaderComponent={
-        //   <View
-        //     style={{
-        //       marginVertical: size.spacing.xxs,
-        //     }}>
-        //     <AppSerchBar
-        //       placeHolder="Search By Buyer Name"
-        //       onPress={() => console.log('>>')}></AppSerchBar>
-        //   </View>
-        // }
         contentContainerStyle={{
           paddingHorizontal: size.spacing.xs,
         }}
