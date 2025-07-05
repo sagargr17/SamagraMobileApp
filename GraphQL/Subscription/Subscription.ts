@@ -5,6 +5,10 @@ export const getSubscribedData = gql(`
   events {
     id
     eventName
+    sender{
+      username
+    }
+
    
     data {
       itemRequestReceived {
@@ -27,6 +31,8 @@ export const getSubscribedData = gql(`
         price
         quantity
         currency
+        itemName
+        dateTime
       }
     }
   }

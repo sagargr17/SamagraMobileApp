@@ -6,6 +6,7 @@ import {Spacer} from '../../../Components/Elements/Spacer';
 import {OrderBottomSheet} from '../../../Components/Organism/OrderBottomSheet';
 import AppBanner from '../../../Components/Molecules/Global/AppBanner';
 import {OrderLandingSkeleton} from '../../../Components/Skeletons/Layout/OrderLandingSkeleton';
+import {MapView} from '@maplibre/maplibre-react-native';
 interface BuyModeScreenProps {}
 
 export const BuyModeScreen: React.FC<BuyModeScreenProps> = ({}) => {
@@ -24,6 +25,7 @@ export const BuyModeScreen: React.FC<BuyModeScreenProps> = ({}) => {
   return (
     <>
       <AppHeader currentPosition="absolute"></AppHeader>
+      <MapView style={{flex: 0.7}} />
       <OrderBottomSheet navigation={navigation}></OrderBottomSheet>
     </>
   );

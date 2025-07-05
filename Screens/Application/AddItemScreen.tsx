@@ -1,28 +1,28 @@
-import {useMutation} from '@apollo/client';
-import {useTheme} from '@react-navigation/native';
-import React, {useState} from 'react';
-import {StyleSheet, View} from 'react-native';
-import {showMessage} from 'react-native-flash-message';
-import {AppText} from '../../Components/Elements/AppText';
-import {Spacer} from '../../Components/Elements/Spacer';
-import {AppForm} from '../../Components/Organism/AppForm';
-import {ImageUploader} from '../../Components/Organism/ImageUploader';
+import { useMutation } from '@apollo/client';
+import { useTheme } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { showMessage } from 'react-native-flash-message';
+import { AppText } from '../../Components/Elements/AppText';
+import { Spacer } from '../../Components/Elements/Spacer';
+import { AppForm } from '../../Components/Organism/AppForm';
+import { ImageUploader } from '../../Components/Organism/ImageUploader';
 import {
   NotMentioned,
   SuccessAddItemMessage,
   SuccessAddItemMessageDescription,
 } from '../../Constants/UI/Messages';
-import {createNewProduct} from '../../GraphQL/Mutation/ItemMutation';
-import {FlatListScreen} from '../../Layout/ScreenLayout/FlatListScreenLayout';
-import {responseTheme, size} from '../../Prefrences/Prefrences';
-import {CreateProductInputViewModelInput} from '../../src/__generated__/graphql';
+import { createNewProduct } from '../../GraphQL/Mutation/ItemMutation';
+import { FlatListScreen } from '../../Layout/ScreenLayout/FlatListScreenLayout';
+import { responseTheme, size } from '../../Prefrences/Prefrences';
+import { CreateProductInputViewModelInput } from '../../src/__generated__/graphql';
 import {
   hideLoader,
   showLoader,
 } from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
-import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
-import {AreaMapper} from '../../Utilities/CustomMethods';
-import ImageHandler, {OutPutImageType} from '../../Utilities/ImageHandler';
+import { useAppDispatch, useAppSelector } from '../../StateManagement/hooks';
+import { AreaMapper } from '../../Utilities/CustomMethods';
+import ImageHandler, { OutPutImageType } from '../../Utilities/ImageHandler';
 
 interface AddItemScreenProps {}
 

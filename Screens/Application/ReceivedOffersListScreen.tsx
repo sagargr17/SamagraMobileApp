@@ -191,11 +191,11 @@ export const ReceivedOffersListScreen: React.FC<
           )}></FlatList>
       ) : (
         <SingnlePageInfo
-          icon={NoItemFound}
+          icon={<NoItemFound />}
           detail={{
-            title: 'Opps, Couldnot Find Any Prover.',
+            title: 'Opps,We Couldnot Find Any Provider.',
             message: 'Please try again or wait for a while here !!',
-            buttonTitle: 'Back',
+            buttonTitle: 'Go Back',
             onButtonPress: () => {
               navigation.goBack();
             },

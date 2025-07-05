@@ -39,40 +39,39 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
   const {colors} = useTheme();
 
   const handleSubmit = (data: SentordersParams) => {
-    // dispatch(showLoader());
-    console.log('Calling the function');
-    // createItemRequestFn({
-    //   variables: {
-    //     itemName: data.name,
-    //     categoryID: '1',
-    //   },
-    // })
-    //   .then(res => {
-    //     console.log('response Create Items', res);
-    //     console.log('Order Created', res.data?.createItemRequest?.id);
-    //     // Dispatch
-    //     dispatch(
-    //       postOrderparams({
-    //         location: data.location,
-    //         description: data.description,
-    //         requiredTime: '2',
-    //         name: data.name,
-    //         category: '1',
-    //         id: res.data?.createItemRequest?.id ?? '',
-    //       }),
-    //     );
-    //     // Navigation
-    //     navigation.navigate('ApplicationOverlay', {
-    //       screen: 'ReceivedOfferListScreen',
-    //     });
-    //   })
-    //   .catch(err => {
-    //     console.log('Message', err);
+    dispatch(showLoader());
+    createItemRequestFn({
+      variables: {
+        itemName: data.name,
+        categoryID: '1',
+      },
+    })
+      .then(res => {
+        console.log('response Create Items', res);
+        console.log('Order Created', res.data?.createItemRequest?.id);
+        // Dispatch
+        dispatch(
+          postOrderparams({
+            location: data.location,
+            description: data.description,
+            requiredTime: '2',
+            name: data.name,
+            category: '1',
+            id: res.data?.createItemRequest?.id ?? '',
+          }),
+        );
+        // Navigation
+        navigation.navigate('ApplicationOverlay', {
+          screen: 'ReceivedOfferListScreen',
+        });
+      })
+      .catch(err => {
+        console.log('Message', err);
 
-    //     showMessage(
-    //       responseTheme('Something Went Wrong', 'PLease Try again', 'danger'),
-    //     );
-    //   });
+        showMessage(
+          responseTheme('Something Went Wrong', 'PLease Try again', 'danger'),
+        );
+      });
 
     navigation.navigate('ApplicationOverlay', {
       screen: 'ReceivedOfferListScreen',
@@ -86,9 +85,12 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
 
     return (
       <View
-        style={{
-          backgroundColor: colors.background,
-        }}>
+        style={[
+          styles.wrapper,
+          {
+            backgroundColor: colors.background,
+          },
+        ]}>
         <Spacer></Spacer>
         <BubbleCard
           iconColor={colors.primary}
@@ -146,7 +148,6 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
 
 const styles = StyleSheet.create({
   wrapper: {
-    // paddingBottom: size.spacing.m,
-    // marginTop: size.spacing.l,
+    paddingBottom: size.spacing.xs,
   },
 });

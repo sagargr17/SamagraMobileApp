@@ -222,27 +222,23 @@ export const PendingOrderScreen: React.FC<OrderScreenProps> = ({}) => {
                 value: titleCase(item?.node?.address ?? NotMentioned),
                 fontVariant: 'regular',
               },
-
-              {
-                type: 'regular',
-                value: DateTimeToAgoTime(item?.node?.dateTime),
-                style: {
-                  color: colors.notification,
-                },
-                fontVariant: 'regular',
-              },
               {
                 type: 'regular',
                 value: `Qty: ${item?.node?.quantity ?? NotMentioned}`,
                 fontVariant: 'regular',
+              },
+              {
+                type: 'caption',
+                value: DateTimeToAgoTime(item?.node?.dateTime),
                 style: {
                   color: colors.background,
                   backgroundColor: 'gray',
-                  borderRadius: size.borderRadius.full,
+                  borderRadius: size.borderRadius.xs,
                   paddingHorizontal: size.spacing.xs,
                   paddingVertical: size.spacing.xxs,
-                  left: AreaMapper({value: 185}),
+                  marginTop:5
                 },
+                fontVariant: 'regular',
               },
             ]}></ListCard>
         )}

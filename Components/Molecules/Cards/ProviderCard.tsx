@@ -23,6 +23,7 @@ interface ProviderCardProps {
   setProfileTapped?: () => void;
   onAcceptButtonPress: () => void;
   isProgressBarEnable: boolean;
+  isButtonVisible?: boolean;
 }
 
 export const ProviderCard: React.FC<ProviderCardProps> = ({
@@ -31,6 +32,7 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
   isProgressBarEnable = true,
   onAcceptButtonPress,
   setProfileTapped,
+  isButtonVisible = true,
 }) => {
   const {colors} = useTheme();
   const [progressBarData, setProgressBarData] = useState(0.1);
@@ -64,7 +66,8 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
           ]}
           source={{
             uri: imageUrl,
-          }}></FastImage>
+          }}
+          resizeMode="contain"></FastImage>
       </TouchableOpacity>
 
       <View style={ProviderCardStyle.textContainer}>
@@ -76,6 +79,25 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
             fontVariant={item.fontVariant}
             fontSizeVariant={item.type}></AppText>
         ))}
+        {isButtonVisible ? (
+          <RowFlexLayout
+            customStyle={{
+              justifyContent: 'space-between',
+            }}>
+            <AppButton
+              textColor={colors.text}
+              buttonColor={'#DCDCDC'}
+              style={ProviderCardStyle.action}
+              onPress={() => setISdeclined(!isDeclined)}>
+              Decline ✗
+            </AppButton>
+            <AppButton
+              style={ProviderCardStyle.action}
+              onPress={onAcceptButtonPress}>
+              Procced ✓
+            </AppButton>
+          </RowFlexLayout>
+        ) : null}
       </View>
     </View>
   );
@@ -103,20 +125,6 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
                   />
                 )}
                 {CardHeader}
-                <RowFlexLayout>
-                  <AppButton
-                    textColor={colors.text}
-                    buttonColor={'#DCDCDC'}
-                    style={ProviderCardStyle.action}
-                    onPress={() => setISdeclined(!isDeclined)}>
-                    Decline
-                  </AppButton>
-                  <AppButton
-                    style={ProviderCardStyle.action}
-                    onPress={onAcceptButtonPress}>
-                    Procced
-                  </AppButton>
-                </RowFlexLayout>
               </View>
             )}
           </>
@@ -182,21 +190,21 @@ const ProviderCardStyle = StyleSheet.create({
   },
   image: {
     height: AreaMapper({
-      value: 50,
+      value: 120,
       scaleBy: 'average',
     }),
     width: AreaMapper({
-      value: 50,
+      value: 120,
       scaleBy: 'average',
     }),
-    borderRadius: AreaMapper({
-      value: 80,
-      scaleBy: 'average',
-    }),
-    borderWidth: AreaMapper({
-      value: 2,
-      scaleBy: 'average',
-    }),
+    // borderRadius: AreaMapper({
+    //   value: 80,
+    //   scaleBy: 'average',
+    // }),
+    // borderWidth: AreaMapper({
+    //   value: 2,
+    //   scaleBy: 'average',
+    // }),
   },
 
   actionContainer: {
@@ -211,8 +219,10 @@ const ProviderCardStyle = StyleSheet.create({
   },
 
   action: {
-    flex: 0.48,
+    // flex: 0.8,
     borderRadius: size.borderRadius.m,
-    paddingVertical: size.spacing.xxs
+    paddingVertical: size.spacing.xxs - 10,
+    marginRight: 5,
+    marginTop: 5,
   },
 });

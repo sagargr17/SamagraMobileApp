@@ -1,9 +1,9 @@
 import {useMutation, useQuery, useSubscription} from '@apollo/client';
 import {useNavigation, useTheme} from '@react-navigation/native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FlatList, Modal, StyleSheet, View} from 'react-native';
 import {showMessage} from 'react-native-flash-message';
-import {IconButton} from 'react-native-paper';
+import {ActivityIndicator, IconButton} from 'react-native-paper';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
 import {AppText} from '../../Components/Elements/AppText';
 import AppButton from '../../Components/Elements/Button';
@@ -33,9 +33,9 @@ import {responseTheme, size} from '../../Prefrences/Prefrences';
 import {GetDataSubscription} from '../../src/__generated__/graphql';
 import {showLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
 import {useAppDispatch} from '../../StateManagement/hooks';
-import {titleCase, titleRange} from '../../Utilities/CustomMethods';
+import {AreaMapper, titleCase, titleRange} from '../../Utilities/CustomMethods';
 
-interface ReceivedOrderListScreenProps {}
+interface ReceivedRequestListScreenProps {}
 // export async function onDisplayNotification(body: string) {
 //   // Request permissions (required for iOS)
 //   await notifee.requestPermission();
@@ -66,19 +66,24 @@ interface ReceivedOrderListScreenProps {}
 //   }
 // }
 
-export const ReceivedOrderListScreen: React.FC<
-  ReceivedOrderListScreenProps
+export const ReceivedRequestListScreen: React.FC<
+  ReceivedRequestListScreenProps
 > = ({}) => {
   const {colors} = useTheme();
   const dispatch = useAppDispatch();
-  const [personalUserDetail, setPersonalDetail] = useState<React.ReactNode>();
+  const [personalUserDetail, setPersonalDetail] = useState<{
+    username: string;
+    location?: 'butwal';
+    phoneNumber?: 9841125049;
+  }>();
   const [orderlist, setOrderList] = useState<Array<GetDataSubscription>>([]);
   const [isProfileTapped, setIsProfileTapped] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const navigation = useNavigation<any>();
+
   const {NoItemFound} = Logos;
-  const {data, loading, error} = useSubscription(getSubscribedData, {
+  const {data, error} = useSubscription(getSubscribedData, {
     onData: ({client, data}) => {
+      console.log('Orders', data);
       if (
         data.data &&
         data.data.events?.eventName &&
@@ -101,6 +106,8 @@ export const ReceivedOrderListScreen: React.FC<
   const [createItemRequestOfferFn] = useMutation(
     createItemRequestOfferMutation,
   );
+
+  const [loading, setLoading] = useState<boolean>(false);
 
   // Accepting the query
   const onAcceptHandle = async (reqeustId: string, itemId: string) => {
@@ -142,15 +149,6 @@ export const ReceivedOrderListScreen: React.FC<
       showMessage(responseTheme('Action Failed !', 'ASdsadas', 'danger'));
     }
   };
-
-  // Handle back  Navigation
-  const handleNavigation = () => {
-    navigation.navigate('ApplicationOverlay', {
-      screen: 'OrderListScreen',
-    });
-  };
-
-  if (loading) return <ProviderCardSkeleton></ProviderCardSkeleton>;
 
   if (!data && error)
     return (
@@ -220,6 +218,9 @@ export const ReceivedOrderListScreen: React.FC<
             renderItem={({item, index}) => (
               <ListCard
                 onImagePress={() => console.log('Pressed')}
+                customImageStyle={{
+                  height: 80,
+                }}
                 customStyle={{
                   borderWidth: size.borderWidth.s,
                   borderColor:
@@ -237,20 +238,20 @@ export const ReceivedOrderListScreen: React.FC<
                 list={[
                   {
                     value: titleCase(item?.node?.name) ?? NotMentioned,
-                    type: 'title',
+                    type: 'regular',
                     fontVariant: 'bold',
                   },
                   {
                     value: item?.node?.price
                       ? 'Rs. ' + item.node?.price
                       : NotMentioned,
-                    type: 'regular',
+                    type: 'caption',
                   },
                   {
                     value: item?.node?.stockQuantity
                       ? 'QTY: ' + item.node?.stockQuantity
                       : NotMentioned,
-                    type: 'regular',
+                    type: 'caption',
                     fontVariant: 'bold',
                     style: {
                       color: item?.node?.stockQuantity
@@ -282,15 +283,14 @@ export const ReceivedOrderListScreen: React.FC<
 
   const profileDetailInfo = (
     <>
-      <View>{personalUserDetail}</View>
       <View style={styles.userInformationContainer}>
         <View style={styles.emailContainer}>
           <AppText
-            title={'E-mail:'}
+            title={'Name:'}
             fontVariant="regular"
             fontSizeVariant={'regular'}></AppText>
           <AppText
-            title={'Ram@gmail.com'}
+            title={personalUserDetail?.username ?? 'Sagar'}
             fontVariant="medium"
             fontSizeVariant={'regular'}></AppText>
         </View>
@@ -300,7 +300,17 @@ export const ReceivedOrderListScreen: React.FC<
             fontVariant="regular"
             fontSizeVariant={'regular'}></AppText>
           <AppText
-            title={'Baneswor, Bhimsengola'}
+            title={personalUserDetail?.location ?? 'Baneswor, Kathmandu '}
+            fontVariant="medium"
+            fontSizeVariant={'regular'}></AppText>
+        </View>
+        <View style={styles.locationcontainer}>
+          <AppText
+            title={'Location:'}
+            fontVariant="regular"
+            fontSizeVariant={'regular'}></AppText>
+          <AppText
+            title={`${personalUserDetail?.phoneNumber ?? 9841105090}`}
             fontVariant="medium"
             fontSizeVariant={'regular'}></AppText>
         </View>
@@ -317,8 +327,29 @@ export const ReceivedOrderListScreen: React.FC<
     </>
   );
 
+  useEffect(() => {
+    let task = setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+
+    return () => clearTimeout(task);
+  }, [loading]);
+
   if (loading)
-    return <ProviderCardSkeleton numberOfCard={7}></ProviderCardSkeleton>;
+    return (
+      <View
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          flex: 1,
+        }}>
+        <ActivityIndicator
+          color={colors.primary}
+          size={'large'}></ActivityIndicator>
+        <Spacer height={20}></Spacer>
+        <AppText title="Searching Request..."></AppText>
+      </View>
+    );
 
   return (
     <>
@@ -334,8 +365,8 @@ export const ReceivedOrderListScreen: React.FC<
               detail={{
                 title: 'No Any Request Currently',
                 message: NoAnyorderItemsFoud,
-                onButtonPress: () => handleNavigation(),
-                buttonTitle: 'Go to home',
+                onButtonPress: () => setLoading(!loading),
+                buttonTitle: 'Reload',
               }}></SingnlePageInfo>
           </View>
         }
@@ -369,6 +400,9 @@ export const ReceivedOrderListScreen: React.FC<
               setRequestID(item.events?.data?.itemRequestReceived?.id ?? '');
             }}
             setProfileTapped={() => {
+              setPersonalDetail({
+                username: item.events?.sender?.username ?? 'Sagar',
+              });
               setIsProfileTapped(!isProfileTapped);
             }}
             imageUrl={DummyServiceProviderURL}></ProviderCard>

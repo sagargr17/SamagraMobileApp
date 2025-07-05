@@ -17,25 +17,26 @@ import {Spacer} from '../../../Components/Elements/Spacer';
 import {SamagraLoader} from '../../../Components/Molecules/Response/SamagraLoader';
 import {ProviderCardSkeleton} from '../../../Components/Skeletons/Components/ProviderCardSkeleton';
 import {ReceivedOffersListScreen} from '../ReceivedOffersListScreen';
-import {ReceivedOrderListScreen} from '../ReceivedOrdersListScreen';
+import {ReceivedRequestListScreen} from '../ReceivedRequestListScreen';
 import {PendingOrderScreen} from '../More/PendingOrdersScreen';
 import {Divider} from 'react-native-paper';
 import {ListCardSkeleton} from '../../../Components/Skeletons/Layout/ListCardSkeleton';
 import {size} from '../../../Prefrences/Prefrences';
+import {ReceivedorderListScreen} from '../ReceivedOrderListScreen';
 interface SellModeScreenProps {}
 
 export const SellModeScreen: React.FC<SellModeScreenProps> = ({}) => {
   const {colors} = useTheme();
   const renderScene = SceneMap({
-    first: ReceivedOrderListScreen,
-    second: ProviderCardSkeleton,
-    third: PendingOrderScreen,
+    first: ReceivedRequestListScreen,
+    second: ReceivedorderListScreen,
+    // third: PendingOrderScreen,
   });
 
   const routes = [
     {key: 'first', title: 'Requests'},
     {key: 'second', title: 'Responses'},
-    {key: 'third', title: 'Deliveries'},
+    // {key: 'third', title: 'Deliveries'},
   ];
   const layout = useWindowDimensions();
   const [index, setIndex] = React.useState(1);
