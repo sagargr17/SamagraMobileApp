@@ -28,6 +28,8 @@ import PlusIcon from '../SVGImages/PlusIcon';
 import StockIcon from '../SVGImages/StockIcon';
 import Store from '../SVGImages/Store';
 import CommentFrame from '../SVGImages/CommentFrame';
+import BuyFrame from '../SVGImages/BuyFrame';
+import SellFrame from '../SVGImages/SellFrame';
 
 export const Logos = {
   AppleLogo,
@@ -60,4 +62,6 @@ export const Logos = {
   StockIcon,
   Store,
   CommentFrame,
+  BuyFrame,
+  SellFrame,
 };

@@ -45,7 +45,7 @@ export const UserProfileLandingContainer: React.FC<
         },
 
         {
-          title: 'Live Orders',
+          title: 'Services',
           iconName: 'view-comfy',
           onPress: () =>
             navigation.navigate('ApplicationOverlay', {
@@ -58,25 +58,12 @@ export const UserProfileLandingContainer: React.FC<
   // Column Navigation
   const columnDetailsList = [
     {
-      title: 'Services',
-      iconName: 'account-hard-hat',
-      onPress: () => {
-        navigation.navigate('ApplicationOverlay', {
-          screen: 'MyShopItemsScreen',
-          params: {
-            name: 'Hamro Shop',
-          },
-        });
-      },
-      comment: 'Stocks,Orders & Other  Management',
-    },
-    {
       onPress: () => {
         navigation.navigate('ApplicationOverlay', {
           screen: 'MyShopsScreen',
         });
       },
-      title: 'Manage Store',
+      title: "Manage Profile's",
       variant: 'large',
       comment: 'Shops, Details and management ',
       iconName: 'store-edit',
@@ -94,6 +81,19 @@ export const UserProfileLandingContainer: React.FC<
       variant: 'large',
       comment: 'Personal & Shop Setting',
       iconName: 'wrench',
+    },
+    {
+      title: 'Service Mode',
+      iconName: 'backup-restore',
+      onPress: () => {
+        navigation.navigate('ApplicationOverlay', {
+          screen: 'MyShopItemsScreen',
+          params: {
+            name: 'Hamro Shop',
+          },
+        });
+      },
+      comment: 'Toggle Between Your Service & Product View',
     },
   ];
   const {colors} = useTheme();

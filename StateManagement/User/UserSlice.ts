@@ -2,6 +2,8 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {ImageNotFound} from '../../Constants/UI/AssetsUrls';
 import {titleRange} from '../../Utilities/CustomMethods';
 import {UserLocationRenderMode} from '@maplibre/maplibre-react-native';
+import {ItemViewModel} from '../../src/__generated__/graphql';
+import {StockScreen} from '../../Screens/Application/More/StockScreen';
 
 interface User {
   username: string;
@@ -34,6 +36,7 @@ export interface UserState {
   shopData?: ShopDetail;
   uploadedImages?: UploadedImages;
   userLocation?: UserLocation;
+  selectedItem: ItemViewModel;
 }
 
 const initialState: UserState = {
@@ -55,6 +58,13 @@ const initialState: UserState = {
     address: 'Nepal, Asia',
     lat: 0,
     long: 0,
+  },
+  selectedItem: {
+    stockQuantity: 0,
+    price: 0,
+    dateTime: '',
+    isProduct: false,
+    starRating: 3,
   },
 };
 
@@ -92,6 +102,9 @@ const userSlice = createSlice({
     setIsBuyMode: (state, action: PayloadAction<boolean>) => {
       state.user.isBuyMode = action.payload;
     },
+    setItemSelected: (state, action: PayloadAction<ItemViewModel>) => {
+      state.selectedItem = action.payload;
+    },
   },
 });
 
@@ -103,5 +116,6 @@ export const {
   setUserLocation,
   setShopState,
   setIsBuyMode,
+  setItemSelected,
 } = userSlice.actions;
 export default userSlice.reducer;

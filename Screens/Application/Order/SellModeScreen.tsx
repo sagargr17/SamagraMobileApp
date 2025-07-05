@@ -27,13 +27,15 @@ interface SellModeScreenProps {}
 export const SellModeScreen: React.FC<SellModeScreenProps> = ({}) => {
   const {colors} = useTheme();
   const renderScene = SceneMap({
-    first: ProviderCardSkeleton,
-    second: PendingOrderScreen,
+    first: ReceivedOrderListScreen,
+    second: ProviderCardSkeleton,
+    third: PendingOrderScreen,
   });
 
   const routes = [
-    {key: 'first', title: 'Orders'},
-    {key: 'second', title: 'Status'},
+    {key: 'first', title: 'Requests'},
+    {key: 'second', title: 'Responses'},
+    {key: 'third', title: 'Deliveries'},
   ];
   const layout = useWindowDimensions();
   const [index, setIndex] = React.useState(1);

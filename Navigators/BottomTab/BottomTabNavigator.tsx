@@ -2,7 +2,7 @@ import {
   BottomTabNavigationProp,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
-import React from 'react';
+import React, {useState} from 'react';
 
 import {useNavigation, useTheme} from '@react-navigation/native';
 import {View} from 'moti';
@@ -12,7 +12,7 @@ import {HomeStackNavigator} from '../Stack/HomeStackNavigator';
 import {MoreStackNavigator} from '../Stack/MoreStackNavigator';
 import {ServiceStackNavigator} from '../Stack/ServiceStackNavigator';
 
-import {TouchableHighlight} from 'react-native';
+import {Alert, TouchableHighlight} from 'react-native';
 import {AppText} from '../../Components/Elements/AppText';
 import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
 import {setIsBuyMode} from '../../StateManagement/User/UserSlice';
@@ -34,9 +34,10 @@ export interface BottomTabProps<T extends keyof BottomTabParamList> {
 export const BottomTabNavigator: React.FC = () => {
   const {colors, fonts} = useTheme();
   const navigation = useNavigation<any>();
-  const {CommentFrame} = Logos;
+  const {BuyFrame, SellFrame} = Logos;
   const isBuy = useAppSelector(state => state.user.user.isBuyMode);
   const dispatch = useAppDispatch();
+  const [isBuyFrameVisible, setIsBuyFrameVisible] = useState<boolean>(false);
 
   const screenBuilder = (
     data: Array<{
@@ -52,17 +53,19 @@ export const BottomTabNavigator: React.FC = () => {
         listeners={({navigation, route}) => ({
           tabPress: e => {
             if (route.name === 'Order') {
-              dispatch(setIsBuyMode(!isBuy));
+              setIsBuyFrameVisible(!isBuyFrameVisible);
+            } else {
+              setIsBuyFrameVisible(false);
             }
           },
         })}
         options={({route}) => ({
           tabBarLabel:
             route.name === 'Order'
-              ? isBuy === true
-                ? 'Sell'
-                : 'Buy'
-              : route.name,
+              ? isBuy === false
+                ? 'Buy'
+                : 'Sell'
+              : route.path,
         })}
       />
     ));
@@ -97,25 +100,32 @@ export const BottomTabNavigator: React.FC = () => {
             );
           }
           if (route.name === 'Order') {
+            console.log('IsBuyFrame', isBuyFrameVisible);
+
             return (
-              <View>
-                {isBuy ? (
+              <View
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                {isBuyFrameVisible ? (
                   <TouchableHighlight
-                    onPress={() => {}}
+                    onPress={() => {
+                      dispatch(setIsBuyMode(!isBuy));
+                      setIsBuyFrameVisible(!isBuyFrameVisible);
+                    }}
                     style={{
-                      bottom: 25,
-                      borderWidth: 0.1,
+                      bottom: 2,
+                      position: 'absolute',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      zIndex: 1,
                     }}>
-                    <View>
-                      {/* <CommentFrame height={120} width={120}></CommentFrame> */}
-                      {/* <AppText
-                        customStyle={{
-                          bottom: 5,
-                          position: 'absolute',
-                          zIndex: 2,
-                        }}
-                        title={!isBuy ? 'Buy' : 'Selll'}></AppText> */}
-                    </View>
+                    {isBuy === true ? (
+                      <BuyFrame height={85} width={85}></BuyFrame>
+                    ) : (
+                      <SellFrame height={85} width={85}></SellFrame>
+                    )}
                   </TouchableHighlight>
                 ) : null}
                 <Service
@@ -132,7 +142,7 @@ export const BottomTabNavigator: React.FC = () => {
         tabBarStyle: [
           {
             paddingBottom: size.spacing.xxs - 2,
-            height: 70,
+            height: 65,
             backgroundColor: colors.background,
             borderTopColor: colors.background,
             borderWidth: 0,

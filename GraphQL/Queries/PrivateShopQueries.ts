@@ -4,7 +4,7 @@ import {gql} from '../../src/__generated__';
 
 export const myShops = gql(`
 query GetMySHops($after: String) {
-  getShops(after: $after) {
+  getShops(after: $after, first:5) {
     pageInfo {
       hasNextPage
       endCursor

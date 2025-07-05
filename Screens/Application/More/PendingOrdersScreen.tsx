@@ -251,7 +251,7 @@ export const PendingOrderScreen: React.FC<OrderScreenProps> = ({}) => {
                   borderRadius: size.borderRadius.full,
                   paddingHorizontal: size.spacing.xs,
                   paddingVertical: size.spacing.xxs,
-                  left: AreaMapper({value: 200}),
+                  left: AreaMapper({value: 185}),
                 },
               },
             ]}></ListCard>

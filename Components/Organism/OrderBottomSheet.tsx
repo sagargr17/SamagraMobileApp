@@ -93,7 +93,7 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
         <BubbleCard
           iconColor={colors.primary}
           iconName="account-group"
-          title="1259 Active Provider"
+          title="1259 Active Provider Currently !"
           variant="large"
           comment="28 Near Your Location"></BubbleCard>
         <ItemCategoryCardSlider sizes="regular"></ItemCategoryCardSlider>
@@ -104,10 +104,6 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
               name: 'location',
               type: 'text',
               label: 'Location',
-
-              // rules: {
-              //   required: 'Location is required',
-              // },
               defaultValue: userLocation,
             },
             {
@@ -138,14 +134,6 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
   };
 
   return (
-    // <ScrollView
-    //   showsVerticalScrollIndicator={false}
-    //   contentContainerStyle={{
-    //     bottom: 5,
-    //     position: 'absolute',
-    //   }}>
-    //   {childrenContent()}
-    // </ScrollView>
     <AppBottomSheet
       isOppen={true}
       pannigGesture={false}
