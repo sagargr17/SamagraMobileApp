@@ -32,20 +32,10 @@ const PhoneInput = ({
   const [borderColor, setBorderColor] = useState<string>(colors.border);
   const inputRef: any = useRef(null);
 
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, []); // Empty dependency array ensures it runs only once after the initial render
-
   return (
     <View>
       {label && (
-        <AppText
-          fontVariant="medium"
-          fontSizeVariant="regular"
-          title={label}
-        />
+        <AppText fontVariant="medium" fontSizeVariant="regular" title={label} />
       )}
       <View
         style={[
@@ -60,16 +50,11 @@ const PhoneInput = ({
           },
         ]}>
         <NepalFlag height={size.iconSize.large} width={size.iconSize.large} />
-        <AppText
-          fontVariant="medium"
-          fontSizeVariant="regular"
-          title="+977"
-        />
+        <AppText fontVariant="medium" fontSizeVariant="regular" title="+977" />
         <View style={styles.textWrapper}>
           <TextInput
             onFocus={() => setBorderColor(colors.primary)}
             onBlur={() => setBorderColor(colors.border)}
-            ref={inputRef}
             keyboardType="numeric"
             inputMode="numeric"
             style={[

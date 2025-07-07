@@ -59,7 +59,7 @@ const GetStarted = ({options, onDone}: GetStartedProps) => {
   }, [isFocused, options]);
 
   return (
-    <SafeAreaView style={styles.wrapper}>
+    <View style={styles.wrapper}>
       <FastImage
         onLoadStart={() => <ActivityIndicator></ActivityIndicator>}
         style={styles.headerimage}
@@ -81,14 +81,14 @@ const GetStarted = ({options, onDone}: GetStartedProps) => {
         <Text style={styles.content}>{activeItem?.content}</Text>
         <AppButton onPress={next}>{activeItem?.buttonText}</AppButton>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    justifyContent: 'flex-end',
+    // justifyContent: 'flex-end',
   },
   container: {
     height: 'auto',

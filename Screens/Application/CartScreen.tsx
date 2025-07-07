@@ -232,10 +232,9 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
         }></FlatList>
       <AppBottomSheet
         onClose={() => setBottomSheetOpen(!isBottomSheetOpen)}
-        flexHeight={0.2}
         isOppen={isBottomSheetOpen}
         pannigGesture={true}
-        title="Counter"
+        
         children={() => child}></AppBottomSheet>
     </>
   );

@@ -89,7 +89,7 @@ export const RootStack: React.FC = () => {
   const {InternetUnAvailable} = Logos;
   const dispatch = useAppDispatch();
 
-  useCallback(() => {
+  useEffect(() => {
     const timer = setTimeout(() => {
       dispatch(hideLoader());
     }, 3000);

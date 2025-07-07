@@ -30,33 +30,36 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
 
   useEffect(() => {
     console.log('user Function Calling ');
-
-    getLoginUserFn()
-      .then(data => {
-        if (data.data) {
-          dispatch(login());
-          dispatch(
-            setUserProfile({
-              username: data.data?.getUser?.username ?? 'Not Mention',
-              pofileImageUrl:
-                data.data?.getUser?.profileImageUrl ?? ImageNotFound,
-              email: 'sagar@gmail.com',
-              phoneNumber: '9841150390',
-              isBuyMode: false,
-            }),
-          );
+    if (userSignInStatus === true)
+      getLoginUserFn()
+        .then(data => {
+          if (data.data) {
+            dispatch(login());
+            dispatch(
+              setUserProfile({
+                username: data.data?.getUser?.username ?? 'Not Mention',
+                pofileImageUrl:
+                  data.data?.getUser?.profileImageUrl ?? ImageNotFound,
+                email: 'sagar@gmail.com',
+                phoneNumber: '9841150390',
+                isBuyMode: false,
+              }),
+            );
+            handleForwardNavigation();
+          }
+          if (data.error) {
+            handleForwardNavigation();
+          }
+        })
+        .catch(error => {
           handleForwardNavigation();
-        }
-        if (data.error) {
+        })
+        .finally(() => {
           handleForwardNavigation();
-        }
-      })
-      .catch(error => {
-        handleForwardNavigation();
-      })
-      .finally(() => {
-        handleForwardNavigation();
-      });
+        });
+    else {
+      handleForwardNavigation();
+    }
   }, []);
 
   return (
