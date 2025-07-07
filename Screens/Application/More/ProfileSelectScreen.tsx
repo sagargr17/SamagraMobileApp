@@ -37,7 +37,7 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
   const isShopActive = useAppSelector(state => state.user.isShopActive);
   const dispatch = useAppDispatch();
   const navigation = useNavigation<any>();
-  const userData = useAppSelector(state => state.user.user);
+  const userData = useAppSelector(state => state.user.Profile);
   const [paginationLoading, setPaginationLoading] = useState<boolean>(false);
 
   const isLoadingInitialData =

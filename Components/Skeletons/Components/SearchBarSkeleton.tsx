@@ -19,3 +19,6 @@ export const SearchBarSkeleton: React.FC<SearchBarSkeletonProps> = ({}) => {
     </RowFlexLayout>
   );
 };
+
+
+

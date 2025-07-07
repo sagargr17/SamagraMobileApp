@@ -1,14 +1,14 @@
-import { CLIENT_ID, CLIENT_SECRET } from '@env';
-import { showMessage } from 'react-native-flash-message';
+import {CLIENT_ID, CLIENT_SECRET} from '@env';
+import {showMessage} from 'react-native-flash-message';
 import * as Keychain from 'react-native-keychain';
-import { API_URL } from '../../Constants/SamagraConstants/SamagraEndpoints';
-import { responseTheme } from '../../Prefrences/Prefrences';
+import {API_URL} from '../../Constants/SamagraConstants/SamagraEndpoints';
+import {responseTheme} from '../../Prefrences/Prefrences';
 import {
   hideLoader,
   showLoader,
 } from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
-import { store } from '../../StateManagement/Store';
-import { login } from '../../StateManagement/User/UserSlice';
+import {store} from '../../StateManagement/Store';
+import {login} from '../../StateManagement/User/UserSlice';
 
 interface AuthResponse {
   access_token: string;
@@ -45,7 +45,6 @@ async function Authenticator(userName: string, password: string) {
 
     if (response.ok) {
       await saveTokens(data);
-      store.dispatch(hideLoader());
       return 200;
     }
 
@@ -74,11 +73,7 @@ export async function saveTokens(data: AuthResponse): Promise<void> {
     await Keychain.setGenericPassword('userStatus', 'true', {
       service: 'userStatus',
     });
-    store.dispatch(
-      login({
-        isAuthenticated: true,
-      }),
-    );
+    store.dispatch(login());
   } catch (error) {
     console.error('Error storing tokens:', error);
   }

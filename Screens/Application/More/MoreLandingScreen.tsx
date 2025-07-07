@@ -23,7 +23,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
   const navigation = useNavigation<any>();
   let userLogoutHandle = () => clearTokens();
   const selectedShopData = useAppSelector(state => state.user.shopData);
-  const selectedUserData = useAppSelector(state => state.user.user);
+  const selectedUserData = useAppSelector(state => state.user.Profile);
   const [skeletonLoading, setSkeletonLoading] = useState<boolean>(true);
   // This Parameters check weather Shop is Active or Not
   const isShopActive = useAppSelector(state => state.user.isShopActive);

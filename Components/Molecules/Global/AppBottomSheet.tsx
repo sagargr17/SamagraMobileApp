@@ -12,12 +12,9 @@ import {size} from '../../../Prefrences/Prefrences';
 
 interface SamagraBottomSheetProps {
   children: () => React.ReactNode;
-  title: string;
   pannigGesture: boolean;
-  flexHeight: number;
   isOppen: boolean;
   onClose?: () => void;
-  customStyle?: ViewStyle;
 }
 
 export const AppBottomSheet: React.FC<SamagraBottomSheetProps> = ({
@@ -68,7 +65,7 @@ export const AppBottomSheet: React.FC<SamagraBottomSheetProps> = ({
           borderWidth: 1,
           backgroundColor: colors.background,
         },
-    ]}>
+      ]}>
       <BottomSheetScrollView
         showsVerticalScrollIndicator={false}
         style={[

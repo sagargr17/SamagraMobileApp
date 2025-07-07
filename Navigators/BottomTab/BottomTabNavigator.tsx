@@ -35,7 +35,8 @@ export const BottomTabNavigator: React.FC = () => {
   const {colors, fonts} = useTheme();
   const navigation = useNavigation<any>();
   const {BuyFrame, SellFrame} = Logos;
-  const isBuy = useAppSelector(state => state.user.user.isBuyMode);
+  const isBuy = useAppSelector(state => state.user.Profile.isBuyMode);
+
   const dispatch = useAppDispatch();
   const [isBuyFrameVisible, setIsBuyFrameVisible] = useState<boolean>(false);
 
@@ -52,7 +53,8 @@ export const BottomTabNavigator: React.FC = () => {
         component={item.component}
         listeners={({navigation, route}) => ({
           tabPress: e => {
-            if (route.name === 'Order') {
+            if (route.name === 'Order' && navigation.isFocused()) {
+              e.preventDefault();
               setIsBuyFrameVisible(!isBuyFrameVisible);
             } else {
               setIsBuyFrameVisible(false);
@@ -100,8 +102,6 @@ export const BottomTabNavigator: React.FC = () => {
             );
           }
           if (route.name === 'Order') {
-            console.log('IsBuyFrame', isBuyFrameVisible);
-
             return (
               <View
                 style={{

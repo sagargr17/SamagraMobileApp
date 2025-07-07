@@ -1,28 +1,22 @@
-import {useMutation} from '@apollo/client';
+import { useMutation } from '@apollo/client';
+import { useTheme } from '@react-navigation/native';
 import React from 'react';
-import {KeyboardAvoidingView, StyleSheet, View} from 'react-native';
-import {showMessage} from 'react-native-flash-message';
-import {CreateItemRequestMutation} from '../../GraphQL/Mutation/ItemRequestMutation';
-import {RootStackNavigationProp} from '../../Navigators/RootStackNavigator';
-import {responseTheme, size} from '../../Prefrences/Prefrences';
-import {showLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
-import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
+import { StyleSheet, View } from 'react-native';
+import { showMessage } from 'react-native-flash-message';
+import { CreateItemRequestMutation } from '../../GraphQL/Mutation/ItemRequestMutation';
+import { RootStackNavigationProp } from '../../Navigators/RootStackNavigator';
+import { responseTheme, size } from '../../Prefrences/Prefrences';
+import { showLoader } from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
+import { useAppDispatch, useAppSelector } from '../../StateManagement/hooks';
 import {
   postOrderparams,
   SentordersParams,
 } from '../../StateManagement/Orders/SentOrderParams';
-import {AppBottomSheet} from '../Molecules/Global/AppBottomSheet';
-import {AppForm} from './AppForm';
-import {ItemCategoryCardSlider} from './ItemCategorySlider';
-import {SamagraLoader} from '../Molecules/Response/SamagraLoader';
-import {GetAuthenticateClient} from '../../client/Graphql/AuthenticatedClient';
-import {ScrollView} from 'react-native-gesture-handler';
-import {Spacer} from '../Elements/Spacer';
-import {Divider, Surface} from 'react-native-paper';
-import {BubbleCard} from '../Molecules/Cards/BubbleCard';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {useTheme} from '@react-navigation/native';
-import {AreaMapper} from '../../Utilities/CustomMethods';
+import { Spacer } from '../Elements/Spacer';
+import { BubbleCard } from '../Molecules/Cards/BubbleCard';
+import { AppBottomSheet } from '../Molecules/Global/AppBottomSheet';
+import { AppForm } from './AppForm';
+import { ItemCategoryCardSlider } from './ItemCategorySlider';
 
 interface OrderBottomSheetProps {
   navigation: RootStackNavigationProp<'ApplicationOverlay'> | any;

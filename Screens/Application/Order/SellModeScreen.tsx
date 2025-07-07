@@ -1,28 +1,14 @@
+import { useTheme } from '@react-navigation/native';
 import React from 'react';
 import {
-  ActivityIndicator,
-  Alert,
-  StyleSheet,
-  TouchableOpacity,
-  useWindowDimensions,
-  View,
+  useWindowDimensions
 } from 'react-native';
-import {useTheme} from '@react-navigation/native';
-import {AppHeader} from '../../../Components/Organism/AppHeader';
+import { AppHeader } from '../../../Components/Organism/AppHeader';
 
-import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
-import {OrderBottomSheet} from '../../../Components/Organism/OrderBottomSheet';
-import {HomeLandingScreen} from '../Home/HomeLandingScreen';
-import {Spacer} from '../../../Components/Elements/Spacer';
-import {SamagraLoader} from '../../../Components/Molecules/Response/SamagraLoader';
-import {ProviderCardSkeleton} from '../../../Components/Skeletons/Components/ProviderCardSkeleton';
-import {ReceivedOffersListScreen} from '../ReceivedOffersListScreen';
-import {ReceivedRequestListScreen} from '../ReceivedRequestListScreen';
-import {PendingOrderScreen} from '../More/PendingOrdersScreen';
-import {Divider} from 'react-native-paper';
-import {ListCardSkeleton} from '../../../Components/Skeletons/Layout/ListCardSkeleton';
-import {size} from '../../../Prefrences/Prefrences';
-import {ReceivedorderListScreen} from '../ReceivedOrderListScreen';
+import { SceneMap, TabBar, TabView } from 'react-native-tab-view';
+import { Spacer } from '../../../Components/Elements/Spacer';
+import { ReceivedorderListScreen } from '../ReceivedOrderListScreen';
+import { ReceivedRequestListScreen } from '../ReceivedRequestListScreen';
 interface SellModeScreenProps {}
 
 export const SellModeScreen: React.FC<SellModeScreenProps> = ({}) => {

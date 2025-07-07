@@ -1,28 +1,28 @@
-import { useMutation } from '@apollo/client';
-import { useTheme } from '@react-navigation/native';
-import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { showMessage } from 'react-native-flash-message';
-import { AppText } from '../../Components/Elements/AppText';
-import { Spacer } from '../../Components/Elements/Spacer';
-import { AppForm } from '../../Components/Organism/AppForm';
-import { ImageUploader } from '../../Components/Organism/ImageUploader';
+import {useMutation} from '@apollo/client';
+import {useTheme} from '@react-navigation/native';
+import React, {useState} from 'react';
+import {StyleSheet, View} from 'react-native';
+import {showMessage} from 'react-native-flash-message';
+import {AppText} from '../../Components/Elements/AppText';
+import {Spacer} from '../../Components/Elements/Spacer';
+import {AppForm} from '../../Components/Organism/AppForm';
+import {ImageUploader} from '../../Components/Organism/ImageUploader';
 import {
   NotMentioned,
   SuccessAddItemMessage,
   SuccessAddItemMessageDescription,
 } from '../../Constants/UI/Messages';
-import { createNewProduct } from '../../GraphQL/Mutation/ItemMutation';
-import { FlatListScreen } from '../../Layout/ScreenLayout/FlatListScreenLayout';
-import { responseTheme, size } from '../../Prefrences/Prefrences';
-import { CreateProductInputViewModelInput } from '../../src/__generated__/graphql';
+import {createNewProduct} from '../../GraphQL/Mutation/ItemMutation';
+import {FlatListScreen} from '../../Layout/ScreenLayout/FlatListScreenLayout';
+import {responseTheme, size} from '../../Prefrences/Prefrences';
+import {CreateProductInputViewModelInput} from '../../src/__generated__/graphql';
 import {
   hideLoader,
   showLoader,
 } from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
-import { useAppDispatch, useAppSelector } from '../../StateManagement/hooks';
-import { AreaMapper } from '../../Utilities/CustomMethods';
-import ImageHandler, { OutPutImageType } from '../../Utilities/ImageHandler';
+import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
+import {AreaMapper} from '../../Utilities/CustomMethods';
+import ImageHandler, {OutPutImageType} from '../../Utilities/ImageHandler';
 
 interface AddItemScreenProps {}
 
@@ -37,40 +37,59 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
   const handleCreateItemSubmit = async (
     data: CreateProductInputViewModelInput,
   ) => {
-    console.log('Inuta DAta', data, shopID);
     dispatch(showLoader());
-    let uploadImage = await ImageHandler.uploadImage(uploadingImage);
-    console.log('Resulttt', uploadImage);
-    if (uploadImage) {
-      if (data && shopID)
-        try {
-          let response = await createNewItemFn({
-            variables: {
-              name: data.name ? data.name : NotMentioned,
-              shopId: shopID,
-              price: Number(data.price ? data.price : NotMentioned),
-              description: data.description ? data.description : NotMentioned,
-              unit: data.unit ? data.unit : NotMentioned,
-              stockQuantity: Number(data.stockQuantity),
-              imageUrls: uploadImage,
-              location: data.location ? data.location : NotMentioned,
-              categoryId: '1',
-            },
-          });
+    if (uploadingImage) {
+      let uploadImage = await ImageHandler.uploadImage(uploadingImage);
+      if (uploadImage) {
+        if (data && shopID)
+          try {
+            let response = await createNewItemFn({
+              variables: {
+                name: data.name ? data.name : NotMentioned,
+                shopId: shopID,
+                price: Number(data.price ? data.price : NotMentioned),
+                description: data.description ? data.description : NotMentioned,
+                unit: data.unit ? data.unit : NotMentioned,
+                stockQuantity: Number(data.stockQuantity),
+                imageUrls: uploadImage,
+                location: data.location ? data.location : NotMentioned,
+                categoryId: '1',
+              },
+            });
 
-          if (response.data) {
-            showMessage(
-              responseTheme(
-                SuccessAddItemMessage,
-                SuccessAddItemMessageDescription,
-                'success',
-              ),
-            );
-          }
-          if (response.errors) {
+            if (response.data) {
+              showMessage(
+                responseTheme(
+                  SuccessAddItemMessage,
+                  SuccessAddItemMessageDescription,
+                  'success',
+                ),
+              );
+            }
+            if (response.errors) {
+              dispatch(hideLoader());
+              showMessage({
+                message: `${response.errors[0].message}`,
+                type: 'danger',
+                description: 'Please , try after sometimes',
+                textStyle: {
+                  fontFamily: fonts.regular.fontFamily,
+                  fontWeight: 'regular',
+                  fontSize: AreaMapper({
+                    value: 14,
+                    scaleBy: 'average',
+                  }),
+                },
+                statusBarHeight: AreaMapper({
+                  value: 15,
+                  scaleBy: 'average',
+                }),
+              });
+            }
+          } catch (e) {
             dispatch(hideLoader());
             showMessage({
-              message: `${response.errors[0].message}`,
+              message: 'Opps, Something Went Wrong!',
               type: 'danger',
               description: 'Please , try after sometimes',
               textStyle: {
@@ -87,26 +106,15 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
               }),
             });
           }
-        } catch (e) {
-          dispatch(hideLoader());
-          showMessage({
-            message: 'Opps, Something Went Wrong!',
-            type: 'danger',
-            description: 'Please , try after sometimes',
-            textStyle: {
-              fontFamily: fonts.regular.fontFamily,
-              fontWeight: 'regular',
-              fontSize: AreaMapper({
-                value: 14,
-                scaleBy: 'average',
-              }),
-            },
-            statusBarHeight: AreaMapper({
-              value: 15,
-              scaleBy: 'average',
-            }),
-          });
-        }
+      }
+    } else {
+      showMessage(
+        responseTheme(
+          'No Any Images!',
+          'Please Upload Image for your Item',
+          'danger',
+        ),
+      );
     }
   };
 

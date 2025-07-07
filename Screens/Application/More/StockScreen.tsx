@@ -42,16 +42,16 @@ export const StockScreen: React.FC<StockScreenProps> = ({}) => {
 
   const {data, loading, error, fetchMore, networkStatus} = useQuery(
     getAllPersonalItems,
-    {
-      notifyOnNetworkStatusChange: true,
-      variables: {after: null},
-      onCompleted: () => {
-        setPaginationLoading(false);
-      },
-      onError: () => {
-        setPaginationLoading(false);
-      },
-    },
+    // {
+    //   notifyOnNetworkStatusChange: true,
+    //   variables: {after: null},
+    //   onCompleted: () => {
+    //     setPaginationLoading(false);
+    //   },
+    //   onError: () => {
+    //     setPaginationLoading(false);
+    //   },
+    // },
   );
 
   const isLoadingInitialData =
@@ -99,45 +99,46 @@ export const StockScreen: React.FC<StockScreenProps> = ({}) => {
   if (error) return <Text>{error.message}</Text>;
 
   return (
-    <FlatListScreen
-      onEndReached={() => {
-        if (data?.getItems?.pageInfo.hasNextPage && !isFetchingMore) {
-          fetchMore({
-            variables: {after: data?.getItems?.pageInfo.endCursor},
-          });
-        }
-      }}
-      onEndReachedThreshold={0.6}
-      ListEmptyComponent={emptyNode}
-      data={data?.getItems?.edges}
-      renderItem={({item, index}) => (
-        <ListCard
-          onImagePress={() => {
-            if (item) {
-              handleStockUpdateNavigation(item.node);
-            }
-          }}
-          id={item?.node?.id ?? NotMentioned}
-          imageUrl={item?.node?.imageUrls?.[0] ?? ItemImageNotFound}
-          list={[
-            {
-              type: 'title',
-              value: titleCase(item?.node?.name ?? NotMentioned),
-              fontVariant: 'heavy',
-            },
-            {
-              type: 'regular',
-              value: `Qty: ${item?.node?.stockQuantity ?? NotMentioned}`,
-              fontVariant: 'medium',
-            },
-            {
-              type: 'regular',
-              value: `Npr.${item?.node?.price ?? NotMentioned}`,
-            },
-          ]}></ListCard>
-      )}
-      ListFooterComponent={
-        isFetchingMore ? <SamagraLoader></SamagraLoader> : null
-      }></FlatListScreen>
+    <></>
+    // <FlatListScreen
+    //   onEndReached={() => {
+    //     // if (data?.getItems?.pageInfo.hasNextPage && !isFetchingMore) {
+    //     //   fetchMore({
+    //     //     variables: {after: data?.getItems?.pageInfo.endCursor},
+    //     //   });
+    //     // }
+    //   }}
+    //   onEndReachedThreshold={0.6}
+    //   ListEmptyComponent={emptyNode}
+    //   data={data?.getItems?.edges}
+    //   renderItem={({item, index}) => (
+    //     <ListCard
+    //       onImagePress={() => {
+    //         if (item) {
+    //           handleStockUpdateNavigation(item.node);
+    //         }
+    //       }}
+    //       id={item?.node?.id ?? NotMentioned}
+    //       imageUrl={item?.node?.imageUrls?.[0] ?? ItemImageNotFound}
+    //       list={[
+    //         {
+    //           type: 'title',
+    //           value: titleCase(item?.node?.name ?? NotMentioned),
+    //           fontVariant: 'heavy',
+    //         },
+    //         {
+    //           type: 'regular',
+    //           value: `Qty: ${item?.node?.stockQuantity ?? NotMentioned}`,
+    //           fontVariant: 'medium',
+    //         },
+    //         {
+    //           type: 'regular',
+    //           value: `Npr.${item?.node?.price ?? NotMentioned}`,
+    //         },
+    //       ]}></ListCard>
+    //   )}
+    //   ListFooterComponent={
+    //     isFetchingMore ? <SamagraLoader></SamagraLoader> : null
+    //   }></FlatListScreen>
   );
 };

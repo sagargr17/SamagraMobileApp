@@ -29,10 +29,13 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
   const {colors} = useTheme();
   const [isCheckoutVisible, setIsCheckoutVisible] = useState<boolean>(true);
   const dispatch = useAppDispatch();
+  console.log('IDDD>>>', route.params.id);
+
   const {data, loading, error} = useQuery(getPublicItemsById, {
     variables: {
       id: route.params.id,
     },
+    fetchPolicy: 'cache-and-network',
   });
 
   const navigation = useNavigation<any>();
@@ -124,7 +127,7 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
       </View>
     );
   };
-  const user = useAppSelector(state => state.user.user);
+  const user = useAppSelector(state => state.user.Profile);
 
   if (error) return <Text>ErrorItemCheckOut {error.message}</Text>;
   if (loading) return <SamagraLoader></SamagraLoader>;

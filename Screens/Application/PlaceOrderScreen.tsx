@@ -35,7 +35,7 @@ export const PlaceOrderScreen: React.FC<PlaceOrderScreenProps> = ({}) => {
   const navigation = useNavigation<any>();
   const placeOrderDetails = useAppSelector(state => state.placeOrderParams);
   const location = useAppSelector(state => state.user.userLocation?.address);
-  const user = useAppSelector(state => state.user.user);
+  const user = useAppSelector(state => state.user.Profile);
   const [createOrderMutationFn, {data, loading, error}] =
     useMutation(createOrderMutation);
 

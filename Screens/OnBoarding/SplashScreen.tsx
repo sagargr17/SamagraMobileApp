@@ -10,7 +10,7 @@ import {ImageNotFound} from '../../Constants/UI/AssetsUrls';
 import {getLoginUser} from '../../GraphQL/Queries/UserQueries';
 import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
 import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
-import {login} from '../../StateManagement/User/UserSlice';
+import {login, setUserProfile} from '../../StateManagement/User/UserSlice';
 
 interface SplashScreenProps {
   navigation: OnBoardingStackNavigationProp<'SplashScreen'>;
@@ -25,7 +25,6 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
   const [getLoginUserFn] = useLazyQuery(getLoginUser);
 
   const handleForwardNavigation = () => {
-    console.log('User sTatus ', userSignInStatus);
     navigation.navigate('GetStartedScreen');
   };
 
@@ -35,16 +34,15 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
     getLoginUserFn()
       .then(data => {
         if (data.data) {
+          dispatch(login());
           dispatch(
-            login({
-              user: {
-                username: data.data?.getUser?.username ?? 'Not Mention',
-                pofileImageUrl:
-                  data.data?.getUser?.profileImageUrl ?? ImageNotFound,
-                email: 'sagar@gmail.com',
-                phoneNumber: '9841150390',
-              },
-              isAuthenticated: true,
+            setUserProfile({
+              username: data.data?.getUser?.username ?? 'Not Mention',
+              pofileImageUrl:
+                data.data?.getUser?.profileImageUrl ?? ImageNotFound,
+              email: 'sagar@gmail.com',
+              phoneNumber: '9841150390',
+              isBuyMode: false,
             }),
           );
           handleForwardNavigation();

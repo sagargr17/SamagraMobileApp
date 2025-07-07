@@ -26,7 +26,12 @@ import {showLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateS
 import {useAppDispatch} from '../../StateManagement/hooks';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import {Icon, ProgressBar, TextInput} from 'react-native-paper';
-import {size} from '../../Prefrences/Prefrences';
+import {responseTheme, size} from '../../Prefrences/Prefrences';
+import {useLazyQuery} from '@apollo/client';
+import {getLoginUser} from '../../GraphQL/Queries/UserQueries';
+import {setUserProfile} from '../../StateManagement/User/UserSlice';
+import {ImageNotFound} from '../../Constants/UI/AssetsUrls';
+import {showMessage} from 'react-native-flash-message';
 
 interface SignInScreenProps {
   navigation: OnBoardingStackNavigationProp<'SignUpScreen'>;

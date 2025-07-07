@@ -11,6 +11,7 @@ import {
 import {
   KeyboardAvoidingView,
   Platform,
+  SafeAreaView,
   ScrollView,
   StyleSheet,
   View,
@@ -66,73 +67,75 @@ export const AppForm = <TFormValues extends FieldValues>({
   });
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles.keyboardAvoidingView}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        StickyHeaderComponent={header}>
-        {/* {children} */}
+    <SafeAreaView>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.keyboardAvoidingView}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          StickyHeaderComponent={header}>
+          {/* {children} */}
 
-        {formConfig.map((item: any) => (
-          <View key={item.name.toString()}>
-            <Controller
-              control={control as Control<FieldValues>}
-              name={item.name}
-              rules={item.rules} // Use item.rules directly
-              render={({field: {onChange, value}}) => (
-                <View>
-                  <Input
-                    left={item.icon ?? item.icon}
-                    defaultValue={item.defaultValue}
-                    label={item.label}
-                    placeholder={item.placeholder || `Enter ${item.label}`}
-                    value={value as string}
-                    onChangeText={onChange}
-                    keyboardType={
-                      item.type === 'number'
-                        ? 'numeric'
-                        : item.type === 'email'
-                        ? 'email-address'
-                        : item.type === 'phone'
-                        ? 'phone-pad'
-                        : 'default'
-                    }
-                    secureTextEntry={item.type === 'password'}
-                    height={item.type === 'description' ? 80 : 53}
-                    multiline={item.type === 'description' ? true : false}
-                    onFocus={item.onFocus}
-                  />
-                </View>
+          {formConfig.map((item: any) => (
+            <View key={item.name.toString()}>
+              <Controller
+                control={control as Control<FieldValues>}
+                name={item.name}
+                rules={item.rules} // Use item.rules directly
+                render={({field: {onChange, value}}) => (
+                  <View>
+                    <Input
+                      left={item.icon ?? item.icon}
+                      defaultValue={item.defaultValue}
+                      label={item.label}
+                      placeholder={item.placeholder || `Enter ${item.label}`}
+                      value={value as string}
+                      onChangeText={onChange}
+                      keyboardType={
+                        item.type === 'number'
+                          ? 'numeric'
+                          : item.type === 'email'
+                          ? 'email-address'
+                          : item.type === 'phone'
+                          ? 'phone-pad'
+                          : 'default'
+                      }
+                      secureTextEntry={item.type === 'password'}
+                      height={item.type === 'description' ? 80 : 53}
+                      multiline={item.type === 'description' ? true : false}
+                      onFocus={item.onFocus}
+                    />
+                  </View>
+                )}
+              />
+
+              {/* Check if an error exists for the current item.name */}
+              {errors[item.name as string] && (
+                <ErrorText>
+                  {/* Access the message property of the error object */}
+                  {(errors[item.name as string] as any)?.message}
+                </ErrorText>
               )}
-            />
-
-            {/* Check if an error exists for the current item.name */}
-            {errors[item.name as string] && (
-              <ErrorText>
-                {/* Access the message property of the error object */}
-                {(errors[item.name as string] as any)?.message}
-              </ErrorText>
-            )}
+            </View>
+          ))}
+          <View style={customBottonPositionStyle}>
+            <AppButton
+              disabled={disabled}
+              showLoader={false}
+              onPress={handleSubmit(onFormSubmit)}
+              style={[
+                {
+                  marginTop: size.spacing.s,
+                },
+              ]}
+              color="primary">
+              {submitButtonText}
+            </AppButton>
           </View>
-        ))}
-        <View style={customBottonPositionStyle}>
-          <AppButton
-            disabled={disabled}
-            showLoader={false}
-            onPress={handleSubmit(onFormSubmit)}
-            style={[
-              {
-                marginTop: size.spacing.s,
-              },
-            ]}
-            color="primary">
-            {submitButtonText}
-          </AppButton>
-        </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 

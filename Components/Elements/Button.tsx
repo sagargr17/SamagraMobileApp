@@ -29,7 +29,7 @@ const AppButton = ({
 
   return (
     <Button
-      rippleColor={'#ddfcd9'}
+      rippleColor={colors.card}
       mode={mode}
       textColor={mode === 'outlined' ? colors.text : 'white'}
       labelStyle={[

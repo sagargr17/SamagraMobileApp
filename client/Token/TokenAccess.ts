@@ -38,13 +38,13 @@ export async function getTokens() {
 
 type clearTokens = () => void | unknown;
 export async function clearTokens() {
-  console.log('Result');
-
   try {
     await Keychain.resetGenericPassword({service: 'accessToken'});
     await Keychain.resetGenericPassword({service: 'refreshToken'});
     await Keychain.resetGenericPassword({service: 'userStatus'})
       .then(() => {
+        console.log('Logout Success Full');
+
         store.dispatch(logout()); //This Logouts from the redux store too
       })
       .catch(error => error);

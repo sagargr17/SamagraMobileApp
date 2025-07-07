@@ -30,7 +30,7 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
   const {colors} = useTheme();
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
-  const user = useAppSelector(state => state.user.user);
+  const user = useAppSelector(state => state.user.Profile);
   const {NoItemFound} = Logos;
   const userLocation = useAppSelector(state => state.user.userLocation);
   const [paginationLoading, setPaginationLoading] = useState<boolean>(false);

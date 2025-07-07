@@ -30,24 +30,23 @@ interface UserLocation {
 }
 
 export interface UserState {
-  user: User;
-  isAuthenticated?: boolean | string;
+  Profile: User;
+  isAuthenticated: boolean;
   isShopActive?: boolean;
   shopData?: ShopDetail;
   uploadedImages?: UploadedImages;
   userLocation?: UserLocation;
-  selectedItem: ItemViewModel;
 }
 
 const initialState: UserState = {
-  user: {
+  Profile: {
     username: 'SamagraUser',
     pofileImageUrl: ImageNotFound,
     email: 'sagar@gmail.com',
     phoneNumber: '9841150390',
     isBuyMode: false,
   },
-  isAuthenticated: 'loading',
+  isAuthenticated: false,
   isShopActive: false,
   shopData: {
     shopId: '',
@@ -59,26 +58,24 @@ const initialState: UserState = {
     lat: 0,
     long: 0,
   },
-  selectedItem: {
-    stockQuantity: 0,
-    price: 0,
-    dateTime: '',
-    isProduct: false,
-    starRating: 3,
-  },
+  // selectedItem: {
+  //   stockQuantity: 0,
+  //   price: 0,
+  //   dateTime: '',
+  //   isProduct: false,
+  //   starRating: 3,
+  // },
 };
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    login: (state, action: PayloadAction<UserState>) => {
+    login: state => {
       state.isShopActive = false;
-      state.user = action.payload.user;
       state.isAuthenticated = true;
     },
     logout: state => {
-      // state.user = null;
       state.isAuthenticated = false;
     },
     setUserShopDetail: (state, action: PayloadAction<ShopDetail>) => {
@@ -100,11 +97,16 @@ const userSlice = createSlice({
     },
 
     setIsBuyMode: (state, action: PayloadAction<boolean>) => {
-      state.user.isBuyMode = action.payload;
+      state.Profile.isBuyMode = action.payload;
     },
-    setItemSelected: (state, action: PayloadAction<ItemViewModel>) => {
-      state.selectedItem = action.payload;
+
+    setUserProfile: (state, action: PayloadAction<User>) => {
+      state.Profile = action.payload;
     },
+
+    // setItemSelected: (state, action: PayloadAction<ItemViewModel>) => {
+    //   state.selectedItem = action.payload;
+    // },
   },
 });
 
@@ -116,6 +118,7 @@ export const {
   setUserLocation,
   setShopState,
   setIsBuyMode,
-  setItemSelected,
+  setUserProfile
+  // setItemSelected,
 } = userSlice.actions;
 export default userSlice.reducer;
