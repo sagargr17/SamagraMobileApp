@@ -17,7 +17,7 @@ import {createClient} from 'graphql-ws';
 import React, {useState} from 'react';
 import {StatusBar} from 'react-native';
 import BootSplash from 'react-native-bootsplash';
-import FlashMessage from 'react-native-flash-message';
+import FlashMessage, {showMessage} from 'react-native-flash-message';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {PaperProvider} from 'react-native-paper';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
@@ -27,7 +27,7 @@ import {getTokens} from './client/Token/TokenAccess';
 import {isTokenExpired} from './client/Token/TokeValidator';
 import {GRAPHQL_ENDPOINT} from './Constants/SamagraConstants/SamagraEndpoints';
 import {RootStack} from './Navigators/RootStackNavigator';
-import {MyTheme} from './Prefrences/Prefrences';
+import {MyTheme, responseTheme} from './Prefrences/Prefrences';
 import {setError} from './StateManagement/Error&loadingHandle/ErrorHandlingSlice';
 import {store} from './StateManagement/Store';
 import {logout} from './StateManagement/User/UserSlice';
@@ -38,9 +38,7 @@ const errorLink = onError(({graphQLErrors, networkError, protocolErrors}) => {
 
   if (graphQLErrors)
     graphQLErrors.forEach(({message, locations, path}) =>
-      console.log(
-        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
-      ),
+      showMessage(responseTheme(message, 'Verify & Try again ! ', 'danger')),
     );
 
   if (protocolErrors) {
