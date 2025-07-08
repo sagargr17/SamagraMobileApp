@@ -1,7 +1,7 @@
 import {useLazyQuery} from '@apollo/client';
 import {useIsFocused} from '@react-navigation/native';
 import {MotiView} from 'moti';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Text} from 'react-native-paper';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
@@ -20,6 +20,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
   const {SamagraLogo} = Logos;
   const isFocused = useIsFocused();
   const dispatch = useAppDispatch();
+  // const {} = //THis is for the USer Login Maker
 
   const userSignInStatus = useAppSelector(state => state.user.isAuthenticated);
   const [getLoginUserFn] = useLazyQuery(getLoginUser);
@@ -29,7 +30,8 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
   };
 
   useEffect(() => {
-    console.log('user Function Calling ');
+    // const;
+
     if (userSignInStatus === true)
       getLoginUserFn()
         .then(data => {

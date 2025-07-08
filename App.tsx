@@ -14,8 +14,8 @@ import {
 } from '@apollo/client/utilities';
 import {NavigationContainer} from '@react-navigation/native';
 import {createClient} from 'graphql-ws';
-import React, {useState} from 'react';
-import {StatusBar} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Alert, StatusBar} from 'react-native';
 import BootSplash from 'react-native-bootsplash';
 import FlashMessage, {showMessage} from 'react-native-flash-message';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
@@ -31,6 +31,11 @@ import {MyTheme, responseTheme} from './Prefrences/Prefrences';
 import {setError} from './StateManagement/Error&loadingHandle/ErrorHandlingSlice';
 import {store} from './StateManagement/Store';
 import {logout} from './StateManagement/User/UserSlice';
+import {PermissionsAndroid} from 'react-native';
+import notifee from '@notifee/react-native';
+
+import {getApp} from '@react-native-firebase/app';
+import '@react-native-firebase/messaging';
 
 // ErrorResponse
 const errorLink = onError(({graphQLErrors, networkError, protocolErrors}) => {
@@ -78,8 +83,6 @@ const authLink = setContext(async (_, {headers}) => {
 
   // Token
   if (isTokenExpiredVar === true) {
-    console.log('1');
-
     if (userStatus === 'true' && refreshToken) {
       const newAccessToken = await accessTokenGenerator(refreshToken);
       if (newAccessToken === 400) {
@@ -158,6 +161,60 @@ export const client = new ApolloClient({
   }),
 });
 
+const permissionReqeust = async () => {
+  let responde = await PermissionsAndroid.request(
+    PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
+  );
+
+  console.log('Respond>>>', responde);
+
+  if (responde === PermissionsAndroid.RESULTS.GRANTED) {
+    console.log('Grandted');
+  } else {
+    Alert.alert('permission not grannted');
+  }
+};
+
+async function onDisplayNotification(body: string) {
+  // Request permissions (required for iOS)
+
+  await notifee.requestPermission();
+
+  try {
+    const channelId = await notifee.createChannel({
+      id: 'msg',
+
+      name: 'Firing alarms & timers',
+
+      lights: true,
+
+      vibration: true,
+
+      // importance: AndroidImportance.DEFAULT,
+    });
+
+    // Display a notification
+
+    await notifee.displayNotification({
+      title: 'Samagra',
+
+      body: body,
+
+      android: {
+        channelId,
+
+        // pressAction is needed if you want the notification to open the app when pressed
+
+        pressAction: {
+          id: 'default',
+        },
+      },
+    });
+  } catch (e) {
+    console.log('>>>Error Notification::', e);
+  }
+}
+
 // Main Modules
 function App(): React.JSX.Element {
   BootSplash.hide({fade: true});
@@ -166,6 +223,41 @@ function App(): React.JSX.Element {
     themes.colors.background === 'rgb(255, 255, 255)'
       ? 'dark-content'
       : 'light-content';
+
+  // Register background handler
+  getApp()
+    .messaging()
+    .setBackgroundMessageHandler(async (remoteMessage: any) => {
+      console.log('Message handled in the background!', remoteMessage);
+      onDisplayNotification('working');
+    });
+
+  async function onMessageReceived(message: any) {
+    // Do something
+    Alert.alert('Got Notification');
+    onDisplayNotification('working');
+  }
+
+  async function onAppBootstrap() {
+    // Register the device with FCM
+    await getApp()
+      .messaging()
+      .registerDeviceForRemoteMessages()
+      .then(result => console.log('Result...', result))
+      .catch(err => console.log('Erorr', err));
+
+    // Get the token
+    const token = await getApp().messaging().getToken();
+    console.log('Token', token);
+
+    getApp().messaging().onMessage(onMessageReceived);
+    getApp().messaging().setBackgroundMessageHandler(onMessageReceived);
+  }
+  
+  useEffect(() => {
+    permissionReqeust();
+    onAppBootstrap();
+  }, []);
 
   return (
     <>

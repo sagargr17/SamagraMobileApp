@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "967753694993",
+    "project_id": "samagra-62baf",
+    "storage_bucket": "samagra-62baf.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:967753694993:android:8d7bb7567d40d3edbfd6b0",
+        "android_client_info": {
+          "package_name": "com.samagraapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXflLMhpuLPKEzlyVXxcfZSLXIIzRTF94"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
