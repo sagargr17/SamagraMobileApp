@@ -18,6 +18,7 @@ export const GetBasketItemsQuery =
           imageUrls
           price
           starRating
+          isProduct
           shop {
             name
             user {

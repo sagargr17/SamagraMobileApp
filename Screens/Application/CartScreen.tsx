@@ -222,6 +222,21 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
                   color: colors.primary,
                 },
               },
+              {
+                value: titleRange(
+                  `${
+                    item?.node?.item?.isProduct === true ? 'Product' : 'Service'
+                  }`,
+                ),
+                type: 'caption',
+                fontVariant: 'medium',
+                style: {
+                  color:
+                    item?.node?.item?.isProduct === true
+                      ? colors.primary
+                      : '#7ba5e8',
+                },
+              },
             ]}
             surfaceLevel={1}></ListCard>
         )}
@@ -234,7 +249,6 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
         onClose={() => setBottomSheetOpen(!isBottomSheetOpen)}
         isOppen={isBottomSheetOpen}
         pannigGesture={true}
-        
         children={() => child}></AppBottomSheet>
     </>
   );

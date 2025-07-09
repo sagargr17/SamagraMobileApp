@@ -1,7 +1,7 @@
 import FastImage from '@d11/react-native-fast-image';
-import { useTheme } from '@react-navigation/native';
-import { View } from 'moti';
-import React, { useState } from 'react';
+import {useTheme} from '@react-navigation/native';
+import {View} from 'moti';
+import React, {useState} from 'react';
 import {
   ImageStyle,
   StyleSheet,
@@ -9,10 +9,10 @@ import {
   TouchableOpacity,
   ViewStyle,
 } from 'react-native';
-import { Surface } from 'react-native-paper';
-import { size } from '../../../Prefrences/Prefrences';
-import { AreaMapper } from '../../../Utilities/CustomMethods';
-import { AppText } from '../../Elements/AppText';
+import {Surface} from 'react-native-paper';
+import {size} from '../../../Prefrences/Prefrences';
+import {AreaMapper} from '../../../Utilities/CustomMethods';
+import {AppText} from '../../Elements/AppText';
 
 interface ListCardProps {
   list: Array<{
@@ -77,6 +77,7 @@ export const ListCard: React.FC<ListCardProps> = ({
             style={{
               display: 'flex',
               flexDirection: 'row',
+              alignItems: 'flex-start',
             }}>
             <TouchableOpacity
               onPress={onImagePress}
@@ -97,7 +98,7 @@ export const ListCard: React.FC<ListCardProps> = ({
                   uri: imageUrl ?? imageUrl,
                   priority: FastImage.priority.high,
                 }}
-                resizeMode={FastImage.resizeMode.contain}
+                resizeMode={FastImage.resizeMode.cover}
               />
             </TouchableOpacity>
             <TouchableOpacity
@@ -136,8 +137,9 @@ const styles = StyleSheet.create({
     marginRight: AreaMapper({value: 5, scaleBy: 'height'}),
   },
   image: {
-    width: '100%',
+    width: '92%',
     height: '100%',
+    borderRadius: size.borderRadius.l,
   },
   detailsContainer: {
     flex: 1,

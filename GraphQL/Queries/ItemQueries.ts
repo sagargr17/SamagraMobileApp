@@ -105,27 +105,30 @@ query GetAllPersonalItems($after: String) {
 
 // Items accordig to the shop
 export const GetItemsByShopId = gql(`
-  query GetPersonalItemsByShopId($shopId: String!) {
-  getItems(shopId: $shopId) {
+  query GetPersonalItemsByShopId($shopId: String!, $after:String) {
+  getItems(shopId: $shopId, after: $after) {
     pageInfo {
       hasNextPage
       hasPreviousPage
       startCursor
       endCursor
     }
-    nodes {
-      id
-      name
-      price
-      starRating
-      stockQuantity
-      shop {
+
+    edges {
+      node {
         id
         name
+        price
+        isProduct
+        starRating
+        stockQuantity
+        imageUrls
+        shop {
+          id
+          name
+        }
       }
     }
   }
 }
   `);
-
-
