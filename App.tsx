@@ -12,11 +12,12 @@ import {
   getMainDefinition,
   relayStylePagination,
 } from '@apollo/client/utilities';
+import {getApp} from '@react-native-firebase/app';
+import '@react-native-firebase/messaging';
 import {NavigationContainer} from '@react-navigation/native';
 import {createClient} from 'graphql-ws';
-import React, {useEffect, useState} from 'react';
-import {Alert, StatusBar} from 'react-native';
-import BootSplash from 'react-native-bootsplash';
+import React, {useEffect, useMemo, useState} from 'react';
+import {PermissionsAndroid, StatusBar} from 'react-native';
 import FlashMessage, {showMessage} from 'react-native-flash-message';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {PaperProvider} from 'react-native-paper';
@@ -30,12 +31,7 @@ import {RootStack} from './Navigators/RootStackNavigator';
 import {MyTheme, responseTheme} from './Prefrences/Prefrences';
 import {setError} from './StateManagement/Error&loadingHandle/ErrorHandlingSlice';
 import {store} from './StateManagement/Store';
-import {logout} from './StateManagement/User/UserSlice';
-import {PermissionsAndroid} from 'react-native';
-import notifee from '@notifee/react-native';
-
-import {getApp} from '@react-native-firebase/app';
-import '@react-native-firebase/messaging';
+import {login, logout} from './StateManagement/User/UserSlice';
 
 // ErrorResponse
 const errorLink = onError(({graphQLErrors, networkError, protocolErrors}) => {
@@ -84,6 +80,9 @@ const authLink = setContext(async (_, {headers}) => {
   // Token
   if (isTokenExpiredVar === true) {
     if (userStatus === 'true' && refreshToken) {
+      console.log('2');
+      console.log('auth Link');
+
       const newAccessToken = await accessTokenGenerator(refreshToken);
       if (newAccessToken === 400) {
         store.dispatch(logout());
@@ -165,98 +164,56 @@ const permissionReqeust = async () => {
   let responde = await PermissionsAndroid.request(
     PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
   );
-
-  console.log('Respond>>>', responde);
-
   if (responde === PermissionsAndroid.RESULTS.GRANTED) {
     console.log('Grandted');
   } else {
-    Alert.alert('permission not grannted');
+    console.log('SDK APi is Less than 13 ');
   }
 };
 
-async function onDisplayNotification(body: string) {
-  // Request permissions (required for iOS)
+// OnnBootStrap
+async function onAppBootstrap() {
+  // Register the device with FCM
+  await getApp()
+    .messaging()
+    .registerDeviceForRemoteMessages()
+    .then(result => console.log('Result...', result))
+    .catch(err => console.log('Erorr', err));
 
-  await notifee.requestPermission();
+  // Get the token
+  const token = await getApp().messaging().getToken();
 
-  try {
-    const channelId = await notifee.createChannel({
-      id: 'msg',
-
-      name: 'Firing alarms & timers',
-
-      lights: true,
-
-      vibration: true,
-
-      // importance: AndroidImportance.DEFAULT,
-    });
-
-    // Display a notification
-
-    await notifee.displayNotification({
-      title: 'Samagra',
-
-      body: body,
-
-      android: {
-        channelId,
-
-        // pressAction is needed if you want the notification to open the app when pressed
-
-        pressAction: {
-          id: 'default',
-        },
-      },
-    });
-  } catch (e) {
-    console.log('>>>Error Notification::', e);
-  }
+  // getApp()
+  //   .messaging()
+  //   .onMessage(() => console.log('Home Ground'));
+  // getApp()
+  //   .messaging()
+  //   .setBackgroundMessageHandler(() => console.log('Background'));
 }
 
 // Main Modules
 function App(): React.JSX.Element {
-  BootSplash.hide({fade: true});
   const [themes] = useState(MyTheme); // Default to light theme
   const barStyle =
     themes.colors.background === 'rgb(255, 255, 255)'
       ? 'dark-content'
       : 'light-content';
+  const userStatus = useMemo(async () => {
+    const userStatus = (await getTokens()).userStatus;
+    
+    return userStatus;
+  }, []);
 
-  // Register background handler
-  getApp()
-    .messaging()
-    .setBackgroundMessageHandler(async (remoteMessage: any) => {
-      console.log('Message handled in the background!', remoteMessage);
-      onDisplayNotification('working');
-    });
-
-  async function onMessageReceived(message: any) {
-    // Do something
-    Alert.alert('Got Notification');
-    onDisplayNotification('working');
-  }
-
-  async function onAppBootstrap() {
-    // Register the device with FCM
-    await getApp()
-      .messaging()
-      .registerDeviceForRemoteMessages()
-      .then(result => console.log('Result...', result))
-      .catch(err => console.log('Erorr', err));
-
-    // Get the token
-    const token = await getApp().messaging().getToken();
-    console.log('Token', token);
-
-    getApp().messaging().onMessage(onMessageReceived);
-    getApp().messaging().setBackgroundMessageHandler(onMessageReceived);
-  }
-  
   useEffect(() => {
     permissionReqeust();
     onAppBootstrap();
+
+    // User sTatus
+    userStatus
+      .then(res => {
+        store.dispatch(login());
+      })
+      .catch(err => store.dispatch(logout()));
   }, []);
 
   return (

@@ -1,30 +1,23 @@
-import {useLazyQuery} from '@apollo/client';
-import {useNavigation, useTheme} from '@react-navigation/native';
+import {useTheme} from '@react-navigation/native';
 import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
 import React, {useCallback, useEffect} from 'react';
-import {Alert, Text} from 'react-native';
 import {ProgressBar} from 'react-native-paper';
-import {ImageNotFound} from '../Constants/UI/AssetsUrls';
-import {getLoginUser} from '../GraphQL/Queries/UserQueries';
-import {size} from '../Prefrences/Prefrences';
+import {client} from '../App';
+import {Logos} from '../Assets/SVG/Exports/Exports';
+import {SingnlePageInfo} from '../Components/Organism/SinglePageInfo';
+import {setError} from '../StateManagement/Error&loadingHandle/ErrorHandlingSlice';
 import {
   hideLoader,
   showLoader,
 } from '../StateManagement/Error&loadingHandle/LoaderStateSlice';
 import {useAppDispatch, useAppSelector} from '../StateManagement/hooks';
-import {login} from '../StateManagement/User/UserSlice';
+import {AreaMapper} from '../Utilities/CustomMethods';
 import {BottomTabNavigator} from './BottomTab/BottomTabNavigator';
 import {ApplicationOverlayStackNavigator} from './Stack/ApplicationOverlayStackNavigator';
 import {OnBoardingStackNavigator} from './Stack/OnBoardingStackNavigator';
-import {Logos} from '../Assets/SVG/Exports/Exports';
-import {SingnlePageInfo} from '../Components/Organism/SinglePageInfo';
-import {AreaMapper} from '../Utilities/CustomMethods';
-import {client} from '../App';
-import {setError} from '../StateManagement/Error&loadingHandle/ErrorHandlingSlice';
-import {View} from 'moti';
 
 type RootStackParamList = {
   ApplicationOverlay: undefined;
@@ -114,6 +107,7 @@ export const RootStack: React.FC = () => {
     });
   }, []);
 
+  // IsError
   if (errorResponse.isErorr)
     return (
       <SingnlePageInfo
@@ -141,12 +135,11 @@ export const RootStack: React.FC = () => {
           color={colors.primary}
           indeterminate={true}></ProgressBar>
       ) : null}
-
       <RootStackBuilder.Navigator
         screenOptions={{
           header: () => null,
         }}>
-        {userSignInStatus === true //change this to true while deployment
+        {userSignInStatus === true && 'Loading' //change this to true while deployment
           ? screenBuilder([
               {screenName: 'BottomTab', component: BottomTabNavigator},
               {

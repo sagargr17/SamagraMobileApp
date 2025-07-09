@@ -1,18 +1,10 @@
-import React from 'react';
-import {StyleSheet, View, Pressable} from 'react-native';
-import {
-  heightPercentageToDP,
-  widthPercentageToDP,
-} from 'react-native-responsive-screen';
-import {Logos} from '../../Assets/SVG/Exports/Exports';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {useTheme} from '@react-navigation/native';
-import {AreaMapper} from '../../Utilities/CustomMethods';
-import {AppText} from '../Elements/AppText';
+import React from 'react';
+import {Pressable, StyleSheet, View} from 'react-native';
+import {Logos} from '../../Assets/SVG/Exports/Exports';
 import {size} from '../../Prefrences/Prefrences';
-import {
-  GoogleSignin,
-  GoogleSigninButton,
-} from '@react-native-google-signin/google-signin';
+import {AppText} from '../Elements/AppText';
 
 interface SocialProps {
   onAppleClick?: () => void;
@@ -62,14 +54,16 @@ export const SocialForm: React.FC<SocialProps> = ({onAppleClick}) => {
           ]}>
           <AppleLogo height={size.iconSize.medium} />
           <AppText
-            title="Apple"
+            title="Facebook"
             fontVariant="bold"
             fontSizeVariant={'regular'}></AppText>
         </View>
       </Pressable>
-      <Pressable onPress={() => {
-        startSignInFlow()
-      }} style={styles.flexItem}>
+      <Pressable
+        onPress={() => {
+          startSignInFlow();
+        }}
+        style={styles.flexItem}>
         <View
           style={[
             styles.socialItem,

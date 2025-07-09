@@ -31,7 +31,7 @@ interface UserLocation {
 
 export interface UserState {
   Profile: User;
-  isAuthenticated: boolean;
+  isAuthenticated: boolean | string;
   isShopActive?: boolean;
   shopData?: ShopDetail;
   uploadedImages?: UploadedImages;
@@ -46,7 +46,7 @@ const initialState: UserState = {
     phoneNumber: '9841150390',
     isBuyMode: false,
   },
-  isAuthenticated: false,
+  isAuthenticated: 'Loading',
   isShopActive: false,
   shopData: {
     shopId: '',
@@ -118,7 +118,7 @@ export const {
   setUserLocation,
   setShopState,
   setIsBuyMode,
-  setUserProfile
+  setUserProfile,
   // setItemSelected,
 } = userSlice.actions;
 export default userSlice.reducer;

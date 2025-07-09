@@ -1,16 +1,14 @@
-import {useLazyQuery} from '@apollo/client';
-import {useIsFocused} from '@react-navigation/native';
+import {useTheme} from '@react-navigation/native';
 import {MotiView} from 'moti';
-import React, {useEffect, useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import React, {useEffect} from 'react';
+import {ActivityIndicator, StyleSheet, View} from 'react-native';
+import BootSplash from 'react-native-bootsplash';
 import {Text} from 'react-native-paper';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
-import {ImageNotFound} from '../../Constants/UI/AssetsUrls';
-import {getLoginUser} from '../../GraphQL/Queries/UserQueries';
 import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
-import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
-import {login, setUserProfile} from '../../StateManagement/User/UserSlice';
+import {size} from '../../Prefrences/Prefrences';
+import {useAppSelector} from '../../StateManagement/hooks';
 
 interface SplashScreenProps {
   navigation: OnBoardingStackNavigationProp<'SplashScreen'>;
@@ -18,50 +16,14 @@ interface SplashScreenProps {
 
 export const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
   const {SamagraLogo} = Logos;
-  const isFocused = useIsFocused();
-  const dispatch = useAppDispatch();
-  // const {} = //THis is for the USer Login Maker
-
-  const userSignInStatus = useAppSelector(state => state.user.isAuthenticated);
-  const [getLoginUserFn] = useLazyQuery(getLoginUser);
-
-  const handleForwardNavigation = () => {
-    navigation.navigate('GetStartedScreen');
-  };
-
+  const {colors} = useTheme();
   useEffect(() => {
-    // const;
+    setTimeout(() => {
+      console.log('Calling Function');
+      navigation.navigate('GetStartedScreen');
+    }, 3500);
 
-    if (userSignInStatus === true)
-      getLoginUserFn()
-        .then(data => {
-          if (data.data) {
-            dispatch(login());
-            dispatch(
-              setUserProfile({
-                username: data.data?.getUser?.username ?? 'Not Mention',
-                pofileImageUrl:
-                  data.data?.getUser?.profileImageUrl ?? ImageNotFound,
-                email: 'sagar@gmail.com',
-                phoneNumber: '9841150390',
-                isBuyMode: false,
-              }),
-            );
-            handleForwardNavigation();
-          }
-          if (data.error) {
-            handleForwardNavigation();
-          }
-        })
-        .catch(error => {
-          handleForwardNavigation();
-        })
-        .finally(() => {
-          handleForwardNavigation();
-        });
-    else {
-      handleForwardNavigation();
-    }
+    return clearTimeout(0);
   }, []);
 
   return (
@@ -99,6 +61,13 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
         }}>
         <Text style={styles.title}>SAMAGRA</Text>
       </MotiView>
+      <ActivityIndicator
+        size={'large'}
+        color={colors.primary}
+        style={{
+          position: 'absolute',
+          bottom: size.spacing.xxl,
+        }}></ActivityIndicator>
     </View>
   );
 };

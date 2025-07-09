@@ -51,11 +51,7 @@ async function Authenticator(userName: string, password: string) {
     return handleAuthErrors(data);
   } catch (error) {
     showMessage(
-      responseTheme(
-        'Invalid Credential',
-        'Please validate your credentials and Try again later !!',
-        'danger',
-      ),
+      responseTheme(`${error}`, 'Please validate and try again!!', 'danger'),
     );
 
     return 400;

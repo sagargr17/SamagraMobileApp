@@ -1,5 +1,5 @@
 import {useMutation, useQuery, useSubscription} from '@apollo/client';
-import {useNavigation, useTheme} from '@react-navigation/native';
+import {useTheme} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {FlatList, Modal, StyleSheet, View} from 'react-native';
 import {showMessage} from 'react-native-flash-message';
@@ -14,7 +14,6 @@ import {AppBottomSheet} from '../../Components/Molecules/Global/AppBottomSheet';
 import {AppSerchBar} from '../../Components/Molecules/Global/AppSerchBar';
 import {SamagraLoader} from '../../Components/Molecules/Response/SamagraLoader';
 import {SingnlePageInfo} from '../../Components/Organism/SinglePageInfo';
-import {ProviderCardSkeleton} from '../../Components/Skeletons/Components/ProviderCardSkeleton';
 import {
   DummyServiceProviderURL,
   ImageNotFound,
@@ -33,38 +32,9 @@ import {responseTheme, size} from '../../Prefrences/Prefrences';
 import {GetDataSubscription} from '../../src/__generated__/graphql';
 import {showLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
 import {useAppDispatch} from '../../StateManagement/hooks';
-import {AreaMapper, titleCase, titleRange} from '../../Utilities/CustomMethods';
+import {titleCase, titleRange} from '../../Utilities/CustomMethods';
 
 interface ReceivedRequestListScreenProps {}
-// export async function onDisplayNotification(body: string) {
-//   // Request permissions (required for iOS)
-//   await notifee.requestPermission();
-
-//   try {
-//     const channelId = await notifee.createChannel({
-//       id: 'msg',
-//       name: 'Firing alarms & timers',
-//       lights: true,
-//       vibration: true,
-//       importance: AndroidImportance.DEFAULT,
-//     });
-
-//     // Display a notification
-//     await notifee.displayNotification({
-//       title: 'Samagra',
-//       body: body,
-//       android: {
-//         channelId,
-//         // pressAction is needed if you want the notification to open the app when pressed
-//         pressAction: {
-//           id: 'default',
-//         },
-//       },
-//     });
-//   } catch (e) {
-//     console.log('>>>Error Notification::', e);
-//   }
-// }
 
 export const ReceivedRequestListScreen: React.FC<
   ReceivedRequestListScreenProps
@@ -79,7 +49,7 @@ export const ReceivedRequestListScreen: React.FC<
   const [orderlist, setOrderList] = useState<Array<GetDataSubscription>>([]);
   const [isProfileTapped, setIsProfileTapped] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
+  // constn
   const {NoItemFound} = Logos;
   const {data, error} = useSubscription(getSubscribedData, {
     onData: ({client, data}) => {
@@ -107,7 +77,7 @@ export const ReceivedRequestListScreen: React.FC<
     createItemRequestOfferMutation,
   );
 
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   // Accepting the query
   const onAcceptHandle = async (reqeustId: string, itemId: string) => {
@@ -281,6 +251,8 @@ export const ReceivedRequestListScreen: React.FC<
     </>
   );
 
+  // const loadingTimer
+
   const profileDetailInfo = (
     <>
       <View style={styles.userInformationContainer}>
@@ -420,9 +392,7 @@ export const ReceivedRequestListScreen: React.FC<
         <AppBottomSheet
           onClose={() => setIsProfileTapped(!isProfileTapped)}
           isOppen={isProfileTapped}
-          flexHeight={0.17}
           pannigGesture={true}
-          title="Profile Details"
           children={() => <>{profileDetailInfo}</>}></AppBottomSheet>
       ) : null}
     </>

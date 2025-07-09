@@ -63,7 +63,7 @@ export const ReceivedorderListScreen: React.FC<
       }
     },
   });
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     setIsProfileTapped(false);
@@ -241,9 +241,7 @@ export const ReceivedorderListScreen: React.FC<
         <AppBottomSheet
           onClose={() => setIsProfileTapped(!isProfileTapped)}
           isOppen={isProfileTapped}
-          flexHeight={0.17}
           pannigGesture={true}
-          title="Profile Details"
           children={() => <>{profileDetailInfo}</>}></AppBottomSheet>
       ) : null}
     </>

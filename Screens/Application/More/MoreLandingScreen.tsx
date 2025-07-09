@@ -1,21 +1,18 @@
 import {
-  useFocusEffect,
-  useNavigation,
-  useTheme,
+  useNavigation
 } from '@react-navigation/native';
-import React, {useEffect, useState} from 'react';
-import {BackHandler, ScrollView, View} from 'react-native';
-import {clearTokens} from '../../../client/Token/TokenAccess';
-import AppButton from '../../../Components/Elements/Button';
-import {Spacer} from '../../../Components/Elements/Spacer';
-import {UserProfileCard} from '../../../Components/Molecules/Cards/UserProfileCard';
-import {ShopProfileUserContainer} from '../../../Components/Organism/ShopProfileUserContainer';
-import {UserProfileLandingContainer} from '../../../Components/Organism/UserProfileLandingContainer';
-import {ImageNotFound} from '../../../Constants/UI/AssetsUrls';
-import {NotMentioned} from '../../../Constants/UI/Messages';
-import {size} from '../../../Prefrences/Prefrences';
-import {useAppSelector} from '../../../StateManagement/hooks';
-import {MoreLandingSkeleton} from '../../../Components/Skeletons/Layout/MoreLandingSkeleton';
+import React, { useEffect, useState } from 'react';
+import { ScrollView, View } from 'react-native';
+import { clearTokens } from '../../../client/Token/TokenAccess';
+import { Spacer } from '../../../Components/Elements/Spacer';
+import { UserProfileCard } from '../../../Components/Molecules/Cards/UserProfileCard';
+import { ShopProfileUserContainer } from '../../../Components/Organism/ShopProfileUserContainer';
+import { UserProfileLandingContainer } from '../../../Components/Organism/UserProfileLandingContainer';
+import { MoreLandingSkeleton } from '../../../Components/Skeletons/Layout/MoreLandingSkeleton';
+import { ImageNotFound } from '../../../Constants/UI/AssetsUrls';
+import { NotMentioned } from '../../../Constants/UI/Messages';
+import { size } from '../../../Prefrences/Prefrences';
+import { useAppSelector } from '../../../StateManagement/hooks';
 
 interface MoreLandingScreenProps {}
 

@@ -122,9 +122,9 @@ export const BottomTabNavigator: React.FC = () => {
                       zIndex: 1,
                     }}>
                     {isBuy === true ? (
-                      <BuyFrame height={85} width={85}></BuyFrame>
+                      <BuyFrame height={100} width={100}></BuyFrame>
                     ) : (
-                      <SellFrame height={85} width={85}></SellFrame>
+                      <SellFrame height={100} width={100}></SellFrame>
                     )}
                   </TouchableHighlight>
                 ) : null}
@@ -157,7 +157,6 @@ export const BottomTabNavigator: React.FC = () => {
         },
         tabBarHideOnKeyboard: false,
         tabBarAllowFontScaling: true,
-        tabBarPosition: 'bottom',
       })}
       initialRouteName="Order">
       {screenBuilder([
