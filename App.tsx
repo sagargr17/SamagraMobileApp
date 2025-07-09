@@ -16,7 +16,7 @@ import {getApp} from '@react-native-firebase/app';
 import '@react-native-firebase/messaging';
 import {NavigationContainer} from '@react-navigation/native';
 import {createClient} from 'graphql-ws';
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {PermissionsAndroid, StatusBar} from 'react-native';
 import FlashMessage, {showMessage} from 'react-native-flash-message';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
@@ -32,6 +32,7 @@ import {MyTheme, responseTheme} from './Prefrences/Prefrences';
 import {setError} from './StateManagement/Error&loadingHandle/ErrorHandlingSlice';
 import {store} from './StateManagement/Store';
 import {login, logout} from './StateManagement/User/UserSlice';
+import BootSplash from 'react-native-bootsplash';
 
 // ErrorResponse
 const errorLink = onError(({graphQLErrors, networkError, protocolErrors}) => {
@@ -79,7 +80,7 @@ const authLink = setContext(async (_, {headers}) => {
 
   // Token
   if (isTokenExpiredVar === true) {
-    if (userStatus === 'true' && refreshToken) {
+    if (typeof userStatus === 'string' && 'true' && refreshToken) {
       console.log('2');
       console.log('auth Link');
 
@@ -198,20 +199,25 @@ function App(): React.JSX.Element {
     themes.colors.background === 'rgb(255, 255, 255)'
       ? 'dark-content'
       : 'light-content';
-  const userStatus = useMemo(async () => {
-    const userStatus = (await getTokens()).userStatus;
-    
+  const userStatus = async () => {
+    const {userStatus} = await getTokens();
     return userStatus;
-  }, []);
+  };
 
   useEffect(() => {
+    BootSplash.hide({fade: true});
     permissionReqeust();
     onAppBootstrap();
 
     // User sTatus
-    userStatus
+    userStatus()
       .then(res => {
-        store.dispatch(login());
+        console.log('Result::', res);
+
+        if (typeof res === 'string' && res === 'true') store.dispatch(login());
+        else {
+          store.dispatch(logout());
+        }
       })
       .catch(err => store.dispatch(logout()));
   }, []);
@@ -219,7 +225,6 @@ function App(): React.JSX.Element {
   return (
     <>
       <FlashMessage position="top" floating={true} />
-
       <Provider store={store}>
         <StatusBar
           backgroundColor={themes.colors.background}

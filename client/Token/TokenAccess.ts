@@ -23,10 +23,12 @@ export async function getTokens() {
     const userStatus = await Keychain.getGenericPassword({
       service: 'userStatus',
     });
+
     return {
       accessToken: accessToken ? accessToken.password : null,
       refreshToken: refreshToken ? refreshToken.password : null,
-      userStatus: userStatus ? userStatus.password : null,
+      userStatus: userStatus ? userStatus.password : 'false',
+      // userStatus: userStatus ? userStatus : null,
     };
   } catch (error) {
     return {accessToken: null, refreshToken: null, userStatus: null};
@@ -41,7 +43,9 @@ export async function clearTokens() {
   try {
     await Keychain.resetGenericPassword({service: 'accessToken'});
     await Keychain.resetGenericPassword({service: 'refreshToken'});
-    await Keychain.resetGenericPassword({service: 'userStatus'})
+    await Keychain.setGenericPassword('userStatus', 'false', {
+      service: 'userStatus',
+    })
       .then(() => {
         console.log('Logout Success Full');
 

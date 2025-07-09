@@ -49,9 +49,15 @@ async function Authenticator(userName: string, password: string) {
     }
 
     return handleAuthErrors(data);
-  } catch (error) {
+  } catch (error: any) {
+    console.log('Error Status', error);
+
     showMessage(
-      responseTheme(`${error}`, 'Please validate and try again!!', 'danger'),
+      responseTheme(
+        `${error}`.split(':')[1],
+        'Please validate and try again!!',
+        'danger',
+      ),
     );
 
     return 400;

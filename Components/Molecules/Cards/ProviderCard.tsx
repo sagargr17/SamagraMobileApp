@@ -124,7 +124,6 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({
                       style={{
                         borderRadius: size.borderRadius.s,
                         marginHorizontal: size.spacing.xxs,
-                        padding: 0.2,
                       }}
                       onPress={() => setISdeclined(!isDeclined)}>
                       Decline ✗

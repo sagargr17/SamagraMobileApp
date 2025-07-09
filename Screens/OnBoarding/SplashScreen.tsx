@@ -17,14 +17,19 @@ interface SplashScreenProps {
 export const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
   const {SamagraLogo} = Logos;
   const {colors} = useTheme();
+  const userIsAuthenticate = useAppSelector(
+    state => state.user.isAuthenticated,
+  );
   useEffect(() => {
-    setTimeout(() => {
-      console.log('Calling Function');
-      navigation.navigate('GetStartedScreen');
-    }, 3500);
+    console.log('User Login Status in Splash screen ', userIsAuthenticate);
+    
+    let timer = setTimeout(() => {
+      if (userIsAuthenticate === true || userIsAuthenticate === false)
+        navigation.navigate('GetStartedScreen');
+    }, 1500);
 
-    return clearTimeout(0);
-  }, []);
+    return () => clearInterval(timer);
+  }, [userIsAuthenticate]);
 
   return (
     <View style={styles.wrapper}>
