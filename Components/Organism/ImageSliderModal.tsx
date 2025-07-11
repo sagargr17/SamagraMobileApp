@@ -40,14 +40,7 @@ export const ImageSliderModal: React.FC<ImageSliderModalProps> = ({images}) => {
         }}
       />
       {visible ? (
-        <Modal
-          visible={visible}
-          transparent={false}
-          style={
-            {
-              // height: 2000,
-            }
-          }>
+        <Modal visible={visible} transparent={false}>
           <IconButton
             rippleColor={'gray'}
             style={{
@@ -77,7 +70,7 @@ export const ImageSliderModal: React.FC<ImageSliderModalProps> = ({images}) => {
                     scaleBy: 'width',
                   }),
                   height: AreaMapper({
-                    value: 390,
+                    value: 500,
                     scaleBy: 'width',
                   }),
 

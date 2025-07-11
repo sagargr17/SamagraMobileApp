@@ -29,9 +29,7 @@ export const PublicProfileBottomCard: React.FC<
     <AppBottomSheet
       onClose={onClose}
       isOppen={isOpen}
-      flexHeight={0.17}
       pannigGesture={isOpen ? true : false}
-      title="Profile Details"
       children={() => (
         <>
           <View style={[styles.primaryDetailContnainer]}>

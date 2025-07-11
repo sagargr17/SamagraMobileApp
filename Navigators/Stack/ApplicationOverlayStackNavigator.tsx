@@ -24,6 +24,8 @@ import {ProfileSelectScreen} from '../../Screens/Application/More/ProfileSelectS
 import {size} from '../../Prefrences/Prefrences';
 import {ShopCreatedScreen} from '../../Screens/Application/ShopCreatedScreen';
 import {ReceivedSuccessOrderScreen} from '../../Screens/Application/ReceivedSuccessOrderScreen';
+import {StockScreen} from '../../Screens/Application/More/StockScreen';
+import {StockUpdateScreen} from '../../Screens/Application/More/StockUpdateScreen';
 
 type ApplicationOverlayMoreStackParamList = {
   ReceivedOrderListScreen: undefined;
@@ -50,6 +52,13 @@ type ApplicationOverlayMoreStackParamList = {
   SelectProfile: undefined;
   ShopCreatedScreen: {
     shopID: string;
+  };
+  StockScreen: {
+    shopId: string;
+  };
+  StockUpdateScreen: undefined;
+  PendingOrderScreen: {
+    shopId: string;
   };
 };
 
@@ -231,6 +240,20 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
             component: ShopCreatedScreen,
             option: {
               header: () => null,
+            },
+          },
+          {
+            screenName: 'StockScreen',
+            component: StockScreen,
+            option: {
+              headerTitle: "Stock's",
+            },
+          },
+          {
+            screenName: 'StockUpdateScreen',
+            component: StockUpdateScreen,
+            option: {
+              headerTitle: 'Update Your Stock',
             },
           },
         ])}

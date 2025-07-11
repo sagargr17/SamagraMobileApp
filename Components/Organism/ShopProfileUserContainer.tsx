@@ -95,19 +95,22 @@ export const ShopProfileUserContainer: React.FC<
         {
           title: 'Pending',
           iconName: 'calendar-clock-outline',
-          onPress: () => {
-            navigation.navigate('PendingOrderScreen', {
-              shopId: shopId,
-            });
-          },
+          // onPress: () => {
+          //   navigation.navigate('PendingOrderScreen', {
+          //     shopId: shopId,
+          //   });
+          // },
         },
 
         {
           title: 'Stocks',
           iconName: 'view-comfy',
           onPress: () => {
-            navigation.navigate('StockScreen', {
-              shopId: shopId,
+            navigation.navigate('ApplicationOverlay', {
+              screen: 'StockScreen',
+              params: {
+                shopId: shopId,
+              },
             });
           },
         },

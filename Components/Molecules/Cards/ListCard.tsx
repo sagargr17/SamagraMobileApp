@@ -128,7 +128,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderRadius: 8,
     marginBottom: size.spacing.xs,
-    // marginHorizontal: 8,
     overflow: 'hidden',
   },
   imageContainer: {
@@ -137,9 +136,9 @@ const styles = StyleSheet.create({
     marginRight: AreaMapper({value: 5, scaleBy: 'height'}),
   },
   image: {
-    width: '92%',
+    width: '90%',
     height: '100%',
-    borderRadius: size.borderRadius.l,
+    borderRadius: size.borderRadius.m,
   },
   detailsContainer: {
     flex: 1,

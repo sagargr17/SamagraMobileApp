@@ -34,24 +34,19 @@ export const StockScreen: React.FC<StockScreenProps> = ({}) => {
   const dispatch = useAppDispatch();
   const [paginationLoading, setPaginationLoading] = useState<boolean>(false);
 
-  // const {data, loading, error} = useQuery(GetItemsByShopId, {
-  //   variables: {
-  //     shopId: route.params.shopId,
-  //   },
-  // });
-
   const {data, loading, error, fetchMore, networkStatus} = useQuery(
-    getAllPersonalItems,
-    // {
-    //   notifyOnNetworkStatusChange: true,
-    //   variables: {after: null},
-    //   onCompleted: () => {
-    //     setPaginationLoading(false);
-    //   },
-    //   onError: () => {
-    //     setPaginationLoading(false);
-    //   },
-    // },
+    GetItemsByShopId,
+    {
+      notifyOnNetworkStatusChange: true,
+      variables: {after: null, shopId: route.params.shopId},
+      onCompleted: () => {
+        setPaginationLoading(false);
+      },
+      onError: () => {
+        setPaginationLoading(false);
+      },
+      fetchPolicy: 'network-only',
+    },
   );
 
   const isLoadingInitialData =
@@ -73,72 +68,76 @@ export const StockScreen: React.FC<StockScreenProps> = ({}) => {
 
   //
   const handleStockUpdateNavigation = (item: any) => {
-    console.log('ItemID', item);
-
     dispatch(
       updateSelectedItem({
         item: item,
       }),
     );
-    navigation.navigate('StockUpdateScreen');
+    navigation.navigate('ApplicationOverlay', {
+      screen: 'StockUpdateScreen',
+    });
   };
 
   const emptyNode = (
-    <SingnlePageInfo
-      icon={<NoItemFound height={AreaMapper({value: 150})} width={'90%'} />}
-      detail={{
-        title: NoCartItemTitle,
-        message: NoItemInShop,
-        onButtonPress: () => handleNavigation(),
-        buttonTitle: 'Add Item',
-      }}></SingnlePageInfo>
+    <View
+      style={{
+        marginTop: AreaMapper({value: 200}),
+      }}>
+      <SingnlePageInfo
+        icon={<NoItemFound height={AreaMapper({value: 150})} width={'90%'} />}
+        detail={{
+          title: NoCartItemTitle,
+          message: NoItemInShop,
+          onButtonPress: () => handleNavigation(),
+          buttonTitle: 'Add Item',
+        }}></SingnlePageInfo>
+    </View>
   );
 
-  if (isLoadingInitialData) return <ListCardSkeleton numberOfList={5} />;
+  if (isLoadingInitialData) return <ListCardSkeleton numberOfList={6} />;
 
   if (error) return <Text>{error.message}</Text>;
 
   return (
-    <></>
-    // <FlatListScreen
-    //   onEndReached={() => {
-    //     // if (data?.getItems?.pageInfo.hasNextPage && !isFetchingMore) {
-    //     //   fetchMore({
-    //     //     variables: {after: data?.getItems?.pageInfo.endCursor},
-    //     //   });
-    //     // }
-    //   }}
-    //   onEndReachedThreshold={0.6}
-    //   ListEmptyComponent={emptyNode}
-    //   data={data?.getItems?.edges}
-    //   renderItem={({item, index}) => (
-    //     <ListCard
-    //       onImagePress={() => {
-    //         if (item) {
-    //           handleStockUpdateNavigation(item.node);
-    //         }
-    //       }}
-    //       id={item?.node?.id ?? NotMentioned}
-    //       imageUrl={item?.node?.imageUrls?.[0] ?? ItemImageNotFound}
-    //       list={[
-    //         {
-    //           type: 'title',
-    //           value: titleCase(item?.node?.name ?? NotMentioned),
-    //           fontVariant: 'heavy',
-    //         },
-    //         {
-    //           type: 'regular',
-    //           value: `Qty: ${item?.node?.stockQuantity ?? NotMentioned}`,
-    //           fontVariant: 'medium',
-    //         },
-    //         {
-    //           type: 'regular',
-    //           value: `Npr.${item?.node?.price ?? NotMentioned}`,
-    //         },
-    //       ]}></ListCard>
-    //   )}
-    //   ListFooterComponent={
-    //     isFetchingMore ? <SamagraLoader></SamagraLoader> : null
-    //   }></FlatListScreen>
+    <FlatListScreen
+      onEndReached={() => {
+        if (data?.getItems?.pageInfo.hasNextPage && !isFetchingMore) {
+          fetchMore({
+            variables: {after: data?.getItems?.pageInfo.endCursor},
+          });
+        }
+      }}
+      onEndReachedThreshold={0.6}
+      ListEmptyComponent={emptyNode}
+      data={data?.getItems?.edges}
+      renderItem={({item, index}) => (
+        <ListCard
+          onImagePress={() => {
+            if (item) {
+              handleStockUpdateNavigation(item.node);
+            }
+          }}
+          id={item?.node?.id ?? NotMentioned}
+          imageUrl={item?.node?.imageUrls?.[0] ?? ItemImageNotFound}
+          list={[
+            {
+              type: 'title',
+              value: titleCase(item?.node?.name ?? NotMentioned),
+              fontVariant: 'heavy',
+            },
+            {
+              type: 'regular',
+              value: `Qty: ${item?.node?.stockQuantity ?? NotMentioned}`,
+              fontVariant: 'medium',
+            },
+            {
+              type: 'regular',
+              value: `Npr.${item?.node?.price ?? NotMentioned}`,
+            },
+          ]}></ListCard>
+      )}
+      ListFooterComponent={
+        isFetchingMore ? <SamagraLoader></SamagraLoader> : null
+      }></FlatListScreen>
   );
 };

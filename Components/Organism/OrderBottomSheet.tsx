@@ -1,22 +1,22 @@
-import { useMutation } from '@apollo/client';
-import { useTheme } from '@react-navigation/native';
+import {useMutation} from '@apollo/client';
+import {useTheme} from '@react-navigation/native';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { showMessage } from 'react-native-flash-message';
-import { CreateItemRequestMutation } from '../../GraphQL/Mutation/ItemRequestMutation';
-import { RootStackNavigationProp } from '../../Navigators/RootStackNavigator';
-import { responseTheme, size } from '../../Prefrences/Prefrences';
-import { showLoader } from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
-import { useAppDispatch, useAppSelector } from '../../StateManagement/hooks';
+import {StyleSheet, View} from 'react-native';
+import {showMessage} from 'react-native-flash-message';
+import {CreateItemRequestMutation} from '../../GraphQL/Mutation/ItemRequestMutation';
+import {RootStackNavigationProp} from '../../Navigators/RootStackNavigator';
+import {responseTheme, size} from '../../Prefrences/Prefrences';
+import {showLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
+import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
 import {
   postOrderparams,
   SentordersParams,
 } from '../../StateManagement/Orders/SentOrderParams';
-import { Spacer } from '../Elements/Spacer';
-import { BubbleCard } from '../Molecules/Cards/BubbleCard';
-import { AppBottomSheet } from '../Molecules/Global/AppBottomSheet';
-import { AppForm } from './AppForm';
-import { ItemCategoryCardSlider } from './ItemCategorySlider';
+import {Spacer} from '../Elements/Spacer';
+import {BubbleCard} from '../Molecules/Cards/BubbleCard';
+import {AppBottomSheet} from '../Molecules/Global/AppBottomSheet';
+import {AppForm} from './AppForm';
+import {ItemCategoryCardSlider} from './ItemCategorySlider';
 
 interface OrderBottomSheetProps {
   navigation: RootStackNavigationProp<'ApplicationOverlay'> | any;
@@ -134,9 +134,7 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
     <AppBottomSheet
       isOppen={true}
       pannigGesture={false}
-      children={childrenContent}
-      flexHeight={1}
-      title="Buy"></AppBottomSheet>
+      children={childrenContent}></AppBottomSheet>
   );
 };
 
