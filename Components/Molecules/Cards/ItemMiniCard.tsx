@@ -69,7 +69,8 @@ export const ItemMiniCard: React.FC<ItemMiniCardProps> = ({
               source={{
                 uri: isValidUrl(cardImage) ? cardImage : ItemImageNotFound,
               }}
-              style={styles.image}></FastImage>
+              style={styles.image}
+              resizeMode="contain"></FastImage>
             <IconButton
               icon="heart-outline"
               size={size.iconSize.small}
@@ -125,6 +126,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     borderRadius: 18,
     overflow: 'hidden',
+
   },
   image: {
     height: 135,
@@ -132,7 +134,6 @@ const styles = StyleSheet.create({
       value: 182,
       scaleBy: 'width',
     }),
-    borderRadius: size.borderRadius.m,
   },
   wishlistButton: {
     position: 'absolute',

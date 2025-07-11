@@ -50,6 +50,25 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
   const itemDetailContainer = () => {
     return (
       <View>
+        <AppText
+          fontSizeVariant={'caption'}
+          title={titleCase(
+            titleCase(data?.getPublicItems?.nodes?.[0]?.shop?.name) ??
+              'Not Mentioned',
+          )}
+          fontVariant="medium"
+          customStyle={{
+            margin: 0,
+            paddingHorizontal: 8,
+            paddingVertical: 4,
+            bottom: 215,
+            right: 0,
+            backgroundColor: colors.card,
+            position: 'absolute',
+            borderRadius: 20,
+            borderColor: colors.border,
+            borderWidth: size.borderWidth.xs,
+          }}></AppText>
         <View
           style={{
             display: 'flex',
@@ -75,6 +94,7 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
             iconColor={colors.notification}
           />
         </View>
+
         <View
           style={{
             display: 'flex',
@@ -107,13 +127,15 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
             //   data?.getPublicItems?.nodes?.[0]?.description ?? 'Not Mentioned',
             // )}
             title={titleRange(
-              'Irure id ex irure et. Ad occaecat minim magna magna. Nostrud id labore dolor qui culpa eiusmod quis laboris occaecat laboris consequat laborum. Do veniam id exercitation nisi aliqua est dolor laborum exercitation dolore. Quis enim labore magna laborum sint incididunt incididunt nisi sint et dolor cupidatat minim minim.',
+              data?.getPublicItems?.nodes?.[0]?.description ??
+                'Commodo ut Lorem reprehenderit commodo amet nulla. Voluptate elit irure consequat cillum elit. Aliquip ea cillum anim tempor ea minim consectetur pariatur in dolore sunt. Ea enim voluptate sit aute sint est ipsum quis commodo. Ad dolore reprehenderit enim ut amet cupidatat sunt ipsum laborum deserunt nisi excepteur culpa consectetur. Reprehenderit proident irure eu dolore elit laboris ipsum minim fugiat. Tempor cupidatat sit dolore pariatur ut.',
               130,
             )}
             customStyle={{
               textAlign: 'justify',
             }}
             fontVariant="regular"></AppText>
+          <Spacer></Spacer>
         </View>
 
         <Spacer height={14}></Spacer>

@@ -24,7 +24,7 @@ import {
 } from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
 import {useAppDispatch} from '../../StateManagement/hooks';
 import {postPlaceOrderparams} from '../../StateManagement/Orders/PlaceOrderDetailsParams';
-import {AreaMapper} from '../../Utilities/CustomMethods';
+import {AreaMapper, titleCase} from '../../Utilities/CustomMethods';
 import {SingnlePageInfo} from '../../Components/Organism/SinglePageInfo';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
 
@@ -173,9 +173,12 @@ export const ReceivedOffersListScreen: React.FC<
             <ProviderCard
               list={[
                 {
-                  value:
-                    item.events?.data?.itemRequestOfferReceived?.itemId ??
-                    'Item',
+                  value: titleCase(item.events?.sender?.username) ?? 'User',
+                  type: 'title',
+                  fontVariant: 'medium',
+                },
+                {
+                  value: '9841150390',
                   type: 'regular',
                 },
               ]}

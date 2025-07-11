@@ -1,5 +1,5 @@
 import {useMutation} from '@apollo/client';
-import {useTheme} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {showMessage} from 'react-native-flash-message';
@@ -14,6 +14,10 @@ import {
 } from '../../Constants/UI/Messages';
 import {createNewProduct} from '../../GraphQL/Mutation/ItemMutation';
 import {FlatListScreen} from '../../Layout/ScreenLayout/FlatListScreenLayout';
+import {
+  ApplicationOverlayStackNavigationProp,
+  ApplicationOverlayStackProps,
+} from '../../Navigators/Stack/ApplicationOverlayStackNavigator';
 import {responseTheme, size} from '../../Prefrences/Prefrences';
 import {CreateProductInputViewModelInput} from '../../src/__generated__/graphql';
 import {
@@ -27,7 +31,8 @@ import ImageHandler, {OutPutImageType} from '../../Utilities/ImageHandler';
 interface AddItemScreenProps {}
 
 export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
-  const {colors, fonts} = useTheme();
+  const {fonts} = useTheme();
+  const navigation = useNavigation<any>();
 
   const [createNewItemFn] = useMutation(createNewProduct);
   const dispatch = useAppDispatch();
@@ -56,8 +61,9 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
                 categoryId: '1',
               },
             });
+            console.log('Response', response);
 
-            if (response.data) {
+            if (response.data?.createProduct && data.name) {
               showMessage(
                 responseTheme(
                   SuccessAddItemMessage,
@@ -65,6 +71,14 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
                   'success',
                 ),
               );
+
+              navigation.navigate('ApplicationOverlay', {
+                screen: 'ItemDetailScreen',
+                params: {
+                  id: response.data.createProduct?.id ?? '',
+                  name: data.name,
+                },
+              });
             }
             if (response.errors) {
               dispatch(hideLoader());

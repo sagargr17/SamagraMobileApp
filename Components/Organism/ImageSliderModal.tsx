@@ -70,9 +70,10 @@ export const ImageSliderModal: React.FC<ImageSliderModalProps> = ({images}) => {
                     scaleBy: 'width',
                   }),
                   height: AreaMapper({
-                    value: 500,
+                    value: 650,
                     scaleBy: 'width',
                   }),
+                  marginTop: AreaMapper({value: 67}),
 
                   resizeMode: 'contain', // or 'cover' if you want full fit
                 }}

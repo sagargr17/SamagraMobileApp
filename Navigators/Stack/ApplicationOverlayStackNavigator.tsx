@@ -66,7 +66,7 @@ type ApplicationOverlayMoreStackParamList = {
 export const ApplicationOverlayStackBuilder =
   createNativeStackNavigator<ApplicationOverlayMoreStackParamList>();
 
-// While Calling useNnavigation we pass thi type
+// While Calling useNnavigation we pass this type
 export type ApplicationOverlayStackNavigationProp<
   T extends keyof ApplicationOverlayMoreStackParamList,
 > = NativeStackNavigationProp<ApplicationOverlayMoreStackParamList, T>;
