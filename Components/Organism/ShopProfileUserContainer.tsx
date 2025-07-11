@@ -95,11 +95,11 @@ export const ShopProfileUserContainer: React.FC<
         {
           title: 'Pending',
           iconName: 'calendar-clock-outline',
-          // onPress: () => {
-          //   navigation.navigate('PendingOrderScreen', {
-          //     shopId: shopId,
-          //   });
-          // },
+          onPress: () => {
+            // navigation.navigate('PendingOrderScreen', {
+            //   shopId: shopId,
+            // });
+          },
         },
 
         {
