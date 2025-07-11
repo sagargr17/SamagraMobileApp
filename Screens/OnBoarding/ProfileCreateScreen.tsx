@@ -1,29 +1,29 @@
+import FastImage from '@d11/react-native-fast-image';
 import React, {useState} from 'react';
+import {Controller, useForm} from 'react-hook-form';
 import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
   KeyboardAvoidingView,
   ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import {ScrollableLayout} from '../../Layout/ScreenLayout/ScrollableLayout';
-import {heightPercentageToDP} from 'react-native-responsive-screen';
-import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
-import {Controller, useForm} from 'react-hook-form';
+import {showMessage} from 'react-native-flash-message';
 import {Checkbox} from 'react-native-paper';
-import AppButton from '../../Components/Elements/Button';
-import {ErrorText} from '../../Components/Elements/ErrorText';
-import {Spacer} from '../../Components/Elements/Spacer';
+import {heightPercentageToDP} from 'react-native-responsive-screen';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
-import {Input} from '../../Components/Elements/Input';
-import PhoneInput from '../../Components/Elements/PhoneInput';
-import {AreaMapper} from '../../Utilities/CustomMethods';
 import {registerUser} from '../../client/Token/RegisterUser';
 import {AppText} from '../../Components/Elements/AppText';
-import {showMessage} from 'react-native-flash-message';
+import AppButton from '../../Components/Elements/Button';
+import {ErrorText} from '../../Components/Elements/ErrorText';
+import {Input} from '../../Components/Elements/Input';
+import PhoneInput from '../../Components/Elements/PhoneInput';
+import {Spacer} from '../../Components/Elements/Spacer';
+import {ScrollableLayout} from '../../Layout/ScreenLayout/ScrollableLayout';
+import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
 import {responseTheme} from '../../Prefrences/Prefrences';
+import ImageHandler from '../../Utilities/ImageHandler';
 
 interface ProfileCreateProps {
   navigation: OnBoardingStackNavigationProp<'OtpScreen'>;
@@ -63,39 +63,46 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
   const password = watch('password');
 
   const [count, setCount] = useState(0);
+  const [imageUri, setImageUri] = useState<string | undefined>('');
 
   const onSubmit = async (data: CreateForm) => {
     setCount(prev => prev + 1);
     console.log('Submit', data);
-
-    if (data.password === data.confirmPassword) {
-      let result = await registerUser({
-        username: data.firstName,
-        password: data.password,
-        email: data.email,
-        phoneNumber: data.phone,
-      });
-      if (result === 200) {
-        navigation.navigate('OtpScreen', {
+    if (imageUri !== '')
+      if (data.password === data.confirmPassword) {
+        let result = await registerUser({
           username: data.firstName,
+          password: data.password,
+          email: data.email,
+          phoneNumber: data.phone,
         });
+        if (result === 200) {
+          navigation.navigate('OtpScreen', {
+            username: data.firstName,
+          });
+        }
+      } else {
+        showMessage(
+          responseTheme('Password Didnot Matched', 'asdsad', 'danger'),
+        );
       }
-    } else {
-      console.log('>>><<< submitting Error');
-      showMessage(responseTheme('Password Didnot Matched', 'asdsad', 'danger'));
+    else {
+      showMessage(
+        responseTheme(
+          'Invalid Image!',
+          'You havenot choosen image or corrupt image, verify and try again',
+          'danger',
+        ),
+      );
     }
   };
 
-  const [imageUri, setImageUri] = useState<string | undefined>('');
-
   // TODO: need to handle camera options
   // Lib not working for me right now, need to debug
-  const handleImagePick = () => {
-    // launchImageLibrary({mediaType: 'photo'}, response => {
-    //   if (response.assets && response.assets.length > 0) {
-    //     setImageUri(response.assets[0].uri);
-    //   }
-    // });
+  const handleImagePick = async () => {
+    let GalleryImages: any = await ImageHandler.selectFromGallery();
+    console.log('Gallery Images', GalleryImages);
+    setImageUri(GalleryImages[0].uri);
   };
 
   return (
@@ -109,7 +116,7 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
             <View style={styles.photoWrapper}>
               <TouchableOpacity onPress={handleImagePick} style={styles.circle}>
                 {imageUri ? (
-                  <Image source={{uri: imageUri}} style={styles.image} />
+                  <FastImage source={{uri: imageUri}} style={styles.image} />
                 ) : (
                   <Text style={styles.photoText}>+</Text>
                 )}

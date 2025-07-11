@@ -94,10 +94,10 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
           onCardPressed={() => handleUserSelect()}
           customStyle={{
             elevation: 0,
-            marginBottom: size.spacing.xxs,
+            // marginBottom: size.spacing.xxs,
             borderRadius: 0,
             borderColor: isShopActive === false ? colors.primary : colors.card,
-            borderWidth: size.borderWidth.xs,
+            // borderWidth: size.borderWidth.xs,
           }}
           user={{
             username: titleCase(userData?.username ?? NotMentioned),
@@ -126,15 +126,19 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
           }
           customStyle={{
             elevation: 0,
-            marginBottom: size.spacing.xxs,
+            // marginBottom: size.spacing.xxs,
             paddingHorizontal: size.spacing.s,
             borderColor:
               item?.node?.name === selectedTab && isShopActive
                 ? colors.primary
                 : colors.card,
-            borderWidth: size.borderWidth.xs,
-            paddingVertical: size.spacing.m,
-            borderRadius: 0,
+            backgroundColor:
+              item?.node?.name === selectedTab && isShopActive
+                ? '#f7fcf7'
+                : colors.card,
+            borderWidth: size.borderWidth.s,
+            paddingVertical: size.spacing.s + 2,
+            // borderRadius: 0,
           }}
           user={{
             username: item?.node?.name ?? NotMentioned,

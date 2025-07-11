@@ -37,7 +37,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
   const handleImageRemove = (selectedImage: any) => {
     let crossedDAta = images.filter((e: any) => e.name !== selectedImage.name);
     setImages(crossedDAta);
-    setselectionImageIndex(selectionImageIndex - 1);
+    setselectionImageIndex(selectionImageIndex + 1);
     setImageLoading(false);
   };
 

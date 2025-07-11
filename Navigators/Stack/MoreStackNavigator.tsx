@@ -13,13 +13,9 @@ import {StockUpdateScreen} from '../../Screens/Application/More/StockUpdateScree
 
 type MoreStackParamList = {
   MoreLandingScreen: undefined;
-  StockScreen: {
-    shopId: string;
-  };
   PendingOrderScreen: {
     shopId: string;
   };
-  StockUpdateScreen: undefined;
 };
 
 // Its The builder with the
@@ -84,20 +80,7 @@ export const MoreStackNavigator: React.FC = () => {
               header: () => null,
             },
           },
-          {
-            screenName: 'StockScreen',
-            component: StockScreen,
-             option: {
-              headerTitle: "Stock's",
-            },
-          },
-          {
-            screenName: 'StockUpdateScreen',
-            component: StockUpdateScreen,
-            option: {
-              headerTitle: 'Update Stock',
-            },
-          },
+
           {
             screenName: 'PendingOrderScreen',
             component: PendingOrderScreen,
