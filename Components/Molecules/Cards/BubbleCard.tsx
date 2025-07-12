@@ -7,7 +7,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import {Icon, Surface, TouchableRipple} from 'react-native-paper';
+import {Icon} from 'react-native-paper';
 import {size} from '../../../Prefrences/Prefrences';
 import {AreaMapper} from '../../../Utilities/CustomMethods';
 import {AppText} from '../../Elements/AppText';
@@ -43,17 +43,9 @@ export const BubbleCard: React.FC<BubbleCardProps> = ({
 
   return (
     <TouchableOpacity
-      style={[
-        styles.viewContainer,
-        customStyle,
-        {
-          // paddingVertical:
-          //   variant === 'large' ? size.spacing.m : size.spacing.m,
-        },
-      ]}
+      style={[styles.viewContainer, customStyle, size.elevation.l]}
       onPress={onPress}>
-      <Surface
-        elevation={1}
+      <View
         style={[
           styles.contentContainer,
           {
@@ -86,7 +78,7 @@ export const BubbleCard: React.FC<BubbleCardProps> = ({
           )}
         </View>
         {children && <View style={styles.childrenContainer}>{children}</View>}
-      </Surface>
+      </View>
     </TouchableOpacity>
   );
 };

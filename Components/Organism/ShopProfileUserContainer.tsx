@@ -2,7 +2,7 @@ import {useNavigation, useTheme} from '@react-navigation/native';
 import React from 'react';
 
 import {useMutation} from '@apollo/client';
-import {StyleSheet, View} from 'react-native';
+import {Alert, StyleSheet, View} from 'react-native';
 import {showMessage} from 'react-native-flash-message';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
 import {WentwrongMessage} from '../../Constants/UI/Messages';
@@ -14,6 +14,7 @@ import {AppText} from '../Elements/AppText';
 import {Spacer} from '../Elements/Spacer';
 import {BubbleCard} from '../Molecules/Cards/BubbleCard';
 import {showLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
+import {SamagraLoader} from '../Molecules/Response/SamagraLoader';
 
 interface ShopProfileUserContainerProps {
   shopId: string;
@@ -155,6 +156,7 @@ export const ShopProfileUserContainer: React.FC<
           color="red"></DustbinIcon>
       ),
       onPress: () => {
+        // Alert.alert("Are you Sure want to delete?",)
         handleRemoveStore();
       },
     },

@@ -1,5 +1,5 @@
 import {useMutation, useQuery, useSubscription} from '@apollo/client';
-import {useTheme} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {FlatList, Modal, StyleSheet, View} from 'react-native';
 import {showMessage} from 'react-native-flash-message';
@@ -41,6 +41,7 @@ export const ReceivedRequestListScreen: React.FC<
 > = ({}) => {
   const {colors} = useTheme();
   const dispatch = useAppDispatch();
+
   const [personalUserDetail, setPersonalDetail] = useState<{
     username: string;
     location?: 'butwal';
@@ -49,7 +50,6 @@ export const ReceivedRequestListScreen: React.FC<
   const [orderlist, setOrderList] = useState<Array<GetDataSubscription>>([]);
   const [isProfileTapped, setIsProfileTapped] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  // constn
   const {NoItemFound} = Logos;
   const {data, error} = useSubscription(getSubscribedData, {
     onData: ({client, data}) => {
@@ -59,10 +59,12 @@ export const ReceivedRequestListScreen: React.FC<
         data.data.events?.eventName &&
         data.data.events.data?.itemRequestReceived
       ) {
-        setOrderList([...orderlist, data.data]);
+        setOrderList(prevOrderList => [
+          ...prevOrderList,
+          data.data as GetDataSubscription,
+        ]);
       }
       if (data.data?.events?.data?.orderReceived) {
-        // showMessage(responseTheme('You received order', '', 'success'));
       }
     },
   });
@@ -76,20 +78,30 @@ export const ReceivedRequestListScreen: React.FC<
   const [createItemRequestOfferFn] = useMutation(
     createItemRequestOfferMutation,
   );
+  const [initialLoading, setInitialLoading] = useState<boolean>(true);
 
-  const [loading, setLoading] = useState<boolean>(true);
+  console.log('Resultttt', data, initialLoading, error);
 
-  // Accepting the query
+  useEffect(() => {
+    let task = setTimeout(() => {
+      setInitialLoading(false);
+    }, 3000);
+
+    return () => clearTimeout(task);
+  }, []);
+
   const onAcceptHandle = async (reqeustId: string, itemId: string) => {
     try {
-      let response = createItemRequestOfferFn({
+      dispatch(showLoader());
+
+      let response = await createItemRequestOfferFn({
         variables: {
           requestId: reqeustId,
           itemId: itemId,
         },
       });
 
-      let data = (await response).data;
+      let data = response.data;
 
       if (data) {
         showMessage(
@@ -99,37 +111,23 @@ export const ReceivedRequestListScreen: React.FC<
             'success',
           ),
         );
-
-        setIsModalOpen(!isModalOpen);
+        setIsModalOpen(false);
       }
 
-      if ((await response).errors) {
-        // let
+      if (response.errors) {
         showMessage(
-          responseTheme(
-            'Please Try again !',
-            'Somthingn went Wrong',
-            'dannger',
-          ),
+          responseTheme('Please Try again !', 'Something went Wrong', 'danger'),
         );
       }
     } catch (e) {
-      console.log('Error Messaghe', e);
+      console.log('Error Message', e);
 
-      showMessage(responseTheme('Action Failed !', 'ASdsadas', 'danger'));
+      showMessage(
+        responseTheme('Action Failed !', 'An error occurred', 'danger'),
+      );
     }
   };
 
-  if (!data && error)
-    return (
-      <AppText
-        fontSizeVariant="regular"
-        fontVariant="regular"
-        title={error.message}></AppText>
-    );
-
-  // React Elements
-  // MyShopItems
   const myItemsSection = () => (
     <>
       {myShopItemLoading ? (
@@ -149,7 +147,6 @@ export const ReceivedRequestListScreen: React.FC<
               justifyContent: 'space-between',
               marginTop: size.spacing.xl,
               paddingHorizontal: size.spacing.s,
-              // elevation: 1,
             }}>
             <AppText
               title="My Item's"
@@ -157,7 +154,7 @@ export const ReceivedRequestListScreen: React.FC<
               fontVariant="medium"></AppText>
 
             <IconButton
-              onPress={() => setIsModalOpen(!isModalOpen)}
+              onPress={() => setIsModalOpen(false)}
               icon={'close'}
               size={size.iconSize.medium}
               iconColor={colors.notification}
@@ -185,7 +182,7 @@ export const ReceivedRequestListScreen: React.FC<
             }}
             showsVerticalScrollIndicator={false}
             data={myShopItem?.getItems?.edges}
-            renderItem={({item, index}) => (
+            renderItem={({item}) => (
               <ListCard
                 onImagePress={() => console.log('Pressed')}
                 customImageStyle={{
@@ -202,7 +199,10 @@ export const ReceivedRequestListScreen: React.FC<
                   setItemSelectedId(id);
                 }}
                 isContainerPressed
-                key={index}
+                key={
+                  item?.node?.id ??
+                  String(item.node?.name) + String(item.node?.price)
+                }
                 id={item?.node?.id ?? NotMentioned}
                 imageUrl={item?.node?.imageUrls?.[0] ?? ImageNotFound}
                 list={[
@@ -235,7 +235,6 @@ export const ReceivedRequestListScreen: React.FC<
             )}></FlatList>
           <AppButton
             onPress={() => {
-              dispatch(showLoader());
               onAcceptHandle(requestID, itemSelectedId);
             }}
             style={{
@@ -250,8 +249,6 @@ export const ReceivedRequestListScreen: React.FC<
       )}
     </>
   );
-
-  // const loadingTimer
 
   const profileDetailInfo = (
     <>
@@ -278,7 +275,7 @@ export const ReceivedRequestListScreen: React.FC<
         </View>
         <View style={styles.locationcontainer}>
           <AppText
-            title={'Location:'}
+            title={'Phone:'}
             fontVariant="regular"
             fontSizeVariant={'regular'}></AppText>
           <AppText
@@ -290,8 +287,8 @@ export const ReceivedRequestListScreen: React.FC<
       <Spacer height={20}></Spacer>
       <AppButton
         onPress={() => {
-          setIsProfileTapped(!isProfileTapped);
-          setIsModalOpen(!isModalOpen);
+          setIsProfileTapped(false);
+          setIsModalOpen(false);
         }}>
         Accept
       </AppButton>
@@ -299,15 +296,7 @@ export const ReceivedRequestListScreen: React.FC<
     </>
   );
 
-  useEffect(() => {
-    let task = setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-
-    return () => clearTimeout(task);
-  }, [loading]);
-
-  if (loading)
+  if (initialLoading)
     return (
       <View
         style={{
@@ -323,6 +312,15 @@ export const ReceivedRequestListScreen: React.FC<
       </View>
     );
 
+  if (!data && error) {
+    return (
+      <AppText
+        fontSizeVariant="regular"
+        fontVariant="regular"
+        title={error.message}></AppText>
+    );
+  }
+
   return (
     <>
       <FlatList
@@ -337,13 +335,13 @@ export const ReceivedRequestListScreen: React.FC<
               detail={{
                 title: 'No Any Request Currently',
                 message: NoAnyorderItemsFoud,
-                onButtonPress: () => setLoading(!loading),
+                onButtonPress: () => setInitialLoading(true),
                 buttonTitle: 'Reload',
               }}></SingnlePageInfo>
           </View>
         }
         data={orderlist}
-        renderItem={({item, index}) => (
+        renderItem={({item}) => (
           <ProviderCard
             list={[
               {
@@ -364,18 +362,22 @@ export const ReceivedRequestListScreen: React.FC<
                 type: 'caption',
               },
             ]}
-            key={index}
+            key={
+              item.events?.data?.itemRequestReceived?.id ??
+              String(item.events?.data?.itemRequestReceived?.id)
+            }
             isProgressBarEnable={false}
             onAcceptButtonPress={() => {
-              dispatch(showLoader());
               setIsModalOpen(true);
               setRequestID(item.events?.data?.itemRequestReceived?.id ?? '');
             }}
             setProfileTapped={() => {
               setPersonalDetail({
                 username: item.events?.sender?.username ?? 'Sagar',
+                location: 'butwal',
+                phoneNumber: 9841125049,
               });
-              setIsProfileTapped(!isProfileTapped);
+              setIsProfileTapped(true);
             }}
             imageUrl={DummyServiceProviderURL}></ProviderCard>
         )}></FlatList>
@@ -384,13 +386,12 @@ export const ReceivedRequestListScreen: React.FC<
         statusBarTranslucent={true}
         animationType="fade"
         visible={isModalOpen}>
-        {myItemsSection()}
+        {isModalOpen && myItemsSection()}
       </Modal>
 
-      {/* App BottomSheet */}
       {isProfileTapped ? (
         <AppBottomSheet
-          onClose={() => setIsProfileTapped(!isProfileTapped)}
+          onClose={() => setIsProfileTapped(false)}
           isOppen={isProfileTapped}
           pannigGesture={true}
           children={() => <>{profileDetailInfo}</>}></AppBottomSheet>
@@ -408,11 +409,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: size.spacing.xs,
     flex: 1,
   },
-
   emailContainer: {
     marginVertical: size.spacing.xs,
   },
-
   locationcontainer: {
     marginVertical: size.spacing.xs,
   },

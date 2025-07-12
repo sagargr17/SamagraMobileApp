@@ -1,5 +1,5 @@
 import {useNavigation, useTheme} from '@react-navigation/native';
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {FlatList, StyleSheet, View} from 'react-native';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
 import {HomeStackNavigationProp} from '../../Navigators/Stack/HomeStackNavigator';
@@ -18,13 +18,12 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({
   const {fonts} = useTheme();
   const {Laundry, HouseKeeping, Grocery, Stationary} = Logos;
   const [selectedCategory, setSelectedCategory] = useState<string>('Laundry');
-  const navigation =
-    useNavigation<HomeStackNavigationProp<'CategoryListScreen'>>();
+  // const navigation =
+  //   useNavigation<HomeStackNavigationProp<'CategoryListScreen'>>();
 
-  const height =
-    sizes === 'large' ? size.iconSize.large + 5 : size.iconSize.medium;
+  const height = sizes === 'large' ? size.iconSize.large : size.iconSize.medium;
   const width =
-    sizes === 'large' ? size.iconSize.large + 5 : size.iconSize.medium + 2;
+    sizes === 'large' ? size.iconSize.large : size.iconSize.medium + 2;
 
   const data: Array<{
     titte: string;
@@ -48,20 +47,23 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({
     },
   ];
 
-  const onPress = (categoryTitle = 'Laundry') => {
-    sizes === 'large'
-      ? navigation.navigate('CategoryListScreen')
-      : setSelectedCategory(categoryTitle);
-  };
+  // const onTabPress = useCallback(
+  //   (categoryTitle = 'Laundry') => {
+  //     sizes === 'large'
+  //       ? navigation.navigate('CategoryListScreen')
+  //       : setSelectedCategory(categoryTitle);
+  //   },
+  //   [sizes, navigation, setSelectedCategory],
+  // );
 
   return (
     <View>
       {sizes === 'regular' ? null : (
         <SectionHeader
+          onPress={() => {}}
           style={{
             paddingBottom: size.spacing.xs,
           }}
-          onPress={() => onPress()}
           isIcon={false}
           title="Category"></SectionHeader>
       )}
@@ -71,7 +73,7 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({
         data={data}
         renderItem={({item, index}) => (
           <ItemCategoryCard
-            onPress={() => onPress(item.titte)}
+          // onPress={() => onTabPress(item.titte)}
             selectedCategory={sizes === 'large' ? item.titte : selectedCategory}
             size={sizes}
             key={index}

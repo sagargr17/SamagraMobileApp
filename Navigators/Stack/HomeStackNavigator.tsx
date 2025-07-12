@@ -11,9 +11,6 @@ import {HomeLandingScreen} from '../../Screens/Application/Home/HomeLandingScree
 
 type HomeStackParamList = {
   HomeLandingScreen: undefined;
-  HomeDetailScreen: {
-    name: string;
-  };
   CategoryListScreen: undefined;
 };
 
@@ -80,7 +77,13 @@ export const HomeStackNavigator: React.FC = () => {
             },
           },
 
-          {screenName: 'CategoryListScreen', component: CategoryListScreen},
+          {
+            screenName: 'CategoryListScreen',
+            component: CategoryListScreen,
+            option: {
+              headerTitle: 'Category',
+            },
+          },
         ])}
       </HomeStackBuilder.Navigator>
     </>

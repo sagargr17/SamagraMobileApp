@@ -22,17 +22,20 @@ interface ProfileSelectScreenProps {}
 
 export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
   const {colors} = useTheme();
-  const {data, loading, error, networkStatus, fetchMore} = useQuery(myShops, {
-    notifyOnNetworkStatusChange: true,
-    variables: {after: null},
-    onCompleted: () => {
-      setPaginationLoading(false);
+  const {data, loading, error, networkStatus, fetchMore, refetch} = useQuery(
+    myShops,
+    {
+      notifyOnNetworkStatusChange: true,
+      variables: {after: null},
+      onCompleted: () => {
+        setPaginationLoading(false);
+      },
+      onError: () => {
+        setPaginationLoading(false);
+      },
+      fetchPolicy: 'cache-and-network',
     },
-    onError: () => {
-      setPaginationLoading(false);
-    },
-    fetchPolicy: 'cache-first',
-  });
+  );
   const selectedTab = useAppSelector(state => state.user.shopData?.name);
   const isShopActive = useAppSelector(state => state.user.isShopActive);
   const dispatch = useAppDispatch();
@@ -81,6 +84,10 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
 
   return (
     <FlatList
+      onRefresh={() => {
+        refetch();
+      }}
+      refreshing
       onEndReached={() => {
         if (data?.getShops?.pageInfo.hasNextPage && !isFetchingMore) {
           fetchMore({

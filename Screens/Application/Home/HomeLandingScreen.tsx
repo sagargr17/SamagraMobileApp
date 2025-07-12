@@ -20,7 +20,6 @@ interface HomeLandingScreenProps {}
 
 export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
   const navigation: any = useNavigation();
-  const {colors} = useTheme();
 
   const [paginationLoading, setPaginationLoading] = useState<boolean>(false);
 

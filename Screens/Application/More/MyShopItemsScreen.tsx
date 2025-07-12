@@ -20,7 +20,6 @@ import {FlatListScreen} from '../../../Layout/ScreenLayout/FlatListScreenLayout'
 import {ApplicationOverlayStackNavigationProp} from '../../../Navigators/Stack/ApplicationOverlayStackNavigator';
 import {size} from '../../../Prefrences/Prefrences';
 import {AreaMapper, titleRange} from '../../../Utilities/CustomMethods';
-import {blueA100} from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
 
 interface MyShopItemsScreenProps {}
 
@@ -41,7 +40,7 @@ export const MyShopItemsScreen: React.FC<MyShopItemsScreenProps> = ({}) => {
       onError: () => {
         setPaginationLoading(false);
       },
-      fetchPolicy: 'network-only',
+      fetchPolicy: 'cache-and-network',
     },
   );
 

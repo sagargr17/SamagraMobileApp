@@ -1,21 +1,23 @@
+import FastImage from '@d11/react-native-fast-image';
+import { useNavigation, useTheme } from '@react-navigation/native';
 import React from 'react';
-import {View, Image, StyleSheet, TextInputComponent} from 'react-native';
-import {Card, IconButton, TouchableRipple} from 'react-native-paper';
-import {AppText} from '../../Elements/AppText';
-import {useNavigation, useTheme} from '@react-navigation/native';
+import {
+  StyleSheet,
+  TouchableOpacity,
+  View
+} from 'react-native';
+import { IconButton } from 'react-native-paper';
+import { ItemImageNotFound } from '../../../Constants/UI/AssetsUrls';
+import { size } from '../../../Prefrences/Prefrences';
+import { showLoader } from '../../../StateManagement/Error&loadingHandle/LoaderStateSlice';
+import { useAppDispatch } from '../../../StateManagement/hooks';
 import {
   AreaMapper,
   isValidUrl,
   titleRange,
 } from '../../../Utilities/CustomMethods';
-import {HomeStackNavigationProp} from '../../../Navigators/Stack/HomeStackNavigator';
-import {ApplicationOverlayStackNavigationProp} from '../../../Navigators/Stack/ApplicationOverlayStackNavigator';
-import {useAppDispatch} from '../../../StateManagement/hooks';
-import {showLoader} from '../../../StateManagement/Error&loadingHandle/LoaderStateSlice';
-import {Rating} from '../../Elements/Rating';
-import {size} from '../../../Prefrences/Prefrences';
-import FastImage from '@d11/react-native-fast-image';
-import {ItemImageNotFound} from '../../../Constants/UI/AssetsUrls';
+import { AppText } from '../../Elements/AppText';
+import { Rating } from '../../Elements/Rating';
 
 interface ItemMiniCardProps {
   id: string;
@@ -37,85 +39,82 @@ export const ItemMiniCard: React.FC<ItemMiniCardProps> = ({
   const dispatch = useAppDispatch();
 
   return (
-    <View
+    <TouchableOpacity
+      onPress={() => {
+        dispatch(showLoader());
+        navigation.navigate('ApplicationOverlay', {
+          screen: 'ItemDetailScreen',
+          params: {
+            name: title,
+            id: id,
+          },
+        });
+      }}
+      // rippleColor={colors.primary}
       style={[
         styles.card,
         {
           backgroundColor: colors.card,
-          marginTop: size.spacing.xxs,
+          marginTop: size.spacing.s,
           marginRight: size.spacing.s,
         },
-        // size.elevation.l,
+        size.elevation.xs,
       ]}>
-      <TouchableRipple
-        rippleColor={colors.primary}
-        onPress={() => {
-          dispatch(showLoader());
-          navigation.navigate('ApplicationOverlay', {
-            screen: 'ItemDetailScreen',
-            params: {
-              name: title,
-              id: id,
-            },
-          });
-        }}
+      <View
         style={{
-          backgroundColor: colors.card,
-          borderRadius: size.borderRadius.s,
+          borderRadius: size.borderRadius.l,
         }}>
-        <>
-          <View>
-            <FastImage
-              source={{
-                uri: isValidUrl(cardImage) ? cardImage : ItemImageNotFound,
-              }}
-              style={styles.image}
-              resizeMode="contain"></FastImage>
-            <IconButton
-              icon="heart-outline"
-              size={size.iconSize.small}
-              onPress={() => console.log('Added to wishlist')}
-              style={styles.wishlistButton}
-              iconColor={colors.notification}
-            />
-          </View>
-          <View
-            style={{
-              paddingHorizontal: size.spacing.s,
-              paddingVertical: size.spacing.xxs,
-              borderBottomLeftRadius: size.borderRadius.m,
-              borderBottomRightRadius: size.borderRadius.m,
-            }}>
+        <View>
+          <FastImage
+            source={{
+              uri: isValidUrl(cardImage) ? cardImage : ItemImageNotFound,
+            }}
+            style={styles.image}
+            resizeMode="cover"></FastImage>
+          <IconButton
+            icon="heart-outline"
+            size={size.iconSize.small}
+            onPress={() => console.log('Added to wishlist')}
+            style={styles.wishlistButton}
+            iconColor={colors.notification}
+          />
+        </View>
+        <View
+          style={{
+            paddingHorizontal: size.spacing.s,
+            paddingVertical: size.spacing.xxs,
+            borderBottomLeftRadius: size.borderRadius.m,
+            borderBottomRightRadius: size.borderRadius.m,
+          }}>
+          <AppText
+            fontVariant="medium"
+            fontSizeVariant={'regular'}
+            title={titleRange(title)}
+            customStyle={{
+              marginTop: size.spacing.xs,
+            }}
+          />
+          <View style={styles.bottomContainer}>
             <AppText
-              fontVariant="medium"
-              fontSizeVariant={'regular'}
-              title={titleRange(title)}
               customStyle={{
-                marginTop: size.spacing.xs,
+                color: colors.primary,
               }}
+              fontVariant="bold"
+              fontSizeVariant={'title'}
+              title={`₹ ${price}`}
             />
-            <View style={styles.bottomContainer}>
-              <AppText
-                customStyle={{
-                  color: colors.primary,
-                }}
-                fontVariant="bold"
-                fontSizeVariant={'title'}
-                title={`₹ ${price}`}
-              />
-              <Rating ratingNumber={Math.floor(Math.random() * 5)}></Rating>
-            </View>
+            <Rating ratingNumber={Math.floor(Math.random() * 5)}></Rating>
           </View>
-        </>
-      </TouchableRipple>
-    </View>
+        </View>
+      </View>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   card: {
     width: AreaMapper({
-      value: 182,
+      value: 185,
       scaleBy: 'width',
     }),
     borderRadius: size.borderRadius.l,
@@ -126,14 +125,14 @@ const styles = StyleSheet.create({
     position: 'relative',
     borderRadius: 18,
     overflow: 'hidden',
-
   },
   image: {
     height: 135,
     width: AreaMapper({
-      value: 182,
+      value: 178,
       scaleBy: 'width',
     }),
+    borderRadius: size.borderRadius.m,
   },
   wishlistButton: {
     position: 'absolute',
