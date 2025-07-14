@@ -1,24 +1,18 @@
 import {useNavigation, useTheme} from '@react-navigation/native';
 import React, {useCallback} from 'react';
-import {
-  StyleSheet,
-  TouchableHighlight,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {AreaMapper} from '../../../Utilities/CustomMethods';
 import {AppText} from '../../Elements/AppText';
 import {size} from '../../../Prefrences/Prefrences';
-import {Surface, TouchableRipple} from 'react-native-paper';
+import {Surface} from 'react-native-paper';
 import {Spacer} from '../../Elements/Spacer';
-import {HomeStackNavigationProp} from '../../../Navigators/Stack/HomeStackNavigator';
 
 interface ItemCategoryCardProps {
   title: string;
   icon: any;
   size: 'large' | 'regular';
   selectedCategory: string;
-  // onPress: any;
+  onPress: any;
 }
 
 export const ItemCategoryCard: React.FC<ItemCategoryCardProps> = ({
@@ -26,7 +20,7 @@ export const ItemCategoryCard: React.FC<ItemCategoryCardProps> = ({
   icon,
   size: variant = 'large',
   selectedCategory,
-  // onPress,
+  onPress,
 }) => {
   const {colors} = useTheme();
   const fontVariantSize = variant === 'large' ? 'regular' : 'caption';
@@ -34,14 +28,14 @@ export const ItemCategoryCard: React.FC<ItemCategoryCardProps> = ({
   const width = variant === 'large' ? 95 : 85;
   const navigation: any = useNavigation();
 
-  const handleNavigation = () => {
-    navigation.navigate('CategoryListScreen');
-  };
+  // Navigation press
 
   return (
-    <TouchableHighlight
-      underlayColor={colors.card}
-      onPress={handleNavigation}
+    <TouchableOpacity
+      // onPress={() => {
+      //   navigation.navigate('CategoryListScreen');
+      // }}
+      onPress={onPress}
       style={[
         {
           marginRight: size.spacing.xs,
@@ -78,7 +72,7 @@ export const ItemCategoryCard: React.FC<ItemCategoryCardProps> = ({
           }}
           title={title}></AppText>
       </View>
-    </TouchableHighlight>
+    </TouchableOpacity>
   );
 };
 

@@ -117,7 +117,7 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
       }}
       ListEmptyComponent={
         <AppText
-          title={EmptyMessage}
+          title={'No Any Shop Found !!'}
           fontVariant="medium"
           fontSizeVariant="display"></AppText>
       }

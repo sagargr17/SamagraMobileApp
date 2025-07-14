@@ -1,4 +1,4 @@
-import {useMutation, useQuery, useSubscription} from '@apollo/client';
+import {useSubscription} from '@apollo/client';
 import {useIsFocused, useTheme} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {
@@ -6,9 +6,10 @@ import {
   Linking,
   StyleSheet,
   TouchableHighlight,
+  TouchableOpacity,
   View,
 } from 'react-native';
-import {ActivityIndicator} from 'react-native-paper';
+import {ActivityIndicator, Icon} from 'react-native-paper';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
 import {AppText} from '../../Components/Elements/AppText';
 import AppButton from '../../Components/Elements/Button';
@@ -18,8 +19,6 @@ import {AppBottomSheet} from '../../Components/Molecules/Global/AppBottomSheet';
 import {SingnlePageInfo} from '../../Components/Organism/SinglePageInfo';
 import {DummyServiceProviderURL} from '../../Constants/UI/AssetsUrls';
 import {NoAnyorderItemsFoud, NotMentioned} from '../../Constants/UI/Messages';
-import {createItemRequestOfferMutation} from '../../GraphQL/Mutation/ItemRequestMutation';
-import {getAllPersonalItems} from '../../GraphQL/Queries/ItemQueries';
 import {getSubscribedData} from '../../GraphQL/Subscription/Subscription';
 import {size} from '../../Prefrences/Prefrences';
 import {
@@ -38,6 +37,7 @@ interface ReceivedorderListScreenProps {}
 export const ReceivedorderListScreen: React.FC<
   ReceivedorderListScreenProps
 > = ({}) => {
+  // ALL HOOKS MUST BE DECLARED AT THE TOP LEVEL AND UNCONDITIONALLY
   const {colors} = useTheme();
   const dispatch = useAppDispatch();
   const [personalUserDetail, setPersonalDetail] = useState<
@@ -48,35 +48,92 @@ export const ReceivedorderListScreen: React.FC<
   const userLocation = useAppSelector(state => state.user.userLocation);
   const isFocoused = useIsFocused();
   const {NoItemFound} = Logos;
-  const {data, error} = useSubscription(getSubscribedData, {
+
+  // useSubscription is a hook and must be called unconditionally
+  const {
+    data,
+    error,
+    loading: subscriptionLoading,
+  } = useSubscription(getSubscribedData, {
     onData: ({data}) => {
-      console.log('Orders', data);
       if (
         data.data &&
         data.data.events?.eventName &&
         data.data.events.data?.orderReceived
       ) {
-        setOrderList([...orderlist, data.data]);
+        setOrderList((prevOrderList: any) => [...prevOrderList, data.data]); // Use functional update for setOrderList
       }
       if (data.data?.events?.data?.orderReceived) {
         // showMessage(responseTheme('You received order', '', 'success'));
       }
     },
   });
-  const [loading, setLoading] = useState<boolean>(true);
+
+  const [initialLoading, setInitialLoading] = useState<boolean>(true); // Renamed to avoid confusion with subscriptionLoading
 
   useEffect(() => {
     setIsProfileTapped(false);
   }, [isFocoused]);
 
-  // Accepting the query
-  if (!data && error)
+  useEffect(() => {
+    // Only set initialLoading to false after a delay
+    // This is for your custom initial loading screen
+    let task = setTimeout(() => {
+      setInitialLoading(false);
+    }, 3000);
+
+    return () => clearTimeout(task);
+  }, [initialLoading]); // Empty dependency array means this runs once on mount
+
+  // Now, handle your loading and error states using the state variables,
+  // but after all hooks have been declared.
+
+  if (error) {
+    // Handle subscription errors
     return (
-      <AppText
-        fontSizeVariant="regular"
-        fontVariant="regular"
-        title={error.message}></AppText>
+      <TouchableOpacity
+        onPress={() => setInitialLoading(true)}
+        style={{
+          alignItems: 'center',
+          top: 20,
+          display: 'flex',
+          flexDirection: 'row',
+          backgroundColor: colors.card,
+          padding: size.spacing.m,
+          borderRadius: size.borderRadius.full,
+          borderWidth: size.borderWidth.s,
+          borderColor: colors.border,
+          justifyContent: 'center',
+        }}>
+        <AppText
+          customStyle={{
+            marginRight: 10,
+          }}
+          fontSizeVariant="regular"
+          fontVariant="regular"
+          title={error.message}></AppText>
+        <Icon source={'autorenew'} size={20}></Icon>
+      </TouchableOpacity>
     );
+  }
+
+  if (initialLoading || subscriptionLoading) {
+    // Combine your loading states
+    return (
+      <View
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          flex: 1,
+        }}>
+        <ActivityIndicator
+          color={colors.primary}
+          size={'large'}></ActivityIndicator>
+        <Spacer height={20}></Spacer>
+        <AppText title="Searching Request..."></AppText>
+      </View>
+    );
+  }
 
   const profileDetailInfo = (
     <>
@@ -134,34 +191,11 @@ export const ReceivedorderListScreen: React.FC<
     </>
   );
 
-  useEffect(() => {
-    let task = setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-
-    return () => clearTimeout(task);
-  }, [loading]);
-
-  if (loading)
-    return (
-      <View
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          flex: 1,
-        }}>
-        <ActivityIndicator
-          color={colors.primary}
-          size={'large'}></ActivityIndicator>
-        <Spacer height={20}></Spacer>
-        <AppText title="Searching Request..."></AppText>
-      </View>
-    );
-
   return (
     <>
       <FlatList
         ListEmptyComponent={
+          // This will only show if orderlist is empty AFTER loading has finished and no error
           <View
             style={{
               flex: 1,
@@ -172,7 +206,7 @@ export const ReceivedorderListScreen: React.FC<
               detail={{
                 title: 'No Any Request Currently',
                 message: NoAnyorderItemsFoud,
-                onButtonPress: () => setLoading(!loading),
+                onButtonPress: () => setInitialLoading(true), // Trigger reload if desired
                 buttonTitle: 'Reload',
               }}></SingnlePageInfo>
           </View>

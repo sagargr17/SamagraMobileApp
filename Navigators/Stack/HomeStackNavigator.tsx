@@ -14,45 +14,42 @@ type HomeStackParamList = {
   CategoryListScreen: undefined;
 };
 
-// Its The builder with the
-export const HomeStackBuilder =
-  createNativeStackNavigator<HomeStackParamList>();
-
-export type HomeStackNavigationProp<T extends keyof HomeStackParamList> =
-  NativeStackNavigationProp<HomeStackParamList, T>;
-
-export interface HomeStackProps<T extends keyof HomeStackParamList> {
-  navigation: HomeStackNavigationProp<T>;
-}
-
-const screenBuilder = (
-  data: Array<{
-    screenName: keyof HomeStackParamList;
-    component: any;
-    // option?: NativeStackNavigationOptions;
-    option?:
-      | NativeStackNavigationOptions
-      | ((props: {
-          route: RouteProp<HomeStackParamList, keyof HomeStackParamList>;
-          navigation: NativeStackNavigationProp<
-            HomeStackParamList,
-            keyof HomeStackParamList
-          >;
-        }) => NativeStackNavigationOptions);
-  }>,
-) => {
-  return data.map(item => (
-    <HomeStackBuilder.Screen
-      options={item.option}
-      key={item.screenName}
-      navigationKey={Math.random().toString()}
-      name={item.screenName}
-      component={item.component}></HomeStackBuilder.Screen>
-  ));
-};
-
 export const HomeStackNavigator: React.FC = () => {
+  // Its The builder with the
+  const HomeStackBuilder = createNativeStackNavigator<HomeStackParamList>();
+
+  type HomeStackNavigationProp<T extends keyof HomeStackParamList> =
+    NativeStackNavigationProp<HomeStackParamList, T>;
+
+  interface HomeStackProps<T extends keyof HomeStackParamList> {
+    navigation: HomeStackNavigationProp<T>;
+  }
   const {colors, fonts} = useTheme();
+
+  const screenBuilder = (
+    data: Array<{
+      screenName: keyof HomeStackParamList;
+      component: any;
+      // option?: NativeStackNavigationOptions;
+      option?:
+        | NativeStackNavigationOptions
+        | ((props: {
+            route: RouteProp<HomeStackParamList, keyof HomeStackParamList>;
+            navigation: NativeStackNavigationProp<
+              HomeStackParamList,
+              keyof HomeStackParamList
+            >;
+          }) => NativeStackNavigationOptions);
+    }>,
+  ) => {
+    return data.map(item => (
+      <HomeStackBuilder.Screen
+        key={item.screenName}
+        options={item.option}
+        name={item.screenName}
+        component={item.component}></HomeStackBuilder.Screen>
+    ));
+  };
 
   return (
     <>

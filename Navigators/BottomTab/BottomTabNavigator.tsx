@@ -12,8 +12,7 @@ import {HomeStackNavigator} from '../Stack/HomeStackNavigator';
 import {MoreStackNavigator} from '../Stack/MoreStackNavigator';
 import {ServiceStackNavigator} from '../Stack/ServiceStackNavigator';
 
-import {Alert, TouchableHighlight} from 'react-native';
-import {AppText} from '../../Components/Elements/AppText';
+import {TouchableHighlight} from 'react-native';
 import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
 import {setIsBuyMode} from '../../StateManagement/User/UserSlice';
 type BottomTabParamList = {
@@ -72,6 +71,7 @@ export const BottomTabNavigator: React.FC = () => {
       />
     ));
   };
+
   return (
     <BottomTabBuilder.Navigator
       screenOptions={({route}) => ({

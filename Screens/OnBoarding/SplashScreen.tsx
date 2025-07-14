@@ -26,7 +26,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
     let timer = setTimeout(() => {
       if (userIsAuthenticate === true || userIsAuthenticate === false)
         navigation.navigate('GetStartedScreen');
-    }, 1500);
+    }, 2000);
 
     return () => clearInterval(timer);
   }, [userIsAuthenticate]);

@@ -18,6 +18,8 @@ import {AreaMapper} from '../Utilities/CustomMethods';
 import {BottomTabNavigator} from './BottomTab/BottomTabNavigator';
 import {ApplicationOverlayStackNavigator} from './Stack/ApplicationOverlayStackNavigator';
 import {OnBoardingStackNavigator} from './Stack/OnBoardingStackNavigator';
+import {HomeStackNavigator} from './Stack/HomeStackNavigator';
+import {Alert} from 'react-native';
 
 type RootStackParamList = {
   ApplicationOverlay: undefined;
@@ -93,8 +95,12 @@ export const RootStack: React.FC = () => {
 
   // It Checks and reset the internet if nentwork is restroed
   const handleResetInternet = useCallback(() => {
+    Alert.alert('sadsad', 'asdlkksajdlsak');
     dispatch(showLoader());
     client.resetStore().then((x: any) => {
+      console.log('Result>>>', x);
+
+      // This is the Condition for the Invalid Error
       if (x[0].data) {
         dispatch(
           setError({
@@ -124,8 +130,6 @@ export const RootStack: React.FC = () => {
       />
     );
 
-  console.log('USer Status is root Stack', userSignInStatus);
-
   return (
     <>
       {loaderStatus ? (
@@ -153,6 +157,8 @@ export const RootStack: React.FC = () => {
               {screenName: 'OnBoarding', component: OnBoardingStackNavigator},
             ])}
       </RootStackBuilder.Navigator>
+      {/* <HomeStackNavigator></HomeStackNavigator> */}
+      {/* <BottomTabNavigator></BottomTabNavigator> */}
     </>
   );
 };

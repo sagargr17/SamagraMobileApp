@@ -24,12 +24,13 @@ export const OrderLandingScreen: React.FC<OrderLandingScreenProps> = ({
   const isBuyMode = useAppSelector(state => state.user.Profile.isBuyMode);
   const dispatch = useAppDispatch();
 
-  const [getLoginUserFn] = useLazyQuery(getLoginUser);
+  const [getLoginUserFn] = useLazyQuery(getLoginUser, {
+    fetchPolicy: 'cache-and-network',
+  });
 
   useEffect(() => {
     getLoginUserFn()
       .then(data => {
-        console.log('Result....', data);
         dispatch(
           setUserProfile({
             username: data.data?.getUser?.username ?? 'Not Mention',

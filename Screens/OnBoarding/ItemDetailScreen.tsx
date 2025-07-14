@@ -198,6 +198,8 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
     });
   };
 
+  console.log('Imagesss????', data?.getPublicItems?.nodes?.[0]?.imageUrls);
+
   return (
     <View
       style={{

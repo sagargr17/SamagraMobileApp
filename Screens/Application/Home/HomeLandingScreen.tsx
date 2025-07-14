@@ -78,13 +78,13 @@ export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
     return <HomeLandingSkeleton></HomeLandingSkeleton>;
   }
 
-  if (error) {
-    return (
-      <Text style={{color: 'red', textAlign: 'center', marginTop: 20}}>
-        Error: {error.message}
-      </Text>
-    );
-  }
+  // if (error) {
+  //   return (
+  //     <Text style={{color: 'red', textAlign: 'center', marginTop: 20}}>
+  //       Error: {error.message}
+  //     </Text>
+  //   );
+  // }
 
   return (
     <FlatListScreen
@@ -109,7 +109,7 @@ export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
 
         return (
           <>
-            <View
+            {/* <View
               style={{
                 paddingTop: index % 2 === 0 ? 0 : size.spacing.xs,
                 flex: 1,
@@ -122,7 +122,7 @@ export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
                 price={item.node.price || 'Not Mentioned'}
                 rating={item.node.starRating}
               />
-            </View>
+            </View> */}
           </>
         );
       }}

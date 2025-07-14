@@ -55,15 +55,15 @@ const errorLink = onError(({graphQLErrors, networkError, protocolErrors}) => {
 
   if (networkError) {
     console.log(`[Network error]: ${networkError}`);
-    store.dispatch(
-      setError({
-        error: {
-          isErorr: true,
-          type: 'networkError',
-          message: `${networkError.message}`,
-        },
-      }),
-    );
+    // store.dispatch(
+    //   setError({
+    //     error: {
+    //       isErorr: true,
+    //       type: 'networkError',
+    //       message: `${networkError.message}`,
+    //     },
+    //   }),
+    // );
   }
 });
 
@@ -183,7 +183,6 @@ async function onAppBootstrap() {
 
   // Get the token
   const token = await getApp().messaging().getToken();
-
   // getApp()
   //   .messaging()
   //   .onMessage(() => console.log('Home Ground'));
@@ -199,27 +198,32 @@ function App(): React.JSX.Element {
     themes.colors.background === 'rgb(255, 255, 255)'
       ? 'dark-content'
       : 'light-content';
+
   const userStatus = async () => {
     const {userStatus} = await getTokens();
     return userStatus;
   };
 
   useEffect(() => {
-    BootSplash.hide({fade: true});
-    permissionReqeust();
-    onAppBootstrap();
+    const hideSplash = async () => {
+      await BootSplash.hide();
+    };
+    hideSplash().then(x => {
+      permissionReqeust();
+      onAppBootstrap();
+      // User sTatus
+      userStatus()
+        .then(res => {
+          console.log('Result::', res);
 
-    // User sTatus
-    userStatus()
-      .then(res => {
-        console.log('Result::', res);
-
-        if (typeof res === 'string' && res === 'true') store.dispatch(login());
-        else {
-          store.dispatch(logout());
-        }
-      })
-      .catch(err => store.dispatch(logout()));
+          if (typeof res === 'string' && res === 'true')
+            store.dispatch(login());
+          else {
+            store.dispatch(logout());
+          }
+        })
+        .catch(err => store.dispatch(logout()));
+    });
   }, []);
 
   return (

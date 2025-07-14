@@ -16,6 +16,8 @@ export const ImageSliderModal: React.FC<ImageSliderModalProps> = ({images}) => {
   const [visible, setVisible] = useState<boolean>(false);
   const {colors} = useTheme();
 
+  console.log('ImageN URLL', images);
+
   return (
     <>
       <ImageSlider
