@@ -157,8 +157,6 @@ export const RootStack: React.FC = () => {
               {screenName: 'OnBoarding', component: OnBoardingStackNavigator},
             ])}
       </RootStackBuilder.Navigator>
-      {/* <HomeStackNavigator></HomeStackNavigator> */}
-      {/* <BottomTabNavigator></BottomTabNavigator> */}
     </>
   );
 };

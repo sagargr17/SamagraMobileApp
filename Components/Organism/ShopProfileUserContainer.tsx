@@ -97,9 +97,9 @@ export const ShopProfileUserContainer: React.FC<
           title: 'Pending',
           iconName: 'calendar-clock-outline',
           onPress: () => {
-            // navigation.navigate('PendingOrderScreen', {
-            //   shopId: shopId,
-            // });
+            navigation.navigate('PendingOrderScreen', {
+              shopId: shopId,
+            });
           },
         },
 
@@ -107,11 +107,8 @@ export const ShopProfileUserContainer: React.FC<
           title: 'Stocks',
           iconName: 'view-comfy',
           onPress: () => {
-            navigation.navigate('ApplicationOverlay', {
-              screen: 'StockScreen',
-              params: {
-                shopId: shopId,
-              },
+            navigation.navigate('StockScreen',{
+              shopId: shopId,
             });
           },
         },

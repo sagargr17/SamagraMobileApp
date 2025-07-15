@@ -53,13 +53,6 @@ type ApplicationOverlayMoreStackParamList = {
   ShopCreatedScreen: {
     shopID: string;
   };
-  StockScreen: {
-    shopId: string;
-  };
-  StockUpdateScreen: undefined;
-  PendingOrderScreen: {
-    shopId: string;
-  };
 };
 
 // Its The builder with the
@@ -240,20 +233,6 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
             component: ShopCreatedScreen,
             option: {
               header: () => null,
-            },
-          },
-          {
-            screenName: 'StockScreen',
-            component: StockScreen,
-            option: {
-              headerTitle: "Stock's",
-            },
-          },
-          {
-            screenName: 'StockUpdateScreen',
-            component: StockUpdateScreen,
-            option: {
-              headerTitle: 'Update Your Stock',
             },
           },
         ])}
