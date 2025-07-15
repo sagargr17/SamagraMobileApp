@@ -130,7 +130,7 @@ const size = {
       // shadowOpacity: 0.25, // Good visible opacity for a soft shadow
       shadowRadius: 3, // Crucial for softness on iOS
       // Android elevation property
-      elevation:4, // On Android, this will be applied. iOS will ignore it.
+      elevation: 4, // On Android, this will be applied. iOS will ignore it.
     },
     l: {
       // shadowColor: 'rgba(0, 0, 0, 0.5)', // Proper visible color      borderWidth: 0.1,
@@ -143,7 +143,7 @@ const size = {
   },
 
   iconSize: {
-    small: 16,
+    small: 20,
     medium: 24,
     large: 26,
     xlarge: 48,

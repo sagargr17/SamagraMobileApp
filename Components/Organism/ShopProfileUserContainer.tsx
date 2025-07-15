@@ -164,12 +164,15 @@ export const ShopProfileUserContainer: React.FC<
 
   return (
     <>
-      <RowFlexLayout>
+      <RowFlexLayout
+        customStyle={{
+          justifyContent: 'space-around',
+        }}>
         {flexDetailsItems[0].firstRow.map((item, index) => (
           <BubbleCard
             key={index}
             customStyle={{
-              flex: 0.48,
+              flex: 0.65,
               borderColor: colors.background,
             }}
             variant="small"
@@ -178,12 +181,15 @@ export const ShopProfileUserContainer: React.FC<
             onPress={item.onPress}></BubbleCard>
         ))}
       </RowFlexLayout>
-      <RowFlexLayout>
+      <RowFlexLayout
+        customStyle={{
+          justifyContent: 'space-around',
+        }}>
         {flexDetailsItems[0].secondRow.map((item, index) => (
           <BubbleCard
             key={index}
             customStyle={{
-              flex: 0.48,
+              flex: 0.45,
               borderColor: colors.background,
             }}
             variant="small"

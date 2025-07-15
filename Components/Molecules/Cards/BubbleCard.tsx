@@ -2,6 +2,7 @@ import {useTheme} from '@react-navigation/native';
 import React from 'react';
 import {
   Dimensions,
+  Platform,
   StyleSheet,
   TouchableOpacity,
   View,
@@ -39,61 +40,93 @@ export const BubbleCard: React.FC<BubbleCardProps> = ({
   const {colors} = useTheme();
 
   const cardWidth =
-    variant === 'large' ? '92%' : AreaMapper({value: 150, scaleBy: 'average'}); // Example small width
+    variant === 'large' ? '92%' : AreaMapper({value: 180, scaleBy: 'average'}); // Example small width
 
   return (
-    <TouchableOpacity
-      style={[styles.viewContainer, customStyle, size.elevation.l]}
-      onPress={onPress}>
-      <View
+    <View>
+      <TouchableOpacity
+        onPress={onPress}
         style={[
-          styles.contentContainer,
           {
-            backgroundColor: colors.card,
-            padding: variant === 'large' ? size.spacing.s : size.spacing.xs,
+            paddingVertical: size.spacing.xxs + 1,
+            marginBottom: size.spacing.s,
+            width: cardWidth,
+            backgroundColor: 'white', // <-- Crucial: Set this to the actual card background color (white in your case)
+            borderRadius: size.borderRadius.m,
+            ...Platform.select({
+              ios: {
+                shadowColor: '#000', // Typically black for shadows, you can adjust opacity
+                shadowOffset: {width: 0, height: 4}, // Consistent shadow direction
+                shadowOpacity: 0.1, // Adjust this for a softer or harder shadow (0 to 1)
+                shadowRadius: 6, // Adjust this for blurriness of the shadow
+              },
+              android: {
+                elevation: 9, // A good starting point for elevation on Android
+                shadowColor: 'rgb(172, 170, 170)',
+                shadowOffset: {width: 0, height: 5}, // Consistent shadow direction
+
+                // No need for borderWidth/borderColor on Android either if you want no visible border
+              },
+            }),
           },
         ]}>
-        {iconName && (
-          <View style={styles.iconContainer}>
-            <Icon
-              source={iconName}
-              size={size.iconSize.small}
-              color={iconColor ? iconColor : colors.text}
-            />
-          </View>
-        )}
-        <View style={[styles.textContainer]}>
-          <AppText
-            fontVariant="medium"
-            fontSizeVariant={'regular'}
-            title={title} // Title using the title prop
-          />
-          {comment && (
-            <AppText
-              fontVariant="regular"
-              fontSizeVariant={'caption'}
-              title={comment} // Comment using the title prop
-              customStyle={styles.comment}
-            />
+        <View
+          style={[
+            styles.contentContainer,
+            {
+              padding: variant === 'large' ? size.spacing.s : size.spacing.xs,
+              // No need for borderColor here either
+              borderRadius: size.borderRadius.m, // Keep this for inner content rounding
+            },
+          ]}>
+          {iconName && (
+            <View
+              style={[
+                styles.iconContainer,
+                {
+                  // backgroundColor: 'pink',
+                },
+              ]}>
+              <Icon
+                source={iconName}
+                size={size.iconSize.small}
+                color={iconColor ? iconColor : colors.text}
+              />
+            </View>
           )}
+          <View style={[styles.textContainer]}>
+            <AppText
+              fontVariant="medium"
+              fontSizeVariant={'regular'}
+              title={title} // Title using the title prop
+            />
+            {comment && (
+              <AppText
+                fontVariant="regular"
+                fontSizeVariant={'caption'}
+                title={comment} // Comment using the title prop
+                customStyle={styles.comment}
+              />
+            )}
+          </View>
+          {children && <View style={styles.childrenContainer}>{children}</View>}
         </View>
-        {children && <View style={styles.childrenContainer}>{children}</View>}
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   viewContainer: {
-    marginBottom: size.spacing.m - 2,
+    marginBottom: size.spacing.m,
+    borderWidth: 1,
   },
   contentContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    // padding: AreaMapper({value: 12, scaleBy: 'average'}),
-    borderRadius: size.borderRadius.s - 3,
-    paddingTop: size.spacing.m + 2,
-    paddingBottom: size.spacing.m + 2,
+
+    borderRadius: size.borderRadius.m,
+    paddingVertical: size.spacing.m,
   },
   iconContainer: {
     marginRight: size.spacing.xxs,

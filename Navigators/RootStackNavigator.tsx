@@ -145,7 +145,7 @@ export const RootStack: React.FC = () => {
         screenOptions={{
           header: () => null,
         }}>
-        {userSignInStatus === true //change this to true while deployment
+        {true === true //change this to true while deployment
           ? screenBuilder([
               {screenName: 'BottomTab', component: BottomTabNavigator},
               {

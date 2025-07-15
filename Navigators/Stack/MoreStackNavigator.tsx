@@ -49,7 +49,7 @@ const screenBuilder = (
     <MoreStackBuilder.Screen
       options={item.option}
       key={item.screenName}
-      navigationKey={Math.random().toString()}
+      navigationKey={item.screenName}
       name={item.screenName}
       component={item.component}></MoreStackBuilder.Screen>
   ));
