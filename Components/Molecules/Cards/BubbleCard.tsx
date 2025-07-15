@@ -62,7 +62,7 @@ export const BubbleCard: React.FC<BubbleCardProps> = ({
               },
               android: {
                 elevation: 9, // A good starting point for elevation on Android
-                shadowColor: 'rgb(172, 170, 170)',
+                shadowColor: 'rgb(156, 156, 156)',
                 shadowOffset: {width: 0, height: 5}, // Consistent shadow direction
 
                 // No need for borderWidth/borderColor on Android either if you want no visible border

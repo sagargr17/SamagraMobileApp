@@ -40,7 +40,7 @@ export const ItemCategoryCard: React.FC<ItemCategoryCardProps> = ({
         {
           marginRight: size.spacing.xs,
         },
-        size.elevation.l,
+        // size.elevation.l,
       ]}>
       <View
         style={[
@@ -58,7 +58,7 @@ export const ItemCategoryCard: React.FC<ItemCategoryCardProps> = ({
               scaleBy: 'height',
             }),
             alignItems: 'center',
-            borderRadius: size.borderRadius.s,
+            borderRadius: size.borderRadius.m,
           },
         ]}>
         <View>{icon}</View>

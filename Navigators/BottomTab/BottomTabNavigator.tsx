@@ -33,7 +33,14 @@ export interface BottomTabProps<T extends keyof BottomTabParamList> {
 export const BottomTabNavigator: React.FC = () => {
   const {colors, fonts} = useTheme();
   const navigation = useNavigation<any>();
-  const {BuyFrame, SellFrame} = Logos;
+  const {
+    BuyFrame,
+    SellFrame,
+    MoreActiveIcon,
+    HomeInActiveIcon,
+    LiveIcon,
+    ActiveLiveIcon,
+  } = Logos;
   const isBuy = useAppSelector(state => state.user.Profile.isBuyMode);
 
   const dispatch = useAppDispatch();
@@ -77,28 +84,49 @@ export const BottomTabNavigator: React.FC = () => {
       screenOptions={({route}) => ({
         header: () => null,
         tabBarIcon: ({focused, color, size: sizes}) => {
-          const {Home, Service, More} = Logos;
+          const {Home, LiveIcon: Service, More} = Logos;
 
           const iconSize = size.iconSize.small;
 
           if (route.name === 'Home') {
             return (
-              <Home
-                height={iconSize}
-                focused={focused}
-                color={color}
-                // size={sizes}
-              />
+              <>
+                {focused ? (
+                  <Home
+                    height={iconSize}
+                    focused={focused}
+                    color={color}
+                    // size={sizes}
+                  />
+                ) : (
+                  <HomeInActiveIcon
+                    height={iconSize}
+                    focused={focused}
+                    color={color}
+                  />
+                )}
+              </>
             );
           }
           if (route.name === 'More') {
             return (
-              <More
-                height={iconSize}
-                focused={focused}
-                color={color}
-                size={sizes}
-              />
+              <>
+                {focused ? (
+                  <MoreActiveIcon
+                    height={iconSize}
+                    focused={focused}
+                    color={color}
+                    size={sizes}
+                  />
+                ) : (
+                  <More
+                    height={iconSize}
+                    focused={focused}
+                    color={color}
+                    size={sizes}
+                  />
+                )}
+              </>
             );
           }
           if (route.name === 'Order') {
@@ -128,12 +156,22 @@ export const BottomTabNavigator: React.FC = () => {
                     )}
                   </TouchableHighlight>
                 ) : null}
-                <Service
-                  height={iconSize}
-                  focused={focused}
-                  color={color}
-                  size={sizes}
-                />
+
+                {focused ? (
+                  <ActiveLiveIcon
+                    height={iconSize}
+                    focused={focused}
+                    color={color}
+                    size={sizes}
+                  />
+                ) : (
+                  <LiveIcon
+                    height={iconSize}
+                    focused={focused}
+                    color={color}
+                    size={sizes}
+                  />
+                )}
               </View>
             );
           }
@@ -155,8 +193,9 @@ export const BottomTabNavigator: React.FC = () => {
           lineHeight: size.textVariants.caption.lineHeight,
           fontFamily: 'Poppins-Regular',
         },
-        tabBarHideOnKeyboard: false,
+        tabBarHideOnKeyboard: true,
         tabBarAllowFontScaling: true,
+        // tabBarActiveBackgroundColor: 'orange',
       })}
       initialRouteName="Order">
       {screenBuilder([

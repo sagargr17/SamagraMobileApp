@@ -5,7 +5,7 @@ import SamagraLogo from '../SVGImages/Samagra.svg';
 import Camera from '../SVGImages/camera.svg';
 import Home from '../SVGImages/HomeBottomTab.svg';
 import More from '../SVGImages/MoreBottomTab.svg';
-import Service from '../SVGImages/ServiceBottomTab.svg';
+import LiveIcon from '../SVGImages/LiveIcon.svg';
 import Star from '../SVGImages/star.svg';
 import BellRing from '../SVGImages/BellRing.svg';
 import BellRingTail from '../SVGImages/BellRingTail.svg';
@@ -29,14 +29,20 @@ import StockIcon from '../SVGImages/StockIcon';
 import Store from '../SVGImages/Store';
 import BuyFrame from '../SVGImages/BuyFrame';
 import SellFrame from '../SVGImages/SellFrame';
+import ActiveLiveIcon from '../SVGImages/ActiveLiveIcon';
+import MoreActiveIcon from '../SVGImages/MoreActiveIcon';
+import HomeInActiveIcon from '../SVGImages/HomeInActiveIcon';
 
 export const Logos = {
+  ActiveLiveIcon,
+  HomeInActiveIcon,
+  MoreActiveIcon,
   AppleLogo,
   NepalFlag,
   SamagraLogo,
   GoogleLogo,
   Camera,
-  Service,
+  LiveIcon,
   Home,
   More,
   Star,
