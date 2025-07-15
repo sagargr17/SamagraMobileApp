@@ -16,7 +16,7 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({
   sizes = 'large',
 }) => {
   const {fonts} = useTheme();
-  const {Laundry, HouseKeeping, Grocery, Stationary} = Logos;
+  const {Laundry, HouseKeeping, Grocery, Stationary, More} = Logos;
   const [selectedCategory, setSelectedCategory] = useState<string>('Laundry');
   const navigation: any = useNavigation();
 
@@ -42,13 +42,13 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({
     },
     {
       titte: 'More',
-      icon: <Grocery height={height} width={width} />,
-    },  
+      icon: <More height={height} width={width} />,
+    },
   ];
 
   const onTabPress = useCallback(
     (categoryTitle = 'Laundry') => {
-       navigation.navigate('CategoryListScreen')
+      navigation.navigate('CategoryListScreen');
       // sizes === 'large'
       //   ? navigation.navigate('CategoryListScreen')
       //   : setSelectedCategory(categoryTitle);

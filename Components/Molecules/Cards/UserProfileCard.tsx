@@ -33,7 +33,6 @@ export const UserProfileCard: React.FC<UserProfileCardProps> = ({
         {
           backgroundColor: colors.card,
           borderRadius: size.borderRadius.m,
-          // borderWidth: size.borderWidth.l,
         },
         customStyle,
       ]}>
@@ -42,7 +41,6 @@ export const UserProfileCard: React.FC<UserProfileCardProps> = ({
           style.image,
           {
             borderColor: colors.background,
-            // borderRadius: size.spacing.xxs
           },
           size.elevation.xs,
         ]}

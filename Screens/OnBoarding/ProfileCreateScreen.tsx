@@ -22,7 +22,7 @@ import PhoneInput from '../../Components/Elements/PhoneInput';
 import {Spacer} from '../../Components/Elements/Spacer';
 import {ScrollableLayout} from '../../Layout/ScreenLayout/ScrollableLayout';
 import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
-import {responseTheme} from '../../Prefrences/Prefrences';
+import {responseTheme, size} from '../../Prefrences/Prefrences';
 import ImageHandler from '../../Utilities/ImageHandler';
 
 interface ProfileCreateProps {
@@ -269,6 +269,7 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
             onPress={handleSubmit(onSubmit)}>
             Continue
           </AppButton>
+          <Spacer height={20}></Spacer>
         </ScrollView>
       </KeyboardAvoidingView>
     </ScrollableLayout>

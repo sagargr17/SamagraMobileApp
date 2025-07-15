@@ -1,18 +1,18 @@
-import { useTheme } from '@react-navigation/native';
+import {useTheme} from '@react-navigation/native';
 import {
   createNativeStackNavigator,
   NativeStackNavigationOptions,
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
 import React from 'react';
-import { size } from '../../Prefrences/Prefrences';
-import { GetStartedScreen } from '../../Screens/OnBoarding/GetStartedScreen';
-import { OtpScreen } from '../../Screens/OnBoarding/OptScreen';
-import { ProfileCreateScreen } from '../../Screens/OnBoarding/ProfileCreateScreen';
-import { ProfileSetupScreen } from '../../Screens/OnBoarding/ProfileSetupScreen';
-import { SignInScreen } from '../../Screens/OnBoarding/SignInScreen';
-import { SignUpScreen } from '../../Screens/OnBoarding/SignUpScreen';
-import { SplashScreen } from '../../Screens/OnBoarding/SplashScreen';
+import {size} from '../../Prefrences/Prefrences';
+import {GetStartedScreen} from '../../Screens/OnBoarding/GetStartedScreen';
+import {OtpScreen} from '../../Screens/OnBoarding/OptScreen';
+import {ProfileCreateScreen} from '../../Screens/OnBoarding/ProfileCreateScreen';
+import {ProfileSetupScreen} from '../../Screens/OnBoarding/ProfileSetupScreen';
+import {SignInScreen} from '../../Screens/OnBoarding/SignInScreen';
+import {SignUpScreen} from '../../Screens/OnBoarding/SignUpScreen';
+import {SplashScreen} from '../../Screens/OnBoarding/SplashScreen';
 
 type OnBoardingStackParamList = {
   SplashScreen: undefined;

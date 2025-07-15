@@ -77,7 +77,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
       </>
       <Spacer height={25}></Spacer>
       {/* {isShopActive && selectedShopData?.shopId ? ( */}
-      {true ? (
+      {false ? (
         <ShopProfileUserContainer
           shopId={'selectedShopData?.shopId'}></ShopProfileUserContainer>
       ) : (

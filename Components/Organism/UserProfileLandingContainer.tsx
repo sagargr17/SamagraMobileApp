@@ -5,6 +5,7 @@ import {BubbleCard} from '../Molecules/Cards/BubbleCard';
 import AppButton from '../Elements/Button';
 import {size} from '../../Prefrences/Prefrences';
 import {clearTokens} from '../../client/Token/TokenAccess';
+import {RowFlexLayout} from '../../Layout/PartationLayout/RowFlexLayout';
 interface UserProfileMoreScreenProps {}
 
 export const UserProfileLandingContainer: React.FC<
@@ -99,32 +100,40 @@ export const UserProfileLandingContainer: React.FC<
   const {colors} = useTheme();
   return (
     <>
-      <View style={styles.flexcontainer}>
+      <RowFlexLayout
+        customStyle={{
+          justifyContent: 'space-around',
+        }}>
         {flexDetailsItems[0].firstRow.map((item, index) => (
           <BubbleCard
             key={index}
             customStyle={{
-              flex: 0.48,
+              flex: 0.65,
+              borderColor: colors.background,
             }}
             variant="small"
             title={item.title}
             iconName={item.iconName}
             onPress={item.onPress}></BubbleCard>
         ))}
-      </View>
-      <View style={styles.flexcontainer}>
+      </RowFlexLayout>
+      <RowFlexLayout
+        customStyle={{
+          justifyContent: 'space-around',
+        }}>
         {flexDetailsItems[0].secondRow.map((item, index) => (
           <BubbleCard
             key={index}
             customStyle={{
-              flex: 0.48,
+              flex: 0.45,
+              borderColor: colors.background,
             }}
             variant="small"
             title={item.title}
             iconName={item.iconName}
             onPress={item.onPress}></BubbleCard>
         ))}
-      </View>
+      </RowFlexLayout>
 
       <View>
         {columnDetailsList.map((item, index) => (

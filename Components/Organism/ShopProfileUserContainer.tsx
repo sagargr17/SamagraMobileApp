@@ -105,9 +105,9 @@ export const ShopProfileUserContainer: React.FC<
 
         {
           title: 'Stocks',
-          iconName: 'view-comfy',
+          iconName: <StockIcon height={iconSize} width={iconSize}></StockIcon>,
           onPress: () => {
-            navigation.navigate('StockScreen',{
+            navigation.navigate('StockScreen', {
               shopId: shopId,
             });
           },
@@ -135,13 +135,6 @@ export const ShopProfileUserContainer: React.FC<
       icon: <PenIcon height={iconSize} width={iconSize}></PenIcon>,
       onPress: () => {
         console.log('Presed');
-      },
-    },
-    {
-      title: 'Stocks',
-      icon: <StockIcon height={iconSize} width={iconSize}></StockIcon>,
-      onPress: () => {
-        // navigation.navigate('StockScreen');
       },
     },
     {

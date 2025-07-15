@@ -22,7 +22,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
   );
   useEffect(() => {
     console.log('User Login Status in Splash screen ', userIsAuthenticate);
-    
+
     let timer = setTimeout(() => {
       if (userIsAuthenticate === true || userIsAuthenticate === false)
         navigation.navigate('GetStartedScreen');
@@ -33,37 +33,10 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
 
   return (
     <View style={styles.wrapper}>
-      <MotiView
-        from={{
-          opacity: 0,
-          scale: 0.8,
-          translateY: 90, // Start 20 units lower
-        }}
-        animate={{
-          opacity: 1,
-          scale: 1.3,
-          translateY: 0, // Moves to its original position
-        }}
-        transition={{
-          type: 'spring',
-          damping: 15,
-          stiffness: 100,
-        }}>
-        <SamagraLogo height={100} width={100} />
+      <MotiView>
+        <SamagraLogo height={140} width={140} />
       </MotiView>
-      <MotiView
-        from={{
-          opacity: 0,
-          scale: 0.5,
-        }}
-        animate={{
-          opacity: 1,
-          scale: 0.8,
-        }}
-        transition={{
-          type: 'timing',
-          duration: 700,
-        }}>
+      <MotiView>
         <Text style={styles.title}>SAMAGRA</Text>
       </MotiView>
       <ActivityIndicator
