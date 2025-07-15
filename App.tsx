@@ -15,7 +15,7 @@ import {
 import {getApp} from '@react-native-firebase/app';
 import '@react-native-firebase/messaging';
 import {NavigationContainer} from '@react-navigation/native';
-import {createClient} from 'graphql-ws';
+import {createClient, parseMessage} from 'graphql-ws';
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {PermissionsAndroid, StatusBar} from 'react-native';
 import FlashMessage, {showMessage} from 'react-native-flash-message';
@@ -55,15 +55,15 @@ const errorLink = onError(({graphQLErrors, networkError, protocolErrors}) => {
 
   if (networkError) {
     console.log(`[Network error]: ${networkError}`);
-    // store.dispatch(
-    //   setError({
-    //     error: {
-    //       isErorr: true,
-    //       type: 'networkError',
-    //       message: `${networkError.message}`,
-    //     },
-    //   }),
-    // );
+    store.dispatch(
+      setError({
+        error: {
+          isErorr: true,
+          type: 'networkError',
+          message: `${networkError.message}`,
+        },
+      }),
+    );
   }
 });
 
@@ -193,6 +193,8 @@ async function onAppBootstrap() {
 
 // Main Modules
 function App(): React.JSX.Element {
+  BootSplash.hide();
+
   const [themes] = useState(MyTheme); // Default to light theme
   const barStyle =
     themes.colors.background === 'rgb(255, 255, 255)'
@@ -206,7 +208,7 @@ function App(): React.JSX.Element {
 
   useEffect(() => {
     const hideSplash = async () => {
-      await BootSplash.hide();
+      console.log();
     };
     hideSplash().then(x => {
       permissionReqeust();

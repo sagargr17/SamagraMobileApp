@@ -20,6 +20,7 @@ import {ApplicationOverlayStackNavigator} from './Stack/ApplicationOverlayStackN
 import {OnBoardingStackNavigator} from './Stack/OnBoardingStackNavigator';
 import {HomeStackNavigator} from './Stack/HomeStackNavigator';
 import {Alert} from 'react-native';
+import BootSplash from 'react-native-bootsplash';
 
 type RootStackParamList = {
   ApplicationOverlay: undefined;
@@ -78,6 +79,7 @@ const screenBuilder = (
 
 export const RootStack: React.FC = () => {
   const userSignInStatus = useAppSelector(state => state.user.isAuthenticated);
+  const isLoading = useAppSelector(state => state.loader.isLoading);
   const {colors} = useTheme();
   const loaderStatus = useAppSelector(state => state.loader.isLoading);
   const errorResponse = useAppSelector(State => State.error.error);
@@ -95,7 +97,6 @@ export const RootStack: React.FC = () => {
 
   // It Checks and reset the internet if nentwork is restroed
   const handleResetInternet = useCallback(() => {
-    Alert.alert('sadsad', 'asdlkksajdlsak');
     dispatch(showLoader());
     client.resetStore().then((x: any) => {
       console.log('Result>>>', x);
@@ -113,8 +114,9 @@ export const RootStack: React.FC = () => {
     });
   }, []);
 
+  BootSplash.hide();
   // IsError
-  if (errorResponse.isErorr)
+  if (errorResponse.isErorr) {
     return (
       <SingnlePageInfo
         icon={
@@ -124,11 +126,12 @@ export const RootStack: React.FC = () => {
         detail={{
           title: `${errorResponse.message}`,
           message: 'Please Check Your connectivity and try again',
-          buttonTitle: 'Try Again!',
+          buttonTitle: `${isLoading ? 'Loading....' : 'Try Again'}`,
           onButtonPress: handleResetInternet,
         }}
       />
     );
+  }
 
   return (
     <>
@@ -145,7 +148,7 @@ export const RootStack: React.FC = () => {
         screenOptions={{
           header: () => null,
         }}>
-        {true === false //change this to true while deployment
+        {true === true //change this to true while deployment
           ? screenBuilder([
               {screenName: 'BottomTab', component: BottomTabNavigator},
               {
