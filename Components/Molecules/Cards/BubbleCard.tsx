@@ -61,7 +61,7 @@ export const BubbleCard: React.FC<BubbleCardProps> = ({
                 shadowRadius: 6, // Adjust this for blurriness of the shadow
               },
               android: {
-                elevation: 9, // A good starting point for elevation on Android
+                elevation: 8, // A good starting point for elevation on Android
                 shadowColor: 'rgb(156, 156, 156)',
                 shadowOffset: {width: 0, height: 5}, // Consistent shadow direction
 
