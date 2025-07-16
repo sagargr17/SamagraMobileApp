@@ -193,8 +193,6 @@ async function onAppBootstrap() {
 
 // Main Modules
 function App(): React.JSX.Element {
-  BootSplash.hide();
-
   const [themes] = useState(MyTheme); // Default to light theme
   const barStyle =
     themes.colors.background === 'rgb(255, 255, 255)'
@@ -208,7 +206,7 @@ function App(): React.JSX.Element {
 
   useEffect(() => {
     const hideSplash = async () => {
-      console.log();
+      await BootSplash.hide();
     };
     hideSplash().then(x => {
       permissionReqeust();

@@ -2,6 +2,7 @@ import {MessageOptions} from 'react-native-flash-message';
 import {store} from '../StateManagement/Store';
 import {hideLoader} from '../StateManagement/Error&loadingHandle/LoaderStateSlice';
 import {Card} from 'react-native-paper';
+import {Platform} from 'react-native';
 
 const GOOGLE_FONT_REGULAR = 'Poppins-Regular';
 const GOOGLE_FONT_MEDIUM = 'Poppins-Medium';
@@ -105,40 +106,72 @@ const size = {
 
   elevation: {
     xs: {
-      // shadowColor: '#3b3b3b', // Proper visible color
-      shadowColor: 'rgba(0, 0, 0, 0.3)', // Proper visible color
-      // borderWidth: 0.1,
-      // shadowOffset: {width: 1000, height: 1},
-      // shadowOpacity: 0.12,
-      shadowRadius: 100,
-      elevation: 5,
+      ...Platform.select({
+        ios: {
+          shadowColor: '#000', // Typically black for shadows, you can adjust opacity
+          shadowOffset: {width: 0, height: 4}, // Consistent shadow direction
+          shadowOpacity: 0.1, // Adjust this for a softer or harder shadow (0 to 1)
+          shadowRadius: 6, // Adjust this for blurriness of the shadow
+        },
+        android: {
+          elevation: 9, // A good starting point for elevation on Android
+          shadowColor: 'rgb(156, 156, 156)',
+          shadowOffset: {width: 0, height: 5}, // Consistent shadow direction
+
+          // No need for borderWidth/borderColor on Android either if you want no visible border
+        },
+      }),
     },
     s: {
-      // iOS shadow properties
-      shadowColor: 'rgba(0, 0, 0, 0.6)', // Proper visible color      borderWidth: 0.1,
-      shadowOffset: {width: 0, height: 3},
-      shadowOpacity: 0.16,
-      shadowRadius: 6,
-      // Android elevation property
-      elevation: 2, // On Android, this will be applied. iOS will ignore it.
+      ...Platform.select({
+        ios: {
+          shadowColor: '#000', // Typically black for shadows, you can adjust opacity
+          shadowOffset: {width: 0, height: 4}, // Consistent shadow direction
+          shadowOpacity: 0.1, // Adjust this for a softer or harder shadow (0 to 1)
+          shadowRadius: 6, // Adjust this for blurriness of the shadow
+        },
+        android: {
+          elevation: 9, // A good starting point for elevation on Android
+          shadowColor: 'rgb(156, 156, 156)',
+          shadowOffset: {width: 0, height: 5}, // Consistent shadow direction
+
+          // No need for borderWidth/borderColor on Android either if you want no visible border
+        },
+      }),
     },
     m: {
-      // THIS IS THE UPDATED 'm' ELEVATION
-      // iOS shadow properties
-      shadowColor: 'rgba(0, 0, 0, 0.8)', // Proper visible color      borderWidth: 0.1,
-      shadowOffset: {width: 0, height: 2},
-      // shadowOpacity: 0.25, // Good visible opacity for a soft shadow
-      shadowRadius: 3, // Crucial for softness on iOS
-      // Android elevation property
-      elevation: 4, // On Android, this will be applied. iOS will ignore it.
+      ...Platform.select({
+        ios: {
+          shadowColor: '#000', // Typically black for shadows, you can adjust opacity
+          shadowOffset: {width: 0, height: 4}, // Consistent shadow direction
+          shadowOpacity: 0.1, // Adjust this for a softer or harder shadow (0 to 1)
+          shadowRadius: 6, // Adjust this for blurriness of the shadow
+        },
+        android: {
+          elevation: 9, // A good starting point for elevation on Android
+          shadowColor: 'rgb(156, 156, 156)',
+          shadowOffset: {width: 0, height: 5}, // Consistent shadow direction
+
+          // No need for borderWidth/borderColor on Android either if you want no visible border
+        },
+      }),
     },
     l: {
-      // shadowColor: 'rgba(0, 0, 0, 0.5)', // Proper visible color      borderWidth: 0.1,
-      // shadowOffset: {width: 0, height: 14},
-      // shadowOpacity: 0.25,
-      shadowRadius: 100000000,
-      // Android elevation property
-      elevation: 5, // On Android, this will be applied. iOS will ignore it.
+      ...Platform.select({
+        ios: {
+          shadowColor: '#000', // Typically black for shadows, you can adjust opacity
+          shadowOffset: {width: 0, height: 4}, // Consistent shadow direction
+          shadowOpacity: 0.1, // Adjust this for a softer or harder shadow (0 to 1)
+          shadowRadius: 6, // Adjust this for blurriness of the shadow
+        },
+        android: {
+          elevation: 8, // A good starting point for elevation on Android
+          shadowColor: 'rgb(156, 156, 156)',
+          shadowOffset: {width: 0, height: 5}, // Consistent shadow direction
+
+          // No need for borderWidth/borderColor on Android either if you want no visible border
+        },
+      }),
     },
   },
 

@@ -48,27 +48,13 @@ export const BubbleCard: React.FC<BubbleCardProps> = ({
         onPress={onPress}
         style={[
           {
-            paddingVertical: size.spacing.xxs ,
+            paddingVertical: size.spacing.xxs,
             marginBottom: size.spacing.s,
             width: cardWidth,
-            backgroundColor: 'white', // <-- Crucial: Set this to the actual card background color (white in your case)
+            backgroundColor: colors.background, // <-- Crucial: Set this to the actual card background color (white in your case)
             borderRadius: size.borderRadius.m,
-            ...Platform.select({
-              ios: {
-                shadowColor: '#000', // Typically black for shadows, you can adjust opacity
-                shadowOffset: {width: 0, height: 4}, // Consistent shadow direction
-                shadowOpacity: 0.1, // Adjust this for a softer or harder shadow (0 to 1)
-                shadowRadius: 6, // Adjust this for blurriness of the shadow
-              },
-              android: {
-                elevation: 9, // A good starting point for elevation on Android
-                shadowColor: 'rgb(156, 156, 156)',
-                shadowOffset: {width: 0, height: 5}, // Consistent shadow direction
-
-                // No need for borderWidth/borderColor on Android either if you want no visible border
-              },
-            }),
           },
+          size.elevation.l,
         ]}>
         <View
           style={[

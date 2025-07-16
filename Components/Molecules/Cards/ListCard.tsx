@@ -34,7 +34,7 @@ interface ListCardProps {
   id: string;
   child?: React.ReactNode;
 }
-
+ // <-- Crucial: Set this to the actual card background color (white in your case)
 export const ListCard: React.FC<ListCardProps> = ({
   list,
   surfaceLevel = 0,

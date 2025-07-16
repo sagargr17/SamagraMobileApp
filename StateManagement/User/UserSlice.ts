@@ -4,6 +4,7 @@ import {titleRange} from '../../Utilities/CustomMethods';
 import {UserLocationRenderMode} from '@maplibre/maplibre-react-native';
 import {ItemViewModel} from '../../src/__generated__/graphql';
 import {StockScreen} from '../../Screens/Application/More/StockScreen';
+import {State} from 'react-native-gesture-handler';
 
 interface User {
   username: string;
@@ -29,6 +30,10 @@ interface UserLocation {
   long: number;
 }
 
+interface UserMode {
+  isUserServiceMode: boolean;
+}
+
 export interface UserState {
   Profile: User;
   isAuthenticated: boolean | string;
@@ -36,6 +41,7 @@ export interface UserState {
   shopData?: ShopDetail;
   uploadedImages?: UploadedImages;
   userLocation?: UserLocation;
+  UserMode: UserMode;
 }
 
 const initialState: UserState = {
@@ -58,6 +64,10 @@ const initialState: UserState = {
     lat: 0,
     long: 0,
   },
+  UserMode: {
+    isUserServiceMode: true,
+  },
+
   // selectedItem: {
   //   stockQuantity: 0,
   //   price: 0,
@@ -104,9 +114,9 @@ const userSlice = createSlice({
       state.Profile = action.payload;
     },
 
-    // setItemSelected: (state, action: PayloadAction<ItemViewModel>) => {
-    //   state.selectedItem = action.payload;
-    // },
+    setUserMode: state => {
+      state.UserMode.isUserServiceMode = !state.UserMode.isUserServiceMode;
+    },
   },
 });
 
@@ -119,6 +129,7 @@ export const {
   setShopState,
   setIsBuyMode,
   setUserProfile,
+  setUserMode,
   // setItemSelected,
 } = userSlice.actions;
 export default userSlice.reducer;

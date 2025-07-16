@@ -31,8 +31,9 @@ export const UserProfileCard: React.FC<UserProfileCardProps> = ({
         style.wrapper,
         size.elevation.l,
         {
-          backgroundColor: colors.card,
+          backgroundColor: colors.background,
           borderRadius: size.borderRadius.m,
+          
         },
         customStyle,
       ]}>
@@ -42,7 +43,6 @@ export const UserProfileCard: React.FC<UserProfileCardProps> = ({
           {
             borderColor: colors.background,
           },
-          size.elevation.xs,
         ]}
         source={{
           uri: user.profileImageUrl,
