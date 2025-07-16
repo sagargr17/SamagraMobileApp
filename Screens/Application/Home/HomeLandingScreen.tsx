@@ -113,7 +113,7 @@ export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
               style={{
                 paddingTop: index % 2 === 0 ? 0 : size.spacing.xs,
                 flex: 1,
-                marginHorizontal: size.spacing.xxs / 2,
+                marginHorizontal: 5,
               }}>
               <ItemMiniCard
                 id={item.node.id || 'Not Mentioned'}
