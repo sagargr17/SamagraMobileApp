@@ -31,6 +31,9 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
     CreateItemRequestMutation,
   );
   const {colors} = useTheme();
+  const isUserServiceMode = useAppSelector(
+    state => state.user.UserMode.isUserServiceMode,
+  );
 
   const handleSubmit = (data: SentordersParams) => {
     dispatch(showLoader());
@@ -92,7 +95,9 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
           title="1259 Active Provider Currently !"
           variant="large"
           comment="28 Near Your Location"></BubbleCard>
-        <ItemCategoryCardSlider sizes="regular"></ItemCategoryCardSlider>
+        {isUserServiceMode ? (
+          <ItemCategoryCardSlider sizes="regular"></ItemCategoryCardSlider>
+        ) : null}
         <Spacer height={15}></Spacer>
         <AppForm<SentordersParams>
           formConfig={[
@@ -106,7 +111,7 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
             {
               name: 'name',
               type: 'text',
-              label: 'Your Need',
+              label: `${isUserServiceMode ? 'Product Name' : 'Service Name'}  `,
               rules: {
                 required: 'Name is required',
               },
