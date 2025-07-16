@@ -1,28 +1,28 @@
-import { NetworkStatus, useQuery } from '@apollo/client';
-import { useNavigation, useTheme } from '@react-navigation/native';
-import React, { useState } from 'react';
-import { FlatList, Text } from 'react-native';
-import { Logos } from '../../Assets/SVG/Exports/Exports';
+import {NetworkStatus, useQuery} from '@apollo/client';
+import {useNavigation, useTheme} from '@react-navigation/native';
+import React, {useState} from 'react';
+import {FlatList, Text} from 'react-native';
+import {Logos} from '../../Assets/SVG/Exports/Exports';
 import AppButton from '../../Components/Elements/Button';
-import { Spacer } from '../../Components/Elements/Spacer';
-import { ListCard } from '../../Components/Molecules/Cards/ListCard';
-import { AppBottomSheet } from '../../Components/Molecules/Global/AppBottomSheet';
-import { Counter } from '../../Components/Molecules/Global/Counter';
-import { SamagraLoader } from '../../Components/Molecules/Response/SamagraLoader';
-import { SingnlePageInfo } from '../../Components/Organism/SinglePageInfo';
-import { ListCardSkeleton } from '../../Components/Skeletons/Layout/ListCardSkeleton';
-import { ItemImageNotFound } from '../../Constants/UI/AssetsUrls';
+import {Spacer} from '../../Components/Elements/Spacer';
+import {ListCard} from '../../Components/Molecules/Cards/ListCard';
+import {AppBottomSheet} from '../../Components/Molecules/Global/AppBottomSheet';
+import {Counter} from '../../Components/Molecules/Global/Counter';
+import {SamagraLoader} from '../../Components/Molecules/Response/SamagraLoader';
+import {SingnlePageInfo} from '../../Components/Organism/SinglePageInfo';
+import {ListCardSkeleton} from '../../Components/Skeletons/Layout/ListCardSkeleton';
+import {ItemImageNotFound} from '../../Constants/UI/AssetsUrls';
 import {
   NoCartItemMessage,
   NoCartItemTitle,
   NotMentioned,
 } from '../../Constants/UI/Messages';
-import { GetBasketItemsQuery } from '../../GraphQL/Queries/CheckoutQueries';
-import { size } from '../../Prefrences/Prefrences';
-import { BasketItemViewModel } from '../../src/__generated__/graphql';
-import { useAppDispatch, useAppSelector } from '../../StateManagement/hooks';
-import { postPlaceOrderparams } from '../../StateManagement/Orders/PlaceOrderDetailsParams';
-import { AreaMapper, titleRange } from '../../Utilities/CustomMethods';
+import {GetBasketItemsQuery} from '../../GraphQL/Queries/CheckoutQueries';
+import {size} from '../../Prefrences/Prefrences';
+import {BasketItemViewModel} from '../../src/__generated__/graphql';
+import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
+import {postPlaceOrderparams} from '../../StateManagement/Orders/PlaceOrderDetailsParams';
+import {AreaMapper, titleRange} from '../../Utilities/CustomMethods';
 
 interface CartScreenProps {}
 
@@ -243,13 +243,14 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
         ListFooterComponent={
           <>
             <>{isFetchingMore ? <SamagraLoader></SamagraLoader> : null}</>
+
+            <AppBottomSheet
+              onClose={() => setBottomSheetOpen(!isBottomSheetOpen)}
+              isOppen={isBottomSheetOpen}
+              pannigGesture={true}
+              children={() => child}></AppBottomSheet>
           </>
         }></FlatList>
-      <AppBottomSheet
-        onClose={() => setBottomSheetOpen(!isBottomSheetOpen)}
-        isOppen={isBottomSheetOpen}
-        pannigGesture={true}
-        children={() => child}></AppBottomSheet>
     </>
   );
 };

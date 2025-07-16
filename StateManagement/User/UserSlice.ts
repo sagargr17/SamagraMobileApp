@@ -1,10 +1,5 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {ImageNotFound} from '../../Constants/UI/AssetsUrls';
-import {titleRange} from '../../Utilities/CustomMethods';
-import {UserLocationRenderMode} from '@maplibre/maplibre-react-native';
-import {ItemViewModel} from '../../src/__generated__/graphql';
-import {StockScreen} from '../../Screens/Application/More/StockScreen';
-import {State} from 'react-native-gesture-handler';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ImageNotFound } from '../../Constants/UI/AssetsUrls';
 
 interface User {
   username: string;

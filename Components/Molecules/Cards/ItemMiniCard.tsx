@@ -1,23 +1,19 @@
 import FastImage from '@d11/react-native-fast-image';
-import { useNavigation, useTheme } from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 import React from 'react';
-import {
-  StyleSheet,
-  TouchableOpacity,
-  View
-} from 'react-native';
-import { IconButton } from 'react-native-paper';
-import { ItemImageNotFound } from '../../../Constants/UI/AssetsUrls';
-import { size } from '../../../Prefrences/Prefrences';
-import { showLoader } from '../../../StateManagement/Error&loadingHandle/LoaderStateSlice';
-import { useAppDispatch } from '../../../StateManagement/hooks';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {IconButton} from 'react-native-paper';
+import {ItemImageNotFound} from '../../../Constants/UI/AssetsUrls';
+import {size} from '../../../Prefrences/Prefrences';
+import {showLoader} from '../../../StateManagement/Error&loadingHandle/LoaderStateSlice';
+import {useAppDispatch} from '../../../StateManagement/hooks';
 import {
   AreaMapper,
   isValidUrl,
   titleRange,
 } from '../../../Utilities/CustomMethods';
-import { AppText } from '../../Elements/AppText';
-import { Rating } from '../../Elements/Rating';
+import {AppText} from '../../Elements/AppText';
+import {Rating} from '../../Elements/Rating';
 
 interface ItemMiniCardProps {
   id: string;
@@ -50,7 +46,6 @@ export const ItemMiniCard: React.FC<ItemMiniCardProps> = ({
           },
         });
       }}
-      // rippleColor={colors.primary}
       style={[
         styles.card,
         {
@@ -114,7 +109,7 @@ export const ItemMiniCard: React.FC<ItemMiniCardProps> = ({
 const styles = StyleSheet.create({
   card: {
     width: AreaMapper({
-      value: 185,
+      value: 182,
       scaleBy: 'width',
     }),
     borderRadius: size.borderRadius.l,

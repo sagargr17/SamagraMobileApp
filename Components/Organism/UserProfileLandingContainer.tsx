@@ -6,6 +6,13 @@ import AppButton from '../Elements/Button';
 import {size} from '../../Prefrences/Prefrences';
 import {clearTokens} from '../../client/Token/TokenAccess';
 import {RowFlexLayout} from '../../Layout/PartationLayout/RowFlexLayout';
+import {Switch} from 'react-native-paper';
+import {AppText} from '../Elements/AppText';
+import {Spacer} from '../Elements/Spacer';
+import {store} from '../../StateManagement/Store';
+import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
+import {showLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
+import {setUserMode} from '../../StateManagement/User/UserSlice';
 interface UserProfileMoreScreenProps {}
 
 export const UserProfileLandingContainer: React.FC<
@@ -13,6 +20,13 @@ export const UserProfileLandingContainer: React.FC<
 > = ({}) => {
   const navigation = useNavigation<any>();
   const userLogoutHandle = () => clearTokens();
+  const isUserServiceMode = useAppSelector(
+    state => state.user.UserMode.isUserServiceMode,
+  );
+  const dispatch = useAppDispatch();
+  const onToggleSwitch = () => {
+    dispatch(setUserMode());
+  };
 
   // Flex Container
   const flexDetailsItems = [
@@ -83,21 +97,9 @@ export const UserProfileLandingContainer: React.FC<
       comment: 'Personal & Shop Setting',
       iconName: 'wrench',
     },
-    {
-      title: 'Service Mode',
-      iconName: 'backup-restore',
-      onPress: () => {
-        navigation.navigate('ApplicationOverlay', {
-          screen: 'MyShopItemsScreen',
-          params: {
-            name: 'Hamro Shop',
-          },
-        });
-      },
-      comment: 'Toggle Between Your Service & Product View',
-    },
   ];
   const {colors} = useTheme();
+
   return (
     <>
       <RowFlexLayout
@@ -146,6 +148,27 @@ export const UserProfileLandingContainer: React.FC<
             comment={item.comment}></BubbleCard>
         ))}
       </View>
+      <Spacer height={20}></Spacer>
+      <RowFlexLayout
+        customStyle={{
+          borderWidth: 1,
+          borderColor: colors.border,
+          borderRadius: size.borderRadius.m,
+          padding: size.spacing.s,
+        }}>
+        <AppText
+          title={isUserServiceMode ? '" Product Mode "' : '" Service Mode "'}
+          fontVariant="heavy"
+          fontSizeVariant="title"
+          customStyle={{
+            fontStyle: 'italic',
+            color: isUserServiceMode ? colors.primary : '#0e46a1',
+          }}></AppText>
+        <Switch
+          color={colors.primary}
+          value={true}
+          onValueChange={onToggleSwitch}></Switch>
+      </RowFlexLayout>
       <AppButton
         textColor={colors.text}
         onPress={userLogoutHandle}
