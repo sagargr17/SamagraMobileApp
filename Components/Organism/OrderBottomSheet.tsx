@@ -119,7 +119,7 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
             {
               name: 'description',
               type: 'text',
-              label: 'Note',
+              label: 'Message for seller',
               rules: {
                 required: 'Note is required',
               },

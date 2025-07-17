@@ -98,29 +98,29 @@ export const RootStack: React.FC = () => {
   }, []);
 
   // IsError;
-  if (errorResponse.isErorr) {
-    return (
-      <View
-        style={{
-          flex: 1,
-          flexDirection: 'column',
-          backgroundColor: colors.background,
-        }}>
-        <SingnlePageInfo
-          icon={
-            <InternetUnAvailable
-              height={AreaMapper({value: 180})}></InternetUnAvailable>
-          }
-          detail={{
-            title: `${errorResponse.message}`,
-            message: 'Please Check Your connectivity and try again',
-            buttonTitle: `${isLoading ? 'Loading....' : 'Try Again'}`,
-            onButtonPress: handleResetInternet,
-          }}
-        />
-      </View>
-    );
-  }
+  // if (errorResponse.isErorr) {
+  //   return (
+  //     <View
+  //       style={{
+  //         flex: 1,
+  //         flexDirection: 'column',
+  //         backgroundColor: colors.background,
+  //       }}>
+  //       <SingnlePageInfo
+  //         icon={
+  //           <InternetUnAvailable
+  //             height={AreaMapper({value: 180})}></InternetUnAvailable>
+  //         }
+  //         detail={{
+  //           title: `${errorResponse.message}`,
+  //           message: 'Please Check Your connectivity and try again',
+  //           buttonTitle: `${isLoading ? 'Loading....' : 'Try Again'}`,
+  //           onButtonPress: handleResetInternet,
+  //         }}
+  //       />
+  //     </View>
+  //   );
+  // }
 
   return (
     <>
@@ -137,7 +137,7 @@ export const RootStack: React.FC = () => {
         screenOptions={{
           header: () => null,
         }}>
-        {userSignInStatus === true //change this to true while deployment
+        {true === true //change this to true while deployment and add USerSigninStatus
           ? screenBuilder([
               {screenName: 'BottomTab', component: BottomTabNavigator},
               {
