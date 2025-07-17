@@ -104,7 +104,7 @@ export const UserProfileLandingContainer: React.FC<
     <>
       <RowFlexLayout
         customStyle={{
-          justifyContent: 'space-around',
+          // justifyContent: 'space-around',
         }}>
         {flexDetailsItems[0].firstRow.map((item, index) => (
           <BubbleCard
@@ -121,7 +121,7 @@ export const UserProfileLandingContainer: React.FC<
       </RowFlexLayout>
       <RowFlexLayout
         customStyle={{
-          justifyContent: 'space-around',
+          // justifyContent: 'space-around',
         }}>
         {flexDetailsItems[0].secondRow.map((item, index) => (
           <BubbleCard

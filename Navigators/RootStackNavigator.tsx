@@ -4,6 +4,7 @@ import {
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
 import React, {useCallback, useEffect} from 'react';
+import {View} from 'react-native';
 import {ProgressBar} from 'react-native-paper';
 import {client} from '../App';
 import {Logos} from '../Assets/SVG/Exports/Exports';
@@ -18,9 +19,7 @@ import {AreaMapper} from '../Utilities/CustomMethods';
 import {BottomTabNavigator} from './BottomTab/BottomTabNavigator';
 import {ApplicationOverlayStackNavigator} from './Stack/ApplicationOverlayStackNavigator';
 import {OnBoardingStackNavigator} from './Stack/OnBoardingStackNavigator';
-import {HomeStackNavigator} from './Stack/HomeStackNavigator';
-import {Alert, View} from 'react-native';
-import BootSplash from 'react-native-bootsplash';
+
 import {showMessage} from 'react-native-flash-message';
 import {responseTheme} from '../Prefrences/Prefrences';
 
@@ -76,13 +75,11 @@ export const RootStack: React.FC = () => {
   const handleResetInternet = useCallback(() => {
     dispatch(showLoader());
     client.resetStore().then((x: any) => {
-      console.log('Result>>>', x);
-
       if (x.length === 0) {
         showMessage(
           responseTheme(
             'Connection Failed',
-            'Sorry We couldnot you to server, Try again later !!',
+            'Unable connecting to server, Try again later !!',
             'danger',
           ),
         );
@@ -101,29 +98,29 @@ export const RootStack: React.FC = () => {
   }, []);
 
   // IsError
-  if (errorResponse.isErorr) {
-    return (
-      <View
-        style={{
-          flex: 1,
-          flexDirection: 'column',
-          backgroundColor: colors.background,
-        }}>
-        <SingnlePageInfo
-          icon={
-            <InternetUnAvailable
-              height={AreaMapper({value: 180})}></InternetUnAvailable>
-          }
-          detail={{
-            title: `${errorResponse.message}`,
-            message: 'Please Check Your connectivity and try again',
-            buttonTitle: `${isLoading ? 'Loading....' : 'Try Again'}`,
-            onButtonPress: handleResetInternet,
-          }}
-        />
-      </View>
-    );
-  }
+  // if (errorResponse.isErorr) {
+  //   return (
+  //     <View
+  //       style={{
+  //         flex: 1,
+  //         flexDirection: 'column',
+  //         backgroundColor: colors.background,
+  //       }}>
+  //       <SingnlePageInfo
+  //         icon={
+  //           <InternetUnAvailable
+  //             height={AreaMapper({value: 180})}></InternetUnAvailable>
+  //         }
+  //         detail={{
+  //           title: `${errorResponse.message}`,
+  //           message: 'Please Check Your connectivity and try again',
+  //           buttonTitle: `${isLoading ? 'Loading....' : 'Try Again'}`,
+  //           onButtonPress: handleResetInternet,
+  //         }}
+  //       />
+  //     </View>
+  //   );
+  // }
 
   return (
     <>
@@ -140,7 +137,7 @@ export const RootStack: React.FC = () => {
         screenOptions={{
           header: () => null,
         }}>
-        {userSignInStatus === true //change this to true while deployment
+        {true === true //change this to true while deployment
           ? screenBuilder([
               {screenName: 'BottomTab', component: BottomTabNavigator},
               {

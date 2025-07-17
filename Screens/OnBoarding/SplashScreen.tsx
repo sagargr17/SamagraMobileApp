@@ -1,14 +1,13 @@
-import {useTheme} from '@react-navigation/native';
-import {MotiView} from 'moti';
-import React, {useEffect} from 'react';
-import {ActivityIndicator, StyleSheet, View} from 'react-native';
-import BootSplash from 'react-native-bootsplash';
-import {Text} from 'react-native-paper';
-import {heightPercentageToDP} from 'react-native-responsive-screen';
-import {Logos} from '../../Assets/SVG/Exports/Exports';
-import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
-import {size} from '../../Prefrences/Prefrences';
-import {useAppSelector} from '../../StateManagement/hooks';
+import { useTheme } from '@react-navigation/native';
+import { MotiView } from 'moti';
+import React, { useEffect } from 'react';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { Text } from 'react-native-paper';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
+import { Logos } from '../../Assets/SVG/Exports/Exports';
+import { OnBoardingStackNavigationProp } from '../../Navigators/Stack/OnBoardingStackNavigator';
+import { size } from '../../Prefrences/Prefrences';
+import { useAppSelector } from '../../StateManagement/hooks';
 
 interface SplashScreenProps {
   navigation: OnBoardingStackNavigationProp<'SplashScreen'>;

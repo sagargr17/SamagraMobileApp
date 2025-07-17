@@ -40,7 +40,7 @@ export const BubbleCard: React.FC<BubbleCardProps> = ({
   const {colors} = useTheme();
 
   const cardWidth =
-    variant === 'large' ? '98%' : AreaMapper({value: 180, scaleBy: 'average'}); // Example small width
+    variant === 'large' ? '100%' : AreaMapper({value: 188, scaleBy: 'average'}); // Example small width
 
   return (
     <View>
