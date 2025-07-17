@@ -3,10 +3,9 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import {Button} from 'react-native-paper';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
-import {useAppDispatch} from '../../StateManagement/hooks';
-import {AreaMapper} from '../../Utilities/CustomMethods';
 import {size} from '../../Prefrences/Prefrences';
 import {showLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
+import {useAppDispatch} from '../../StateManagement/hooks';
 
 interface AppButtonProps extends React.ComponentProps<typeof Button> {
   color?: 'primary' | 'secondary' | 'light' | 'danger';
@@ -24,7 +23,6 @@ const AppButton = ({
   ...props
 }: AppButtonProps) => {
   const {colors, fonts} = useTheme();
-  const {customStyle} = props;
   const dispatch = useAppDispatch();
 
   return (
@@ -60,7 +58,7 @@ const AppButton = ({
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: heightPercentageToDP(6),
+    borderRadius: size.borderRadius.full,
   },
   label: {
     fontSize: 16,

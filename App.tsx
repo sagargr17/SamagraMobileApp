@@ -40,7 +40,9 @@ const errorLink = onError(({graphQLErrors, networkError, protocolErrors}) => {
 
   if (graphQLErrors)
     graphQLErrors.forEach(({message, locations, path}) =>
-      showMessage(responseTheme(message, 'Verify & Try again ! ', 'danger')),
+      showMessage(
+        responseTheme(message, 'Verify & Try again later ! ', 'danger'),
+      ),
     );
 
   if (protocolErrors) {
@@ -54,7 +56,6 @@ const errorLink = onError(({graphQLErrors, networkError, protocolErrors}) => {
   }
 
   if (networkError) {
-    console.log(`[Network error]: ${networkError}`);
     store.dispatch(
       setError({
         error: {

@@ -97,30 +97,30 @@ export const RootStack: React.FC = () => {
     });
   }, []);
 
-  // IsError
-  // if (errorResponse.isErorr) {
-  //   return (
-  //     <View
-  //       style={{
-  //         flex: 1,
-  //         flexDirection: 'column',
-  //         backgroundColor: colors.background,
-  //       }}>
-  //       <SingnlePageInfo
-  //         icon={
-  //           <InternetUnAvailable
-  //             height={AreaMapper({value: 180})}></InternetUnAvailable>
-  //         }
-  //         detail={{
-  //           title: `${errorResponse.message}`,
-  //           message: 'Please Check Your connectivity and try again',
-  //           buttonTitle: `${isLoading ? 'Loading....' : 'Try Again'}`,
-  //           onButtonPress: handleResetInternet,
-  //         }}
-  //       />
-  //     </View>
-  //   );
-  // }
+  // IsError;
+  if (errorResponse.isErorr) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          flexDirection: 'column',
+          backgroundColor: colors.background,
+        }}>
+        <SingnlePageInfo
+          icon={
+            <InternetUnAvailable
+              height={AreaMapper({value: 180})}></InternetUnAvailable>
+          }
+          detail={{
+            title: `${errorResponse.message}`,
+            message: 'Please Check Your connectivity and try again',
+            buttonTitle: `${isLoading ? 'Loading....' : 'Try Again'}`,
+            onButtonPress: handleResetInternet,
+          }}
+        />
+      </View>
+    );
+  }
 
   return (
     <>
@@ -137,7 +137,7 @@ export const RootStack: React.FC = () => {
         screenOptions={{
           header: () => null,
         }}>
-        {true === true //change this to true while deployment
+        {userSignInStatus === true //change this to true while deployment
           ? screenBuilder([
               {screenName: 'BottomTab', component: BottomTabNavigator},
               {
