@@ -20,7 +20,7 @@ import {
 import {SingnlePageInfo} from '../../../Components/Organism/SinglePageInfo';
 import {Logos} from '../../../Assets/SVG/Exports/Exports';
 import {AreaMapper, titleCase} from '../../../Utilities/CustomMethods';
-import {SamagraLoader} from '../../../Components/Molecules/Response/SamagraLoader';
+import {SamagraLoader} from '../../../Components/Elements/SamagraLoader';
 import {ListCardSkeleton} from '../../../Components/Skeletons/Layout/ListCardSkeleton';
 import {useAppDispatch} from '../../../StateManagement/hooks';
 import {updateSelectedItem} from '../../../StateManagement/Item/SelectedItemSlice';

@@ -4,8 +4,8 @@ import {ScrollView, View} from 'react-native';
 import {clearTokens} from '../../../client/Token/TokenAccess';
 import {Spacer} from '../../../Components/Elements/Spacer';
 import {UserProfileCard} from '../../../Components/Molecules/Cards/UserProfileCard';
-import {ShopProfileUserContainer} from '../../../Components/Organism/ShopProfileUserContainer';
-import {UserProfileLandingContainer} from '../../../Components/Organism/UserProfileLandingContainer';
+import {ActiveStoreContainer} from '../../../Components/Organism/ActiveStoreContainer';
+import {ActiveUserContainer} from '../../../Components/Organism/ActiveUserContainer';
 import {MoreLandingSkeleton} from '../../../Components/Skeletons/Layout/MoreLandingSkeleton';
 import {ImageNotFound} from '../../../Constants/UI/AssetsUrls';
 import {NotMentioned} from '../../../Constants/UI/Messages';
@@ -78,10 +78,10 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
       <Spacer height={10}></Spacer>
       {false ? (
         // {isShopActive && selectedShopData?.shopId ? (
-        <ShopProfileUserContainer
-          shopId={'selectedShopData?.shopId'}></ShopProfileUserContainer>
+        <ActiveStoreContainer
+          shopId={'selectedShopData?.shopId'}></ActiveStoreContainer>
       ) : (
-        <UserProfileLandingContainer></UserProfileLandingContainer>
+        <ActiveUserContainer></ActiveUserContainer>
       )}
     </ScrollView>
   );

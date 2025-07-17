@@ -60,7 +60,7 @@ export const ItemCategoryCard: React.FC<ItemCategoryCardProps> = ({
             borderRadius: size.borderRadius.m,
           },
         ]}>
-          <View>{icon}</View>
+        <View>{icon}</View>
         <Spacer height={5}></Spacer>
         <AppText
           fontVariant="regular"

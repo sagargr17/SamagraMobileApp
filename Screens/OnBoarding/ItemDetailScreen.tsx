@@ -8,7 +8,7 @@ import {Rating} from '../../Components/Elements/Rating';
 import {Spacer} from '../../Components/Elements/Spacer';
 import {Counter} from '../../Components/Molecules/Global/Counter';
 import {ItemCheckOut} from '../../Components/Molecules/Global/ItemCheckOut';
-import {SamagraLoader} from '../../Components/Molecules/Response/SamagraLoader';
+import {SamagraLoader} from '../../Components/Elements/SamagraLoader';
 import {CommentLayout} from '../../Components/Organism/CommentLayout';
 import {ImageSliderModal} from '../../Components/Organism/ImageSliderModal';
 import {NotMentioned} from '../../Constants/UI/Messages';

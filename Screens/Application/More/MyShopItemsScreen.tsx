@@ -6,7 +6,7 @@ import {Text} from 'react-native';
 import {Logos} from '../../../Assets/SVG/Exports/Exports';
 import {ListCard} from '../../../Components/Molecules/Cards/ListCard';
 import {AppSerchBar} from '../../../Components/Molecules/Global/AppSerchBar';
-import {SamagraLoader} from '../../../Components/Molecules/Response/SamagraLoader';
+import {SamagraLoader} from '../../../Components/Elements/SamagraLoader';
 import {SingnlePageInfo} from '../../../Components/Organism/SinglePageInfo';
 import {ListCardSkeleton} from '../../../Components/Skeletons/Layout/ListCardSkeleton';
 import {ItemImageNotFound} from '../../../Constants/UI/AssetsUrls';

@@ -5,34 +5,37 @@ import {
   InMemoryCache,
   split,
 } from '@apollo/client';
-import {setContext} from '@apollo/client/link/context';
-import {onError} from '@apollo/client/link/error';
-import {GraphQLWsLink} from '@apollo/client/link/subscriptions';
+import { setContext } from '@apollo/client/link/context';
+import { onError } from '@apollo/client/link/error';
+import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import {
   getMainDefinition,
   relayStylePagination,
 } from '@apollo/client/utilities';
-import {getApp} from '@react-native-firebase/app';
+import { getApp } from '@react-native-firebase/app';
 import '@react-native-firebase/messaging';
-import {NavigationContainer} from '@react-navigation/native';
-import {createClient} from 'graphql-ws';
-import React, {useEffect, useState} from 'react';
-import {PermissionsAndroid, StatusBar} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createClient } from 'graphql-ws';
+import React, { useEffect, useState } from 'react';
+import { PermissionsAndroid, StatusBar } from 'react-native';
 import BootSplash from 'react-native-bootsplash';
-import FlashMessage, {showMessage} from 'react-native-flash-message';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {PaperProvider} from 'react-native-paper';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {Provider} from 'react-redux';
-import {accessTokenGenerator} from './client/Token/AccessTokenGenerator';
-import {getTokens} from './client/Token/TokenAccess';
-import {isTokenExpired} from './client/Token/TokeValidator';
-import {GRAPHQL_ENDPOINT} from './Constants/SamagraConstants/SamagraEndpoints';
-import {RootStack} from './Navigators/RootStackNavigator';
-import {MyTheme, responseTheme} from './Prefrences/Prefrences';
-import {setError} from './StateManagement/Error&loadingHandle/ErrorHandlingSlice';
-import {store} from './StateManagement/Store';
-import {login, logout} from './StateManagement/User/UserSlice';
+import FlashMessage, { showMessage } from 'react-native-flash-message';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { PaperProvider } from 'react-native-paper';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Provider } from 'react-redux';
+import { accessTokenGenerator } from './client/Token/AccessTokenGenerator';
+import { getTokens } from './client/Token/TokenAccess';
+import { isTokenExpired } from './client/Token/TokeValidator';
+import { GRAPHQL_ENDPOINT } from './Constants/SamagraConstants/SamagraEndpoints';
+import { RootStack } from './Navigators/RootStackNavigator';
+import { MyTheme, responseTheme } from './Prefrences/Prefrences';
+import { setError } from './StateManagement/Error&loadingHandle/ErrorHandlingSlice';
+import { store } from './StateManagement/Store';
+import { login, logout } from './StateManagement/User/UserSlice';
+
+// BootSplash
+BootSplash.hide();
 
 // ErrorResponse
 const errorLink = onError(({graphQLErrors, networkError, protocolErrors}) => {
@@ -206,27 +209,19 @@ function App(): React.JSX.Element {
   };
 
   useEffect(() => {
-    const hideSplash = async () => {
-      console.log('Hidding hai');
+    permissionReqeust();
+    onAppBootstrap();
+    // User sTatus
+    userStatus()
+      .then(res => {
+        console.log('Result::', res);
 
-      // await BootSplash.hide();
-    };
-    hideSplash().then(x => {
-      permissionReqeust();
-      onAppBootstrap();
-      // User sTatus
-      userStatus()
-        .then(res => {
-          console.log('Result::', res);
-
-          if (typeof res === 'string' && res === 'true')
-            store.dispatch(login());
-          else {
-            store.dispatch(logout());
-          }
-        })
-        .catch(err => store.dispatch(logout()));
-    });
+        if (typeof res === 'string' && res === 'true') store.dispatch(login());
+        else {
+          store.dispatch(logout());
+        }
+      })
+      .catch(err => store.dispatch(logout()));
   }, []);
 
   return (

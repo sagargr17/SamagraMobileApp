@@ -13,11 +13,9 @@ import {store} from '../../StateManagement/Store';
 import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
 import {showLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
 import {setUserMode} from '../../StateManagement/User/UserSlice';
-interface UserProfileMoreScreenProps {}
+interface ActiveUserContainerProps {}
 
-export const UserProfileLandingContainer: React.FC<
-  UserProfileMoreScreenProps
-> = ({}) => {
+export const ActiveUserContainer: React.FC<ActiveUserContainerProps> = ({}) => {
   const navigation = useNavigation<any>();
   const userLogoutHandle = () => clearTokens();
   const isUserServiceMode = useAppSelector(
@@ -28,6 +26,7 @@ export const UserProfileLandingContainer: React.FC<
     dispatch(setUserMode());
   };
 
+  
   // Flex Container
   const flexDetailsItems = [
     {
@@ -103,9 +102,11 @@ export const UserProfileLandingContainer: React.FC<
   return (
     <>
       <RowFlexLayout
-        customStyle={{
-          // justifyContent: 'space-around',
-        }}>
+        customStyle={
+          {
+            // justifyContent: 'space-around',
+          }
+        }>
         {flexDetailsItems[0].firstRow.map((item, index) => (
           <BubbleCard
             key={index}
@@ -120,9 +121,11 @@ export const UserProfileLandingContainer: React.FC<
         ))}
       </RowFlexLayout>
       <RowFlexLayout
-        customStyle={{
-          // justifyContent: 'space-around',
-        }}>
+        customStyle={
+          {
+            // justifyContent: 'space-around',
+          }
+        }>
         {flexDetailsItems[0].secondRow.map((item, index) => (
           <BubbleCard
             key={index}

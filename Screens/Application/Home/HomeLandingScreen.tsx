@@ -14,7 +14,7 @@ import {ItemImageNotFound} from '../../../Constants/UI/AssetsUrls';
 import {getPublicItems} from '../../../GraphQL/Queries/ItemQueries';
 import {FlatListScreen} from '../../../Layout/ScreenLayout/FlatListScreenLayout';
 import {size} from '../../../Prefrences/Prefrences';
-import {SamagraLoader} from '../../../Components/Molecules/Response/SamagraLoader';
+import {SamagraLoader} from '../../../Components/Elements/SamagraLoader';
 
 interface HomeLandingScreenProps {}
 

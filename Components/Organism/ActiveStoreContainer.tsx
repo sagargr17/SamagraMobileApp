@@ -14,14 +14,14 @@ import {AppText} from '../Elements/AppText';
 import {Spacer} from '../Elements/Spacer';
 import {BubbleCard} from '../Molecules/Cards/BubbleCard';
 import {showLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
-import {SamagraLoader} from '../Molecules/Response/SamagraLoader';
+import {SamagraLoader} from '../Elements/SamagraLoader';
 
-interface ShopProfileUserContainerProps {
+interface ActiveStoreContainerProps {
   shopId: string;
 }
 
-export const ShopProfileUserContainer: React.FC<
-  ShopProfileUserContainerProps
+export const ActiveStoreContainer: React.FC<
+  ActiveStoreContainerProps
 > = ({shopId}) => {
   const {colors} = useTheme();
   const navigation = useNavigation<any>();

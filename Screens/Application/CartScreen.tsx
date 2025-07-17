@@ -8,7 +8,7 @@ import {Spacer} from '../../Components/Elements/Spacer';
 import {ListCard} from '../../Components/Molecules/Cards/ListCard';
 import {AppBottomSheet} from '../../Components/Molecules/Global/AppBottomSheet';
 import {Counter} from '../../Components/Molecules/Global/Counter';
-import {SamagraLoader} from '../../Components/Molecules/Response/SamagraLoader';
+import {SamagraLoader} from '../../Components/Elements/SamagraLoader';
 import {SingnlePageInfo} from '../../Components/Organism/SinglePageInfo';
 import {ListCardSkeleton} from '../../Components/Skeletons/Layout/ListCardSkeleton';
 import {ItemImageNotFound} from '../../Constants/UI/AssetsUrls';
@@ -202,12 +202,6 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
                 setCounterValue(null);
                 setPressedItem(item.node);
               }
-
-              // onHanleImagePress(
-              //   item.node?.item?.id ?? NotMentioned,
-              //   // pressedItem?.item.id ?? NotMentioned,
-              //   pressedItem?.item?.name ?? NotMentioned,
-              // );
             }}
             imageUrl={item?.node?.item?.imageUrls?.[0] ?? ItemImageNotFound}
             id={item?.node?.id ?? 'Not Mentioned'}

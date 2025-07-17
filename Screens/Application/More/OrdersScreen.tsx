@@ -28,7 +28,7 @@ import DateTimeToAgoTime, {
 
 interface OrderScreenProps {}
 
-export const PendingOrderScreen: React.FC<OrderScreenProps> = ({}) => {
+export const OrderScreen: React.FC<OrderScreenProps> = ({}) => {
   const {colors} = useTheme();
   const route = useRoute<any>();
   const {NoItemFound} = Logos;
@@ -236,7 +236,7 @@ export const PendingOrderScreen: React.FC<OrderScreenProps> = ({}) => {
                   borderRadius: size.borderRadius.xs,
                   paddingHorizontal: size.spacing.xs,
                   paddingVertical: size.spacing.xxs,
-                  marginTop:5
+                  marginTop: 5,
                 },
                 fontVariant: 'regular',
               },
@@ -251,9 +251,7 @@ export const PendingOrderScreen: React.FC<OrderScreenProps> = ({}) => {
       {isBottomSheetOpen ? (
         <AppBottomSheet
           onClose={() => setIsBottomSheetOpen(!isBottomSheetOpen)}
-          flexHeight={1}
           pannigGesture={true}
-          title="Working"
           isOppen={isBottomSheetOpen}
           children={() => {
             return child;

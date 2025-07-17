@@ -17,7 +17,7 @@ import {
   setUserShopDetail,
 } from '../../../StateManagement/User/UserSlice';
 import {titleCase} from '../../../Utilities/CustomMethods';
-import {SamagraLoader} from '../../../Components/Molecules/Response/SamagraLoader';
+import {SamagraLoader} from '../../../Components/Elements/SamagraLoader';
 interface ProfileSelectScreenProps {}
 
 export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
@@ -132,7 +132,6 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
           }
           customStyle={{
             elevation: 0,
-            // marginBottom: size.spacing.xxs,
             paddingHorizontal: size.spacing.s,
             borderColor:
               item?.node?.name === selectedTab && isShopActive

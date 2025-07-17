@@ -1,7 +1,7 @@
 import {useTheme} from '@react-navigation/native';
 import React from 'react';
 import {ItemCategoryCardSlider} from '../../../Components/Organism/ItemCategorySlider';
-import {SamagraLoader} from '../../../Components/Molecules/Response/SamagraLoader';
+import {SamagraLoader} from '../../../Components/Elements/SamagraLoader';
 import {Text} from 'react-native';
 interface CategoryListScreenProps {}
 

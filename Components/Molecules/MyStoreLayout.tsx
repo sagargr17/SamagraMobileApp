@@ -134,9 +134,7 @@ export const MyStoreLayout: React.FC<MyShopDisplayLayoutProps> = ({shop}) => {
             </View>
           )}
           isOppen={true}
-          flexHeight={1}
-          pannigGesture={false}
-          title="Request for House Keeping Service"></AppBottomSheet>
+          pannigGesture={false}></AppBottomSheet>
       </View>
     </>
   );

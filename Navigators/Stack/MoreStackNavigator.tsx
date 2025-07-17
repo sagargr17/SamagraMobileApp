@@ -8,7 +8,7 @@ import React from 'react';
 import {RouteProp, useRoute, useTheme} from '@react-navigation/native';
 import {MoreLandingScreen} from '../../Screens/Application/More/MoreLandingScreen';
 import {StockScreen} from '../../Screens/Application/More/StockScreen';
-import {PendingOrderScreen} from '../../Screens/Application/More/PendingOrdersScreen';
+import {OrderScreen} from '../../Screens/Application/More/OrdersScreen';
 import {StockUpdateScreen} from '../../Screens/Application/More/StockUpdateScreen';
 
 type MoreStackParamList = {
@@ -87,7 +87,7 @@ export const MoreStackNavigator: React.FC = () => {
 
           {
             screenName: 'PendingOrderScreen',
-            component: PendingOrderScreen,
+            component: OrderScreen,
             option: {
               headerTitle: 'Pending Orders',
             },

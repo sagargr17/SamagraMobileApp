@@ -12,7 +12,7 @@ import {ListCard} from '../../Components/Molecules/Cards/ListCard';
 import {ProviderCard} from '../../Components/Molecules/Cards/ProviderCard';
 import {AppBottomSheet} from '../../Components/Molecules/Global/AppBottomSheet';
 import {AppSerchBar} from '../../Components/Molecules/Global/AppSerchBar';
-import {SamagraLoader} from '../../Components/Molecules/Response/SamagraLoader';
+import {SamagraLoader} from '../../Components/Elements/SamagraLoader';
 import {SingnlePageInfo} from '../../Components/Organism/SinglePageInfo';
 import {
   DummyServiceProviderURL,

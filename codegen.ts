@@ -5,7 +5,7 @@ const config: CodegenConfig = {
   schema: 'http://api.samagranepal.com/graphql/',
   // documents: ['src/**/*.ts?(x)'],
   documents: [
-    '/home/arniko/Documents/Projects/Samagra/samagra-mobile-app/GraphQL/Queries/CheckoutQueries.tsx',
+    '/home/arniko/Documents/Projects/Samagra/samagra-mobile-app/GraphQL/Queries/CheckoutQueries.ts',
     '/home/arniko/Documents/Projects/Samagra/samagra-mobile-app/GraphQL/Queries/ItemQueries.ts',
     '/home/arniko/Documents/Projects/Samagra/samagra-mobile-app/GraphQL/Queries/ItemRequestsQueries.ts',
     '/home/arniko/Documents/Projects/Samagra/samagra-mobile-app/GraphQL/Queries/PrivateShopQueries.ts',
