@@ -19,8 +19,10 @@ import {BottomTabNavigator} from './BottomTab/BottomTabNavigator';
 import {ApplicationOverlayStackNavigator} from './Stack/ApplicationOverlayStackNavigator';
 import {OnBoardingStackNavigator} from './Stack/OnBoardingStackNavigator';
 import {HomeStackNavigator} from './Stack/HomeStackNavigator';
-import {Alert} from 'react-native';
+import {Alert, View} from 'react-native';
 import BootSplash from 'react-native-bootsplash';
+import {showMessage} from 'react-native-flash-message';
+import {responseTheme} from '../Prefrences/Prefrences';
 
 type RootStackParamList = {
   ApplicationOverlay: undefined;
@@ -52,31 +54,6 @@ const screenBuilder = (
   ));
 };
 
-// const {data, loading, error} = useSubscription(getSubscribedData, {
-//   onData: ({client, data}) => {
-//     console.log('Root Sub Data', data);
-
-//     if (
-//       data.data &&
-//       data.data.events?.eventName &&
-//       data.data.events.data?.itemRequestReceived
-//     ) {
-//       onDisplayNotification(
-//         `${data.data.events.data.itemRequestReceived.name} is requesting from Sagar`,
-//       );
-//       showMessage({
-//         message: `${data.data.events.data.itemRequestReceived.name} is requesting from Sagar`,
-//         type: 'success',
-//       });
-//     }
-//   },
-// });
-
-// loader Off
-// useCallback(() => {
-//   dispatch(hideLoader());
-// }, [loaderStatus]);
-
 export const RootStack: React.FC = () => {
   const userSignInStatus = useAppSelector(state => state.user.isAuthenticated);
   const isLoading = useAppSelector(state => state.loader.isLoading);
@@ -101,6 +78,15 @@ export const RootStack: React.FC = () => {
     client.resetStore().then((x: any) => {
       console.log('Result>>>', x);
 
+      if (x.length === 0) {
+        showMessage(
+          responseTheme(
+            'Connection Failed',
+            'Sorry We couldnot you to server, Try again later !!',
+            'danger',
+          ),
+        );
+      }
       // This is the Condition for the Invalid Error
       if (x[0].data) {
         dispatch(
@@ -114,22 +100,28 @@ export const RootStack: React.FC = () => {
     });
   }, []);
 
-  BootSplash.hide();
   // IsError
   if (errorResponse.isErorr) {
     return (
-      <SingnlePageInfo
-        icon={
-          <InternetUnAvailable
-            height={AreaMapper({value: 180})}></InternetUnAvailable>
-        }
-        detail={{
-          title: `${errorResponse.message}`,
-          message: 'Please Check Your connectivity and try again',
-          buttonTitle: `${isLoading ? 'Loading....' : 'Try Again'}`,
-          onButtonPress: handleResetInternet,
-        }}
-      />
+      <View
+        style={{
+          flex: 1,
+          flexDirection: 'column',
+          backgroundColor: colors.background,
+        }}>
+        <SingnlePageInfo
+          icon={
+            <InternetUnAvailable
+              height={AreaMapper({value: 180})}></InternetUnAvailable>
+          }
+          detail={{
+            title: `${errorResponse.message}`,
+            message: 'Please Check Your connectivity and try again',
+            buttonTitle: `${isLoading ? 'Loading....' : 'Try Again'}`,
+            onButtonPress: handleResetInternet,
+          }}
+        />
+      </View>
     );
   }
 

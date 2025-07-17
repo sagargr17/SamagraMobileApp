@@ -124,7 +124,6 @@ export const ItemCheckOut: React.FC<ItemCheckOutProps> = ({
           <AppButton
             onPress={addToBasketHandnle}
             style={{
-              // flex: 0.8,
               marginLeft: AreaMapper({
                 value: 2,
                 scaleBy: 'average',

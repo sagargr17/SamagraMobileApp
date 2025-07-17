@@ -219,7 +219,10 @@ export const ReceivedorderListScreen: React.FC<
                 value:
                   item.events?.data?.orderReceived?.itemName ?? NotMentioned,
                 type: 'regular',
-                fontVariant: 'medium',
+                fontVariant: 'bold',
+                style: {
+                  color: colors.primary,
+                },
               },
               {
                 value:

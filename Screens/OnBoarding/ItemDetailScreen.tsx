@@ -29,7 +29,6 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
   const {colors} = useTheme();
   const [isCheckoutVisible, setIsCheckoutVisible] = useState<boolean>(true);
   const dispatch = useAppDispatch();
-  console.log('IDDD>>>', route.params.id);
 
   const {data, loading, error} = useQuery(getPublicItemsById, {
     variables: {
@@ -46,6 +45,8 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
   const handleTotalPrice = (Quantity: number) => {
     setTotalPrice((data?.getPublicItems?.nodes?.[0]?.price ?? 0) * Quantity);
   };
+
+  console.log('ItemDetail...', data?.getPublicItems?.nodes?.[0]?.imageUrls);
 
   const itemDetailContainer = () => {
     return (
@@ -198,7 +199,7 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
     });
   };
 
-  console.log('Imagesss????', data?.getPublicItems?.nodes?.[0]?.imageUrls);
+  console.log('UserSsss', data);
 
   return (
     <View

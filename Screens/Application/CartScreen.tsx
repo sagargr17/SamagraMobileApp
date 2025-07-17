@@ -23,6 +23,7 @@ import {BasketItemViewModel} from '../../src/__generated__/graphql';
 import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
 import {postPlaceOrderparams} from '../../StateManagement/Orders/PlaceOrderDetailsParams';
 import {AreaMapper, titleRange} from '../../Utilities/CustomMethods';
+import {View} from 'moti';
 
 interface CartScreenProps {}
 
@@ -51,6 +52,8 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
       },
     },
   );
+
+  console.log('DATA', data);
 
   const isLoadingInitialData =
     loading && !data && networkStatus === NetworkStatus.loading;
@@ -101,6 +104,8 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
   };
 
   const onHanleImagePress = (id: string, name: string) => {
+    console.log('Item ID', id);
+
     navigation.navigate('ItemDetailScreen', {
       id: id,
       name: name,
@@ -127,12 +132,13 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
   const child = (
     <>
       <ListCard
-        onImagePress={() =>
+        onImagePress={() => {
+          setBottomSheetOpen(!isBottomSheetOpen);
           onHanleImagePress(
-            pressedItem?.id ?? NotMentioned,
+            pressedItem?.item.id ?? NotMentioned,
             pressedItem?.item?.name ?? NotMentioned,
-          )
-        }
+          );
+        }}
         imageUrl={pressedItem?.item?.imageUrls?.[0] ?? ItemImageNotFound}
         id={pressedItem?.item?.id ?? NotMentioned}
         list={[
@@ -196,6 +202,12 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
                 setCounterValue(null);
                 setPressedItem(item.node);
               }
+
+              // onHanleImagePress(
+              //   item.node?.item?.id ?? NotMentioned,
+              //   // pressedItem?.item.id ?? NotMentioned,
+              //   pressedItem?.item?.name ?? NotMentioned,
+              // );
             }}
             imageUrl={item?.node?.item?.imageUrls?.[0] ?? ItemImageNotFound}
             id={item?.node?.id ?? 'Not Mentioned'}
@@ -243,14 +255,13 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
         ListFooterComponent={
           <>
             <>{isFetchingMore ? <SamagraLoader></SamagraLoader> : null}</>
-
-            <AppBottomSheet
-              onClose={() => setBottomSheetOpen(!isBottomSheetOpen)}
-              isOppen={isBottomSheetOpen}
-              pannigGesture={true}
-              children={() => child}></AppBottomSheet>
           </>
         }></FlatList>
+      <AppBottomSheet
+        onClose={() => setBottomSheetOpen(!isBottomSheetOpen)}
+        isOppen={isBottomSheetOpen}
+        pannigGesture={true}
+        children={() => child}></AppBottomSheet>
     </>
   );
 };
