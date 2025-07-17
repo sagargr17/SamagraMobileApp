@@ -8,15 +8,11 @@ import {
   View,
 } from 'react-native';
 
-import {
-  heightPercentageToDP,
-  widthPercentageToDP,
-} from 'react-native-responsive-screen';
+import {useTheme} from '@react-navigation/native';
 import {size} from '../../../Prefrences/Prefrences';
 import {AreaMapper, titleRange} from '../../../Utilities/CustomMethods';
 import {AppText} from '../../Elements/AppText';
 import {Rating} from '../../Elements/Rating';
-import {useTheme} from '@react-navigation/native';
 
 // Units for Height and Width to adjust for different screen
 const width = Dimensions.get('window').width;
@@ -122,7 +118,7 @@ const AppBanner: React.FC<AppBannerProps> = () => {
                   ratingNumber={item.rating}
                   textStyle={{
                     color: 'white',
-                    fontWeight:"bold"
+                    fontWeight: 'bold',
                   }}></Rating>
               </View>
             </View>
@@ -144,7 +140,7 @@ const AppBanner: React.FC<AppBannerProps> = () => {
 const style = StyleSheet.create({
   wrapper: {
     position: 'relative',
-    marginVertical: heightPercentageToDP(2),
+    marginVertical: AreaMapper({value: 2, scaleBy: 'height'}),
     marginBottom: 5,
   },
 

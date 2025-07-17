@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {ScrollView, View} from 'react-native';
 import {clearTokens} from '../../../client/Token/TokenAccess';
 import {Spacer} from '../../../Components/Elements/Spacer';
-import {UserProfileCard} from '../../../Components/Molecules/Cards/UserProfileCard';
+import {ProfileCard} from '../../../Components/Molecules/Cards/ProfileCard';
 import {ActiveStoreContainer} from '../../../Components/Organism/ActiveStoreContainer';
 import {ActiveUserContainer} from '../../../Components/Organism/ActiveUserContainer';
 import {MoreLandingSkeleton} from '../../../Components/Skeletons/Layout/MoreLandingSkeleton';
@@ -37,13 +37,13 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
         style={{
           marginTop: size.spacing.xs,
         }}>
-        <UserProfileCard
+        <ProfileCard
           onCardPressed={handleNavigation}
           onIconPress={handleNavigation}
           user={{
             username: userName,
             profileImageUrl: profileImageUrl,
-          }}></UserProfileCard>
+          }}></ProfileCard>
       </View>
     );
   };

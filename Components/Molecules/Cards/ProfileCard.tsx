@@ -1,12 +1,12 @@
 import FastImage from '@d11/react-native-fast-image';
-import {useTheme} from '@react-navigation/native';
+import { useTheme } from '@react-navigation/native';
 import React from 'react';
-import {StyleSheet, TouchableOpacity, View, ViewStyle} from 'react-native';
-import {Icon, IconButton, TouchableRipple} from 'react-native-paper';
-import {size} from '../../../Prefrences/Prefrences';
-import {AreaMapper, titleCase} from '../../../Utilities/CustomMethods';
-import {AppText} from '../../Elements/AppText';
-interface UserProfileCardProps {
+import { StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
+import { Icon, TouchableRipple } from 'react-native-paper';
+import { size } from '../../../Prefrences/Prefrences';
+import { AreaMapper, titleCase } from '../../../Utilities/CustomMethods';
+import { AppText } from '../../Elements/AppText';
+interface ProfileCardProps {
   user: {
     username: string;
     profileImageUrl: string;
@@ -16,7 +16,7 @@ interface UserProfileCardProps {
   onCardPressed?: () => void;
 }
 
-export const UserProfileCard: React.FC<UserProfileCardProps> = ({
+export const ProfileCard: React.FC<ProfileCardProps> = ({
   user,
   onIconPress,
   customStyle,
@@ -33,7 +33,6 @@ export const UserProfileCard: React.FC<UserProfileCardProps> = ({
         {
           backgroundColor: colors.background,
           borderRadius: size.borderRadius.m,
-          
         },
         customStyle,
       ]}>
@@ -91,6 +90,7 @@ export const UserProfileCard: React.FC<UserProfileCardProps> = ({
     </TouchableOpacity>
   );
 };
+
 
 const style = StyleSheet.create({
   wrapper: {

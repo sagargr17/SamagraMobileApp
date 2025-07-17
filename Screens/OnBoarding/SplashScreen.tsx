@@ -3,11 +3,11 @@ import { MotiView } from 'moti';
 import React, { useEffect } from 'react';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
-import { heightPercentageToDP } from 'react-native-responsive-screen';
 import { Logos } from '../../Assets/SVG/Exports/Exports';
 import { OnBoardingStackNavigationProp } from '../../Navigators/Stack/OnBoardingStackNavigator';
 import { size } from '../../Prefrences/Prefrences';
 import { useAppSelector } from '../../StateManagement/hooks';
+import { AreaMapper } from '../../Utilities/CustomMethods';
 
 interface SplashScreenProps {
   navigation: OnBoardingStackNavigationProp<'SplashScreen'>;
@@ -56,9 +56,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    fontSize: heightPercentageToDP(4),
+    fontSize: AreaMapper({value: 4}),
     color: '#34C759',
     fontWeight: 700,
-    marginTop: heightPercentageToDP(2),
+    marginTop: AreaMapper({value: 2, scaleBy: 'height'}),
   },
 });

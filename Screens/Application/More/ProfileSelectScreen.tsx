@@ -4,7 +4,7 @@ import React, {useEffect, useState} from 'react';
 import {ActivityIndicator, Text} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {AppText} from '../../../Components/Elements/AppText';
-import {UserProfileCard} from '../../../Components/Molecules/Cards/UserProfileCard';
+import {ProfileCard} from '../../../Components/Molecules/Cards/ProfileCard';
 import {ListCardSkeleton} from '../../../Components/Skeletons/Layout/ListCardSkeleton';
 import {ImageNotFound} from '../../../Constants/UI/AssetsUrls';
 import {EmptyMessage, NotMentioned} from '../../../Constants/UI/Messages';
@@ -97,7 +97,7 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
       }}
       onEndReachedThreshold={0.6}
       ListHeaderComponent={
-        <UserProfileCard
+        <ProfileCard
           onCardPressed={() => handleUserSelect()}
           customStyle={{
             elevation: 0,
@@ -108,7 +108,7 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
           user={{
             username: titleCase(userData?.username ?? NotMentioned),
             profileImageUrl: ImageNotFound,
-          }}></UserProfileCard>
+          }}></ProfileCard>
       }
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{
@@ -122,7 +122,7 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
       }
       data={data?.getShops?.edges}
       renderItem={({item, index}) => (
-        <UserProfileCard
+        <ProfileCard
           onCardPressed={() =>
             profileHandleSelect(
               item?.node?.id ?? NotMentioned,
@@ -146,7 +146,7 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
           user={{
             username: item?.node?.name ?? NotMentioned,
             profileImageUrl: item?.node?.profileImageUrl?.[0] ?? ImageNotFound,
-          }}></UserProfileCard>
+          }}></ProfileCard>
       )}
       ListFooterComponent={isFetchingMore ? <SamagraLoader /> : null}
     />

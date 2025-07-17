@@ -1,13 +1,9 @@
 import {useTheme} from '@react-navigation/native';
-import React, {useEffect, useRef, useState} from 'react';
-import {StyleSheet, Text, TextInput, View} from 'react-native';
-import {
-  heightPercentageToDP,
-  widthPercentageToDP,
-} from 'react-native-responsive-screen';
+import React, {useRef, useState} from 'react';
+import {StyleSheet, TextInput, View} from 'react-native';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
-import {AreaMapper} from '../../Utilities/CustomMethods';
 import {size} from '../../Prefrences/Prefrences';
+import {AreaMapper} from '../../Utilities/CustomMethods';
 import {AppText} from './AppText';
 
 interface PhoneInputProps extends React.ComponentProps<typeof TextInput> {
@@ -81,7 +77,7 @@ const styles = StyleSheet.create({
       value: 16,
       scaleBy: 'width',
     }),
-    marginBottom: heightPercentageToDP(0.5),
+    marginBottom: AreaMapper({value: 0.5, scaleBy: 'height'}),
     lineHeight: AreaMapper({
       value: 19,
       scaleBy: 'height',
@@ -91,12 +87,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderWidth: 1,
     alignItems: 'center',
-    gap: widthPercentageToDP(2),
-    paddingTop: heightPercentageToDP(1),
-    paddingBottom: heightPercentageToDP(1),
-    paddingLeft: widthPercentageToDP(4),
-    paddingRight: widthPercentageToDP(4),
-    borderRadius: heightPercentageToDP(1),
+    gap: 2,
+    paddingTop: AreaMapper({value: 1, scaleBy: 'height'}),
+    paddingBottom: AreaMapper({value: 1, scaleBy: 'height'}),
+    paddingLeft: AreaMapper({value: 4, scaleBy: 'height'}),
+    paddingRight: AreaMapper({value: 4, scaleBy: 'height'}),
+    borderRadius: AreaMapper({value: 1, scaleBy: 'height'}),
     width: '100%',
     overflow: 'hidden',
   },
@@ -104,13 +100,13 @@ const styles = StyleSheet.create({
     borderColor: 'red',
   },
   number: {
-    fontSize: heightPercentageToDP(1.8),
+    fontSize: AreaMapper({value: 1.8, scaleBy: 'height'}),
   },
   textWrapper: {
     flex: 1,
   },
   input: {
-    fontSize: heightPercentageToDP(1.8),
+    fontSize: AreaMapper({value: 1.8, scaleBy: 'height'}),
   },
 });
 

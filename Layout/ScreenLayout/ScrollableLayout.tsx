@@ -1,4 +1,4 @@
-import {useTheme} from '@react-navigation/native';
+import { useTheme } from '@react-navigation/native';
 import React from 'react';
 import {
   KeyboardAvoidingView,
@@ -7,8 +7,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import {Text} from 'react-native-paper';
-import {heightPercentageToDP} from 'react-native-responsive-screen';
+import { AreaMapper } from '../../Utilities/CustomMethods';
 
 export const ScrollableLayout = ({
   children,
@@ -40,14 +39,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    fontSize: heightPercentageToDP(4),
+    fontSize: AreaMapper({value: 4, scaleBy: 'height'}),
     fontWeight: 700,
-    marginBottom: heightPercentageToDP(4),
-    paddingTop: heightPercentageToDP(4),
+    marginBottom: AreaMapper({value: 4, scaleBy: 'height'}),
+    paddingTop: AreaMapper({value: 4, scaleBy: 'height'}),
   },
   wrapper: {
     flex: 1,
-    paddingLeft: heightPercentageToDP(2),
-    paddingRight: heightPercentageToDP(2),
+    paddingLeft: AreaMapper({value: 2, scaleBy: 'width'}),
+    paddingRight: AreaMapper({value: 2, scaleBy: 'width'}),
   },
 });

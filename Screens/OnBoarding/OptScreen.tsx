@@ -1,17 +1,14 @@
-import React, {useEffect, useState} from 'react';
-import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
-import {Text, StyleSheet, Pressable, Button} from 'react-native';
-import {OtpInput} from 'react-native-otp-entry';
-import {
-  heightPercentageToDP,
-  widthPercentageToDP,
-} from 'react-native-responsive-screen';
-import {ScrollableLayout} from '../../Layout/ScreenLayout/ScrollableLayout';
-import {Spacer} from '../../Components/Elements/Spacer';
-import {useRoute} from '@react-navigation/native';
-import {verifiedPassword} from '../../client/Token/RegisterUser';
-import {showMessage} from 'react-native-flash-message';
-import {responseTheme} from '../../Prefrences/Prefrences';
+import { useRoute } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { Button, Pressable, StyleSheet, Text } from 'react-native';
+import { showMessage } from 'react-native-flash-message';
+import { OtpInput } from 'react-native-otp-entry';
+import { verifiedPassword } from '../../client/Token/RegisterUser';
+import { Spacer } from '../../Components/Elements/Spacer';
+import { ScrollableLayout } from '../../Layout/ScreenLayout/ScrollableLayout';
+import { OnBoardingStackNavigationProp } from '../../Navigators/Stack/OnBoardingStackNavigator';
+import { responseTheme } from '../../Prefrences/Prefrences';
+import { AreaMapper } from '../../Utilities/CustomMethods';
 
 interface OptScreenProps {
   navigation: OnBoardingStackNavigationProp<'OtpScreen'>;
@@ -74,8 +71,8 @@ export const OtpScreen: React.FC<OptScreenProps> = ({navigation}) => {
         onFilled={() => onOtpSet}
         theme={{
           pinCodeContainerStyle: {
-            width: widthPercentageToDP(12),
-            height: heightPercentageToDP(6),
+            width: AreaMapper({value: 12, scaleBy: 'width'}),
+            height: AreaMapper({value: 6, scaleBy: 'height'}),
             backgroundColor: '#EAEAEA',
           },
           filledPinCodeContainerStyle: {
@@ -101,32 +98,31 @@ export const OtpScreen: React.FC<OptScreenProps> = ({navigation}) => {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    paddingTop: heightPercentageToDP(8),
-    paddingLeft: widthPercentageToDP(5),
-    paddingRight: widthPercentageToDP(5),
+    paddingTop: AreaMapper({value: 8, scaleBy: 'height'}),
+    paddingLeft: AreaMapper({value: 5, scaleBy: 'width'}),
+    paddingRight: AreaMapper({value: 5, scaleBy: 'width'}),
     backgroundColor: '#FDFDFD',
   },
   header: {
-    fontSize: heightPercentageToDP(4.8),
+    fontSize: AreaMapper({value: 4.8}),
     fontWeight: '600',
-    marginBottom: heightPercentageToDP(1.2),
+    marginBottom: AreaMapper({value: 1.2, scaleBy: 'height'}),
     color: '#1D1D1D',
   },
   subHeader: {
-    fontSize: heightPercentageToDP(1.7),
-    // marginTop: heightPercentageToDP(-2),
+    fontSize: AreaMapper({value: 1.7, scaleBy: 'height'}),
     color: '#787878',
   },
   timer: {
     color: '#2D2D2D',
-    fontSize: heightPercentageToDP(1.6),
+    fontSize: AreaMapper({value: 1.6}),
   },
   extraLink: {
     color: '#2A56FE',
-    fontSize: heightPercentageToDP(1.6),
+    fontSize: AreaMapper({value: 1.6}),
   },
   resend: {
     color: '#2A56FE',
-    fontSize: heightPercentageToDP(1.6),
+    fontSize: AreaMapper({value: 1.6}),
   },
 });

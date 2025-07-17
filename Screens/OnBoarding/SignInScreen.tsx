@@ -1,6 +1,5 @@
-import {useTheme} from '@react-navigation/native';
-import React, {useState} from 'react';
-import {Controller, useForm} from 'react-hook-form';
+import React, { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -8,30 +7,22 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import {GestureHandlerRootView, ScrollView} from 'react-native-gesture-handler';
-import {heightPercentageToDP} from 'react-native-responsive-screen';
-import {Logos} from '../../Assets/SVG/Exports/Exports';
+import { ScrollView } from 'react-native-gesture-handler';
+import { TextInput } from 'react-native-paper';
 import Authenticator from '../../client/Token/Authenticator';
+import { AppText } from '../../Components/Elements/AppText';
 import AppButton from '../../Components/Elements/Button';
-import {ErrorText} from '../../Components/Elements/ErrorText';
-import {Input} from '../../Components/Elements/Input';
-import {Spacer} from '../../Components/Elements/Spacer';
-import {AppText} from '../../Components/Elements/AppText';
-import {ContinueDivider} from '../../Components/Elements/ContinueDivider';
-import {ScrollableLayout} from '../../Layout/ScreenLayout/ScrollableLayout';
-import {SocialForm} from '../../Components/Organism/SocialForm';
-import {userRules} from '../../Constants/UI/Rules';
-import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
-import {showLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
-import {useAppDispatch} from '../../StateManagement/hooks';
-import {AreaMapper} from '../../Utilities/CustomMethods';
-import {Icon, ProgressBar, TextInput} from 'react-native-paper';
-import {responseTheme, size} from '../../Prefrences/Prefrences';
-import {useLazyQuery} from '@apollo/client';
-import {getLoginUser} from '../../GraphQL/Queries/UserQueries';
-import {setUserProfile} from '../../StateManagement/User/UserSlice';
-import {ImageNotFound} from '../../Constants/UI/AssetsUrls';
-import {showMessage} from 'react-native-flash-message';
+import { ContinueDivider } from '../../Components/Elements/ContinueDivider';
+import { ErrorText } from '../../Components/Elements/ErrorText';
+import { Input } from '../../Components/Elements/Input';
+import { Spacer } from '../../Components/Elements/Spacer';
+import { SocialForm } from '../../Components/Organism/SocialForm';
+import { userRules } from '../../Constants/UI/Rules';
+import { OnBoardingStackNavigationProp } from '../../Navigators/Stack/OnBoardingStackNavigator';
+import { size } from '../../Prefrences/Prefrences';
+import { showLoader } from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
+import { useAppDispatch } from '../../StateManagement/hooks';
+import { AreaMapper } from '../../Utilities/CustomMethods';
 
 interface SignInScreenProps {
   navigation: OnBoardingStackNavigationProp<'SignUpScreen'>;
@@ -146,7 +137,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    fontSize: heightPercentageToDP(2.2),
+    fontSize: AreaMapper({value: 2.2}),
     fontWeight: 600,
     textAlign: 'center',
     color: '#1D1D1D',

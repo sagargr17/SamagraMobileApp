@@ -1,11 +1,10 @@
-import {useTheme} from '@react-navigation/native';
+import { useTheme } from '@react-navigation/native';
 import React from 'react';
-import {StyleSheet} from 'react-native';
-import {Button} from 'react-native-paper';
-import {heightPercentageToDP} from 'react-native-responsive-screen';
-import {size} from '../../Prefrences/Prefrences';
-import {showLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
-import {useAppDispatch} from '../../StateManagement/hooks';
+import { StyleSheet } from 'react-native';
+import { Button } from 'react-native-paper';
+import { size } from '../../Prefrences/Prefrences';
+import { showLoader } from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
+import { useAppDispatch } from '../../StateManagement/hooks';
 
 interface AppButtonProps extends React.ComponentProps<typeof Button> {
   color?: 'primary' | 'secondary' | 'light' | 'danger';
