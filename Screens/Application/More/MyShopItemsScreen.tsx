@@ -1,7 +1,7 @@
 import {NetworkStatus, useQuery} from '@apollo/client';
 import {useNavigation, useRoute, useTheme} from '@react-navigation/native';
 import {View} from 'moti';
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {Text} from 'react-native';
 import {Logos} from '../../../Assets/SVG/Exports/Exports';
 import {ListCard} from '../../../Components/Molecules/Cards/ListCard';
@@ -24,8 +24,8 @@ import {AreaMapper, titleRange} from '../../../Utilities/CustomMethods';
 interface MyShopItemsScreenProps {}
 
 export const MyShopItemsScreen: React.FC<MyShopItemsScreenProps> = ({}) => {
-  const navigation =
-    useNavigation<ApplicationOverlayStackNavigationProp<'AddItemScreen'>>();
+  const navigation = useNavigation<any>();
+
   const route = useRoute<any>();
   const [paginationLoading, setPaginationLoading] = useState<boolean>(false);
   const {NoItemFound} = Logos;
@@ -40,7 +40,7 @@ export const MyShopItemsScreen: React.FC<MyShopItemsScreenProps> = ({}) => {
       onError: () => {
         setPaginationLoading(false);
       },
-      fetchPolicy: 'cache-and-network',
+      fetchPolicy: 'network-only',
     },
   );
 
@@ -59,6 +59,16 @@ export const MyShopItemsScreen: React.FC<MyShopItemsScreenProps> = ({}) => {
     navigation.navigate('AddItemScreen', {
       shopId: route.params.shopId,
       shopName: route.params.shopName,
+    });
+  };
+
+  const handleItemPress = (title: string, id: string) => {
+    navigation.navigate('ApplicationOverlay', {
+      screen: 'ItemDetailScreen',
+      params: {
+        name: title,
+        id: id,
+      },
     });
   };
 
@@ -94,6 +104,13 @@ export const MyShopItemsScreen: React.FC<MyShopItemsScreenProps> = ({}) => {
             data={data?.getItems?.edges}
             renderItem={({item, index}) => (
               <ListCard
+                onImagePress={() => {
+                  if (item.node?.name && item.node.id)
+                    handleItemPress(
+                      item.node?.name ?? 'My ITem',
+                      item.node?.id ?? 'My Item',
+                    );
+                }}
                 id={item?.node?.id ?? NotMentioned}
                 key={index}
                 imageUrl={item.node?.imageUrls?.[0] ?? ItemImageNotFound}

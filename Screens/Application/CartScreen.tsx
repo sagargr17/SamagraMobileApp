@@ -167,7 +167,7 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
       <Spacer height={25}></Spacer>
       <AppButton
         onPress={() => {
-          setBottomSheetOpen(!isBottomSheetOpen);
+          setBottomSheetOpen(false);
           handleOnCheckoutPressPress(pressedItem);
         }}>
         Checkout
