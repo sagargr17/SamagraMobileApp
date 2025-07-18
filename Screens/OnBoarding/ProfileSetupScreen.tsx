@@ -1,12 +1,17 @@
-import { useTheme } from '@react-navigation/native';
 import React from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { Logos } from '../../Assets/SVG/Exports/Exports';
-import { AppText } from '../../Components/Elements/AppText';
+import {View, Text, StyleSheet, Pressable} from 'react-native';
+import {ScrollableLayout} from '../../Layout/ScreenLayout/ScrollableLayout';
+import {
+  heightPercentageToDP,
+  widthPercentageToDP,
+} from 'react-native-responsive-screen';
+import {Logos} from '../../Assets/SVG/Exports/Exports';
 import AppButton from '../../Components/Elements/Button';
-import { ScrollableLayout } from '../../Layout/ScreenLayout/ScrollableLayout';
-import { OnBoardingStackNavigationProp } from '../../Navigators/Stack/OnBoardingStackNavigator';
-import { AreaMapper } from '../../Utilities/CustomMethods';
+import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
+import {useTheme} from '@react-navigation/native';
+import {AppText} from '../../Components/Elements/AppText';
+import {AreaMapper} from '../../Utilities/CustomMethods';
+import {size} from '../../Prefrences/Prefrences';
 
 interface ProfileSetupProps {
   navigation: OnBoardingStackNavigationProp<'ProfileSetupScreen'>;
@@ -38,7 +43,7 @@ export const ProfileSetupScreen: React.FC<ProfileSetupProps> = ({
         <View style={styles.logo}>
           <SamagraLogo
             height={AreaMapper({
-              value: 261,
+              value: 180,
               scaleBy: 'height',
             })}
             width={AreaMapper({
@@ -71,19 +76,20 @@ export const ProfileSetupScreen: React.FC<ProfileSetupProps> = ({
 
 const styles = StyleSheet.create({
   header: {
-    fontSize: AreaMapper({value: 2.2}),
+    fontSize: heightPercentageToDP(2.2),
     fontWeight: 600,
     textAlign: 'center',
     color: '#1D1D1D',
   },
   desc: {
-    fontSize: AreaMapper({value: 2}),
-    marginTop: AreaMapper({value: 1}),
+    marginTop: heightPercentageToDP(1),
+    textAlign: 'justify',
   },
   body: {
     flex: 1,
-    width: '100%',
+    // width: '100%',
     justifyContent: 'space-between',
+    marginHorizontal: size.spacing.xs,
   },
   logo: {
     flex: 1,
@@ -100,11 +106,11 @@ const styles = StyleSheet.create({
   },
   content: {
     justifyContent: 'flex-end',
-    marginBottom: AreaMapper({value: 4}),
+    marginBottom: heightPercentageToDP(4),
   },
   text: {
-    marginTop: AreaMapper({value: 2, scaleBy: 'height'}),
+    marginTop: heightPercentageToDP(2),
     textAlign: 'center',
-    fontSize: AreaMapper({value: 2}),
+    fontSize: heightPercentageToDP(2),
   },
 });

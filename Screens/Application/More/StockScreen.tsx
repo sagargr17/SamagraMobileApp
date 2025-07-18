@@ -73,9 +73,8 @@ export const StockScreen: React.FC<StockScreenProps> = ({}) => {
         item: item,
       }),
     );
-    navigation.navigate('ApplicationOverlay', {
-      screen: 'StockUpdateScreen',
-    });
+    // This is the Stock Update
+    navigation.navigate('StockUpdateScreen');
   };
 
   const emptyNode = (

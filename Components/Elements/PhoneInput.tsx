@@ -5,6 +5,7 @@ import {Logos} from '../../Assets/SVG/Exports/Exports';
 import {size} from '../../Prefrences/Prefrences';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import {AppText} from './AppText';
+import {heightPercentageToDP} from 'react-native-responsive-screen';
 
 interface PhoneInputProps extends React.ComponentProps<typeof TextInput> {
   label?: string;
@@ -56,8 +57,9 @@ const PhoneInput = ({
             style={[
               styles.input,
               {
-                fontFamily: fonts.regular.fontFamily,
-                lineHeight: 22,
+                fontFamily: fonts.medium.fontFamily,
+                lineHeight: heightPercentageToDP(4.5),
+                fontSize: size.textVariants.regular.fontSize,
               },
             ]}
             value={value}

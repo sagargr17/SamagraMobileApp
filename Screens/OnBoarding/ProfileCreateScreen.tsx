@@ -1,6 +1,6 @@
 import FastImage from '@d11/react-native-fast-image';
-import React, { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import React, {useState} from 'react';
+import {Controller, useForm} from 'react-hook-form';
 import {
   KeyboardAvoidingView,
   ScrollView,
@@ -9,20 +9,20 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { showMessage } from 'react-native-flash-message';
-import { Checkbox } from 'react-native-paper';
-import { Logos } from '../../Assets/SVG/Exports/Exports';
-import { registerUser } from '../../client/Token/RegisterUser';
-import { AppText } from '../../Components/Elements/AppText';
+import {showMessage} from 'react-native-flash-message';
+import {Checkbox} from 'react-native-paper';
+import {Logos} from '../../Assets/SVG/Exports/Exports';
+import {registerUser} from '../../client/Token/RegisterUser';
+import {AppText} from '../../Components/Elements/AppText';
 import AppButton from '../../Components/Elements/Button';
-import { ErrorText } from '../../Components/Elements/ErrorText';
-import { Input } from '../../Components/Elements/Input';
+import {ErrorText} from '../../Components/Elements/ErrorText';
+import {Input} from '../../Components/Elements/Input';
 import PhoneInput from '../../Components/Elements/PhoneInput';
-import { Spacer } from '../../Components/Elements/Spacer';
-import { ScrollableLayout } from '../../Layout/ScreenLayout/ScrollableLayout';
-import { OnBoardingStackNavigationProp } from '../../Navigators/Stack/OnBoardingStackNavigator';
-import { responseTheme, size } from '../../Prefrences/Prefrences';
-import { AreaMapper } from '../../Utilities/CustomMethods';
+import {Spacer} from '../../Components/Elements/Spacer';
+import {ScrollableLayout} from '../../Layout/ScreenLayout/ScrollableLayout';
+import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
+import {responseTheme, size} from '../../Prefrences/Prefrences';
+import {AreaMapper} from '../../Utilities/CustomMethods';
 import ImageHandler from '../../Utilities/ImageHandler';
 
 interface ProfileCreateProps {
@@ -111,7 +111,11 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
         style={{
           flex: 1,
         }}>
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={{
+            marginHorizontal: size.spacing.xs,
+          }}>
           <View>
             <View style={styles.photoWrapper}>
               <TouchableOpacity onPress={handleImagePick} style={styles.circle}>

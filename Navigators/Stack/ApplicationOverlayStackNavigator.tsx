@@ -8,7 +8,6 @@ import React from 'react';
 import { SearchBar } from 'react-native-screens';
 import { size } from '../../Prefrences/Prefrences';
 import { AddItemScreen } from '../../Screens/Application/AddItemScreen';
-import { AddShopScreen } from '../../Screens/Application/AddShopScreen';
 import { CartScreen } from '../../Screens/Application/CartScreen';
 import { MyShopItemsScreen } from '../../Screens/Application/More/MyShopItemsScreen';
 import { MyShopsScreen } from '../../Screens/Application/More/MyShopsScreen';
@@ -39,7 +38,6 @@ type ApplicationOverlayMoreStackParamList = {
     shopName: string;
   };
   MyShopsScreen: undefined;
-  AddShopScreen: undefined;
   OrderScreen: undefined;
   CartScreen: undefined;
   PlaceOrderScreen: undefined;
@@ -181,10 +179,6 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
             }),
           },
 
-          {
-            screenName: 'AddShopScreen',
-            component: AddShopScreen,
-          },
           {
             screenName: 'CartScreen',
             component: CartScreen,

@@ -10,6 +10,7 @@ import {MoreLandingScreen} from '../../Screens/Application/More/MoreLandingScree
 import {StockScreen} from '../../Screens/Application/More/StockScreen';
 import {OrderScreen} from '../../Screens/Application/More/OrdersScreen';
 import {StockUpdateScreen} from '../../Screens/Application/More/StockUpdateScreen';
+import {AddShopScreen} from '../../Screens/Application/AddShopScreen';
 
 type MoreStackParamList = {
   MoreLandingScreen: undefined;
@@ -20,6 +21,7 @@ type MoreStackParamList = {
   PendingOrderScreen: {
     shopId: string;
   };
+  AddShopScreen: undefined;
 };
 
 // Its The builder with the
@@ -44,7 +46,7 @@ const screenBuilder = (
           route: RouteProp<MoreStackParamList, keyof MoreStackParamList>;
           navigation: NativeStackNavigationProp<
             MoreStackParamList,
-            keyof MoreStackParamList  
+            keyof MoreStackParamList
           >;
         }) => NativeStackNavigationOptions);
   }>,
@@ -105,6 +107,13 @@ export const MoreStackNavigator: React.FC = () => {
             option: {
               headerTitle: 'Update Your Stock',
             },
+          },
+          {
+            screenName: 'AddShopScreen',
+            component: AddShopScreen,
+            option: ({route}: {route: any}) => ({
+              title: 'Add Shop',
+            }),
           },
         ])}
       </MoreStackBuilder.Navigator>

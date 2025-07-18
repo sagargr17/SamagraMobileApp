@@ -4,7 +4,6 @@ import {Dimensions, StyleSheet, View} from 'react-native';
 import ConfettiCannon from 'react-native-confetti-cannon';
 import {AimatedStore} from '../../Components/Organism/AnimatedStore';
 import {ColumnFlexScreenlayout} from '../../Layout/ScreenLayout/ColumnFlexScreenLayout';
-import AppButton from '../../Components/Elements/Button';
 
 interface ShopCreatedScreenProps {}
 

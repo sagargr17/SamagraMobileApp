@@ -31,6 +31,7 @@ export const ImageSliderModal: React.FC<ImageSliderModalProps> = ({images}) => {
   return (
     <>
       <ScrollView
+        style={{}}
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}>
@@ -43,8 +44,9 @@ export const ImageSliderModal: React.FC<ImageSliderModalProps> = ({images}) => {
                 onProgress={() => <ActivityIndicator></ActivityIndicator>}
                 resizeMode="contain"
                 style={{
-                  height: 250,
-                  width: 350,
+                  height: AreaMapper({value: 300, scaleBy: 'height'}),
+                  width: AreaMapper({value: 415, scaleBy: 'height'}),
+                  backgroundColor: 'pinnk',
                 }}
                 source={{
                   uri: image,

@@ -173,7 +173,8 @@ export const ActiveUserContainer: React.FC<ActiveUserContainerProps> = ({}) => {
           backgroundColor: '#C0C0C0',
           marginTop: size.spacing.m,
           marginBottom: size.spacing.xxs,
-          borderRadius: size.spacing.s,
+          borderRadius: size.borderRadius.full,
+          bottom: 0,
         }}>
         Logout
       </AppButton>

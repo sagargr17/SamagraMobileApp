@@ -56,7 +56,7 @@ const MyDarkTheme = {
 const size = {
   spacing: {
     xxs: 4,
-    xs: 8,
+    xs: 6,
     s: 12,
     m: 16,
     l: 24,

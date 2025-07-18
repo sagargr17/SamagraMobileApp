@@ -34,10 +34,17 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
     setImageLoading(!imageLoading);
   };
 
-  const handleImageRemove = (selectedImage: any) => {
-    let crossedDAta = images.filter((e: any) => e.name !== selectedImage.name);
-    setImages(crossedDAta);
-    setselectionImageIndex(selectionImageIndex + 1);
+  const handleImageRemove = (selectedImage: OutPutImageType) => {
+    const updatedImages = images.filter(img => img.name !== selectedImage.name);
+
+    // Adjust index to avoid overflow
+    let newIndex = selectionImageIndex;
+    if (selectionImageIndex >= updatedImages.length) {
+      newIndex = updatedImages.length - 1;
+    }
+
+    setImages(updatedImages);
+    setselectionImageIndex(newIndex >= 0 ? newIndex : 0);
     setImageLoading(false);
   };
 

@@ -8,6 +8,8 @@ import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingSt
 import {size} from '../../Prefrences/Prefrences';
 import {useAppSelector} from '../../StateManagement/hooks';
 import {AreaMapper} from '../../Utilities/CustomMethods';
+import {AppText} from '../../Components/Elements/AppText';
+import {Spacer} from '../../Components/Elements/Spacer';
 
 interface SplashScreenProps {
   navigation: OnBoardingStackNavigationProp<'SplashScreen'>;
@@ -20,6 +22,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
     state => state.user.isAuthenticated,
   );
   useEffect(() => {
+    
     let timer = setTimeout(() => {
       if (userIsAuthenticate === true || userIsAuthenticate === false)
         navigation.navigate('GetStartedScreen');
@@ -31,10 +34,17 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
   return (
     <View style={styles.wrapper}>
       <MotiView>
-        <SamagraLogo height={140} width={140} />
+        <SamagraLogo height={100} width={100} />
       </MotiView>
+      <Spacer height={15}></Spacer>
       <MotiView>
-        <Text style={styles.title}>SAMAGRA</Text>
+        <AppText
+          title="SAMAGRA"
+          fontSizeVariant="display"
+          fontVariant="bold"
+          customStyle={{
+            color: colors.primary,
+          }}></AppText>
       </MotiView>
       <ActivityIndicator
         size={'large'}

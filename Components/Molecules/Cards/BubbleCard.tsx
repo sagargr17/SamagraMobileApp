@@ -25,8 +25,6 @@ interface BubbleCardProps {
   iconColor?: string;
 }
 
-const {width: screenWidth} = Dimensions.get('window');
-
 export const BubbleCard: React.FC<BubbleCardProps> = ({
   variant = 'large',
   title,
@@ -48,8 +46,8 @@ export const BubbleCard: React.FC<BubbleCardProps> = ({
         onPress={onPress}
         style={[
           {
-            paddingVertical: size.spacing.xxs,
-            marginBottom: size.spacing.s,
+            paddingVertical: size.spacing.xs-1,
+            marginBottom: size.spacing.s + 2,
             width: cardWidth,
             backgroundColor: colors.background, // <-- Crucial: Set this to the actual card background color (white in your case)
             borderRadius: size.borderRadius.m,
