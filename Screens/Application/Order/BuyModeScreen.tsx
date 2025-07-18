@@ -25,7 +25,7 @@ export const BuyModeScreen: React.FC<BuyModeScreenProps> = ({}) => {
   return (
     <>
       <AppHeader currentPosition="absolute"></AppHeader>
-      {/* <MapView style={{flex: 0.7}} /> */}
+      <MapView style={{flex: 0.7}} />
       <OrderBottomSheet navigation={navigation}></OrderBottomSheet>
     </>
   );

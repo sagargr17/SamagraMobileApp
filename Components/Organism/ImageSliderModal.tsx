@@ -1,11 +1,17 @@
-import ImageSlider from '@coder-shubh/react-native-image-slider';
-import FastImage from '@d11/react-native-fast-image';
 import {useTheme} from '@react-navigation/native';
 import React, {useState} from 'react';
-import {Modal} from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  Image,
+  Modal,
+  ScrollView,
+  View,
+} from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import {IconButton} from 'react-native-paper';
-import {AreaMapper} from '../../Utilities/CustomMethods';
+import {AreaMapper, isValidUrl} from '../../Utilities/CustomMethods';
+import FastImage from '@d11/react-native-fast-image';
 
 interface ImageSliderModalProps {
   images: Array<{
@@ -18,34 +24,35 @@ export const ImageSliderModal: React.FC<ImageSliderModalProps> = ({images}) => {
   const {colors} = useTheme();
 
   console.log(
-    'ImageN ',
+    'Image ',
     images.map(ww => ww.url),
   );
 
   return (
     <>
-      <ImageSlider
-        onTouchEnd={() => setVisible(!visible)}
-        testID="imageSlider_testID"
-        images={images.map(x => x.url)}
-        // images={['http://static.samagranepal.com/8cp6eFcN1k2dc4f72gUBQ.jpg']}
-        imageHeight={AreaMapper({
-          value: 40,
-          scaleBy: 'height',
-        })}
-        dotSize={10}
-        dotColor="silver"
-        activeDotColor="blue"
-        showNavigationButtons={false}
-        showIndicatorDots={false}
-        imageLabel={true}
-        extrapolate="clamp"
-        autoSlideInterval={100000}
-        radius={5}
-        containerStyle={{
-          margin: 0,
-        }}
-      />
+      <ScrollView
+        horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}>
+        {images
+          .map(x => x.url)
+          .map((image, index) => (
+            <View key={index} onTouchEnd={() => setVisible(!visible)}>
+              <Image
+                onError={error => console.log('Error', error)}
+                onProgress={() => <ActivityIndicator></ActivityIndicator>}
+                resizeMode="contain"
+                style={{
+                  height: 250,
+                  width: 350,
+                }}
+                source={{
+                  uri: image,
+                }}
+              />
+            </View>
+          ))}
+      </ScrollView>
 
       {visible ? (
         <Modal visible={visible} transparent={false}>
@@ -62,33 +69,24 @@ export const ImageSliderModal: React.FC<ImageSliderModalProps> = ({images}) => {
             icon="close-circle"
             iconColor="white"
             onPress={() => setVisible(!visible)}></IconButton>
+
           <ImageViewer
-            style={
-              {
-                // flex: 1,
-                // flexDirection: 'column',
-              }
-            }
             imageUrls={images}
             swipeDownThreshold={100}
             onSwipeDown={() => setVisible(!visible)}
             enableSwipeDown
+            failImageSource={{
+              url: 'https://en-ae.sssports.com/dw/image/v2/BDVB_PRD/on/demandware.static/-/Sites-akeneo-master-catalog/default/dw62ba69b3/sss/SSS2/A/D/I/H/6/SSS2_ADIH6000_4067897757796_1.jpg?sw=700&sh=700&sm=fit',
+            }}
+            // backgroundColor="pink"
             saveToLocalByLongPress={false}
             renderImage={props => (
-              <FastImage
+              <Image
                 resizeMode="contain"
                 {...props}
                 style={{
-                  width: AreaMapper({
-                    value: 400,
-                    scaleBy: 'width',
-                  }),
-                  height: AreaMapper({
-                    value: 420,
-                    scaleBy: 'width',
-                  }),
-                  // marginTop: AreaMapper({value: 67}),
-
+                  flex: 1,
+                  zIndex: 1,
                   resizeMode: 'contain', // or 'cover' if you want full fit
                 }}
               />

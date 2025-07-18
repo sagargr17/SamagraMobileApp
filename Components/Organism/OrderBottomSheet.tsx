@@ -1,7 +1,7 @@
 import {useMutation} from '@apollo/client';
 import {useTheme} from '@react-navigation/native';
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import {showMessage} from 'react-native-flash-message';
 import {CreateItemRequestMutation} from '../../GraphQL/Mutation/ItemRequestMutation';
 import {RootStackNavigationProp} from '../../Navigators/RootStackNavigator';
@@ -81,7 +81,7 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
     );
 
     return (
-      <View
+      <ScrollView
         style={[
           styles.wrapper,
           {
@@ -131,7 +131,7 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
           onFormSubmit={handleSubmit}
           disabled={loading ? true : false}
           submitButtonText={`${loading ? 'loading' : 'Search'}`}></AppForm>
-      </View>
+      </ScrollView>
     );
   };
 

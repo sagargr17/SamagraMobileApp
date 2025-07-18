@@ -1,13 +1,13 @@
-import { useTheme } from '@react-navigation/native';
-import { MotiView } from 'moti';
-import React, { useEffect } from 'react';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
-import { Text } from 'react-native-paper';
-import { Logos } from '../../Assets/SVG/Exports/Exports';
-import { OnBoardingStackNavigationProp } from '../../Navigators/Stack/OnBoardingStackNavigator';
-import { size } from '../../Prefrences/Prefrences';
-import { useAppSelector } from '../../StateManagement/hooks';
-import { AreaMapper } from '../../Utilities/CustomMethods';
+import {useTheme} from '@react-navigation/native';
+import {MotiView} from 'moti';
+import React, {useEffect} from 'react';
+import {ActivityIndicator, StyleSheet, View} from 'react-native';
+import {Text} from 'react-native-paper';
+import {Logos} from '../../Assets/SVG/Exports/Exports';
+import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
+import {size} from '../../Prefrences/Prefrences';
+import {useAppSelector} from '../../StateManagement/hooks';
+import {AreaMapper} from '../../Utilities/CustomMethods';
 
 interface SplashScreenProps {
   navigation: OnBoardingStackNavigationProp<'SplashScreen'>;
@@ -20,8 +20,6 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
     state => state.user.isAuthenticated,
   );
   useEffect(() => {
-    console.log('User Login Status in Splash screen ', userIsAuthenticate);
-
     let timer = setTimeout(() => {
       if (userIsAuthenticate === true || userIsAuthenticate === false)
         navigation.navigate('GetStartedScreen');

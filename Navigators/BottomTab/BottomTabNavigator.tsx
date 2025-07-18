@@ -193,7 +193,7 @@ export const BottomTabNavigator: React.FC = () => {
           lineHeight: size.textVariants.caption.lineHeight,
           fontFamily: 'Poppins-Regular',
         },
-        tabBarHideOnKeyboard: true,
+        tabBarHideOnKeyboard: false,
         tabBarAllowFontScaling: true,
         // tabBarActiveBackgroundColor: 'orange',
       })}

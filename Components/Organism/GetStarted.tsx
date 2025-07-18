@@ -1,13 +1,13 @@
 import FastImage from '@d11/react-native-fast-image';
-import { useIsFocused } from '@react-navigation/native';
-import React, { useMemo, useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
-import { useTheme } from 'react-native-paper';
+import {useIsFocused} from '@react-navigation/native';
+import React, {useMemo, useState} from 'react';
+import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
+import {useTheme} from 'react-native-paper';
 import {
   GetStartedFirstImage,
   GetStartedSecondImage,
 } from '../../Constants/UI/AssetsUrls';
-import { AreaMapper } from '../../Utilities/CustomMethods';
+import {AreaMapper} from '../../Utilities/CustomMethods';
 import AppButton from '../Elements/Button';
 
 interface Item {
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   },
 
   headerimage: {
-    flex: 1.5,
+    flex: 0.8,
   },
 });
 

@@ -44,7 +44,7 @@ const screenBuilder = (
           route: RouteProp<MoreStackParamList, keyof MoreStackParamList>;
           navigation: NativeStackNavigationProp<
             MoreStackParamList,
-            keyof MoreStackParamList
+            keyof MoreStackParamList  
           >;
         }) => NativeStackNavigationOptions);
   }>,

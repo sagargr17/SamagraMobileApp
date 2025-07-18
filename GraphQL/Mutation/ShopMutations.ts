@@ -9,8 +9,8 @@ export const createNewStore = gql(`mutation createNewStore(
   $phoneNumber: String!
   $totalItemsCount: Int!
 ) {
-  createStore(
-    store: {
+  createShop(
+    shop: {
       name: $shopName
       aboutShop: $aboutShop
       longitude: $longitude
@@ -24,8 +24,7 @@ export const createNewStore = gql(`mutation createNewStore(
 }
 `);
 
-export const deleteStore = gql(`mutation RemoveStore(
-  $id: String!) {
-  removeStore(id: $id)
+export const deleteStore = gql(`mutation RemoveStore($id: String!) {
+  removeShop(id: $id)
 }
 `);

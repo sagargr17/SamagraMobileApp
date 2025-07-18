@@ -137,7 +137,7 @@ export const RootStack: React.FC = () => {
         screenOptions={{
           header: () => null,
         }}>
-        {true === true //change this to true while deployment and add USerSigninStatus
+        {userSignInStatus === true //change this to true while deployment and add USerSigninStatus
           ? screenBuilder([
               {screenName: 'BottomTab', component: BottomTabNavigator},
               {

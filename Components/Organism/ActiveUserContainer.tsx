@@ -26,7 +26,6 @@ export const ActiveUserContainer: React.FC<ActiveUserContainerProps> = ({}) => {
     dispatch(setUserMode());
   };
 
-  
   // Flex Container
   const flexDetailsItems = [
     {
@@ -120,12 +119,7 @@ export const ActiveUserContainer: React.FC<ActiveUserContainerProps> = ({}) => {
             onPress={item.onPress}></BubbleCard>
         ))}
       </RowFlexLayout>
-      <RowFlexLayout
-        customStyle={
-          {
-            // justifyContent: 'space-around',
-          }
-        }>
+      <RowFlexLayout>
         {flexDetailsItems[0].secondRow.map((item, index) => (
           <BubbleCard
             key={index}

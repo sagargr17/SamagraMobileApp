@@ -14,9 +14,10 @@ import {
 } from '../../Constants/UI/Messages';
 import {createNewStore} from '../../GraphQL/Mutation/ShopMutations';
 import {responseTheme, size} from '../../Prefrences/Prefrences';
-import {CreateStoreInputViewModelInput} from '../../src/__generated__/graphql';
+import {CreateShopInputViewModelInput} from '../../src/__generated__/graphql';
 import {setUserShopDetail} from '../../StateManagement/User/UserSlice';
 import {useSelector} from 'react-redux';
+import {ScrollView} from 'react-native';
 
 interface AddShopScreenProps {}
 
@@ -36,9 +37,7 @@ export const AddShopScreen: React.FC<AddShopScreenProps> = ({}) => {
   };
 
   // Handles the Shops Creation
-  const handlCreateShopSubmit = async (
-    data: CreateStoreInputViewModelInput,
-  ) => {
+  const handlCreateShopSubmit = async (data: CreateShopInputViewModelInput) => {
     try {
       const response = await createNewShopFn({
         variables: {
@@ -51,15 +50,15 @@ export const AddShopScreen: React.FC<AddShopScreenProps> = ({}) => {
         },
       });
 
-      if (response.data?.createStore?.id) {
+      if (response.data?.createShop?.id) {
         dispatch(
           setUserShopDetail({
-            shopId: response.data.createStore.id,
+            shopId: response.data.createShop.id,
             name: data.name ?? NotMentioned,
             location: 'butwal',
           }),
         );
-        handleNavigationToShopScreen(response.data.createStore?.id);
+        handleNavigationToShopScreen(response.data.createShop?.id);
       }
 
       if (response.errors) {
@@ -81,14 +80,14 @@ export const AddShopScreen: React.FC<AddShopScreenProps> = ({}) => {
   };
 
   return (
-    <View
+    <ScrollView
       // showsVerticalScrollIndicator={false}
       style={{
         flexDirection: 'column',
         paddingHorizontal: size.spacing.s,
         flex: 1,
       }}>
-      <AppForm<CreateStoreInputViewModelInput>
+      <AppForm<CreateShopInputViewModelInput>
         formConfig={[
           {
             name: 'name', // Must match a key in LoginFormValues
@@ -137,6 +136,6 @@ export const AddShopScreen: React.FC<AddShopScreenProps> = ({}) => {
         ]}
         submitButtonText="Submit"
         onFormSubmit={handlCreateShopSubmit}></AppForm>
-    </View>
+    </ScrollView>
   );
 };

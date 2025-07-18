@@ -26,13 +26,17 @@ export const ActiveStoreContainer: React.FC<
   const {colors} = useTheme();
   const navigation = useNavigation<any>();
   const {PenIcon, DustbinIcon, StockIcon, PlusIcon} = Logos;
-  const iconSize = size.iconSize.small;
+const iconSize = size.iconSize.small;
   const shopName = useAppSelector(state => state.user.shopData?.name);
   const dispatch = useAppDispatch();
   const [removeStoreFn] = useMutation(deleteStore);
 
   const handleRemoveStore = async () => {
     dispatch(showLoader());
+
+
+    console.log("SHopIDdd", shopId);
+    
     try {
       let response = await removeStoreFn({
         variables: {

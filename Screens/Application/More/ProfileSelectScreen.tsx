@@ -16,8 +16,11 @@ import {
   setShopState,
   setUserShopDetail,
 } from '../../../StateManagement/User/UserSlice';
-import {titleCase} from '../../../Utilities/CustomMethods';
+import {AreaMapper, titleCase} from '../../../Utilities/CustomMethods';
 import {SamagraLoader} from '../../../Components/Elements/SamagraLoader';
+import {SingnlePageInfo} from '../../../Components/Organism/SinglePageInfo';
+import {Logos} from '../../../Assets/SVG/Exports/Exports';
+import {View} from 'moti';
 interface ProfileSelectScreenProps {}
 
 export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
@@ -42,6 +45,7 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
   const navigation = useNavigation<any>();
   const userData = useAppSelector(state => state.user.Profile);
   const [paginationLoading, setPaginationLoading] = useState<boolean>(false);
+  const {NoItemFound} = Logos;
 
   const isLoadingInitialData =
     loading && !data && networkStatus === NetworkStatus.loading;
@@ -60,7 +64,6 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
     return <ListCardSkeleton numberOfList={7}></ListCardSkeleton>;
 
   if (error && !data) return <Text>{error.message}</Text>;
-  if (error && !data) console.log('Error::::', error);
 
   const profileHandleSelect = (
     shopId: string,
@@ -115,10 +118,19 @@ export const ProfileSelectScreen: React.FC<ProfileSelectScreenProps> = ({}) => {
         paddingHorizontal: size.spacing.xxs,
       }}
       ListEmptyComponent={
-        <AppText
-          title={'No Any Shop Found !!'}
-          fontVariant="medium"
-          fontSizeVariant="display"></AppText>
+        <View
+          style={{
+            marginTop: 100,
+          }}>
+          <SingnlePageInfo
+            icon={<NoItemFound height={AreaMapper({value: 100})}></NoItemFound>}
+            detail={{
+              buttonTitle: 'Create Store',
+              message: 'Please Create   a Store ',
+              onButtonPress: () => {},
+              title: 'No Store Found',
+            }}></SingnlePageInfo>
+        </View>
       }
       data={data?.getShops?.edges}
       renderItem={({item, index}) => (

@@ -104,8 +104,6 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
   };
 
   const onHanleImagePress = (id: string, name: string) => {
-    console.log('Item ID', id);
-
     navigation.navigate('ItemDetailScreen', {
       id: id,
       name: name,
@@ -167,7 +165,11 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
           setCounterValue(quantity * pressedItem?.item.price);
         }}></Counter>
       <Spacer height={25}></Spacer>
-      <AppButton onPress={() => handleOnCheckoutPressPress(pressedItem)}>
+      <AppButton
+        onPress={() => {
+          setBottomSheetOpen(!isBottomSheetOpen);
+          handleOnCheckoutPressPress(pressedItem);
+        }}>
         Checkout
       </AppButton>
       <Spacer height={15}></Spacer>
