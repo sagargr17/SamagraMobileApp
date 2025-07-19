@@ -1,5 +1,5 @@
 import FastImage from '@d11/react-native-fast-image';
-import {useIsFocused} from '@react-navigation/native';
+import {useIsFocused, useNavigation} from '@react-navigation/native';
 import React, {useMemo, useState} from 'react';
 import {
   ActivityIndicator,
@@ -38,6 +38,7 @@ interface GetStartedProps {
 const GetStarted = ({options, onDone}: GetStartedProps) => {
   const [step, setStep] = useState(0);
   const isFocused = useIsFocused();
+  const navigation = useNavigation()
 
   const activeItem = options[step];
 
@@ -53,13 +54,14 @@ const GetStarted = ({options, onDone}: GetStartedProps) => {
   const {colors} = useTheme();
 
   useMemo(() => {
+    
     if (isFocused && options.length > 0) {
       setStep(0);
     }
   }, [isFocused, options]);
 
   return (
-    <View style={styles.wrapper}>
+    <View style={styles.wrapper}>   
       <FastImage
         onLoadStart={() => <ActivityIndicator></ActivityIndicator>}
         style={styles.headerimage}
@@ -130,7 +132,7 @@ const styles = StyleSheet.create({
 
   headerimage: {
     flex: 1.5,
-  },
+   },
 });
 
 export default GetStarted;

@@ -1,25 +1,24 @@
-import { RouteProp, useNavigation, useTheme } from '@react-navigation/native';
+import {RouteProp, useNavigation, useTheme} from '@react-navigation/native';
 import {
   createNativeStackNavigator,
   NativeStackNavigationOptions,
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
 import React from 'react';
-import { SearchBar } from 'react-native-screens';
-import { size } from '../../Prefrences/Prefrences';
-import { AddItemScreen } from '../../Screens/Application/AddItemScreen';
-import { CartScreen } from '../../Screens/Application/CartScreen';
-import { MyShopItemsScreen } from '../../Screens/Application/More/MyShopItemsScreen';
-import { MyShopsScreen } from '../../Screens/Application/More/MyShopsScreen';
-import { ProfileSelectScreen } from '../../Screens/Application/More/ProfileSelectScreen';
-import { OrderSuccessDetailScreen } from '../../Screens/Application/OrderSuccessDetailScreen';
-import { PlaceOrderScreen } from '../../Screens/Application/PlaceOrderScreen';
-import { ReceivedOffersListScreen } from '../../Screens/Application/ReceivedOffersListScreen';
-import { ReceivedRequestListScreen } from '../../Screens/Application/ReceivedRequestListScreen';
-import { ReceivedSuccessOrderScreen } from '../../Screens/Application/ReceivedSuccessOrderScreen';
-import { ShopCreatedScreen } from '../../Screens/Application/ShopCreatedScreen';
-import { ItemDetailScreen } from '../../Screens/OnBoarding/ItemDetailScreen';
-import { titleCase } from '../../Utilities/CustomMethods';
+import {size} from '../../Prefrences/Prefrences';
+import {AddItemScreen} from '../../Screens/Application/AddItemScreen';
+import {CartScreen} from '../../Screens/Application/CartScreen';
+import {MyShopsScreen} from '../../Screens/Application/More/MyShopsScreen';
+import {ProfileSelectScreen} from '../../Screens/Application/More/ProfileSelectScreen';
+import {OrderSuccessDetailScreen} from '../../Screens/Application/OrderSuccessDetailScreen';
+import {PlaceOrderScreen} from '../../Screens/Application/PlaceOrderScreen';
+import {ReceivedOffersListScreen} from '../../Screens/Application/ReceivedOffersListScreen';
+import {ReceivedRequestListScreen} from '../../Screens/Application/ReceivedRequestListScreen';
+import {ReceivedSuccessOrderScreen} from '../../Screens/Application/ReceivedSuccessOrderScreen';
+import {SearchScreen} from '../../Screens/Application/SearchScreen';
+import {ShopCreatedScreen} from '../../Screens/Application/ShopCreatedScreen';
+import {ItemDetailScreen} from '../../Screens/OnBoarding/ItemDetailScreen';
+import {titleCase} from '../../Utilities/CustomMethods';
 
 type ApplicationOverlayMoreStackParamList = {
   ReceivedOrderListScreen: undefined;
@@ -29,9 +28,8 @@ type ApplicationOverlayMoreStackParamList = {
     id: string;
     name: string;
   };
-  MyShopItemsScreen: {
-    shopName: string;
-    shopId: string;
+  SearchItemScreen: {
+    itemType: 'public' | 'shop';
   };
   AddItemScreen: {
     shopId: string;
@@ -67,11 +65,6 @@ export interface ApplicationOverlayStackProps<
 export type ItemDetailScreenRouteProp = RouteProp<
   ApplicationOverlayMoreStackParamList,
   'ItemDetailScreen'
->;
-
-export type ShopItemScreenRouteProp = RouteProp<
-  ApplicationOverlayMoreStackParamList,
-  'MyShopItemsScreen'
 >;
 
 export type AddItemScreenRouteProp = RouteProp<
@@ -145,17 +138,16 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
             }),
           },
           {
-            screenName: 'MyShopItemsScreen',
-            component: MyShopItemsScreen,
+            screenName: 'SearchItemScreen',
+            component: SearchScreen,
             option: ({route}: {route: any}) => ({
-              title: titleCase(route.params.shopName),
+              title: titleCase('Search Item'),
               headerTitleAlign: 'center',
               headerTitleStyle: {
                 fontFamily: fonts.medium.fontFamily,
                 fontSize: 16,
               },
               headerShadowVisible: false,
-              SearchBar,
             }),
           },
           {

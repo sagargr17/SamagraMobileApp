@@ -11,6 +11,8 @@ import {StockScreen} from '../../Screens/Application/More/StockScreen';
 import {OrderScreen} from '../../Screens/Application/More/OrdersScreen';
 import {StockUpdateScreen} from '../../Screens/Application/More/StockUpdateScreen';
 import {AddShopScreen} from '../../Screens/Application/AddShopScreen';
+import {MyShopItemsScreen} from '../../Screens/Application/More/MyShopItemsScreen';
+import {titleCase} from '../../Utilities/CustomMethods';
 
 type MoreStackParamList = {
   MoreLandingScreen: undefined;
@@ -22,6 +24,10 @@ type MoreStackParamList = {
     shopId: string;
   };
   AddShopScreen: undefined;
+  MyShopItemsScreen: {
+    shopName: string;
+    shopId: string;
+  };
 };
 
 // Its The builder with the
@@ -113,6 +119,19 @@ export const MoreStackNavigator: React.FC = () => {
             component: AddShopScreen,
             option: ({route}: {route: any}) => ({
               title: 'Add Shop',
+            }),
+          },
+          {
+            screenName: 'MyShopItemsScreen',
+            component: MyShopItemsScreen,
+            option: ({route}: {route: any}) => ({
+              title: titleCase(route.params.shopName),
+              headerTitleAlign: 'center',
+              headerTitleStyle: {
+                fontFamily: fonts.medium.fontFamily,
+                fontSize: 16,
+              },
+              headerShadowVisible: false,
             }),
           },
         ])}

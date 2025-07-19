@@ -132,3 +132,56 @@ export const GetItemsByShopId = gql(`
   }
 }
   `);
+
+// Search Queries Api
+export const GetPublicItemsBySearchString = gql(`
+  query GetPublicItemsBySearch($searchString: String) {
+  getPublicItems(searchString: $searchString) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+
+    edges {
+      node {
+        name
+        id
+        imageUrls
+        price
+        isProduct
+        stockQuantity
+        shop {
+          location
+        }
+      }
+    }
+  }
+}
+
+`);
+
+// GetPrivateItems
+export const GetPrivateItemsBySearchString = gql(`
+ query GetPrivateItemsBySearch($searchString: String) {
+  getItems(name: $searchString) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+
+    edges {
+      node {
+        name
+        id
+        imageUrls
+        price
+        isProduct
+        stockQuantity
+        shop {
+          location
+        }
+      }
+    }
+  }
+}
+`);

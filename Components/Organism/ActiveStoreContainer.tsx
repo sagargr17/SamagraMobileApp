@@ -20,13 +20,13 @@ interface ActiveStoreContainerProps {
   shopId: string;
 }
 
-export const ActiveStoreContainer: React.FC<
-  ActiveStoreContainerProps
-> = ({shopId}) => {
+export const ActiveStoreContainer: React.FC<ActiveStoreContainerProps> = ({
+  shopId,
+}) => {
   const {colors} = useTheme();
   const navigation = useNavigation<any>();
   const {PenIcon, DustbinIcon, StockIcon, PlusIcon} = Logos;
-const iconSize = size.iconSize.small;
+  const iconSize = size.iconSize.small;
   const shopName = useAppSelector(state => state.user.shopData?.name);
   const dispatch = useAppDispatch();
   const [removeStoreFn] = useMutation(deleteStore);
@@ -34,9 +34,8 @@ const iconSize = size.iconSize.small;
   const handleRemoveStore = async () => {
     dispatch(showLoader());
 
+    console.log('SHopIDdd', shopId);
 
-    console.log("SHopIDdd", shopId);
-    
     try {
       let response = await removeStoreFn({
         variables: {
@@ -86,12 +85,9 @@ const iconSize = size.iconSize.small;
           title: 'Items',
           iconName: 'chart-bar-stacked',
           onPress: () => {
-            navigation.navigate('ApplicationOverlay', {
-              screen: 'MyShopItemsScreen',
-              params: {
-                shopName: shopName,
-                shopId: shopId,
-              },
+            navigation.navigate('MyShopItemsScreen', {
+              shopName: shopName,
+              shopId: shopId,
             });
           },
         },
@@ -159,9 +155,11 @@ const iconSize = size.iconSize.small;
   return (
     <>
       <RowFlexLayout
-        customStyle={{
-          // justifyContent: 'space-around',
-        }}>
+        customStyle={
+          {
+            // justifyContent: 'space-around',
+          }
+        }>
         {flexDetailsItems[0].firstRow.map((item, index) => (
           <BubbleCard
             key={index}
@@ -176,9 +174,11 @@ const iconSize = size.iconSize.small;
         ))}
       </RowFlexLayout>
       <RowFlexLayout
-        customStyle={{
-          // justifyContent: 'space-around',
-        }}>
+        customStyle={
+          {
+            // justifyContent: 'space-around',
+          }
+        }>
         {flexDetailsItems[0].secondRow.map((item, index) => (
           <BubbleCard
             key={index}

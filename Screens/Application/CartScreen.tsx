@@ -130,6 +130,12 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
   const child = (
     <>
       <ListCard
+        containerPressedHandle={() => {
+          onHanleImagePress(
+            pressedItem?.item.id ?? NotMentioned,
+            pressedItem?.item?.name ?? NotMentioned,
+          );
+        }}
         onImagePress={() => {
           setBottomSheetOpen(!isBottomSheetOpen);
           onHanleImagePress(

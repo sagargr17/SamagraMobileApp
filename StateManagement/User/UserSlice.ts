@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ImageNotFound } from '../../Constants/UI/AssetsUrls';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {ImageNotFound} from '../../Constants/UI/AssetsUrls';
+import {ItemViewModel} from '../../src/__generated__/graphql';
 
 interface User {
   username: string;
@@ -29,6 +30,17 @@ interface UserMode {
   isUserServiceMode: boolean;
 }
 
+interface selectedItem {
+  item: {
+    id: string;
+    stockQuantity: number;
+    price: number;
+    dateTime: '';
+    isProduct: boolean;
+    starRating: number;
+  };
+}
+
 export interface UserState {
   Profile: User;
   isAuthenticated: boolean | string;
@@ -37,6 +49,7 @@ export interface UserState {
   uploadedImages?: UploadedImages;
   userLocation?: UserLocation;
   UserMode: UserMode;
+  selectedItem: selectedItem;
 }
 
 const initialState: UserState = {
@@ -63,13 +76,16 @@ const initialState: UserState = {
     isUserServiceMode: true,
   },
 
-  // selectedItem: {
-  //   stockQuantity: 0,
-  //   price: 0,
-  //   dateTime: '',
-  //   isProduct: false,
-  //   starRating: 3,
-  // },
+  selectedItem: {
+    item: {
+      id: '',
+      stockQuantity: 0,
+      price: 0,
+      dateTime: '',
+      isProduct: false,
+      starRating: 3,
+    },
+  },
 };
 
 const userSlice = createSlice({
@@ -112,6 +128,9 @@ const userSlice = createSlice({
     setUserMode: state => {
       state.UserMode.isUserServiceMode = !state.UserMode.isUserServiceMode;
     },
+    setItemSelected: (state, action: PayloadAction<selectedItem>) => {
+      state.selectedItem.item = action.payload.item;
+    },
   },
 });
 
@@ -125,6 +144,6 @@ export const {
   setIsBuyMode,
   setUserProfile,
   setUserMode,
-  // setItemSelected,
+  setItemSelected,
 } = userSlice.actions;
 export default userSlice.reducer;

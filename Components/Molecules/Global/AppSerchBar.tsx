@@ -7,7 +7,7 @@ import {useTheme} from '@react-navigation/native';
 import {size} from '../../../Prefrences/Prefrences';
 
 interface SerchBarProps {
-  onPress: (searchedItem: string) => void;
+  onPress?: () => void;
   placeHolder?: string;
   style?: ViewStyle;
 }
@@ -22,6 +22,7 @@ export const AppSerchBar: React.FC<SerchBarProps> = ({
   const {colors} = useTheme();
   return (
     <Searchbar
+      onFocus={onPress}
       style={[
         {
           backgroundColor: '#EFF1F3',

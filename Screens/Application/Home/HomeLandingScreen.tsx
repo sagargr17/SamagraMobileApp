@@ -1,7 +1,14 @@
 import {NetworkStatus, useQuery} from '@apollo/client';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import React, {useCallback, useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {
+  Alert,
+  StyleSheet,
+  Text,
+  TouchableHighlight,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import {ActivityIndicator, Divider} from 'react-native-paper';
 import {Spacer} from '../../../Components/Elements/Spacer';
 import {ItemMiniCard} from '../../../Components/Molecules/Cards/ItemMiniCard';
@@ -43,18 +50,16 @@ export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
   const isFetchingMore =
     networkStatus === NetworkStatus.fetchMore || paginationLoading;
 
-  const handleNavigation = useCallback(
-    (searchedItem: string) => {
-      navigation.navigate('ApplicationOverlay', {
-        screen: 'ItemDetailScreen',
-        params: {
-          name: `${searchedItem}`,
-          id: '1',
-        },
-      });
-    },
-    [navigation],
-  );
+  const handleNavigation = useCallback(() => {
+    console.log('ERror');
+
+    navigation.navigate('ApplicationOverlay', {
+      screen: 'SearchItemScreen',
+      params: {
+        itemType: 'public',
+      },
+    });
+  }, []);
 
   const headerComponent = (
     <>
@@ -62,10 +67,9 @@ export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
       <Spacer height={30}></Spacer>
       <Divider></Divider>
       <Spacer height={17}></Spacer>
-      <AppSerchBar
-        onPress={(searchedItem: string) =>
-          handleNavigation(searchedItem)
-        }></AppSerchBar>
+
+      <AppSerchBar onPress={handleNavigation}></AppSerchBar>
+
       <Spacer height={18}></Spacer>
       <AppBanner></AppBanner>
       <Spacer height={18}></Spacer>
