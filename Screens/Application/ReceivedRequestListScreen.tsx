@@ -120,8 +120,6 @@ export const ReceivedRequestListScreen: React.FC<
         );
       }
     } catch (e) {
-      console.log('Error Message', e);
-
       showMessage(
         responseTheme('Action Failed !', 'An error occurred', 'danger'),
       );

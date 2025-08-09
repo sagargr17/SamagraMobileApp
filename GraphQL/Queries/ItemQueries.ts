@@ -35,18 +35,7 @@ query GetPublicItemsById($id: String!) {
       stockQuantity
       description
       starRating
-      shop {
-        id
-        aboutShop
-        stars {
-          stars
-        }
-         name
-        user {
-          username
-        }
-        phoneNumber
-      }
+     
       comments {
         commentString
         user {
@@ -96,42 +85,38 @@ query GetAllPersonalItems($after: String) {
         starRating
         imageUrls
         stockQuantity
+        isProduct
       }
     }
   }
 }
-
 `);
 
 // Items accordig to the shop
-export const GetItemsByShopId = gql(`
-  query GetPersonalItemsByShopId($shopId: String!, $after:String) {
-  getItems(shopId: $shopId, after: $after) {
-    pageInfo {
-      hasNextPage
-      hasPreviousPage
-      startCursor
-      endCursor
-    }
+// export const GetItemsByShopId = gql(`
+//   query GetPersonalItemsByShopId($shopId: String!, $after:String) {
+//   getItems(shopId: $shopId, after: $after) {
+//     pageInfo {
+//       hasNextPage
+//       hasPreviousPage
+//       startCursor
+//       endCursor
+//     }
 
-    edges {
-      node {
-        id
-        name
-        price
-        isProduct
-        starRating
-        stockQuantity
-        imageUrls
-        shop {
-          id
-          name
-        }
-      }
-    }
-  }
-}
-  `);
+//     edges {
+//       node {
+//         id
+//         name
+//         price
+//         isProduct
+//         starRating
+//         stockQuantity
+//         imageUrls
+//       }
+//     }
+//   }
+// }
+//   `);
 
 // Search Queries Api
 export const GetPublicItemsBySearchString = gql(`
@@ -150,9 +135,7 @@ export const GetPublicItemsBySearchString = gql(`
         price
         isProduct
         stockQuantity
-        shop {
-          location
-        }
+       
       }
     }
   }
@@ -177,9 +160,6 @@ export const GetPrivateItemsBySearchString = gql(`
         price
         isProduct
         stockQuantity
-        shop {
-          location
-        }
       }
     }
   }

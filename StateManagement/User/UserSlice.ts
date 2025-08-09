@@ -41,6 +41,17 @@ interface selectedItem {
   };
 }
 
+interface addItemStates {
+  item: {
+    name: string;
+    Descriptionn: string;
+    price: number;
+    category: string;
+    imageUrl: string;
+    time?: string;
+  };
+}
+
 export interface UserState {
   Profile: User;
   isAuthenticated: boolean | string;
@@ -50,6 +61,7 @@ export interface UserState {
   userLocation?: UserLocation;
   UserMode: UserMode;
   selectedItem: selectedItem;
+  addItemStates: addItemStates;
 }
 
 const initialState: UserState = {
@@ -84,6 +96,16 @@ const initialState: UserState = {
       dateTime: '',
       isProduct: false,
       starRating: 3,
+    },
+  },
+  addItemStates: {
+    item: {
+      name: '',
+      price: 0,
+      Descriptionn: '',
+      category: '',
+      imageUrl: '',
+      time: '',
     },
   },
 };
@@ -131,6 +153,9 @@ const userSlice = createSlice({
     setItemSelected: (state, action: PayloadAction<selectedItem>) => {
       state.selectedItem.item = action.payload.item;
     },
+    addItem: (state, action: PayloadAction<addItemStates>) => {
+      state.addItemStates.item = action.payload.item;
+    },
   },
 });
 
@@ -145,5 +170,6 @@ export const {
   setUserProfile,
   setUserMode,
   setItemSelected,
+  addItem,
 } = userSlice.actions;
 export default userSlice.reducer;

@@ -26,7 +26,6 @@ type MoreStackParamList = {
   AddShopScreen: undefined;
   MyShopItemsScreen: {
     shopName: string;
-    shopId: string;
   };
 };
 
@@ -125,7 +124,7 @@ export const MoreStackNavigator: React.FC = () => {
             screenName: 'MyShopItemsScreen',
             component: MyShopItemsScreen,
             option: ({route}: {route: any}) => ({
-              title: titleCase(route.params.shopName),
+              title: titleCase('Manage Service'),
               headerTitleAlign: 'center',
               headerTitleStyle: {
                 fontFamily: fonts.medium.fontFamily,

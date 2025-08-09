@@ -1,14 +1,13 @@
-import { useTheme } from '@react-navigation/native';
+import {useTheme} from '@react-navigation/native';
 import React from 'react';
-import {
-  useWindowDimensions
-} from 'react-native';
-import { AppHeader } from '../../../Components/Organism/AppHeader';
+import {useWindowDimensions} from 'react-native';
+import {AppHeader} from '../../../Components/Organism/AppHeader';
 
-import { SceneMap, TabBar, TabView } from 'react-native-tab-view';
-import { Spacer } from '../../../Components/Elements/Spacer';
-import { ReceivedorderListScreen } from '../ReceivedOrderListScreen';
-import { ReceivedRequestListScreen } from '../ReceivedRequestListScreen';
+import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
+import {Spacer} from '../../../Components/Elements/Spacer';
+import {ReceivedorderListScreen} from '../ReceivedOrderListScreen';
+import {ReceivedRequestListScreen} from '../ReceivedRequestListScreen';
+import {CategoryScreen} from '../Home/CategoryScreen';
 interface SellModeScreenProps {}
 
 export const SellModeScreen: React.FC<SellModeScreenProps> = ({}) => {

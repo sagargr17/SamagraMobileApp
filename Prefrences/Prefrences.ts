@@ -13,11 +13,10 @@ const MyTheme = {
   dark: false,
   colors: {
     primary: '#228866', //Test1
-    background: 'rgb(255, 255, 255)',
-    card: 'rgb(250, 250, 250)',
-    // card: '#EFF1F3',
+    background: '#FFFFFF',
+    card: '#EFF1F3',
     text: 'rgba(45, 45, 45, 1)',
-    border: 'rgb(192, 192, 192)',
+    border: '#EFF1F3',
     notification: 'rgb(255, 69, 58)',
   },
   fonts: {
@@ -165,10 +164,9 @@ const size = {
           shadowRadius: 6, // Adjust this for blurriness of the shadow
         },
         android: {
-          elevation: 8, // A good starting point for elevation on Android
-          shadowColor: 'rgb(156, 156, 156)',
-          shadowOffset: {width: 0, height: 5}, // Consistent shadow direction
-
+          elevation: 6, // A good starting point for elevation on Android
+          shadowColor: 'rgba(112, 110, 110, 1)',
+          shadowOffset: {width: 0, height: 20}, // Consistent shadow direction
           // No need for borderWidth/borderColor on Android either if you want no visible border
         },
       }),

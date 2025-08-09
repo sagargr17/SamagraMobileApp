@@ -34,7 +34,7 @@ interface ListCardProps {
   id: string;
   child?: React.ReactNode;
 }
- // <-- Crucial: Set this to the actual card background color (white in your case)
+// <-- Crucial: Set this to the actual card background color (white in your case)
 export const ListCard: React.FC<ListCardProps> = ({
   list,
   surfaceLevel = 0,
@@ -79,28 +79,30 @@ export const ListCard: React.FC<ListCardProps> = ({
               flexDirection: 'row',
               alignItems: 'flex-start',
             }}>
-            <TouchableOpacity
-              onPress={onImagePress}
-              style={[styles.imageContainer]}>
-              <FastImage
-                style={[
-                  styles.image,
-                  {
-                    height: customImageStyle
-                      ? customImageStyle.height
-                      : styles.image.height,
-                    width: customImageStyle
-                      ? customImageStyle.width
-                      : styles.image.width,
-                  },
-                ]}
-                source={{
-                  uri: imageUrl ?? imageUrl,
-                  priority: FastImage.priority.high,
-                }}
-                resizeMode={FastImage.resizeMode.cover}
-              />
-            </TouchableOpacity>
+            {imageUrl ? (
+              <TouchableOpacity
+                onPress={onImagePress}
+                style={[styles.imageContainer]}>
+                <FastImage
+                  style={[
+                    styles.image,
+                    {
+                      height: customImageStyle
+                        ? customImageStyle.height
+                        : styles.image.height,
+                      width: customImageStyle
+                        ? customImageStyle.width
+                        : styles.image.width,
+                    },
+                  ]}
+                  source={{
+                    uri: imageUrl ?? imageUrl,
+                    priority: FastImage.priority.high,
+                  }}
+                  resizeMode={FastImage.resizeMode.cover}
+                />
+              </TouchableOpacity>
+            ) : null}
             <TouchableOpacity
               onPress={onImagePress}
               style={styles.pricingContainer}>

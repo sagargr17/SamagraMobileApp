@@ -1,7 +1,8 @@
 import {gql} from '../../src/__generated__';
 
 export const GetBasketItemsQuery =
-  gql(`query GetBasketItemsQuery($after: String) {
+  gql(`
+  query GetBasketItemsQuery($after: String) {
   getBasketItems(after: $after) {
     pageInfo {
       hasNextPage
@@ -19,18 +20,9 @@ export const GetBasketItemsQuery =
           price
           starRating
           isProduct
-          shop {
-            name
-            user {
-              username
-            }
-            phoneNumber
-            location
-          }
         }
       }
     }
   }
 }
-
 `);

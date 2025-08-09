@@ -97,7 +97,7 @@ export const RootStack: React.FC = () => {
     });
   }, []);
 
-  // IsError;
+  // IsError;n
   // if (errorResponse.isErorr) {
   //   return (
   //     <View
@@ -137,7 +137,7 @@ export const RootStack: React.FC = () => {
         screenOptions={{
           header: () => null,
         }}>
-        {userSignInStatus === true //change this to true while deployment and add USerSigninStatus
+        {true === true //change this to true while deployment and add USerSigninStatus
           ? screenBuilder([
               {screenName: 'BottomTab', component: BottomTabNavigator},
               {

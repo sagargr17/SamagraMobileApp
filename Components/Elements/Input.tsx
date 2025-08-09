@@ -22,7 +22,7 @@ export const Input: React.FC<InputProps> = ({
   value,
   placeholder,
   onChangeText,
-  height  =  53,
+  height = 53,
   left = null,
   secureTextEntry = false,
   right,
@@ -52,7 +52,6 @@ export const Input: React.FC<InputProps> = ({
             fontSizeVariant={'regular'}></AppText>
         )}
         <TextInput
-          
           ref={inputRef}
           placeholder={placeholder}
           mode="outlined"
@@ -70,6 +69,7 @@ export const Input: React.FC<InputProps> = ({
               fontFamily: fonts.regular.fontFamily,
               height: height,
               borderColor: colors.border,
+              
               // backgroundColor: colors.background,
             },
           ]}

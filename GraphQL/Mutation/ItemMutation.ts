@@ -6,7 +6,6 @@ export const createNewProduct = gql(`
   $name: String!
   $price: Decimal!
   $description: String!
-  $shopId: String!
   $categoryId: String!
   $stockQuantity: Int!
   $imageUrls: [String!]!
@@ -18,7 +17,6 @@ export const createNewProduct = gql(`
       name: $name
       price: $price
       description: $description
-      shopId: $shopId
       categoryId: $categoryId
       stockQuantity: $stockQuantity
       imageUrls: $imageUrls

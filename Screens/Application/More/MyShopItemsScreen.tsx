@@ -1,12 +1,12 @@
 import {NetworkStatus, useQuery} from '@apollo/client';
 import {useNavigation, useRoute, useTheme} from '@react-navigation/native';
 import {View} from 'moti';
-import React, {useCallback, useState} from 'react';
+import React, {useState} from 'react';
 import {Text} from 'react-native';
 import {Logos} from '../../../Assets/SVG/Exports/Exports';
+import {SamagraLoader} from '../../../Components/Elements/SamagraLoader';
 import {ListCard} from '../../../Components/Molecules/Cards/ListCard';
 import {AppSerchBar} from '../../../Components/Molecules/Global/AppSerchBar';
-import {SamagraLoader} from '../../../Components/Elements/SamagraLoader';
 import {SingnlePageInfo} from '../../../Components/Organism/SinglePageInfo';
 import {ListCardSkeleton} from '../../../Components/Skeletons/Layout/ListCardSkeleton';
 import {ItemImageNotFound} from '../../../Constants/UI/AssetsUrls';
@@ -15,9 +15,8 @@ import {
   NoItemInShop,
   NotMentioned,
 } from '../../../Constants/UI/Messages';
-import {GetItemsByShopId} from '../../../GraphQL/Queries/ItemQueries';
+import {getAllPersonalItems} from '../../../GraphQL/Queries/ItemQueries';
 import {FlatListScreen} from '../../../Layout/ScreenLayout/FlatListScreenLayout';
-import {ApplicationOverlayStackNavigationProp} from '../../../Navigators/Stack/ApplicationOverlayStackNavigator';
 import {size} from '../../../Prefrences/Prefrences';
 import {AreaMapper, titleRange} from '../../../Utilities/CustomMethods';
 
@@ -31,9 +30,9 @@ export const MyShopItemsScreen: React.FC<MyShopItemsScreenProps> = ({}) => {
   const {NoItemFound} = Logos;
   const {colors} = useTheme();
   const {data, loading, error, refetch, networkStatus, fetchMore} = useQuery(
-    GetItemsByShopId,
+    getAllPersonalItems,
     {
-      variables: {after: null, shopId: route.params.shopId},
+      variables: {after: null},
       onCompleted: () => {
         setPaginationLoading(false);
       },
@@ -56,10 +55,7 @@ export const MyShopItemsScreen: React.FC<MyShopItemsScreenProps> = ({}) => {
 
   // Handle Item
   const handleAddItem = () => {
-    navigation.navigate('AddItemScreen', {
-      shopId: route.params.shopId,
-      shopName: route.params.shopName,
-    });
+    navigation.navigate('CategoriesScreen');
   };
 
   const handleItemPress = (title: string, id: string) => {

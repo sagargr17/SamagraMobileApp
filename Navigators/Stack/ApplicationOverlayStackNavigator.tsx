@@ -19,6 +19,7 @@ import {SearchScreen} from '../../Screens/Application/SearchScreen';
 import {ShopCreatedScreen} from '../../Screens/Application/ShopCreatedScreen';
 import {ItemDetailScreen} from '../../Screens/OnBoarding/ItemDetailScreen';
 import {titleCase} from '../../Utilities/CustomMethods';
+import {ItemAddedScreen} from '../../Screens/Application/ItemAddedScreen';
 
 type ApplicationOverlayMoreStackParamList = {
   ReceivedOrderListScreen: undefined;
@@ -32,7 +33,6 @@ type ApplicationOverlayMoreStackParamList = {
     itemType: 'public' | 'shop';
   };
   AddItemScreen: {
-    shopId: string;
     shopName: string;
   };
   MyShopsScreen: undefined;
@@ -44,6 +44,7 @@ type ApplicationOverlayMoreStackParamList = {
   ShopCreatedScreen: {
     shopID: string;
   };
+  ItemAddedScreen: undefined;
 };
 
 // Its The builder with the
@@ -167,7 +168,7 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
             screenName: 'AddItemScreen',
             component: AddItemScreen,
             option: ({route}: {route: any}) => ({
-              title: titleCase(route.params.shopName),
+              title: 'Add Item',
             }),
           },
 
@@ -214,6 +215,13 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
             component: ShopCreatedScreen,
             option: {
               header: () => null,
+            },
+          },
+          {
+            screenName: 'ItemAddedScreen',
+            component: ItemAddedScreen,
+            option: {
+              headerTitle: 'Confirmation',
             },
           },
         ])}

@@ -4,7 +4,7 @@ import {FlatList, StyleSheet, View} from 'react-native';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
 
 import {size} from '../../Prefrences/Prefrences';
-import {ItemCategoryCard} from '../Molecules/Cards/ItemCategoryCard';
+import {CategoryCard} from '../Molecules/Cards/CategoryCard';
 import {SectionHeader} from '../Molecules/Global/SectionHeader';
 import {titleRange} from '../../Utilities/CustomMethods';
 
@@ -72,7 +72,7 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({
         horizontal={true}
         data={data}
         renderItem={({item, index}) => (
-          <ItemCategoryCard
+          <CategoryCard
             onPress={() => onTabPress(item.titte)}
             selectedCategory={sizes === 'large' ? item.titte : selectedCategory}
             size={sizes}

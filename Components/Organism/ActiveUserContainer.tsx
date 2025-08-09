@@ -111,7 +111,6 @@ export const ActiveUserContainer: React.FC<ActiveUserContainerProps> = ({}) => {
             key={index}
             customStyle={{
               flex: 0.65,
-              borderColor: colors.background,
             }}
             variant="small"
             title={item.title}
@@ -146,26 +145,7 @@ export const ActiveUserContainer: React.FC<ActiveUserContainerProps> = ({}) => {
         ))}
       </View>
       <Spacer height={20}></Spacer>
-      <RowFlexLayout
-        customStyle={{
-          borderWidth: 1,
-          borderColor: colors.border,
-          borderRadius: size.borderRadius.m,
-          padding: size.spacing.s,
-        }}>
-        <AppText
-          title={isUserServiceMode ? '" Product Mode "' : '" Service Mode "'}
-          fontVariant="heavy"
-          fontSizeVariant="title"
-          customStyle={{
-            fontStyle: 'italic',
-            color: isUserServiceMode ? colors.primary : '#0e46a1',
-          }}></AppText>
-        <Switch
-          color={colors.primary}
-          value={true}
-          onValueChange={onToggleSwitch}></Switch>
-      </RowFlexLayout>
+
       <AppButton
         textColor={colors.text}
         onPress={userLogoutHandle}

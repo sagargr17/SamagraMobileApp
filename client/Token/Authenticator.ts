@@ -1,7 +1,7 @@
 import {CLIENT_ID, CLIENT_SECRET} from '@env';
 import {showMessage} from 'react-native-flash-message';
 import * as Keychain from 'react-native-keychain';
-import {API_URL} from '../../Constants/SamagraConstants/SamagraEndpoints';
+import {IDENTITY_ENDPOINT} from '../../Constants/SamagraConstants/SamagraEndpoints';
 import {responseTheme} from '../../Prefrences/Prefrences';
 import {
   hideLoader,
@@ -9,6 +9,7 @@ import {
 } from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
 import {store} from '../../StateManagement/Store';
 import {login} from '../../StateManagement/User/UserSlice';
+import {Alert} from 'react-native';
 
 interface AuthResponse {
   access_token: string;
@@ -35,13 +36,20 @@ async function Authenticator(userName: string, password: string) {
     grant_type: 'password',
   }).toString();
 
+  console.log('Patched');
+
   try {
-    const response = await fetch(API_URL, {
+    console.log('Inside Try Blocked');
+    const response = await fetch(IDENTITY_ENDPOINT, {
       method: 'POST',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       body: requestBody,
     });
+    console.log('Response', response);
+
     const data = await response.json();
+
+    console.log('Error while login', data);
 
     if (response.ok) {
       await saveTokens(data);
@@ -59,7 +67,6 @@ async function Authenticator(userName: string, password: string) {
         'danger',
       ),
     );
-
     return 400;
   }
 }

@@ -7,7 +7,7 @@ import {size} from '../../../Prefrences/Prefrences';
 import {Surface} from 'react-native-paper';
 import {Spacer} from '../../Elements/Spacer';
 
-interface ItemCategoryCardProps {
+interface CategoryCardProps {
   title: string;
   icon: any;
   size: 'large' | 'regular';
@@ -15,7 +15,7 @@ interface ItemCategoryCardProps {
   onPress: any;
 }
 
-export const ItemCategoryCard: React.FC<ItemCategoryCardProps> = ({
+export const CategoryCard: React.FC<CategoryCardProps> = ({
   title,
   icon,
   size: variant = 'large',

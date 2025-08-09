@@ -46,13 +46,14 @@ export const BubbleCard: React.FC<BubbleCardProps> = ({
         onPress={onPress}
         style={[
           {
-            paddingVertical: size.spacing.xs-1,
-            marginBottom: size.spacing.s + 2,
+            paddingVertical: size.spacing.xs,
+            marginBottom: size.spacing.s,
             width: cardWidth,
-            backgroundColor: colors.background, // <-- Crucial: Set this to the actual card background color (white in your case)
+            backgroundColor: colors.card, // <-- Crucial: Set this to the actual card background color (white in your case)
             borderRadius: size.borderRadius.m,
           },
           size.elevation.l,
+          customStyle,
         ]}>
         <View
           style={[

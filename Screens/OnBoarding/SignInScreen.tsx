@@ -78,7 +78,7 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
             rules={userRules.password}
             render={({field: {onChange, value}}) => (
               <Input
-                secureTextEntry={!isTextVisible}
+                secureTextEntry={!isTextVisible}  
                 label="Password"
                 placeholder="*********"
                 value={value}

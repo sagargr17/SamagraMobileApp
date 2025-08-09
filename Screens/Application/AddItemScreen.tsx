@@ -14,10 +14,6 @@ import {
 } from '../../Constants/UI/Messages';
 import {createNewProduct} from '../../GraphQL/Mutation/ItemMutation';
 import {FlatListScreen} from '../../Layout/ScreenLayout/FlatListScreenLayout';
-import {
-  ApplicationOverlayStackNavigationProp,
-  ApplicationOverlayStackProps,
-} from '../../Navigators/Stack/ApplicationOverlayStackNavigator';
 import {responseTheme, size} from '../../Prefrences/Prefrences';
 import {CreateProductInputViewModelInput} from '../../src/__generated__/graphql';
 import {
@@ -27,6 +23,7 @@ import {
 import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import ImageHandler, {OutPutImageType} from '../../Utilities/ImageHandler';
+import {addItem} from '../../StateManagement/User/UserSlice';
 
 interface AddItemScreenProps {}
 
@@ -45,82 +42,95 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
     dispatch(showLoader());
     if (uploadingImage) {
       let uploadImage = await ImageHandler.uploadImage(uploadingImage);
-      if (uploadImage) {
-        if (data && shopID)
-          try {
-            let response = await createNewItemFn({
-              variables: {
-                name: data.name ? data.name : NotMentioned,
-                shopId: shopID,
-                price: Number(data.price ? data.price : NotMentioned),
-                description: data.description ? data.description : NotMentioned,
-                unit: data.unit ? data.unit : NotMentioned,
-                stockQuantity: Number(data.stockQuantity),
-                imageUrls: uploadImage,
-                location: data.location ? data.location : NotMentioned,
-                categoryId: '1',
-              },
-            });
-            console.log('Response', response);
+      dispatch(
+        addItem({
+          item: {
+            name: data.name ?? NotMentioned,
+            price: data.price ?? 50,
+            Descriptionn: data.description ?? NotMentioned,
+            category: 'HouseKeeping',
+            imageUrl: '',
+          },
+        }),
+        navigation.navigate('ItemAddedScreen'),
+      );
 
-            if (response.data?.createProduct && data.name) {
-              showMessage(
-                responseTheme(
-                  SuccessAddItemMessage,
-                  SuccessAddItemMessageDescription,
-                  'success',
-                ),
-              );
+      // if (uploadImage) {
+      //   if (data && shopID)
+      //     try {
+      //       let response = await createNewItemFn({
+      //         variables: {
+      //           name: data.name ? data.name : NotMentioned,
+      //           shopId: shopID,
+      //           price: Number(data.price ? data.price : NotMentioned),
+      //           description: data.description ? data.description : NotMentioned,
+      //           unit: data.unit ? data.unit : NotMentioned,
+      //           stockQuantity: Number(data.stockQuantity),
+      //           imageUrls: uploadImage,
+      //           location: data.location ? data.location : NotMentioned,
+      //           categoryId: '1',
+      //         },
+      //       });
+      //       console.log('Response', response);
 
-              navigation.navigate('ApplicationOverlay', {
-                screen: 'ItemDetailScreen',
-                params: {
-                  id: response.data.createProduct?.id ?? '',
-                  name: data.name,
-                },
-              });
-            }
-            if (response.errors) {
-              dispatch(hideLoader());
-              showMessage({
-                message: `${response.errors[0].message}`,
-                type: 'danger',
-                description: 'Please , try after sometimes',
-                textStyle: {
-                  fontFamily: fonts.regular.fontFamily,
-                  fontWeight: 'regular',
-                  fontSize: AreaMapper({
-                    value: 14,
-                    scaleBy: 'average',
-                  }),
-                },
-                statusBarHeight: AreaMapper({
-                  value: 15,
-                  scaleBy: 'average',
-                }),
-              });
-            }
-          } catch (e) {
-            dispatch(hideLoader());
-            showMessage({
-              message: 'Opps, Something Went Wrong!',
-              type: 'danger',
-              description: 'Please , try after sometimes',
-              textStyle: {
-                fontFamily: fonts.regular.fontFamily,
-                fontWeight: 'regular',
-                fontSize: AreaMapper({
-                  value: 14,
-                  scaleBy: 'average',
-                }),
-              },
-              statusBarHeight: AreaMapper({
-                value: 15,
-                scaleBy: 'average',
-              }),
-            });
-          }
-      }
+      //       if (response.data?.createProduct && data.name) {
+      //         showMessage(
+      //           responseTheme(
+      //             SuccessAddItemMessage,
+      //             SuccessAddItemMessageDescription,
+      //             'success',
+      //           ),
+      //         );
+
+      //         navigation.navigate('ApplicationOverlay', {
+      //           screen: 'ItemDetailScreen',
+      //           params: {
+      //             id: response.data.createProduct?.id ?? '',
+      //             name: data.name,
+      //           },
+      //         });
+      //       }
+      //       if (response.errors) {
+      //         dispatch(hideLoader());
+      //         showMessage({
+      //           message: `${response.errors[0].message}`,
+      //           type: 'danger',
+      //           description: 'Please , try after sometimes',
+      //           textStyle: {
+      //             fontFamily: fonts.regular.fontFamily,
+      //             fontWeight: 'regular',
+      //             fontSize: AreaMapper({
+      //               value: 14,
+      //               scaleBy: 'average',
+      //             }),
+      //           },
+      //           statusBarHeight: AreaMapper({
+      //             value: 15,
+      //             scaleBy: 'average',
+      //           }),
+      //         });
+      //       }
+      //     } catch (e) {
+      //       dispatch(hideLoader());
+      //       showMessage({
+      //         message: 'Opps, Something Went Wrong!',
+      //         type: 'danger',
+      //         description: 'Please , try after sometimes',
+      //         textStyle: {
+      //           fontFamily: fonts.regular.fontFamily,
+      //           fontWeight: 'regular',
+      //           fontSize: AreaMapper({
+      //             value: 14,
+      //             scaleBy: 'average',
+      //           }),
+      //         },
+      //         statusBarHeight: AreaMapper({
+      //           value: 15,
+      //           scaleBy: 'average',
+      //         }),
+      //       });
+      //     }
+      // }
     } else {
       showMessage(
         responseTheme(
@@ -154,11 +164,11 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
         <View style={styles.wrapperStyle}>
           <Spacer height={14}></Spacer>
           <AppText
-            title="Item Detail:"
+            title="Service Detail:"
             fontSizeVariant="title"
             fontVariant="medium"></AppText>
 
-          <Spacer height={14}></Spacer>
+          <Spacer height={5}></Spacer>
           <AppForm<CreateProductInputViewModelInput>
             formConfig={[
               {
@@ -192,24 +202,24 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
                   required: 'Required',
                 },
               },
-              {
-                name: 'stockQuantity', // Must match a key in LoginFormValues
-                label: '',
-                placeholder: 'Quantity',
-                type: 'number', // Custom prop for keyboard type
-                rules: {
-                  maxLength: {
-                    value: 9,
-                    message: 'too long',
-                  },
-                  required: 'Required',
-                },
-              },
+              // {
+              //   name: 'stockQuantity', // Must match a key in LoginFormValues
+              //   label: '',
+              //   placeholder: 'Quantity',
+              //   type: 'number', // Custom prop for keyboard type
+              //   rules: {
+              //     maxLength: {
+              //       value: 9,
+              //       message: 'too long',
+              //     },
+              //     required: 'Required',
+              //   },
+              // },
 
               {
                 name: 'unit', // Must match a key in LoginFormValues
                 label: '',
-                placeholder: 'Unit | Eg: Kg, gram ',
+                placeholder: 'Hour, KG ',
                 type: 'text', // Custom prop for keyboard type
                 rules: {
                   maxLength: {
@@ -219,19 +229,19 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
                   required: 'Required',
                 },
               },
-              {
-                name: 'location', // Must match a key in LoginFormValues
-                label: '',
-                placeholder: 'Baneswor, Kathmandu',
-                type: 'text', // Custom prop for keyboard type
-                rules: {
-                  maxLength: {
-                    value: 9,
-                    message: 'too long',
-                  },
-                  required: 'Required',
-                },
-              },
+              // {
+              //   name: 'location', // Must match a key in LoginFormValues
+              //   label: '',
+              //   placeholder: 'Baneswor, Kathmandu',
+              //   type: 'text', // Custom prop for keyboard type
+              //   rules: {
+              //     maxLength: {
+              //       value: 9,
+              //       message: 'too long',
+              //     },
+              //     required: 'Required',
+              //   },
+              // },
               {
                 name: 'description', // Must match a key in LoginFormValues
                 label: '',

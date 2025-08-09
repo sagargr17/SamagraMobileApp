@@ -6,12 +6,15 @@ import {
 import React from 'react';
 
 import {RouteProp, useTheme} from '@react-navigation/native';
-import {CategoryListScreen} from '../../Screens/Application/Home/CategoryListScreen';
+import {CategoryScreen} from '../../Screens/Application/Home/CategoryScreen';
 import {HomeLandingScreen} from '../../Screens/Application/Home/HomeLandingScreen';
+import {MyShopItemsScreen} from '../../Screens/Application/More/MyShopItemsScreen';
 
 type HomeStackParamList = {
   HomeLandingScreen: undefined;
-  CategoryListScreen: undefined;
+  CategoriesScreen: undefined;
+  AddServiceScreen: undefined;
+  ManageServices: undefined;
 };
 
 export const HomeStackNavigator: React.FC = () => {
@@ -54,6 +57,7 @@ export const HomeStackNavigator: React.FC = () => {
   return (
     <>
       <HomeStackBuilder.Navigator
+        initialRouteName="HomeLandingScreen"
         screenOptions={{
           headerTitleAlign: 'center',
           headerTitleStyle: {
@@ -67,6 +71,13 @@ export const HomeStackNavigator: React.FC = () => {
         }}>
         {screenBuilder([
           {
+            screenName: 'ManageServices',
+            component: MyShopItemsScreen,
+            option: {
+              headerTitle: 'Manage Services',
+            },
+          },
+          {
             screenName: 'HomeLandingScreen',
             component: HomeLandingScreen,
             option: {
@@ -75,10 +86,10 @@ export const HomeStackNavigator: React.FC = () => {
           },
 
           {
-            screenName: 'CategoryListScreen',
-            component: CategoryListScreen,
+            screenName: 'CategoriesScreen',
+            component: CategoryScreen,
             option: {
-              headerTitle: 'Category',
+              headerTitle: 'Categories',
             },
           },
         ])}

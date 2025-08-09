@@ -10,7 +10,7 @@ import {Logos} from '../../Assets/SVG/Exports/Exports';
 import {size} from '../../Prefrences/Prefrences';
 import {HomeStackNavigator} from '../Stack/HomeStackNavigator';
 import {MoreStackNavigator} from '../Stack/MoreStackNavigator';
-import {ServiceStackNavigator} from '../Stack/ServiceStackNavigator';
+import {OrderStackNavigator} from '../Stack/OrderStackNavigator';
 
 import {TouchableHighlight} from 'react-native';
 import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
@@ -140,6 +140,8 @@ export const BottomTabNavigator: React.FC = () => {
                   <TouchableHighlight
                     onPress={() => {
                       dispatch(setIsBuyMode(!isBuy));
+
+                      
                       setIsBuyFrameVisible(!isBuyFrameVisible);
                     }}
                     style={{
@@ -200,7 +202,7 @@ export const BottomTabNavigator: React.FC = () => {
       initialRouteName="Order">
       {screenBuilder([
         {screenName: 'Home', component: HomeStackNavigator},
-        {screenName: 'Order', component: ServiceStackNavigator},
+        {screenName: 'Order', component: OrderStackNavigator},
         {screenName: 'More', component: MoreStackNavigator},
       ])}
     </BottomTabBuilder.Navigator>

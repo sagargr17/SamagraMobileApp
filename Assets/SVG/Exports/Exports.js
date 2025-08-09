@@ -32,6 +32,7 @@ import SellFrame from '../SVGImages/SellFrame';
 import ActiveLiveIcon from '../SVGImages/ActiveLiveIcon';
 import MoreActiveIcon from '../SVGImages/MoreActiveIcon';
 import HomeInActiveIcon from '../SVGImages/HomeInActiveIcon';
+import TickSign from '../SVGImages/TickSign';
 
 export const Logos = {
   ActiveLiveIcon,
@@ -68,4 +69,5 @@ export const Logos = {
   Store,
   BuyFrame,
   SellFrame,
+  TickSign,
 };
