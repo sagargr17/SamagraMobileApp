@@ -49,7 +49,7 @@ export const Input: React.FC<InputProps> = ({
             }}
             title={label}
             fontVariant="medium"
-            fontSizeVariant={'regular'}></AppText>
+            fontSizeVariant={'title'}></AppText>
         )}
         <TextInput
           ref={inputRef}
@@ -69,8 +69,7 @@ export const Input: React.FC<InputProps> = ({
               fontFamily: fonts.regular.fontFamily,
               height: height,
               borderColor: colors.border,
-              
-              
+
               // backgroundColor: colors.background,
             },
           ]}

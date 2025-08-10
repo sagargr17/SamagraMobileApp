@@ -111,20 +111,28 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
   };
 
   const emptyElement = (
-    <SingnlePageInfo
-      icon={
-        <NoItemFound
-          height={AreaMapper({
-            value: 200,
-          })}
-          width="100%"></NoItemFound>
-      }
-      detail={{
-        title: NoCartItemTitle,
-        message: NoCartItemMessage,
-        onButtonPress: () => navigation.goBack(),
-        buttonTitle: 'Shop Again !!',
-      }}></SingnlePageInfo>
+    <View
+      style={{
+        marginTop: AreaMapper({value: 100}),
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1,
+      }}>
+      <SingnlePageInfo
+        icon={
+          <NoItemFound
+            height={AreaMapper({
+              value: 200,
+            })}
+            width="100%"></NoItemFound>
+        }
+        detail={{
+          title: NoCartItemTitle,
+          message: NoCartItemMessage,
+          onButtonPress: () => navigation.goBack(),
+          buttonTitle: 'Shop Again !!',
+        }}></SingnlePageInfo>
+    </View>
   );
 
   const child = (

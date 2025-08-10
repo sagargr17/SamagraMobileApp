@@ -20,7 +20,7 @@ export const createNewProduct = gql(`
       categoryId: $categoryId
       stockQuantity: $stockQuantity
       imageUrls: $imageUrls
-      currency: "NPR"
+      currencyCode: "NPR"
       location: $location
       unit: $unit
       condition: "new"

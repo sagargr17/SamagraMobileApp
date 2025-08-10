@@ -87,7 +87,7 @@ export const BubbleCard: React.FC<BubbleCardProps> = ({
           <View style={[styles.textContainer]}>
             <AppText
               fontVariant="medium"
-              fontSizeVariant={'regular'}
+              fontSizeVariant={'title'}
               title={title} // Title using the title prop
             />
             {comment && (

@@ -141,7 +141,6 @@ export const BottomTabNavigator: React.FC = () => {
                     onPress={() => {
                       dispatch(setIsBuyMode(!isBuy));
 
-                      
                       setIsBuyFrameVisible(!isBuyFrameVisible);
                     }}
                     style={{
@@ -191,7 +190,7 @@ export const BottomTabNavigator: React.FC = () => {
         ],
 
         tabBarLabelStyle: {
-          fontSize: size.textVariants.display.fontSize - 4,
+          fontSize: size.textVariants.title.fontSize-2,
           lineHeight: size.textVariants.caption.lineHeight,
           fontFamily: 'Poppins-Regular',
         },

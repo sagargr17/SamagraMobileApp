@@ -28,10 +28,12 @@ export const AppText: React.FC<AppTextProps> = ({
           fontWeight: fonts[fontVariant].fontWeight,
           fontSize: AreaMapper({
             value: size.textVariants[fontSizeVariant]?.fontSize,
+            scaleBy: 'height',
           }),
           color: colors.text,
           lineHeight: AreaMapper({
             value: size.textVariants[fontSizeVariant]?.lineHeight,
+            scaleBy: 'height',
           }),
         },
         customStyle,

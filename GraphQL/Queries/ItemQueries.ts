@@ -76,7 +76,6 @@ query GetAllPersonalItems($after: String) {
       startCursor
       endCursor
     }
-
     edges {
       node {
         id
@@ -86,6 +85,7 @@ query GetAllPersonalItems($after: String) {
         imageUrls
         stockQuantity
         isProduct
+        unit
       }
     }
   }

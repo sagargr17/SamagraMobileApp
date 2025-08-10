@@ -71,6 +71,11 @@ export const ListCard: React.FC<ListCardProps> = ({
       <View style={styles.detailsContainer}>
         <View>
           <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}
             onTouchEnd={() =>
               isContainerPressedEnable ? handleSelectedId(id) : null
             }>
@@ -113,8 +118,9 @@ export const ListCard: React.FC<ListCardProps> = ({
                     item.fontVariant ? item.fontVariant : 'regular'
                   }></AppText>
               ))}
-              {child ? child : null}
             </TouchableOpacity>
+
+            {child ? child : null}
           </View>
         </View>
       </View>
@@ -150,7 +156,7 @@ const styles = StyleSheet.create({
   pricingContainer: {
     flexDirection: 'column',
     alignItems: 'flex-start',
-    marginTop: size.spacing.xxs,
+    flex: 1,
   },
 
   ratingContainer: {

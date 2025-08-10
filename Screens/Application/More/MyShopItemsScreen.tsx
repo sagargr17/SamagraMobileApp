@@ -1,12 +1,10 @@
 import {NetworkStatus, useQuery} from '@apollo/client';
 import {useNavigation, useRoute, useTheme} from '@react-navigation/native';
-import {View} from 'moti';
-import React, {useState} from 'react';
-import {Text} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {Text, View} from 'react-native';
 import {Logos} from '../../../Assets/SVG/Exports/Exports';
 import {SamagraLoader} from '../../../Components/Elements/SamagraLoader';
 import {ListCard} from '../../../Components/Molecules/Cards/ListCard';
-import {AppSerchBar} from '../../../Components/Molecules/Global/AppSerchBar';
 import {SingnlePageInfo} from '../../../Components/Organism/SinglePageInfo';
 import {ListCardSkeleton} from '../../../Components/Skeletons/Layout/ListCardSkeleton';
 import {ItemImageNotFound} from '../../../Constants/UI/AssetsUrls';
@@ -15,20 +13,23 @@ import {
   NoItemInShop,
   NotMentioned,
 } from '../../../Constants/UI/Messages';
-import {getAllPersonalItems} from '../../../GraphQL/Queries/ItemQueries';
 import {FlatListScreen} from '../../../Layout/ScreenLayout/FlatListScreenLayout';
 import {size} from '../../../Prefrences/Prefrences';
 import {AreaMapper, titleRange} from '../../../Utilities/CustomMethods';
+import {getAllPersonalItems} from '../../../GraphQL/Queries/ItemQueries';
+import {Switch} from 'react-native-paper';
+import {AppText} from '../../../Components/Elements/AppText';
+import {Spacer} from '../../../Components/Elements/Spacer';
 
 interface MyShopItemsScreenProps {}
 
 export const MyShopItemsScreen: React.FC<MyShopItemsScreenProps> = ({}) => {
   const navigation = useNavigation<any>();
-
   const route = useRoute<any>();
   const [paginationLoading, setPaginationLoading] = useState<boolean>(false);
   const {NoItemFound} = Logos;
   const {colors} = useTheme();
+
   const {data, loading, error, refetch, networkStatus, fetchMore} = useQuery(
     getAllPersonalItems,
     {
@@ -43,7 +44,17 @@ export const MyShopItemsScreen: React.FC<MyShopItemsScreenProps> = ({}) => {
     },
   );
 
-  // Intialising
+  const [localItemStatus, setLocalItemStatus] = useState<boolean[]>([]);
+
+  useEffect(() => {
+    if (data?.getItems?.edges) {
+      const initialStatus = data.getItems.edges.map(
+        (edge: any) => edge?.node?.isActive ?? false,
+      );
+      setLocalItemStatus(initialStatus);
+    }
+  }, [data]);
+
   const isLoadingInitialData =
     loading && !data && networkStatus === NetworkStatus.loading;
   const isFetchingMore =
@@ -53,18 +64,15 @@ export const MyShopItemsScreen: React.FC<MyShopItemsScreenProps> = ({}) => {
     return <ListCardSkeleton numberOfList={7}></ListCardSkeleton>;
   if (!error && !data) return <Text>Error</Text>;
 
-  // Handle Item
   const handleAddItem = () => {
     navigation.navigate('CategoriesScreen');
   };
 
-  const handleItemPress = (title: string, id: string) => {
-    navigation.navigate('ApplicationOverlay', {
-      screen: 'ItemDetailScreen',
-      params: {
-        name: title,
-        id: id,
-      },
+  const onToggleSwitch = (index: number) => {
+    setLocalItemStatus(prevStatus => {
+      const newStatus = [...prevStatus];
+      newStatus[index] = !newStatus[index];
+      return newStatus;
     });
   };
 
@@ -84,10 +92,20 @@ export const MyShopItemsScreen: React.FC<MyShopItemsScreenProps> = ({}) => {
           }}></SingnlePageInfo>
       ) : (
         <>
-          <FlatListScreen
-            contentContainerStyle={{
-              paddingBottom: 50,
+          <Spacer height={10}></Spacer>
+
+          <AppText
+            customStyle={{
+              fontSize: AreaMapper({value: 22}),
+              lineHeight: AreaMapper({value: 35}),
+              marginHorizontal: size.spacing.m,
             }}
+            title="Active Services"
+            fontSizeVariant="display"
+            fontVariant="medium"></AppText>
+          <Spacer height={10}></Spacer>
+          <FlatListScreen
+            contentContainerStyle={{}}
             onEndReached={() => {
               if (data?.getItems?.pageInfo.hasNextPage) {
                 fetchMore({
@@ -100,12 +118,18 @@ export const MyShopItemsScreen: React.FC<MyShopItemsScreenProps> = ({}) => {
             data={data?.getItems?.edges}
             renderItem={({item, index}) => (
               <ListCard
-                onImagePress={() => {
-                  if (item.node?.name && item.node.id)
-                    handleItemPress(
-                      item.node?.name ?? 'My ITem',
-                      item.node?.id ?? 'My Item',
-                    );
+                child={
+                  <Switch
+                    color={colors.primary}
+                    style={{
+                      zIndex: 2,
+                    }}
+                    value={localItemStatus[index] ?? false}
+                    onValueChange={() => onToggleSwitch(index)}></Switch>
+                }
+                customImageStyle={{
+                  height: AreaMapper({value: 95}),
+                  width: AreaMapper({value: 85}),
                 }}
                 id={item?.node?.id ?? NotMentioned}
                 key={index}
@@ -113,61 +137,36 @@ export const MyShopItemsScreen: React.FC<MyShopItemsScreenProps> = ({}) => {
                 list={[
                   {
                     value: titleRange(item?.node?.name ?? NotMentioned),
-                    type: 'regular',
-                    fontVariant: 'bold',
+                    type: 'display',
+                    fontVariant: 'medium',
                   },
                   {
-                    value: titleRange(
-                      `Npr.${item?.node?.price ?? NotMentioned}`,
-                    ),
-                    type: 'caption',
+                    value: `Npr.${item?.node?.price ?? NotMentioned} per ${
+                      item?.node?.unit ?? NotMentioned
+                    }  `,
+
+                    type: 'regular',
                     fontVariant: 'medium',
                   },
 
                   {
-                    value: titleRange(
-                      `Qty: ${item?.node?.stockQuantity ?? NotMentioned}`,
-                    ),
-                    type: 'caption',
-                    fontVariant: 'medium',
-                  },
-                  {
-                    value: titleRange(
-                      `${
-                        item?.node?.isProduct === true ? 'Product' : 'Service'
-                      }`,
-                    ),
-                    type: 'caption',
+                    value: titleRange(`${'House Keeping'}`),
+                    type: 'regular',
                     fontVariant: 'medium',
                     style: {
-                      color:
-                        item?.node?.isProduct === true
-                          ? colors.primary
-                          : '#7ba5e8',
+                      color: '#7ba5e8',
                     },
                   },
-                ]}></ListCard>
+                ]}
+                customStyle={{
+                  paddingVertical: size.spacing.xs,
+                  paddingHorizontal: size.spacing.m,
+                  backgroundColor: colors.card,
+                }}></ListCard>
             )}
             ListFooterComponent={
               <>{isFetchingMore ? <SamagraLoader /> : null}</>
             }></FlatListScreen>
-
-          <View
-            style={[
-              {
-                position: 'absolute',
-                bottom: 0,
-                width: '98%',
-                marginHorizontal: size.spacing.xxs,
-              },
-            ]}>
-            <AppSerchBar
-              style={{
-                borderWidth: size.borderWidth.s,
-                borderColor: colors.border,
-              }}
-              onPress={() => {}}></AppSerchBar>
-          </View>
         </>
       )}
     </>

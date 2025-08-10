@@ -50,7 +50,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
         <AppText
           title={titleCase(user.username)}
           fontVariant="heavy"
-          fontSizeVariant={'regular'}></AppText>
+          fontSizeVariant={'display'}></AppText>
         <View
           style={{
             display: 'flex',

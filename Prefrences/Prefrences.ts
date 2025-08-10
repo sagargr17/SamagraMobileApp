@@ -16,7 +16,7 @@ const MyTheme = {
     background: '#FFFFFF',
     card: '#EFF1F3',
     text: 'rgba(45, 45, 45, 1)',
-    border: '#DBE0E5',
+    border: '#EFF1F3',
     notification: 'rgb(255, 69, 58)',
   },
   fonts: {
@@ -65,18 +65,18 @@ const size = {
 
   textVariants: {
     display: {
-      fontSize: 18,
-      lineHeight: 28,
+      fontSize: 20,
+      lineHeight: 24,
     },
-    title: {
-      fontSize: 18,
-      lineHeight: 22,
-    },
-    
     regular: {
-      fontSize: 16,
+      fontSize: 14,
       lineHeight: 20,
     },
+    title: {
+      fontSize: 16,
+      lineHeight: 22,
+    },
+
     caption: {
       fontSize: 12,
       lineHeight: 18,
@@ -165,7 +165,9 @@ const size = {
         },
         android: {
           elevation: 6, // A good starting point for elevation on Android
-          shadowColor: 'rgba(44, 44, 44, 1)',
+          shadowColor: 'rgba(112, 110, 110, 1)',
+          shadowOffset: {width: 0, height: 20}, // Consistent shadow direction
+          // No need for borderWidth/borderColor on Android either if you want no visible border
         },
       }),
     },

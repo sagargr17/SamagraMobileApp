@@ -6,7 +6,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {RowFlexLayout} from '../../Layout/PartationLayout/RowFlexLayout';
 import {size} from '../../Prefrences/Prefrences';
 import {useAppSelector} from '../../StateManagement/hooks';
-import {AreaMapper} from '../../Utilities/CustomMethods';
+import {AreaMapper, titleCase} from '../../Utilities/CustomMethods';
 import {AppText} from '../Elements/AppText';
 import {Spacer} from '../Elements/Spacer';
 import {BubbleCard} from '../Molecules/Cards/BubbleCard';
@@ -50,7 +50,7 @@ export const ActiveSellerHomeScreen: React.FC<
                 fontSize: AreaMapper({value: 28}),
                 lineHeight: AreaMapper({value: 42}),
               }}
-              title={selectedUserData.username}
+              title={titleCase(selectedUserData.username)}
               fontSizeVariant="title"
               fontVariant="medium"></AppText>
             <AppText title={'4.8 (120 reviews)'}></AppText>
@@ -71,11 +71,11 @@ export const ActiveSellerHomeScreen: React.FC<
         <AppText
           title="Overview"
           fontVariant="heavy"
+          fontSizeVariant="display"
           customStyle={{
             fontSize: 22,
             paddingVertical: 10,
           }}></AppText>
-
         <BubbleCard
           customStyle={{
             backgroundColor: '#FFDB6F',
@@ -99,7 +99,7 @@ export const ActiveSellerHomeScreen: React.FC<
             list={[
               {
                 value: 'Total Earnings',
-                type: 'title',
+                type: 'display',
                 fontVariant: 'medium',
               },
               {
@@ -119,7 +119,7 @@ export const ActiveSellerHomeScreen: React.FC<
             list={[
               {
                 value: 'Upcoming Bookings',
-                type: 'title',
+                type: 'display',
                 fontVariant: 'medium',
               },
               {
@@ -132,17 +132,14 @@ export const ActiveSellerHomeScreen: React.FC<
         <Spacer height={15}></Spacer>
         <ListCard
           customStyle={{
-            paddingVertical: size.spacing.s,
+            paddingVertical: size.spacing.l,
             paddingHorizontal: size.spacing.m,
-
-            // width: AreaMapper({value: 182, scaleBy: 'width'}),
-            // height: AreaMapper({value: 134, scaleBy: 'width'}),
           }}
           id="1"
           list={[
             {
               value: 'Customer Satisfaction',
-              type: 'title',
+              type: 'display',
               fontVariant: 'medium',
             },
             {
