@@ -70,6 +70,7 @@ export const Input: React.FC<InputProps> = ({
               height: height,
               borderColor: colors.border,
               
+              
               // backgroundColor: colors.background,
             },
           ]}

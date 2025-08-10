@@ -38,8 +38,8 @@ export const ActiveUserContainer: React.FC<ActiveUserContainerProps> = ({}) => {
           },
         },
         {
-          title: 'Add Shop',
-          iconName: 'store-plus',
+          title: 'Feature',
+          iconName: 'tune-vertical-variant',
           onPress: () => {
             console.log('pressed');
             navigation.navigate('ApplicationOverlay', {
@@ -58,7 +58,7 @@ export const ActiveUserContainer: React.FC<ActiveUserContainerProps> = ({}) => {
         },
 
         {
-          title: 'Services',
+          title: 'Recent',
           iconName: 'view-comfy',
           onPress: () =>
             navigation.navigate('ApplicationOverlay', {
@@ -76,10 +76,10 @@ export const ActiveUserContainer: React.FC<ActiveUserContainerProps> = ({}) => {
           screen: 'MyShopsScreen',
         });
       },
-      title: "Manage Profile's",
+      title: 'Quick Access',
       variant: 'large',
       comment: 'Shops, Details and management ',
-      iconName: 'store-edit',
+      iconName: 'lightning-bolt',
     },
     {
       onPress: () => console.log('Error'),
@@ -100,17 +100,14 @@ export const ActiveUserContainer: React.FC<ActiveUserContainerProps> = ({}) => {
 
   return (
     <>
-      <RowFlexLayout
-        customStyle={
-          {
-            // justifyContent: 'space-around',
-          }
-        }>
+      <RowFlexLayout>
         {flexDetailsItems[0].firstRow.map((item, index) => (
           <BubbleCard
             key={index}
             customStyle={{
               flex: 0.65,
+              marginBottom: size.spacing.m,
+              paddingVertical: size.spacing.xs,
             }}
             variant="small"
             title={item.title}
@@ -124,7 +121,8 @@ export const ActiveUserContainer: React.FC<ActiveUserContainerProps> = ({}) => {
             key={index}
             customStyle={{
               flex: 0.45,
-              borderColor: colors.background,
+              marginBottom: size.spacing.m,
+              paddingVertical: size.spacing.xs,
             }}
             variant="small"
             title={item.title}
@@ -136,6 +134,10 @@ export const ActiveUserContainer: React.FC<ActiveUserContainerProps> = ({}) => {
       <View>
         {columnDetailsList.map((item, index) => (
           <BubbleCard
+            customStyle={{
+              marginBottom: size.spacing.m,
+              paddingVertical: size.spacing.xs,
+            }}
             key={index}
             variant="large"
             title={item.title}
@@ -145,19 +147,26 @@ export const ActiveUserContainer: React.FC<ActiveUserContainerProps> = ({}) => {
         ))}
       </View>
       <Spacer height={20}></Spacer>
-
-      <AppButton
-        textColor={colors.text}
-        onPress={userLogoutHandle}
-        style={{
-          backgroundColor: '#C0C0C0',
-          marginTop: size.spacing.m,
-          marginBottom: size.spacing.xxs,
-          borderRadius: size.borderRadius.full,
-          bottom: 0,
-        }}>
-        Logout
-      </AppButton>
+      <View
+        style={
+          {
+            // position: 'absolute',
+            // bottom: 0,
+          }
+        }>
+        <AppButton
+          textColor={colors.text}
+          onPress={userLogoutHandle}
+          style={{
+            backgroundColor: '#C0C0C0',
+            // marginTop: size.spacing.xxl,
+            marginBottom: size.spacing.xxs,
+            borderRadius: size.borderRadius.full,
+            bottom: 0,
+          }}>
+          Logout
+        </AppButton>
+      </View>
     </>
   );
 };

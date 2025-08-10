@@ -1,16 +1,16 @@
 import FastImage from '@d11/react-native-fast-image';
-import { useNavigation, useTheme } from '@react-navigation/native';
-import React, { useMemo } from 'react';
-import { View } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
-import { RowFlexLayout } from '../../Layout/PartationLayout/RowFlexLayout';
-import { size } from '../../Prefrences/Prefrences';
-import { useAppSelector } from '../../StateManagement/hooks';
-import { AreaMapper } from '../../Utilities/CustomMethods';
-import { AppText } from '../Elements/AppText';
-import { Spacer } from '../Elements/Spacer';
-import { BubbleCard } from '../Molecules/Cards/BubbleCard';
-import { ListCard } from '../Molecules/Cards/ListCard';
+import {useNavigation, useTheme} from '@react-navigation/native';
+import React, {useMemo} from 'react';
+import {View} from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
+import {RowFlexLayout} from '../../Layout/PartationLayout/RowFlexLayout';
+import {size} from '../../Prefrences/Prefrences';
+import {useAppSelector} from '../../StateManagement/hooks';
+import {AreaMapper} from '../../Utilities/CustomMethods';
+import {AppText} from '../Elements/AppText';
+import {Spacer} from '../Elements/Spacer';
+import {BubbleCard} from '../Molecules/Cards/BubbleCard';
+import {ListCard} from '../Molecules/Cards/ListCard';
 interface ActiveSellerHomeScreenProps {}
 
 export const ActiveSellerHomeScreen: React.FC<
@@ -46,6 +46,10 @@ export const ActiveSellerHomeScreen: React.FC<
             }}></FastImage>
           <View>
             <AppText
+              customStyle={{
+                fontSize: AreaMapper({value: 28}),
+                lineHeight: AreaMapper({value: 42}),
+              }}
               title={selectedUserData.username}
               fontSizeVariant="title"
               fontVariant="medium"></AppText>
@@ -63,7 +67,7 @@ export const ActiveSellerHomeScreen: React.FC<
         style={{
           marginHorizontal: size.spacing.xs,
         }}>
-        <Spacer height={10}></Spacer>
+        <Spacer height={15}></Spacer>
         <AppText
           title="Overview"
           fontVariant="heavy"
@@ -72,7 +76,6 @@ export const ActiveSellerHomeScreen: React.FC<
             paddingVertical: 10,
           }}></AppText>
 
-        <Spacer height={16}></Spacer>
         <BubbleCard
           customStyle={{
             backgroundColor: '#FFDB6F',
@@ -83,10 +86,12 @@ export const ActiveSellerHomeScreen: React.FC<
           title="No Service Added"
           variant="large"
           comment="Please Add services"></BubbleCard>
+        <Spacer height={8}></Spacer>
         <RowFlexLayout>
           <ListCard
             customStyle={{
               paddingVertical: size.spacing.l,
+              paddingHorizontal: size.spacing.m,
               width: AreaMapper({value: 182, scaleBy: 'width'}),
               height: AreaMapper({value: 134, scaleBy: 'width'}),
             }}
@@ -108,6 +113,7 @@ export const ActiveSellerHomeScreen: React.FC<
               paddingVertical: size.spacing.l,
               width: AreaMapper({value: 182, scaleBy: 'width'}),
               height: AreaMapper({value: 134, scaleBy: 'width'}),
+              paddingHorizontal: size.spacing.m,
             }}
             id="1"
             list={[
@@ -127,6 +133,8 @@ export const ActiveSellerHomeScreen: React.FC<
         <ListCard
           customStyle={{
             paddingVertical: size.spacing.s,
+            paddingHorizontal: size.spacing.m,
+
             // width: AreaMapper({value: 182, scaleBy: 'width'}),
             // height: AreaMapper({value: 134, scaleBy: 'width'}),
           }}
@@ -175,7 +183,7 @@ export const ActiveSellerHomeScreen: React.FC<
           <BubbleCard
             customStyle={{
               elevation: 0,
-              paddingVertical: size.spacing.s,
+              paddingVertical: size.spacing.xs,
             }}
             title="View Booking"
             iconName={'calendar-month-outline'}
@@ -188,11 +196,11 @@ export const ActiveSellerHomeScreen: React.FC<
               //     screen: 'ManageServices',
               //   },
               // });
-            navigation.navigate('ManageServices');
+              navigation.navigate('ManageServices');
             }}
             customStyle={{
               elevation: 0,
-              paddingVertical: size.spacing.s,
+              paddingVertical: size.spacing.xs,
             }}
             title="Manage Services"
             iconName={'format-list-bulleted'}
@@ -202,7 +210,7 @@ export const ActiveSellerHomeScreen: React.FC<
           <BubbleCard
             customStyle={{
               elevation: 0,
-              paddingVertical: size.spacing.s,
+              paddingVertical: size.spacing.xs,
             }}
             title="Earning Report"
             iconName={'calendar-month-outline'}
@@ -213,7 +221,7 @@ export const ActiveSellerHomeScreen: React.FC<
             }}
             customStyle={{
               elevation: 0,
-              paddingVertical: size.spacing.s,
+              paddingVertical: size.spacing.xs,
             }}
             title="Add Services"
             iconName={'plus'}

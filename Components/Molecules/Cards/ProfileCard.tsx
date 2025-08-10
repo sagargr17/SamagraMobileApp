@@ -1,11 +1,11 @@
 import FastImage from '@d11/react-native-fast-image';
-import { useTheme } from '@react-navigation/native';
+import {useTheme} from '@react-navigation/native';
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
-import { Icon, TouchableRipple } from 'react-native-paper';
-import { size } from '../../../Prefrences/Prefrences';
-import { AreaMapper, titleCase } from '../../../Utilities/CustomMethods';
-import { AppText } from '../../Elements/AppText';
+import {StyleSheet, TouchableOpacity, View, ViewStyle} from 'react-native';
+import {Icon, TouchableRipple} from 'react-native-paper';
+import {size} from '../../../Prefrences/Prefrences';
+import {AreaMapper, titleCase} from '../../../Utilities/CustomMethods';
+import {AppText} from '../../Elements/AppText';
 interface ProfileCardProps {
   user: {
     username: string;
@@ -25,13 +25,12 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
   const {colors} = useTheme();
 
   return (
-    <TouchableOpacity
-      onPress={() => (onCardPressed ? onCardPressed() : null)}
+    <View
       style={[
         style.wrapper,
         size.elevation.l,
         {
-          backgroundColor: colors.background,
+          backgroundColor: colors.card,
           borderRadius: size.borderRadius.m,
         },
         customStyle,
@@ -87,10 +86,9 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
           <Icon size={35} source={'menu-down'}></Icon>
         </TouchableRipple>
       ) : null}
-    </TouchableOpacity>
+    </View>
   );
 };
-
 
 const style = StyleSheet.create({
   wrapper: {

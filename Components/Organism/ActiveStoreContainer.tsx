@@ -6,7 +6,6 @@ import {Alert, StyleSheet, View} from 'react-native';
 import {showMessage} from 'react-native-flash-message';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
 import {WentwrongMessage} from '../../Constants/UI/Messages';
-import {deleteStore} from '../../GraphQL/Mutation/ShopMutations';
 import {RowFlexLayout} from '../../Layout/PartationLayout/RowFlexLayout';
 import {responseTheme, size} from '../../Prefrences/Prefrences';
 import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
@@ -29,47 +28,7 @@ export const ActiveStoreContainer: React.FC<ActiveStoreContainerProps> = ({
   const iconSize = size.iconSize.small;
   const shopName = useAppSelector(state => state.user.shopData?.name);
   const dispatch = useAppDispatch();
-  const [removeStoreFn] = useMutation(deleteStore);
-
-  const handleRemoveStore = async () => {
-    dispatch(showLoader());
-
-    console.log('SHopIDdd', shopId);
-
-    try {
-      let response = await removeStoreFn({
-        variables: {
-          id: shopId,
-        },
-      });
-
-      if (response.data) {
-        showMessage(
-          responseTheme(
-            'SuccessFully Store Removed',
-            'Navigating to Profile',
-            'success',
-          ),
-        );
-        navigation.navigate('ApplicationOverlay', {
-          screen: 'SelectProfile',
-        });
-      }
-      if (response.errors) {
-        showMessage(
-          responseTheme(
-            response.errors[0].message,
-            'Please try again later!',
-            'danger',
-          ),
-        );
-      }
-    } catch (e) {
-      showMessage(
-        responseTheme(WentwrongMessage, 'Please try again later!', 'danger'),
-      );
-    }
-  };
+  // const [removeStoreFn] = useMutation(deleteStore);
 
   const flexDetailsItems = [
     {
@@ -147,7 +106,6 @@ export const ActiveStoreContainer: React.FC<ActiveStoreContainerProps> = ({
       ),
       onPress: () => {
         // Alert.alert("Are you Sure want to delete?",)
-        handleRemoveStore();
       },
     },
   ];

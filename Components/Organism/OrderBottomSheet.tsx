@@ -1,7 +1,7 @@
 import {useMutation} from '@apollo/client';
 import {useTheme} from '@react-navigation/native';
 import React from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {showMessage} from 'react-native-flash-message';
 import {CreateItemRequestMutation} from '../../GraphQL/Mutation/ItemRequestMutation';
 import {RootStackNavigationProp} from '../../Navigators/RootStackNavigator';
@@ -16,7 +16,7 @@ import {Spacer} from '../Elements/Spacer';
 import {BubbleCard} from '../Molecules/Cards/BubbleCard';
 import {AppBottomSheet} from '../Molecules/Global/AppBottomSheet';
 import {AppForm} from './AppForm';
-import {CardSlider} from '../Molecules/Cards/CardSlider';
+import {ItemCategoryCardSlider} from './ItemCategorySlider';
 
 interface OrderBottomSheetProps {
   navigation: RootStackNavigationProp<'ApplicationOverlay'> | any;
@@ -31,9 +31,6 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
     CreateItemRequestMutation,
   );
   const {colors} = useTheme();
-  const isUserServiceMode = useAppSelector(
-    state => state.user.UserMode.isUserServiceMode,
-  );
 
   const handleSubmit = (data: SentordersParams) => {
     dispatch(showLoader());
@@ -81,7 +78,7 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
     );
 
     return (
-      <ScrollView
+      <View
         style={[
           styles.wrapper,
           {
@@ -95,9 +92,7 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
           title="1259 Active Provider Currently !"
           variant="large"
           comment="28 Near Your Location"></BubbleCard>
-        {isUserServiceMode ? (
-          <CardSlider sizes="regular"></CardSlider>
-        ) : null}
+        <ItemCategoryCardSlider sizes="regular"></ItemCategoryCardSlider>
         <Spacer height={15}></Spacer>
         <AppForm<SentordersParams>
           formConfig={[
@@ -111,7 +106,7 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
             {
               name: 'name',
               type: 'text',
-              label: `${isUserServiceMode ? 'Product Name' : 'Service Name'}  `,
+              label: 'Your Need',
               rules: {
                 required: 'Name is required',
               },
@@ -119,7 +114,7 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
             {
               name: 'description',
               type: 'text',
-              label: 'Message for seller',
+              label: 'Note',
               rules: {
                 required: 'Note is required',
               },
@@ -131,7 +126,7 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
           onFormSubmit={handleSubmit}
           disabled={loading ? true : false}
           submitButtonText={`${loading ? 'loading' : 'Search'}`}></AppForm>
-      </ScrollView>
+      </View>
     );
   };
 
@@ -139,7 +134,10 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
     <AppBottomSheet
       isOppen={true}
       pannigGesture={false}
-      children={childrenContent}></AppBottomSheet>
+      children={childrenContent}
+      // flexHeight={1}
+      // title="Buy"
+    ></AppBottomSheet>
   );
 };
 

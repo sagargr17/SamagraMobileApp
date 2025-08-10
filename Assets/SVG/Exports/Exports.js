@@ -11,6 +11,7 @@ import BellRing from '../SVGImages/BellRing.svg';
 import BellRingTail from '../SVGImages/BellRingTail.svg';
 import Grocery from '../SVGImages/Grocery.svg';
 import HouseKeeping from '../SVGImages/HouseKeeping.svg';
+import HouseKeep from '../SVGImages/HouseKeep.svg';
 import Laundry from '../SVGImages/Laundry.svg';
 import Stationary from '../SVGImages/Stationary.svg';
 import Location from '../SVGImages/Location';
@@ -86,4 +87,5 @@ export const Logos = {
   Rating1,
   Rating2,
   Rating3,
+  HouseKeep
 };

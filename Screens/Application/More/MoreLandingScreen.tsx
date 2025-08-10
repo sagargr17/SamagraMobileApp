@@ -11,6 +11,7 @@ import {ImageNotFound} from '../../../Constants/UI/AssetsUrls';
 import {NotMentioned} from '../../../Constants/UI/Messages';
 import {size} from '../../../Prefrences/Prefrences';
 import {useAppSelector} from '../../../StateManagement/hooks';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 interface MoreLandingScreenProps {}
 
@@ -35,11 +36,14 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
     return (
       <View
         style={{
-          marginTop: size.spacing.xs,
+          marginTop: size.spacing.m,
+          marginBottom: size.spacing.xs,
         }}>
         <ProfileCard
-          onCardPressed={handleNavigation}
-          onIconPress={handleNavigation}
+          customStyle={{
+            borderWidth: 1,
+            borderColor: '#DBE0E5',
+          }}
           user={{
             username: userName,
             profileImageUrl: profileImageUrl,

@@ -25,16 +25,12 @@ export const GeneralCard: React.FC<GeneralCardProps> = ({
   imageSize,
   frame,
   onPress,
-  // selectedCategory,
   containerStyle,
   comment,
 }) => {
   const {colors} = useTheme();
-  // const fontVariantSize = variant === 'large' ? 'regular' : 'caption';
-  // const height = variant === 'large' ? 95 : 85;
-  // const width = variant === 'large' ? 95 : 85;
   const navigation: any = useNavigation();
-  // Navigation press
+
   return (
     <TouchableOpacity style={[containerStyle]}>
       {typeof frame === 'string' ? (
@@ -59,7 +55,7 @@ export const GeneralCard: React.FC<GeneralCardProps> = ({
       <Spacer height={16}></Spacer>
       <View
         style={{
-          marginHorizontal: size.spacing.m-1,
+          marginHorizontal: size.spacing.m - 1,
         }}>
         <AppText
           title={title}
@@ -72,7 +68,3 @@ export const GeneralCard: React.FC<GeneralCardProps> = ({
     </TouchableOpacity>
   );
 };
-
-const style = StyleSheet.create({
-  viewContainer: {},
-});

@@ -26,9 +26,13 @@ export const AppText: React.FC<AppTextProps> = ({
         {
           fontFamily: fonts[fontVariant].fontFamily,
           fontWeight: fonts[fontVariant].fontWeight,
-          fontSize: size.textVariants[fontSizeVariant]?.fontSize,
+          fontSize: AreaMapper({
+            value: size.textVariants[fontSizeVariant]?.fontSize,
+          }),
           color: colors.text,
-          lineHeight: size.textVariants[fontSizeVariant]?.lineHeight,
+          lineHeight: AreaMapper({
+            value: size.textVariants[fontSizeVariant]?.lineHeight,
+          }),
         },
         customStyle,
       ]}>

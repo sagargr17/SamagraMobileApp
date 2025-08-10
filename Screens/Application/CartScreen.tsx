@@ -84,7 +84,7 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
           },
           sellerDetails: {
             fullName: user?.username ?? NotMentioned,
-            address: item?.item?.shop?.location ?? NotMentioned,
+            address: item?.item?.location ?? NotMentioned,
             shopName: item?.item?.shop?.name ?? NotMentioned,
             phoneNumber: item?.item?.shop?.phoneNumber ?? '9841232323',
           },
@@ -226,15 +226,6 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
               {
                 value: `Npr.${item.node?.item?.price ?? NotMentioned}`,
                 type: 'regular',
-              },
-              {
-                value: `${titleRange(
-                  item.node?.item?.shop?.name ?? NotMentioned,
-                )}`,
-                type: 'regular',
-                style: {
-                  color: colors.primary,
-                },
               },
               {
                 value: titleRange(

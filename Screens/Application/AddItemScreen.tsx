@@ -52,85 +52,83 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
             imageUrl: '',
           },
         }),
-        navigation.navigate('ItemAddedScreen'),
       );
 
-      // if (uploadImage) {
-      //   if (data && shopID)
-      //     try {
-      //       let response = await createNewItemFn({
-      //         variables: {
-      //           name: data.name ? data.name : NotMentioned,
-      //           shopId: shopID,
-      //           price: Number(data.price ? data.price : NotMentioned),
-      //           description: data.description ? data.description : NotMentioned,
-      //           unit: data.unit ? data.unit : NotMentioned,
-      //           stockQuantity: Number(data.stockQuantity),
-      //           imageUrls: uploadImage,
-      //           location: data.location ? data.location : NotMentioned,
-      //           categoryId: '1',
-      //         },
-      //       });
-      //       console.log('Response', response);
+      if (uploadImage) {
+        if (data && shopID)
+          try {
+            let response = await createNewItemFn({
+              variables: {
+                name: data.name ? data.name : NotMentioned,
+                price: Number(data.price ? data.price : NotMentioned),
+                description: data.description ? data.description : NotMentioned,
+                unit: data.unit ? data.unit : NotMentioned,
+                stockQuantity: Number(data.stockQuantity),
+                imageUrls: uploadImage,
+                location: data.location ? data.location : NotMentioned,
+                categoryId: '1',
+              },
+            });
 
-      //       if (response.data?.createProduct && data.name) {
-      //         showMessage(
-      //           responseTheme(
-      //             SuccessAddItemMessage,
-      //             SuccessAddItemMessageDescription,
-      //             'success',
-      //           ),
-      //         );
+            if (response.data?.createProduct && data.name) {
+              showMessage(
+                responseTheme(
+                  SuccessAddItemMessage,
+                  SuccessAddItemMessageDescription,
+                  'success',
+                ),
+              );
+              navigation.navigate('ItemAddedScreen');
 
-      //         navigation.navigate('ApplicationOverlay', {
-      //           screen: 'ItemDetailScreen',
-      //           params: {
-      //             id: response.data.createProduct?.id ?? '',
-      //             name: data.name,
-      //           },
-      //         });
-      //       }
-      //       if (response.errors) {
-      //         dispatch(hideLoader());
-      //         showMessage({
-      //           message: `${response.errors[0].message}`,
-      //           type: 'danger',
-      //           description: 'Please , try after sometimes',
-      //           textStyle: {
-      //             fontFamily: fonts.regular.fontFamily,
-      //             fontWeight: 'regular',
-      //             fontSize: AreaMapper({
-      //               value: 14,
-      //               scaleBy: 'average',
-      //             }),
-      //           },
-      //           statusBarHeight: AreaMapper({
-      //             value: 15,
-      //             scaleBy: 'average',
-      //           }),
-      //         });
-      //       }
-      //     } catch (e) {
-      //       dispatch(hideLoader());
-      //       showMessage({
-      //         message: 'Opps, Something Went Wrong!',
-      //         type: 'danger',
-      //         description: 'Please , try after sometimes',
-      //         textStyle: {
-      //           fontFamily: fonts.regular.fontFamily,
-      //           fontWeight: 'regular',
-      //           fontSize: AreaMapper({
-      //             value: 14,
-      //             scaleBy: 'average',
-      //           }),
-      //         },
-      //         statusBarHeight: AreaMapper({
-      //           value: 15,
-      //           scaleBy: 'average',
-      //         }),
-      //       });
-      //     }
-      // }
+              navigation.navigate('ApplicationOverlay', {
+                screen: 'ItemDetailScreen',
+                params: {
+                  id: response.data.createProduct?.id ?? '',
+                  name: data.name,
+                },
+              });
+            }
+            if (response.errors) {
+              dispatch(hideLoader());
+              showMessage({
+                message: `${response.errors[0].message}`,
+                type: 'danger',
+                description: 'Please , try after sometimes',
+                textStyle: {
+                  fontFamily: fonts.regular.fontFamily,
+                  fontWeight: 'regular',
+                  fontSize: AreaMapper({
+                    value: 14,
+                    scaleBy: 'average',
+                  }),
+                },
+                statusBarHeight: AreaMapper({
+                  value: 15,
+                  scaleBy: 'average',
+                }),
+              });
+            }
+          } catch (e) {
+            dispatch(hideLoader());
+            showMessage({
+              message: 'Opps, Something Went Wrong!',
+              type: 'danger',
+              description: 'Please , try after sometimes',
+              textStyle: {
+                fontFamily: fonts.regular.fontFamily,
+                fontWeight: 'regular',
+                fontSize: AreaMapper({
+                  value: 14,
+                  scaleBy: 'average',
+                }),
+              },
+              statusBarHeight: AreaMapper({
+                value: 15,
+                scaleBy: 'average',
+              }),
+            });
+          }
+      }
     } else {
       showMessage(
         responseTheme(
