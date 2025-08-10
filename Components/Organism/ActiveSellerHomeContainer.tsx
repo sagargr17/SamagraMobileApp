@@ -1,17 +1,16 @@
 import FastImage from '@d11/react-native-fast-image';
-import {useNavigation, useTheme} from '@react-navigation/native';
-import React, {useMemo} from 'react';
-import {Alert, View} from 'react-native';
-import {RowFlexLayout} from '../../Layout/PartationLayout/RowFlexLayout';
-import {size} from '../../Prefrences/Prefrences';
-import {useAppSelector} from '../../StateManagement/hooks';
-import {AreaMapper} from '../../Utilities/CustomMethods';
-import {AppText} from '../Elements/AppText';
-import {Spacer} from '../Elements/Spacer';
-import {ListCard} from '../Molecules/Cards/ListCard';
-import {BubbleCard} from '../Molecules/Cards/BubbleCard';
-import {FlatList, ScrollView} from 'react-native-gesture-handler';
-import {Bubble} from 'react-native-awesome-slider';
+import { useNavigation, useTheme } from '@react-navigation/native';
+import React, { useMemo } from 'react';
+import { View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
+import { RowFlexLayout } from '../../Layout/PartationLayout/RowFlexLayout';
+import { size } from '../../Prefrences/Prefrences';
+import { useAppSelector } from '../../StateManagement/hooks';
+import { AreaMapper } from '../../Utilities/CustomMethods';
+import { AppText } from '../Elements/AppText';
+import { Spacer } from '../Elements/Spacer';
+import { BubbleCard } from '../Molecules/Cards/BubbleCard';
+import { ListCard } from '../Molecules/Cards/ListCard';
 interface ActiveSellerHomeScreenProps {}
 
 export const ActiveSellerHomeScreen: React.FC<
@@ -182,6 +181,15 @@ export const ActiveSellerHomeScreen: React.FC<
             iconName={'calendar-month-outline'}
             variant="small"></BubbleCard>
           <BubbleCard
+            onPress={() => {
+              // navigation.navigate('BottomTab', {
+              //   screen: 'Home',
+              //   params: {
+              //     screen: 'ManageServices',
+              //   },
+              // });
+            navigation.navigate('ManageServices');
+            }}
             customStyle={{
               elevation: 0,
               paddingVertical: size.spacing.s,

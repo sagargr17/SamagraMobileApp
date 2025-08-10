@@ -73,36 +73,33 @@ export const ListCard: React.FC<ListCardProps> = ({
           <View
             onTouchEnd={() =>
               isContainerPressedEnable ? handleSelectedId(id) : null
-            }
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'flex-start',
-            }}>
-            {imageUrl ? (
-              <TouchableOpacity
-                onPress={onImagePress}
-                style={[styles.imageContainer]}>
-                <FastImage
-                  style={[
-                    styles.image,
-                    {
-                      height: customImageStyle
-                        ? customImageStyle.height
-                        : styles.image.height,
-                      width: customImageStyle
-                        ? customImageStyle.width
-                        : styles.image.width,
-                    },
-                  ]}
-                  source={{
-                    uri: imageUrl ?? imageUrl,
-                    priority: FastImage.priority.high,
-                  }}
-                  resizeMode={FastImage.resizeMode.cover}
-                />
-              </TouchableOpacity>
-            ) : null}
+            }>
+            <>
+              {imageUrl ? (
+                <TouchableOpacity
+                  onPress={onImagePress}
+                  style={[styles.imageContainer]}>
+                  <FastImage
+                    style={[
+                      styles.image,
+                      {
+                        height: customImageStyle
+                          ? customImageStyle.height
+                          : styles.image.height,
+                        width: customImageStyle
+                          ? customImageStyle.width
+                          : styles.image.width,
+                      },
+                    ]}
+                    source={{
+                      uri: imageUrl ?? imageUrl,
+                      priority: FastImage.priority.high,
+                    }}
+                    resizeMode={FastImage.resizeMode.cover}
+                  />
+                </TouchableOpacity>
+              ) : null}
+            </>
             <TouchableOpacity
               onPress={onImagePress}
               style={styles.pricingContainer}>
@@ -144,7 +141,6 @@ const styles = StyleSheet.create({
   },
   detailsContainer: {
     flex: 1,
-    padding: 12,
     justifyContent: 'space-between',
   },
   title: {

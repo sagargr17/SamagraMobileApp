@@ -1,6 +1,6 @@
 import {useNavigation, useTheme} from '@react-navigation/native';
 import React from 'react';
-import {ItemCategoryCardSlider} from '../../../Components/Organism/ItemCategorySlider';
+import {CardSlider} from '../../../Components/Molecules/Cards/CardSlider';
 import {SamagraLoader} from '../../../Components/Elements/SamagraLoader';
 import {FlatList, Text, View} from 'react-native';
 import {BubbleCard} from '../../../Components/Molecules/Cards/BubbleCard';
@@ -51,10 +51,13 @@ export const CategoryScreen: React.FC<CategoryScreenProps> = ({}) => {
         borderRadius: 10,
       }}>
       <Spacer height={15}></Spacer>
-      <AppText
+      {/* <AppText
+        customStyle={{
+          textAlign: 'center',
+        }}
         title="Please Select Your Category"
-        fontSizeVariant="display"
-        fontVariant="regular"></AppText>
+        fontSizeVariant="title"
+        fontVariant="regular"></AppText> */}
       <Spacer height={15}></Spacer>
       <FlatList
         numColumns={2}

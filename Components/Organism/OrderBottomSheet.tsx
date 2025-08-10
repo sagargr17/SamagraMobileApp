@@ -16,7 +16,7 @@ import {Spacer} from '../Elements/Spacer';
 import {BubbleCard} from '../Molecules/Cards/BubbleCard';
 import {AppBottomSheet} from '../Molecules/Global/AppBottomSheet';
 import {AppForm} from './AppForm';
-import {ItemCategoryCardSlider} from './ItemCategorySlider';
+import {CardSlider} from '../Molecules/Cards/CardSlider';
 
 interface OrderBottomSheetProps {
   navigation: RootStackNavigationProp<'ApplicationOverlay'> | any;
@@ -96,7 +96,7 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
           variant="large"
           comment="28 Near Your Location"></BubbleCard>
         {isUserServiceMode ? (
-          <ItemCategoryCardSlider sizes="regular"></ItemCategoryCardSlider>
+          <CardSlider sizes="regular"></CardSlider>
         ) : null}
         <Spacer height={15}></Spacer>
         <AppForm<SentordersParams>

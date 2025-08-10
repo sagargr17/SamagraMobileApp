@@ -1,8 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { ActiveBuyerHomeScreen } from '../../../Components/Organism/ActiveBuyerHomeScreen';
-import { ActiveSellerHomeScreen } from '../../../Components/Organism/ActiveSellerHomeScreen';
+import { ActiveBuyerHomeScreen } from '../../../Components/Organism/ActiveBuyerHomeContainer';
+import { ActiveSellerHomeScreen } from '../../../Components/Organism/ActiveSellerHomeContainer';
 import { size } from '../../../Prefrences/Prefrences';
 import { useAppSelector } from '../../../StateManagement/hooks';
 

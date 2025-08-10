@@ -114,7 +114,7 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
         <ScrollView
           showsVerticalScrollIndicator={false}
           style={{
-            marginHorizontal: size.spacing.xs,
+            marginHorizontal: size.spacing.s,
           }}>
           <View>
             <View style={styles.photoWrapper}>
@@ -140,7 +140,7 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
             render={({field: {value, onChange}}) => (
               <>
                 <Input
-                  label="Full Name"
+                  label="UserName*"
                   placeholder="First Name"
                   value={value}
                   onChangeText={onChange}
@@ -160,7 +160,7 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
             render={({field: {value, onChange}}) => (
               <>
                 <Input
-                  label="Last Name"
+                  label="Full Name"
                   placeholder="Last Name"
                   value={value}
                   onChangeText={onChange}

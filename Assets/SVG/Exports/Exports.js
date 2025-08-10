@@ -33,6 +33,14 @@ import ActiveLiveIcon from '../SVGImages/ActiveLiveIcon';
 import MoreActiveIcon from '../SVGImages/MoreActiveIcon';
 import HomeInActiveIcon from '../SVGImages/HomeInActiveIcon';
 import TickSign from '../SVGImages/TickSign';
+import Plumbing from '../SVGImages/Plumbing';
+import Electric from '../SVGImages/Electric';
+import Massage from '../SVGImages/Massage';
+import HairCut from '../SVGImages/HairCut';
+import CarWash from '../SVGImages/CarWash';
+import Rating1 from '../SVGImages/Rating1';
+import Rating2 from '../SVGImages/Rating2';
+import Rating3 from '../SVGImages/Rating3';
 
 export const Logos = {
   ActiveLiveIcon,
@@ -70,4 +78,12 @@ export const Logos = {
   BuyFrame,
   SellFrame,
   TickSign,
+  Plumbing,
+  Electric,
+  CarWash,
+  Massage,
+  HairCut,
+  Rating1,
+  Rating2,
+  Rating3,
 };

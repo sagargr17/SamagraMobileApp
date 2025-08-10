@@ -1,14 +1,17 @@
-import { useRoute } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
-import { Button, Pressable, StyleSheet, Text } from 'react-native';
-import { showMessage } from 'react-native-flash-message';
-import { OtpInput } from 'react-native-otp-entry';
-import { verifiedPassword } from '../../client/Token/RegisterUser';
-import { Spacer } from '../../Components/Elements/Spacer';
-import { ScrollableLayout } from '../../Layout/ScreenLayout/ScrollableLayout';
-import { OnBoardingStackNavigationProp } from '../../Navigators/Stack/OnBoardingStackNavigator';
-import { responseTheme } from '../../Prefrences/Prefrences';
-import { AreaMapper } from '../../Utilities/CustomMethods';
+import {useRoute} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
+import {Alert, Button, Pressable, StyleSheet, Text} from 'react-native';
+import {showMessage} from 'react-native-flash-message';
+import {OtpInput} from 'react-native-otp-entry';
+import {verifiedPassword} from '../../client/Token/RegisterUser';
+import {Spacer} from '../../Components/Elements/Spacer';
+import {ScrollableLayout} from '../../Layout/ScreenLayout/ScrollableLayout';
+import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
+import {responseTheme, size} from '../../Prefrences/Prefrences';
+import {AreaMapper} from '../../Utilities/CustomMethods';
+import {AppText} from '../../Components/Elements/AppText';
+import {View} from 'moti';
+import AppButton from '../../Components/Elements/Button';
 
 interface OptScreenProps {
   navigation: OnBoardingStackNavigationProp<'OtpScreen'>;
@@ -58,21 +61,22 @@ export const OtpScreen: React.FC<OptScreenProps> = ({navigation}) => {
   }, [timer]);
 
   return (
-    <ScrollableLayout header="Verify 6-digit OTP">
-      <Text style={styles.subHeader}>
-        1 Code sent to +44********456 phone number unless you already have an
-        account{' '}
-      </Text>
-      <Spacer />
+    <View
+      style={{
+        marginHorizontal: size.spacing.xs,
+      }}>
+      <AppText
+        title="1 Code sent to your phone number unless you already have an
+        account"></AppText>
+      <Spacer height={15} />
       <OtpInput
-        disabled={disabled}
         numberOfDigits={6}
         onTextChange={text => setOtp(text)}
-        onFilled={() => onOtpSet}
+        onFilled={() => onOtpSet()}
         theme={{
           pinCodeContainerStyle: {
-            width: AreaMapper({value: 12, scaleBy: 'width'}),
-            height: AreaMapper({value: 6, scaleBy: 'height'}),
+            width: AreaMapper({value: 60, scaleBy: 'width'}),
+            height: AreaMapper({value: 60, scaleBy: 'height'}),
             backgroundColor: '#EAEAEA',
           },
           filledPinCodeContainerStyle: {
@@ -80,18 +84,27 @@ export const OtpScreen: React.FC<OptScreenProps> = ({navigation}) => {
           },
         }}
       />
-      <Spacer />
-      <Button title="send" onPress={onOtpSet}></Button>
+
+      <Spacer height={15} />
+
+      {/* <AppButton onPress={onOtpSet}>Send</AppButton> */}
+
+      {/* <Spacer height={10} /> */}
       {!disabled ? (
         <Text style={styles.timer}>Resend code in 00:{formattedNumber}</Text>
       ) : (
         <Text style={styles.resend}>Re-send OTP</Text>
       )}
-      <Spacer height={10} />
       <Pressable onPress={() => navigation.navigate('SignInScreen')}>
-        <Text style={styles.extraLink}>Already have an account? Log in</Text>
+        <AppText
+          title="Already have an account? Log in"
+          customStyle={
+            {
+              // color: '#2A56FE',
+            }
+          }></AppText>
       </Pressable>
-    </ScrollableLayout>
+    </View>
   );
 };
 
@@ -110,12 +123,12 @@ const styles = StyleSheet.create({
     color: '#1D1D1D',
   },
   subHeader: {
-    fontSize: AreaMapper({value: 1.7, scaleBy: 'height'}),
+    fontSize: AreaMapper({value: 16, scaleBy: 'height'}),
     color: '#787878',
   },
   timer: {
     color: '#2D2D2D',
-    fontSize: AreaMapper({value: 1.6}),
+    fontSize: AreaMapper({value: 14}),
   },
   extraLink: {
     color: '#2A56FE',
@@ -123,6 +136,6 @@ const styles = StyleSheet.create({
   },
   resend: {
     color: '#2A56FE',
-    fontSize: AreaMapper({value: 1.6}),
+    fontSize: AreaMapper({value: 14}),
   },
 });

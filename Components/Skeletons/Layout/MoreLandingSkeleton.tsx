@@ -18,15 +18,16 @@ export const MoreLandingSkeleton: React.FC<MoreLandingSkeletonProps> = ({}) => {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingHorizontal: 10,
+        paddingVertical: 20,
         marginBottom: 30,
+        backgroundColor: colors.card,
       }}>
       <View
         style={{
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'flex-start',
-          // alignItems: 'center',
+          margin: 10,
         }}>
         <SkeletonBone
           height={50}
@@ -48,7 +49,7 @@ export const MoreLandingSkeleton: React.FC<MoreLandingSkeletonProps> = ({}) => {
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'flex-start',
-          // alignItems: 'center',
+          margin: 10,
         }}>
         <SkeletonBone
           height={50}

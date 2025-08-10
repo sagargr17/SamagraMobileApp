@@ -25,13 +25,17 @@ export const AppSerchBar: React.FC<SerchBarProps> = ({
       onFocus={onPress}
       style={[
         {
-          backgroundColor: '#EFF1F3',
+          backgroundColor: colors.background,
           fontFamily: fonts.regular.fontFamily,
           fontSize: size.textVariants.regular.fontSize,
-          flex: 0.2,
-          height: size.spacing.xxl,
+          // flex: ,
         },
         style,
+        {
+          borderRadius: size.borderRadius.m,
+          borderWidth: size.borderWidth.m,
+          borderColor: '#DBE0E5',
+        },
       ]}
       inputStyle={{
         minHeight: 0,

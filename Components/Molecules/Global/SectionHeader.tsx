@@ -29,7 +29,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
       <AppText
         customStyle={style}
         fontVariant="bold"
-        fontSizeVariant={"title"}
+        fontSizeVariant={'display'}
         title={title}></AppText>
 
       {isIcon ? (
