@@ -1,16 +1,20 @@
 import {Dimensions} from 'react-native';
-
 interface InputScale {
   value: number;
   scaleBy?: 'width' | 'height' | 'average';
+  minScale?: number;
+  maxScale?: number;
+  isText?: boolean;
 }
 
 export function AreaMapper(input: InputScale): number {
   const screenWidth = Dimensions.get('window').width;
   const screenHeight = Dimensions.get('window').height;
-  input.scaleBy = input.scaleBy ?? 'average';
+
   const baseWidth = 393;
-  const baseHeight = 852; //This is the height and wid
+  const baseHeight = 852;
+  const minScale = input.minScale ?? 0.8;
+  const maxScale = input.maxScale ?? 1.2;
 
   let scaleFactor = 1;
 
@@ -18,11 +22,21 @@ export function AreaMapper(input: InputScale): number {
     scaleFactor = screenWidth / baseWidth;
   } else if (input.scaleBy === 'height') {
     scaleFactor = screenHeight / baseHeight;
-  } else if (input.scaleBy === 'average') {
+  } else {
     scaleFactor = (screenWidth / baseWidth + screenHeight / baseHeight) / 2;
   }
 
-  return input.value * scaleFactor;
+  // Adjust scale factor for text
+  if (input.isText) {
+    scaleFactor = Math.pow(scaleFactor, 0); // Use a less aggressive power scale for fonts
+  }
+
+  const clampedScaleFactor = Math.min(
+    Math.max(scaleFactor, minScale),
+    maxScale,
+  );
+
+  return input.value * clampedScaleFactor;
 }
 
 export default function DateTimeToAgoTime(dateTime: string) {

@@ -37,12 +37,12 @@ export const BookingsOrganism: React.FC<BookingsOrganismProps> = ({}) => {
           list={[
             {
               value: 'Plumbing',
-              type: 'regular',
+              type: 'title',
               fontVariant: 'medium',
             },
             {
               value: 'Tomorrow, 2PM',
-              type: 'caption',
+              type: 'regular',
             },
           ]}></ListCardMolecule>
         <TouchableOpacity

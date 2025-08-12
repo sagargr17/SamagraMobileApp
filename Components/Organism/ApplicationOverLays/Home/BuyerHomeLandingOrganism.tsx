@@ -37,7 +37,7 @@ export const BuyerHomeLandingScreen: React.FC<
     return (
       <View
         style={{
-          marginHorizontal: size.spacing.m,
+          // marginHorizontal: size.spacing.m,
         }}>
         <AppHeaderOrganism currentPosition="static" />
         <SpacerElement height={30}></SpacerElement>

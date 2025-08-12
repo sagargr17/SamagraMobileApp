@@ -36,17 +36,15 @@ import {titleCase, titleRange} from '../../../Utilities/CustomMethods';
 
 interface RequestsScreenProps {}
 
-export const RequestsScreen: React.FC<
-  RequestsScreenProps
-> = ({}) => {
+export const RequestsScreen: React.FC<RequestsScreenProps> = ({}) => {
   const {colors} = useTheme();
   const dispatch = useAppDispatch();
-
   const [personalUserDetail, setPersonalDetail] = useState<{
     username: string;
     location?: 'butwal';
     phoneNumber?: 9841125049;
   }>();
+
   const [orderlist, setOrderList] = useState<Array<GetDataSubscription>>([]);
   const [isProfileTapped, setIsProfileTapped] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -56,7 +54,7 @@ export const RequestsScreen: React.FC<
       console.log('Orders', data);
       if (
         data.data &&
-      data.data.events?.eventName &&
+        data.data.events?.eventName &&
         data.data.events.data?.itemRequestReceived
       ) {
         setOrderList(prevOrderList => [
@@ -80,8 +78,6 @@ export const RequestsScreen: React.FC<
   );
   const [initialLoading, setInitialLoading] = useState<boolean>(true);
 
-  console.log('Resultttt', data, initialLoading, error);
-
   useEffect(() => {
     let task = setTimeout(() => {
       setInitialLoading(false);
@@ -90,6 +86,7 @@ export const RequestsScreen: React.FC<
     return () => clearTimeout(task);
   }, []);
 
+  // OnAccpet Handler
   const onAcceptHandle = async (reqeustId: string, itemId: string) => {
     try {
       dispatch(showLoader());

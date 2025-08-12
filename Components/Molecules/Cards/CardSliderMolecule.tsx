@@ -37,18 +37,10 @@ export const CardSliderMoleCule: React.FC<CardSliderMoleCuleProps> = ({
   const navigation: any = useNavigation();
   const onTabPress = () => {};
 
-  // const height = sizes === 'large' ? size.iconSize.large : size.iconSize.medium;
-  // const width =
-  //   sizes === 'large' ? size.iconSize.large : size.iconSize.medium + 2;
-
   return (
     <View>
       <SpacerElement height={12}></SpacerElement>
       <SectionHeaderMolecule
-        style={{
-          fontSize: 20,
-          lineHeight: 22,
-        }}
         onPress={() => onTabPress()}
         isIcon={false}
         title={headerTitle}></SectionHeaderMolecule>

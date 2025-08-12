@@ -9,7 +9,9 @@ import {useTheme} from '@react-navigation/native';
 
 interface NotificationIconElementProps {}
 
-export const NotificationIconElement: React.FC<NotificationIconElementProps> = ({}) => {
+export const NotificationIconElement: React.FC<
+  NotificationIconElementProps
+> = ({}) => {
   const {BellRing: Icon, BellRingTail} = Logos;
   const {colors} = useTheme();
 
@@ -19,17 +21,20 @@ export const NotificationIconElement: React.FC<NotificationIconElementProps> = (
         {
           borderWidth: size.borderWidth.xs,
           borderRadius: size.borderRadius.full,
-          padding: size.spacing.xxs,
+          paddingHorizontal: size.spacing.xs,
+          paddingVertical: size.spacing.s,
           alignItems: 'center',
           borderColor: colors.border,
+          backgroundColor: colors.background,
         },
+        size.elevation.s,
       ]}>
       <View
         style={{
           alignItems: 'center',
           padding: size.spacing.xxs,
         }}>
-        <Icon height={size.iconSize.small}></Icon>
+        <Icon height={size.iconSize.medium}></Icon>
         <BellRingTail></BellRingTail>
       </View>
     </TouchableOpacity>

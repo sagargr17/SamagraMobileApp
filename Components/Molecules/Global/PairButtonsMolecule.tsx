@@ -4,14 +4,14 @@ import {StyleSheet, View} from 'react-native';
 import {AreaMapper} from '../../../Utilities/CustomMethods';
 import AppButtonElement from '../../Elements/ButtonElement';
 
-interface PairButtonsProps {
+interface PairButtonsMoleculeProps {
   onAcceptPress: () => void;
   onDeclinPress: () => void;
   onAccepTitle?: string;
   onDeclineTitle?: string;
 }
 
-export const PairButtonsMolecule: React.FC<PairButtonsProps> = ({
+export const PairButtonsMolecule: React.FC<PairButtonsMoleculeProps> = ({
   onAcceptPress,
   onDeclinPress,
   onAccepTitle = 'Accept',

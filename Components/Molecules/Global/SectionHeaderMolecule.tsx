@@ -4,14 +4,14 @@ import {AppTextElement} from '../../Elements/AppTextElement';
 import {AreaMapper} from '../../../Utilities/CustomMethods';
 import {Icon, IconButton} from 'react-native-paper';
 
-interface SectionHeaderProps {
+interface SectionHeaderMoleculeProps {
   title: string;
   isIcon: boolean;
   onPress: () => void;
   style?: TextStyle;
 }
 
-export const SectionHeaderMolecule: React.FC<SectionHeaderProps> = ({
+export const SectionHeaderMolecule: React.FC<SectionHeaderMoleculeProps> = ({
   isIcon = true,
   title,
   onPress,
@@ -29,7 +29,7 @@ export const SectionHeaderMolecule: React.FC<SectionHeaderProps> = ({
       <AppTextElement
         customStyle={style}
         fontVariant="bold"
-        fontSizeVariant={'display'}
+        fontSizeVariant={'headline'}
         title={title}></AppTextElement>
 
       {isIcon ? (

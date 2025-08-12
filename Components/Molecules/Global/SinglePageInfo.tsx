@@ -6,7 +6,7 @@ import {AppTextElement} from '../../Elements/AppTextElement';
 import AppButtonElement from '../../Elements/ButtonElement';
 import {SpacerElement} from '../../Elements/SpacerElement';
 
-export interface SingnlePageInfoProps {
+export interface SingnlePageInfoMoleculeProps {
   icon: any;
   detail: {
     title: string;
@@ -16,7 +16,7 @@ export interface SingnlePageInfoProps {
   };
 }
 
-export const SingnlePageInfoMolecule: React.FC<SingnlePageInfoProps> = ({
+export const SingnlePageInfoMolecule: React.FC<SingnlePageInfoMoleculeProps> = ({
   detail,
   icon,
 }) => {

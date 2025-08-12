@@ -1,12 +1,12 @@
-import { useNavigation, useTheme } from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 import React from 'react';
-import { IconButton } from 'react-native-paper';
-import { Logos } from '../../../Assets/SVG/Exports/Exports';
-import { RowFlexLayout } from '../../../Layout/PartationLayout/RowFlexLayout';
-import { size } from '../../../Prefrences/Prefrences';
-import { useAppDispatch, useAppSelector } from '../../../StateManagement/hooks';
-import { AppTextElement } from '../../Elements/AppTextElement';
-import { NotificationIconElement } from '../../Elements/NotificationIconElement';
+import {IconButton} from 'react-native-paper';
+import {Logos} from '../../../Assets/SVG/Exports/Exports';
+import {RowFlexLayout} from '../../../Layout/PartationLayout/RowFlexLayout';
+import {size} from '../../../Prefrences/Prefrences';
+import {useAppDispatch, useAppSelector} from '../../../StateManagement/hooks';
+import {AppTextElement} from '../../Elements/AppTextElement';
+import {NotificationIconElement} from '../../Elements/NotificationIconElement';
 
 interface AppHeaderOrganismProps {
   currentPosition: 'absolute' | 'relative' | 'static';
@@ -78,7 +78,6 @@ export const AppHeaderOrganism: React.FC<AppHeaderOrganismProps> = ({
       <NotificationIconElement></NotificationIconElement>
       <RowFlexLayout
         customStyle={{
-          borderWidth: size.borderWidth.s,
           borderColor: colors.border,
           padding: size.spacing.m,
           borderRadius: size.borderRadius.full,

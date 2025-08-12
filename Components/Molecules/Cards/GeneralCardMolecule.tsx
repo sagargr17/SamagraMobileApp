@@ -8,7 +8,7 @@ import {Surface} from 'react-native-paper';
 import {SpacerElement} from '../../Elements/SpacerElement';
 import FastImage from '@d11/react-native-fast-image';
 
-interface GeneralCardProps {
+interface GeneralCardMoleculeProps {
   title: string;
   imageSize?: {
     height: number;
@@ -20,7 +20,7 @@ interface GeneralCardProps {
   comment?: string;
 }
 
-export const GeneralCardMolecule: React.FC<GeneralCardProps> = ({
+export const GeneralCardMolecule: React.FC<GeneralCardMoleculeProps> = ({
   title,
   imageSize,
   frame,
@@ -62,7 +62,9 @@ export const GeneralCardMolecule: React.FC<GeneralCardProps> = ({
           fontSizeVariant="title"
           fontVariant="medium"></AppTextElement>
         {comment ? (
-          <AppTextElement title={comment} fontSizeVariant="regular"></AppTextElement>
+          <AppTextElement
+            title={comment}
+            fontSizeVariant="regular"></AppTextElement>
         ) : null}
       </View>
     </TouchableOpacity>

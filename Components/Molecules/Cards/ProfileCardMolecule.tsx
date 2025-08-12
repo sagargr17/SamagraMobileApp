@@ -6,7 +6,7 @@ import {Icon, TouchableRipple} from 'react-native-paper';
 import {size} from '../../../Prefrences/Prefrences';
 import {AreaMapper, titleCase} from '../../../Utilities/CustomMethods';
 import {AppTextElement} from '../../Elements/AppTextElement';
-interface ProfileCardProps {
+interface ProfileCardMoleculeProps {
   user: {
     username: string;
     profileImageUrl: string;
@@ -16,7 +16,7 @@ interface ProfileCardProps {
   onCardPressed?: () => void;
 }
 
-export const ProfileCardMolecule: React.FC<ProfileCardProps> = ({
+export const ProfileCardMolecule: React.FC<ProfileCardMoleculeProps> = ({
   user,
   onIconPress,
   customStyle,
@@ -28,7 +28,7 @@ export const ProfileCardMolecule: React.FC<ProfileCardProps> = ({
     <View
       style={[
         style.wrapper,
-        size.elevation.l,
+        size.elevation.xs,
         {
           backgroundColor: colors.card,
           borderRadius: size.borderRadius.m,
@@ -40,6 +40,7 @@ export const ProfileCardMolecule: React.FC<ProfileCardProps> = ({
           style.image,
           {
             borderColor: colors.background,
+            borderRadius: size.borderRadius.full,
           },
         ]}
         source={{
@@ -49,7 +50,7 @@ export const ProfileCardMolecule: React.FC<ProfileCardProps> = ({
       <View style={style.detailContainer}>
         <AppTextElement
           title={titleCase(user.username)}
-          fontVariant="heavy"
+          fontVariant="medium"
           fontSizeVariant={'display'}></AppTextElement>
         <View
           style={{

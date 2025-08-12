@@ -5,14 +5,14 @@ import {AreaMapper} from '../../Utilities/CustomMethods';
 import {TextStyle} from 'react-native';
 import {size} from '../../Prefrences/Prefrences';
 
-interface AppTextProps {
+interface AppTextElementProps {
   title: string;
   fontVariant?: 'regular' | 'medium' | 'bold' | 'heavy';
-  fontSizeVariant?: 'regular' | 'title' | 'caption' | 'display';
+  fontSizeVariant?: 'regular' | 'title' | 'caption' | 'display' | 'headline';
   customStyle?: TextStyle;
 }
 
-export const AppTextElement: React.FC<AppTextProps> = ({
+export const AppTextElement: React.FC<AppTextElementProps> = ({
   title,
   fontVariant = 'regular',
   fontSizeVariant = 'regular',

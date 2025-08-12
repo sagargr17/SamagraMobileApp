@@ -1,8 +1,8 @@
-import {MessageOptions} from 'react-native-flash-message';
-import {store} from '../StateManagement/Store';
-import {hideLoader} from '../StateManagement/Error&loadingHandle/LoaderStateSlice';
-import {Card} from 'react-native-paper';
 import {Platform} from 'react-native';
+import {MessageOptions} from 'react-native-flash-message';
+import {hideLoader} from '../StateManagement/Error&loadingHandle/LoaderStateSlice';
+import {store} from '../StateManagement/Store';
+import {AreaMapper} from '../Utilities/CustomMethods';
 
 const GOOGLE_FONT_REGULAR = 'Poppins-Regular';
 const GOOGLE_FONT_MEDIUM = 'Poppins-Medium';
@@ -52,7 +52,39 @@ const MyDarkTheme = {
   fonts: MyTheme.fonts,
 };
 
-const size = {
+// Define a type for your raw size object
+type RawSizes = typeof rawSizes;
+
+// This generic type applies the AreaMapper logic and preserves the object structure
+type ScaledSizes<T> = {
+  [K in keyof T]: T[K] extends number
+    ? number
+    : T[K] extends object
+    ? ScaledSizes<T[K]>
+    : T[K];
+};
+
+// Size integration
+const applyAreaMapper = <T extends object>(obj: T): ScaledSizes<T> => {
+  const newObj: any = {};
+  for (const key in obj) {
+    if (typeof obj[key] === 'number' && key !== 'elevation') {
+      let isText = false;
+      if (key === 'fontSize' || key === 'lineHeight') {
+        isText = true;
+      }
+      newObj[key] = Math.round(AreaMapper({value: obj[key] as number, isText}));
+    } else if (typeof obj[key] === 'object' && obj[key] !== null) {
+      newObj[key] = applyAreaMapper(obj[key]);
+    } else {
+      newObj[key] = obj[key];
+    }
+  }
+  return newObj as ScaledSizes<T>;
+};
+
+// Your raw sizes object
+const rawSizes = {
   spacing: {
     xxs: 4,
     xs: 6,
@@ -62,8 +94,11 @@ const size = {
     xl: 32,
     xxl: 48,
   },
-
   textVariants: {
+    headline: {
+      fontSize: 22,
+      lineHeight: 28,
+    },
     display: {
       fontSize: 20,
       lineHeight: 24,
@@ -76,7 +111,6 @@ const size = {
       fontSize: 14,
       lineHeight: 20,
     },
-
     caption: {
       fontSize: 12,
       lineHeight: 18,
@@ -92,7 +126,6 @@ const size = {
     xl: 4,
     xxl: 6,
   },
-
   borderRadius: {
     none: 0,
     xs: 4,
@@ -102,77 +135,64 @@ const size = {
     xl: 24,
     full: 999,
   },
-
   elevation: {
     xs: {
       ...Platform.select({
         ios: {
-          shadowColor: '#000', // Typically black for shadows, you can adjust opacity
-          shadowOffset: {width: 0, height: 4}, // Consistent shadow direction
-          shadowOpacity: 0.1, // Adjust this for a softer or harder shadow (0 to 1)
-          shadowRadius: 6, // Adjust this for blurriness of the shadow
+          shadowColor: '#000000',
+          shadowOffset: {width: 0, height: 1},
+          shadowOpacity: 0.18,
+          shadowRadius: 1.0,
         },
         android: {
-          elevation: 9, // A good starting point for elevation on Android
-          shadowColor: 'rgb(156, 156, 156)',
-          shadowOffset: {width: 0, height: 5}, // Consistent shadow direction
-
-          // No need for borderWidth/borderColor on Android either if you want no visible border
+          elevation: 1,
+          shadowColor: '#000000',
         },
       }),
     },
     s: {
       ...Platform.select({
         ios: {
-          shadowColor: '#000', // Typically black for shadows, you can adjust opacity
-          shadowOffset: {width: 0, height: 4}, // Consistent shadow direction
-          shadowOpacity: 0.1, // Adjust this for a softer or harder shadow (0 to 1)
-          shadowRadius: 6, // Adjust this for blurriness of the shadow
+          shadowColor: '#000000',
+          shadowOffset: {width: 0, height: 2},
+          shadowOpacity: 0.2,
+          shadowRadius: 2.22,
         },
         android: {
-          elevation: 9, // A good starting point for elevation on Android
-          shadowColor: 'rgb(156, 156, 156)',
-          shadowOffset: {width: 0, height: 5}, // Consistent shadow direction
-
-          // No need for borderWidth/borderColor on Android either if you want no visible border
+          elevation: 3,
+          shadowColor: '#000000',
         },
       }),
     },
     m: {
       ...Platform.select({
         ios: {
-          shadowColor: '#000', // Typically black for shadows, you can adjust opacity
-          shadowOffset: {width: 0, height: 4}, // Consistent shadow direction
-          shadowOpacity: 0.1, // Adjust this for a softer or harder shadow (0 to 1)
-          shadowRadius: 6, // Adjust this for blurriness of the shadow
+          shadowColor: '#000000',
+          shadowOffset: {width: 0, height: 4},
+          shadowOpacity: 0.23,
+          shadowRadius: 2.62,
         },
         android: {
-          elevation: 9, // A good starting point for elevation on Android
-          shadowColor: 'rgb(156, 156, 156)',
-          shadowOffset: {width: 0, height: 5}, // Consistent shadow direction
-
-          // No need for borderWidth/borderColor on Android either if you want no visible border
+          elevation: 5,
+          shadowColor: '#000000',
         },
       }),
     },
     l: {
       ...Platform.select({
         ios: {
-          shadowColor: '#000', // Typically black for shadows, you can adjust opacity
-          shadowOffset: {width: 0, height: 4}, // Consistent shadow direction
-          shadowOpacity: 0.1, // Adjust this for a softer or harder shadow (0 to 1)
-          shadowRadius: 6, // Adjust this for blurriness of the shadow
+          shadowColor: '#000000',
+          shadowOffset: {width: 0, height: 7},
+          shadowOpacity: 0.3,
+          shadowRadius: 4.65,
         },
         android: {
-          elevation: 6, // A good starting point for elevation on Android
-          shadowColor: 'rgba(112, 110, 110, 1)',
-          shadowOffset: {width: 0, height: 20}, // Consistent shadow direction
-          // No need for borderWidth/borderColor on Android either if you want no visible border
+          elevation: 10,
+          shadowColor: '#000000',
         },
       }),
     },
   },
-
   iconSize: {
     small: 20,
     medium: 24,
@@ -182,6 +202,8 @@ const size = {
   },
 };
 
+// The size constant is now fully typed
+export const size: ScaledSizes<RawSizes> = applyAreaMapper(rawSizes);
 let responseTheme: (
   message: string,
   description: string,
@@ -206,4 +228,4 @@ responseTheme = (message: string, description: string, type: any) => {
   };
 };
 
-export {MyTheme, MyDarkTheme, size, responseTheme};
+export {MyDarkTheme, MyTheme, responseTheme};

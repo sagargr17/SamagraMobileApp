@@ -14,7 +14,7 @@ import {size} from '../../../Prefrences/Prefrences';
 import {AreaMapper} from '../../../Utilities/CustomMethods';
 import {AppTextElement} from '../../Elements/AppTextElement';
 
-interface ListCardProps {
+interface ListCardMoleculeProps {
   list: Array<{
     value: string;
     type: 'regular' | 'title' | 'caption' | 'display';
@@ -35,7 +35,7 @@ interface ListCardProps {
   child?: React.ReactNode;
 }
 // <-- Crucial: Set this to the actual card background color (white in your case)
-export const ListCardMolecule: React.FC<ListCardProps> = ({
+export const ListCardMolecule: React.FC<ListCardMoleculeProps> = ({
   list,
   surfaceLevel = 0,
   customStyle,

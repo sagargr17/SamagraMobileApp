@@ -12,7 +12,7 @@ import { AreaMapper } from '../../../Utilities/CustomMethods';
 import { AppTextElement } from '../../Elements/AppTextElement';
 // import {Icon} from '../../Elements/Icon'; // Assuming you have an Icon component
 
-interface BubbleCardProps {
+interface BubbleCardMoleculeProps {
   variant: 'large' | 'small';
   title: string;
   comment?: string;
@@ -23,7 +23,7 @@ interface BubbleCardProps {
   iconColor?: string;
 }
 
-export const BubbleCardMolecule: React.FC<BubbleCardProps> = ({
+export const BubbleCardMolecule: React.FC<BubbleCardMoleculeProps> = ({
   variant = 'large',
   title,
   comment,
