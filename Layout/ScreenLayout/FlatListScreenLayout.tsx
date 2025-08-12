@@ -9,8 +9,8 @@ import {useQuery} from '@apollo/client';
 import {useTheme} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {FlatList, FlatListProps, Text} from 'react-native';
-import {AppText} from '../../Components/Elements/AppText';
-import {SectionHeader} from '../../Components/Molecules/Global/SectionHeader';
+import {AppTextElement} from '../../Components/Elements/AppTextElement';
+import {SectionHeaderMolecule} from '../../Components/Molecules/Global/SectionHeaderMolecule';
 import {size} from '../../Prefrences/Prefrences';
 interface FlatListScreenProps<ItemT> extends FlatListProps<ItemT> {
   headerComponent?: React.ReactNode;
@@ -36,7 +36,7 @@ export const FlatListScreen = <ItemT,>({
           <>
             {headerComponent}
             {isSectioHeader && headerTitle ? (
-              <SectionHeader
+              <SectionHeaderMolecule
                 style={{
                   fontSize: size.spacing.m,
                   paddingVertical: size.spacing.xs,
@@ -44,7 +44,7 @@ export const FlatListScreen = <ItemT,>({
                 }}
                 title={headerTitle}
                 isIcon={false}
-                onPress={() => console.log('>>')}></SectionHeader>
+                onPress={() => console.log('>>')}></SectionHeaderMolecule>
             ) : null}
           </>
         )}

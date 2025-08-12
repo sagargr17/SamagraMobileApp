@@ -7,8 +7,8 @@ const config: CodegenConfig = {
   documents: [
     '/home/arniko/Documents/Projects/SoftwareDevelopment/Samagra/samagra-mobile-app/GraphQL/Queries/CheckoutQueries.ts',
     '/home/arniko/Documents/Projects/SoftwareDevelopment/Samagra/samagra-mobile-app/GraphQL/Queries/ItemQueries.ts',
+    '/home/arniko/Documents/Projects/SoftwareDevelopment/Samagra/samagra-mobile-app/GraphQL/Queries/OrdersQueries.ts',
 
-    '/home/arniko/Documents/Projects/SoftwareDevelopment/Samagra/samagra-mobile-app/GraphQL/Queries/PrivateShopQueries.ts',
     '/home/arniko/Documents/Projects/SoftwareDevelopment/Samagra/samagra-mobile-app/GraphQL/Queries/UserQueries.ts',
 
     '/home/arniko/Documents/Projects/SoftwareDevelopment/Samagra/samagra-mobile-app/GraphQL/Mutation/CheckOutMutation.ts',

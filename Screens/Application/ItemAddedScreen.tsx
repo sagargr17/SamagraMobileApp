@@ -1,13 +1,13 @@
 import React from 'react';
 import {Alert, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useNavigation, useTheme} from '@react-navigation/native';
-import {AppText} from '../../Components/Elements/AppText';
+import {AppTextElement} from '../../Components/Elements/AppTextElement';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
 import DateTimeToAgoTime, {AreaMapper} from '../../Utilities/CustomMethods';
-import {Spacer} from '../../Components/Elements/Spacer';
+import {SpacerElement} from '../../Components/Elements/SpacerElement';
 import {size} from '../../Prefrences/Prefrences';
 import {RowFlexLayout} from '../../Layout/PartationLayout/RowFlexLayout';
-import AppButton from '../../Components/Elements/Button';
+import AppButtonElement from '../../Components/Elements/ButtonElement';
 import {useAppSelector} from '../../StateManagement/hooks';
 interface ItemAddedScreenProps {}
 
@@ -23,7 +23,7 @@ export const ItemAddedScreen: React.FC<ItemAddedScreenProps> = ({}) => {
         style={{
           marginHorizontal: size.spacing.xs,
         }}>
-        <AppText
+        <AppTextElement
           customStyle={{
             fontSize: AreaMapper({value: 28}),
             textAlign: 'center',
@@ -31,8 +31,8 @@ export const ItemAddedScreen: React.FC<ItemAddedScreenProps> = ({}) => {
           }}
           title="Your Service is live!"
           fontSizeVariant="display"
-          fontVariant="heavy"></AppText>
-        <Spacer height={12}></Spacer>
+          fontVariant="heavy"></AppTextElement>
+        <SpacerElement height={12}></SpacerElement>
         <View
           style={{
             alignItems: 'center',
@@ -40,8 +40,8 @@ export const ItemAddedScreen: React.FC<ItemAddedScreenProps> = ({}) => {
           <TickSign
             height={AreaMapper({value: 106})}
             width={AreaMapper({value: 112})}></TickSign>
-          <Spacer height={15}></Spacer>
-          <AppText
+          <SpacerElement height={15}></SpacerElement>
+          <AppTextElement
             fontSizeVariant="title"
             fontVariant="medium"
             customStyle={{
@@ -49,17 +49,17 @@ export const ItemAddedScreen: React.FC<ItemAddedScreenProps> = ({}) => {
               paddingHorizontal: size.spacing.xs,
               width: AreaMapper({value: 350}),
             }}
-            title="Your service is now visible to potential clients. You can view or edit it anytime."></AppText>
+            title="Your service is now visible to potential clients. You can view or edit it anytime."></AppTextElement>
         </View>
-        <Spacer height={30}></Spacer>
-        <AppText
+        <SpacerElement height={30}></SpacerElement>
+        <AppTextElement
           customStyle={{
             textAlign: 'left',
           }}
           title="Service Details"
           fontSizeVariant="display"
-          fontVariant="bold"></AppText>
-        <Spacer height={17}></Spacer>
+          fontVariant="bold"></AppTextElement>
+        <SpacerElement height={17}></SpacerElement>
       </View>
       <View
         style={{
@@ -74,14 +74,14 @@ export const ItemAddedScreen: React.FC<ItemAddedScreenProps> = ({}) => {
             paddingVertical: size.spacing.s,
             borderColor: 'gray',
           }}>
-          <AppText
+          <AppTextElement
             fontSizeVariant="regular"
             fontVariant="medium"
-            title="Service Name"></AppText>
-          <AppText
+            title="Service Name"></AppTextElement>
+          <AppTextElement
             fontSizeVariant="regular"
             fontVariant="medium"
-            title={item.item.name}></AppText>
+            title={item.item.name}></AppTextElement>
         </RowFlexLayout>
         <RowFlexLayout
           customStyle={{
@@ -90,14 +90,14 @@ export const ItemAddedScreen: React.FC<ItemAddedScreenProps> = ({}) => {
             paddingVertical: size.spacing.s,
             borderColor: 'gray',
           }}>
-          <AppText
+          <AppTextElement
             fontSizeVariant="regular"
             fontVariant="medium"
-            title="Category"></AppText>
-          <AppText
+            title="Category"></AppTextElement>
+          <AppTextElement
             fontSizeVariant="regular"
             fontVariant="medium"
-            title={item.item.category}></AppText>
+            title={item.item.category}></AppTextElement>
         </RowFlexLayout>
         <RowFlexLayout
           customStyle={{
@@ -106,14 +106,14 @@ export const ItemAddedScreen: React.FC<ItemAddedScreenProps> = ({}) => {
             paddingVertical: size.spacing.s,
             borderColor: 'gray',
           }}>
-          <AppText
+          <AppTextElement
             fontSizeVariant="regular"
             fontVariant="medium"
-            title="Description"></AppText>
-          <AppText
+            title="Description"></AppTextElement>
+          <AppTextElement
             fontSizeVariant="regular"
             fontVariant="medium"
-            title={item.item.Descriptionn}></AppText>
+            title={item.item.description}></AppTextElement>
         </RowFlexLayout>
         <RowFlexLayout
           customStyle={{
@@ -122,14 +122,14 @@ export const ItemAddedScreen: React.FC<ItemAddedScreenProps> = ({}) => {
             paddingVertical: size.spacing.s,
             borderColor: 'gray',
           }}>
-          <AppText
+          <AppTextElement
             fontSizeVariant="regular"
             fontVariant="medium"
-            title="Description"></AppText>
-          <AppText
+            title="Description"></AppTextElement>
+          <AppTextElement
             fontSizeVariant="regular"
             fontVariant="medium"
-            title={`Npr.${item.item.price}`}></AppText>
+            title={`Npr.${item.item.price}`}></AppTextElement>
         </RowFlexLayout>
         <RowFlexLayout
           customStyle={{
@@ -137,16 +137,16 @@ export const ItemAddedScreen: React.FC<ItemAddedScreenProps> = ({}) => {
             paddingVertical: size.spacing.s,
             borderColor: 'gray',
           }}>
-          <AppText
+          <AppTextElement
             fontSizeVariant="regular"
             fontVariant="medium"
-            title="Availability"></AppText>
-          <AppText
+            title="Availability"></AppTextElement>
+          <AppTextElement
             fontSizeVariant="regular"
             fontVariant="medium"
             title={`${DateTimeToAgoTime(
               Date.now().toLocaleString(),
-            )}`}></AppText>
+            )}`}></AppTextElement>
         </RowFlexLayout>
       </View>
       <View
@@ -156,7 +156,7 @@ export const ItemAddedScreen: React.FC<ItemAddedScreenProps> = ({}) => {
           width: AreaMapper({value: 395}),
           marginHorizontal: size.spacing.xs,
         }}>
-        <AppButton
+        <AppButtonElement
           onPress={() => {
             // Alert.alert('asdsad');
             navigation.navigate('BottomTab', {
@@ -167,7 +167,7 @@ export const ItemAddedScreen: React.FC<ItemAddedScreenProps> = ({}) => {
             });
           }}>
           View Services
-        </AppButton>
+        </AppButtonElement>
       </View>
     </>
   );

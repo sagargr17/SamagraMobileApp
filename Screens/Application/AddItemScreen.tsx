@@ -1,29 +1,29 @@
-import {useMutation} from '@apollo/client';
-import {useNavigation, useTheme} from '@react-navigation/native';
-import React, {useState} from 'react';
-import {StyleSheet, View} from 'react-native';
-import {showMessage} from 'react-native-flash-message';
-import {AppText} from '../../Components/Elements/AppText';
-import {Spacer} from '../../Components/Elements/Spacer';
-import {AppForm} from '../../Components/Organism/AppForm';
-import {ImageUploader} from '../../Components/Organism/ImageUploader';
+import { useMutation } from '@apollo/client';
+import { useNavigation, useTheme } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { showMessage } from 'react-native-flash-message';
+import { AppTextElement } from '../../Components/Elements/AppTextElement';
+import { SpacerElement } from '../../Components/Elements/SpacerElement';
+import { AppFormOrganism } from '../../Components/Organism/ApplicationOverLays/AppFormOrganism';
+import { ImageUploader } from '../../Components/Organism/ApplicationOverLays/ImageUploaderOrganism';
 import {
   NotMentioned,
   SuccessAddItemMessage,
   SuccessAddItemMessageDescription,
 } from '../../Constants/UI/Messages';
-import {createNewProduct} from '../../GraphQL/Mutation/ItemMutation';
-import {FlatListScreen} from '../../Layout/ScreenLayout/FlatListScreenLayout';
-import {responseTheme, size} from '../../Prefrences/Prefrences';
-import {CreateProductInputViewModelInput} from '../../src/__generated__/graphql';
+import { createNewProduct } from '../../GraphQL/Mutation/ItemMutation';
+import { FlatListScreen } from '../../Layout/ScreenLayout/FlatListScreenLayout';
+import { responseTheme, size } from '../../Prefrences/Prefrences';
+import { CreateProductInputViewModelInput } from '../../src/__generated__/graphql';
 import {
   hideLoader,
   showLoader,
 } from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
-import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
-import {AreaMapper} from '../../Utilities/CustomMethods';
-import ImageHandler, {OutPutImageType} from '../../Utilities/ImageHandler';
-import {addItem} from '../../StateManagement/User/UserSlice';
+import { useAppDispatch } from '../../StateManagement/hooks';
+import { addItem } from '../../StateManagement/User/UserSlice';
+import { AreaMapper } from '../../Utilities/CustomMethods';
+import ImageHandler, { OutPutImageType } from '../../Utilities/ImageHandler';
 
 interface AddItemScreenProps {}
 
@@ -33,7 +33,6 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
 
   const [createNewItemFn] = useMutation(createNewProduct);
   const dispatch = useAppDispatch();
-  const shopID = useAppSelector(state => state.user.shopData?.shopId);
   const [uploadingImage, setUploadingImage] = useState<any>();
 
   const handleCreateItemSubmit = async (
@@ -42,28 +41,20 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
     dispatch(showLoader());
     if (uploadingImage) {
       let uploadImage = await ImageHandler.uploadImage(uploadingImage);
-      dispatch(
-        addItem({
-          item: {
-            name: data.name ?? NotMentioned,
-            price: data.price ?? 50,
-            Descriptionn: data.description ?? NotMentioned,
-            category: 'HouseKeeping',
-            imageUrl: '',
-          },
-        }),
-      );
 
+      console.log('ImageUploading', uploadImage);
       if (uploadImage) {
-        if (data && shopID)
+        if (data)
           try {
+            console.log('Adding ITem', data);
+
             let response = await createNewItemFn({
               variables: {
                 name: data.name ? data.name : NotMentioned,
                 price: Number(data.price ? data.price : NotMentioned),
                 description: data.description ? data.description : NotMentioned,
                 unit: data.unit ? data.unit : NotMentioned,
-                stockQuantity: Number(data.stockQuantity),
+                stockQuantity: Number('1'),
                 imageUrls: uploadImage,
                 location: data.location ? data.location : NotMentioned,
                 categoryId: '1',
@@ -78,16 +69,22 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
                   'success',
                 ),
               );
-              navigation.navigate('ItemAddedScreen');
 
-              navigation.navigate('ApplicationOverlay', {
-                screen: 'ItemDetailScreen',
-                params: {
-                  id: response.data.createProduct?.id ?? '',
-                  name: data.name,
-                },
-              });
+              dispatch(
+                addItem({
+                  item: {
+                    name: data.name,
+                    description: data.description ?? NotMentioned,
+                    price: data.price,
+                    category: '1',
+                    imageUrl: uploadImage,
+                  },
+                }),
+              );
+
+              navigation.navigate('ItemAddedScreen');
             }
+            // Responsne Image
             if (response.errors) {
               dispatch(hideLoader());
               showMessage({
@@ -111,7 +108,7 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
           } catch (e) {
             dispatch(hideLoader());
             showMessage({
-              message: 'Opps, Something Went Wrong!',
+              message: `${e}`,
               type: 'danger',
               description: 'Please , try after sometimes',
               textStyle: {
@@ -160,14 +157,14 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
       stickyHeaderHiddenOnScroll
       renderItem={() => (
         <View style={styles.wrapperStyle}>
-          <Spacer height={14}></Spacer>
-          <AppText
+          <SpacerElement height={14}></SpacerElement>
+          <AppTextElement
             title="Service Detail:"
             fontSizeVariant="title"
-            fontVariant="medium"></AppText>
+            fontVariant="medium"></AppTextElement>
 
-          <Spacer height={5}></Spacer>
-          <AppForm<CreateProductInputViewModelInput>
+          <SpacerElement height={5}></SpacerElement>
+          <AppFormOrganism<CreateProductInputViewModelInput>
             formConfig={[
               {
                 name: 'name', // Must match a key in LoginFormValues
@@ -200,19 +197,6 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
                   required: 'Required',
                 },
               },
-              // {
-              //   name: 'stockQuantity', // Must match a key in LoginFormValues
-              //   label: '',
-              //   placeholder: 'Quantity',
-              //   type: 'number', // Custom prop for keyboard type
-              //   rules: {
-              //     maxLength: {
-              //       value: 9,
-              //       message: 'too long',
-              //     },
-              //     required: 'Required',
-              //   },
-              // },
 
               {
                 name: 'unit', // Must match a key in LoginFormValues
@@ -227,19 +211,7 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
                   required: 'Required',
                 },
               },
-              // {
-              //   name: 'location', // Must match a key in LoginFormValues
-              //   label: '',
-              //   placeholder: 'Baneswor, Kathmandu',
-              //   type: 'text', // Custom prop for keyboard type
-              //   rules: {
-              //     maxLength: {
-              //       value: 9,
-              //       message: 'too long',
-              //     },
-              //     required: 'Required',
-              //   },
-              // },
+
               {
                 name: 'description', // Must match a key in LoginFormValues
                 label: '',
@@ -255,7 +227,7 @@ export const AddItemScreen: React.FC<AddItemScreenProps> = ({}) => {
               },
             ]}
             submitButtonText="Submit"
-            onFormSubmit={handleCreateItemSubmit}></AppForm>
+            onFormSubmit={handleCreateItemSubmit}></AppFormOrganism>
         </View>
       )}></FlatListScreen>
   );

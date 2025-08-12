@@ -4,14 +4,14 @@ import {Alert, Button, Pressable, StyleSheet, Text} from 'react-native';
 import {showMessage} from 'react-native-flash-message';
 import {OtpInput} from 'react-native-otp-entry';
 import {verifiedPassword} from '../../client/Token/RegisterUser';
-import {Spacer} from '../../Components/Elements/Spacer';
+import {SpacerElement} from '../../Components/Elements/SpacerElement';
 import {ScrollableLayout} from '../../Layout/ScreenLayout/ScrollableLayout';
 import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
 import {responseTheme, size} from '../../Prefrences/Prefrences';
 import {AreaMapper} from '../../Utilities/CustomMethods';
-import {AppText} from '../../Components/Elements/AppText';
+import {AppTextElement} from '../../Components/Elements/AppTextElement';
 import {View} from 'moti';
-import AppButton from '../../Components/Elements/Button';
+import AppButtonElement from '../../Components/Elements/ButtonElement';
 
 interface OptScreenProps {
   navigation: OnBoardingStackNavigationProp<'OtpScreen'>;
@@ -65,10 +65,10 @@ export const OtpScreen: React.FC<OptScreenProps> = ({navigation}) => {
       style={{
         marginHorizontal: size.spacing.xs,
       }}>
-      <AppText
+      <AppTextElement
         title="1 Code sent to your phone number unless you already have an
-        account"></AppText>
-      <Spacer height={15} />
+        account"></AppTextElement>
+      <SpacerElement height={15} />
       <OtpInput
         numberOfDigits={6}
         onTextChange={text => setOtp(text)}
@@ -85,7 +85,7 @@ export const OtpScreen: React.FC<OptScreenProps> = ({navigation}) => {
         }}
       />
 
-      <Spacer height={15} />
+      <SpacerElement height={15} />
 
       {/* <AppButton onPress={onOtpSet}>Send</AppButton> */}
 
@@ -96,13 +96,13 @@ export const OtpScreen: React.FC<OptScreenProps> = ({navigation}) => {
         <Text style={styles.resend}>Re-send OTP</Text>
       )}
       <Pressable onPress={() => navigation.navigate('SignInScreen')}>
-        <AppText
+        <AppTextElement
           title="Already have an account? Log in"
           customStyle={
             {
               // color: '#2A56FE',
             }
-          }></AppText>
+          }></AppTextElement>
       </Pressable>
     </View>
   );

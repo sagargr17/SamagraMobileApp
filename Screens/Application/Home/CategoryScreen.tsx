@@ -1,12 +1,12 @@
 import {useNavigation, useTheme} from '@react-navigation/native';
 import React from 'react';
-import {CardSlider} from '../../../Components/Molecules/Cards/CardSlider';
-import {SamagraLoader} from '../../../Components/Elements/SamagraLoader';
+import {CardSliderMoleCule} from '../../../Components/Molecules/Cards/CardSliderMolecule';
+import {SamagraLoaderElement} from '../../../Components/Elements/SamagraLoaderElement';
 import {FlatList, Text, View} from 'react-native';
-import {BubbleCard} from '../../../Components/Molecules/Cards/BubbleCard';
+import {BubbleCardMolecule} from '../../../Components/Molecules/Cards/BubbleCardMoleCule';
 import {size} from '../../../Prefrences/Prefrences';
-import {AppText} from '../../../Components/Elements/AppText';
-import {Spacer} from '../../../Components/Elements/Spacer';
+import {AppTextElement} from '../../../Components/Elements/AppTextElement';
+import {SpacerElement} from '../../../Components/Elements/SpacerElement';
 interface CategoryScreenProps {}
 
 export const CategoryScreen: React.FC<CategoryScreenProps> = ({}) => {
@@ -50,7 +50,7 @@ export const CategoryScreen: React.FC<CategoryScreenProps> = ({}) => {
         marginTop: size.spacing.xs,
         borderRadius: 10,
       }}>
-      <Spacer height={15}></Spacer>
+      <SpacerElement height={15}></SpacerElement>
       {/* <AppText
         customStyle={{
           textAlign: 'center',
@@ -58,7 +58,7 @@ export const CategoryScreen: React.FC<CategoryScreenProps> = ({}) => {
         title="Please Select Your Category"
         fontSizeVariant="title"
         fontVariant="regular"></AppText> */}
-      <Spacer height={15}></Spacer>
+      <SpacerElement height={15}></SpacerElement>
       <FlatList
         numColumns={2}
         showsHorizontalScrollIndicator={false}
@@ -68,7 +68,7 @@ export const CategoryScreen: React.FC<CategoryScreenProps> = ({}) => {
             style={{
               marginRight: size.spacing.s,
             }}>
-            <BubbleCard
+            <BubbleCardMolecule
               onPress={() => {
                 navigation.navigate('ApplicationOverlay', {
                   // screen: 'ItemAddedScreen',
@@ -85,7 +85,7 @@ export const CategoryScreen: React.FC<CategoryScreenProps> = ({}) => {
               }
               key={index}
               variant="small"
-              title={item.name}></BubbleCard>
+              title={item.name}></BubbleCardMolecule>
           </View>
         )}></FlatList>
     </View>

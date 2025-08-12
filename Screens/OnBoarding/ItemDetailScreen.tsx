@@ -3,21 +3,21 @@ import {useNavigation, useTheme} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 import {Divider, IconButton} from 'react-native-paper';
-import {AppText} from '../../Components/Elements/AppText';
-import {Rating} from '../../Components/Elements/Rating';
-import {Spacer} from '../../Components/Elements/Spacer';
-import {Counter} from '../../Components/Molecules/Global/Counter';
-import {ItemCheckOut} from '../../Components/Molecules/Global/ItemCheckOut';
-import {SamagraLoader} from '../../Components/Elements/SamagraLoader';
-import {CommentLayout} from '../../Components/Organism/CommentLayout';
-import {ImageSliderModal} from '../../Components/Organism/ImageSliderModal';
+import {AppTextElement} from '../../Components/Elements/AppTextElement';
+import {RatingElement} from '../../Components/Elements/RatingElement';
+import {SpacerElement} from '../../Components/Elements/SpacerElement';
+import {CounterMolecule} from '../../Components/Molecules/Global/CounterMolecule';
+import {ItemCheckOutBarMolecule} from '../../Components/Molecules/Global/ItemCheckOutBarMolecule';
+import {SamagraLoaderElement} from '../../Components/Elements/SamagraLoaderElement';
+import {CommentLayout} from '../../Components/Organism/ApplicationOverLays/Home/CommentBoxOrganism';
+import {ImageSliderModal} from '../../Components/Organism/ApplicationOverLays/ImageSliderModalOrganism';
 import {NotMentioned} from '../../Constants/UI/Messages';
 import {getPublicItemsById} from '../../GraphQL/Queries/ItemQueries';
 import {ItemDetailScreenRouteProp} from '../../Navigators/Stack/ApplicationOverlayStackNavigator';
 import {size} from '../../Prefrences/Prefrences';
 import {hideLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
 import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
-import {postPlaceOrderparams} from '../../StateManagement/Orders/PlaceOrderDetailsParams';
+import {postPlaceOrderparams} from '../../StateManagement/Orders/PlacedOrderDetailsSlice';
 import {titleCase, titleRange} from '../../Utilities/CustomMethods';
 import {ImageNotFound} from '../../Constants/UI/AssetsUrls';
 order: null;
@@ -51,7 +51,7 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
   const itemDetailContainer = () => {
     return (
       <View>
-        <AppText
+        <AppTextElement
           fontSizeVariant={'caption'}
           title={titleCase(
             titleCase(data?.getPublicItems?.nodes?.[0]?.shop?.name) ??
@@ -69,7 +69,7 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
             borderRadius: 20,
             borderColor: colors.border,
             borderWidth: size.borderWidth.xs,
-          }}></AppText>
+          }}></AppTextElement>
         <View
           style={{
             display: 'flex',
@@ -77,7 +77,7 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
             alignItems: 'center',
             justifyContent: 'space-between',
           }}>
-          <AppText
+          <AppTextElement
             fontSizeVariant={'title'}
             title={titleCase(
               data?.getPublicItems?.nodes?.[0]?.name ?? 'Not Mentioned',
@@ -86,7 +86,7 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
             customStyle={{
               margin: 0,
               padding: 0,
-            }}></AppText>
+            }}></AppTextElement>
           <IconButton
             icon="heart-outline"
             size={24}
@@ -104,7 +104,7 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
             // backgroundColor: 'pink',
             justifyContent: 'flex-start',
           }}>
-          <AppText
+          <AppTextElement
             customStyle={{
               backgroundColor: 'gray',
               color: colors.background,
@@ -112,17 +112,17 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
             }}
             fontSizeVariant={'regular'}
             title={titleCase('423 Sold')}
-            fontVariant="regular"></AppText>
-          <Rating ratingNumber={3}></Rating>
+            fontVariant="regular"></AppTextElement>
+          <RatingElement ratingNumber={3}></RatingElement>
         </View>
-        <Spacer height={8}></Spacer>
+        <SpacerElement height={8}></SpacerElement>
         <View>
-          <AppText
+          <AppTextElement
             fontSizeVariant={'title'}
             title={titleCase('Description')}
-            fontVariant="medium"></AppText>
-          <Spacer height={2}></Spacer>
-          <AppText
+            fontVariant="medium"></AppTextElement>
+          <SpacerElement height={2}></SpacerElement>
+          <AppTextElement
             fontSizeVariant={'regular'}
             // title={titleCase(
             //   data?.getPublicItems?.nodes?.[0]?.description ?? 'Not Mentioned',
@@ -135,25 +135,25 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
             customStyle={{
               textAlign: 'justify',
             }}
-            fontVariant="regular"></AppText>
-          <Spacer></Spacer>
+            fontVariant="regular"></AppTextElement>
+          <SpacerElement></SpacerElement>
         </View>
 
-        <Spacer height={14}></Spacer>
-        <Counter
+        <SpacerElement height={14}></SpacerElement>
+        <CounterMolecule
           setTotal={(Quantity: number) => {
             handleTotalPrice(Quantity);
-          }}></Counter>
-        <Spacer height={24}></Spacer>
+          }}></CounterMolecule>
+        <SpacerElement height={24}></SpacerElement>
         <Divider></Divider>
-        <Spacer height={8}></Spacer>
+        <SpacerElement height={8}></SpacerElement>
       </View>
     );
   };
   const user = useAppSelector(state => state.user.Profile);
 
   if (error) return <Text>ErrorItemCheckOut {error.message}</Text>;
-  if (loading) return <SamagraLoader></SamagraLoader>;
+  if (loading) return <SamagraLoaderElement></SamagraLoaderElement>;
 
   // if(data && !error && !loading)
   const handleBuyNow = () => {
@@ -237,14 +237,14 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
           </>
         )}></FlatList>
 
-      <ItemCheckOut
+      <ItemCheckOutBarMolecule
         itemID={data?.getPublicItems?.nodes?.[0]?.id ?? ''}
         onBuyNow={handleBuyNow}
         totalPrice={
           totalPrice === 0
             ? data?.getPublicItems?.nodes?.[0]?.price
             : totalPrice
-        }></ItemCheckOut>
+        }></ItemCheckOutBarMolecule>
     </View>
   );
 };

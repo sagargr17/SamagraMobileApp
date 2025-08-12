@@ -68,13 +68,13 @@ const size = {
       fontSize: 20,
       lineHeight: 24,
     },
-    regular: {
-      fontSize: 14,
-      lineHeight: 20,
-    },
     title: {
       fontSize: 16,
       lineHeight: 22,
+    },
+    regular: {
+      fontSize: 14,
+      lineHeight: 20,
     },
 
     caption: {

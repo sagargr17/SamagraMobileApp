@@ -1,6 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {ImageNotFound} from '../../Constants/UI/AssetsUrls';
-import {ItemViewModel} from '../../src/__generated__/graphql';
 
 interface User {
   username: string;
@@ -44,7 +43,7 @@ interface selectedItem {
 interface addItemStates {
   item: {
     name: string;
-    Descriptionn: string;
+    description: string;
     price: number;
     category: string;
     imageUrl: string;
@@ -102,7 +101,7 @@ const initialState: UserState = {
     item: {
       name: '',
       price: 0,
-      Descriptionn: '',
+      description: '',
       category: '',
       imageUrl: '',
       time: '',

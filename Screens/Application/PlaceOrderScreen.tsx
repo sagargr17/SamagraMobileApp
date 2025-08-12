@@ -8,17 +8,17 @@ import {
   ViewStyle,
 } from 'react-native';
 import {useNavigation, useTheme} from '@react-navigation/native';
-import {AppText} from '../../Components/Elements/AppText';
+import {AppTextElement} from '../../Components/Elements/AppTextElement';
 import {responseTheme, size} from '../../Prefrences/Prefrences';
 import {useAppSelector} from '../../StateManagement/hooks';
 import {useMutation} from '@apollo/client';
 import {createOrderMutation} from '../../GraphQL/Mutation/CheckOutMutation';
 import {StringValueNode} from 'graphql';
-import {ListCard} from '../../Components/Molecules/Cards/ListCard';
+import {ListCardMolecule} from '../../Components/Molecules/Cards/ListCardMolecule';
 import {RowFlexLayout} from '../../Layout/PartationLayout/RowFlexLayout';
-import {Spacer} from '../../Components/Elements/Spacer';
+import {SpacerElement} from '../../Components/Elements/SpacerElement';
 import {Divider, RadioButton, Surface} from 'react-native-paper';
-import AppButton from '../../Components/Elements/Button';
+import AppButtonElement from '../../Components/Elements/ButtonElement';
 import {
   NoInternetFoundMessage,
   NoItemFound,
@@ -26,7 +26,7 @@ import {
 } from '../../Constants/UI/Messages';
 import {titleRange} from '../../Utilities/CustomMethods';
 import {ScrollView} from 'react-native-gesture-handler';
-import {Counter} from '../../Components/Molecules/Global/Counter';
+import {CounterMolecule} from '../../Components/Molecules/Global/CounterMolecule';
 import {showMessage} from 'react-native-flash-message';
 interface PlaceOrderScreenProps {}
 
@@ -96,15 +96,15 @@ export const PlaceOrderScreen: React.FC<PlaceOrderScreenProps> = ({}) => {
         },
         style,
       ]}>
-      <AppText
+      <AppTextElement
         title={'Seller Details :'}
         fontVariant="bold"
-        fontSizeVariant="title"></AppText>
+        fontSizeVariant="title"></AppTextElement>
       <Divider
         style={{
           height: 1,
         }}></Divider>
-      <Spacer></Spacer>
+      <SpacerElement></SpacerElement>
       <View
         style={{
           paddingHorizontal: size.spacing.s,
@@ -113,42 +113,42 @@ export const PlaceOrderScreen: React.FC<PlaceOrderScreenProps> = ({}) => {
           customStyle={{
             justifyContent: 'space-between',
           }}>
-          <AppText
+          <AppTextElement
             title={'Shop name'}
             fontVariant="regular"
-            fontSizeVariant="regular"></AppText>
-          <AppText title={placeOrderDetails.sellerDetails.shopName}></AppText>
+            fontSizeVariant="regular"></AppTextElement>
+          <AppTextElement title={placeOrderDetails.sellerDetails.fullName}></AppTextElement>
         </RowFlexLayout>
         <RowFlexLayout
           customStyle={{
             justifyContent: 'space-between',
           }}>
-          <AppText
+          <AppTextElement
             title={'Seller name'}
             fontVariant="regular"
-            fontSizeVariant="regular"></AppText>
-          <AppText title={placeOrderDetails.sellerDetails.fullName}></AppText>
+            fontSizeVariant="regular"></AppTextElement>
+          <AppTextElement title={placeOrderDetails.sellerDetails.fullName}></AppTextElement>
         </RowFlexLayout>
         <RowFlexLayout
           customStyle={{
             justifyContent: 'space-between',
           }}>
-          <AppText
+          <AppTextElement
             title={'Address'}
             fontVariant="regular"
-            fontSizeVariant="regular"></AppText>
-          <AppText title={placeOrderDetails.sellerDetails.address}></AppText>
+            fontSizeVariant="regular"></AppTextElement>
+          <AppTextElement title={placeOrderDetails.sellerDetails.address}></AppTextElement>
         </RowFlexLayout>
         <RowFlexLayout
           customStyle={{
             justifyContent: 'space-between',
           }}>
-          <AppText
+          <AppTextElement
             title={'Phone Number'}
             fontVariant="regular"
-            fontSizeVariant="regular"></AppText>
-          <AppText
-            title={placeOrderDetails.sellerDetails.phoneNumber}></AppText>
+            fontSizeVariant="regular"></AppTextElement>
+          <AppTextElement
+            title={placeOrderDetails.sellerDetails.phoneNumber}></AppTextElement>
         </RowFlexLayout>
       </View>
     </View>
@@ -156,23 +156,23 @@ export const PlaceOrderScreen: React.FC<PlaceOrderScreenProps> = ({}) => {
 
   const paymentMethoContainer = (
     <View style={style}>
-      <AppText
+      <AppTextElement
         title={'Payment Method'}
         fontVariant="bold"
-        fontSizeVariant="title"></AppText>
+        fontSizeVariant="title"></AppTextElement>
       <Divider
         style={{
           height: 1,
         }}></Divider>
-      <Spacer></Spacer>
+      <SpacerElement></SpacerElement>
       <RowFlexLayout
         customStyle={{
           justifyContent: 'space-between',
         }}>
-        <AppText
+        <AppTextElement
           title={'Cash on delivery'}
           fontVariant="regular"
-          fontSizeVariant="regular"></AppText>
+          fontSizeVariant="regular"></AppTextElement>
         <RadioButton
           color={colors.primary}
           value="second"
@@ -188,11 +188,11 @@ export const PlaceOrderScreen: React.FC<PlaceOrderScreenProps> = ({}) => {
       style={{
         marginHorizontal: size.spacing.xs,
       }}>
-      <AppText
+      <AppTextElement
         title={'Order Summary'}
         fontVariant="bold"
-        fontSizeVariant="title"></AppText>
-      <Spacer></Spacer>
+        fontSizeVariant="title"></AppTextElement>
+      <SpacerElement></SpacerElement>
       <Surface
         elevation={1}
         style={{
@@ -204,38 +204,38 @@ export const PlaceOrderScreen: React.FC<PlaceOrderScreenProps> = ({}) => {
           customStyle={{
             justifyContent: 'space-between',
           }}>
-          <AppText
+          <AppTextElement
             title={'Order Quantity'}
             fontVariant="regular"
-            fontSizeVariant="regular"></AppText>
-          <Spacer height={30}></Spacer>
-          <AppText
+            fontSizeVariant="regular"></AppTextElement>
+          <SpacerElement height={30}></SpacerElement>
+          <AppTextElement
             title={
               'Qty : ' + placeOrderDetails.orderDetail.orderQuantity
-            }></AppText>
+            }></AppTextElement>
           {/* <Counter setTotal={() => {}}></Counter> */}
         </RowFlexLayout>
         <RowFlexLayout
           customStyle={{
             justifyContent: 'space-between',
           }}>
-          <AppText
+          <AppTextElement
             title={'Shipping Address'}
             fontVariant="regular"
-            fontSizeVariant="regular"></AppText>
-          <Spacer height={30}></Spacer>
-          <AppText title={titleRange(location ?? NotMentioned, 22)}></AppText>
+            fontSizeVariant="regular"></AppTextElement>
+          <SpacerElement height={30}></SpacerElement>
+          <AppTextElement title={titleRange(location ?? NotMentioned, 22)}></AppTextElement>
         </RowFlexLayout>
         <RowFlexLayout
           customStyle={{
             justifyContent: 'space-between',
           }}>
-          <AppText
+          <AppTextElement
             title={'Taxes'}
             fontVariant="regular"
-            fontSizeVariant="regular"></AppText>
-          <Spacer height={30}></Spacer>
-          <AppText title={'Rs.10'}></AppText>
+            fontSizeVariant="regular"></AppTextElement>
+          <SpacerElement height={30}></SpacerElement>
+          <AppTextElement title={'Rs.10'}></AppTextElement>
         </RowFlexLayout>
       </Surface>
     </View>
@@ -247,18 +247,18 @@ export const PlaceOrderScreen: React.FC<PlaceOrderScreenProps> = ({}) => {
         justifyContent: 'space-between',
         paddingHorizontal: size.spacing.xs,
       }}>
-      <AppText
+      <AppTextElement
         title={'Total'}
         fontVariant="bold"
-        fontSizeVariant="title"></AppText>
-      <AppText
+        fontSizeVariant="title"></AppTextElement>
+      <AppTextElement
         title={`Rs.${
           placeOrderDetails.itemDetails.price *
             Number(placeOrderDetails.orderDetail.orderQuantity) +
           10
         }`}
         fontVariant="bold"
-        fontSizeVariant="regular"></AppText>
+        fontSizeVariant="regular"></AppTextElement>
     </RowFlexLayout>
   );
 
@@ -272,7 +272,7 @@ export const PlaceOrderScreen: React.FC<PlaceOrderScreenProps> = ({}) => {
         style={{
           paddingHorizontal: size.spacing.xxs,
         }}>
-        <ListCard
+        <ListCardMolecule
           id={placeOrderDetails.itemDetails.imageUrl}
           surfaceLevel={2}
           imageUrl={placeOrderDetails.itemDetails.imageUrl}
@@ -289,20 +289,20 @@ export const PlaceOrderScreen: React.FC<PlaceOrderScreenProps> = ({}) => {
             },
             {
               type: 'regular',
-              value: placeOrderDetails.sellerDetails.shopName,
+              value: placeOrderDetails.sellerDetails.phoneNumber,
               fontVariant: 'medium',
             },
-          ]}></ListCard>
-        <Spacer height={20}></Spacer>
+          ]}></ListCardMolecule>
+        <SpacerElement height={20}></SpacerElement>
         {sellerDetailsContainer}
-        <Spacer height={20}></Spacer>
+        <SpacerElement height={20}></SpacerElement>
         {paymentMethoContainer}
-        <Spacer height={20}></Spacer>
+        <SpacerElement height={20}></SpacerElement>
         {orderSummary}
-        <Spacer height={20}></Spacer>
+        <SpacerElement height={20}></SpacerElement>
         {totalPriceDetail}
-        <Spacer height={15}></Spacer>
-        <AppButton
+        <SpacerElement height={15}></SpacerElement>
+        <AppButtonElement
           showLoader={true}
           onPress={() => {
             try {
@@ -329,7 +329,7 @@ export const PlaceOrderScreen: React.FC<PlaceOrderScreenProps> = ({}) => {
             }
           }}>
           Place Order
-        </AppButton>
+        </AppButtonElement>
       </ScrollView>
     </SafeAreaView>
   );

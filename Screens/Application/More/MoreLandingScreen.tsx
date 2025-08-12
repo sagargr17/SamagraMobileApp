@@ -2,16 +2,14 @@ import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {ScrollView, View} from 'react-native';
 import {clearTokens} from '../../../client/Token/TokenAccess';
-import {Spacer} from '../../../Components/Elements/Spacer';
-import {ProfileCard} from '../../../Components/Molecules/Cards/ProfileCard';
-import {ActiveStoreContainer} from '../../../Components/Organism/ActiveStoreContainer';
-import {ActiveUserContainer} from '../../../Components/Organism/ActiveUserContainer';
+import {SpacerElement} from '../../../Components/Elements/SpacerElement';
+import {ProfileCardMolecule} from '../../../Components/Molecules/Cards/ProfileCardMolecule';
+import {UserContainer} from '../../../Components/Organism/ApplicationOverLays/More/UserContainerOrganism';
 import {MoreLandingSkeleton} from '../../../Components/Skeletons/Layout/MoreLandingSkeleton';
 import {ImageNotFound} from '../../../Constants/UI/AssetsUrls';
 import {NotMentioned} from '../../../Constants/UI/Messages';
 import {size} from '../../../Prefrences/Prefrences';
 import {useAppSelector} from '../../../StateManagement/hooks';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 interface MoreLandingScreenProps {}
 
@@ -39,7 +37,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
           marginTop: size.spacing.m,
           marginBottom: size.spacing.xs,
         }}>
-        <ProfileCard
+        <ProfileCardMolecule
           customStyle={{
             borderWidth: 1,
             borderColor: '#DBE0E5',
@@ -47,7 +45,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
           user={{
             username: userName,
             profileImageUrl: profileImageUrl,
-          }}></ProfileCard>
+          }}></ProfileCardMolecule>
       </View>
     );
   };
@@ -79,14 +77,8 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
               ImageNotFound,
             )}
       </>
-      <Spacer height={10}></Spacer>
-
-      {isShopActive && selectedShopData?.shopId ? (
-        <ActiveStoreContainer
-          shopId={selectedShopData?.shopId}></ActiveStoreContainer>
-      ) : (
-        <ActiveUserContainer></ActiveUserContainer>
-      )}
+      <SpacerElement height={10}></SpacerElement>
+      <UserContainer></UserContainer>
     </ScrollView>
   );
 };

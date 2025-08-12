@@ -10,13 +10,13 @@ import {
 import { ScrollView } from 'react-native-gesture-handler';
 import { TextInput } from 'react-native-paper';
 import Authenticator from '../../client/Token/Authenticator';
-import { AppText } from '../../Components/Elements/AppText';
-import AppButton from '../../Components/Elements/Button';
-import { ContinueDivider } from '../../Components/Elements/ContinueDivider';
-import { ErrorText } from '../../Components/Elements/ErrorText';
-import { Input } from '../../Components/Elements/Input';
-import { Spacer } from '../../Components/Elements/Spacer';
-import { SocialForm } from '../../Components/Organism/SocialForm';
+import { AppTextElement } from '../../Components/Elements/AppTextElement';
+import AppButtonElement from '../../Components/Elements/ButtonElement';
+import { ContinueDividerElement } from '../../Components/Elements/ContinueDividerElement';
+import { ErrorTextElement } from '../../Components/Elements/ErrorTextElement';
+import { InputElement } from '../../Components/Elements/InputElement';
+import { SpacerElement } from '../../Components/Elements/SpacerElement';
+import { SocialForm } from '../../Components/Organism/OnBoarding/SocialFormOrganism';
 import { userRules } from '../../Constants/UI/Rules';
 import { OnBoardingStackNavigationProp } from '../../Navigators/Stack/OnBoardingStackNavigator';
 import { size } from '../../Prefrences/Prefrences';
@@ -63,7 +63,7 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
             name="userName"
             rules={userRules.userName}
             render={({field: {onChange, value}}) => (
-              <Input
+              <InputElement
                 label="Username"
                 placeholder="Username"
                 value={value}
@@ -71,13 +71,13 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
               />
             )}
           />
-          {errors.userName && <ErrorText>{errors.userName?.message}</ErrorText>}
+          {errors.userName && <ErrorTextElement>{errors.userName?.message}</ErrorTextElement>}
           <Controller
             control={control}
             name="password"
             rules={userRules.password}
             render={({field: {onChange, value}}) => (
-              <Input
+              <InputElement
                 secureTextEntry={!isTextVisible}  
                 label="Password"
                 placeholder="*********"
@@ -94,37 +94,37 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({navigation}) => {
               />
             )}
           />
-          {errors.password && <ErrorText>{errors.password?.message}</ErrorText>}
-          <Spacer height={10} />
+          {errors.password && <ErrorTextElement>{errors.password?.message}</ErrorTextElement>}
+          <SpacerElement height={10} />
           <View style={styles.extra}>
             <Pressable onPress={() => navigation.navigate('SignUpScreen')}>
-              <AppText
+              <AppTextElement
                 fontSizeVariant="regular"
                 customStyle={{
                   color: '#4A739C',
                 }}
                 title="Forgot Password"
-                fontVariant="medium"></AppText>
+                fontVariant="medium"></AppTextElement>
             </Pressable>
             <Pressable
               onPress={() => navigation.navigate('ProfileSetupScreen')}>
-              <AppText
+              <AppTextElement
                 fontSizeVariant="caption"
                 customStyle={{
                   color: '#4A739C',
                 }}
                 title="Don’t have an Account?"
-                fontVariant="medium"></AppText>
+                fontVariant="medium"></AppTextElement>
             </Pressable>
           </View>
-          <Spacer height={size.spacing.l} />
-          <AppButton color="primary" onPress={handleSubmit(signIn)}>
+          <SpacerElement height={size.spacing.l} />
+          <AppButtonElement color="primary" onPress={handleSubmit(signIn)}>
             Login
-          </AppButton>
+          </AppButtonElement>
           {/* <Spacer /> */}
-          <Spacer height={size.spacing.m} />
-          <ContinueDivider />
-          <Spacer height={size.spacing.m} />
+          <SpacerElement height={size.spacing.m} />
+          <ContinueDividerElement />
+          <SpacerElement height={size.spacing.m} />
           <SocialForm />
         </ScrollView>
       </KeyboardAvoidingView>

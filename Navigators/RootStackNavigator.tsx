@@ -8,7 +8,7 @@ import {View} from 'react-native';
 import {ProgressBar} from 'react-native-paper';
 import {client} from '../App';
 import {Logos} from '../Assets/SVG/Exports/Exports';
-import {SingnlePageInfo} from '../Components/Organism/SinglePageInfo';
+import {SingnlePageInfoMolecule} from '../Components/Molecules/Global/SinglePageInfo';
 import {setError} from '../StateManagement/Error&loadingHandle/ErrorHandlingSlice';
 import {
   hideLoader,
@@ -97,30 +97,30 @@ export const RootStack: React.FC = () => {
     });
   }, []);
 
-  // IsError;n
-  // if (errorResponse.isErorr) {
-  //   return (
-  //     <View
-  //       style={{
-  //         flex: 1,
-  //         flexDirection: 'column',
-  //         backgroundColor: colors.background,
-  //       }}>
-  //       <SingnlePageInfo
-  //         icon={
-  //           <InternetUnAvailable
-  //             height={AreaMapper({value: 180})}></InternetUnAvailable>
-  //         }
-  //         detail={{
-  //           title: `${errorResponse.message}`,
-  //           message: 'Please Check Your connectivity and try again',
-  //           buttonTitle: `${isLoading ? 'Loading....' : 'Try Again'}`,
-  //           onButtonPress: handleResetInternet,
-  //         }}
-  //       />
-  //     </View>
-  //   );
-  // }
+  // IsError
+  if (errorResponse.isErorr) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          flexDirection: 'column',
+          backgroundColor: colors.background,
+        }}>
+        <SingnlePageInfoMolecule
+          icon={
+            <InternetUnAvailable
+              height={AreaMapper({value: 180})}></InternetUnAvailable>
+          }
+          detail={{
+            title: `${errorResponse.message}`,
+            message: 'Please Check Your connectivity and try again',
+            buttonTitle: `${isLoading ? 'Loading....' : 'Try Again'}`,
+            onButtonPress: handleResetInternet,
+          }}
+        />
+      </View>
+    );
+  }
 
   return (
     <>

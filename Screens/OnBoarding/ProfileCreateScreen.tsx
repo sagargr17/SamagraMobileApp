@@ -13,12 +13,12 @@ import {showMessage} from 'react-native-flash-message';
 import {Checkbox} from 'react-native-paper';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
 import {registerUser} from '../../client/Token/RegisterUser';
-import {AppText} from '../../Components/Elements/AppText';
-import AppButton from '../../Components/Elements/Button';
-import {ErrorText} from '../../Components/Elements/ErrorText';
-import {Input} from '../../Components/Elements/Input';
-import PhoneInput from '../../Components/Elements/PhoneInput';
-import {Spacer} from '../../Components/Elements/Spacer';
+import {AppTextElement} from '../../Components/Elements/AppTextElement';
+import AppButtonElement from '../../Components/Elements/ButtonElement';
+import {ErrorTextElement} from '../../Components/Elements/ErrorTextElement';
+import {InputElement} from '../../Components/Elements/InputElement';
+import PhoneInputElement from '../../Components/Elements/PhoneInputElement';
+import {SpacerElement} from '../../Components/Elements/SpacerElement';
 import {ScrollableLayout} from '../../Layout/ScreenLayout/ScrollableLayout';
 import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
 import {responseTheme, size} from '../../Prefrences/Prefrences';
@@ -139,14 +139,14 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
             }}
             render={({field: {value, onChange}}) => (
               <>
-                <Input
+                <InputElement
                   label="UserName*"
                   placeholder="First Name"
                   value={value}
                   onChangeText={onChange}
                 />
                 {errors.firstName && (
-                  <ErrorText>{errors.firstName.message}</ErrorText>
+                  <ErrorTextElement>{errors.firstName.message}</ErrorTextElement>
                 )}
               </>
             )}
@@ -159,14 +159,14 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
             }}
             render={({field: {value, onChange}}) => (
               <>
-                <Input
+                <InputElement
                   label="Full Name"
                   placeholder="Last Name"
                   value={value}
                   onChangeText={onChange}
                 />
                 {errors.lastName && (
-                  <ErrorText>{errors.lastName.message}</ErrorText>
+                  <ErrorTextElement>{errors.lastName.message}</ErrorTextElement>
                 )}
               </>
             )}
@@ -179,13 +179,13 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
             }}
             render={({field: {value, onChange}}) => (
               <>
-                <Input
+                <InputElement
                   label="Email"
                   placeholder="Email Address"
                   value={value}
                   onChangeText={onChange}
                 />
-                {errors.email && <ErrorText>{errors.email.message}</ErrorText>}
+                {errors.email && <ErrorTextElement>{errors.email.message}</ErrorTextElement>}
               </>
             )}
           />
@@ -198,12 +198,12 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
             }}
             render={({field: {value, onChange}}) => (
               <>
-                <PhoneInput
+                <PhoneInputElement
                   label="Phone Number"
                   value={value}
                   onChangeText={onChange}
                 />
-                {errors.phone && <ErrorText>{errors.phone.message}</ErrorText>}
+                {errors.phone && <ErrorTextElement>{errors.phone.message}</ErrorTextElement>}
               </>
             )}
           />
@@ -217,7 +217,7 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
             render={({field: {value, onChange}}) => (
               <>
                 {/* TODO: add show text options */}
-                <Input
+                <InputElement
                   label="Password"
                   placeholder="Password"
                   secureTextEntry
@@ -225,7 +225,7 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
                   onChangeText={onChange}
                 />
                 {errors.password && (
-                  <ErrorText>{errors.password.message}</ErrorText>
+                  <ErrorTextElement>{errors.password.message}</ErrorTextElement>
                 )}
               </>
             )}
@@ -239,7 +239,7 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
             }}
             render={({field: {value, onChange}}) => (
               <>
-                <Input
+                <InputElement
                   label="Confirm Password"
                   placeholder="Confirm Password"
                   secureTextEntry
@@ -247,7 +247,7 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
                   onChangeText={onChange}
                 />
                 {errors.confirmPassword && (
-                  <ErrorText>{errors.confirmPassword.message}</ErrorText>
+                  <ErrorTextElement>{errors.confirmPassword.message}</ErrorTextElement>
                 )}
               </>
             )}
@@ -261,19 +261,19 @@ export const ProfileCreateScreen: React.FC<ProfileCreateProps> = ({
               }}
             />
 
-            <AppText
+            <AppTextElement
               title="I accept the privacy policy and terms of services"
               fontSizeVariant="caption"
-              fontVariant="medium"></AppText>
+              fontVariant="medium"></AppTextElement>
           </View>
-          <Spacer height={20} />
-          <AppButton
+          <SpacerElement height={20} />
+          <AppButtonElement
             disabled={!agree}
             color="primary"
             onPress={handleSubmit(onSubmit)}>
             Continue
-          </AppButton>
-          <Spacer height={20}></Spacer>
+          </AppButtonElement>
+          <SpacerElement height={20}></SpacerElement>
         </ScrollView>
       </KeyboardAvoidingView>
     </ScrollableLayout>

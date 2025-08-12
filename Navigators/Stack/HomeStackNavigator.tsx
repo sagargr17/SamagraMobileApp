@@ -8,7 +8,7 @@ import React from 'react';
 import {RouteProp, useTheme} from '@react-navigation/native';
 import {CategoryScreen} from '../../Screens/Application/Home/CategoryScreen';
 import {HomeLandingScreen} from '../../Screens/Application/Home/HomeLandingScreen';
-import {MyShopItemsScreen} from '../../Screens/Application/More/MyShopItemsScreen';
+import {MyItemsScreen} from '../../Screens/Application/More/MyItemsScreen';
 
 type HomeStackParamList = {
   HomeLandingScreen: undefined;
@@ -72,7 +72,7 @@ export const HomeStackNavigator: React.FC = () => {
         {screenBuilder([
           {
             screenName: 'ManageServices',
-            component: MyShopItemsScreen,
+            component: MyItemsScreen,
             option: {
               headerTitle: 'Manage Services',
             },

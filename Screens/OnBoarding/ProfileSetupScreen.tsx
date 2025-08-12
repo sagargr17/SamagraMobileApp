@@ -6,10 +6,10 @@ import {
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
-import AppButton from '../../Components/Elements/Button';
+import AppButtonElement from '../../Components/Elements/ButtonElement';
 import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
 import {useTheme} from '@react-navigation/native';
-import {AppText} from '../../Components/Elements/AppText';
+import {AppTextElement} from '../../Components/Elements/AppTextElement';
 import {AreaMapper} from '../../Utilities/CustomMethods';
 import {size} from '../../Prefrences/Prefrences';
 
@@ -53,20 +53,20 @@ export const ProfileSetupScreen: React.FC<ProfileSetupProps> = ({
           />
         </View>
         <View style={styles.content}>
-          <AppButton
+          <AppButtonElement
             color="primary"
             onPress={() => navigation.navigate('ProfileCreateScreen')}>
             Continue
-          </AppButton>
+          </AppButtonElement>
           <Pressable
             onPress={() => {
               navigation.navigate('SignInScreen');
             }}>
-            <AppText
+            <AppTextElement
               customStyle={styles.text}
               fontVariant="regular"
               fontSizeVariant={'caption'}
-              title="Already Have an Account? Log In Now"></AppText>
+              title="Already Have an Account? Log In Now"></AppTextElement>
           </Pressable>
         </View>
       </View>

@@ -5,7 +5,7 @@ import {ListCardSkeleton} from './ListCardSkeleton';
 import {RowFlexLayout} from '../../../Layout/PartationLayout/RowFlexLayout';
 import {size} from '../../../Prefrences/Prefrences';
 import {SkeletonBone} from '../SkeletonBone';
-import {Spacer} from '../../Elements/Spacer';
+import {SpacerElement} from '../../Elements/SpacerElement';
 import {ScrollView} from 'react-native-gesture-handler';
 interface MoreLandingSkeletonProps {}
 
@@ -75,12 +75,12 @@ export const MoreLandingSkeleton: React.FC<MoreLandingSkeletonProps> = ({}) => {
         paddingHorizontal: size.spacing.xs,
       }}>
       <ListCardSkeleton numberOfList={1} numberOfText={2}></ListCardSkeleton>
-      <Spacer height={10}></Spacer>
+      <SpacerElement height={10}></SpacerElement>
       {smallCard}
       {smallCard}
       {/* <Spacer height={10}></Spacer> */}
       <ListCardSkeleton numberOfList={3} numberOfText={2}></ListCardSkeleton>
-      <Spacer height={20}></Spacer>
+      <SpacerElement height={20}></SpacerElement>
       <SkeletonBone
         width={380}
         height={50}

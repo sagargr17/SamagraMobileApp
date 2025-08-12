@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useNavigation, useTheme} from '@react-navigation/native';
-import {AppHeader} from '../../../Components/Organism/AppHeader';
-import {Spacer} from '../../../Components/Elements/Spacer';
-import {OrderBottomSheet} from '../../../Components/Organism/OrderBottomSheet';
-import AppBanner from '../../../Components/Molecules/Global/AppBanner';
+import {AppHeaderOrganism} from '../../../Components/Organism/ApplicationOverLays/AppHeaderOrganism';
+import {SpacerElement} from '../../../Components/Elements/SpacerElement';
+import {OrderBottomSheet} from '../../../Components/Organism/ApplicationOverLays/OrderBottomSheetOrganism';
+import AppBannerMolecule from '../../../Components/Molecules/Global/AppBannerMolecule';
 import {OrderLandingSkeleton} from '../../../Components/Skeletons/Layout/OrderLandingSkeleton';
 import {MapView} from '@maplibre/maplibre-react-native';
 interface BuyModeScreenProps {}
@@ -24,7 +24,7 @@ export const BuyModeScreen: React.FC<BuyModeScreenProps> = ({}) => {
 
   return (
     <>
-      <AppHeader currentPosition="absolute"></AppHeader>
+      <AppHeaderOrganism currentPosition="absolute"></AppHeaderOrganism>
       <MapView style={{flex: 0.7}} />
       <OrderBottomSheet navigation={navigation}></OrderBottomSheet>
     </>

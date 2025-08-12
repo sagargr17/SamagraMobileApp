@@ -16,6 +16,7 @@ query GetPublicItems($endCursor: String) {
         imageUrls
         price
         starRating
+        unit
       }
     }
   }
@@ -35,7 +36,9 @@ query GetPublicItemsById($id: String!) {
       stockQuantity
       description
       starRating
-     
+      user {
+        username
+      }
       comments {
         commentString
         user {
@@ -46,7 +49,6 @@ query GetPublicItemsById($id: String!) {
     }
   }
 }
-
 `);
 
 // ProductCategories
@@ -92,31 +94,6 @@ query GetAllPersonalItems($after: String) {
 }
 `);
 
-// Items accordig to the shop
-// export const GetItemsByShopId = gql(`
-//   query GetPersonalItemsByShopId($shopId: String!, $after:String) {
-//   getItems(shopId: $shopId, after: $after) {
-//     pageInfo {
-//       hasNextPage
-//       hasPreviousPage
-//       startCursor
-//       endCursor
-//     }
-
-//     edges {
-//       node {
-//         id
-//         name
-//         price
-//         isProduct
-//         starRating
-//         stockQuantity
-//         imageUrls
-//       }
-//     }
-//   }
-// }
-//   `);
 
 // Search Queries Api
 export const GetPublicItemsBySearchString = gql(`

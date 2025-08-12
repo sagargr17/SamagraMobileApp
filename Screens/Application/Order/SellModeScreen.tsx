@@ -1,20 +1,20 @@
 import {useTheme} from '@react-navigation/native';
 import React from 'react';
 import {useWindowDimensions} from 'react-native';
-import {AppHeader} from '../../../Components/Organism/AppHeader';
+import {AppHeaderOrganism} from '../../../Components/Organism/ApplicationOverLays/AppHeaderOrganism';
 
 import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
-import {Spacer} from '../../../Components/Elements/Spacer';
-import {ReceivedorderListScreen} from '../ReceivedOrderListScreen';
-import {ReceivedRequestListScreen} from '../ReceivedRequestListScreen';
+import {SpacerElement} from '../../../Components/Elements/SpacerElement';
+import {OrdersScreen as LiveOrderScreen} from './OrdersListScreen';
+import {RequestsScreen as RequestScreen} from './RequestScreen';
 import {CategoryScreen} from '../Home/CategoryScreen';
 interface SellModeScreenProps {}
 
 export const SellModeScreen: React.FC<SellModeScreenProps> = ({}) => {
   const {colors} = useTheme();
   const renderScene = SceneMap({
-    first: ReceivedRequestListScreen,
-    second: ReceivedorderListScreen,
+    first: RequestScreen,
+    second: LiveOrderScreen,
     // third: PendingOrderScreen,
   });
 
@@ -28,8 +28,8 @@ export const SellModeScreen: React.FC<SellModeScreenProps> = ({}) => {
 
   return (
     <>
-      <AppHeader currentPosition="absolute"></AppHeader>
-      <Spacer height={10}></Spacer>
+      <AppHeaderOrganism currentPosition="absolute"></AppHeaderOrganism>
+      <SpacerElement height={10}></SpacerElement>
       <TabView
         lazy={false}
         navigationState={{index, routes}}

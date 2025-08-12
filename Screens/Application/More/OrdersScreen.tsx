@@ -3,13 +3,13 @@ import {useNavigation, useRoute, useTheme} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {ActivityIndicator, Text, View} from 'react-native';
 import {Logos} from '../../../Assets/SVG/Exports/Exports';
-import {AppText} from '../../../Components/Elements/AppText';
-import AppButton from '../../../Components/Elements/Button';
-import {Spacer} from '../../../Components/Elements/Spacer';
-import {ListCard} from '../../../Components/Molecules/Cards/ListCard';
-import {AppBottomSheet} from '../../../Components/Molecules/Global/AppBottomSheet';
-import {AppSerchBar} from '../../../Components/Molecules/Global/AppSerchBar';
-import {SingnlePageInfo} from '../../../Components/Organism/SinglePageInfo';
+import {AppTextElement} from '../../../Components/Elements/AppTextElement';
+import AppButtonElement from '../../../Components/Elements/ButtonElement';
+import {SpacerElement} from '../../../Components/Elements/SpacerElement';
+import {ListCardMolecule} from '../../../Components/Molecules/Cards/ListCardMolecule';
+import {AppBottomSheetMolecule} from '../../../Components/Molecules/Global/AppBottomSheetMolecule';
+import {SerchBarMolecule} from '../../../Components/Molecules/Global/AppSerchBarMolecule';
+import {SingnlePageInfoMolecule} from '../../../Components/Molecules/Global/SinglePageInfo';
 import {ListCardSkeleton} from '../../../Components/Skeletons/Layout/ListCardSkeleton';
 import {ImageNotFound} from '../../../Constants/UI/AssetsUrls';
 import {
@@ -17,7 +17,7 @@ import {
   NoItemInShop,
   NotMentioned,
 } from '../../../Constants/UI/Messages';
-import {getMyOrdersItem} from '../../../GraphQL/Queries/PrivateShopQueries';
+
 import {RowFlexLayout} from '../../../Layout/PartationLayout/RowFlexLayout';
 import {FlatListScreen} from '../../../Layout/ScreenLayout/FlatListScreenLayout';
 import {size} from '../../../Prefrences/Prefrences';
@@ -25,6 +25,7 @@ import DateTimeToAgoTime, {
   AreaMapper,
   titleCase,
 } from '../../../Utilities/CustomMethods';
+import {getMyOrdersItem} from '../../../GraphQL/Queries/OrdersQueries';
 
 interface OrderScreenProps {}
 
@@ -83,19 +84,19 @@ export const OrderScreen: React.FC<OrderScreenProps> = ({}) => {
   if (error) return <Text>Error</Text>;
 
   const emptyNode = (
-    <SingnlePageInfo
+    <SingnlePageInfoMolecule
       icon={<NoItemFound height={AreaMapper({value: 150})} width={'90%'} />}
       detail={{
         title: NoCartItemTitle,
         message: NoItemInShop,
         onButtonPress: () => handleNavigation(),
         buttonTitle: 'Add Item',
-      }}></SingnlePageInfo>
+      }}></SingnlePageInfoMolecule>
   );
 
   const child = (
     <View>
-      <ListCard
+      <ListCardMolecule
         customStyle={{
           height: AreaMapper({value: 100}),
         }}
@@ -121,26 +122,26 @@ export const OrderScreen: React.FC<OrderScreenProps> = ({}) => {
             type: 'regular',
             fontVariant: 'heavy',
           },
-        ]}></ListCard>
-      <Spacer></Spacer>
+        ]}></ListCardMolecule>
+      <SpacerElement></SpacerElement>
       <View>
-        <AppText
+        <AppTextElement
           title="Full Name:"
           fontSizeVariant="title"
-          fontVariant="heavy"></AppText>
-        <AppText title={personalDetail?.fullName ?? NotMentioned}></AppText>
-        <Spacer></Spacer>
-        <AppText
+          fontVariant="heavy"></AppTextElement>
+        <AppTextElement title={personalDetail?.fullName ?? NotMentioned}></AppTextElement>
+        <SpacerElement></SpacerElement>
+        <AppTextElement
           title="Phone:"
           fontSizeVariant="title"
-          fontVariant="heavy"></AppText>
-        <AppText title={personalDetail?.phoneNumber ?? NotMentioned}></AppText>
-        <Spacer></Spacer>
-        <AppText
+          fontVariant="heavy"></AppTextElement>
+        <AppTextElement title={personalDetail?.phoneNumber ?? NotMentioned}></AppTextElement>
+        <SpacerElement></SpacerElement>
+        <AppTextElement
           title="Address:"
           fontSizeVariant="title"
-          fontVariant="heavy"></AppText>
-        <AppText title={personalDetail?.address ?? NotMentioned}></AppText>
+          fontVariant="heavy"></AppTextElement>
+        <AppTextElement title={personalDetail?.address ?? NotMentioned}></AppTextElement>
         {/* <Spacer height={20}></Spacer> */}
         <RowFlexLayout
           customStyle={{
@@ -149,22 +150,22 @@ export const OrderScreen: React.FC<OrderScreenProps> = ({}) => {
             // paddingHorizontal: size.spacing.s,
             paddingVertical: size.spacing.m,
           }}>
-          <AppText
+          <AppTextElement
             title="Note:"
             fontVariant="heavy"
             customStyle={{
               color: colors.primary,
-            }}></AppText>
-          <AppText
+            }}></AppTextElement>
+          <AppTextElement
             title={`"${personalDetail?.message ?? NotMentioned}"`}
             customStyle={{
               marginLeft: size.spacing.xs,
-            }}></AppText>
+            }}></AppTextElement>
         </RowFlexLayout>
 
-        <Spacer height={5}></Spacer>
-        <AppButton onPress={() => console.log('Pressed')}>Completed</AppButton>
-        <Spacer height={10}></Spacer>
+        <SpacerElement height={5}></SpacerElement>
+        <AppButtonElement onPress={() => console.log('Pressed')}>Completed</AppButtonElement>
+        <SpacerElement height={10}></SpacerElement>
       </View>
     </View>
   );
@@ -187,7 +188,7 @@ export const OrderScreen: React.FC<OrderScreenProps> = ({}) => {
         ListEmptyComponent={emptyNode}
         data={data?.getOrders?.edges}
         renderItem={({item, index}) => (
-          <ListCard
+          <ListCardMolecule
             customImageStyle={{
               height: AreaMapper({value: 100}),
             }}
@@ -240,7 +241,7 @@ export const OrderScreen: React.FC<OrderScreenProps> = ({}) => {
                 },
                 fontVariant: 'regular',
               },
-            ]}></ListCard>
+            ]}></ListCardMolecule>
         )}
         ListFooterComponent={
           isFetchingMore ? (
@@ -249,13 +250,13 @@ export const OrderScreen: React.FC<OrderScreenProps> = ({}) => {
         }></FlatListScreen>
 
       {isBottomSheetOpen ? (
-        <AppBottomSheet
+        <AppBottomSheetMolecule
           onClose={() => setIsBottomSheetOpen(!isBottomSheetOpen)}
           pannigGesture={true}
           isOppen={isBottomSheetOpen}
           children={() => {
             return child;
-          }}></AppBottomSheet>
+          }}></AppBottomSheetMolecule>
       ) : null}
     </>
   );

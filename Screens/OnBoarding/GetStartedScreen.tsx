@@ -1,6 +1,6 @@
 import React from 'react';
 import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingStackNavigator';
-import GetStarted from '../../Components/Organism/GetStarted';
+import GetStarted from '../../Components/Organism/OnBoarding/GetStartedOrganism';
 import {TouchableOpacity, View} from 'react-native';
 
 interface OnBoardingScreenProps {

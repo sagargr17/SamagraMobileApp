@@ -5,28 +5,11 @@ import {
 } from '@react-navigation/native-stack';
 import React from 'react';
 
-import {RouteProp, useRoute, useTheme} from '@react-navigation/native';
-import {MoreLandingScreen} from '../../Screens/Application/More/MoreLandingScreen';
-import {StockScreen} from '../../Screens/Application/More/StockScreen';
-import {OrderScreen} from '../../Screens/Application/More/OrdersScreen';
-import {StockUpdateScreen} from '../../Screens/Application/More/StockUpdateScreen';
-import {AddShopScreen} from '../../Screens/Application/AddShopScreen';
-import {MyShopItemsScreen} from '../../Screens/Application/More/MyShopItemsScreen';
-import {titleCase} from '../../Utilities/CustomMethods';
+import { RouteProp, useTheme } from '@react-navigation/native';
+import { MoreLandingScreen } from '../../Screens/Application/More/MoreLandingScreen';
 
 type MoreStackParamList = {
   MoreLandingScreen: undefined;
-  StockScreen: {
-    shopId: string;
-  };
-  StockUpdateScreen: undefined;
-  PendingOrderScreen: {
-    shopId: string;
-  };
-  AddShopScreen: undefined;
-  MyShopItemsScreen: {
-    shopName: string;
-  };
 };
 
 // Its The builder with the
@@ -90,48 +73,6 @@ export const MoreStackNavigator: React.FC = () => {
             option: {
               header: () => null,
             },
-          },
-
-          {
-            screenName: 'PendingOrderScreen',
-            component: OrderScreen,
-            option: {
-              headerTitle: 'Pending Orders',
-            },
-          },
-          {
-            screenName: 'StockScreen',
-            component: StockScreen,
-            option: {
-              headerTitle: "Stock's",
-            },
-          },
-          {
-            screenName: 'StockUpdateScreen',
-            component: StockUpdateScreen,
-            option: {
-              headerTitle: 'Update Your Stock',
-            },
-          },
-          {
-            screenName: 'AddShopScreen',
-            component: AddShopScreen,
-            option: ({route}: {route: any}) => ({
-              title: 'Add Shop',
-            }),
-          },
-          {
-            screenName: 'MyShopItemsScreen',
-            component: MyShopItemsScreen,
-            option: ({route}: {route: any}) => ({
-              title: titleCase('Manage Service'),
-              headerTitleAlign: 'center',
-              headerTitleStyle: {
-                fontFamily: fonts.medium.fontFamily,
-                fontSize: 16,
-              },
-              headerShadowVisible: false,
-            }),
           },
         ])}
       </MoreStackBuilder.Navigator>

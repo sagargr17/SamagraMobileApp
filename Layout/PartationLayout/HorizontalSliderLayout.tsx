@@ -2,7 +2,7 @@ import {useTheme} from '@react-navigation/native';
 import React from 'react';
 import {FlatList, FlatListProps} from 'react-native';
 import {size} from '../../Prefrences/Prefrences';
-import {SectionHeader} from '../../Components/Molecules/Global/SectionHeader';
+import {SectionHeaderMolecule} from '../../Components/Molecules/Global/SectionHeaderMolecule';
 
 interface HorizontalSliderLayoutProps<ItemT> extends FlatListProps<ItemT> {
   headerTitle: string;
@@ -20,10 +20,10 @@ export const HorizontalSliderLayout = <ItemT,>({
 
   return (
     <>
-      <SectionHeader
+      <SectionHeaderMolecule
         onPress={onHeaderPress}
         isIcon={true}
-        title={headerTitle}></SectionHeader>
+        title={headerTitle}></SectionHeaderMolecule>
       <FlatList
         contentContainerStyle={{
           paddingVertical: size.spacing.m,

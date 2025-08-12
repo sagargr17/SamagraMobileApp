@@ -6,7 +6,7 @@ import {FormSkeleton} from '../Components/FormSkeleton';
 import {SearchBarSkeleton} from '../Components/SearchBarSkeleton';
 import {CardHorizontalSkeletonList} from './CardHorizontalSkeletonList';
 import {size} from '../../../Prefrences/Prefrences';
-import {Spacer} from '../../Elements/Spacer';
+import {SpacerElement} from '../../Elements/SpacerElement';
 import {SkeletonBone} from '../SkeletonBone';
 import {TextSkeleton} from '../Components/TextSkeleton';
 interface OrderLandingSkeletonProps {}
@@ -34,21 +34,21 @@ export const OrderLandingSkeleton: React.FC<
           },
         ]}>
         <TextSkeleton height={15} width={100}></TextSkeleton>
-        <Spacer height={20}></Spacer>
+        <SpacerElement height={20}></SpacerElement>
         <CardHorizontalSkeletonList
           listNumber={4}
           height={85}
           width={80}></CardHorizontalSkeletonList>
-        <Spacer height={20}></Spacer>
+        <SpacerElement height={20}></SpacerElement>
         <FormSkeleton></FormSkeleton>
-        <Spacer height={20}></Spacer>
+        <SpacerElement height={20}></SpacerElement>
         <SkeletonBone
           width={380}
           height={50}
           style={{
             borderRadius: size.borderRadius.full,
           }}></SkeletonBone>
-        <Spacer height={20}></Spacer>
+        <SpacerElement height={20}></SpacerElement>
       </View>
     </>
   );

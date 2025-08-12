@@ -8,23 +8,16 @@ import React from 'react';
 import {size} from '../../Prefrences/Prefrences';
 import {AddItemScreen} from '../../Screens/Application/AddItemScreen';
 import {CartScreen} from '../../Screens/Application/CartScreen';
-import {MyShopsScreen} from '../../Screens/Application/More/MyShopsScreen';
-import {ProfileSelectScreen} from '../../Screens/Application/More/ProfileSelectScreen';
-import {OrderSuccessDetailScreen} from '../../Screens/Application/OrderSuccessDetailScreen';
+import {CompleteOrderScreen} from '../../Screens/Application/CompleteOrderScreen';
+import {ItemAddedScreen} from '../../Screens/Application/ItemAddedScreen';
+import {OffersScreen} from '../../Screens/Application/OffersScreen';
 import {PlaceOrderScreen} from '../../Screens/Application/PlaceOrderScreen';
-import {ReceivedOffersListScreen} from '../../Screens/Application/ReceivedOffersListScreen';
-import {ReceivedRequestListScreen} from '../../Screens/Application/ReceivedRequestListScreen';
-import {ReceivedSuccessOrderScreen} from '../../Screens/Application/ReceivedSuccessOrderScreen';
 import {SearchScreen} from '../../Screens/Application/SearchScreen';
-import {ShopCreatedScreen} from '../../Screens/Application/ShopCreatedScreen';
 import {ItemDetailScreen} from '../../Screens/OnBoarding/ItemDetailScreen';
 import {titleCase} from '../../Utilities/CustomMethods';
-import {ItemAddedScreen} from '../../Screens/Application/ItemAddedScreen';
 
 type ApplicationOverlayMoreStackParamList = {
-  ReceivedOrderListScreen: undefined;
-  ReceivedOfferListScreen: undefined;
-  ReceivedSuccessOrderScreen: undefined;
+  OffersScreen: undefined;
   ItemDetailScreen: {
     id: string;
     name: string;
@@ -39,7 +32,7 @@ type ApplicationOverlayMoreStackParamList = {
   OrderScreen: undefined;
   CartScreen: undefined;
   PlaceOrderScreen: undefined;
-  OrderSuccessDetailScreen: undefined;
+  CompleteOrderScreen: undefined;
   SelectProfile: undefined;
   ShopCreatedScreen: {
     shopID: string;
@@ -112,15 +105,8 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
         }}>
         {screenBuilder([
           {
-            screenName: 'ReceivedOrderListScreen',
-            component: ReceivedRequestListScreen,
-            option: {
-              header: () => null,
-            },
-          },
-          {
-            screenName: 'ReceivedOfferListScreen',
-            component: ReceivedOffersListScreen,
+            screenName: 'OffersScreen',
+            component: OffersScreen,
             option: {
               header: () => null,
             },
@@ -151,19 +137,7 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
               headerShadowVisible: false,
             }),
           },
-          {
-            screenName: 'MyShopsScreen',
-            component: MyShopsScreen,
-            option: ({route}: {route: any}) => ({
-              title: titleCase('My Shops'),
-              headerTitleAlign: 'left',
-              headerTitleStyle: {
-                fontFamily: fonts.medium.fontFamily,
-                fontSize: 16,
-              },
-              headerShadowVisible: false,
-            }),
-          },
+
           {
             screenName: 'AddItemScreen',
             component: AddItemScreen,
@@ -188,35 +162,14 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
             }),
           },
           {
-            screenName: 'OrderSuccessDetailScreen',
-            component: OrderSuccessDetailScreen,
+            screenName: 'CompleteOrderScreen',
+            component: CompleteOrderScreen,
 
             option: ({route}: {route: any}) => ({
               title: titleCase('Receipt'),
             }),
           },
-          {
-            screenName: 'ReceivedSuccessOrderScreen',
-            component: ReceivedSuccessOrderScreen,
 
-            option: ({route}: {route: any}) => ({
-              title: titleCase('Receipt'),
-            }),
-          },
-          {
-            screenName: 'SelectProfile',
-            component: ProfileSelectScreen,
-            option: {
-              headerTitle: "Profile's",
-            },
-          },
-          {
-            screenName: 'ShopCreatedScreen',
-            component: ShopCreatedScreen,
-            option: {
-              header: () => null,
-            },
-          },
           {
             screenName: 'ItemAddedScreen',
             component: ItemAddedScreen,

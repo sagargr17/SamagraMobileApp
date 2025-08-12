@@ -3,13 +3,13 @@ import {useNavigation, useTheme} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {FlatList, Text} from 'react-native';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
-import AppButton from '../../Components/Elements/Button';
-import {Spacer} from '../../Components/Elements/Spacer';
-import {ListCard} from '../../Components/Molecules/Cards/ListCard';
-import {AppBottomSheet} from '../../Components/Molecules/Global/AppBottomSheet';
-import {Counter} from '../../Components/Molecules/Global/Counter';
-import {SamagraLoader} from '../../Components/Elements/SamagraLoader';
-import {SingnlePageInfo} from '../../Components/Organism/SinglePageInfo';
+import AppButtonElement from '../../Components/Elements/ButtonElement';
+import {SpacerElement} from '../../Components/Elements/SpacerElement';
+import {ListCardMolecule} from '../../Components/Molecules/Cards/ListCardMolecule';
+import {AppBottomSheetMolecule} from '../../Components/Molecules/Global/AppBottomSheetMolecule';
+import {CounterMolecule} from '../../Components/Molecules/Global/CounterMolecule';
+import {SamagraLoaderElement} from '../../Components/Elements/SamagraLoaderElement';
+import {SingnlePageInfoMolecule} from '../../Components/Molecules/Global/SinglePageInfo';
 import {ListCardSkeleton} from '../../Components/Skeletons/Layout/ListCardSkeleton';
 import {ItemImageNotFound} from '../../Constants/UI/AssetsUrls';
 import {
@@ -21,7 +21,7 @@ import {GetBasketItemsQuery} from '../../GraphQL/Queries/CheckoutQueries';
 import {size} from '../../Prefrences/Prefrences';
 import {BasketItemViewModel} from '../../src/__generated__/graphql';
 import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
-import {postPlaceOrderparams} from '../../StateManagement/Orders/PlaceOrderDetailsParams';
+import {postPlaceOrderparams} from '../../StateManagement/Orders/PlacedOrderDetailsSlice';
 import {AreaMapper, titleRange} from '../../Utilities/CustomMethods';
 import {View} from 'moti';
 
@@ -67,8 +67,7 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
     );
   if (!loading && error) return <Text>{error.message}</Text>;
 
-  console.log('USerLocation....', userLocation?.address);
-
+  // Handle On Checkout Pressed
   const handleOnCheckoutPressPress = (item: BasketItemViewModel | null) => {
     if (userLocation)
       dispatch(
@@ -83,10 +82,9 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
             imageUrl: item?.item?.imageUrls?.[0] ?? ItemImageNotFound,
           },
           sellerDetails: {
-            fullName: user?.username ?? NotMentioned,
-            address: item?.item?.location ?? NotMentioned,
-            shopName: item?.item?.shop?.name ?? NotMentioned,
-            phoneNumber: item?.item?.shop?.phoneNumber ?? '9841232323',
+            fullName: item?.item?.user?.username?.[0] ?? ItemImageNotFound,
+            address: 'butwal',
+            phoneNumber: '9841232323',
           },
           orderDetail: {
             message: 'Fast Gardeennu hai',
@@ -118,7 +116,7 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
         justifyContent: 'center',
         flex: 1,
       }}>
-      <SingnlePageInfo
+      <SingnlePageInfoMolecule
         icon={
           <NoItemFound
             height={AreaMapper({
@@ -131,13 +129,13 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
           message: NoCartItemMessage,
           onButtonPress: () => navigation.goBack(),
           buttonTitle: 'Shop Again !!',
-        }}></SingnlePageInfo>
+        }}></SingnlePageInfoMolecule>
     </View>
   );
 
   const child = (
     <>
-      <ListCard
+      <ListCardMolecule
         containerPressedHandle={() => {
           onHanleImagePress(
             pressedItem?.item.id ?? NotMentioned,
@@ -172,21 +170,21 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
               marginTop: size.spacing.xxs,
             },
           },
-        ]}></ListCard>
-      <Spacer height={5}></Spacer>
-      <Counter
+        ]}></ListCardMolecule>
+      <SpacerElement height={5}></SpacerElement>
+      <CounterMolecule
         setTotal={quantity => {
           setCounterValue(quantity * pressedItem?.item.price);
-        }}></Counter>
-      <Spacer height={25}></Spacer>
-      <AppButton
+        }}></CounterMolecule>
+      <SpacerElement height={25}></SpacerElement>
+      <AppButtonElement
         onPress={() => {
           setBottomSheetOpen(false);
           handleOnCheckoutPressPress(pressedItem);
         }}>
         Checkout
-      </AppButton>
-      <Spacer height={15}></Spacer>
+      </AppButtonElement>
+      <SpacerElement height={15}></SpacerElement>
     </>
   );
 
@@ -208,7 +206,7 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
         }}
         data={data?.getBasketItems?.edges}
         renderItem={({item, index}) => (
-          <ListCard
+          <ListCardMolecule
             isContainerPressed={true}
             containerPressedHandle={() => {
               isBottomSheetOpen === true
@@ -251,18 +249,18 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
                 },
               },
             ]}
-            surfaceLevel={1}></ListCard>
+            surfaceLevel={1}></ListCardMolecule>
         )}
         ListFooterComponent={
           <>
-            <>{isFetchingMore ? <SamagraLoader></SamagraLoader> : null}</>
+            <>{isFetchingMore ? <SamagraLoaderElement></SamagraLoaderElement> : null}</>
           </>
         }></FlatList>
-      <AppBottomSheet
+      <AppBottomSheetMolecule
         onClose={() => setBottomSheetOpen(!isBottomSheetOpen)}
         isOppen={isBottomSheetOpen}
         pannigGesture={true}
-        children={() => child}></AppBottomSheet>
+        children={() => child}></AppBottomSheetMolecule>
     </>
   );
 };

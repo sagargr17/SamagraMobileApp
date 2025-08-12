@@ -2,7 +2,7 @@ import { useTheme } from '@react-navigation/native';
 import React from 'react';
 import { View } from 'react-native';
 import { size } from '../../../Prefrences/Prefrences';
-import { Spacer } from '../../Elements/Spacer';
+import { SpacerElement } from '../../Elements/SpacerElement';
 import { AppHeaderSkeleton } from '../Components/AppHeaderSkeleton';
 import { SearchBarSkeleton } from '../Components/SearchBarSkeleton';
 import { SlidderBannerSkeleton } from '../Components/SlidderBanerSkeleton';
@@ -32,17 +32,17 @@ export const HomeLandingSkeleton: React.FC<HomeLandingSkeletonProps> = ({}) => {
         paddingHorizontal: size.spacing.xs,
       }}>
       <AppHeaderSkeleton></AppHeaderSkeleton>
-      <Spacer height={20}></Spacer>
+      <SpacerElement height={20}></SpacerElement>
       <SearchBarSkeleton></SearchBarSkeleton>
-      <Spacer height={20}></Spacer>
+      <SpacerElement height={20}></SpacerElement>
       <SlidderBannerSkeleton></SlidderBannerSkeleton>
-      <Spacer height={30}></Spacer>
+      <SpacerElement height={30}></SpacerElement>
       <TextSkeleton></TextSkeleton>
-      <Spacer height={10}></Spacer>
+      <SpacerElement height={10}></SpacerElement>
       <CardHorizontalSkeletonList></CardHorizontalSkeletonList>
-      <Spacer height={20}></Spacer>
+      <SpacerElement height={20}></SpacerElement>
       <TextSkeleton></TextSkeleton>
-      <Spacer height={10}></Spacer>
+      <SpacerElement height={10}></SpacerElement>
       <CardVerticleListSkeleton></CardVerticleListSkeleton>
     </View>
   );

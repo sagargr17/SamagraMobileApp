@@ -8,8 +8,8 @@ import {OnBoardingStackNavigationProp} from '../../Navigators/Stack/OnBoardingSt
 import {size} from '../../Prefrences/Prefrences';
 import {useAppSelector} from '../../StateManagement/hooks';
 import {AreaMapper} from '../../Utilities/CustomMethods';
-import {AppText} from '../../Components/Elements/AppText';
-import {Spacer} from '../../Components/Elements/Spacer';
+import {AppTextElement} from '../../Components/Elements/AppTextElement';
+import {SpacerElement} from '../../Components/Elements/SpacerElement';
 
 interface SplashScreenProps {
   navigation: OnBoardingStackNavigationProp<'SplashScreen'>;
@@ -36,15 +36,15 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
       <MotiView>
         <SamagraLogo height={100} width={100} />
       </MotiView>
-      <Spacer height={15}></Spacer>
+      <SpacerElement height={15}></SpacerElement>
       <MotiView>
-        <AppText
+        <AppTextElement
           title="SAMAGRA"
           fontSizeVariant="display"
           fontVariant="bold"
           customStyle={{
             color: colors.primary,
-          }}></AppText>
+          }}></AppTextElement>
       </MotiView>
       <ActivityIndicator
         size={'large'}

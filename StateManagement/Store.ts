@@ -2,8 +2,8 @@ import {configureStore} from '@reduxjs/toolkit';
 import userReducer from './User/UserSlice';
 import loaderReducer from './Error&loadingHandle/LoaderStateSlice';
 import errorReducer from './Error&loadingHandle/ErrorHandlingSlice';
-import sentOrderParamsReducer from './Orders/SentOrderParams';
-import placeOrderParamsReducer from './Orders/PlaceOrderDetailsParams';
+import sentOrderParamsReducer from './Orders/SentOrderDetailSlice';
+import placeOrderParamsReducer from './Orders/PlacedOrderDetailsSlice';
 import selectedItemReducer from './Item/SelectedItemSlice';
 
 export const store = configureStore({

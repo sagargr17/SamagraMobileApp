@@ -1,25 +1,24 @@
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { ActiveBuyerHomeScreen } from '../../../Components/Organism/ActiveBuyerHomeContainer';
-import { ActiveSellerHomeScreen } from '../../../Components/Organism/ActiveSellerHomeContainer';
-import { size } from '../../../Prefrences/Prefrences';
-import { useAppSelector } from '../../../StateManagement/hooks';
+import {StyleSheet} from 'react-native';
+import {BuyerHomeLandingScreen} from '../../../Components/Organism/ApplicationOverLays/Home/BuyerHomeLandingOrganism';
+import {SellerHomeLandingScreen} from '../../../Components/Organism/ApplicationOverLays/Home/SellerHomeLandingOrganism';
+import {size} from '../../../Prefrences/Prefrences';
+import {useAppSelector} from '../../../StateManagement/hooks';
 
 interface HomeLandingScreenProps {}
 
 export const HomeLandingScreen: React.FC<HomeLandingScreenProps> = ({}) => {
-  const navigation: any = useNavigation();
   const isBuyMode = useAppSelector(state => state.user.Profile.isBuyMode);
 
   return (
     <>
       {isBuyMode ? (
-        <ActiveSellerHomeScreen></ActiveSellerHomeScreen>
+        <SellerHomeLandingScreen></SellerHomeLandingScreen>
       ) : (
-        <ActiveBuyerHomeScreen> </ActiveBuyerHomeScreen>
+        <BuyerHomeLandingScreen> </BuyerHomeLandingScreen>
       )}
-    </>   
+    </>
   );
 };
 
@@ -31,3 +30,4 @@ const styles = StyleSheet.create({
     paddingVertical: size.spacing.xs,
   },
 });
+

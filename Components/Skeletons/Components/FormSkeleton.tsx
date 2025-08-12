@@ -4,7 +4,7 @@ import {useTheme} from '@react-navigation/native';
 import {TextSkeleton} from './TextSkeleton';
 import {SkeletonBone} from '../SkeletonBone';
 import {size} from '../../../Prefrences/Prefrences';
-import {Spacer} from '../../Elements/Spacer';
+import {SpacerElement} from '../../Elements/SpacerElement';
 interface FormSkeletonProps {
   FormListNumber?: number;
 }
@@ -25,7 +25,7 @@ export const FormSkeleton: React.FC<FormSkeletonProps> = ({
               marginBottom: size.spacing.xs,
             }}>
             <TextSkeleton width={80}></TextSkeleton>
-            <Spacer height={5}></Spacer>
+            <SpacerElement height={5}></SpacerElement>
             <SkeletonBone
               height={50}
               width={380}

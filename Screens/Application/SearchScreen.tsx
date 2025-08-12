@@ -10,15 +10,16 @@ import {
 } from '../../GraphQL/Queries/ItemQueries';
 import {FlatListScreen} from '../../Layout/ScreenLayout/FlatListScreenLayout';
 import {Text, View} from 'react-native';
-import {ListCard} from '../../Components/Molecules/Cards/ListCard';
+import {ListCardMolecule} from '../../Components/Molecules/Cards/ListCardMolecule';
 import {NotMentioned} from '../../Constants/UI/Messages';
 import {AreaMapper, titleRange} from '../../Utilities/CustomMethods';
 import {ItemImageNotFound} from '../../Constants/UI/AssetsUrls';
-import {SamagraLoader} from '../../Components/Elements/SamagraLoader';
-import {AppSerchBar} from '../../Components/Molecules/Global/AppSerchBar';
+import {SamagraLoaderElement} from '../../Components/Elements/SamagraLoaderElement';
+import {SerchBarMolecule} from '../../Components/Molecules/Global/AppSerchBarMolecule';
 import {size} from '../../Prefrences/Prefrences';
 import {useDispatch} from 'react-redux';
 import {setItemSelected} from '../../StateManagement/User/UserSlice';
+import {showLoader} from '../../StateManagement/Error&loadingHandle/LoaderStateSlice';
 interface SearchScreenProps {}
 
 export const SearchScreen: React.FC<SearchScreenProps> = () => {
@@ -112,10 +113,20 @@ export const SearchScreen: React.FC<SearchScreenProps> = () => {
           scrollEnabled
           data={publicItems?.getPublicItems?.edges}
           renderItem={({item, index}) => (
-            <ListCard
+            <ListCardMolecule
               onImagePress={() => {
-                if (item.node?.name && item.node.id) {
-                }
+                dispatch(showLoader());
+                navigation.navigate('ApplicationOverlay', {
+                  screen: 'ItemDetailScreen',
+                  params: {
+                    name: item.node?.name,
+                    id: item.node?.id,
+                  },
+                });
+              }}
+              customImageStyle={{
+                height: AreaMapper({value: 95}),
+                width: AreaMapper({value: 85}),
               }}
               id={item?.node?.id ?? NotMentioned}
               key={index}
@@ -123,32 +134,30 @@ export const SearchScreen: React.FC<SearchScreenProps> = () => {
               list={[
                 {
                   value: titleRange(item?.node?.name ?? NotMentioned),
-                  type: 'regular',
-                  fontVariant: 'bold',
+                  type: 'title',
+                  fontVariant: 'medium',
                 },
                 {
-                  value: titleRange(`Npr.${item?.node?.price ?? NotMentioned}`),
-                  type: 'caption',
-                  fontVariant: 'medium',
+                  value: `Npr.${item?.node?.price ?? NotMentioned} per ${
+                    item?.node?.unit ?? NotMentioned
+                  }  `,
+                  type: 'regular',
                 },
 
                 {
-                  value: titleRange(`Qty: qwewqe`),
-                  type: 'caption',
-                  fontVariant: 'medium',
-                },
-                {
-                  value: titleRange(
-                    'asdsad',
-                    //   `${item?.node?. === true ? 'Product' : 'Service'}`,
-                  ),
-                  type: 'caption',
-                  fontVariant: 'medium',
+                  value: titleRange(`${'House Keeping'}`),
+                  type: 'regular',
+
                   style: {
                     color: '#7ba5e8',
                   },
                 },
-              ]}></ListCard>
+              ]}
+              customStyle={{
+                paddingVertical: size.spacing.xs,
+                paddingHorizontal: size.spacing.m,
+                backgroundColor: colors.card,
+              }}></ListCardMolecule>
           )}></FlatListScreen>
       </>
       <View
@@ -160,12 +169,12 @@ export const SearchScreen: React.FC<SearchScreenProps> = () => {
             marginHorizontal: size.spacing.xxs,
           },
         ]}>
-        <AppSerchBar
+        <SerchBarMolecule
           style={{
             borderWidth: size.borderWidth.s,
             borderColor: colors.border,
           }}
-          onPress={() => {}}></AppSerchBar>
+          onPress={() => {}}></SerchBarMolecule>
       </View>
     </>
   );
