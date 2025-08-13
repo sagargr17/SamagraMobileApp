@@ -6,13 +6,13 @@ import {AreaMapper} from '../../../Utilities/CustomMethods';
 import {useTheme} from '@react-navigation/native';
 import {InputElement} from '../../Elements/InputElement';
 import {Icon} from 'react-native-paper';
-interface CommentCardProps {
+interface CommentCardMoleculeProps {
   commentor: string;
   commentDescription: string;
   starter?: boolean;
 }
 
-export const CommentCardMolecule: React.FC<CommentCardProps> = ({
+export const CommentCardMolecule: React.FC<CommentCardMoleculeProps> = ({
   commentor,
   commentDescription,
   starter = false,

@@ -51,10 +51,10 @@ export const ItemMiniCardMolecule: React.FC<ItemMiniCardMoleculeProps> = ({
         {
           backgroundColor: colors.card,
           marginTop: size.spacing.s,
-          borderWidth: size.borderWidth.xs,
+          borderWidth: 1,
           borderColor: colors.border,
         },
-        size.elevation.xs,
+        // size.elevation.s,
       ]}>
       <View
         style={{
@@ -97,9 +97,10 @@ export const ItemMiniCardMolecule: React.FC<ItemMiniCardMoleculeProps> = ({
               }}
               fontVariant="bold"
               fontSizeVariant={'title'}
-              title={`₹ ${price}`}
+              title={`Npr.${price}`}
             />
-            <RatingElement ratingNumber={Math.floor(Math.random() * 5)}></RatingElement>
+            <RatingElement
+              ratingNumber={Math.floor(Math.random() * 5)}></RatingElement>
           </View>
         </View>
       </View>
@@ -110,11 +111,12 @@ export const ItemMiniCardMolecule: React.FC<ItemMiniCardMoleculeProps> = ({
 const styles = StyleSheet.create({
   card: {
     width: AreaMapper({
-      value: 180,
+      value: 175,
       scaleBy: 'width',
     }),
     borderRadius: size.borderRadius.l,
     height: 203,
+    marginRight: size.spacing.s,
   },
 
   imageContainer: {
@@ -125,7 +127,7 @@ const styles = StyleSheet.create({
   image: {
     height: 135,
     width: AreaMapper({
-      value: 179,
+      value: 173,
       scaleBy: 'width',
     }),
     borderTopRightRadius: size.borderRadius.l,

@@ -36,7 +36,7 @@ export const GeneralCardMolecule: React.FC<GeneralCardMoleculeProps> = ({
   const navigation: any = useNavigation();
 
   return (
-    <TouchableOpacity style={[containerStyle]}>
+    <TouchableOpacity style={[containerStyle]} onPress={onPress}>
       {typeof frame === 'string' ? (
         <FastImage
           style={{

@@ -10,13 +10,17 @@ import {CategoryScreen} from '../../Screens/Application/Home/CategoryScreen';
 import {HomeLandingScreen} from '../../Screens/Application/Home/HomeLandingScreen';
 import {MyItemsScreen} from '../../Screens/Application/More/MyItemsScreen';
 import {CategoryScreenItems} from '../../Screens/Application/Home/CategoryItemsScreen';
+import {titleCase} from '../../Utilities/CustomMethods';
 
 type HomeStackParamList = {
   HomeLandingScreen: undefined;
   CategoriesScreen: undefined;
   AddServiceScreen: undefined;
   ManageServices: undefined;
-  CategoriesItems: undefined;
+  CategoriesItems: {
+    title: string;
+    categoryId: string;
+  };
 };
 
 export const HomeStackNavigator: React.FC = () => {
@@ -97,9 +101,15 @@ export const HomeStackNavigator: React.FC = () => {
           {
             screenName: 'CategoriesItems',
             component: CategoryScreenItems,
-            option: {
-              headerTitle: 'Categories',
-            },
+            option: ({route}: {route: any}) => ({
+              title: route.params.title,
+              headerTitleAlign: 'center',
+              headerTitleStyle: {
+                fontFamily: fonts.medium.fontFamily,
+                fontSize: 16,
+              },
+              headerShadowVisible: false,
+            }),
           },
         ])}
       </HomeStackBuilder.Navigator>

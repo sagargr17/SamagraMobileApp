@@ -71,7 +71,7 @@ export const CardSliderMoleCule: React.FC<CardSliderMoleCuleProps> = ({
             ]}>
             <GeneralCardMolecule
               frame={item.frame}
-              onPress={() => cardDetail[0].onPress()}
+              onPress={() => item.onPress()}
               key={index}
               title={item.title}
               comment={item.comment}

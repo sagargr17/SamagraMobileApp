@@ -1,4 +1,4 @@
-import {useTheme} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 import React from 'react';
 import {Alert} from 'react-native';
 import {Logos} from '../../../../Assets/SVG/Exports/Exports';
@@ -17,6 +17,7 @@ interface PopularSevicesProps {}
 export const PopularSevices: React.FC<PopularSevicesProps> = ({}) => {
   const {colors} = useTheme();
   const {Electric, HouseKeeping, Plumbing} = Logos;
+  const navigation = useNavigation<any>();
 
   const data: cardDetail[] = [
     {
@@ -26,7 +27,12 @@ export const PopularSevices: React.FC<PopularSevicesProps> = ({}) => {
           height={AreaMapper({value: 240, scaleBy: 'height'})}
           width={AreaMapper({value: 240, scaleBy: 'width'})}></Electric>
       ),
-      onPress: () => Alert.alert('Wiree'),
+      onPress: () => {
+        navigation.navigate('CategoriesItems', {
+          title: 'Wire & Plumbing',
+          categoryId: '1',
+        });
+      },
       comment: '4.8 · 1200+ reviews',
     },
     {
@@ -36,7 +42,12 @@ export const PopularSevices: React.FC<PopularSevicesProps> = ({}) => {
           height={AreaMapper({value: 240, scaleBy: 'height'})}
           width={AreaMapper({value: 240, scaleBy: 'width'})}></HouseKeeping>
       ),
-      onPress: () => Alert.alert('<<'),
+      onPress: () => {
+        navigation.navigate('CategoriesItems', {
+          title: 'House Keeping',
+          categoryId: '2',
+        });
+      },
       comment: '4.8 · 1200+ reviews',
     },
 
@@ -47,7 +58,12 @@ export const PopularSevices: React.FC<PopularSevicesProps> = ({}) => {
           height={AreaMapper({value: 240, scaleBy: 'height'})}
           width={AreaMapper({value: 240, scaleBy: 'width'})}></Plumbing>
       ),
-      onPress: () => Alert.alert('<<'),
+      onPress: () => {
+        navigation.navigate('CategoriesItems', {
+          title: 'Plumbing',
+          categoryId: '3',
+        });
+      },
       comment: '4.8 · 1200+ reviews',
     },
   ];
