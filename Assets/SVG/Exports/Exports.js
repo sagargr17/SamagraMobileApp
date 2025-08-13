@@ -42,6 +42,8 @@ import CarWash from '../SVGImages/CarWash';
 import Rating1 from '../SVGImages/Rating1';
 import Rating2 from '../SVGImages/Rating2';
 import Rating3 from '../SVGImages/Rating3';
+import Checkout from '../SVGImages/Checkout';
+import Delete from '../SVGImages/Delete';
 
 export const Logos = {
   ActiveLiveIcon,
@@ -87,5 +89,7 @@ export const Logos = {
   Rating1,
   Rating2,
   Rating3,
-  HouseKeep
+  HouseKeep,
+  Checkout,
+  Delete,
 };

@@ -124,7 +124,7 @@ export const AppFormOrganism = <TFormValues extends FieldValues>({
               onPress={handleSubmit(onFormSubmit)}
               style={[
                 {
-                  marginTop: size.spacing.s,
+                  marginTop: size.spacing.xs,
                 },
               ]}
               color="primary">

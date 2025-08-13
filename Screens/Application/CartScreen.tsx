@@ -1,14 +1,15 @@
 import {NetworkStatus, useQuery} from '@apollo/client';
 import {useNavigation, useTheme} from '@react-navigation/native';
+import {View} from 'moti';
 import React, {useState} from 'react';
-import {FlatList, Text} from 'react-native';
+import {Alert, FlatList, Text, TouchableHighlight} from 'react-native';
 import {Logos} from '../../Assets/SVG/Exports/Exports';
 import AppButtonElement from '../../Components/Elements/ButtonElement';
+import {SamagraLoaderElement} from '../../Components/Elements/SamagraLoaderElement';
 import {SpacerElement} from '../../Components/Elements/SpacerElement';
 import {ListCardMolecule} from '../../Components/Molecules/Cards/ListCardMolecule';
 import {AppBottomSheetMolecule} from '../../Components/Molecules/Global/AppBottomSheetMolecule';
 import {CounterMolecule} from '../../Components/Molecules/Global/CounterMolecule';
-import {SamagraLoaderElement} from '../../Components/Elements/SamagraLoaderElement';
 import {SingnlePageInfoMolecule} from '../../Components/Molecules/Global/SinglePageInfo';
 import {ListCardSkeleton} from '../../Components/Skeletons/Layout/ListCardSkeleton';
 import {ItemImageNotFound} from '../../Constants/UI/AssetsUrls';
@@ -19,11 +20,17 @@ import {
 } from '../../Constants/UI/Messages';
 import {GetBasketItemsQuery} from '../../GraphQL/Queries/CheckoutQueries';
 import {size} from '../../Prefrences/Prefrences';
-import {BasketItemViewModel} from '../../src/__generated__/graphql';
+import {
+  BasketItemViewModel,
+  ItemViewModel,
+} from '../../src/__generated__/graphql';
 import {useAppDispatch, useAppSelector} from '../../StateManagement/hooks';
 import {postPlaceOrderparams} from '../../StateManagement/Orders/PlacedOrderDetailsSlice';
 import {AreaMapper, titleRange} from '../../Utilities/CustomMethods';
-import {View} from 'moti';
+import {RowFlexLayout} from '../../Layout/PartationLayout/RowFlexLayout';
+import {Icon} from 'react-native-paper';
+import {JumpingTransition} from 'react-native-reanimated';
+import {shouldCanonizeResults} from '@apollo/client/cache/inmemory/helpers';
 
 interface CartScreenProps {}
 
@@ -38,6 +45,7 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
   const [counterValue, setCounterValue] = useState<number | null>();
   const [pressedItem, setPressedItem] = useState<BasketItemViewModel | any>();
   const [isBottomSheetOpen, setBottomSheetOpen] = useState<boolean>(false);
+  const {Delete, Checkout} = Logos;
 
   const {data, loading, error, networkStatus, fetchMore} = useQuery(
     GetBasketItemsQuery,
@@ -53,8 +61,6 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
     },
   );
 
-  console.log('DATA', data);
-
   const isLoadingInitialData =
     loading && !data && networkStatus === NetworkStatus.loading;
 
@@ -63,37 +69,35 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
 
   if (isLoadingInitialData)
     return (
-      <ListCardSkeleton numberOfList={8} numberOfText={3}></ListCardSkeleton>
+      <ListCardSkeleton numberOfList={8} numberOfText={2}></ListCardSkeleton>
     );
   if (!loading && error) return <Text>{error.message}</Text>;
 
   // Handle On Checkout Pressed
-  const handleOnCheckoutPressPress = (item: BasketItemViewModel | null) => {
+  const handleOnCheckoutPressPress = (item: any) => {
+    console.log('Item<<<', item?.item);
+
     if (userLocation)
       dispatch(
         postPlaceOrderparams({
           itemDetails: {
-            price: item?.item?.price ?? NotMentioned,
+            price: item?.price ?? NotMentioned,
             location: userLocation.address ?? NotMentioned,
-            description: item?.item?.description ?? NotMentioned,
+            description: item?.description ?? NotMentioned,
             requiredTime: '4hr',
-            name: item?.item?.name ?? NotMentioned,
+            name: item?.name ?? NotMentioned,
             category: '1',
-            imageUrl: item?.item?.imageUrls?.[0] ?? ItemImageNotFound,
+            imageUrl: item?.imageUrls?.[0] ?? ItemImageNotFound,
           },
           sellerDetails: {
-            fullName: item?.item?.user?.username?.[0] ?? ItemImageNotFound,
+            fullName: item?.user?.username ?? 'Ram Dai',
             address: 'butwal',
             phoneNumber: '9841232323',
           },
           orderDetail: {
             message: 'Fast Gardeennu hai',
-            orderQuantity: `${
-              counterValue
-                ? counterValue
-                : item?.item?.price / (counterValue ? item?.item?.price : 1)
-            }`,
-            itemID: item?.item?.id ?? NotMentioned,
+            orderQuantity: `1`,
+            itemID: item?.id ?? NotMentioned,
           },
         }),
       );
@@ -133,59 +137,37 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
     </View>
   );
 
-  const child = (
-    <>
-      <ListCardMolecule
-        containerPressedHandle={() => {
-          onHanleImagePress(
-            pressedItem?.item.id ?? NotMentioned,
-            pressedItem?.item?.name ?? NotMentioned,
-          );
-        }}
-        onImagePress={() => {
-          setBottomSheetOpen(!isBottomSheetOpen);
-          onHanleImagePress(
-            pressedItem?.item.id ?? NotMentioned,
-            pressedItem?.item?.name ?? NotMentioned,
-          );
-        }}
-        imageUrl={pressedItem?.item?.imageUrls?.[0] ?? ItemImageNotFound}
-        id={pressedItem?.item?.id ?? NotMentioned}
-        list={[
-          {
-            value: titleRange(pressedItem?.item?.name),
-            type: 'regular',
-            fontVariant: 'bold',
-          },
-          {
-            value: `Npr.${pressedItem?.item?.price ?? NotMentioned}`,
-            type: 'regular',
-          },
-          {
-            value: `Total : NPR.${counterValue ?? pressedItem?.item?.price}`,
-            type: 'title',
-            fontVariant: 'heavy',
-            style: {
-              color: colors.primary,
-              marginTop: size.spacing.xxs,
-            },
-          },
-        ]}></ListCardMolecule>
-      <SpacerElement height={5}></SpacerElement>
-      <CounterMolecule
-        setTotal={quantity => {
-          setCounterValue(quantity * pressedItem?.item.price);
-        }}></CounterMolecule>
-      <SpacerElement height={25}></SpacerElement>
-      <AppButtonElement
-        onPress={() => {
-          setBottomSheetOpen(false);
-          handleOnCheckoutPressPress(pressedItem);
+  const rightHandElements = (item: any) => (
+    <RowFlexLayout
+      style={{
+        justifyContent: 'space-around',
+        flexDirection: 'row',
+        marginRight: size.spacing.xs,
+      }}>
+      <TouchableHighlight
+        underlayColor={colors.card}
+        onPress={() => {}}
+        style={{
+          marginRight: size.spacing.l,
+          zIndex: 100,
         }}>
-        Checkout
-      </AppButtonElement>
-      <SpacerElement height={15}></SpacerElement>
-    </>
+        <Delete
+          height={size.iconSize.medium}
+          width={size.iconSize.medium}></Delete>
+      </TouchableHighlight>
+      <TouchableHighlight
+        underlayColor={colors.card}
+        onPress={() => {
+          handleOnCheckoutPressPress(item);
+        }}
+        style={{
+          zIndex: 100,
+        }}>
+        <Checkout
+          height={size.iconSize.medium}
+          width={size.iconSize.medium}></Checkout>
+      </TouchableHighlight>
+    </RowFlexLayout>
   );
 
   return (
@@ -202,50 +184,43 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={emptyElement}
         contentContainerStyle={{
-          paddingHorizontal: size.spacing.xxs,
+          paddingHorizontal: size.spacing.s,
         }}
         data={data?.getBasketItems?.edges}
         renderItem={({item, index}) => (
           <ListCardMolecule
-            isContainerPressed={true}
-            containerPressedHandle={() => {
-              isBottomSheetOpen === true
-                ? null
-                : setBottomSheetOpen(!isBottomSheetOpen);
-              if (item && item.node) {
-                setCounterValue(null);
-                setPressedItem(item.node);
-              }
+            onImagePress={() => {
+              if (item.node?.item?.id && item.node.item?.name)
+                onHanleImagePress(item.node?.item?.id, item.node?.item?.name);
             }}
+            child={rightHandElements(item.node?.item)}
+            customImageStyle={{
+              height: AreaMapper({
+                value: 80,
+              }),
+              width: AreaMapper({
+                value: 80,
+              }),
+              marginVertical: size.spacing.xs + 2,
+            }}
+            isContainerPressed={false}
             imageUrl={item?.node?.item?.imageUrls?.[0] ?? ItemImageNotFound}
             id={item?.node?.id ?? 'Not Mentioned'}
             key={index}
             customStyle={{
-              marginBottom: size.spacing.xxs,
+              padding: size.spacing.xs + 2,
             }}
             list={[
               {
                 value: titleRange(item?.node?.item?.name ?? NotMentioned),
-                type: 'regular',
-                fontVariant: 'bold',
+                type: 'title',
+                fontVariant: 'heavy',
               },
               {
                 value: `Npr.${item.node?.item?.price ?? NotMentioned}`,
                 type: 'regular',
-              },
-              {
-                value: titleRange(
-                  `${
-                    item?.node?.item?.isProduct === true ? 'Product' : 'Service'
-                  }`,
-                ),
-                type: 'caption',
-                fontVariant: 'medium',
                 style: {
-                  color:
-                    item?.node?.item?.isProduct === true
-                      ? colors.primary
-                      : '#7ba5e8',
+                  color: '#4573A1',
                 },
               },
             ]}
@@ -253,14 +228,13 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
         )}
         ListFooterComponent={
           <>
-            <>{isFetchingMore ? <SamagraLoaderElement></SamagraLoaderElement> : null}</>
+            <>
+              {isFetchingMore ? (
+                <SamagraLoaderElement></SamagraLoaderElement>
+              ) : null}
+            </>
           </>
         }></FlatList>
-      <AppBottomSheetMolecule
-        onClose={() => setBottomSheetOpen(!isBottomSheetOpen)}
-        isOppen={isBottomSheetOpen}
-        pannigGesture={true}
-        children={() => child}></AppBottomSheetMolecule>
     </>
   );
 };

@@ -28,9 +28,9 @@ export const ProfileCardMolecule: React.FC<ProfileCardMoleculeProps> = ({
     <View
       style={[
         style.wrapper,
-        size.elevation.xs,
+        // size.elevation.xs,
         {
-          backgroundColor: colors.card,
+          // backgroundColor: colors.card,
           borderRadius: size.borderRadius.m,
         },
         customStyle,

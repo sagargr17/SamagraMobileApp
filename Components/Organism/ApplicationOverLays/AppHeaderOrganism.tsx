@@ -24,54 +24,6 @@ export const AppHeaderOrganism: React.FC<AppHeaderOrganismProps> = ({
   const dispatch = useAppDispatch();
   const location = useAppSelector(state => state.user.userLocation?.address);
 
-  // useEffect(() => {
-  //   const reverseGeoCordinationHandle = async (
-  //     latitude: number,
-  //     longitude: number,
-  //   ) => {
-  //     console.log('API Calling', latitude, longitude);
-  //     // try {
-  //     //   let result = await fetch(
-  //     //     `https://us1.api-bdc.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`,
-  //     //   );
-  //     //   const finalResult = await result.json();
-
-  //     //   if (finalResult)
-  //     //     dispatch(
-  //     //       setUserLocation({
-  //     //         lat: latitude,
-  //     //         long: longitude,
-  //     //         address: titleRange(
-  //     //           `${finalResult.city} ${finalResult.principalSubdivision}`,
-  //     //         ),
-  //     //       }),
-  //     //     );
-  //     // } catch (e) {
-  //     //   showMessage(
-  //     //     responseTheme(
-  //     //       'Location Couldnot Found',
-  //     //       'We Will Reach You Later',
-  //     //       'danger',
-  //     //     ),
-  //     //   );
-  //     // }
-  //   };
-
-  //   // Configurations
-  //   const config: any = {
-  //     skipPermissionRequests: false, // Set to true if you handle permissions elsewhere
-  //     authorizationLevel: 'whenInUse', // iOS only: 'whenInUse' or 'always'
-  //     locationProvider: 'fused', // Android only: 'auto', 'gps', 'network', or 'fused'
-  //   };
-  //   Geolocation.setRNConfiguration(config);
-  //   Geolocation.getCurrentPosition(result => {
-  //     reverseGeoCordinationHandle(
-  //       result.coords.latitude,
-  //       result.coords.longitude,
-  //     );
-  //   });
-  // }, []);
-
   return (
     <>
       <SpacerElement></SpacerElement>
@@ -102,6 +54,11 @@ export const AppHeaderOrganism: React.FC<AppHeaderOrganismProps> = ({
         </RowFlexLayout>
 
         <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('ApplicationOverlay', {
+              screen: 'CartScreen',
+            })
+          }
           style={[
             {
               borderWidth: size.borderWidth.xs,
@@ -110,6 +67,7 @@ export const AppHeaderOrganism: React.FC<AppHeaderOrganismProps> = ({
               paddingHorizontal: size.spacing.s - 1,
               paddingVertical: size.spacing.xs + 5,
               backgroundColor: colors.background,
+              borderColor: colors.border,
             },
 
             size.elevation.s,

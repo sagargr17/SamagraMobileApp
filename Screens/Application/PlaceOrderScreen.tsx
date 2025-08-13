@@ -24,7 +24,11 @@ import {
   NoItemFound,
   NotMentioned,
 } from '../../Constants/UI/Messages';
-import {titleRange} from '../../Utilities/CustomMethods';
+import DateTimeToAgoTime, {
+  AreaMapper,
+  titleCase,
+  titleRange,
+} from '../../Utilities/CustomMethods';
 import {ScrollView} from 'react-native-gesture-handler';
 import {CounterMolecule} from '../../Components/Molecules/Global/CounterMolecule';
 import {showMessage} from 'react-native-flash-message';
@@ -63,7 +67,7 @@ export const PlaceOrderScreen: React.FC<PlaceOrderScreenProps> = ({}) => {
           fullName: fullName,
           address: address,
           phoneNumber: phoneNumber,
-          quantity: quantity,
+          quantity: 1,
           message: message,
           itemId: itemID,
         },
@@ -100,55 +104,64 @@ export const PlaceOrderScreen: React.FC<PlaceOrderScreenProps> = ({}) => {
         title={'Seller Details :'}
         fontVariant="bold"
         fontSizeVariant="title"></AppTextElement>
+      <SpacerElement></SpacerElement>
       <Divider
         style={{
           height: 1,
         }}></Divider>
       <SpacerElement></SpacerElement>
-      <View
-        style={{
-          paddingHorizontal: size.spacing.s,
-        }}>
+      <View>
         <RowFlexLayout
-          customStyle={{
-            justifyContent: 'space-between',
-          }}>
-          <AppTextElement
-            title={'Shop name'}
-            fontVariant="regular"
-            fontSizeVariant="regular"></AppTextElement>
-          <AppTextElement title={placeOrderDetails.sellerDetails.fullName}></AppTextElement>
-        </RowFlexLayout>
-        <RowFlexLayout
-          customStyle={{
-            justifyContent: 'space-between',
-          }}>
+          customStyle={[
+            {
+              justifyContent: 'space-between',
+            },
+          ]}>
           <AppTextElement
             title={'Seller name'}
-            fontVariant="regular"
+            fontVariant="medium"
             fontSizeVariant="regular"></AppTextElement>
-          <AppTextElement title={placeOrderDetails.sellerDetails.fullName}></AppTextElement>
+          <AppTextElement
+            fontVariant="medium"
+            title={titleRange(
+              placeOrderDetails.sellerDetails.fullName,
+            )}></AppTextElement>
         </RowFlexLayout>
+        <SpacerElement height={4}></SpacerElement>
         <RowFlexLayout
-          customStyle={{
-            justifyContent: 'space-between',
-          }}>
+          customStyle={[
+            {
+              justifyContent: 'space-between',
+            },
+          ]}>
           <AppTextElement
             title={'Address'}
-            fontVariant="regular"
-            fontSizeVariant="regular"></AppTextElement>
-          <AppTextElement title={placeOrderDetails.sellerDetails.address}></AppTextElement>
+            fontVariant="medium"
+            fontSizeVariant="title"></AppTextElement>
+          <AppTextElement
+            fontVariant="medium"
+            fontSizeVariant="regular"
+            title={titleCase(
+              placeOrderDetails.sellerDetails.address,
+            )}></AppTextElement>
         </RowFlexLayout>
+        <SpacerElement height={4}></SpacerElement>
         <RowFlexLayout
-          customStyle={{
-            justifyContent: 'space-between',
-          }}>
+          customStyle={[
+            {
+              justifyContent: 'space-between',
+            },
+          ]}>
           <AppTextElement
-            title={'Phone Number'}
-            fontVariant="regular"
-            fontSizeVariant="regular"></AppTextElement>
+            fontVariant="medium"
+            fontSizeVariant="regular"
+            title={'Phone Number'}></AppTextElement>
           <AppTextElement
-            title={placeOrderDetails.sellerDetails.phoneNumber}></AppTextElement>
+            fontVariant="medium"
+            fontSizeVariant="regular"
+            title={
+              placeOrderDetails.sellerDetails.phoneNumber
+            }></AppTextElement>
         </RowFlexLayout>
       </View>
     </View>
@@ -160,18 +173,21 @@ export const PlaceOrderScreen: React.FC<PlaceOrderScreenProps> = ({}) => {
         title={'Payment Method'}
         fontVariant="bold"
         fontSizeVariant="title"></AppTextElement>
+      <SpacerElement></SpacerElement>
       <Divider
         style={{
           height: 1,
         }}></Divider>
       <SpacerElement></SpacerElement>
       <RowFlexLayout
-        customStyle={{
-          justifyContent: 'space-between',
-        }}>
+        customStyle={[
+          {
+            justifyContent: 'space-between',
+          },
+        ]}>
         <AppTextElement
           title={'Cash on delivery'}
-          fontVariant="regular"
+          fontVariant="medium"
           fontSizeVariant="regular"></AppTextElement>
         <RadioButton
           color={colors.primary}
@@ -186,7 +202,7 @@ export const PlaceOrderScreen: React.FC<PlaceOrderScreenProps> = ({}) => {
   const orderSummary = (
     <View
       style={{
-        marginHorizontal: size.spacing.xs,
+        marginHorizontal: size.spacing.xxs,
       }}>
       <AppTextElement
         title={'Order Summary'}
@@ -198,44 +214,76 @@ export const PlaceOrderScreen: React.FC<PlaceOrderScreenProps> = ({}) => {
         style={{
           borderRadius: size.borderRadius.s,
           backgroundColor: colors.card,
-          padding: size.spacing.m,
+          paddingHorizontal: size.spacing.xs,
+          paddingVertical: size.spacing.xs,
         }}>
         <RowFlexLayout
-          customStyle={{
-            justifyContent: 'space-between',
-          }}>
+          customStyle={[
+            {
+              justifyContent: 'space-between',
+            },
+          ]}>
           <AppTextElement
-            title={'Order Quantity'}
-            fontVariant="regular"
+            title={'Order Date'}
+            fontVariant="medium"
             fontSizeVariant="regular"></AppTextElement>
           <SpacerElement height={30}></SpacerElement>
           <AppTextElement
+            fontVariant="medium"
+            fontSizeVariant="regular"
+            title={`${new Date().getFullYear()} - ${new Date().getMonth()}-${new Date().getDate()} `}></AppTextElement>
+          {/* <Counter setTotal={() => {}}></Counter> */}
+        </RowFlexLayout>
+        <RowFlexLayout
+          customStyle={[
+            {
+              justifyContent: 'space-between',
+            },
+          ]}>
+          <AppTextElement
+            title={'Message'}
+            fontVariant="medium"
+            fontSizeVariant="regular"></AppTextElement>
+          <SpacerElement height={30}></SpacerElement>
+          <AppTextElement
+            fontVariant="medium"
+            fontSizeVariant="regular"
             title={
-              'Qty : ' + placeOrderDetails.orderDetail.orderQuantity
+              placeOrderDetails.orderDetail.message ?? 'No Messages'
             }></AppTextElement>
           {/* <Counter setTotal={() => {}}></Counter> */}
         </RowFlexLayout>
         <RowFlexLayout
-          customStyle={{
-            justifyContent: 'space-between',
-          }}>
+          customStyle={[
+            {
+              justifyContent: 'space-between',
+            },
+          ]}>
           <AppTextElement
             title={'Shipping Address'}
-            fontVariant="regular"
+            fontVariant="medium"
             fontSizeVariant="regular"></AppTextElement>
           <SpacerElement height={30}></SpacerElement>
-          <AppTextElement title={titleRange(location ?? NotMentioned, 22)}></AppTextElement>
+          <AppTextElement
+            fontVariant="medium"
+            fontSizeVariant="regular"
+            title={titleRange(location ?? NotMentioned, 22)}></AppTextElement>
         </RowFlexLayout>
         <RowFlexLayout
-          customStyle={{
-            justifyContent: 'space-between',
-          }}>
+          customStyle={[
+            {
+              justifyContent: 'space-between',
+            },
+          ]}>
           <AppTextElement
             title={'Taxes'}
-            fontVariant="regular"
+            fontVariant="medium"
             fontSizeVariant="regular"></AppTextElement>
           <SpacerElement height={30}></SpacerElement>
-          <AppTextElement title={'Rs.10'}></AppTextElement>
+          <AppTextElement
+            fontVariant="medium"
+            fontSizeVariant="regular"
+            title={'Rs.10'}></AppTextElement>
         </RowFlexLayout>
       </Surface>
     </View>
@@ -243,22 +291,21 @@ export const PlaceOrderScreen: React.FC<PlaceOrderScreenProps> = ({}) => {
 
   const totalPriceDetail = (
     <RowFlexLayout
-      customStyle={{
-        justifyContent: 'space-between',
-        paddingHorizontal: size.spacing.xs,
-      }}>
+      customStyle={[
+        {
+          justifyContent: 'space-between',
+          paddingHorizontal: size.spacing.s,
+          paddingVertical: size.spacing.s,
+        },
+      ]}>
       <AppTextElement
         title={'Total'}
         fontVariant="bold"
         fontSizeVariant="title"></AppTextElement>
       <AppTextElement
-        title={`Rs.${
-          placeOrderDetails.itemDetails.price *
-            Number(placeOrderDetails.orderDetail.orderQuantity) +
-          10
-        }`}
+        title={`Rs.${placeOrderDetails.itemDetails.price + 10}`}
         fontVariant="bold"
-        fontSizeVariant="regular"></AppTextElement>
+        fontSizeVariant="title"></AppTextElement>
     </RowFlexLayout>
   );
 
@@ -266,49 +313,54 @@ export const PlaceOrderScreen: React.FC<PlaceOrderScreenProps> = ({}) => {
     <SafeAreaView
       style={{
         flex: 1,
+        paddingHorizontal: size.spacing.s,
       }}>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={{
-          paddingHorizontal: size.spacing.xxs,
-        }}>
+      <SpacerElement height={25}></SpacerElement>
+      <ScrollView showsVerticalScrollIndicator={false} style={{}}>
         <ListCardMolecule
+          customImageStyle={{
+            height: AreaMapper({
+              value: 80,
+            }),
+            width: AreaMapper({
+              value: 80,
+            }),
+            marginVertical: size.spacing.m,
+          }}
+          customStyle={{
+            paddingHorizontal: size.spacing.m,
+          }}
           id={placeOrderDetails.itemDetails.imageUrl}
           surfaceLevel={2}
           imageUrl={placeOrderDetails.itemDetails.imageUrl}
           list={[
             {
-              type: 'regular',
+              type: 'title',
               value: placeOrderDetails.itemDetails.name,
-              fontVariant: 'medium',
+              fontVariant: 'heavy',
             },
             {
               type: 'regular',
-              value: `${placeOrderDetails.itemDetails.price}`,
-              fontVariant: 'medium',
-            },
-            {
-              type: 'regular',
-              value: placeOrderDetails.sellerDetails.phoneNumber,
+              value: `Npr.${placeOrderDetails.itemDetails.price}`,
               fontVariant: 'medium',
             },
           ]}></ListCardMolecule>
-        <SpacerElement height={20}></SpacerElement>
+        <SpacerElement height={30}></SpacerElement>
         {sellerDetailsContainer}
         <SpacerElement height={20}></SpacerElement>
         {paymentMethoContainer}
         <SpacerElement height={20}></SpacerElement>
         {orderSummary}
-        <SpacerElement height={20}></SpacerElement>
+        <SpacerElement height={25}></SpacerElement>
         {totalPriceDetail}
-        <SpacerElement height={15}></SpacerElement>
+        <SpacerElement height={20}></SpacerElement>
         <AppButtonElement
           showLoader={true}
           onPress={() => {
             try {
-              console.log('ing,,,,');
               {
-                console.log('Logging,,,,');
+                console.log('ITem IDDd>>>', placeOrderDetails);
+
                 handleConfirmPlaceItem(
                   user?.username ?? 'sagar',
                   location ?? 'butwal',

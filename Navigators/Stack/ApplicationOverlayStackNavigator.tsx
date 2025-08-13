@@ -15,6 +15,7 @@ import {PlaceOrderScreen} from '../../Screens/Application/PlaceOrderScreen';
 import {SearchScreen} from '../../Screens/Application/SearchScreen';
 import {ItemDetailScreen} from '../../Screens/OnBoarding/ItemDetailScreen';
 import {titleCase} from '../../Utilities/CustomMethods';
+import {OrderSuccessDetailScreen} from '../../Screens/Application/OrderSuccessDetailScreen';
 
 type ApplicationOverlayMoreStackParamList = {
   OffersScreen: undefined;
@@ -38,6 +39,7 @@ type ApplicationOverlayMoreStackParamList = {
     shopID: string;
   };
   ItemAddedScreen: undefined;
+  OrderSuccessDetailScreen: undefined;
 };
 
 // Its The builder with the
@@ -173,6 +175,13 @@ export const ApplicationOverlayStackNavigator: React.FC = () => {
           {
             screenName: 'ItemAddedScreen',
             component: ItemAddedScreen,
+            option: {
+              headerTitle: 'Receipt',
+            },
+          },
+          {
+            screenName: 'OrderSuccessDetailScreen',
+            component: OrderSuccessDetailScreen,
             option: {
               headerTitle: 'Confirmation',
             },

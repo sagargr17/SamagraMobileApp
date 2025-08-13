@@ -132,6 +132,7 @@ export const MyItemsScreen: React.FC<MyItemsScreenProps> = ({}) => {
                 customImageStyle={{
                   height: AreaMapper({value: 95}),
                   width: AreaMapper({value: 85}),
+                  borderWidth: 0,
                 }}
                 id={item?.node?.id ?? NotMentioned}
                 key={index}
@@ -140,7 +141,7 @@ export const MyItemsScreen: React.FC<MyItemsScreenProps> = ({}) => {
                   {
                     value: titleRange(item?.node?.name ?? NotMentioned),
                     type: 'title',
-                    fontVariant: 'medium',
+                    fontVariant: 'heavy',
                   },
                   {
                     value: `Npr.${item?.node?.price ?? NotMentioned} per ${
@@ -161,9 +162,8 @@ export const MyItemsScreen: React.FC<MyItemsScreenProps> = ({}) => {
                   },
                 ]}
                 customStyle={{
-                  paddingVertical: size.spacing.xs,
                   paddingHorizontal: size.spacing.m,
-                  backgroundColor: colors.card,
+                  backgroundColor: colors.background,
                 }}></ListCardMolecule>
             )}
             ListFooterComponent={

@@ -7,6 +7,7 @@ import {OrderBottomSheet} from '../../../Components/Organism/ApplicationOverLays
 import AppBannerMolecule from '../../../Components/Molecules/Global/AppBannerMolecule';
 import {OrderLandingSkeleton} from '../../../Components/Skeletons/Layout/OrderLandingSkeleton';
 import {MapView} from '@maplibre/maplibre-react-native';
+import {size} from '../../../Prefrences/Prefrences';
 interface BuyModeScreenProps {}
 
 export const BuyModeScreen: React.FC<BuyModeScreenProps> = ({}) => {
@@ -24,7 +25,14 @@ export const BuyModeScreen: React.FC<BuyModeScreenProps> = ({}) => {
 
   return (
     <>
-      <AppHeaderOrganism currentPosition="absolute"></AppHeaderOrganism>
+      <SpacerElement height={10}></SpacerElement>
+      <View
+        style={{
+          paddingHorizontal: size.spacing.s,
+        }}>
+        <AppHeaderOrganism currentPosition="absolute"></AppHeaderOrganism>
+      </View>
+      <SpacerElement height={16}></SpacerElement>
       <MapView style={{flex: 0.7}} />
       <OrderBottomSheet navigation={navigation}></OrderBottomSheet>
     </>

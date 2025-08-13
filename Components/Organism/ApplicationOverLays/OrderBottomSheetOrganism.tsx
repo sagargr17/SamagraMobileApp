@@ -17,7 +17,7 @@ import {BubbleCardMolecule} from '../../Molecules/Cards/BubbleCardMoleCule';
 import {AppBottomSheetMolecule} from '../../Molecules/Global/AppBottomSheetMolecule';
 
 import {ItemCategoryCardSlider} from './Order/ItemCategorySliderOrganism';
-import { AppFormOrganism } from './AppFormOrganism';
+import {AppFormOrganism} from './AppFormOrganism';
 
 interface OrderBottomSheetProps {
   navigation: RootStackNavigationProp<'ApplicationOverlay'> | any;
@@ -81,18 +81,12 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
     return (
       <View
         style={[
-          styles.wrapper,
           {
             backgroundColor: colors.background,
+            paddingHorizontal: size.spacing.xxs,
           },
         ]}>
-        <SpacerElement></SpacerElement>
-        <BubbleCardMolecule
-          iconColor={colors.primary}
-          iconName="account-group"
-          title="1259 Active Provider Currently !"
-          variant="large"
-          comment="28 Near Your Location"></BubbleCardMolecule>
+        <SpacerElement height={20}></SpacerElement>
         <ItemCategoryCardSlider sizes="regular"></ItemCategoryCardSlider>
         <SpacerElement height={15}></SpacerElement>
         <AppFormOrganism<SentordersParams>
@@ -126,7 +120,9 @@ export const OrderBottomSheet: React.FC<OrderBottomSheetProps> = ({
           }}
           onFormSubmit={handleSubmit}
           disabled={loading ? true : false}
-          submitButtonText={`${loading ? 'loading' : 'Search'}`}></AppFormOrganism>
+          submitButtonText={`${
+            loading ? 'loading' : 'Search'
+          }`}></AppFormOrganism>
       </View>
     );
   };

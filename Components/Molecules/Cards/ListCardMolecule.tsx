@@ -94,7 +94,11 @@ export const ListCardMolecule: React.FC<ListCardMoleculeProps> = ({
                         width: customImageStyle
                           ? customImageStyle.width
                           : styles.image.width,
+                        marginVertical: customImageStyle?.marginVertical,
+                        marginHorizontal: customImageStyle?.marginHorizontal,
+                        borderRadius: size.borderRadius.m,
                       },
+                      ,
                     ]}
                     source={{
                       uri: imageUrl ?? imageUrl,
@@ -136,9 +140,8 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   imageContainer: {
-    width: AreaMapper({value: 110, scaleBy: 'width'}),
-    height: AreaMapper({value: 100, scaleBy: 'height'}),
-    marginRight: AreaMapper({value: 5, scaleBy: 'height'}),
+    height: AreaMapper({value: 110, scaleBy: 'height'}),
+    marginRight: AreaMapper({value: 20, scaleBy: 'height'}),
   },
   image: {
     width: '90%',
@@ -147,7 +150,7 @@ const styles = StyleSheet.create({
   },
   detailsContainer: {
     flex: 1,
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
   },
   title: {
     fontSize: 16,
