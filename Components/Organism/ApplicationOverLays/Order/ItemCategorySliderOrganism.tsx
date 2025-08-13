@@ -19,11 +19,8 @@ export const ItemCategoryCardSlider: React.FC<ItemCategoryCardProps> = ({
   const [selectedCategory, setSelectedCategory] = useState<string>('Laundry');
   // const navigation = useNavigation<HomeStackNavigationProp<'CategoryListScreen'>>();
 
-  const height =
-    sizes === 'large' ? size.iconSize.large + 5 : size.iconSize.medium;
-  const width =
-    sizes === 'large' ? size.iconSize.large + 5 : size.iconSize.medium + 2;
-
+  const height = size.iconSize.large + 2;
+  const width = size.iconSize.xlarge + 2;
   const data: Array<{
     titte: string;
     icon: any;
