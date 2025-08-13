@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 interface RowFlexLayoutProps<ItemT> extends ViewProps {
   children: React.ReactNode;
-  customStyle?: ViewStyle;
+  customStyle?: ViewStyle[];
   isTouchEnable?: boolean;
   elevationStyle?: ViewStyle;
   onPressed?: () => void;
@@ -49,6 +49,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
   },
 });

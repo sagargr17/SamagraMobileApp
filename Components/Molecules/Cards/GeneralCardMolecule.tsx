@@ -1,7 +1,11 @@
 import {useNavigation, useTheme} from '@react-navigation/native';
 import React, {useCallback} from 'react';
 import {StyleSheet, TouchableOpacity, View, ViewStyle} from 'react-native';
-import {AreaMapper} from '../../../Utilities/CustomMethods';
+import {
+  AreaMapper,
+  titleCase,
+  titleRange,
+} from '../../../Utilities/CustomMethods';
 import {AppTextElement} from '../../Elements/AppTextElement';
 import {size} from '../../../Prefrences/Prefrences';
 import {Surface} from 'react-native-paper';
@@ -52,13 +56,13 @@ export const GeneralCardMolecule: React.FC<GeneralCardMoleculeProps> = ({
       ) : (
         <>{frame}</>
       )}
-      <SpacerElement height={16}></SpacerElement>
+      <SpacerElement height={12}></SpacerElement>
       <View
         style={{
-          marginHorizontal: size.spacing.m - 1,
+          marginHorizontal: size.spacing.m,
         }}>
         <AppTextElement
-          title={title}
+          title={titleRange(title, 15)}
           fontSizeVariant="title"
           fontVariant="medium"></AppTextElement>
         {comment ? (

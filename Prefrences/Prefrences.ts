@@ -16,7 +16,7 @@ const MyTheme = {
     background: '#FFFFFF',
     card: '#EFF1F3',
     text: 'rgba(45, 45, 45, 1)',
-    border: '#EFF1F3',
+    border: '#DBE0E5',
     notification: 'rgb(255, 69, 58)',
   },
   fonts: {
@@ -26,7 +26,7 @@ const MyTheme = {
     },
     medium: {
       fontFamily: GOOGLE_FONT_MEDIUM,
-      fontWeight: '500' as '500',
+      fontWeight: '550' as '550',
     },
     bold: {
       fontFamily: GOOGLE_FONT_BOLD,
@@ -146,28 +146,28 @@ const rawSizes = {
         },
         android: {
           elevation: 1,
-          shadowColor: '#000000',
+          shadowColor: 'rgba(0, 0, 0, 0.4)',
         },
       }),
     },
     s: {
       ...Platform.select({
         ios: {
-          shadowColor: '#000000',
+          shadowColor: 'rgba(0, 0, 0, 0.6)', // Proper visible color      borderWidth: 0.1,
           shadowOffset: {width: 0, height: 2},
           shadowOpacity: 0.2,
           shadowRadius: 2.22,
         },
         android: {
           elevation: 3,
-          shadowColor: '#000000',
+          shadowColor: 'rgba(0, 0, 0, 0.6)',
         },
       }),
     },
     m: {
       ...Platform.select({
         ios: {
-          shadowColor: '#000000',
+          shadowColor: 'rgba(0, 0, 0, 0.8)', // Proper visible color      borderWidth: 0.1,
           shadowOffset: {width: 0, height: 4},
           shadowOpacity: 0.23,
           shadowRadius: 2.62,
@@ -181,7 +181,7 @@ const rawSizes = {
     l: {
       ...Platform.select({
         ios: {
-          shadowColor: '#000000',
+          shadowColor: 'rgba(0, 0, 0, 0.94)', // Proper visible color      borderWidth: 0.1,
           shadowOffset: {width: 0, height: 7},
           shadowOpacity: 0.3,
           shadowRadius: 4.65,
@@ -194,6 +194,7 @@ const rawSizes = {
     },
   },
   iconSize: {
+    xsmall: 18,
     small: 20,
     medium: 24,
     large: 26,

@@ -1,12 +1,15 @@
 import {useNavigation, useTheme} from '@react-navigation/native';
 import React from 'react';
-import {IconButton} from 'react-native-paper';
+import {Icon, IconButton} from 'react-native-paper';
 import {Logos} from '../../../Assets/SVG/Exports/Exports';
 import {RowFlexLayout} from '../../../Layout/PartationLayout/RowFlexLayout';
 import {size} from '../../../Prefrences/Prefrences';
 import {useAppDispatch, useAppSelector} from '../../../StateManagement/hooks';
 import {AppTextElement} from '../../Elements/AppTextElement';
 import {NotificationIconElement} from '../../Elements/NotificationIconElement';
+import {SpacerElement} from '../../Elements/SpacerElement';
+import {titleCase} from '../../../Utilities/CustomMethods';
+import {TouchableOpacity} from 'react-native';
 
 interface AppHeaderOrganismProps {
   currentPosition: 'absolute' | 'relative' | 'static';
@@ -70,41 +73,50 @@ export const AppHeaderOrganism: React.FC<AppHeaderOrganismProps> = ({
   // }, []);
 
   return (
-    <RowFlexLayout
-      customStyle={{
-        paddingLeft: size.spacing.xs,
-        paddingRight: size.spacing.xxs,
-      }}>
-      <NotificationIconElement></NotificationIconElement>
-      <RowFlexLayout
-        customStyle={{
-          borderColor: colors.border,
-          padding: size.spacing.m,
-          borderRadius: size.borderRadius.full,
-        }}>
-        <Location height={size.iconSize.small}></Location>
-        <AppTextElement
-          title={`${location}`}
-          fontVariant="medium"
-          fontSizeVariant="regular"></AppTextElement>
-      </RowFlexLayout>
+    <>
+      <SpacerElement></SpacerElement>
+      <SpacerElement></SpacerElement>
+      <RowFlexLayout>
+        <NotificationIconElement></NotificationIconElement>
+        <RowFlexLayout
+          customStyle={[
+            {
+              borderColor: colors.border,
+              borderRadius: size.borderRadius.full,
+              backgroundColor: colors.background,
+              flex: 0.8,
+              justifyContent: 'flex-start',
+              padding: size.spacing.s + 2,
+              alignItems: 'center',
+            },
+            size.elevation.s,
+          ]}>
+          <Location height={size.iconSize.small}></Location>
+          <AppTextElement
+            customStyle={{
+              marginLeft: size.spacing.xs + 2,
+            }}
+            title={`${titleCase(location)}`}
+            fontVariant="medium"
+            fontSizeVariant="title"></AppTextElement>
+        </RowFlexLayout>
 
-      <IconButton
-        rippleColor={colors.card}
-        iconColor={colors.text}
-        onPress={() =>
-          navigation.navigate('ApplicationOverlay', {
-            screen: 'CartScreen',
-          })
-        }
-        icon={'cart-outline'}
-        size={size.iconSize.medium}
-        style={[
-          {
-            borderWidth: size.borderWidth.s,
-            borderColor: colors.border,
-          },
-        ]}></IconButton>
-    </RowFlexLayout>
+        <TouchableOpacity
+          style={[
+            {
+              borderWidth: size.borderWidth.xs,
+              borderRadius: size.borderRadius.full,
+              alignItems: 'center',
+              paddingHorizontal: size.spacing.s - 1,
+              paddingVertical: size.spacing.xs + 5,
+              backgroundColor: colors.background,
+            },
+
+            size.elevation.s,
+          ]}>
+          <Icon size={size.iconSize.large} source={'cart-outline'}></Icon>
+        </TouchableOpacity>
+      </RowFlexLayout>
+    </>
   );
 };

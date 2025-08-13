@@ -15,7 +15,7 @@ import {
 import {AppTextElement} from '../../Elements/AppTextElement';
 import {RatingElement} from '../../Elements/RatingElement';
 
-interface ItemMiniCardProps {
+interface ItemMiniCardMoleculeProps {
   id: string;
   cardImage: string;
   title: string;
@@ -23,7 +23,7 @@ interface ItemMiniCardProps {
   rating: number;
 }
 
-export const ItemMiniCard: React.FC<ItemMiniCardProps> = ({
+export const ItemMiniCardMolecule: React.FC<ItemMiniCardMoleculeProps> = ({
   id,
   cardImage,
   title,

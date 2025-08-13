@@ -21,12 +21,13 @@ export const NotificationIconElement: React.FC<
         {
           borderWidth: size.borderWidth.xs,
           borderRadius: size.borderRadius.full,
-          paddingHorizontal: size.spacing.xs,
-          paddingVertical: size.spacing.s,
           alignItems: 'center',
-          borderColor: colors.border,
+          paddingHorizontal: size.spacing.s - 2,
+          paddingVertical: size.spacing.xs + 3,
           backgroundColor: colors.background,
+          borderColor: colors.border,
         },
+
         size.elevation.s,
       ]}>
       <View
@@ -34,7 +35,7 @@ export const NotificationIconElement: React.FC<
           alignItems: 'center',
           padding: size.spacing.xxs,
         }}>
-        <Icon height={size.iconSize.medium}></Icon>
+        <Icon height={size.iconSize.xsmall} width={size.iconSize.small}></Icon>
         <BellRingTail></BellRingTail>
       </View>
     </TouchableOpacity>

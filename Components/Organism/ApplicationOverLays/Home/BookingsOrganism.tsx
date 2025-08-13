@@ -1,12 +1,12 @@
-import { useTheme } from '@react-navigation/native';
+import {useTheme} from '@react-navigation/native';
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
-import { RowFlexLayout } from '../../../../Layout/PartationLayout/RowFlexLayout';
-import { size } from '../../../../Prefrences/Prefrences';
-import { AppTextElement } from '../../../Elements/AppTextElement';
-import { SpacerElement } from '../../../Elements/SpacerElement';
-import { ListCardMolecule } from '../../../Molecules/Cards/ListCardMolecule';
-import { SectionHeaderMolecule } from '../../../Molecules/Global/SectionHeaderMolecule';
+import {TouchableOpacity} from 'react-native';
+import {RowFlexLayout} from '../../../../Layout/PartationLayout/RowFlexLayout';
+import {size} from '../../../../Prefrences/Prefrences';
+import {AppTextElement} from '../../../Elements/AppTextElement';
+import {SpacerElement} from '../../../Elements/SpacerElement';
+import {ListCardMolecule} from '../../../Molecules/Cards/ListCardMolecule';
+import {SectionHeaderMolecule} from '../../../Molecules/Global/SectionHeaderMolecule';
 interface BookingsOrganismProps {}
 
 export const BookingsOrganism: React.FC<BookingsOrganismProps> = ({}) => {
@@ -24,13 +24,16 @@ export const BookingsOrganism: React.FC<BookingsOrganismProps> = ({}) => {
         onPress={() => {}}></SectionHeaderMolecule>
       <SpacerElement height={10}></SpacerElement>
       <RowFlexLayout
-        customStyle={{
-          justifyContent: 'space-around',
-          alignItems: 'center',
-        }}>
+        customStyle={[
+          {
+            justifyContent: 'space-around',
+            alignItems: 'center',
+          },
+        ]}>
         <ListCardMolecule
           customStyle={{
             backgroundColor: colors.background,
+            paddingVertical: size.spacing.s,
           }}
           id="1"
           imageUrl=""
@@ -38,7 +41,7 @@ export const BookingsOrganism: React.FC<BookingsOrganismProps> = ({}) => {
             {
               value: 'Plumbing',
               type: 'title',
-              fontVariant: 'medium',
+              fontVariant: 'heavy',
             },
             {
               value: 'Tomorrow, 2PM',
@@ -61,13 +64,16 @@ export const BookingsOrganism: React.FC<BookingsOrganismProps> = ({}) => {
         </TouchableOpacity>
       </RowFlexLayout>
       <RowFlexLayout
-        customStyle={{
-          justifyContent: 'space-around',
-          alignItems: 'center',
-        }}>
+        customStyle={[
+          {
+            justifyContent: 'space-around',
+            alignItems: 'center',
+          },
+        ]}>
         <ListCardMolecule
           customStyle={{
             backgroundColor: colors.background,
+            paddingVertical: size.spacing.s,
           }}
           id="1"
           imageUrl=""
@@ -75,11 +81,11 @@ export const BookingsOrganism: React.FC<BookingsOrganismProps> = ({}) => {
             {
               value: 'Home Cleaning',
               type: 'regular',
-              fontVariant: 'medium',
+              fontVariant: 'heavy',
             },
             {
               value: 'Completed:1 week ago',
-              type: 'caption',
+              type: 'regular',
             },
           ]}></ListCardMolecule>
         <TouchableOpacity

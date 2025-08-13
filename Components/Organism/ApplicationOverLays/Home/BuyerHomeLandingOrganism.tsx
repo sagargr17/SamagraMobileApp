@@ -1,10 +1,10 @@
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 import React, {useCallback, useMemo, useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {Divider} from 'react-native-paper';
 import {size} from '../../../../Prefrences/Prefrences';
 import {useAppSelector} from '../../../../StateManagement/hooks';
-import {AreaMapper} from '../../../../Utilities/CustomMethods';
+import {AreaMapper, titleCase} from '../../../../Utilities/CustomMethods';
 import {AppTextElement} from '../../../Elements/AppTextElement';
 import {SpacerElement} from '../../../Elements/SpacerElement';
 import {SerchBarMolecule} from '../../../Molecules/Global/AppSerchBarMolecule';
@@ -23,6 +23,7 @@ export const BuyerHomeLandingScreen: React.FC<
   const navigation: any = useNavigation();
   const user = useAppSelector(state => state.user.Profile);
   const [paginationLoading, setPaginationLoading] = useState<boolean>(false);
+  const {colors} = useTheme();
 
   const handleNavigation = useCallback(() => {
     navigation.navigate('ApplicationOverlay', {
@@ -37,26 +38,34 @@ export const BuyerHomeLandingScreen: React.FC<
     return (
       <View
         style={{
-          // marginHorizontal: size.spacing.m,
+          marginHorizontal: size.spacing.s,
         }}>
         <AppHeaderOrganism currentPosition="static" />
-        <SpacerElement height={30}></SpacerElement>
-        <Divider></Divider>
-        <SpacerElement height={17}></SpacerElement>
+        <SpacerElement height={size.spacing.xl}></SpacerElement>
+        <Divider
+          style={{
+            height: 1,
+            borderColor: colors.border,
+          }}></Divider>
+        <SpacerElement height={37}></SpacerElement>
         <AppTextElement
-          title={`Hi, ${user.username}`}
+          title={`Hi, ${titleCase(user.username)}`}
           fontSizeVariant="display"
           fontVariant="heavy"
           customStyle={{
             fontSize: AreaMapper({value: 30}),
             lineHeight: AreaMapper({value: 35}),
           }}></AppTextElement>
+        <SpacerElement height={8}></SpacerElement>
+        <SerchBarMolecule
+          onPress={handleNavigation}
+          style={{
+            marginTop: size.spacing.s,
+            marginBottom: size.spacing.s,
+          }}></SerchBarMolecule>
         <SpacerElement height={20}></SpacerElement>
-        <SpacerElement height={10}></SpacerElement>
-        <SerchBarMolecule onPress={handleNavigation}></SerchBarMolecule>
-        <SpacerElement height={18}></SpacerElement>
         <PopularSevices></PopularSevices>
-        <SpacerElement height={15}></SpacerElement>
+        <SpacerElement height={12}></SpacerElement>
       </View>
     );
   }, []);
@@ -65,7 +74,7 @@ export const BuyerHomeLandingScreen: React.FC<
     return (
       <View
         style={{
-          marginHorizontal: size.spacing.m,
+          marginHorizontal: size.spacing.s,
         }}>
         <RecommendationOrganism />
         <SpacerElement height={20}></SpacerElement>
@@ -74,6 +83,7 @@ export const BuyerHomeLandingScreen: React.FC<
         <BookingsOrganism></BookingsOrganism>
         <SpacerElement height={20}></SpacerElement>
         <Reviews></Reviews>
+        <SpacerElement height={12}></SpacerElement>
       </View>
     );
   }, []);

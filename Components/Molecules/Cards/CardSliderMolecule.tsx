@@ -1,6 +1,13 @@
 import {useNavigation, useTheme} from '@react-navigation/native';
 import React, {useCallback, useState} from 'react';
-import {Alert, FlatList, StyleSheet, View, ViewStyle} from 'react-native';
+import {
+  Alert,
+  FlatList,
+  StyleSheet,
+  TextStyle,
+  View,
+  ViewStyle,
+} from 'react-native';
 import {Logos} from '../../../Assets/SVG/Exports/Exports';
 
 import {size} from '../../../Prefrences/Prefrences';
@@ -25,11 +32,13 @@ export interface cardDetail {
 export interface CardSliderMoleCuleProps {
   cardDetail: cardDetail[]; // Use 'cardDetail[]' to indicate an array
   headerTitle: string;
+  headerStyle?: TextStyle;
 }
 
 export const CardSliderMoleCule: React.FC<CardSliderMoleCuleProps> = ({
   cardDetail,
   headerTitle,
+  headerStyle,
 }) => {
   const {fonts} = useTheme();
   const {Laundry, HouseKeeping, Grocery, Stationary, More} = Logos;
@@ -39,12 +48,14 @@ export const CardSliderMoleCule: React.FC<CardSliderMoleCuleProps> = ({
 
   return (
     <View>
-      <SpacerElement height={12}></SpacerElement>
+      <SpacerElement height={20}></SpacerElement>
       <SectionHeaderMolecule
+        style={headerStyle}
         onPress={() => onTabPress()}
         isIcon={false}
         title={headerTitle}></SectionHeaderMolecule>
-      <SpacerElement height={18}></SpacerElement>
+      <SpacerElement height={12}></SpacerElement>
+
       <FlatList
         showsHorizontalScrollIndicator={false}
         horizontal={true}
@@ -52,9 +63,10 @@ export const CardSliderMoleCule: React.FC<CardSliderMoleCuleProps> = ({
         renderItem={({item, index}) => (
           <View
             style={[
-              item.containerStyle,
+              // item.containerStyle,
               {
-                right: size.spacing.xs,
+                right: size.spacing.xxs,
+                // marginTop: size.spacing.s,
               },
             ]}>
             <GeneralCardMolecule
@@ -66,7 +78,7 @@ export const CardSliderMoleCule: React.FC<CardSliderMoleCuleProps> = ({
             />
           </View>
         )}></FlatList>
-      <SpacerElement height={20}></SpacerElement>
+      <SpacerElement height={16}></SpacerElement>
     </View>
   );
 };

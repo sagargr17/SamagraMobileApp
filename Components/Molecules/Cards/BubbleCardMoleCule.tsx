@@ -1,15 +1,10 @@
-import { useTheme } from '@react-navigation/native';
+import {useTheme} from '@react-navigation/native';
 import React from 'react';
-import {
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  ViewStyle
-} from 'react-native';
-import { Icon } from 'react-native-paper';
-import { size } from '../../../Prefrences/Prefrences';
-import { AreaMapper } from '../../../Utilities/CustomMethods';
-import { AppTextElement } from '../../Elements/AppTextElement';
+import {StyleSheet, TouchableOpacity, View, ViewStyle} from 'react-native';
+import {Icon} from 'react-native-paper';
+import {size} from '../../../Prefrences/Prefrences';
+import {AreaMapper} from '../../../Utilities/CustomMethods';
+import {AppTextElement} from '../../Elements/AppTextElement';
 // import {Icon} from '../../Elements/Icon'; // Assuming you have an Icon component
 
 interface BubbleCardMoleculeProps {
@@ -45,23 +40,27 @@ export const BubbleCardMolecule: React.FC<BubbleCardMoleculeProps> = ({
         style={[
           {
             // paddingVertical: size.spacing.xs,
-            marginBottom: size.spacing.s,
             width: cardWidth,
-            backgroundColor: colors.card, // <-- Crucial: Set this to the actual card background color (white in your case)
-            borderRadius: size.borderRadius.l,
+            backgroundColor: colors.background, // <-- Crucial: Set this to the actual card background color (white in your case)
+            borderRadius: size.borderRadius.m,
             borderWidth: 1,
-            borderColor: colors.border,
+            borderColor: colors.card,
+            padding: 0,
           },
-          size.elevation.l,
+          size.elevation.xs,
           customStyle,
         ]}>
         <View
           style={[
             styles.contentContainer,
             {
-              padding: variant === 'large' ? size.spacing.s : size.spacing.xs,
+              paddingHorizontal:
+                variant === 'large' ? size.spacing.s : size.spacing.xs,
+              paddingVertical:
+                variant === 'large' ? size.spacing.m : size.spacing.s,
               // No need for borderColor here either
               borderRadius: size.borderRadius.m, // Keep this for inner content rounding
+              backgroundColor: colors.background,
             },
           ]}>
           {iconName && typeof iconName === 'string' ? (

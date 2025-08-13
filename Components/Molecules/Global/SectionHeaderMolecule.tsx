@@ -16,6 +16,7 @@ export const SectionHeaderMolecule: React.FC<SectionHeaderMoleculeProps> = ({
   title,
   onPress,
   style,
+  
 }) => {
   return (
     <View
