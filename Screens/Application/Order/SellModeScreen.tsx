@@ -1,6 +1,6 @@
 import {useTheme} from '@react-navigation/native';
 import React from 'react';
-import {useWindowDimensions} from 'react-native';
+import {useWindowDimensions, View} from 'react-native';
 import {AppHeaderOrganism} from '../../../Components/Organism/ApplicationOverLays/AppHeaderOrganism';
 
 import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
@@ -8,6 +8,7 @@ import {SpacerElement} from '../../../Components/Elements/SpacerElement';
 import {OrdersScreen as LiveOrderScreen} from './OrdersListScreen';
 import {RequestsScreen as RequestScreen} from './RequestScreen';
 import {CategoryScreen} from '../Home/CategoryScreen';
+import {size} from '../../../Prefrences/Prefrences';
 interface SellModeScreenProps {}
 
 export const SellModeScreen: React.FC<SellModeScreenProps> = ({}) => {
@@ -28,7 +29,13 @@ export const SellModeScreen: React.FC<SellModeScreenProps> = ({}) => {
 
   return (
     <>
-      <AppHeaderOrganism currentPosition="absolute"></AppHeaderOrganism>
+      <View
+        style={{
+          marginHorizontal: size.spacing.s,
+        }}>
+        <SpacerElement></SpacerElement>
+        <AppHeaderOrganism currentPosition="absolute"></AppHeaderOrganism>
+      </View>
       <SpacerElement height={10}></SpacerElement>
       <TabView
         lazy={false}

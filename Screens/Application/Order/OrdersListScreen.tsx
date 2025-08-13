@@ -166,7 +166,8 @@ export const OrdersScreen: React.FC<OrdersScreenProps> = ({}) => {
         <SpacerElement height={20}></SpacerElement>
         <TouchableHighlight
           style={{
-            backgroundColor: colors.card,
+            // paddingVertical: size.spacing.s,
+            paddingHorizontal: size.spacing.xxs,
           }}
           touchSoundDisabled
           underlayColor={colors.card}
@@ -179,21 +180,35 @@ export const OrdersScreen: React.FC<OrdersScreenProps> = ({}) => {
             style={{
               display: 'flex',
               flexDirection: 'row',
-              alignItems: 'center',
+              justifyContent: 'space-between',
             }}>
-            <AppTextElement
-              title={'Location:'}
-              fontVariant="medium"
-              fontSizeVariant={'title'}></AppTextElement>
-            <View>
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
               <AppTextElement
-                title={personalUserDetail?.address ?? 'Baneswor, Kathmandu '}
+                title={'Location: '}
                 fontVariant="medium"
                 fontSizeVariant={'title'}></AppTextElement>
+              <View>
+                <AppTextElement
+                  title={personalUserDetail?.address ?? 'Baneswor, Kathmandu '}
+                  fontVariant="medium"
+                  fontSizeVariant={'title'}></AppTextElement>
+              </View>
             </View>
+            <AppTextElement
+              customStyle={{
+                color: 'blue',
+              }}
+              title={'View Location'}
+              fontVariant="medium"
+              fontSizeVariant={'regular'}></AppTextElement>
           </View>
         </TouchableHighlight>
-        <SpacerElement height={10}></SpacerElement>
+        <SpacerElement></SpacerElement>
 
         <RowFlexLayout
           customStyle={[

@@ -60,7 +60,7 @@ export const ListCardMolecule: React.FC<ListCardMoleculeProps> = ({
 
   return (
     <Surface
-      elevation={surfaceLevel ? surfaceLevel : 0}
+      elevation={0}
       style={[
         styles.container,
         {

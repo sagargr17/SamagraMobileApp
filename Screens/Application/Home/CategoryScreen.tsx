@@ -7,6 +7,7 @@ import {BubbleCardMolecule} from '../../../Components/Molecules/Cards/BubbleCard
 import {size} from '../../../Prefrences/Prefrences';
 import {AppTextElement} from '../../../Components/Elements/AppTextElement';
 import {SpacerElement} from '../../../Components/Elements/SpacerElement';
+import {AreaMapper} from '../../../Utilities/CustomMethods';
 interface CategoryScreenProps {}
 
 export const CategoryScreen: React.FC<CategoryScreenProps> = ({}) => {
@@ -15,13 +16,16 @@ export const CategoryScreen: React.FC<CategoryScreenProps> = ({}) => {
 
   const categories = [
     {
+      name: 'House Keeping',
+    },
+    {
       name: 'Plumbing',
     },
     {
       name: 'Tutoring',
     },
     {
-      name: 'Cleaning',
+      name: 'Car Cleaning',
     },
     {
       name: 'Painting',
@@ -51,14 +55,6 @@ export const CategoryScreen: React.FC<CategoryScreenProps> = ({}) => {
         borderRadius: 10,
       }}>
       <SpacerElement height={15}></SpacerElement>
-      {/* <AppText
-        customStyle={{
-          textAlign: 'center',
-        }}
-        title="Please Select Your Category"
-        fontSizeVariant="title"
-        fontVariant="regular"></AppText> */}
-      <SpacerElement height={15}></SpacerElement>
       <FlatList
         numColumns={2}
         showsHorizontalScrollIndicator={false}
@@ -71,18 +67,16 @@ export const CategoryScreen: React.FC<CategoryScreenProps> = ({}) => {
             <BubbleCardMolecule
               onPress={() => {
                 navigation.navigate('ApplicationOverlay', {
-                  // screen: 'ItemAddedScreen',
                   screen: 'AddItemScreen',
                 });
               }}
-              customStyle={
-                {
-                  // elevation: 1,
-                  // shadowColor: 'orange',
-                  // shadowRadius: 100,
-                  // shadowOffset: {width: 0, height: 1},
-                }
-              }
+              customStyle={{
+                marginBottom: size.spacing.m,
+                backgroundColor: colors.card,
+                paddingVertical: size.spacing.s,
+                paddingHorizontal: size.spacing.xs,
+                width: AreaMapper({value: 185, scaleBy: 'average'}),
+              }}
               key={index}
               variant="small"
               title={item.name}></BubbleCardMolecule>
