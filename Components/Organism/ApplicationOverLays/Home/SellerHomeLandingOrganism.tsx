@@ -11,6 +11,7 @@ import {AppTextElement} from '../../../Elements/AppTextElement';
 import {SpacerElement} from '../../../Elements/SpacerElement';
 import {BubbleCardMolecule} from '../../../Molecules/Cards/BubbleCardMoleCule';
 import {ListCardMolecule} from '../../../Molecules/Cards/ListCardMolecule';
+import {ImageNotFound} from '../../../../Constants/UI/AssetsUrls';
 interface SellerHomeLandingScreenProps {}
 
 export const SellerHomeLandingScreen: React.FC<
@@ -25,37 +26,46 @@ export const SellerHomeLandingScreen: React.FC<
     return (
       <View
         style={{
-          marginHorizontal: size.spacing.xs,
+          marginHorizontal: size.spacing.s,
         }}>
-        <SpacerElement height={20} />
+        <SpacerElement height={16} />
         <RowFlexLayout
-          customStyle={{
-            alignItems: 'center',
-            justifyContent: 'flex-start',
-          }}>
+          customStyle={[
+            {
+              alignItems: 'center',
+              justifyContent: 'flex-start',
+            },
+          ]}>
           <FastImage
             style={{
               height: AreaMapper({value: 128}),
               width: AreaMapper({value: 128}),
-              borderWidth: 1,
+              borderWidth: size.borderWidth.s,
               marginRight: size.spacing.m,
               borderRadius: size.borderRadius.full,
+              borderColor: colors.border,
             }}
             source={{
-              uri: selectedUserData.pofileImageUrl,
+              uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOP381N1KxrnWxWOOcghJ6yXg3Gb4R1nvVwg&s',
             }}></FastImage>
           <View>
             <AppTextElement
               customStyle={{
-                fontSize: AreaMapper({value: 28}),
-                lineHeight: AreaMapper({value: 42}),
+                fontSize: AreaMapper({value: 30}),
+                lineHeight: AreaMapper({value: 45}),
               }}
               title={titleCase(selectedUserData.username)}
               fontSizeVariant="title"
-              fontVariant="medium"></AppTextElement>
-            <AppTextElement title={'4.8 (120 reviews)'}></AppTextElement>
+              fontVariant="heavy"></AppTextElement>
+            <AppTextElement
+              title={'4.8 (120 reviews)'}
+              fontSizeVariant="title"
+              customStyle={{
+                color: '#667582',
+              }}></AppTextElement>
           </View>
         </RowFlexLayout>
+        <SpacerElement height={16} />
       </View>
     );
   }, []);
@@ -65,18 +75,22 @@ export const SellerHomeLandingScreen: React.FC<
     return (
       <View
         style={{
-          marginHorizontal: size.spacing.xs,
+          marginHorizontal: size.spacing.s,
         }}>
-        <SpacerElement height={15}></SpacerElement>
+        <SpacerElement height={20}></SpacerElement>
         <AppTextElement
           title="Overview"
           fontVariant="heavy"
-          fontSizeVariant="display"
+          fontSizeVariant="headline"
           customStyle={{
-            fontSize: 22,
-            paddingVertical: 10,
+            paddingTop: size.spacing.m,
+            fontSize: AreaMapper({value: 28}),
+            lineHeight: AreaMapper({value: 45}),
           }}></AppTextElement>
-        <BubbleCardMolecule
+        <SpacerElement height={12}></SpacerElement>
+        <SpacerElement height={16}></SpacerElement>
+
+        {/* <BubbleCardMolecule
           customStyle={{
             backgroundColor: '#FFDB6F',
             borderWidth: 1,
@@ -85,29 +99,37 @@ export const SellerHomeLandingScreen: React.FC<
           iconName={'alert-circle'}
           title="No Service Added"
           variant="large"
-          comment="Please Add services"></BubbleCardMolecule>
-        <SpacerElement height={8}></SpacerElement>
-        <RowFlexLayout>
+          comment="Please Add services"></BubbleCardMolecule> */}
+        {/* <SpacerElement height={16}></SpacerElement> */}
+        {/* <SpacerElement height={8}></SpacerElement> */}
+        <RowFlexLayout
+          customStyle={[
+            {
+              justifyContent: 'flex-start',
+              alignItems: 'center',
+            },
+          ]}>
           <ListCardMolecule
             customStyle={{
-              paddingVertical: size.spacing.l,
+              paddingTop: size.spacing.l,
               paddingHorizontal: size.spacing.m,
               width: AreaMapper({value: 182, scaleBy: 'width'}),
               height: AreaMapper({value: 134, scaleBy: 'width'}),
+              marginRight: size.spacing.s,
             }}
             id="1"
             list={[
               {
                 value: 'Total Earnings',
-                type: 'display',
+                type: 'headline',
                 fontVariant: 'medium',
               },
               {
                 value: '$2,500',
-                type: 'display',
-                fontVariant: 'medium',
+                type: 'headline',
+                fontVariant: 'bold',
                 style: {
-                  fontSize: AreaMapper({value: 25}),
+                  marginTop: size.spacing.xs,
                 },
               },
             ]}></ListCardMolecule>
@@ -122,21 +144,25 @@ export const SellerHomeLandingScreen: React.FC<
             list={[
               {
                 value: 'Upcoming Bookings',
-                type: 'display',
+                type: 'headline',
                 fontVariant: 'medium',
               },
               {
                 value: '5',
-                type: 'display',
-                fontVariant: 'medium',
+                type: 'headline',
+                fontVariant: 'bold',
+                style: {
+                  marginTop: size.spacing.xs,
+                },
               },
             ]}></ListCardMolecule>
         </RowFlexLayout>
         <SpacerElement height={15}></SpacerElement>
         <ListCardMolecule
           customStyle={{
-            paddingVertical: size.spacing.l,
+            paddingTop: size.spacing.xl,
             paddingHorizontal: size.spacing.m,
+            paddingBottom: size.spacing.l,
           }}
           id="1"
           list={[
@@ -147,8 +173,11 @@ export const SellerHomeLandingScreen: React.FC<
             },
             {
               value: '95%',
-              type: 'display',
-              fontVariant: 'medium',
+              type: 'headline',
+              fontVariant: 'bold',
+              style: {
+                marginTop: size.spacing.s,
+              },
             },
           ]}></ListCardMolecule>
       </View>
@@ -166,54 +195,50 @@ export const SellerHomeLandingScreen: React.FC<
     return (
       <View
         style={{
-          marginHorizontal: size.spacing.xs,
+          marginHorizontal: size.spacing.s,
         }}>
-        <SpacerElement height={10}></SpacerElement>
+        <SpacerElement height={16}></SpacerElement>
         <AppTextElement
           title="Quick Actions"
           fontVariant="heavy"
           customStyle={{
             fontSize: 22,
-            paddingVertical: 10,
+            paddingTop: 20,
+            paddingBottom: 12,
           }}></AppTextElement>
 
         <SpacerElement height={16}></SpacerElement>
-
         <RowFlexLayout>
           <BubbleCardMolecule
             customStyle={{
               elevation: 0,
-              paddingVertical: size.spacing.xs,
+              paddingVertical: size.spacing.s,
             }}
             title="View Booking"
             iconName={'calendar-month-outline'}
             variant="small"></BubbleCardMolecule>
           <BubbleCardMolecule
             onPress={() => {
-              // navigation.navigate('BottomTab', {
-              //   screen: 'Home',
-              //   params: {
-              //     screen: 'ManageServices',
-              //   },
-              // });
               navigation.navigate('ManageServices');
             }}
             customStyle={{
               elevation: 0,
-              paddingVertical: size.spacing.xs,
+              paddingVertical: size.spacing.s,
             }}
             title="Manage Services"
             iconName={'format-list-bulleted'}
             variant="small"></BubbleCardMolecule>
         </RowFlexLayout>
+        <SpacerElement height={12}></SpacerElement>
         <RowFlexLayout>
           <BubbleCardMolecule
             customStyle={{
               elevation: 0,
-              paddingVertical: size.spacing.xs,
+              paddingVertical: size.spacing.s,
+              paddingHorizontal: 0,
             }}
             title="Earning Report"
-            iconName={'calendar-month-outline'}
+            iconName={'clipboard-edit-outline'}
             variant="small"></BubbleCardMolecule>
           <BubbleCardMolecule
             onPress={() => {
@@ -221,12 +246,13 @@ export const SellerHomeLandingScreen: React.FC<
             }}
             customStyle={{
               elevation: 0,
-              paddingVertical: size.spacing.xs,
+              paddingVertical: size.spacing.s,
             }}
             title="Add Services"
             iconName={'plus'}
             variant="small"></BubbleCardMolecule>
         </RowFlexLayout>
+        <SpacerElement height={10}></SpacerElement>
       </View>
     );
   }, []);

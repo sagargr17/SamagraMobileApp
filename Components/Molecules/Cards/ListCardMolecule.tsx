@@ -17,7 +17,7 @@ import {AppTextElement} from '../../Elements/AppTextElement';
 interface ListCardMoleculeProps {
   list: Array<{
     value: string;
-    type: 'regular' | 'title' | 'caption' | 'display';
+    type: 'regular' | 'title' | 'caption' | 'display' | 'headline';
     fontVariant?: 'regular' | 'medium' | 'bold' | 'heavy';
     style?: TextStyle;
   }>;

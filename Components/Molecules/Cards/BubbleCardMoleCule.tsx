@@ -39,13 +39,12 @@ export const BubbleCardMolecule: React.FC<BubbleCardMoleculeProps> = ({
         onPress={onPress}
         style={[
           {
-            // paddingVertical: size.spacing.xs,
             width: cardWidth,
             backgroundColor: colors.background, // <-- Crucial: Set this to the actual card background color (white in your case)
             borderRadius: size.borderRadius.m,
             borderWidth: 1,
             borderColor: colors.card,
-            padding: 0,
+            // padding: 0,
           },
           size.elevation.xs,
           customStyle,
@@ -60,7 +59,6 @@ export const BubbleCardMolecule: React.FC<BubbleCardMoleculeProps> = ({
                 variant === 'large' ? size.spacing.m : size.spacing.s,
               // No need for borderColor here either
               borderRadius: size.borderRadius.m, // Keep this for inner content rounding
-              backgroundColor: colors.background,
             },
           ]}>
           {iconName && typeof iconName === 'string' ? (
