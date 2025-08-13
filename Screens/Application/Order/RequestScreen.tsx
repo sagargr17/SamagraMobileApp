@@ -32,7 +32,12 @@ import {responseTheme, size} from '../../../Prefrences/Prefrences';
 import {GetDataSubscription} from '../../../src/__generated__/graphql';
 import {showLoader} from '../../../StateManagement/Error&loadingHandle/LoaderStateSlice';
 import {useAppDispatch} from '../../../StateManagement/hooks';
-import {titleCase, titleRange} from '../../../Utilities/CustomMethods';
+import {
+  AreaMapper,
+  titleCase,
+  titleRange,
+} from '../../../Utilities/CustomMethods';
+import FastImage from '@d11/react-native-fast-image';
 
 interface RequestsScreenProps {}
 
@@ -138,13 +143,15 @@ export const RequestsScreen: React.FC<RequestsScreenProps> = ({}) => {
       ) : (
         <>
           <RowFlexLayout
-            customStyle={{
-              justifyContent: 'space-between',
-              marginTop: size.spacing.xl,
-              paddingHorizontal: size.spacing.s,
-            }}>
+            customStyle={[
+              {
+                justifyContent: 'space-between',
+                marginTop: size.spacing.xl,
+                paddingHorizontal: size.spacing.s,
+              },
+            ]}>
             <AppTextElement
-              title="My Item's"
+              title="Select Your Service"
               fontSizeVariant="title"
               fontVariant="medium"></AppTextElement>
 
@@ -160,20 +167,12 @@ export const RequestsScreen: React.FC<RequestsScreenProps> = ({}) => {
               }}
             />
           </RowFlexLayout>
+          {/* 9814486061 */}
+          {console.log('IMage', myShopItem?.getItems?.edges)}
           <FlatList
-            ListHeaderComponent={
-              <View
-                style={{
-                  marginVertical: size.spacing.xxs,
-                  marginHorizontal: size.spacing.xxs,
-                }}>
-                <SerchBarMolecule
-                  onPress={() => console.log('SEarched')}></SerchBarMolecule>
-              </View>
-            }
             contentContainerStyle={{
               marginTop: size.spacing.s,
-              marginBottom: size.spacing.xxl + 10,
+              marginBottom: size.spacing.xxl,
             }}
             showsVerticalScrollIndicator={false}
             data={myShopItem?.getItems?.edges}
@@ -182,13 +181,18 @@ export const RequestsScreen: React.FC<RequestsScreenProps> = ({}) => {
                 onImagePress={() => console.log('Pressed')}
                 customImageStyle={{
                   height: 80,
+                  width: 80,
+                  marginVertical: 5,
                 }}
                 customStyle={{
                   borderWidth: size.borderWidth.s,
                   borderColor:
-                    itemSelectedId === item?.node?.id ? 'orange' : colors.card,
+                    itemSelectedId === item?.node?.id
+                      ? colors.primary
+                      : colors.background,
                   paddingHorizontal: size.spacing.xs,
                   marginHorizontal: size.spacing.xs,
+                  backgroundColor: colors.background,
                 }}
                 containerPressedHandle={(id: string) => {
                   setItemSelectedId(id);
@@ -203,28 +207,14 @@ export const RequestsScreen: React.FC<RequestsScreenProps> = ({}) => {
                 list={[
                   {
                     value: titleCase(item?.node?.name) ?? NotMentioned,
-                    type: 'regular',
-                    fontVariant: 'bold',
+                    type: 'title',
+                    fontVariant: 'heavy',
                   },
                   {
                     value: item?.node?.price
-                      ? 'Rs. ' + item.node?.price
+                      ? `Npr.${item.node?.price} per ${item.node?.unit}`
                       : NotMentioned,
-                    type: 'caption',
-                  },
-                  {
-                    value: item?.node?.stockQuantity
-                      ? 'QTY: ' + item.node?.stockQuantity
-                      : NotMentioned,
-                    type: 'caption',
-                    fontVariant: 'bold',
-                    style: {
-                      color: item?.node?.stockQuantity
-                        ? item?.node?.stockQuantity < 5
-                          ? colors.notification
-                          : colors.primary
-                        : colors.primary,
-                    },
+                    type: 'regular',
                   },
                 ]}></ListCardMolecule>
             )}></FlatList>
@@ -233,7 +223,7 @@ export const RequestsScreen: React.FC<RequestsScreenProps> = ({}) => {
               onAcceptHandle(requestID, itemSelectedId);
             }}
             style={{
-              bottom: 0,
+              bottom: 10,
               position: 'absolute',
               right: 0,
               margin: size.spacing.m,
@@ -248,45 +238,81 @@ export const RequestsScreen: React.FC<RequestsScreenProps> = ({}) => {
   const profileDetailInfo = (
     <>
       <View style={styles.userInformationContainer}>
-        <View style={styles.emailContainer}>
-          <AppTextElement
-            title={'Name:'}
-            fontVariant="regular"
-            fontSizeVariant={'regular'}></AppTextElement>
-          <AppTextElement
-            title={personalUserDetail?.username ?? 'Sagar'}
-            fontVariant="medium"
-            fontSizeVariant={'regular'}></AppTextElement>
+        <SpacerElement height={20}></SpacerElement>
+        <View style={{}}>
+          <FastImage
+            source={{
+              uri: ImageNotFound,
+            }}
+            style={{
+              // borderRadius: size.borderRadius.full,
+              height: AreaMapper({
+                value: 60,
+              }),
+              width: AreaMapper({
+                value: 60,
+              }),
+
+              borderWidth: size.borderWidth.s,
+              borderColor: colors.text,
+            }}></FastImage>
         </View>
-        <View style={styles.locationcontainer}>
+        <SpacerElement height={20}></SpacerElement>
+        <RowFlexLayout
+          customStyle={[
+            {
+              justifyContent: 'flex-start',
+              alignItems: 'center',
+            },
+          ]}>
           <AppTextElement
-            title={'Location:'}
-            fontVariant="regular"
-            fontSizeVariant={'regular'}></AppTextElement>
-          <AppTextElement
-            title={personalUserDetail?.location ?? 'Baneswor, Kathmandu '}
+            title={'Name : '}
             fontVariant="medium"
-            fontSizeVariant={'regular'}></AppTextElement>
-        </View>
-        <View style={styles.locationcontainer}>
+            fontSizeVariant={'title'}></AppTextElement>
           <AppTextElement
-            title={'Phone:'}
-            fontVariant="regular"
-            fontSizeVariant={'regular'}></AppTextElement>
+            title={titleCase(personalUserDetail?.username) ?? 'Sagar'}
+            fontVariant="medium"
+            fontSizeVariant={'title'}></AppTextElement>
+        </RowFlexLayout>
+        <SpacerElement></SpacerElement>
+        <RowFlexLayout
+          customStyle={[
+            {
+              justifyContent: 'flex-start',
+              alignItems: 'center',
+            },
+          ]}>
+          <AppTextElement
+            title={'Location : '}
+            fontVariant="medium"
+            fontSizeVariant={'title'}></AppTextElement>
+          <AppTextElement
+            title={
+              titleCase(personalUserDetail?.location) ?? 'Baneswor, Kathmandu '
+            }
+            fontVariant="medium"
+            fontSizeVariant={'title'}></AppTextElement>
+        </RowFlexLayout>
+        <SpacerElement></SpacerElement>
+        <RowFlexLayout
+          customStyle={[
+            {
+              justifyContent: 'flex-start',
+              alignItems: 'center',
+            },
+          ]}>
+          <AppTextElement
+            title={'Phone : '}
+            fontVariant="medium"
+            fontSizeVariant={'title'}></AppTextElement>
           <AppTextElement
             title={`${personalUserDetail?.phoneNumber ?? 9841105090}`}
             fontVariant="medium"
-            fontSizeVariant={'regular'}></AppTextElement>
-        </View>
+            fontSizeVariant={'title'}></AppTextElement>
+        </RowFlexLayout>
+        <SpacerElement></SpacerElement>
       </View>
-      <SpacerElement height={20}></SpacerElement>
-      <AppButtonElement
-        onPress={() => {
-          setIsProfileTapped(false);
-          setIsModalOpen(false);
-        }}>
-        Accept
-      </AppButtonElement>
+      {/* <SpacerElement height={20}></SpacerElement> */}
       <SpacerElement height={20}></SpacerElement>
     </>
   );
@@ -342,12 +368,14 @@ export const RequestsScreen: React.FC<RequestsScreenProps> = ({}) => {
               {
                 value:
                   item.events?.data?.itemRequestReceived?.name ?? NotMentioned,
-                type: 'regular',
+                type: 'title',
                 fontVariant: 'medium',
               },
               {
-                value: 'name',
-                type: 'caption',
+                value:
+                  item.events?.data?.itemRequestReceived?.categoryId ??
+                  NotMentioned,
+                type: 'regular',
               },
               {
                 value: titleRange(
@@ -401,7 +429,7 @@ const styles = StyleSheet.create({
     paddingBottom: size.spacing.xs,
   },
   userInformationContainer: {
-    paddingHorizontal: size.spacing.xs,
+    paddingHorizontal: size.spacing.s,
     flex: 1,
   },
   emailContainer: {

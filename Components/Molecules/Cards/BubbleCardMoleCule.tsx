@@ -31,7 +31,7 @@ export const BubbleCardMolecule: React.FC<BubbleCardMoleculeProps> = ({
   const {colors} = useTheme();
 
   const cardWidth =
-    variant === 'large' ? '100%' : AreaMapper({value: 188, scaleBy: 'average'}); // Example small width
+    variant === 'large' ? '100%' : AreaMapper({value: 176, scaleBy: 'average'}); // Example small width
 
   return (
     <View>
@@ -44,9 +44,8 @@ export const BubbleCardMolecule: React.FC<BubbleCardMoleculeProps> = ({
             borderRadius: size.borderRadius.m,
             borderWidth: 1,
             borderColor: colors.card,
-            // padding: 0,
           },
-          size.elevation.xs,
+          size.elevation.s,
           customStyle,
         ]}>
         <View

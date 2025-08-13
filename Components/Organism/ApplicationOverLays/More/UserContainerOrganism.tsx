@@ -10,7 +10,10 @@ import {Switch} from 'react-native-paper';
 import {AppTextElement} from '../../../Elements/AppTextElement';
 import {SpacerElement} from '../../../Elements/SpacerElement';
 import {store} from '../../../../StateManagement/Store';
-import {useAppDispatch, useAppSelector} from '../../../../StateManagement/hooks';
+import {
+  useAppDispatch,
+  useAppSelector,
+} from '../../../../StateManagement/hooks';
 import {showLoader} from '../../../../StateManagement/Error&loadingHandle/LoaderStateSlice';
 import {setUserMode} from '../../../../StateManagement/User/UserSlice';
 interface UserContainerProps {}
@@ -99,15 +102,16 @@ export const UserContainer: React.FC<UserContainerProps> = ({}) => {
   const {colors} = useTheme();
 
   return (
-    <>
+    <View>
       <RowFlexLayout>
         {flexDetailsItems[0].firstRow.map((item, index) => (
           <BubbleCardMolecule
             key={index}
             customStyle={{
-              flex: 0.65,
               marginBottom: size.spacing.m,
-              paddingVertical: size.spacing.xs,
+              backgroundColor: colors.card,
+              paddingVertical: size.spacing.s,
+              paddingHorizontal: size.spacing.xs,
             }}
             variant="small"
             title={item.title}
@@ -120,9 +124,11 @@ export const UserContainer: React.FC<UserContainerProps> = ({}) => {
           <BubbleCardMolecule
             key={index}
             customStyle={{
-              flex: 0.45,
+              // flex: 0.35,
               marginBottom: size.spacing.m,
-              paddingVertical: size.spacing.xs,
+              backgroundColor: colors.card,
+              paddingVertical: size.spacing.s,
+              paddingHorizontal: size.spacing.xxs,
             }}
             variant="small"
             title={item.title}
@@ -136,7 +142,9 @@ export const UserContainer: React.FC<UserContainerProps> = ({}) => {
           <BubbleCardMolecule
             customStyle={{
               marginBottom: size.spacing.m,
-              paddingVertical: size.spacing.xs,
+              backgroundColor: colors.card,
+              paddingVertical: size.spacing.s,
+              // paddingHorizontal: size.spacing.xxs,
             }}
             key={index}
             variant="large"
@@ -147,13 +155,7 @@ export const UserContainer: React.FC<UserContainerProps> = ({}) => {
         ))}
       </View>
       <SpacerElement height={20}></SpacerElement>
-      <View
-        style={
-          {
-            // position: 'absolute',
-            // bottom: 0,
-          }
-        }>
+      <View>
         <AppButtonElement
           textColor={colors.text}
           onPress={userLogoutHandle}
@@ -167,7 +169,7 @@ export const UserContainer: React.FC<UserContainerProps> = ({}) => {
           Logout
         </AppButtonElement>
       </View>
-    </>
+    </View>
   );
 };
 

@@ -65,6 +65,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
       style={{
         paddingBottom: size.spacing.xxl,
         paddingHorizontal: size.spacing.xs,
+        marginHorizontal:size.spacing.s
       }}>
       <>
         {!isShopActive && selectedUserData

@@ -160,7 +160,7 @@ const rawSizes = {
         },
         android: {
           elevation: 3,
-          shadowColor: 'rgba(0, 0, 0, 0.6)',
+          shadowColor: 'rgba(0, 0, 0, 0.8)',
         },
       }),
     },

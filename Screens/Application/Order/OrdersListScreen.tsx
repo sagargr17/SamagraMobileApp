@@ -17,8 +17,14 @@ import {SpacerElement} from '../../../Components/Elements/SpacerElement';
 import {ProviderCardMolecule} from '../../../Components/Molecules/Cards/ProviderCardMolecule';
 import {AppBottomSheetMolecule} from '../../../Components/Molecules/Global/AppBottomSheetMolecule';
 import {SingnlePageInfoMolecule} from '../../../Components/Molecules/Global/SinglePageInfo';
-import {DummyServiceProviderURL} from '../../../Constants/UI/AssetsUrls';
-import {NoAnyorderItemsFoud, NotMentioned} from '../../../Constants/UI/Messages';
+import {
+  DummyServiceProviderURL,
+  ImageNotFound,
+} from '../../../Constants/UI/AssetsUrls';
+import {
+  NoAnyorderItemsFoud,
+  NotMentioned,
+} from '../../../Constants/UI/Messages';
 import {getSubscribedData} from '../../../GraphQL/Subscription/Subscription';
 import {size} from '../../../Prefrences/Prefrences';
 import {
@@ -31,12 +37,12 @@ import DateTimeToAgoTime, {
   AreaMapper,
   titleCase,
 } from '../../../Utilities/CustomMethods';
+import FastImage from '@d11/react-native-fast-image';
+import {RowFlexLayout} from '../../../Layout/PartationLayout/RowFlexLayout';
 
 interface OrdersScreenProps {}
 
-export const OrdersScreen: React.FC<
-  OrdersScreenProps
-> = ({}) => {
+export const OrdersScreen: React.FC<OrdersScreenProps> = ({}) => {
   // ALL HOOKS MUST BE DECLARED AT THE TOP LEVEL AND UNCONDITIONALLY
   const {colors} = useTheme();
   const dispatch = useAppDispatch();
@@ -138,17 +144,30 @@ export const OrdersScreen: React.FC<
   const profileDetailInfo = (
     <>
       <View style={styles.userInformationContainer}>
-        <View style={styles.emailContainer}>
-          <AppTextElement
-            title={'Name:'}
-            fontVariant="regular"
-            fontSizeVariant={'regular'}></AppTextElement>
-          <AppTextElement
-            title={personalUserDetail?.fullName ?? 'Sagar'}
-            fontVariant="medium"
-            fontSizeVariant={'regular'}></AppTextElement>
+        <SpacerElement height={20}></SpacerElement>
+        <View style={{}}>
+          <FastImage
+            source={{
+              uri: ImageNotFound,
+            }}
+            style={{
+              // borderRadius: size.borderRadius.full,
+              height: AreaMapper({
+                value: 60,
+              }),
+              width: AreaMapper({
+                value: 60,
+              }),
+
+              borderWidth: size.borderWidth.s,
+              borderColor: colors.text,
+            }}></FastImage>
         </View>
+        <SpacerElement height={20}></SpacerElement>
         <TouchableHighlight
+          style={{
+            backgroundColor: colors.card,
+          }}
           touchSoundDisabled
           underlayColor={colors.card}
           onPress={async () => {
@@ -156,39 +175,118 @@ export const OrdersScreen: React.FC<
               `https://www.google.com/maps/search/?api=1&query=${userLocation?.lat},${userLocation?.long}`,
             );
           }}>
-          <View style={styles.locationcontainer}>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
             <AppTextElement
               title={'Location:'}
-              fontVariant="regular"
-              fontSizeVariant={'regular'}></AppTextElement>
+              fontVariant="medium"
+              fontSizeVariant={'title'}></AppTextElement>
             <View>
               <AppTextElement
                 title={personalUserDetail?.address ?? 'Baneswor, Kathmandu '}
                 fontVariant="medium"
-                fontSizeVariant={'regular'}></AppTextElement>
+                fontSizeVariant={'title'}></AppTextElement>
             </View>
           </View>
         </TouchableHighlight>
-        <View style={styles.locationcontainer}>
+        <SpacerElement height={10}></SpacerElement>
+
+        <RowFlexLayout
+          customStyle={[
+            {
+              justifyContent: 'flex-start',
+              alignItems: 'center',
+            },
+          ]}>
           <AppTextElement
-            title={'Location:'}
-            fontVariant="regular"
-            fontSizeVariant={'regular'}></AppTextElement>
+            title={'Name : '}
+            fontVariant="medium"
+            fontSizeVariant={'title'}></AppTextElement>
+          <AppTextElement
+            title={titleCase(personalUserDetail?.username) ?? 'Sagar'}
+            fontVariant="medium"
+            fontSizeVariant={'title'}></AppTextElement>
+        </RowFlexLayout>
+
+        <SpacerElement></SpacerElement>
+        <RowFlexLayout
+          customStyle={[
+            {
+              justifyContent: 'flex-start',
+              alignItems: 'center',
+            },
+          ]}>
+          <AppTextElement
+            title={'Phone : '}
+            fontVariant="medium"
+            fontSizeVariant={'title'}></AppTextElement>
           <AppTextElement
             title={`${personalUserDetail?.phoneNumber ?? 9841105090}`}
             fontVariant="medium"
-            fontSizeVariant={'regular'}></AppTextElement>
-        </View>
+            fontSizeVariant={'title'}></AppTextElement>
+        </RowFlexLayout>
+        <SpacerElement></SpacerElement>
       </View>
-      <SpacerElement height={20}></SpacerElement>
-      <AppButtonElement
-        onPress={() => {
-          setIsProfileTapped(!isProfileTapped);
-        }}>
-        Complete
-      </AppButtonElement>
+      {/* <SpacerElement height={20}></SpacerElement> */}
       <SpacerElement height={20}></SpacerElement>
     </>
+    // <>
+    //   <View style={styles.userInformationContainer}>
+    //     <View style={styles.emailContainer}>
+    //       <AppTextElement
+    //         title={'Name:'}
+    //         fontVariant="regular"
+    //         fontSizeVariant={'regular'}></AppTextElement>
+    //       <AppTextElement
+    //         title={personalUserDetail?.fullName ?? 'Sagar'}
+    //         fontVariant="medium"
+    //         fontSizeVariant={'regular'}></AppTextElement>
+    //     </View>
+    //     <TouchableHighlight
+    //       touchSoundDisabled
+    //       underlayColor={colors.card}
+    //       onPress={async () => {
+    //         Linking.openURL(
+    //           `https://www.google.com/maps/search/?api=1&query=${userLocation?.lat},${userLocation?.long}`,
+    //         );
+    //       }}>
+    //       <View style={styles.locationcontainer}>
+    //         <AppTextElement
+    //           title={'Location:'}
+    //           fontVariant="regular"
+    //           fontSizeVariant={'regular'}></AppTextElement>
+    //         <View>
+    //           <AppTextElement
+    //             title={personalUserDetail?.address ?? 'Baneswor, Kathmandu '}
+    //             fontVariant="medium"
+    //             fontSizeVariant={'regular'}></AppTextElement>
+    //         </View>
+    //       </View>
+    //     </TouchableHighlight>
+    //     <View style={styles.locationcontainer}>
+    //       <AppTextElement
+    //         title={'Location:'}
+    //         fontVariant="regular"
+    //         fontSizeVariant={'regular'}></AppTextElement>
+    //       <AppTextElement
+    //         title={`${personalUserDetail?.phoneNumber ?? 9841105090}`}
+    //         fontVariant="medium"
+    //         fontSizeVariant={'regular'}></AppTextElement>
+    //     </View>
+    //   </View>
+    //   <SpacerElement height={20}></SpacerElement>
+    //   <AppButtonElement
+    //     onPress={() => {
+    //       setIsProfileTapped(!isProfileTapped);
+    //     }}>
+    //     Complete
+    //   </AppButtonElement>
+    //   <SpacerElement height={20}></SpacerElement>
+    // </>
   );
 
   return (
@@ -218,24 +316,21 @@ export const OrdersScreen: React.FC<
               {
                 value:
                   item.events?.data?.orderReceived?.itemName ?? NotMentioned,
-                type: 'regular',
-                fontVariant: 'bold',
-                style: {
-                  color: colors.primary,
-                },
+                type: 'title',
+                fontVariant: 'regular',
               },
               {
                 value:
                   titleCase(item.events?.data?.orderReceived?.fullName) ??
                   NotMentioned,
-                type: 'caption',
-                fontVariant: 'bold',
+                type: 'regular',
+                fontVariant: 'regular',
               },
               {
                 value: `Rs.${
                   item.events?.data?.orderReceived?.price ?? NotMentioned
                 }`,
-                type: 'caption',
+                type: 'regular',
               },
               {
                 value: `${
@@ -243,20 +338,15 @@ export const OrdersScreen: React.FC<
                     item.events?.data?.orderReceived?.dateTime,
                   ) ?? NotMentioned
                 }`,
-                type: 'caption',
+                type: 'regular',
               },
               {
                 value: 'Offer Accepted',
-                type: 'caption',
+                type: 'title',
+                fontVariant: 'bold',
+
                 style: {
-                  color: 'white',
-                  backgroundColor: colors.primary,
-                  width: AreaMapper({value: 100}),
-                  textAlign: 'center',
-                  borderRadius: size.borderRadius.xs - 2,
-                  paddingHorizontal: 2,
-                  paddingVertical: 3,
-                  marginTop: 4,
+                  color: colors.primary,
                 },
               },
             ]}
