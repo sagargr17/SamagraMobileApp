@@ -47,7 +47,7 @@ export const CategoryScreenItems: React.FC<CategoryItemsScreenProps> = ({}) => {
         numColumns={2}
         data={data?.getPublicItems?.edges || []}
         isSectioHeader
-        headerTitle="Popular"
+        // headerTitle="Popular"
         contentContainerStyle={{
           paddingHorizontal: size.spacing.s,
           paddingBottom: size.spacing.s,
@@ -58,6 +58,7 @@ export const CategoryScreenItems: React.FC<CategoryItemsScreenProps> = ({}) => {
           return (
             <>
               <ItemMiniCardMolecule
+                
                 id={item.node.id || 'Not Mentioned'}
                 cardImage={item.node.imageUrls?.[0] || ItemImageNotFound}
                 title={item.node.name || 'Not Mentioned'}
