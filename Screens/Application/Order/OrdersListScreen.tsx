@@ -26,7 +26,7 @@ import {
   NotMentioned,
 } from '../../../Constants/UI/Messages';
 import {getSubscribedData} from '../../../GraphQL/Subscription/Subscription';
-import {size} from '../../../Prefrences/Prefrences';
+import {responseTheme, size} from '../../../Prefrences/Prefrences';
 import {
   GetDataSubscription,
   OrderViewModel,
@@ -39,6 +39,7 @@ import DateTimeToAgoTime, {
 } from '../../../Utilities/CustomMethods';
 import FastImage from '@d11/react-native-fast-image';
 import {RowFlexLayout} from '../../../Layout/PartationLayout/RowFlexLayout';
+import {showMessage} from 'react-native-flash-message';
 
 interface OrdersScreenProps {}
 
@@ -244,7 +245,23 @@ export const OrdersScreen: React.FC<OrdersScreenProps> = ({}) => {
             fontVariant="medium"
             fontSizeVariant={'title'}></AppTextElement>
         </RowFlexLayout>
-        <SpacerElement></SpacerElement>
+        <SpacerElement height={25}></SpacerElement>
+        <AppButtonElement
+          onPress={() => {
+            dispatch(showLoader());
+            setTimeout(() => {
+              showMessage(
+                responseTheme(
+                  'Order Completed Successfully',
+                  'Please Serve New order',
+                  'success',
+                ),
+              );
+            }, 2000);
+          }}>
+          Complete
+        </AppButtonElement>
+        {/* <SpacerElement></SpacerElement> */}
       </View>
       {/* <SpacerElement height={20}></SpacerElement> */}
       <SpacerElement height={20}></SpacerElement>
@@ -306,13 +323,16 @@ export const OrdersScreen: React.FC<OrdersScreenProps> = ({}) => {
 
   return (
     <>
+      <SpacerElement height={1}></SpacerElement>
       <FlatList
+        contentContainerStyle={{
+          marginHorizontal: size.spacing.s,
+        }}
         ListEmptyComponent={
           // This will only show if orderlist is empty AFTER loading has finished and no error
           <View
             style={{
               flex: 1,
-              marginTop: 120,
             }}>
             <SingnlePageInfoMolecule
               icon={<NoItemFound></NoItemFound>}

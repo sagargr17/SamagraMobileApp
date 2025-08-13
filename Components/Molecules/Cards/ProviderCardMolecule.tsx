@@ -101,7 +101,7 @@ export const ProviderCardMolecule: React.FC<ProviderCardMoleculeProps> = ({
                   {
                     borderColor: colors.border,
                     backgroundColor: colors.card,
-                  },
+                  },size.elevation.s
                 ]}>
                 {isProgressBarEnable ?? (
                   <ProgressBar
@@ -155,8 +155,8 @@ const ProviderCardStyle = StyleSheet.create({
       value: 0.4,
       scaleBy: 'average',
     }),
-    margin: AreaMapper({
-      value: 8,
+    marginBottom: AreaMapper({
+      value: size.spacing.m,
       scaleBy: 'average',
     }),
     borderRadius: AreaMapper({

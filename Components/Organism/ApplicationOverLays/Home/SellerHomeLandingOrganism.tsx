@@ -90,18 +90,6 @@ export const SellerHomeLandingScreen: React.FC<
         <SpacerElement height={12}></SpacerElement>
         <SpacerElement height={16}></SpacerElement>
 
-        {/* <BubbleCardMolecule
-          customStyle={{
-            backgroundColor: '#FFDB6F',
-            borderWidth: 1,
-            borderColor: 'white',
-          }}
-          iconName={'alert-circle'}
-          title="No Service Added"
-          variant="large"
-          comment="Please Add services"></BubbleCardMolecule> */}
-        {/* <SpacerElement height={16}></SpacerElement> */}
-        {/* <SpacerElement height={8}></SpacerElement> */}
         <RowFlexLayout
           customStyle={[
             {

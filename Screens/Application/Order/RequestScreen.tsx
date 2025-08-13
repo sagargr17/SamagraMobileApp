@@ -168,11 +168,11 @@ export const RequestsScreen: React.FC<RequestsScreenProps> = ({}) => {
             />
           </RowFlexLayout>
           {/* 9814486061 */}
-          {console.log('IMage', myShopItem?.getItems?.edges)}
           <FlatList
             contentContainerStyle={{
               marginTop: size.spacing.s,
               marginBottom: size.spacing.xxl,
+              marginHorizontal: size.spacing.s,
             }}
             showsVerticalScrollIndicator={false}
             data={myShopItem?.getItems?.edges}
@@ -361,6 +361,9 @@ export const RequestsScreen: React.FC<RequestsScreenProps> = ({}) => {
               }}></SingnlePageInfoMolecule>
           </View>
         }
+        contentContainerStyle={{
+          marginHorizontal: size.spacing.s,
+        }}
         data={orderlist}
         renderItem={({item}) => (
           <ProviderCardMolecule

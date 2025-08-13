@@ -144,7 +144,7 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
         flexDirection: 'row',
         marginRight: size.spacing.xs,
       }}>
-      <TouchableHighlight
+      {/* <TouchableHighlight
         underlayColor={colors.card}
         onPress={() => {}}
         style={{
@@ -154,7 +154,7 @@ export const CartScreen: React.FC<CartScreenProps> = ({}) => {
         <Delete
           height={size.iconSize.medium}
           width={size.iconSize.medium}></Delete>
-      </TouchableHighlight>
+      </TouchableHighlight> */}
       <TouchableHighlight
         underlayColor={colors.card}
         onPress={() => {

@@ -45,9 +45,9 @@ export const UserContainer: React.FC<UserContainerProps> = ({}) => {
           iconName: 'tune-vertical-variant',
           onPress: () => {
             console.log('pressed');
-            navigation.navigate('ApplicationOverlay', {
-              screen: 'AddShopScreen',
-            });
+            // navigation.navigate('ApplicationOverlay', {
+            //   screen: 'AddShopScreen',
+            // });
           },
         },
       ],
@@ -63,10 +63,7 @@ export const UserContainer: React.FC<UserContainerProps> = ({}) => {
         {
           title: 'Recent',
           iconName: 'view-comfy',
-          onPress: () =>
-            navigation.navigate('ApplicationOverlay', {
-              screen: 'OrderListScreen',
-            }),
+          onPress: () => {},
         },
       ],
     },
@@ -75,9 +72,9 @@ export const UserContainer: React.FC<UserContainerProps> = ({}) => {
   const columnDetailsList = [
     {
       onPress: () => {
-        navigation.navigate('ApplicationOverlay', {
-          screen: 'MyShopsScreen',
-        });
+        // navigation.navigate('ApplicationOverlay', {
+        //   screen: 'MyShopsScreen',
+        // });
       },
       title: 'Quick Access',
       variant: 'large',
