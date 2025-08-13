@@ -26,7 +26,7 @@ export const PopularSevices: React.FC<PopularSevicesProps> = ({}) => {
           height={AreaMapper({value: 240, scaleBy: 'height'})}
           width={AreaMapper({value: 240, scaleBy: 'width'})}></Electric>
       ),
-      onPress: () => Alert.alert('<<'),
+      onPress: () => Alert.alert('Wiree'),
       comment: '4.8 · 1200+ reviews',
     },
     {

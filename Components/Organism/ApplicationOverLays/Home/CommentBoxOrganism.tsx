@@ -72,13 +72,21 @@ export const CommentLayout: React.FC<CommentLayoutProps> = ({
               color: colors.text,
             }}
             title="Rating and Reviews"
-            fontSizeVariant={'regular'}
+            fontSizeVariant={'title'}
             fontVariant="bold"></AppTextElement>
 
           <CommentCardMolecule
             starter={isCommentOpen}
             commentor={dummyData[0].commentor}
-            commentDescription={dummyData[0].commentDescription}></CommentCardMolecule>
+            commentDescription={
+              dummyData[0].commentDescription
+            }></CommentCardMolecule>
+          <CommentCardMolecule
+            starter={isCommentOpen}
+            commentor={dummyData[1].commentor}
+            commentDescription={
+              dummyData[0].commentDescription
+            }></CommentCardMolecule>
         </TouchableOpacity>
       </View>
 

@@ -51,25 +51,6 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
   const itemDetailContainer = () => {
     return (
       <View>
-        <AppTextElement
-          fontSizeVariant={'caption'}
-          title={titleCase(
-            titleCase(data?.getPublicItems?.nodes?.[0]?.shop?.name) ??
-              'Not Mentioned',
-          )}
-          fontVariant="medium"
-          customStyle={{
-            margin: 0,
-            paddingHorizontal: 8,
-            paddingVertical: 4,
-            bottom: 215,
-            right: 0,
-            backgroundColor: colors.card,
-            position: 'absolute',
-            borderRadius: 20,
-            borderColor: colors.border,
-            borderWidth: size.borderWidth.xs,
-          }}></AppTextElement>
         <View
           style={{
             display: 'flex',
@@ -78,7 +59,7 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
             justifyContent: 'space-between',
           }}>
           <AppTextElement
-            fontSizeVariant={'title'}
+            fontSizeVariant={'display'}
             title={titleCase(
               data?.getPublicItems?.nodes?.[0]?.name ?? 'Not Mentioned',
             )}
@@ -174,13 +155,9 @@ export const ItemDetailScreen: React.FC<ItemDetailScreenProps> = ({route}) => {
         },
         sellerDetails: {
           fullName:
-            data?.getPublicItems?.nodes?.[0]?.shop?.user?.username ??
-            NotMentioned,
+            data?.getPublicItems?.nodes?.[0]?.user?.username ?? NotMentioned,
           address: 'Butwal',
-          shopName:
-            data?.getPublicItems?.nodes?.[0]?.shop?.name ?? NotMentioned,
-          phoneNumber:
-            data?.getPublicItems?.nodes?.[0]?.shop?.phoneNumber ?? NotMentioned,
+          phoneNumber: '9841150390',
         },
         orderDetail: {
           message: 'chito gardeenu hai',

@@ -64,6 +64,8 @@ export const SearchScreen: React.FC<SearchScreenProps> = () => {
     }
   }, []);
 
+  if (PublicItemsloading) return <SamagraLoaderElement></SamagraLoaderElement>;
+
   // Handling the Navigation
   const handleItemSelection = useCallback(() => {
     if (route.params.itemType === 'public') {

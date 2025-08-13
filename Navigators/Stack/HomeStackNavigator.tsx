@@ -9,12 +9,14 @@ import {RouteProp, useTheme} from '@react-navigation/native';
 import {CategoryScreen} from '../../Screens/Application/Home/CategoryScreen';
 import {HomeLandingScreen} from '../../Screens/Application/Home/HomeLandingScreen';
 import {MyItemsScreen} from '../../Screens/Application/More/MyItemsScreen';
+import {CategoryScreenItems} from '../../Screens/Application/Home/CategoryItemsScreen';
 
 type HomeStackParamList = {
   HomeLandingScreen: undefined;
   CategoriesScreen: undefined;
   AddServiceScreen: undefined;
   ManageServices: undefined;
+  CategoriesItems: undefined;
 };
 
 export const HomeStackNavigator: React.FC = () => {
@@ -88,6 +90,13 @@ export const HomeStackNavigator: React.FC = () => {
           {
             screenName: 'CategoriesScreen',
             component: CategoryScreen,
+            option: {
+              headerTitle: 'Categories',
+            },
+          },
+          {
+            screenName: 'CategoriesItems',
+            component: CategoryScreenItems,
             option: {
               headerTitle: 'Categories',
             },
