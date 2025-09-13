@@ -58,7 +58,6 @@ export const BuyerHomeLandingScreen: React.FC<
           }}></AppTextElement>
         <SpacerElement height={8}></SpacerElement>
         <SerchBarMolecule
-          onPress={handleNavigation}
           style={{
             marginTop: size.spacing.s,
             marginBottom: size.spacing.s,

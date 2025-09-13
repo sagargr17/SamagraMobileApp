@@ -5,6 +5,7 @@ import {Icon} from 'react-native-paper';
 import {size} from '../../../Prefrences/Prefrences';
 import {AreaMapper} from '../../../Utilities/CustomMethods';
 import {AppTextElement} from '../../Elements/AppTextElement';
+import DropShadow from 'react-native-drop-shadow';
 // import {Icon} from '../../Elements/Icon'; // Assuming you have an Icon component
 
 interface BubbleCardMoleculeProps {
@@ -34,7 +35,16 @@ export const BubbleCardMolecule: React.FC<BubbleCardMoleculeProps> = ({
     variant === 'large' ? '100%' : AreaMapper({value: 176, scaleBy: 'average'}); // Example small width
 
   return (
-    <View>
+    <DropShadow
+      style={{
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 1,
+          height: 2,
+        },
+        shadowOpacity: 0.35,
+        shadowRadius: 1.5,
+      }}>
       <TouchableOpacity
         onPress={onPress}
         style={[
@@ -45,7 +55,7 @@ export const BubbleCardMolecule: React.FC<BubbleCardMoleculeProps> = ({
             borderWidth: 1,
             borderColor: colors.card,
           },
-          size.elevation.s,
+          // size.elevation.s,
           customStyle,
         ]}>
         <View
@@ -96,7 +106,7 @@ export const BubbleCardMolecule: React.FC<BubbleCardMoleculeProps> = ({
           {children && <View style={styles.childrenContainer}>{children}</View>}
         </View>
       </TouchableOpacity>
-    </View>
+    </DropShadow>
   );
 };
 

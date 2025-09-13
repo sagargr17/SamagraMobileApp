@@ -5,11 +5,11 @@ import {AppTextElement} from '../../Elements/AppTextElement';
 import {AreaMapper, titleCase} from '../../../Utilities/CustomMethods';
 import {useTheme} from '@react-navigation/native';
 
-interface CounterProps {
+interface CounterMoleculeProps {
   setTotal: (Quantity: number) => void;
 }
 
-export const CounterMolecule: React.FC<CounterProps> = ({setTotal}) => {
+export const CounterMolecule: React.FC<CounterMoleculeProps> = ({setTotal}) => {
   const [quantity, setText] = React.useState<number>(1);
   const {colors} = useTheme();
 

@@ -31,11 +31,9 @@ export const ProfileCardMolecule: React.FC<ProfileCardMoleculeProps> = ({
         // size.elevation.xs,
         {
           backgroundColor: colors.card,
-          borderRadius: size.borderRadius.m,
+          borderRadius: size.borderRadius.l,
         },
         customStyle,
-        size.elevation.s,
-        
       ]}>
       <FastImage
         style={[

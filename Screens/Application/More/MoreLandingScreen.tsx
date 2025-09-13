@@ -10,6 +10,7 @@ import {ImageNotFound} from '../../../Constants/UI/AssetsUrls';
 import {NotMentioned} from '../../../Constants/UI/Messages';
 import {size} from '../../../Prefrences/Prefrences';
 import {useAppSelector} from '../../../StateManagement/hooks';
+import DropShadow from 'react-native-drop-shadow';
 
 interface MoreLandingScreenProps {}
 
@@ -32,21 +33,32 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
   // This is the Header of the User Container Handler
   const headerUserProfileCard = (userName: string, profileImageUrl: string) => {
     return (
-      <View
+      <DropShadow
         style={{
-          marginTop: size.spacing.m,
-          marginBottom: size.spacing.xs,
+          shadowColor: '#000',
+          shadowOffset: {
+            width: 1,
+            height: 2,
+          },
+          shadowOpacity: 0.2,
+          shadowRadius: 1.5,
         }}>
-        <ProfileCardMolecule
-          customStyle={{
-            borderWidth: 1,
-            borderColor: '#DBE0E5',
-          }}
-          user={{
-            username: userName,
-            profileImageUrl: profileImageUrl,
-          }}></ProfileCardMolecule>
-      </View>
+        <View
+          style={{
+            marginTop: size.spacing.m,
+            marginBottom: size.spacing.xs,
+          }}>
+          <ProfileCardMolecule
+            customStyle={{
+              borderWidth: 1,
+              borderColor: '#DBE0E5',
+            }}
+            user={{
+              username: userName,
+              profileImageUrl: profileImageUrl,
+            }}></ProfileCardMolecule>
+        </View>
+      </DropShadow>
     );
   };
 
@@ -65,7 +77,7 @@ export const MoreLandingScreen: React.FC<MoreLandingScreenProps> = ({}) => {
       style={{
         paddingBottom: size.spacing.xxl,
         paddingHorizontal: size.spacing.xs,
-        marginHorizontal:size.spacing.s
+        marginHorizontal: size.spacing.s,
       }}>
       <>
         {!isShopActive && selectedUserData

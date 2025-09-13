@@ -105,7 +105,7 @@ export const UserContainer: React.FC<UserContainerProps> = ({}) => {
           <BubbleCardMolecule
             key={index}
             customStyle={{
-              marginBottom: size.spacing.m,
+              marginBottom: size.spacing.m + 2,
               backgroundColor: colors.card,
               paddingVertical: size.spacing.s,
               paddingHorizontal: size.spacing.xs,
@@ -116,12 +116,12 @@ export const UserContainer: React.FC<UserContainerProps> = ({}) => {
             onPress={item.onPress}></BubbleCardMolecule>
         ))}
       </RowFlexLayout>
+
       <RowFlexLayout>
         {flexDetailsItems[0].secondRow.map((item, index) => (
           <BubbleCardMolecule
             key={index}
             customStyle={{
-              // flex: 0.35,
               marginBottom: size.spacing.m,
               backgroundColor: colors.card,
               paddingVertical: size.spacing.s,
@@ -133,7 +133,6 @@ export const UserContainer: React.FC<UserContainerProps> = ({}) => {
             onPress={item.onPress}></BubbleCardMolecule>
         ))}
       </RowFlexLayout>
-
       <View>
         {columnDetailsList.map((item, index) => (
           <BubbleCardMolecule
@@ -141,7 +140,6 @@ export const UserContainer: React.FC<UserContainerProps> = ({}) => {
               marginBottom: size.spacing.m,
               backgroundColor: colors.card,
               paddingVertical: size.spacing.s,
-              // paddingHorizontal: size.spacing.xxs,
             }}
             key={index}
             variant="large"
